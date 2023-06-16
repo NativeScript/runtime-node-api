@@ -96,7 +96,9 @@ void replaceAll(std::string &str, const std::string &from,
 }
 
 NAPI_FUNCTION(lengthCustom) {
-  NAPI_CALLBACK_BEGIN(0)
+  napi_value jsThis;
+  void *data;
+  napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
   unsigned long length =
@@ -161,6 +163,19 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
   this->constructor = make_ref(env, constructor);
   this->prototype = make_ref(env, prototype);
+
+  const napi_property_descriptor prop = {
+      .utf8name = "lengthCustom",
+      .name = nullptr,
+      .method = JS_lengthCustom,
+      .getter = nullptr,
+      .setter = nullptr,
+      .value = nullptr,
+      .attributes = napi_default,
+      .data = nullptr,
+  };
+
+  napi_define_properties(env, prototype, 1, &prop);
 
   if (isNativeObject) {
     napi_value global, Symbol, SymbolFor, customInspect, symbolString;

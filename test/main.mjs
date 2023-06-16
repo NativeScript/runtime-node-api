@@ -15,7 +15,11 @@ console.log("str length", str.length());
 
 bench("noop", () => {});
 
-bench("[str length]", () => {
+bench("[str length] (manual, direct)", () => {
+  str.lengthCustom();
+});
+
+bench("[str length] (dynamic, ffi)", () => {
   str.length();
 });
 
