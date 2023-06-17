@@ -99,8 +99,8 @@ MethodCif::MethodCif(std::string encoding) {
         this->signature, sel_registerName("getArgumentTypeAtIndex:"), i);
 
     atypes[i] = getTypeForEncoding(argenc);
-    this->avalues[i] = malloc(atypes[i]->size);
     if (i >= 2) {
+      this->avalues[i] = malloc(atypes[i]->size);
       this->convertArgType[i - 2] = getConvToNative(argenc);
       bool should = shouldFreeType(argenc);
       this->shouldFree[i - 2] = should;

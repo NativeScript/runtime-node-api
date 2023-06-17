@@ -13,42 +13,34 @@ typedef unsigned long (*msgSend_length)(id, SEL);
 
 NAPI_FUNCTION(BridgedMethod) {
   napi_value jsThis;
-  void *data;
-  size_t argc = 0;
+  BridgedMethod *method;
 
-  napi_get_cb_info(env, cbinfo, &argc, nil, &jsThis, &data);
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
 
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
-  BridgedMethod *method = (BridgedMethod *)data;
-
-  MethodCif *cif;
-  if (method->methodCif != nullptr) {
-    cif = method->methodCif;
-  } else {
+  MethodCif *cif = method->methodCif;
+  if (cif == nullptr) {
     cif = method->methodCif =
         method->bridgeData->get_method_cif(method->method);
   }
 
-  SEL sel = method->selector;
-
-  napi_value *argv = cif->argv;
-  argc = cif->argc;
-  napi_get_cb_info(env, cbinfo, &argc, argv, &jsThis, &data);
+  size_t argc = cif->argc;
+  napi_get_cb_info(env, cbinfo, &argc, cif->argv, &jsThis, nullptr);
 
   cif->avalues[0] = (void *)&self;
-  cif->avalues[1] = (void *)&sel;
+  cif->avalues[1] = (void *)&method->selector;
 
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
-      cif->convertArgType[i](env, argv[i], cif->avalues[i + 2]);
+      cif->convertArgType[i](env, cif->argv[i], cif->avalues[i + 2]);
     }
   }
 
   cif->Call((void *)objc_msgSend);
 
-  if (cif->argc > 0) {
+  if (cif->shouldFreeAny) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       if (cif->shouldFree[i]) {
         free(cif->avalues[i + 2]);
@@ -76,11 +68,10 @@ NAPI_FUNCTION(CustomInspect) {
 
   id description = ((msgSend_description)objc_msgSend)(
       self, sel_registerName("description"));
-  std::string descriptionString = ((msgSend_UTF8String)objc_msgSend)(
+  char *descriptionString = ((msgSend_UTF8String)objc_msgSend)(
       description, sel_registerName("UTF8String"));
   napi_value result;
-  napi_create_string_utf8(env, descriptionString.c_str(),
-                          descriptionString.length(), &result);
+  napi_create_string_utf8(env, descriptionString, NAPI_AUTO_LENGTH, &result);
   return result;
 }
 
@@ -95,16 +86,27 @@ void replaceAll(std::string &str, const std::string &from,
   }
 }
 
+SEL selLength = sel_registerName("length");
+// ffi_cif cif;
+// ffi_type *atypes[] = {&ffi_type_pointer, &ffi_type_pointer};
+// ffi_status status =
+//     ffi_prep_cif(&cif, FFI_DEFAULT_ABI, 2, &ffi_type_ulong, atypes);
+// void **avalues = (void **)malloc(sizeof(void *) * 2);
+// void *rvalue = malloc(sizeof(unsigned long));
+
 NAPI_FUNCTION(lengthCustom) {
-  napi_value jsThis;
+  napi_value jsThis, prop;
   void *data;
   napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
-  unsigned long length =
-      ((msgSend_length)objc_msgSend)(self, sel_registerName("length"));
+  unsigned long length = ((msgSend_length)objc_msgSend)(self, selLength);
+  // avalues[0] = &self;
+  // avalues[1] = &selLength;
+  // ffi_call(&cif, FFI_FN(objc_msgSend), rvalue, avalues);
+  // unsigned long length = *(unsigned long *)rvalue;
   napi_value result;
-  napi_create_uint32(env, length, &result);
+  napi_create_int64(env, length, &result);
   return result;
 }
 
@@ -234,10 +236,7 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
     desc->utf8name = (&*pair.first)->c_str();
     desc->name = nil;
-    auto bm = new BridgedMethod();
-    bm->method = method;
-    bm->selector = sel;
-    bm->bridgeData = bridgeData;
+    auto bm = new BridgedMethod(bridgeData, sel, method);
     desc->data = (void *)bm;
     desc->getter = nil;
     desc->setter = nil;
@@ -280,10 +279,7 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
     desc->utf8name = (&*pair.first)->c_str();
     desc->name = nil;
-    auto bm = new BridgedMethod();
-    bm->method = method;
-    bm->selector = sel;
-    bm->bridgeData = bridgeData;
+    auto bm = new BridgedMethod(bridgeData, sel, method);
     desc->data = (void *)bm;
     desc->getter = nil;
     desc->setter = nil;
