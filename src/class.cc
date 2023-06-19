@@ -11,15 +11,13 @@ NAPI_FUNCTION(getClass) {
     return nullptr;
   }
 
-  GET_BRIDGE_DATA
-
-  auto name = std::string(class_name);
-
-  auto cls = bridgeData->get_bridged_class(env, name);
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  std::string name = class_name;
+  auto cls = bridgeData->getBridgedClass(env, name);
 
   if (cls == nullptr) {
     return nullptr;
   }
 
-  return get_ref(env, cls->constructor);
+  return get_ref_value(env, cls->constructor);
 }

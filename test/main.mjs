@@ -7,6 +7,12 @@ const {
   getClass,
 } = require("../build/objc.node");
 
+const obj1 = getClass("NSObject").alloc();
+const obj2 = obj1.init();
+console.log("obj1", obj1);
+console.log("obj2", obj2);
+console.log("js equal", obj1 === obj2);
+
 const NSString = getClass("NSString");
 
 const str = NSString.stringWithUTF8String_("Hello World");

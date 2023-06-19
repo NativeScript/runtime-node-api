@@ -25,7 +25,7 @@ public:
 
   MethodCif(std::string typeEncoding);
 
-  void Call(void *fnptr);
+  void call(void *fnptr);
 };
 
 #endif /* METHOD_CIF_H */

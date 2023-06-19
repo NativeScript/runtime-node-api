@@ -57,17 +57,13 @@
 #define NAPI_FUNCTION_DESC(name)                                               \
   { #name, NULL, JS_##name, NULL, NULL, NULL, napi_default, NULL }
 
-#define GET_BRIDGE_DATA                                                        \
-  ObjCBridgeData *bridgeData = nullptr;                                        \
-  napi_get_instance_data(env, (void **)&bridgeData);
-
 static inline napi_ref make_ref(napi_env env, napi_value value) {
   napi_ref ref;
   napi_create_reference(env, value, 1, &ref);
   return ref;
 }
 
-static inline napi_value get_ref(napi_env env, napi_ref ref) {
+static inline napi_value get_ref_value(napi_env env, napi_ref ref) {
   napi_value value;
   napi_get_reference_value(env, ref, &value);
   return value;

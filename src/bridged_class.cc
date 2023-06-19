@@ -3,7 +3,7 @@
 #include "node_api_util.h"
 
 NAPI_FUNCTION(BridgedConstructor) {
-  NAPI_CALLBACK_BEGIN(1)
+  NAPI_CALLBACK_BEGIN(0)
   return jsThis;
 }
 
@@ -22,8 +22,7 @@ NAPI_FUNCTION(BridgedMethod) {
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
-    cif = method->methodCif =
-        method->bridgeData->get_method_cif(method->method);
+    cif = method->methodCif = method->bridgeData->getMethodCif(method->method);
   }
 
   size_t argc = cif->argc;
@@ -38,7 +37,7 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  cif->Call((void *)objc_msgSend);
+  cif->call((void *)objc_msgSend);
 
   if (cif->shouldFreeAny) {
     for (unsigned int i = 0; i < cif->argc; i++) {
@@ -128,7 +127,7 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
   NAPI_PREAMBLE
 
-  GET_BRIDGE_DATA
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
 
   NAPI_GUARD(napi_define_class(env, name.c_str(), name.length(),
                                JS_BridgedConstructor, nil, 0, nil,
@@ -151,9 +150,10 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
       superName = NativeObjectName;
     }
 
-    BridgedClass *superCls = bridgeData->get_bridged_class(env, superName);
+    BridgedClass *superCls = bridgeData->getBridgedClass(env, superName);
     if (superCls != nil) {
-      napi_inherits(env, constructor, get_ref(env, superCls->constructor));
+      napi_inherits(env, constructor,
+                    get_ref_value(env, superCls->constructor));
     }
   }
 

@@ -144,13 +144,19 @@ typedef unsigned long (*msgSend_numberOfArguments)(id, SEL);
 typedef const char *(*msgSend_methodReturnType)(id, SEL);
 typedef const char *(*msgSend_methodGetArgumentType)(id, SEL, unsigned int);
 
+SEL sel_signatureWithObjCTypes_ = sel_registerName("signatureWithObjCTypes:");
+SEL sel_numberOfArguments = sel_registerName("numberOfArguments");
+SEL sel_methodReturnType = sel_registerName("methodReturnType");
+SEL sel_methodReturnLength = sel_registerName("methodReturnLength");
+SEL sel_getArgumentTypeAtIndex_ = sel_registerName("getArgumentTypeAtIndex:");
+
 MethodCif::MethodCif(std::string encoding) {
   this->typeEncoding = encoding;
   this->signature = ((msgSend_signatureWithObjCTypes)objc_msgSend)(
-      (id)objc_getClass("NSMethodSignature"),
-      sel_registerName("signatureWithObjCTypes:"), encoding.c_str());
+      (id)objc_getClass("NSMethodSignature"), sel_signatureWithObjCTypes_,
+      encoding.c_str());
   unsigned long numberOfArguments = ((msgSend_numberOfArguments)objc_msgSend)(
-      (id)this->signature, sel_registerName("numberOfArguments"));
+      (id)this->signature, sel_numberOfArguments);
   this->argc = numberOfArguments - 2;
   this->argv = (napi_value *)malloc(sizeof(napi_value) * this->argc);
 
@@ -159,14 +165,15 @@ MethodCif::MethodCif(std::string encoding) {
   unsigned int argc = (unsigned int)numberOfArguments;
 
   const char *returnType = ((msgSend_methodReturnType)objc_msgSend)(
-      this->signature, sel_registerName("methodReturnType"));
+      this->signature, sel_methodReturnType);
   this->convertReturnType = getConvFromNative(returnType);
 
   ffi_type *rtype = getTypeForEncoding(&returnType);
   ffi_type **atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argc);
 
   unsigned long methodReturnLength = ((msgSend_numberOfArguments)objc_msgSend)(
-      this->signature, sel_registerName("methodReturnLength"));
+      this->signature, sel_methodReturnLength);
+
   this->rvalue = malloc(methodReturnLength);
 
   this->avalues = (void **)malloc(sizeof(void *) * argc);
@@ -176,7 +183,7 @@ MethodCif::MethodCif(std::string encoding) {
 
   for (int i = 0; i < numberOfArguments; i++) {
     const char *argenc = ((msgSend_methodGetArgumentType)objc_msgSend)(
-        this->signature, sel_registerName("getArgumentTypeAtIndex:"), i);
+        this->signature, sel_getArgumentTypeAtIndex_, i);
 
     const char *argenc2 = argenc;
     atypes[i] = getTypeForEncoding(&argenc2);
@@ -207,6 +214,6 @@ MethodCif::MethodCif(std::string encoding) {
   this->cif = cif;
 }
 
-void MethodCif::Call(void *fnptr) {
+void MethodCif::call(void *fnptr) {
   ffi_call(this->cif, FFI_FN(fnptr), this->rvalue, this->avalues);
 }

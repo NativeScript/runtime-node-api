@@ -7,54 +7,9 @@ JS_FROM_NATIVE(void) { return nullptr; }
 
 JS_FROM_NATIVE(objc_object) {
   NAPI_PREAMBLE
-
   id obj = *((id *)value);
-
-  if (obj == nullptr) {
-    return nullptr;
-  }
-
-  Class cls = object_getClass(obj);
-  bool isClass = false;
-
-  if (class_isMetaClass(cls)) {
-    cls = (Class)obj;
-    isClass = true;
-  }
-
-  auto name = std::string(class_getName(cls));
-
-  ObjCBridgeData *bridgeData = nullptr;
-  NAPI_GUARD(napi_get_instance_data(env, (void **)&bridgeData)) {
-    NAPI_THROW_LAST_ERROR
-    return nullptr;
-  }
-
-  BridgedClass *bridgedCls = new BridgedClass(env, name);
-
-  if (bridgedCls == nullptr) {
-    return nullptr;
-  }
-
-  napi_value constructor = get_ref(env, bridgedCls->constructor);
-
-  if (isClass) {
-    return constructor;
-  }
-
-  napi_value result;
-
-  NAPI_GUARD(napi_new_instance(env, constructor, 0, nullptr, &result)) {
-    NAPI_THROW_LAST_ERROR
-    return nullptr;
-  }
-
-  NAPI_GUARD(napi_wrap(env, result, (void *)obj, nullptr, nullptr, nullptr)) {
-    NAPI_THROW_LAST_ERROR
-    return nullptr;
-  }
-
-  return result;
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  return bridgeData->getObject(env, obj);
 }
 
 JS_FROM_NATIVE(objc_class) {
@@ -68,19 +23,15 @@ JS_FROM_NATIVE(objc_class) {
 
   std::string name = class_getName(cls);
 
-  ObjCBridgeData *bridgeData = nullptr;
-  NAPI_GUARD(napi_get_instance_data(env, (void **)&bridgeData)) {
-    NAPI_THROW_LAST_ERROR
-    return nullptr;
-  }
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
 
-  BridgedClass *bridgedCls = bridgeData->get_bridged_class(env, name);
+  BridgedClass *bridgedCls = bridgeData->getBridgedClass(env, name);
 
   if (bridgedCls == nullptr) {
     return nullptr;
   }
 
-  napi_value constructor = get_ref(env, bridgedCls->constructor);
+  napi_value constructor = get_ref_value(env, bridgedCls->constructor);
 
   return constructor;
 }
