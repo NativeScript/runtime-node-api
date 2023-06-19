@@ -4,7 +4,6 @@ project(objc_bridge)
 
 set(NAME objc_bridge)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -38,6 +37,7 @@ target_link_libraries(
   objc
   ffi
   "-framework Foundation"
+  "-framework AppKit"
 )
 
 target_link_options(

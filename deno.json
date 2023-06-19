@@ -6,5 +6,9 @@
     "post-build": "cp ./build/libobjc_bridge.dylib ./build/objc.node",
     "build": "rm -rf build && deno task cmake-init && deno task cmake-build && deno task post-build",
     "test": "node test/main.mjs"
+  },
+
+  "fmt": {
+    "exclude": ["build", "libffi", "node_modules"]
   }
 }

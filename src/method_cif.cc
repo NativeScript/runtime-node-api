@@ -1,61 +1,139 @@
 #include "method_cif.h"
+#include <vector>
 
-ffi_type *getTypeForEncoding(const char *encoding) {
-  char first = *encoding;
+ffi_type *typeFromStruct(const char **encoding) {
+  ffi_type *type = new ffi_type;
+  type->type = FFI_TYPE_STRUCT;
+  type->size = 0;
+  type->alignment = 0;
+  type->elements = nullptr;
+
+  std::vector<ffi_type *> elements;
+
+  (*encoding)++; // skip '{'
+
+  while (**encoding != '=') {
+    (*encoding)++;
+  } // skip name
+
+  (*encoding)++; // skip '='
+
+  while (**encoding != '}') {
+    ffi_type *elementType = getTypeForEncoding(encoding);
+    elements.push_back(elementType);
+  }
+
+  (*encoding)++; // skip '}'
+
+  type->elements =
+      (ffi_type **)malloc(sizeof(ffi_type *) * (elements.size() + 1));
+  for (int i = 0; i < elements.size(); i++) {
+    type->elements[i] = elements[i];
+  }
+  // null-terminate the array
+  type->elements[elements.size()] = nullptr;
+
+  return type;
+}
+
+ffi_type *getTypeForEncoding(const char **encoding) {
+  char first = **encoding;
   if (first == 'r') {
-    first = *(++encoding);
+    first = *(++(*encoding));
   }
   switch (first) {
   case 'c':
+    (*encoding)++;
     return &ffi_type_schar;
   case 'i':
+    (*encoding)++;
     return &ffi_type_sint;
   case 's':
+    (*encoding)++;
     return &ffi_type_sshort;
   case 'l':
+    (*encoding)++;
     return &ffi_type_slong;
   case 'q':
+    (*encoding)++;
     return &ffi_type_sint64;
   case 'C':
+    (*encoding)++;
     return &ffi_type_uchar;
   case 'I':
+    (*encoding)++;
     return &ffi_type_uint;
   case 'S':
+    (*encoding)++;
     return &ffi_type_ushort;
   case 'L':
+    (*encoding)++;
     return &ffi_type_ulong;
   case 'Q':
+    (*encoding)++;
     return &ffi_type_uint64;
   case 'f':
+    (*encoding)++;
     return &ffi_type_float;
   case 'd':
+    (*encoding)++;
     return &ffi_type_double;
   case 'B':
+    (*encoding)++;
     return &ffi_type_uint8;
   case 'v':
+    (*encoding)++;
     return &ffi_type_void;
   case '*':
+    (*encoding)++;
     return &ffi_type_pointer;
   case '@':
+    (*encoding)++;
     return &ffi_type_pointer;
   case '#':
+    (*encoding)++;
     return &ffi_type_pointer;
   case ':':
+    (*encoding)++;
     return &ffi_type_pointer;
-  case '[':
+  case '[': {
+    char c = **encoding;
+    while ((c = **encoding) >= '0' && c <= '9') {
+      (*encoding)++;
+    } // skip array size
+    while (**encoding != ']') {
+      (*encoding)++;
+    }              // skip array type
+    (*encoding)++; // skip ']'
     return &ffi_type_pointer;
+  }
   case '{':
+    return typeFromStruct(encoding);
+  case '(': {
+    while (**encoding != ')') {
+      (*encoding)++;
+    }              // skip types
+    (*encoding)++; // skip ')'
     return &ffi_type_pointer;
-  case '(':
-    return &ffi_type_pointer;
-  case 'b':
-    return &ffi_type_pointer;
+  }
+  case 'b': {
+    (*encoding)++;
+    char c = **encoding;
+    while ((c = **encoding) >= '0' && c <= '9') {
+      (*encoding)++;
+    } // skip bits
+    return &ffi_type_uint64;
+  }
   case '^':
+    (*encoding)++;
+    // we don't need pointee type
+    getTypeForEncoding(encoding);
     return &ffi_type_pointer;
   case '?':
+    // unknown type
     return &ffi_type_pointer;
   default:
-    std::cout << "getTypeForEncoding unknown encoding: " << encoding
+    std::cout << "getTypeForEncoding unknown encoding: " << *encoding
               << std::endl;
     return &ffi_type_pointer;
   }
@@ -82,12 +160,14 @@ MethodCif::MethodCif(std::string encoding) {
 
   const char *returnType = ((msgSend_methodReturnType)objc_msgSend)(
       this->signature, sel_registerName("methodReturnType"));
-  ffi_type *rtype = getTypeForEncoding(returnType);
+  this->convertReturnType = getConvFromNative(returnType);
+
+  ffi_type *rtype = getTypeForEncoding(&returnType);
   ffi_type **atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argc);
 
-  this->rvalue = malloc(((msgSend_numberOfArguments)objc_msgSend)(
-      this->signature, sel_registerName("methodReturnLength")));
-  this->convertReturnType = getConvFromNative(returnType);
+  unsigned long methodReturnLength = ((msgSend_numberOfArguments)objc_msgSend)(
+      this->signature, sel_registerName("methodReturnLength"));
+  this->rvalue = malloc(methodReturnLength);
 
   this->avalues = (void **)malloc(sizeof(void *) * argc);
   this->convertArgType =
@@ -98,9 +178,10 @@ MethodCif::MethodCif(std::string encoding) {
     const char *argenc = ((msgSend_methodGetArgumentType)objc_msgSend)(
         this->signature, sel_registerName("getArgumentTypeAtIndex:"), i);
 
-    atypes[i] = getTypeForEncoding(argenc);
+    const char *argenc2 = argenc;
+    atypes[i] = getTypeForEncoding(&argenc2);
+
     if (i >= 2) {
-      this->avalues[i] = malloc(atypes[i]->size);
       this->convertArgType[i - 2] = getConvToNative(argenc);
       bool should = shouldFreeType(argenc);
       this->shouldFree[i - 2] = should;
@@ -111,6 +192,10 @@ MethodCif::MethodCif(std::string encoding) {
   }
 
   ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, argc, rtype, atypes);
+
+  for (int i = 2; i < argc; i++) {
+    this->avalues[i] = malloc(cif->arg_types[i]->size);
+  }
 
   if (status != FFI_OK) {
     std::cout << "Failed to prepare CIF, libffi returned error:" << status
@@ -123,5 +208,5 @@ MethodCif::MethodCif(std::string encoding) {
 }
 
 void MethodCif::Call(void *fnptr) {
-  ffi_call(this->cif, (void (*)(void))fnptr, this->rvalue, this->avalues);
+  ffi_call(this->cif, FFI_FN(fnptr), this->rvalue, this->avalues);
 }

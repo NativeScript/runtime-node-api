@@ -268,7 +268,6 @@ JS_TO_NATIVE(objc_object) {
   id *res = (id *)result;
 
   NAPI_GUARD(napi_unwrap(env, value, (void **)res)) {
-    NAPI_THROW_LAST_ERROR
     *res = nullptr;
     return;
   }
@@ -481,6 +480,18 @@ JS_TO_NATIVE(uint8) {
   *res = (uint8_t)val;
 }
 
+JS_TO_NATIVE(bool) {
+  NAPI_PREAMBLE
+
+  bool *res = (bool *)result;
+
+  NAPI_GUARD(napi_get_value_bool(env, value, res)) {
+    NAPI_THROW_LAST_ERROR
+    *res = false;
+    return;
+  }
+}
+
 char selector_buf[256];
 
 JS_TO_NATIVE(selector) {
@@ -507,6 +518,19 @@ JS_TO_NATIVE(pointer) {
     *res = NULL;
     return;
   }
+}
+
+JS_TO_NATIVE(struct) {
+  NAPI_PREAMBLE
+
+  void *data;
+  size_t length;
+  NAPI_GUARD(napi_get_buffer_info(env, value, &data, &length)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
+  memcpy(result, data, length);
 }
 
 js_to_native getConvToNative(const char *encoding) {
@@ -540,7 +564,7 @@ js_to_native getConvToNative(const char *encoding) {
   case 'd':
     return js_to_double;
   case 'B':
-    return js_to_uint8;
+    return js_to_bool;
   case 'v':
     return js_to_void;
   case '*':
@@ -553,8 +577,8 @@ js_to_native getConvToNative(const char *encoding) {
     return js_to_selector;
     //    case '[':
     //      return js_to_pointer;
-    //    case '{':
-    //      return js_to_pointer;
+  case '{':
+    return js_to_struct;
     //    case '(':
     //      return js_to_pointer;
   case 'b':
@@ -564,7 +588,7 @@ js_to_native getConvToNative(const char *encoding) {
   case '?':
     return js_to_pointer;
   default:
-    std::cout << "js_from_native unknown encoding: " << encoding << std::endl;
+    std::cout << "js_to_native unknown encoding: " << encoding << std::endl;
     return js_to_void;
   }
 }

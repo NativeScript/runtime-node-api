@@ -43,7 +43,7 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->shouldFreeAny) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       if (cif->shouldFree[i]) {
-        free(cif->avalues[i + 2]);
+        free(*((void **)cif->avalues[i + 2]));
       }
     }
   }

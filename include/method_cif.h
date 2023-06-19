@@ -7,6 +7,8 @@
 #include "type_conv.h"
 #include <string>
 
+ffi_type *getTypeForEncoding(const char **encoding);
+
 class MethodCif {
 public:
   std::string typeEncoding;
