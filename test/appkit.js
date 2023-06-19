@@ -67,7 +67,7 @@ vstack.setTranslatesAutoresizingMaskIntoConstraints_(false);
 
 const image = NSImage.alloc().initWithContentsOfFile_(
   NSString.stringWithUTF8String_(
-    "/Users/dj/Projects/ns_objc/assets/NativeScript.png",
+    new URL("../assets/NativeScript.png", import.meta.url).pathname,
   ),
 );
 
