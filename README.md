@@ -12,6 +12,23 @@ deno task build-libffi
 deno task build
 ```
 
+## Bundling sample AppKit app
+
+```sh
+deno task bundle # bundle app
+deno task open-bundle # run app
+```
+
+## Notes
+
+AppKit usage currently relies on struct support, which has an issue with Deno
+right now.
+
+So without a custom deno build from the below PR, you can't use AppKit in Deno
+(works in Node).
+
+Upstream PR: https://github.com/denoland/deno/pull/19551
+
 ## License
 
 Apache 2.0 licensed.
