@@ -5,7 +5,7 @@ project(objc_bridge)
 set(NAME objc_bridge)
 
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-O1 -fsanitize=address -fno-omit-frame-pointer -g")
 
 set(CMAKE_CXX_STANDARD 20)
 

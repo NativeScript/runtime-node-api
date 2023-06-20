@@ -17,7 +17,7 @@ const NSString = getClass("NSString");
 
 const str = NSString.stringWithUTF8String_("Hello World");
 console.log("str", str);
-console.log("str length", str.length(), str.lengthCustom);
+console.log("str length", str.length, str.lengthCustom);
 
 bench("noop", () => {});
 
@@ -26,7 +26,7 @@ bench("[str length] (manual, direct)", () => {
 });
 
 bench("[str length] (dynamic, ffi)", () => {
-  str.length();
+  str.length;
 });
 
 await run({

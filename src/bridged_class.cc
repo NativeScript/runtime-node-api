@@ -187,6 +187,8 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     return;
   }
 
+  napi_value superConstructor, superPrototype;
+
   if (!isNativeObject) {
     Class superClass = nil;
     if (nativeClass != nil) {
@@ -203,8 +205,9 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
     BridgedClass *superCls = bridgeData->getBridgedClass(env, superName);
     if (superCls != nil) {
-      napi_inherits(env, constructor,
-                    get_ref_value(env, superCls->constructor));
+      superConstructor = get_ref_value(env, superCls->constructor);
+      superPrototype = get_ref_value(env, superCls->prototype);
+      napi_inherits(env, constructor, superConstructor);
     }
   }
 
@@ -266,8 +269,6 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   _Nonnull Method *_Nullable methods =
       class_copyMethodList(nativeClass, &count);
 
-  std::set<std::string> addedMethods;
-
   unsigned int propertyCount = 0;
   _Nonnull objc_property_t *properties =
       class_copyPropertyList(nativeClass, &propertyCount);
@@ -276,130 +277,114 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
       (napi_property_descriptor *)malloc(sizeof(napi_property_descriptor) *
                                          (count + propertyCount));
 
-  // for (unsigned int i = 0; i < propertyCount; i++) {
-  //   objc_property_t property = properties[i];
-  //   const char *name = property_getName(property);
-  //   std::string nameString = name;
-
-  //   auto pair = addedProperties->emplace(nameString);
-
-  //   if (!pair.second) {
-  //     std::cout << "Skipping duplicate property " << nameString << "\n";
-  //     continue;
-  //   }
-
-  //   const char *attrs = property_getAttributes(property);
-
-  //   const char *getter = nil;
-  //   const char *setter = nil;
-
-  //   if (attrs != nil) {
-  //     char *attrsCopy = strdup(attrs);
-  //     char *token = strtok(attrsCopy, ",");
-  //     while (token != nil) {
-  //       if (token[0] == 'G') {
-  //         getter = token + 1;
-  //       } else if (token[0] == 'S') {
-  //         setter = token + 1;
-  //       }
-  //       token = strtok(nil, ",");
-  //     }
-  //     free(attrsCopy);
-  //   }
-
-  //   if (getter == nil) {
-  //     getter = strdup(name);
-  //   }
-
-  //   if (setter == nil) {
-  //     size_t setter_len = strlen(name) + 4;
-  //     char *setter_new = (char *)malloc(setter_len);
-  //     strcpy((char *)setter_new, "set");
-  //     setter_new[3] = toupper(name[0]);
-  //     strcpy((char *)setter_new + 4, name + 1);
-  //     setter_new[setter_len - 1] = ':';
-  //     setter_new[setter_len] = '\0';
-  //     setter = setter_new;
-  //   }
-
-  //   if (*name == '\0' || *getter == '\0') {
-  //     continue;
-  //   }
-
-  //   {
-  //     std::string s_getter = getter;
-  //     replaceAll(s_getter, ":", "_");
-  //     if (protoMethods[s_getter]) {
-  //       continue;
-  //     }
-  //     protoMethods[s_getter] = true;
-  //     if (s_getter == "length") {
-  //       std::cout << "added length to protoMethods\n";
-  //     }
-  //     std::string s_setter = setter;
-  //     replaceAll(s_setter, ":", "_");
-  //     if (protoMethods[s_setter]) {
-  //       continue;
-  //     }
-  //     protoMethods[s_setter] = true;
-  //   }
-
-  //   napi_property_descriptor *desc = &jsPrototypeMethods[actualCount];
-
-  //   SEL getterSel = sel_registerName(getter);
-  //   SEL setterSel = sel_registerName(setter);
-
-  //   desc->utf8name = (&*pair.first)->c_str();
-  //   desc->name = nil;
-  //   desc->method = nil;
-  //   desc->value = nil;
-  //   desc->attributes = napi_enumerable;
-  //   auto bm = new BridgedMethod(bridgeData, getterSel, setterSel, property);
-  //   desc->data = (void *)bm;
-  //   desc->getter = JS_BridgedGetter;
-  //   bm->method = class_getInstanceMethod(nativeClass, getterSel);
-  //   bm->setterMethod = class_getInstanceMethod(nativeClass, setterSel);
-  //   if (bm->setterMethod != nil) {
-  //     desc->setter = JS_BridgedSetter;
-  //   } else {
-  //     desc->setter = nil;
-  //   }
-
-  //   if (strcmp(desc->utf8name, "length") == 0) {
-  //     std::cout << "prop: " << desc->utf8name << std::endl;
-  //   }
-
-  //   actualCount++;
-  // }
+  std::set<std::string> addedMethods, addedProperties;
 
   for (unsigned int i = 0; i < propertyCount; i++) {
-    auto property = properties[i];
+    objc_property_t property = properties[i];
     std::string name = property_getName(property);
-    auto result = addedMethods.insert(name);
-    if (!result.second) {
-      std::cout << "Skipping duplicate property " << name << std::endl;
+
+    auto pair = addedProperties.emplace(name);
+
+    if (!pair.second) {
       continue;
-    } else if (name == "length") {
-      std::cout << "Added property " << name << std::endl;
     }
+
+    const char *attrs = property_getAttributes(property);
+
+    const char *getter = nil;
+    const char *setter = nil;
+
+    if (attrs != nil) {
+      char *attrsCopy = strdup(attrs);
+      char *token = strtok(attrsCopy, ",");
+      while (token != nil) {
+        if (token[0] == 'G') {
+          getter = token + 1;
+        } else if (token[0] == 'S') {
+          setter = token + 1;
+        }
+        token = strtok(nil, ",");
+      }
+      free(attrsCopy);
+    }
+
+    if (getter == nil) {
+      getter = strdup(name.c_str());
+    }
+
+    if (setter == nil) {
+      size_t setter_len = name.length() + 4;
+      char *setter_new = (char *)malloc(setter_len);
+      strcpy((char *)setter_new, "set");
+      setter_new[3] = toupper(name[0]);
+      strcpy((char *)setter_new + 4, name.c_str() + 1);
+      setter_new[setter_len - 1] = ':';
+      setter_new[setter_len] = '\0';
+      setter = setter_new;
+    }
+
+    if (name[0] == '\0' || *getter == '\0') {
+      continue;
+    }
+
+    {
+      std::string s_getter = getter;
+      replaceAll(s_getter, ":", "_");
+      auto result = addedMethods.emplace(s_getter);
+      if (!result.second) {
+        continue;
+      }
+
+      std::string s_setter = setter;
+      replaceAll(s_setter, ":", "_");
+      result = addedMethods.emplace(s_setter);
+      if (!result.second) {
+        continue;
+      }
+    }
+
+    napi_property_descriptor *desc = &jsPrototypeMethods[actualCount];
+
+    SEL getterSel = sel_registerName(getter);
+    SEL setterSel = sel_registerName(setter);
+
+    desc->utf8name = (&*pair.first)->c_str();
+    desc->name = nil;
+    desc->method = nil;
+    desc->value = nil;
+    desc->attributes = napi_enumerable;
+    auto bm = new BridgedMethod(bridgeData, getterSel, setterSel, property);
+    desc->data = (void *)bm;
+    desc->getter = JS_BridgedGetter;
+    bm->method = class_getInstanceMethod(nativeClass, getterSel);
+    bm->setterMethod = class_getInstanceMethod(nativeClass, setterSel);
+    if (bm->setterMethod != nil) {
+      desc->setter = JS_BridgedSetter;
+    } else {
+      desc->setter = nil;
+    }
+
+    actualCount++;
   }
 
   for (unsigned int i = 0; i < count; i++) {
     Method method = methods[i];
     SEL sel = method_getName(methods[i]);
-
     std::string name = sel_getName(sel);
     replaceAll(name, ":", "_");
 
-    std::cout << "Inserting " << name << "; Currently contains length? "
-              << addedMethods.contains("length") << std::endl;
+    bool superHasMethod = false;
+    if (superPrototype != nil) {
+      napi_has_named_property(env, superPrototype, name.c_str(),
+                              &superHasMethod);
+      if (superHasMethod) {
+        continue;
+      }
+    }
 
     auto result = addedMethods.insert(name);
     if (!result.second) {
-      std::cout << "Skipping duplicate method " << name << std::endl;
       continue;
-    } else if (name == "length") {
-      std::cout << "Added method (but it should not) " << name << std::endl;
     }
 
     napi_property_descriptor *desc = &jsPrototypeMethods[actualCount];
@@ -430,20 +415,19 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   methods = class_copyMethodList(metaClass, &count);
   napi_property_descriptor *jsClassMethods = (napi_property_descriptor *)malloc(
       sizeof(napi_property_descriptor) * count);
-  addedMethods = std::set<std::string>();
+  auto addedMethods2 = std::set<std::string>();
 
   for (unsigned int i = 0; i < count; i++) {
     Method method = methods[i];
     SEL sel = method_getName(method);
+    std::string name = sel_getName(sel);
+    replaceAll(name, ":", "_");
 
-    std::string selString = std::string(sel_getName(sel));
-    replaceAll(selString, ":", "_");
+    auto pair = addedMethods2.emplace(name);
 
-    if (addedMethods.contains(selString)) {
+    if (!pair.second) {
       continue;
     }
-
-    auto pair = addedMethods.emplace(selString);
 
     napi_property_descriptor *desc = &jsClassMethods[actualCount];
 
