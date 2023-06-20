@@ -4,3 +4,4 @@ build/
 deno.lock
 package-lock.json
 node_modules/
+NativeScript for macOS.app/
