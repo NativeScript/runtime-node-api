@@ -213,13 +213,53 @@ JS_TO_NATIVE(void) {
   *res = nullptr;
 }
 
+Class cls_NSString = objc_getClass("NSString");
+SEL sel_stringWithUTF8String = sel_registerName("stringWithUTF8String:");
+typedef id (*msg_stringWithUTF8String_)(Class, SEL, const char *);
+
 JS_TO_NATIVE(objc_object) {
   NAPI_PREAMBLE
 
   id *res = (id *)result;
 
+  napi_valuetype type;
+  napi_typeof(env, value, &type);
+  if (type == napi_null || type == napi_undefined) {
+    *res = nil;
+    return;
+  }
+
+  if (type == napi_string) {
+    char *str;
+    size_t len;
+    NAPI_GUARD(napi_get_value_string_utf8(env, value, nullptr, len, &len)) {
+      NAPI_THROW_LAST_ERROR
+      return;
+    }
+
+    str = (char *)malloc(len + 1);
+
+    NAPI_GUARD(napi_get_value_string_utf8(env, value, str, len + 1, &len)) {
+      NAPI_THROW_LAST_ERROR
+      free(str);
+      return;
+    }
+
+    str[len] = '\0';
+
+    *res = ((msg_stringWithUTF8String_)objc_msgSend)(
+        cls_NSString, sel_stringWithUTF8String, str);
+
+    free(str);
+
+    *shouldFree = true;
+    *shouldFreeAny = true;
+
+    return;
+  }
+
   NAPI_GUARD(napi_unwrap(env, value, (void **)res)) {
-    *res = nullptr;
+    *res = nil;
     return;
   }
 }
@@ -246,6 +286,9 @@ JS_TO_NATIVE(string) {
   }
 
   (*res)[len] = '\0';
+
+  *shouldFree = true;
+  *shouldFreeAny = true;
 }
 
 JS_TO_NATIVE(char) {
@@ -544,15 +587,33 @@ js_to_native getConvToNative(const char *encoding) {
   }
 }
 
-bool shouldFreeType(const char *encoding) {
+SEL sel_release = sel_registerName("release");
+typedef void (*msg_release)(id, SEL);
+
+JS_FREE(objc_object) {
+  id res = (id)value;
+  if (res != nil) {
+    ((msg_release)objc_msgSend)(res, sel_release);
+  }
+}
+
+JS_FREE(string) {
+  if (value != nullptr) {
+    free(value);
+  }
+}
+
+js_free getNativeFree(const char *encoding) {
   char first = *encoding;
   if (first == 'r') {
     first = *(++encoding);
   }
   switch (first) {
+  case '@':
+    return js_free_objc_object;
   case '*':
-    return true;
+    return js_free_string;
   default:
-    return false;
+    return nullptr;
   }
 }

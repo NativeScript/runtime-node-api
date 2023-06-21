@@ -4,6 +4,10 @@
 #include "objc/runtime.h"
 #include "objc_bridge_data.h"
 
+napi_value JS_BridgedMethod(napi_env env, napi_callback_info cbinfo);
+napi_value JS_BridgedGetter(napi_env env, napi_callback_info cbinfo);
+napi_value JS_BridgedSetter(napi_env env, napi_callback_info cbinfo);
+
 class BridgedMethod {
 public:
   SEL selector;

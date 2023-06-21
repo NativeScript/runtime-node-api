@@ -3,7 +3,6 @@ import classes from "../index.js";
 const {
   NSApplication,
   NSWindow,
-  NSString,
   NSMenu,
   NSMenuItem,
   NSTextField,
@@ -15,10 +14,10 @@ const {
   NSStackView,
 } = classes;
 
-const NSApp = NSApplication.sharedApplication();
-NSApp.setActivationPolicy_(0);
+const NSApp = NSApplication.sharedApplication;
+NSApp.setActivationPolicy(0);
 
-const window = NSWindow.alloc().initWithContentRect_styleMask_backing_defer_(
+const window = NSWindow.alloc().initWithContentRectStyleMaskBackingDefer(
   new Float64Array([
     100,
     100,
@@ -30,92 +29,84 @@ const window = NSWindow.alloc().initWithContentRect_styleMask_backing_defer_(
   false,
 );
 
-window.setTitle_(NSString.stringWithUTF8String_("NativeScript on macOS"));
+window.title = "NativeScript for macOS";
 
-const label = NSTextField.alloc().initWithFrame_(
+const label = NSTextField.alloc().initWithFrame(
   new Float64Array([0, 0, 390, 100]),
 );
 
-label.setStringValue_(NSString.stringWithUTF8String_("Hello, macOS"));
+label.stringValue = "Hello, macOS";
 
-label.setBezeled_(false);
-label.setDrawsBackground_(false);
-label.setEditable_(false);
-label.setSelectable_(false);
-label.setAlignment_(1 /* NSTextAlignmentCenter */);
-label.setTranslatesAutoresizingMaskIntoConstraints_(false);
-label.setTextColor_(NSColor.colorWithSRGBRed_green_blue_alpha_(1, 1, 1, 1));
+label.bezeled = false;
+label.drawsBackground = false;
+label.editable = false;
+label.selectable = false;
+label.alignment = 1 /* NSTextAlignmentCenter */;
+label.setTranslatesAutoresizingMaskIntoConstraints(false);
+label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
-label.setFont_(
-  NSFontManager.sharedFontManager().convertFont_toHaveTrait_(
-    NSFont.fontWithName_size_(label.font().fontName(), 45),
-    2, /* NSBoldFontMask */
-  ),
+label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
+  NSFont.fontWithNameSize(label.font.fontName, 45),
+  2, /* NSBoldFontMask */
 );
 
 label.sizeToFit();
 
-const vstack = NSStackView.alloc().initWithFrame_(
+const vstack = NSStackView.alloc().initWithFrame(
   new Float64Array([0, 0, 500, 500]),
 );
 
-vstack.setOrientation_(1 /* NSUserInterfaceLayoutOrientationVertical */);
-vstack.setAlignment_(9 /* NSLayoutAttributeCenterX */);
-vstack.setDistribution_(0 /* NSStackViewDistributionFill */);
-vstack.setSpacing_(40);
-vstack.setTranslatesAutoresizingMaskIntoConstraints_(false);
+vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
+vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
+vstack.distribution = 0 /* NSStackViewDistributionFill */;
+vstack.spacing = 40;
+vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
 
-const image = NSImage.alloc().initWithContentsOfFile_(
-  NSString.stringWithUTF8String_(
-    new URL("../assets/NativeScript.png", import.meta.url).pathname,
-  ),
+const image = NSImage.alloc().initWithContentsOfFile(
+  new URL("../assets/NativeScript.png", import.meta.url).pathname,
 );
 
-image.setSize_(new Float64Array([128, 128]));
+image.size = new Float64Array([128, 128]);
 
-const imageView = NSImageView.imageViewWithImage_(image);
+const imageView = NSImageView.imageViewWithImage(image);
 
-vstack.addView_inGravity_(
+vstack.addViewInGravity(
   imageView,
   2, /* NSStackViewGravityCenter */
 );
-vstack.addView_inGravity_(label, 2 /* NSStackViewGravityCenter */);
+vstack.addViewInGravity(label, 2 /* NSStackViewGravityCenter */);
 
-window.contentView().addSubview_(vstack);
+window.contentView.addSubview(vstack);
 
-vstack.centerXAnchor().constraintEqualToAnchor_(
-  window.contentView().centerXAnchor(),
-).setActive_(true);
-vstack.centerYAnchor().constraintEqualToAnchor_(
-  window.contentView().centerYAnchor(),
-).setActive_(true);
+vstack.centerXAnchor.constraintEqualToAnchor(
+  window.contentView.centerXAnchor,
+).active = true;
+vstack.centerYAnchor.constraintEqualToAnchor(
+  window.contentView.centerYAnchor,
+).active = true;
 
-window.setBackgroundColor_(NSColor.colorWithSRGBRed_green_blue_alpha_(
+window.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
   118 / 255,
   171 / 255,
   235 / 255,
   1,
-));
+);
 
 window.center();
-window.makeKeyAndOrderFront_(NSApp);
-window.setReleasedWhenClosed_(false);
+window.makeKeyAndOrderFront(NSApp);
+window.releasedWhenClosed = false;
 
-NSApp.activateIgnoringOtherApps_(true);
+NSApp.activateIgnoringOtherApps(true);
 
 const menu = NSMenu.alloc().init();
-NSApp.setMainMenu_(menu);
+NSApp.mainMenu = menu;
 
 const appMenuItem = NSMenuItem.alloc().init();
-menu.addItem_(appMenuItem);
+menu.addItem(appMenuItem);
 
 const appMenu = NSMenu.alloc().init();
-appMenuItem.setSubmenu_(appMenu);
+appMenuItem.submenu = appMenu;
 
-appMenu.addItemWithTitle_action_keyEquivalent_(
-  NSString.stringWithUTF8String_("Quit"),
-  "terminate:",
-  NSString.stringWithUTF8String_("q"),
-);
+appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
 NSApp.run();

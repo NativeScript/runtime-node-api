@@ -18,6 +18,7 @@ public:
   void **avalues;
   js_from_native convertReturnType;
   js_to_native *convertArgType;
+  js_free *freeArgValue;
   unsigned int argc;
   napi_value *argv;
   bool shouldFreeAny;

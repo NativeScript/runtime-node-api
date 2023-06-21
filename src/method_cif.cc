@@ -179,7 +179,10 @@ MethodCif::MethodCif(std::string encoding) {
   this->avalues = (void **)malloc(sizeof(void *) * argc);
   this->convertArgType =
       (js_to_native *)malloc(sizeof(js_to_native) * this->argc);
+  this->freeArgValue = (js_free *)malloc(sizeof(js_free) * this->argc);
   this->shouldFree = (bool *)malloc(sizeof(bool) * this->argc);
+  memset(this->shouldFree, false, sizeof(bool) * this->argc);
+  this->shouldFreeAny = false;
 
   for (int i = 0; i < numberOfArguments; i++) {
     const char *argenc = ((msgSend_methodGetArgumentType)objc_msgSend)(
@@ -190,11 +193,7 @@ MethodCif::MethodCif(std::string encoding) {
 
     if (i >= 2) {
       this->convertArgType[i - 2] = getConvToNative(argenc);
-      bool should = shouldFreeType(argenc);
-      this->shouldFree[i - 2] = should;
-      if (should) {
-        this->shouldFreeAny = true;
-      }
+      this->freeArgValue[i - 2] = getNativeFree(argenc);
     }
   }
 

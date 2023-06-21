@@ -4,4 +4,4 @@ const {
   NSString,
 } = classes;
 
-console.log(NSString.stringWithUTF8String_("Hello, macOS").length);
+console.log(NSString.stringWithUTF8String("Hello, macOS").length);

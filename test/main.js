@@ -1,21 +1,18 @@
-import { createRequire } from "node:module";
+import { classes } from "../index.js";
 import { bench, run } from "mitata";
 
-const require = createRequire(import.meta.url);
-
 const {
-  getClass,
-} = require("../build/objc.node");
+  NSObject,
+  NSString,
+} = classes;
 
-const obj1 = getClass("NSObject").alloc();
+const obj1 = NSObject.alloc();
 const obj2 = obj1.init();
 console.log("obj1", obj1);
 console.log("obj2", obj2);
 console.log("js equal", obj1 === obj2);
 
-const NSString = getClass("NSString");
-
-const str = NSString.stringWithUTF8String_("Hello World");
+const str = NSString.stringWithUTF8String("Hello World");
 console.log("str", str);
 console.log("str length", str.length, str.lengthCustom);
 
