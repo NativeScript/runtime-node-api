@@ -34,9 +34,10 @@
   status = expr;                                                               \
   if (status != napi_ok) {                                                     \
     NAPI_ERROR_INFO                                                            \
-    NSLog(@"Node-API returned error: %d\nException: %s\n\n  %s\n  ^^^^\n\n  "  \
-          @"at %s:%d",                                                         \
-          status, error_info->error_message, #expr, __FILE__, __LINE__);       \
+    std::cout << "Node-API returned error: " << status                         \
+              << "\nException: " << error_info->error_message << "\n\n  "      \
+              << #expr << "\n  ^^^^\n\n  "                                     \
+              << "at " << __FILE__ << ":" << __LINE__ << std::endl;            \
   }                                                                            \
   if (status != napi_ok)
 
@@ -55,7 +56,7 @@
   napi_value JS_##name(napi_env env, napi_callback_info cbinfo)
 
 #define NAPI_FUNCTION_DESC(name)                                               \
-  { #name, NULL, JS_##name, NULL, NULL, NULL, napi_default, NULL }
+  { #name, NULL, JS_##name, NULL, NULL, NULL, napi_enumerable, NULL }
 
 static inline napi_ref make_ref(napi_env env, napi_value value) {
   napi_ref ref;

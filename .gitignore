@@ -5,3 +5,7 @@ deno.lock
 package-lock.json
 node_modules/
 NativeScript for macOS.app/
+/napi.c
+/napi.js
+/napi.node
+*.dylib

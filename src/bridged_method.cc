@@ -38,7 +38,7 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  return cif->convertReturnType(env, cif->rvalue);
+  return cif->convertReturnType(env, cif->rvalue, cif->cif->rtype);
 }
 
 NAPI_FUNCTION(BridgedGetter) {
@@ -60,7 +60,7 @@ NAPI_FUNCTION(BridgedGetter) {
 
   cif->call((void *)objc_msgSend);
 
-  return cif->convertReturnType(env, cif->rvalue);
+  return cif->convertReturnType(env, cif->rvalue, cif->cif->rtype);
 }
 
 NAPI_FUNCTION(BridgedSetter) {

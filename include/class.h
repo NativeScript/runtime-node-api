@@ -4,6 +4,7 @@
 #include "node_api_util.h"
 #include "stdlib.h"
 
+NAPI_FUNCTION(registerClass);
 NAPI_FUNCTION(getClass);
 
 #endif /* class_h */

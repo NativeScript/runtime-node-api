@@ -1,5 +1,12 @@
 #include "class.h"
 
+NAPI_FUNCTION(registerClass) {
+  NAPI_CALLBACK_BEGIN(1)
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  bridgeData->registerClass(env, argv[0]);
+  return nullptr;
+}
+
 char class_name[256];
 
 NAPI_FUNCTION(getClass) {

@@ -148,6 +148,14 @@ JS_FROM_NATIVE(selector) {
   return result;
 }
 
+JS_FROM_NATIVE(struct) {
+  napi_value result;
+  void *data;
+  napi_create_arraybuffer(env, type->size, &data, &result);
+  memcpy(data, value, type->size);
+  return result;
+}
+
 js_from_native getConvFromNative(const char *encoding) {
   char first = *encoding;
   if (first == 'r') {
@@ -192,8 +200,8 @@ js_from_native getConvFromNative(const char *encoding) {
     return js_from_selector;
     //    case '[':
     //      return js_from_pointer;
-    //    case '{':
-    //      return js_from_pointer;
+  case '{':
+    return js_from_struct;
     //    case '(':
     //      return js_from_pointer;
   case 'b':

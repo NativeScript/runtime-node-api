@@ -18,9 +18,10 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
   const napi_property_descriptor properties[] = {
       NAPI_FUNCTION_DESC(getClass),
+      NAPI_FUNCTION_DESC(registerClass),
   };
 
-  NAPI_GUARD(napi_define_properties(env, exports, 1, properties)) {
+  NAPI_GUARD(napi_define_properties(env, exports, 2, properties)) {
     NAPI_THROW_LAST_ERROR
     return exports;
   }

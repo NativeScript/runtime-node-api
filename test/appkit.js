@@ -1,6 +1,7 @@
-import classes from "../index.js";
+import { classes, NSMakeRect, NSMakeSize, objc } from "../index.js";
 
 const {
+  NSObject,
   NSApplication,
   NSWindow,
   NSMenu,
@@ -18,12 +19,7 @@ const NSApp = NSApplication.sharedApplication;
 NSApp.setActivationPolicy(0);
 
 const window = NSWindow.alloc().initWithContentRectStyleMaskBackingDefer(
-  new Float64Array([
-    100,
-    100,
-    500,
-    500,
-  ]),
+  NSMakeRect(0, 0, 500, 500),
   1 | 2 | 4 | 8,
   2,
   false,
@@ -31,9 +27,23 @@ const window = NSWindow.alloc().initWithContentRectStyleMaskBackingDefer(
 
 window.title = "NativeScript for macOS";
 
-const label = NSTextField.alloc().initWithFrame(
-  new Float64Array([0, 0, 390, 100]),
-);
+export class WindowDelegate extends NSObject {
+  static protocols = ["NSWindowDelegate"];
+
+  static {
+    objc.registerClass(this);
+  }
+
+  windowWillClose(notification) {
+    console.log("windowWillClose", notification);
+    NSApp.terminate(this);
+  }
+}
+
+const delegate = WindowDelegate.alloc().init();
+window.delegate = delegate;
+
+const label = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 390, 100));
 
 label.stringValue = "Hello, macOS";
 
@@ -52,9 +62,7 @@ label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
 
 label.sizeToFit();
 
-const vstack = NSStackView.alloc().initWithFrame(
-  new Float64Array([0, 0, 500, 500]),
-);
+const vstack = NSStackView.alloc().initWithFrame(NSMakeRect(0, 0, 500, 500));
 
 vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
 vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
@@ -66,7 +74,7 @@ const image = NSImage.alloc().initWithContentsOfFile(
   new URL("../assets/NativeScript.png", import.meta.url).pathname,
 );
 
-image.size = new Float64Array([128, 128]);
+image.size = NSMakeSize(128, 128);
 
 const imageView = NSImageView.imageViewWithImage(image);
 

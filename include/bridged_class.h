@@ -15,6 +15,7 @@ public:
   napi_ref constructor;
   napi_ref prototype;
 
+  BridgedClass() {}
   BridgedClass(napi_env env, std::string name);
 };
 

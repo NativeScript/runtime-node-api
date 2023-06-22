@@ -26,6 +26,7 @@ public:
   BridgedClass *getBridgedClass(napi_env env, std::string class_name);
   MethodCif *getMethodCif(Method method);
   napi_value getObject(napi_env env, id object);
+  void registerClass(napi_env env, napi_value constructor);
 };
 
 #endif /* OBJC_BRIDGE_DATA_H */

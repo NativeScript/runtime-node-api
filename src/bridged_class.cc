@@ -307,6 +307,19 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     return;
   }
 
+  napi_value classExternal;
+  NAPI_GUARD(napi_create_external(env, (void *)nativeClass, nil, nil,
+                                  &classExternal)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
+  NAPI_GUARD(
+      napi_set_named_property(env, constructor, "__class__", classExternal)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
   Class metaClass = object_getClass((id)nativeClass);
 
   // Define instance properties/methods

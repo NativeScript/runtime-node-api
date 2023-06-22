@@ -10,4 +10,5 @@ const classes = new Proxy({}, {
   },
 });
 
-export { classes, classes as default, objc };
+export { classes, objc };
+export * from "./inline_functions.js";
