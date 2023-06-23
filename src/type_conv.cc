@@ -3,6 +3,144 @@
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 
+ffi_type *typeFromStruct(const char **encoding) {
+  ffi_type *type = new ffi_type;
+  type->type = FFI_TYPE_STRUCT;
+  type->size = 0;
+  type->alignment = 0;
+  type->elements = nullptr;
+
+  std::vector<ffi_type *> elements;
+
+  (*encoding)++; // skip '{'
+
+  while (**encoding != '=') {
+    (*encoding)++;
+  } // skip name
+
+  (*encoding)++; // skip '='
+
+  while (**encoding != '}') {
+    ffi_type *elementType = getTypeForEncoding(encoding);
+    elements.push_back(elementType);
+  }
+
+  (*encoding)++; // skip '}'
+
+  type->elements =
+      (ffi_type **)malloc(sizeof(ffi_type *) * (elements.size() + 1));
+  for (int i = 0; i < elements.size(); i++) {
+    type->elements[i] = elements[i];
+  }
+  // null-terminate the array
+  type->elements[elements.size()] = nullptr;
+
+  return type;
+}
+
+ffi_type *getTypeForEncoding(const char **encoding) {
+  char first = **encoding;
+  if (first == 'r') {
+    first = *(++(*encoding));
+  }
+  switch (first) {
+  case 'c':
+    (*encoding)++;
+    return &ffi_type_schar;
+  case 'i':
+    (*encoding)++;
+    return &ffi_type_sint;
+  case 's':
+    (*encoding)++;
+    return &ffi_type_sshort;
+  case 'l':
+    (*encoding)++;
+    return &ffi_type_slong;
+  case 'q':
+    (*encoding)++;
+    return &ffi_type_sint64;
+  case 'C':
+    (*encoding)++;
+    return &ffi_type_uchar;
+  case 'I':
+    (*encoding)++;
+    return &ffi_type_uint;
+  case 'S':
+    (*encoding)++;
+    return &ffi_type_ushort;
+  case 'L':
+    (*encoding)++;
+    return &ffi_type_ulong;
+  case 'Q':
+    (*encoding)++;
+    return &ffi_type_uint64;
+  case 'f':
+    (*encoding)++;
+    return &ffi_type_float;
+  case 'd':
+    (*encoding)++;
+    return &ffi_type_double;
+  case 'B':
+    (*encoding)++;
+    return &ffi_type_uint8;
+  case 'v':
+    (*encoding)++;
+    return &ffi_type_void;
+  case '*':
+    (*encoding)++;
+    return &ffi_type_pointer;
+  case '@':
+    (*encoding)++;
+    return &ffi_type_pointer;
+  case '#':
+    (*encoding)++;
+    return &ffi_type_pointer;
+  case ':':
+    (*encoding)++;
+    return &ffi_type_pointer;
+  case '[': {
+    char c = **encoding;
+    while ((c = **encoding) >= '0' && c <= '9') {
+      (*encoding)++;
+    } // skip array size
+    while (**encoding != ']') {
+      (*encoding)++;
+    }              // skip array type
+    (*encoding)++; // skip ']'
+    return &ffi_type_pointer;
+  }
+  case '{':
+    return typeFromStruct(encoding);
+  case '(': {
+    while (**encoding != ')') {
+      (*encoding)++;
+    }              // skip types
+    (*encoding)++; // skip ')'
+    return &ffi_type_pointer;
+  }
+  case 'b': {
+    (*encoding)++;
+    char c = **encoding;
+    while ((c = **encoding) >= '0' && c <= '9') {
+      (*encoding)++;
+    } // skip bits
+    return &ffi_type_uint64;
+  }
+  case '^':
+    (*encoding)++;
+    // we don't need pointee type
+    getTypeForEncoding(encoding);
+    return &ffi_type_pointer;
+  case '?':
+    // unknown type
+    return &ffi_type_pointer;
+  default:
+    std::cout << "getTypeForEncoding unknown encoding: " << *encoding
+              << std::endl;
+    return &ffi_type_pointer;
+  }
+}
+
 JS_FROM_NATIVE(void) { return nullptr; }
 
 JS_FROM_NATIVE(objc_object) {
@@ -260,8 +398,9 @@ JS_TO_NATIVE(objc_object) {
 
     free(str);
 
-    *shouldFree = true;
-    *shouldFreeAny = true;
+    // TODO: Causes some weird crashes
+    // *shouldFree = true;
+    // *shouldFreeAny = true;
 
     return;
   }

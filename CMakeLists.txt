@@ -4,6 +4,7 @@ project(objc_bridge)
 
 set(NAME objc_bridge)
 
+set(CMAKE_C_FLAGS "-fobjective-c")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -17,8 +18,10 @@ include_directories(
 add_library(
   ${NAME}
   SHARED
+  src/objc.mm
   src/bridge.cc
   src/class.cc
+  src/closure.cc
   src/bridged_class.cc
   src/bridged_method.cc
   src/method_cif.cc

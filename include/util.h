@@ -7,4 +7,21 @@
 std::string implicitSetterSelector(std::string name);
 std::string jsifySelector(std::string selector);
 
+class sel {
+public:
+  static SEL signatureWithObjCTypes_;
+  static SEL numberOfArguments;
+  static SEL methodReturnType;
+  static SEL methodReturnLength;
+  static SEL getArgumentTypeAtIndex_;
+  static SEL frameLength;
+  static SEL release;
+};
+
+typedef id (*msgSend_signatureWithObjCTypes)(id, SEL, const char *);
+typedef unsigned long (*msgSend_numberOfArguments)(id, SEL);
+typedef const char *(*msgSend_methodReturnType)(id, SEL);
+typedef const char *(*msgSend_methodGetArgumentType)(id, SEL, unsigned int);
+typedef void (*msgSend_release)(id, SEL);
+
 #endif /* UTIL_H */

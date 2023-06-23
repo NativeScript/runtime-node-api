@@ -17,6 +17,7 @@ typedef napi_value (*js_from_native)(napi_env, void *, ffi_type *);
 typedef void (*js_to_native)(napi_env, napi_value, void *, bool *, bool *);
 typedef void (*js_free)(napi_env, void *);
 
+ffi_type *getTypeForEncoding(const char **encoding);
 js_from_native getConvFromNative(const char *encoding);
 js_to_native getConvToNative(const char *encoding);
 js_free getNativeFree(const char *encoding);

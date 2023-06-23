@@ -1,4 +1,4 @@
-import classes from "../index.js";
+import { classes } from "../index.js";
 
 const {
   NSString,

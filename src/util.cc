@@ -1,5 +1,13 @@
 #include "util.h"
 
+SEL sel::signatureWithObjCTypes_ = sel_registerName("signatureWithObjCTypes:");
+SEL sel::numberOfArguments = sel_registerName("numberOfArguments");
+SEL sel::methodReturnType = sel_registerName("methodReturnType");
+SEL sel::methodReturnLength = sel_registerName("methodReturnLength");
+SEL sel::getArgumentTypeAtIndex_ = sel_registerName("getArgumentTypeAtIndex:");
+SEL sel::frameLength = sel_registerName("frameLength");
+SEL sel::release = sel_registerName("release");
+
 std::string implicitSetterSelector(std::string name) {
   std::string setter;
   setter += "set";

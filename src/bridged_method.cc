@@ -21,18 +21,22 @@ NAPI_FUNCTION(BridgedMethod) {
   cif->avalues[0] = (void *)&self;
   cif->avalues[1] = (void *)&method->selector;
 
+  bool shouldFreeAny = false;
+  bool shouldFree[cif->argc];
+
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
+      shouldFree[i] = false;
       cif->convertArgType[i](env, cif->argv[i], cif->avalues[i + 2],
-                             &cif->shouldFree[i], &cif->shouldFreeAny);
+                             &shouldFree[i], &shouldFreeAny);
     }
   }
 
-  cif->call((void *)objc_msgSend);
+  cif->call((void *)objc_msgSend, cif->rvalue, cif->avalues);
 
-  if (cif->shouldFreeAny) {
+  if (shouldFreeAny) {
     for (unsigned int i = 0; i < cif->argc; i++) {
-      if (cif->shouldFree[i]) {
+      if (shouldFree[i]) {
         cif->freeArgValue[i](env, *((void **)cif->avalues[i + 2]));
       }
     }
@@ -58,7 +62,7 @@ NAPI_FUNCTION(BridgedGetter) {
   cif->avalues[0] = (void *)&self;
   cif->avalues[1] = (void *)&method->selector;
 
-  cif->call((void *)objc_msgSend);
+  cif->call((void *)objc_msgSend, cif->rvalue, cif->avalues);
 
   return cif->convertReturnType(env, cif->rvalue, cif->cif->rtype);
 }
@@ -81,12 +85,12 @@ NAPI_FUNCTION(BridgedSetter) {
 
   cif->avalues[0] = (void *)&self;
   cif->avalues[1] = (void *)&method->setterSelector;
-  cif->convertArgType[0](env, argv, cif->avalues[2], &cif->shouldFree[0],
-                         &cif->shouldFreeAny);
+  bool shouldFree = false;
+  cif->convertArgType[0](env, argv, cif->avalues[2], &shouldFree, &shouldFree);
 
-  cif->call((void *)objc_msgSend);
+  cif->call((void *)objc_msgSend, cif->rvalue, cif->avalues);
 
-  if (cif->shouldFreeAny) {
+  if (shouldFree) {
     cif->freeArgValue[0](env, *((void **)cif->avalues[2]));
   }
 

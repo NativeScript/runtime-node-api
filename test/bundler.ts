@@ -40,6 +40,7 @@ const plistProperties: Record<string, string | string[]> = {
   DTXcode: "1430",
   DTXcodeBuild: "14E22b",
   LSMinimumSystemVersion: "12.0",
+  NSPrincipalClass: "NSApplication",
 };
 
 let plist = `<?xml version="1.0" encoding="UTF-8"?>

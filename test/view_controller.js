@@ -1,8 +1,10 @@
 import { classes, NSMakeRect, NSMakeSize, objc } from "../index.js";
 
 const {
-  NSObject,
   NSApplication,
+  NSObject,
+  NSViewController,
+  NSView,
   NSWindow,
   NSMenu,
   NSMenuItem,
@@ -14,6 +16,8 @@ const {
   NSFontManager,
   NSStackView,
   NSString,
+  NSButton,
+  NSAlert,
 } = classes;
 
 export class ApplicationDelegate extends NSObject {
@@ -24,18 +28,6 @@ export class ApplicationDelegate extends NSObject {
   }
 
   applicationDidFinishLaunching(_notification) {
-    Window.alloc().init();
-  }
-}
-
-export class Window extends NSWindow {
-  static protocols = ["NSWindowDelegate"];
-
-  static {
-    objc.registerClass(this);
-  }
-
-  init() {
     const menu = NSMenu.alloc().init();
     NSApp.mainMenu = menu;
 
@@ -47,18 +39,41 @@ export class Window extends NSWindow {
 
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
-    super.initWithContentRectStyleMaskBackingDefer(
-      NSMakeRect(0, 0, 500, 500),
-      1 | 2 | 4 | 8,
-      2,
-      false,
+    const controller = ViewController.alloc().init();
+    const window = NSWindow.windowWithContentViewController(controller);
+
+    window.title = "NativeScript for macOS";
+
+    window.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
+      118 / 255,
+      171 / 255,
+      235 / 255,
+      1,
     );
 
-    this.title = "NativeScript for macOS";
+    window.makeKeyAndOrderFront(this);
+  }
+}
 
-    this.delegate = this;
+export class ViewController extends NSViewController {
+  static exposedMethods = {
+    "buttonClicked:": {
+      params: ["id"],
+      returns: "void",
+    },
+  };
 
-    const label = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 390, 100));
+  static {
+    objc.registerClass(this);
+  }
+
+  loadView() {
+    this.view = NSView.alloc().init();
+    this.view.frame = NSMakeRect(0, 0, 500, 500);
+
+    const label = NSTextField.alloc().initWithFrame(
+      NSMakeRect(0, 0, 390, 100),
+    );
 
     label.stringValue = "Hello, macOS";
 
@@ -96,43 +111,65 @@ export class Window extends NSWindow {
 
     const imageView = NSImageView.imageViewWithImage(image);
 
+    const button = NSButton.buttonWithTitleTargetAction(
+      "Try me!",
+      this,
+      "buttonClicked:",
+    );
+
+    button.bezelStyle = 4 /* NSRoundedBezelStyle */;
+    button.setButtonType(0 /* NSMomentaryLightButton */);
+    button.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
+      NSFont.fontWithNameSize(button.font.fontName, 20),
+      2, /* NSBoldFontMask */
+    );
+    button.sizeToFit();
+    button.setTranslatesAutoresizingMaskIntoConstraints(false);
+
+    this.button = button;
+
     vstack.addViewInGravity(
       imageView,
       2, /* NSStackViewGravityCenter */
     );
     vstack.addViewInGravity(label, 2 /* NSStackViewGravityCenter */);
+    vstack.addViewInGravity(button, 2 /* NSStackViewGravityCenter */);
 
-    this.contentView.addSubview(vstack);
+    this.view.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      this.contentView.centerXAnchor,
+      this.view.centerXAnchor,
     ).active = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      this.contentView.centerYAnchor,
+      this.view.centerYAnchor,
     ).active = true;
-
-    this.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
-      118 / 255,
-      171 / 255,
-      235 / 255,
-      1,
-    );
-
-    this.center();
-    this.makeKeyAndOrderFront(NSApp);
-    this.releasedWhenClosed = false;
-
-    return this;
   }
 
-  windowShouldClose(sender) {
-    NSApp.terminate(sender);
-    return true;
+  i = 0;
+  button;
+
+  "buttonClicked:"(_sender) {
+    try {
+      if (this.i == 0) {
+        const alert = NSAlert.alloc().init();
+        alert.icon = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+          "cursorarrow.click",
+          null,
+        );
+        alert.messageText = "Clicked for the first time!";
+        alert.runModal();
+      }
+      if (this.button) this.button.title = `Clicked ${++this.i} times`;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
 const NSApp = NSApplication.sharedApplication;
 NSApp.setActivationPolicy(0);
+
 NSApp.delegate = ApplicationDelegate.alloc().init();
+
 NSApp.activateIgnoringOtherApps(true);
 NSApp.run();
