@@ -2,7 +2,7 @@
 #define CLOSURE_H
 
 #include "ffi.h"
-#include "node_api.h"
+#include "js_native_api.h"
 #include "objc/runtime.h"
 #include "type_conv.h"
 #include <string>

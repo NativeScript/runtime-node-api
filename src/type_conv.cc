@@ -144,15 +144,18 @@ ffi_type *getTypeForEncoding(const char **encoding) {
 JS_FROM_NATIVE(void) { return nullptr; }
 
 JS_FROM_NATIVE(objc_object) {
-  NAPI_PREAMBLE
   id obj = *((id *)value);
   auto bridgeData = ObjCBridgeData::InstanceData(env);
-  return bridgeData->getObject(env, obj);
+  auto object = bridgeData->getObject(env, obj);
+  if (object == nullptr) {
+    napi_value null;
+    napi_get_null(env, &null);
+    return null;
+  }
+  return object;
 }
 
 JS_FROM_NATIVE(objc_class) {
-  NAPI_PREAMBLE
-
   Class cls = *((Class *)value);
 
   if (cls == nullptr) {
@@ -377,7 +380,7 @@ JS_TO_NATIVE(objc_object) {
 
   if (type == napi_string) {
     char *str;
-    size_t len;
+    size_t len = 0;
     NAPI_GUARD(napi_get_value_string_utf8(env, value, nullptr, len, &len)) {
       NAPI_THROW_LAST_ERROR
       return;
@@ -661,17 +664,40 @@ JS_TO_NATIVE(pointer) {
   }
 }
 
+static inline size_t getTypedArrayUnitLength(napi_typedarray_type type) {
+  switch (type) {
+  case napi_int8_array:
+  case napi_uint8_array:
+  case napi_uint8_clamped_array:
+    return 1;
+  case napi_int16_array:
+  case napi_uint16_array:
+    return 2;
+  case napi_int32_array:
+  case napi_uint32_array:
+  case napi_float32_array:
+    return 4;
+  case napi_float64_array:
+  case napi_bigint64_array:
+  case napi_biguint64_array:
+    return 8;
+  default:
+    return 0;
+  }
+}
+
 JS_TO_NATIVE(struct) {
   NAPI_PREAMBLE
 
   void *data;
-  size_t length;
-  NAPI_GUARD(napi_get_buffer_info(env, value, &data, &length)) {
+  size_t length = 0;
+  napi_typedarray_type type;
+  NAPI_GUARD(napi_get_typedarray_info(env, value, &type, &length, &data, nullptr, nullptr)) {
     NAPI_THROW_LAST_ERROR
     return;
   }
 
-  memcpy(result, data, length);
+  memcpy(result, data, length * getTypedArrayUnitLength(type));
 }
 
 js_to_native getConvToNative(const char *encoding) {

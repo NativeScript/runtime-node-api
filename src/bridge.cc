@@ -1,4 +1,7 @@
 #include "bridge.h"
+#include "class.h"
+#include "node_api_util.h"
+#include "objc_bridge_data.h"
 
 void finalize_bridge_data(napi_env env, void *data, void *hint) {
   ObjCBridgeData *bridgeData = (ObjCBridgeData *)data;

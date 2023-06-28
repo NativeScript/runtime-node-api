@@ -8,7 +8,7 @@ MethodCif::MethodCif(std::string encoding) {
       encoding.c_str());
   unsigned long numberOfArguments = ((msgSend_numberOfArguments)objc_msgSend)(
       (id)signature, sel::numberOfArguments);
-  this->argc = numberOfArguments - 2;
+  this->argc = (int)numberOfArguments - 2;
   this->argv = (napi_value *)malloc(sizeof(napi_value) * this->argc);
 
   cif = (ffi_cif *)malloc(sizeof(ffi_cif));

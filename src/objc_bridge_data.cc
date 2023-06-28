@@ -33,7 +33,7 @@ SEL release_selector = sel_registerName("release");
 typedef void (*release_fn)(id, SEL);
 
 void finalize_objc_object(napi_env env, void *data, void *hint) {
-  // std::cout << "debug: finalizing object: " << data << std::endl;
+  std::cout << "debug: finalizing object: " << data << std::endl;
   auto obj = (id)data;
   auto bridgeData = (ObjCBridgeData *)hint;
   bridgeData->object_refs.erase(obj);
@@ -41,6 +41,8 @@ void finalize_objc_object(napi_env env, void *data, void *hint) {
 }
 
 napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
+  NAPI_PREAMBLE
+  
   if (obj == nullptr) {
     return nullptr;
   }
@@ -51,6 +53,11 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
   }
 
   Class cls = object_getClass(obj);
+  
+  if (cls == nullptr) {
+    return nullptr;
+  }
+  
   bool isClass = false;
 
   if (class_isMetaClass(cls)) {
@@ -65,15 +72,30 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
     return nullptr;
   }
 
-  napi_value result;
+  napi_value result = nil;
   napi_value constructor = get_ref_value(env, bridgedCls->constructor);
+  
+  if (constructor == nullptr) {
+    return nullptr;
+  }
 
   if (isClass) {
     result = constructor;
   } else {
-    napi_new_instance(env, constructor, 0, nullptr, &result);
-    napi_wrap(env, result, (void *)obj, finalize_objc_object, (void *)this,
-              &this->object_refs[obj]);
+    NAPI_GUARD(napi_new_instance(env, constructor, 0, nullptr, &result)) {
+      NAPI_THROW_LAST_ERROR
+      return nullptr;
+    }
+    NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object, (void *)this,
+              &this->object_refs[obj])) {
+      NAPI_THROW_LAST_ERROR
+      return nullptr;
+    }
+    // FIXME: This should be fixed in Deno, its impl of napi_wrap is wrong.
+    NAPI_GUARD(napi_create_reference(env, result, 0, &this->object_refs[obj])) {
+      NAPI_THROW_LAST_ERROR
+      return nullptr;
+    }
   }
 
   return result;
@@ -141,8 +163,6 @@ std::string getEncodedType(napi_env env, napi_value value) {
 }
 
 void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
-  NAPI_PREAMBLE
-
   napi_value classExternal, prototype;
   napi_get_named_property(env, constructor, "__class__", &classExternal);
   napi_get_named_property(env, constructor, "prototype", &prototype);
@@ -162,7 +182,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     return;
   }
 
-  napi_value properties, staticProperties;
+  napi_value properties;
 
   napi_get_all_property_names(env, prototype, napi_key_own_only,
                               napi_key_skip_symbols,
@@ -244,7 +264,6 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   if (hasProtocols) {
     napi_get_named_property(env, constructor, "protocols", &protocols);
 
-    napi_value protocol;
     uint32_t i = 0;
     uint32_t length = 0;
     napi_get_array_length(env, protocols, &length);
@@ -302,7 +321,6 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   objc_registerClassPair(cls);
 
-  napi_ref constructorRef;
   napi_wrap(env, constructor, (void *)cls, nullptr, nullptr, nullptr);
 
   napi_value external;

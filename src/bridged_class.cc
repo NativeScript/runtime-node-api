@@ -16,8 +16,6 @@ SEL sel_description = sel_registerName("description");
 SEL sel_UTF8String = sel_registerName("UTF8String");
 
 NAPI_FUNCTION(CustomInspect) {
-  NAPI_PREAMBLE
-
   napi_value jsThis;
   void *data;
   size_t argc = 0;
@@ -40,7 +38,7 @@ NAPI_FUNCTION(CustomInspect) {
 SEL sel_length = sel_registerName("length");
 
 NAPI_FUNCTION(lengthCustom) {
-  napi_value jsThis, prop;
+  napi_value jsThis;
   void *data;
   napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
@@ -180,7 +178,11 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
 
     bool superHasMethod = false;
     if (superObject != nil) {
-      napi_has_named_property(env, superObject, name.c_str(), &superHasMethod);
+      NAPI_GUARD(napi_has_named_property(env, superObject, name.c_str(),
+                                         &superHasMethod)) {
+        NAPI_THROW_LAST_ERROR
+        return;
+      }
       if (superHasMethod) {
         continue;
       }
@@ -231,8 +233,21 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     NAPI_THROW_LAST_ERROR
     return;
   }
+  
+  if (nativeClass != nil) {
+    NAPI_GUARD(napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil)) {
+      NAPI_THROW_LAST_ERROR
+      return;
+    }
+  }
 
-  napi_value superConstructor, superPrototype;
+  NAPI_GUARD(
+      napi_get_named_property(env, constructor, "prototype", &prototype)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
+  napi_value superConstructor = nil, superPrototype = nil;
 
   if (!isNativeObject) {
     Class superClass = nil;
@@ -255,9 +270,16 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
       napi_inherits(env, constructor, superConstructor);
     }
   }
+  
+  napi_value classExternal;
+  NAPI_GUARD(napi_create_external(env, (void *)nativeClass, nil, nil,
+                                  &classExternal)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
 
   NAPI_GUARD(
-      napi_get_named_property(env, constructor, "prototype", &prototype)) {
+      napi_set_named_property(env, constructor, "__class__", classExternal)) {
     NAPI_THROW_LAST_ERROR
     return;
   }
@@ -299,24 +321,6 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     };
     napi_define_properties(env, prototype, 1, &property);
     napi_define_properties(env, constructor, 1, &property);
-    return;
-  }
-
-  NAPI_GUARD(napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil)) {
-    NAPI_THROW_LAST_ERROR
-    return;
-  }
-
-  napi_value classExternal;
-  NAPI_GUARD(napi_create_external(env, (void *)nativeClass, nil, nil,
-                                  &classExternal)) {
-    NAPI_THROW_LAST_ERROR
-    return;
-  }
-
-  NAPI_GUARD(
-      napi_set_named_property(env, constructor, "__class__", classExternal)) {
-    NAPI_THROW_LAST_ERROR
     return;
   }
 

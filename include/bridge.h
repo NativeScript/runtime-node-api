@@ -1,12 +1,10 @@
 #ifndef BRIDGE_H
 #define BRIDGE_H
 
-#include "class.h"
-#include "node_api_util.h"
-#include "objc_bridge_data.h"
+#include "js_native_api.h"
 
 extern "C" {
-NAPI_MODULE_REGISTER;
+napi_value napi_register_module_v1(napi_env env, napi_value exports);
 }
 
 #endif /* BRIDGE_H */

@@ -1,7 +1,7 @@
 #ifndef BRIDGED_CLASS_H
 #define BRIDGED_CLASS_H
 
-#include "node_api.h"
+#include "js_native_api.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
 #include <set>

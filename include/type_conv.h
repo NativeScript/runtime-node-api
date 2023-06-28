@@ -9,7 +9,7 @@
 #define type_conv_h
 
 #include "ffi.h"
-#include "node_api.h"
+#include "js_native_api.h"
 #include "objc/runtime.h"
 #include <iostream>
 

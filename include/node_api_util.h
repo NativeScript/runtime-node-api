@@ -1,7 +1,7 @@
 #ifndef node_api_util_h
 #define node_api_util_h
 
-#include "node_api.h"
+#include "js_native_api.h"
 #include "objc_bridge_data.h"
 
 #define NAPI_EXPORT __attribute__((visibility("default")))

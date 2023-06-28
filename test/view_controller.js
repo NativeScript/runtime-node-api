@@ -21,7 +21,7 @@ const {
 } = classes;
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate"];
+  static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
 
   static {
     objc.registerClass(this);
@@ -43,6 +43,7 @@ export class ApplicationDelegate extends NSObject {
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
+    window.delegate = this;
 
     window.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
       118 / 255,
@@ -53,11 +54,15 @@ export class ApplicationDelegate extends NSObject {
 
     window.makeKeyAndOrderFront(this);
   }
+
+  windowWillClose(_notification) {
+    NSApp.terminate(this);
+  }
 }
 
 export class ViewController extends NSViewController {
   static exposedMethods = {
-    "buttonClicked:": {
+    buttonClicked: {
       params: ["id"],
       returns: "void",
     },
@@ -66,6 +71,9 @@ export class ViewController extends NSViewController {
   static {
     objc.registerClass(this);
   }
+
+  i = 0;
+  button = null;
 
   loadView() {
     this.view = NSView.alloc().init();
@@ -114,7 +122,7 @@ export class ViewController extends NSViewController {
     const button = NSButton.buttonWithTitleTargetAction(
       "Try me!",
       this,
-      "buttonClicked:",
+      "buttonClicked",
     );
 
     button.bezelStyle = 4 /* NSRoundedBezelStyle */;
@@ -145,24 +153,18 @@ export class ViewController extends NSViewController {
     ).active = true;
   }
 
-  i = 0;
-  button;
-
-  "buttonClicked:"(_sender) {
-    try {
-      if (this.i == 0) {
-        const alert = NSAlert.alloc().init();
-        alert.icon = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
-          "cursorarrow.click",
-          null,
-        );
-        alert.messageText = "Clicked for the first time!";
-        alert.runModal();
-      }
-      if (this.button) this.button.title = `Clicked ${++this.i} times`;
-    } catch (e) {
-      console.log(e);
+  buttonClicked(_sender) {
+    if (this.i == 0) {
+      const alert = NSAlert.alloc().init();
+      alert.icon = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+        "cursorarrow.click",
+        null,
+      );
+      alert.messageText = "Clicked for the first time!";
+      alert.runModal();
     }
+
+    this.button.title = `Clicked ${++this.i} times`;
   }
 }
 

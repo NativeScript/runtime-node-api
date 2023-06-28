@@ -5,7 +5,6 @@
 #include "util.h"
 
 void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
-  NAPI_PREAMBLE
   Closure *closure = (Closure *)data;
   napi_env env = closure->env;
   auto bridgeData = ObjCBridgeData::InstanceData(env);
@@ -50,7 +49,7 @@ Closure::Closure(std::string encoding) {
 
   ((msgSend_release)objc_msgSend)(signature, sel::release);
 
-  ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, argc, rtype, atypes);
+  ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, (int)argc, rtype, atypes);
 
   if (status != FFI_OK) {
     std::cout << "ffi_prep_cif failed" << std::endl;

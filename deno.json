@@ -2,21 +2,18 @@
   "app": {
     "name": "NativeScript for macOS",
     "identifier": "com.nativescript.AppKit",
-    "entryPoint": "test/appkit.js",
+    "entryPoint": "test/view_controller.js",
     "assets": "./assets",
     "icon": "./assets/NativeScript.icns",
     "version": "0.1.0"
   },
 
   "tasks": {
-    "build-libffi": "cd libffi && rm -rf build && CC=clang CFLAGS=-w ./configure --with-pic --disable-shared --disable-docs --host=aarch64-apple-darwin --prefix $PWD/build && make install",
-    "cmake-init": "cmake -S . -B build",
-    "cmake-build": "cmake --build build --config Release",
-    "post-build": "cp ./build/libobjc_bridge.dylib ./build/objc.node",
-    "build": "rm -rf build && deno task cmake-init && deno task cmake-build && deno task post-build",
-    "test": "node test/main.js",
+    "build-libffi": "deno run -A scripts/build_libffi.ts",
+    "build": "deno run -A scripts/build.ts",
+    "bench": "node test/main.js",
     "deno": "../deno/target/release/deno run -A",
-    "bundle": "deno run -A --unstable test/bundler.ts",
+    "bundle": "deno run -A --unstable scripts/bundler.ts",
     "open-bundle": "open \"NativeScript for macOS.app\""
   },
 

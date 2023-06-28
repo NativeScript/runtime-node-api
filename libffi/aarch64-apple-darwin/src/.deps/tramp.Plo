@@ -1,6 +1,0 @@
-src/tramp.lo: ../src/tramp.c fficonfig.h \
-  /opt/homebrew/Cellar/llvm/16.0.4/lib/clang/16/include/stddef.h \
-  /opt/homebrew/Cellar/llvm/16.0.4/lib/clang/16/include/__stddef_max_align_t.h
-fficonfig.h:
-/opt/homebrew/Cellar/llvm/16.0.4/lib/clang/16/include/stddef.h:
-/opt/homebrew/Cellar/llvm/16.0.4/lib/clang/16/include/__stddef_max_align_t.h:

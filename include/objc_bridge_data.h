@@ -3,7 +3,7 @@
 
 #include "bridged_class.h"
 #include "method_cif.h"
-#include "node_api.h"
+#include "js_native_api.h"
 #include "objc/runtime.h"
 #include <map>
 #include <string>
