@@ -77,6 +77,11 @@ export class ViewController extends NSViewController {
 
   loadView() {
     this.view = NSView.alloc().init();
+  }
+
+  viewDidLoad() {
+    super.viewDidLoad();
+
     this.view.frame = NSMakeRect(0, 0, 500, 500);
 
     const label = NSTextField.alloc().initWithFrame(

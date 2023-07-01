@@ -4,6 +4,9 @@
 #include "objc_bridge_data.h"
 #include "util.h"
 
+// Bridge calls from Objective-C to JavaScript.
+// Opposite of what bridged_method.cc does - but a lot of type conversion logic
+// is reused, just in reverse.
 void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   Closure *closure = (Closure *)data;
   napi_env env = closure->env;
@@ -15,9 +18,20 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   for (int i = 2; i < cif->nargs; i++) {
     argv[i - 2] = closure->convertArgType[i](env, args[i], cif->arg_types[i]);
   }
-  napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
+  napi_status status =
+      napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
   bool shouldFree;
   closure->convertReturnType(env, result, ret, &shouldFree, &shouldFree);
+  if (status != napi_ok) {
+    napi_get_and_clear_last_exception(env, &result);
+    napi_value errstr;
+    napi_get_named_property(env, result, "stack", &errstr);
+    char errbuf[1024];
+    size_t errlen;
+    napi_get_value_string_utf8(env, errstr, errbuf, 1024, &errlen);
+    std::cout << "ObjC->JS call failed: " << errbuf << std::endl;
+    napi_throw(env, result);
+  }
 }
 
 Closure::Closure(std::string encoding) {
@@ -49,7 +63,8 @@ Closure::Closure(std::string encoding) {
 
   ((msgSend_release)objc_msgSend)(signature, sel::release);
 
-  ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, (int)argc, rtype, atypes);
+  ffi_status status =
+      ffi_prep_cif(cif, FFI_DEFAULT_ABI, (int)argc, rtype, atypes);
 
   if (status != FFI_OK) {
     std::cout << "ffi_prep_cif failed" << std::endl;

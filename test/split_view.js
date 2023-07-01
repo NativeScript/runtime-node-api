@@ -23,10 +23,12 @@ const {
   NSToolbarItem,
   NSScrollView,
   NSOutlineView,
+  NSTableColumn,
+  NSTableCellView,
 } = classes;
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
+  static protocols = ["NSApplicationDelegate"];
 
   static {
     objc.registerClass(this);
@@ -48,7 +50,6 @@ export class ApplicationDelegate extends NSObject {
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
-    window.delegate = this;
     window.styleMask = 1 | 2 | 4 | 8 | (1 << 15);
     // window.titlebarAppearsTransparent = true;
     // window.titleVisibility = 1 /* NSWindowTitleHidden */;
@@ -69,76 +70,70 @@ export class ApplicationDelegate extends NSObject {
     window.makeKeyAndOrderFront(this);
   }
 
-  windowWillClose(_notification) {
-    NSApp.terminate(this);
+  applicationShouldTerminateAfterLastWindowClosed(_sender) {
+    return true;
   }
 }
 
-export class OutlineDataSource extends NSObject {
-  static protocols = ["NSOutlineViewDataSource"];
+export class Node extends NSObject {
+  static exposedMethods = {
+    initWithSymbolTitleChildren: {
+      params: ["string", "string", "id"],
+      returns: "id",
+    },
+  };
 
   static {
     objc.registerClass(this);
   }
 
-  outlineViewNumberOfChildrenOfItem(_outlineView, item) {
-    console.log("outlineView:numberOfChildrenOfItem:", item);
-
-    if (item === null) {
-      return 2;
-    }
-
-    return 0;
+  initWithSymbolTitleChildren(symbol, title, children = []) {
+    this.symbol = symbol;
+    this.title = title;
+    this.children = children;
+    return this;
   }
-
-  outlineViewIsItemExpandable(_outlineView, item) {
-    console.log("outlineView:isItemExpandable:", item);
-    return false;
-  }
-
-  outlineViewChildOfItem(_outlineView, index, item) {
-    console.log("outlineView:child:ofItem:", index, item);
-    if (item === null) {
-      return index === 0 ? "First" : "Second";
-    }
-  }
-
-  // outlineViewObjectValueForTableColumnByItem(_outlineView, _column, item) {
-  //   console.log("outlineView:objectValueForTableColumnByItem:", item);
-  //   return item;
-  // }
 }
 
-export class OutlineViewDelegate extends NSObject {
-  static protocols = ["NSOutlineViewDelegate"];
+export class SidebarViewController extends NSViewController {
+  static protocols = ["NSOutlineViewDelegate", "NSOutlineViewDataSource"];
 
   static {
     objc.registerClass(this);
   }
 
-  outlineViewViewForTableColumnItem(_outlineView, tableColumn, item) {
-    console.log("outlineView:viewForTableColumn:item:", tableColumn, item);
-  }
-}
-
-export class LeftViewController extends NSViewController {
-  static {
-    objc.registerClass(this);
-  }
+  items = [
+    Node.new().initWithSymbolTitleChildren("icloud.fill", "Container", [
+      Node.new().initWithSymbolTitleChildren("house", "First"),
+      Node.new().initWithSymbolTitleChildren("heart", "Second"),
+      Node.new().initWithSymbolTitleChildren("star", "Third"),
+    ]),
+    Node.new().initWithSymbolTitleChildren("tray.full", "Container 2", [
+      Node.new().initWithSymbolTitleChildren("house", "First"),
+      Node.new().initWithSymbolTitleChildren("heart", "Second"),
+      Node.new().initWithSymbolTitleChildren("star", "Third"),
+    ]),
+  ];
 
   loadView() {
     const outline = NSOutlineView.alloc().init();
+
     outline.headerView = null;
     outline.indentationPerLevel = 10;
     outline.allowsColumnReordering = false;
     outline.allowsColumnResizing = false;
     outline.allowsColumnSelection = false;
     outline.allowsEmptySelection = false;
-    const delegate = OutlineViewDelegate.alloc().init();
-    const dataSource = OutlineDataSource.alloc().init();
-    outline.delegate = delegate;
-    outline.dataSource = dataSource;
-    outline.setTranslatesAutoresizingMaskIntoConstraints(false);
+    outline.rowSizeStyle = 2 /* NSTableViewRowSizeStyleMedium */;
+
+    outline.delegate = this;
+    outline.dataSource = this;
+
+    const tableColumn = NSTableColumn.alloc().initWithIdentifier("Column");
+    outline.addTableColumn(tableColumn);
+    outline.outlineTableColumn = tableColumn;
+
+    outline.expandItemExpandChildren(this.items[0], true);
 
     const scrollView = NSScrollView.alloc().init();
 
@@ -147,16 +142,80 @@ export class LeftViewController extends NSViewController {
     scrollView.borderType = 0 /* NSNoBorder */;
     scrollView.autohidesScrollers = true;
     scrollView.verticalScrollElasticity = 2;
-    scrollView.setFocusRingType(1 /* NSFocusRingTypeNone */);
     scrollView.documentView = outline;
     scrollView.drawsBackground = false;
     scrollView.setTranslatesAutoresizingMaskIntoConstraints(false);
 
     this.view = scrollView;
   }
+
+  outlineViewViewForTableColumnItem(_outlineView, _tableColumn, item) {
+    const text = NSTextField.alloc().init();
+    const imageView = item.symbol
+      ? NSImageView.imageViewWithImage(
+        NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+          item.symbol,
+          null,
+        ),
+      )
+      : NSImageView.alloc().init();
+
+    text.bordered = false;
+    text.drawsBackground = false;
+    text.stringValue = item.title;
+    text.editable = false;
+
+    const view = NSTableCellView.alloc().init();
+
+    view.textField = text;
+    view.imageView = imageView;
+
+    view.addSubview(text);
+    view.addSubview(imageView);
+
+    return view;
+  }
+
+  outlineViewNumberOfChildrenOfItem(_outlineView, item) {
+    if (item === null) {
+      return this.items.length;
+    }
+
+    return item.children.length;
+  }
+
+  outlineViewIsItemExpandable(_outlineView, item) {
+    return item !== null && item.children.length > 0;
+  }
+
+  outlineViewChildOfItem(_outlineView, index, item) {
+    if (item === null) {
+      return this.items[index];
+    }
+
+    return item.children[index];
+  }
+
+  outlineViewObjectValueForTableColumnByItem(_outlineView, _column, item) {
+    return item.title;
+  }
+
+  contentView = null;
+
+  outlineViewSelectionDidChange(_notification) {
+    const outlineView = _notification.object;
+    const item = outlineView.itemAtRow(outlineView.selectedRow);
+    if (this.contentView) {
+      this.contentView.label.stringValue = `Selected: ${item.title}`;
+    }
+  }
+
+  outlineViewShouldSelectItem(_outlineView, item) {
+    return item !== null && item.children.length === 0;
+  }
 }
 
-export class RightViewController extends NSViewController {
+export class ContentViewController extends NSViewController {
   static {
     objc.registerClass(this);
   }
@@ -184,6 +243,8 @@ export class RightViewController extends NSViewController {
     );
 
     label.sizeToFit();
+
+    this.label = label;
 
     const vstack = NSStackView.alloc().initWithFrame(
       NSMakeRect(0, 0, 500, 500),
@@ -230,23 +291,27 @@ export class SplitViewController extends NSSplitViewController {
     objc.registerClass(this);
   }
 
-  leftVc = LeftViewController.alloc().init();
-  rightVc = RightViewController.alloc().init();
+  sidebarView = SidebarViewController.alloc().init();
+  contentView = ContentViewController.alloc().init();
 
   viewDidLoad() {
     this.view.frame = NSMakeRect(0, 0, 800, 600);
 
-    const sidebarItem = NSSplitViewItem.sidebarWithViewController(this.leftVc);
+    const sidebarItem = NSSplitViewItem.sidebarWithViewController(
+      this.sidebarView,
+    );
     sidebarItem.minimumThickness = 200;
     sidebarItem.maximumThickness = 300;
     sidebarItem.canCollapse = true;
 
     const contentItem = NSSplitViewItem.contentListWithViewController(
-      this.rightVc,
+      this.contentView,
     );
 
     this.addSplitViewItem(sidebarItem);
     this.addSplitViewItem(contentItem);
+
+    this.sidebarView.contentView = this.contentView;
   }
 
   toolbarAllowedItemIdentifiers(_toolbar) {
@@ -266,8 +331,7 @@ export class SplitViewController extends NSSplitViewController {
     identifier,
     _flag,
   ) {
-    const item = NSToolbarItem.alloc().initWithItemIdentifier(identifier)
-      .retain();
+    const item = NSToolbarItem.alloc().initWithItemIdentifier(identifier);
 
     if (identifier === "NSToolbarToggleSidebarItem") {
       item.target = this;

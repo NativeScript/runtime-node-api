@@ -14,6 +14,8 @@ public:
 
   napi_ref constructor;
   napi_ref prototype;
+  napi_ref supercallPrototype;
+  napi_ref supercallConstructor;
 
   BridgedClass() {}
   BridgedClass(napi_env env, std::string name);

@@ -212,10 +212,10 @@ JS_FROM_NATIVE(slong) {
   return result;
 }
 
-JS_FROM_NATIVE(sint16) {
+JS_FROM_NATIVE(sint64) {
   napi_value result;
-  int16_t val = *((int16_t *)value);
-  napi_create_int32(env, (int32_t)val, &result);
+  int64_t val = *((int64_t *)value);
+  napi_create_int64(env, (int64_t)val, &result);
   return result;
 }
 
@@ -312,7 +312,7 @@ js_from_native getConvFromNative(const char *encoding) {
   case 'l':
     return js_from_slong;
   case 'q':
-    return js_from_sint16;
+    return js_from_sint64;
   case 'C':
     return js_from_uchar;
   case 'I':
@@ -406,6 +406,9 @@ JS_TO_NATIVE(objc_object) {
     // *shouldFreeAny = true;
 
     return;
+  } else if (type == napi_null || type == napi_undefined) {
+    *res = nil;
+    return;
   }
 
   NAPI_GUARD(napi_unwrap(env, value, (void **)res)) {
@@ -445,7 +448,7 @@ JS_TO_NATIVE(char) {
   NAPI_PREAMBLE
 
   char *res = (char *)result;
-  int32_t val;
+  int32_t val = 0;
 
   NAPI_GUARD(napi_get_value_int32(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -461,6 +464,8 @@ JS_TO_NATIVE(sint) {
 
   int32_t *res = (int32_t *)result;
 
+  *res = 0;
+
   NAPI_GUARD(napi_get_value_int32(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0;
@@ -472,7 +477,7 @@ JS_TO_NATIVE(sshort) {
   NAPI_PREAMBLE
 
   int16_t *res = (int16_t *)result;
-  int32_t val;
+  int32_t val = 0;
 
   NAPI_GUARD(napi_get_value_int32(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -488,6 +493,8 @@ JS_TO_NATIVE(slong) {
 
   int64_t *res = (int64_t *)result;
 
+  *res = 0;
+
   NAPI_GUARD(napi_get_value_int64(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0;
@@ -495,26 +502,25 @@ JS_TO_NATIVE(slong) {
   }
 }
 
-JS_TO_NATIVE(sint16) {
+JS_TO_NATIVE(sint64) {
   NAPI_PREAMBLE
 
-  int16_t *res = (int16_t *)result;
-  int32_t val;
+  int64_t *res = (int64_t *)result;
 
-  NAPI_GUARD(napi_get_value_int32(env, value, &val)) {
+  *res = 0;
+
+  NAPI_GUARD(napi_get_value_int64(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0;
     return;
   }
-
-  *res = (int16_t)val;
 }
 
 JS_TO_NATIVE(uchar) {
   NAPI_PREAMBLE
 
   uint8_t *res = (uint8_t *)result;
-  uint32_t val;
+  uint32_t val = 0;
 
   NAPI_GUARD(napi_get_value_uint32(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -530,6 +536,8 @@ JS_TO_NATIVE(uint) {
 
   uint32_t *res = (uint32_t *)result;
 
+  *res = 0;
+
   NAPI_GUARD(napi_get_value_uint32(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0;
@@ -541,7 +549,7 @@ JS_TO_NATIVE(ushort) {
   NAPI_PREAMBLE
 
   uint16_t *res = (uint16_t *)result;
-  uint32_t val;
+  uint32_t val = 0;
 
   NAPI_GUARD(napi_get_value_uint32(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -556,7 +564,7 @@ JS_TO_NATIVE(ulong) {
   NAPI_PREAMBLE
 
   uint64_t *res = (uint64_t *)result;
-  int64_t val;
+  int64_t val = 0;
 
   NAPI_GUARD(napi_get_value_int64(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -571,7 +579,7 @@ JS_TO_NATIVE(uint64) {
   NAPI_PREAMBLE
 
   uint64_t *res = (uint64_t *)result;
-  int64_t val;
+  int64_t val = 0;
 
   NAPI_GUARD(napi_get_value_int64(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -586,7 +594,7 @@ JS_TO_NATIVE(float) {
   NAPI_PREAMBLE
 
   float *res = (float *)result;
-  double val;
+  double val = 0;
 
   NAPI_GUARD(napi_get_value_double(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -602,6 +610,8 @@ JS_TO_NATIVE(double) {
 
   double *res = (double *)result;
 
+  *res = 0;
+
   NAPI_GUARD(napi_get_value_double(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0.;
@@ -613,7 +623,7 @@ JS_TO_NATIVE(uint8) {
   NAPI_PREAMBLE
 
   uint8_t *res = (uint8_t *)result;
-  uint32_t val;
+  uint32_t val = 0;
 
   NAPI_GUARD(napi_get_value_uint32(env, value, &val)) {
     NAPI_THROW_LAST_ERROR
@@ -692,7 +702,8 @@ JS_TO_NATIVE(struct) {
   void *data;
   size_t length = 0;
   napi_typedarray_type type;
-  NAPI_GUARD(napi_get_typedarray_info(env, value, &type, &length, &data, nullptr, nullptr)) {
+  NAPI_GUARD(napi_get_typedarray_info(env, value, &type, &length, &data,
+                                      nullptr, nullptr)) {
     NAPI_THROW_LAST_ERROR
     return;
   }
@@ -715,7 +726,7 @@ js_to_native getConvToNative(const char *encoding) {
   case 'l':
     return js_to_slong;
   case 'q':
-    return js_to_sint16;
+    return js_to_sint64;
   case 'C':
     return js_to_uchar;
   case 'I':

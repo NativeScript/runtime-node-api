@@ -7,6 +7,9 @@ SEL sel::methodReturnLength = sel_registerName("methodReturnLength");
 SEL sel::getArgumentTypeAtIndex_ = sel_registerName("getArgumentTypeAtIndex:");
 SEL sel::frameLength = sel_registerName("frameLength");
 SEL sel::release = sel_registerName("release");
+SEL sel::length = sel_registerName("length");
+SEL sel::description = sel_registerName("description");
+SEL sel::UTF8String = sel_registerName("UTF8String");
 
 std::string implicitSetterSelector(std::string name) {
   std::string setter;

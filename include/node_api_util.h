@@ -28,15 +28,14 @@
   NAPI_ERROR_INFO                                                              \
   napi_throw_error(env, NULL, error_info->error_message);
 
-#ifdef DEBUG
+#ifndef DEBUG
 
 #define NAPI_GUARD(expr)                                                       \
   status = expr;                                                               \
   if (status != napi_ok) {                                                     \
     NAPI_ERROR_INFO                                                            \
-    std::cout << "Node-API returned error: " << status                         \
-              << "\nException: " << error_info->error_message << "\n\n  "      \
-              << #expr << "\n  ^^^^\n\n  "                                     \
+    std::cout << "Node-API returned error: " << status << "\n    " << #expr    \
+              << "\n    ^\n    "                                               \
               << "at " << __FILE__ << ":" << __LINE__ << std::endl;            \
   }                                                                            \
   if (status != napi_ok)

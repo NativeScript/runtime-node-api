@@ -3,6 +3,8 @@
 #include "node_api_util.h"
 #include "util.h"
 
+// Get a Bridged Class by name, creating it if it doesn't exist.
+// This is used to cache BridgedClass instances.
 BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
                                               std::string class_name) {
   auto find = this->bridged_classes[class_name];
@@ -16,6 +18,9 @@ BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
   return bridgedClass;
 }
 
+// Essentially, we cache libffi structures per unique method signature,
+// this helps us avoid the overhead of creating them on the fly for each
+// invocation.
 MethodCif *ObjCBridgeData::getMethodCif(Method method) {
   auto encoding = std::string(method_getTypeEncoding(method));
   auto find = this->method_cifs[encoding];
@@ -29,20 +34,21 @@ MethodCif *ObjCBridgeData::getMethodCif(Method method) {
   return methodCif;
 }
 
-SEL release_selector = sel_registerName("release");
-typedef void (*release_fn)(id, SEL);
-
 void finalize_objc_object(napi_env env, void *data, void *hint) {
   std::cout << "debug: finalizing object: " << data << std::endl;
   auto obj = (id)data;
   auto bridgeData = (ObjCBridgeData *)hint;
   bridgeData->object_refs.erase(obj);
-  ((release_fn)objc_msgSend)(obj, release_selector);
+  ((msgSend_release)objc_msgSend)(obj, sel::release);
 }
 
+// Get a napi_value for an Objective-C object, creating it if it doesn't exist.
+// Here we also ensure that the native object always points to the same
+// JS object, this makes sure that we only ever finalize it once.
+// Might want to consider using associated objects instead of a hashtable.
 napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
   NAPI_PREAMBLE
-  
+
   if (obj == nullptr) {
     return nullptr;
   }
@@ -53,11 +59,11 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
   }
 
   Class cls = object_getClass(obj);
-  
+
   if (cls == nullptr) {
     return nullptr;
   }
-  
+
   bool isClass = false;
 
   if (class_isMetaClass(cls)) {
@@ -74,7 +80,7 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
 
   napi_value result = nil;
   napi_value constructor = get_ref_value(env, bridgedCls->constructor);
-  
+
   if (constructor == nullptr) {
     return nullptr;
   }
@@ -86,8 +92,8 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
-    NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object, (void *)this,
-              &this->object_refs[obj])) {
+    NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object,
+                         (void *)this, &this->object_refs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
@@ -160,6 +166,49 @@ std::string getEncodedType(napi_env env, napi_value value) {
     napi_throw_error(env, nullptr, "Invalid type");
     return "v";
   }
+}
+
+void addProtocol(
+    Class cls, Protocol *p,
+    std::unordered_map<std::string, std::pair<SEL, std::string>> &methodMap) {
+  class_addProtocol(cls, p);
+
+  unsigned int methodCount = 0;
+
+  auto methods =
+      protocol_copyMethodDescriptionList(p, false, true, &methodCount);
+
+  for (uint32_t i = 0; i < methodCount; i++) {
+    auto method = methods[i];
+    SEL selector = method.name;
+    std::string name = sel_getName(selector);
+    name = jsifySelector(name);
+    methodMap[name] = std::make_pair(selector, std::string(method.types));
+  }
+
+  free(methods);
+
+  methods = protocol_copyMethodDescriptionList(p, true, true, &methodCount);
+
+  for (uint32_t i = 0; i < methodCount; i++) {
+    auto method = methods[i];
+    SEL selector = method.name;
+    std::string name = sel_getName(selector);
+    name = jsifySelector(name);
+    methodMap[name] = std::make_pair(selector, std::string(method.types));
+  }
+
+  free(methods);
+
+  unsigned int protocolsCount = 0;
+
+  auto protocols = protocol_copyProtocolList(p, &protocolsCount);
+
+  for (uint32_t i = 0; i < protocolsCount; i++) {
+    addProtocol(cls, protocols[i], methodMap);
+  }
+
+  free((void *)protocols);
 }
 
 void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
@@ -274,18 +323,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
       Protocol *p = objc_getProtocol(name_buf);
 
       if (p != nullptr) {
-        class_addProtocol(cls, p);
-
-        auto methods =
-            protocol_copyMethodDescriptionList(p, false, true, &methodCount);
-
-        for (uint32_t i = 0; i < methodCount; i++) {
-          auto method = methods[i];
-          SEL selector = method.name;
-          std::string name = sel_getName(selector);
-          name = jsifySelector(name);
-          methodMap[name] = std::make_pair(selector, std::string(method.types));
-        }
+        addProtocol(cls, p, methodMap);
       } else {
         std::cout << "Failed to find protocol: " << name_buf << std::endl;
       }
@@ -321,6 +359,11 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   objc_registerClassPair(cls);
 
+  void *alreadyWrapped;
+  napi_unwrap(env, constructor, &alreadyWrapped);
+  if (alreadyWrapped != nullptr) {
+    napi_remove_wrap(env, constructor, &alreadyWrapped);
+  }
   napi_wrap(env, constructor, (void *)cls, nullptr, nullptr, nullptr);
 
   napi_value external;

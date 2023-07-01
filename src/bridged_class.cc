@@ -5,16 +5,83 @@
 
 NAPI_FUNCTION(BridgedConstructor) {
   NAPI_CALLBACK_BEGIN(0)
+
+  // In case of JS classes that inherit from ObjC classes,
+  // We inherit from a special constructor/prototype that will make calls
+  // using objc_msgSendSuper instead of objc_msgSend. This is necessary
+  // to support super.method() calls from JS.
+
+  napi_value newTarget, targetPrototype, global, Object, setPrototypeOf,
+      getPrototypeOf, targetPrototypeConstructor, targetBase,
+      targetBaseConstructor;
+
+  napi_get_global(env, &global);
+  napi_get_named_property(env, global, "Object", &Object);
+  napi_get_named_property(env, Object, "setPrototypeOf", &setPrototypeOf);
+
+  napi_get_new_target(env, cbinfo, &newTarget);
+  // const targetPrototype = newTarget.prototype;
+  napi_get_named_property(env, newTarget, "prototype", &targetPrototype);
+
+  BridgedClass *bridgedClass = (BridgedClass *)data;
+  napi_value originalConstructor =
+      get_ref_value(env, bridgedClass->constructor);
+
+  bool isEqual = false;
+  // const targetPrototypeConstructor = targetPrototype.constructor;
+  napi_get_named_property(env, targetPrototype, "constructor",
+                          &targetPrototypeConstructor);
+  // isEqual = originalConstructor === targetPrototype.constructor;
+  napi_strict_equals(env, originalConstructor, targetPrototypeConstructor,
+                     &isEqual);
+
+  while (!isEqual) {
+    // const targetBase = Object.getPrototypeOf(targetPrototype);
+    napi_get_prototype(env, targetPrototype, &targetBase);
+    napi_valuetype type;
+    napi_typeof(env, targetBase, &type);
+    // if (targetBase === null) break;
+    if (type == napi_null) {
+      break;
+    }
+
+    // const targetBaseConstructor = targetBase.constructor;
+    napi_get_named_property(env, targetBase, "constructor",
+                            &targetBaseConstructor);
+    // isEqual = originalConstructor === targetBase.constructor;
+    napi_strict_equals(env, originalConstructor, targetBaseConstructor,
+                       &isEqual);
+
+    if (isEqual) {
+      napi_value supercallPrototype =
+          get_ref_value(env, bridgedClass->supercallPrototype);
+      napi_value supercallConstructor =
+          get_ref_value(env, bridgedClass->supercallConstructor);
+      // Object.setPrototypeOf(targetPrototype, supercallPrototype);
+      NAPI_GUARD(napi_call_function(
+          env, global, setPrototypeOf, 2,
+          (napi_value[]){targetPrototype, supercallPrototype},
+          NULL)){NAPI_THROW_LAST_ERROR}
+
+      // Object.setPrototypeOf(targetPrototype.constructor,
+      // supercallConstructor);
+      NAPI_GUARD(napi_call_function(
+          env, global, setPrototypeOf, 2,
+          (napi_value[]){targetPrototypeConstructor, supercallConstructor},
+          NULL)) {
+        NAPI_THROW_LAST_ERROR
+      }
+      break;
+    }
+
+    targetPrototype = targetBase;
+  }
+
   return jsThis;
 }
 
-typedef id (*msgSend_description)(id, SEL);
-typedef char *(*msgSend_UTF8String)(id, SEL);
-typedef unsigned long (*msgSend_length)(id, SEL);
-
-SEL sel_description = sel_registerName("description");
-SEL sel_UTF8String = sel_registerName("UTF8String");
-
+// Used to display the description of a native object in console.log.
+// It's just implementation of nodejs.util.inspect.custom.
 NAPI_FUNCTION(CustomInspect) {
   napi_value jsThis;
   void *data;
@@ -25,9 +92,9 @@ NAPI_FUNCTION(CustomInspect) {
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
-  id description = ((msgSend_description)objc_msgSend)(self, sel_description);
+  id description = ((msgSend_description)objc_msgSend)(self, sel::description);
   char *descriptionString =
-      ((msgSend_UTF8String)objc_msgSend)(description, sel_UTF8String);
+      ((msgSend_UTF8String)objc_msgSend)(description, sel::UTF8String);
 
   napi_value result;
   napi_create_string_utf8(env, descriptionString, NAPI_AUTO_LENGTH, &result);
@@ -35,23 +102,25 @@ NAPI_FUNCTION(CustomInspect) {
   return result;
 }
 
-SEL sel_length = sel_registerName("length");
-
+// TODO: Remove this function at some point
 NAPI_FUNCTION(lengthCustom) {
   napi_value jsThis;
   void *data;
   napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
-  unsigned long length = ((msgSend_length)objc_msgSend)(self, sel_length);
+  unsigned long length = ((msgSend_length)objc_msgSend)(self, sel::length);
   napi_value result;
   napi_create_int64(env, length, &result);
   return result;
 }
 
+// Common function used to define Objective-C properties & methods on a JS
+// constructor/prototype. This is used for both the main constructor/prototype,
+// as well as supercall constructor/prototype.
 void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
-                      Class nativeClass, napi_value superObject,
-                      napi_value object) {
+                      Class nativeClass, napi_value object,
+                      napi_value superObject, bool supercall) {
   NAPI_PREAMBLE
 
   unsigned int count, actualCount;
@@ -121,9 +190,11 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
     desc.name = nil;
     desc.method = nil;
     desc.value = nil;
-    desc.attributes = napi_enumerable;
+    desc.attributes =
+        (napi_property_attributes)(napi_enumerable | napi_configurable);
 
     auto bm = new BridgedMethod(bridgeData, getterSel, setterSel, property);
+    bm->supercall = supercall;
     desc.data = (void *)bm;
 
     bm->method = getterMethod;
@@ -193,11 +264,12 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
     desc.utf8name = (&*result.first)->c_str();
     desc.name = nil;
     auto bm = new BridgedMethod(bridgeData, sel, method);
+    bm->supercall = supercall;
     desc.data = (void *)bm;
     desc.getter = nil;
     desc.setter = nil;
     desc.value = nil;
-    desc.attributes = napi_enumerable;
+    desc.attributes = (napi_property_attributes)(napi_enumerable);
     desc.method = JS_BridgedMethod;
 
     NAPI_GUARD(napi_define_properties(env, object, 1, &desc)) {
@@ -207,6 +279,14 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
   }
 }
 
+// Bridge an Objective-C class to JavaScript on the fly. Runtime introspection
+// is used to determine the class's properties and methods.
+// In an overview, we define two versions of same class. One is the "normal"
+// one, and the other is the "supercall" one. The supercall one is used to call
+// superclasses' methods. The normal one is used to call the class's own
+// methods. The supercall one is used automatically when the normal one is
+// extended by a JS class.
+// Every Bridged Class extends the NativeObject class.
 BridgedClass::BridgedClass(napi_env env, std::string name) {
   Class nativeClass = objc_getClass(name.c_str());
 
@@ -221,21 +301,29 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   this->name = name;
   this->nativeClass = nativeClass;
 
-  napi_value constructor, prototype;
+  napi_value constructor, prototype, supercallConstructor, supercallPrototype;
 
   NAPI_PREAMBLE
 
   auto bridgeData = ObjCBridgeData::InstanceData(env);
 
   NAPI_GUARD(napi_define_class(env, name.c_str(), name.length(),
-                               JS_BridgedConstructor, nil, 0, nil,
+                               JS_BridgedConstructor, (void *)this, 0, nil,
                                &constructor)) {
     NAPI_THROW_LAST_ERROR
     return;
   }
-  
+
+  NAPI_GUARD(napi_define_class(env, name.c_str(), name.length(),
+                               JS_BridgedConstructor, (void *)this, 0, nil,
+                               &supercallConstructor)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
   if (nativeClass != nil) {
-    NAPI_GUARD(napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil)) {
+    NAPI_GUARD(
+        napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil)) {
       NAPI_THROW_LAST_ERROR
       return;
     }
@@ -247,7 +335,14 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     return;
   }
 
-  napi_value superConstructor = nil, superPrototype = nil;
+  NAPI_GUARD(napi_get_named_property(env, supercallConstructor, "prototype",
+                                     &supercallPrototype)) {
+    NAPI_THROW_LAST_ERROR
+    return;
+  }
+
+  napi_value superConstructor = nil, superPrototype = nil,
+             superConstructorSupercall = nil, superPrototypeSupercall = nil;
 
   if (!isNativeObject) {
     Class superClass = nil;
@@ -268,9 +363,14 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
       superConstructor = get_ref_value(env, superCls->constructor);
       superPrototype = get_ref_value(env, superCls->prototype);
       napi_inherits(env, constructor, superConstructor);
+      superConstructorSupercall =
+          get_ref_value(env, superCls->supercallConstructor);
+      superPrototypeSupercall =
+          get_ref_value(env, superCls->supercallPrototype);
+      napi_inherits(env, supercallConstructor, superConstructorSupercall);
     }
   }
-  
+
   napi_value classExternal;
   NAPI_GUARD(napi_create_external(env, (void *)nativeClass, nil, nil,
                                   &classExternal)) {
@@ -286,6 +386,8 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
 
   this->constructor = make_ref(env, constructor);
   this->prototype = make_ref(env, prototype);
+  this->supercallConstructor = make_ref(env, supercallConstructor);
+  this->supercallPrototype = make_ref(env, supercallPrototype);
 
   const napi_property_descriptor prop = {
       .utf8name = "lengthCustom",
@@ -301,6 +403,7 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   napi_define_properties(env, prototype, 1, &prop);
 
   if (isNativeObject) {
+    // Create Symbol.for("nodejs.util.inspect.custom")
     napi_value global, Symbol, SymbolFor, customInspect, symbolString;
     napi_get_global(env, &global);
     napi_get_named_property(env, global, "Symbol", &Symbol);
@@ -309,6 +412,8 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
                             &symbolString);
     napi_call_function(env, global, SymbolFor, 1, &symbolString,
                        &customInspect);
+
+    // Define custom inspect property.
     const napi_property_descriptor property = {
         .utf8name = nil,
         .name = customInspect,
@@ -321,13 +426,25 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
     };
     napi_define_properties(env, prototype, 1, &property);
     napi_define_properties(env, constructor, 1, &property);
+    napi_define_properties(env, supercallPrototype, 1, &property);
+    napi_define_properties(env, supercallConstructor, 1, &property);
     return;
   }
 
+  // Meta Class is used to look up class methods/properties.
   Class metaClass = object_getClass((id)nativeClass);
 
   // Define instance properties/methods
-  defineProperties(env, bridgeData, nativeClass, superPrototype, prototype);
+  defineProperties(env, bridgeData, nativeClass, prototype, superPrototype,
+                   false);
   // Define class properties/methods
-  defineProperties(env, bridgeData, metaClass, superConstructor, constructor);
+  defineProperties(env, bridgeData, metaClass, constructor, superConstructor,
+                   false);
+
+  // Define instance properties/methods for supercall
+  defineProperties(env, bridgeData, nativeClass, supercallPrototype,
+                   superPrototype, true);
+  // Define class properties/methods for supercall
+  defineProperties(env, bridgeData, metaClass, supercallConstructor,
+                   superConstructor, true);
 }

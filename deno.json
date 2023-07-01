@@ -2,7 +2,7 @@
   "app": {
     "name": "NativeScript for macOS",
     "identifier": "com.nativescript.AppKit",
-    "entryPoint": "test/view_controller.js",
+    "entryPoint": "test/split_view.js",
     "assets": "./assets",
     "icon": "./assets/NativeScript.icns",
     "version": "0.1.0"

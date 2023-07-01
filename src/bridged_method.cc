@@ -18,9 +18,6 @@ NAPI_FUNCTION(BridgedMethod) {
   size_t argc = cif->argc;
   napi_get_cb_info(env, cbinfo, &argc, cif->argv, &jsThis, nullptr);
 
-  // void *avalues[cif->cif->nargs];
-  // char rvalue[cif->rvalueLength];
-
   void **avalues = cif->avalues;
   void *rvalue = cif->rvalue;
 
@@ -33,19 +30,25 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      // avalues[i + 2] = malloc(cif->cif->arg_types[i + 2]->size);
       cif->convertArgType[i](env, cif->argv[i], avalues[i + 2], &shouldFree[i],
                              &shouldFreeAny);
     }
   }
 
-  cif->call((void *)objc_msgSend, rvalue, avalues);
+  if (!method->supercall) {
+    cif->call((void *)objc_msgSend, rvalue, avalues);
+  } else {
+    struct objc_super superobj = {self,
+                                  class_getSuperclass(object_getClass(self))};
+    auto superobjPtr = &superobj;
+    avalues[0] = (void *)&superobjPtr;
+    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+  }
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
       cif->freeArgValue[i](env, *((void **)avalues[i + 2]));
     }
-    // free(avalues[i + 2]);
   }
 
   return cif->convertReturnType(env, rvalue, cif->cif->rtype);
@@ -71,7 +74,15 @@ NAPI_FUNCTION(BridgedGetter) {
   avalues[0] = (void *)&self;
   avalues[1] = (void *)&method->selector;
 
-  cif->call((void *)objc_msgSend, rvalue, avalues);
+  if (!method->supercall) {
+    cif->call((void *)objc_msgSend, rvalue, avalues);
+  } else {
+    struct objc_super superobj = {self,
+                                  class_getSuperclass(object_getClass(self))};
+    auto superobjPtr = &superobj;
+    avalues[0] = (void *)&superobjPtr;
+    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+  }
 
   return cif->convertReturnType(env, rvalue, cif->cif->rtype);
 }
@@ -98,11 +109,17 @@ NAPI_FUNCTION(BridgedSetter) {
   avalues[0] = (void *)&self;
   avalues[1] = (void *)&method->setterSelector;
   bool shouldFree = false;
-  // char avalue[cif->cif->arg_types[2]->size];
-  // avalues[2] = (void *)avalue;
   cif->convertArgType[0](env, argv, avalues[2], &shouldFree, &shouldFree);
 
-  cif->call((void *)objc_msgSend, &rvalue, avalues);
+  if (!method->supercall) {
+    cif->call((void *)objc_msgSend, rvalue, avalues);
+  } else {
+    struct objc_super superobj = {self,
+                                  class_getSuperclass(object_getClass(self))};
+    auto superobjPtr = &superobj;
+    avalues[0] = (void *)&superobjPtr;
+    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+  }
 
   if (shouldFree) {
     cif->freeArgValue[0](env, *((void **)avalues[2]));
