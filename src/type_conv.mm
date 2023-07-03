@@ -3,6 +3,8 @@
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 
+#import <Foundation/Foundation.h>
+
 ffi_type *typeFromStruct(const char **encoding) {
   ffi_type *type = new ffi_type;
   type->type = FFI_TYPE_STRUCT;
@@ -362,10 +364,6 @@ JS_TO_NATIVE(void) {
   *res = nullptr;
 }
 
-Class cls_NSString = objc_getClass("NSString");
-SEL sel_stringWithUTF8String = sel_registerName("stringWithUTF8String:");
-typedef id (*msg_stringWithUTF8String_)(Class, SEL, const char *);
-
 JS_TO_NATIVE(objc_object) {
   NAPI_PREAMBLE
 
@@ -396,8 +394,7 @@ JS_TO_NATIVE(objc_object) {
 
     str[len] = '\0';
 
-    *res = ((msg_stringWithUTF8String_)objc_msgSend)(
-        cls_NSString, sel_stringWithUTF8String, str);
+    *res = [NSString stringWithUTF8String:str];
 
     free(str);
 

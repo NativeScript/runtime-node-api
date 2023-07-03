@@ -28,7 +28,7 @@
   NAPI_ERROR_INFO                                                              \
   napi_throw_error(env, NULL, error_info->error_message);
 
-#ifndef DEBUG
+#ifdef DEBUG
 
 #define NAPI_GUARD(expr)                                                       \
   status = expr;                                                               \

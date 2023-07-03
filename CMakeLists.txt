@@ -70,15 +70,15 @@ include_directories(
 
 set(LIB_SOURCE_FILES
   src/objc.mm
-  src/bridge.cc
-  src/class.cc
-  src/closure.cc
-  src/bridged_class.cc
-  src/bridged_method.cc
-  src/method_cif.cc
-  src/objc_bridge_data.cc
-  src/type_conv.cc
-  src/util.cc
+  src/bridge.mm
+  src/class.mm
+  src/closure.mm
+  src/bridged_class.mm
+  src/bridged_method.mm
+  src/method_cif.mm
+  src/objc_bridge_data.mm
+  src/type_conv.mm
+  src/util.mm
 )
 
 add_library(

@@ -3,6 +3,9 @@
 #include "node_api_util.h"
 #include "util.h"
 
+#import <Foundation/Foundation.h>
+#include <objc/objc.h>
+
 // Get a Bridged Class by name, creating it if it doesn't exist.
 // This is used to cache BridgedClass instances.
 BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
@@ -294,15 +297,23 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     }
   }
 
-  uint32_t methodCount = 0;
-  auto methods = class_copyMethodList(superClassNative, &methodCount);
+  Class currentClass = superClassNative;
 
-  for (uint32_t i = 0; i < methodCount; i++) {
-    auto method = methods[i];
-    SEL selector = method_getName(method);
-    std::string name = sel_getName(selector);
-    name = jsifySelector(name);
-    methodMap[name] = std::make_pair(selector, method_getTypeEncoding(method));
+  while (currentClass != nullptr) {
+    uint32_t methodCount = 0;
+    auto methods = class_copyMethodList(currentClass, &methodCount);
+
+    for (uint32_t i = 0; i < methodCount; i++) {
+      auto method = methods[i];
+      SEL selector = method_getName(method);
+      std::string name = sel_getName(selector);
+      name = jsifySelector(name);
+      methodMap[name] =
+          std::make_pair(selector, method_getTypeEncoding(method));
+    }
+
+    free(methods);
+    currentClass = class_getSuperclass(currentClass);
   }
 
   napi_value protocols, protocol;
@@ -350,8 +361,6 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
       if (!added) {
         std::cout << "Failed to add method " << name << std::endl;
       }
-    } else if (name != "constructor") {
-      std::cout << "Failed to find selector for method: " << name << std::endl;
     }
     i++;
   }
@@ -381,5 +390,5 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 void ObjCBridgeData::unregisterObject(id object) noexcept
 {
    object_refs.erase(object);
-   ObjC::release(object);
+   [object release];
 }

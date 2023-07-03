@@ -3,6 +3,9 @@
 #include "node_api_util.h"
 #include "util.h"
 
+#import <Foundation/Foundation.h>
+#include <string>
+
 NAPI_FUNCTION(BridgedConstructor) {
   NAPI_CALLBACK_BEGIN(0)
 
@@ -92,9 +95,8 @@ NAPI_FUNCTION(CustomInspect) {
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
-  id description = ((msgSend_description)objc_msgSend)(self, sel::description);
-  char *descriptionString =
-      ((msgSend_UTF8String)objc_msgSend)(description, sel::UTF8String);
+  auto description = [self description];
+  auto descriptionString = [description UTF8String];
 
   napi_value result;
   napi_create_string_utf8(env, descriptionString, NAPI_AUTO_LENGTH, &result);
@@ -109,7 +111,7 @@ NAPI_FUNCTION(lengthCustom) {
   napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
-  unsigned long length = ((msgSend_length)objc_msgSend)(self, sel::length);
+  auto length = [self length];
   napi_value result;
   napi_create_int64(env, length, &result);
   return result;
@@ -294,7 +296,8 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   bool isNativeObject = name == NativeObjectName;
 
   if (nativeClass == nil && !isNativeObject) {
-    napi_throw_error(env, nil, "Objective-C class not found");
+    std::string msg = "Objective-C class not found: " + name;
+    napi_throw_error(env, nil, msg.c_str());
     return;
   }
 

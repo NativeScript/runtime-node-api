@@ -1,13 +1,11 @@
 #include "method_cif.h"
 #include "util.h"
+#include <Foundation/Foundation.h>
 #include <vector>
 
 MethodCif::MethodCif(std::string encoding) {
-  auto signature = ((msgSend_signatureWithObjCTypes)objc_msgSend)(
-      (id)objc_getClass("NSMethodSignature"), sel::signatureWithObjCTypes_,
-      encoding.c_str());
-  unsigned long numberOfArguments = ((msgSend_numberOfArguments)objc_msgSend)(
-      (id)signature, sel::numberOfArguments);
+  auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
+  unsigned long numberOfArguments = signature.numberOfArguments;
   this->argc = (int)numberOfArguments - 2;
   this->argv = (napi_value *)malloc(sizeof(napi_value) * this->argc);
 
@@ -15,17 +13,14 @@ MethodCif::MethodCif(std::string encoding) {
 
   unsigned int argc = (unsigned int)numberOfArguments;
 
-  const char *returnType =
-      ((msgSend_methodReturnType)objc_msgSend)(signature, sel::methodReturnType);
+  const char *returnType = signature.methodReturnType;
   this->convertReturnType = getConvFromNative(returnType);
 
   ffi_type *rtype = getTypeForEncoding(&returnType);
   ffi_type **atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argc);
 
-  unsigned long methodReturnLength = ((msgSend_numberOfArguments)objc_msgSend)(
-      signature, sel::methodReturnLength);
-  unsigned long frameLength =
-      ((msgSend_numberOfArguments)objc_msgSend)(signature, sel::frameLength);
+  unsigned long methodReturnLength = signature.methodReturnLength;
+  unsigned long frameLength = signature.frameLength;
 
   this->rvalue = malloc(methodReturnLength);
   this->rvalueLength = methodReturnLength;
@@ -40,8 +35,7 @@ MethodCif::MethodCif(std::string encoding) {
   this->shouldFreeAny = false;
 
   for (int i = 0; i < numberOfArguments; i++) {
-    const char *argenc = ((msgSend_methodGetArgumentType)objc_msgSend)(
-        signature, sel::getArgumentTypeAtIndex_, i);
+    const char *argenc = [signature getArgumentTypeAtIndex:i];
 
     const char *argenc2 = argenc;
     atypes[i] = getTypeForEncoding(&argenc2);
@@ -52,7 +46,7 @@ MethodCif::MethodCif(std::string encoding) {
     }
   }
 
-  ((msgSend_release)objc_msgSend)(signature, sel::release);
+  [signature release];
 
   ffi_status status = ffi_prep_cif(cif, FFI_DEFAULT_ABI, argc, rtype, atypes);
 

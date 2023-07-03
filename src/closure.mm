@@ -4,6 +4,8 @@
 #include "objc_bridge_data.h"
 #include "util.h"
 
+#include <Foundation/Foundation.h>
+
 // Bridge calls from Objective-C to JavaScript.
 // Opposite of what bridged_method.cc does - but a lot of type conversion logic
 // is reused, just in reverse.
@@ -35,16 +37,12 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 }
 
 Closure::Closure(std::string encoding) {
-  auto signature = ((msgSend_signatureWithObjCTypes)objc_msgSend)(
-      (id)objc_getClass("NSMethodSignature"), sel::signatureWithObjCTypes_,
-      encoding.c_str());
-  size_t argc = ((msgSend_numberOfArguments)objc_msgSend)(
-      signature, sel::numberOfArguments);
+  auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
+  size_t argc = signature.numberOfArguments;
 
   cif = (ffi_cif *)malloc(sizeof(ffi_cif));
 
-  const char *returnType = ((msgSend_methodReturnType)objc_msgSend)(
-      signature, sel::methodReturnType);
+  const char *returnType = signature.methodReturnType;
   this->convertReturnType = getConvToNative(returnType);
 
   ffi_type *rtype = getTypeForEncoding(&returnType);
@@ -53,15 +51,14 @@ Closure::Closure(std::string encoding) {
       (js_from_native *)malloc(sizeof(js_from_native) * argc);
 
   for (int i = 0; i < argc; i++) {
-    const char *argenc = ((msgSend_methodGetArgumentType)objc_msgSend)(
-        signature, sel::getArgumentTypeAtIndex_, i);
+    const char *argenc = [signature getArgumentTypeAtIndex:i];
 
     const char *argenc2 = argenc;
     atypes[i] = getTypeForEncoding(&argenc2);
     this->convertArgType[i] = getConvFromNative(argenc);
   }
 
-  ((msgSend_release)objc_msgSend)(signature, sel::release);
+  [signature release];
 
   ffi_status status =
       ffi_prep_cif(cif, FFI_DEFAULT_ABI, (int)argc, rtype, atypes);
