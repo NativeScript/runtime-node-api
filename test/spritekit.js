@@ -48,8 +48,6 @@ export class ApplicationDelegate extends NSObject {
     const controller = ViewController.alloc().init();
     const window = NSWindow.windowWithContentViewController(controller);
 
-    this.controller = controller;
-
     window.title = "SpriteKit";
     window.delegate = this;
 
@@ -63,23 +61,6 @@ export class ApplicationDelegate extends NSObject {
     window.setAcceptsMouseMovedEvents(true);
 
     window.makeKeyAndOrderFront(this);
-  }
-
-  windowDidResize(_notification) {
-    this.controller.view.frame = NSMakeRect(
-      0,
-      0,
-      new Float64Array(this.controller.view.window.frame)[2],
-      new Float64Array(this.controller.view.window.frame)[3],
-    );
-    this.controller.view.scene.size = NSMakeSize(
-      new Float64Array(this.controller.view.window.frame)[2],
-      new Float64Array(this.controller.view.window.frame)[3],
-    );
-    this.controller.view.scene.indicator.size = NSMakeSize(
-      new Float64Array(this.controller.view.window.frame)[2],
-      22,
-    );
   }
 
   windowWillClose(_notification) {

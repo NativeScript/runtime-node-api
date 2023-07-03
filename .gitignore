@@ -9,5 +9,5 @@ NativeScript for macOS.app/
 libffi/build_*
 libffi/darwin_*
 libffi/x86_64-*
-/compile_commands.json
+compile_commands.json
 .cache/

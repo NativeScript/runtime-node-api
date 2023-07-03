@@ -66,6 +66,7 @@ message(STATUS "SDK = ${CMAKE_OSX_SYSROOT}")
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/libffi/${LIBFFI_BUILD}/include
+  /Library/Developer/CommandLineTools/usr/include
 )
 
 set(LIB_SOURCE_FILES
