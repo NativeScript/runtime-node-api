@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include "objc/message.h"
 #include "objc/runtime.h"
 #include <string>
 
@@ -29,5 +30,12 @@ typedef void (*msgSend_release)(id, SEL);
 typedef id (*msgSend_description)(id, SEL);
 typedef char *(*msgSend_UTF8String)(id, SEL);
 typedef unsigned long (*msgSend_length)(id, SEL);
+
+class ObjC {
+public:
+  static void release(id object) noexcept {
+    ((msgSend_release)objc_msgSend)(object, sel::release);
+  }
+};
 
 #endif /* UTIL_H */

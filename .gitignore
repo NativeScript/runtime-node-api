@@ -8,3 +8,5 @@ NativeScript for macOS.app/
 *.dylib
 libffi/build_*
 libffi/darwin_*
+libffi/x86_64-*
+.cache/

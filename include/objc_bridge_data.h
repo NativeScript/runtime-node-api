@@ -2,8 +2,8 @@
 #define OBJC_BRIDGE_DATA_H
 
 #include "bridged_class.h"
-#include "method_cif.h"
 #include "js_native_api.h"
+#include "method_cif.h"
 #include "objc/runtime.h"
 #include <map>
 #include <string>
@@ -12,7 +12,6 @@ class ObjCBridgeData {
 public:
   std::unordered_map<std::string, BridgedClass *> bridged_classes;
   std::unordered_map<std::string, MethodCif *> method_cifs;
-  std::unordered_map<id, napi_ref> object_refs;
 
   static inline ObjCBridgeData *InstanceData(napi_env env) {
     ObjCBridgeData *bridgeData;
@@ -27,6 +26,10 @@ public:
   MethodCif *getMethodCif(Method method);
   napi_value getObject(napi_env env, id object);
   void registerClass(napi_env env, napi_value constructor);
+  void unregisterObject(id object) noexcept;
+
+private:
+  std::unordered_map<id, napi_ref> object_refs;
 };
 
 #endif /* OBJC_BRIDGE_DATA_H */

@@ -34,12 +34,11 @@ MethodCif *ObjCBridgeData::getMethodCif(Method method) {
   return methodCif;
 }
 
-void finalize_objc_object(napi_env env, void *data, void *hint) {
+void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   std::cout << "debug: finalizing object: " << data << std::endl;
-  auto obj = (id)data;
-  auto bridgeData = (ObjCBridgeData *)hint;
-  bridgeData->object_refs.erase(obj);
-  ((msgSend_release)objc_msgSend)(obj, sel::release);
+  id object = static_cast<id>(data);
+  ObjCBridgeData* bridgeData = static_cast<ObjCBridgeData *>(hint);
+  bridgeData->unregisterObject(object);
 }
 
 // Get a napi_value for an Objective-C object, creating it if it doesn't exist.
@@ -377,4 +376,10 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   bridgedClass->nativeClass = cls;
 
   this->bridged_classes[name] = bridgedClass;
+}
+
+void ObjCBridgeData::unregisterObject(id object) noexcept
+{
+   object_refs.erase(object);
+   ObjC::release(object);
 }
