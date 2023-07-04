@@ -7,6 +7,8 @@
 #include "type_conv.h"
 #include <string>
 
+namespace objc_bridge {
+
 class Closure {
 public:
   napi_env env;
@@ -21,5 +23,7 @@ public:
 
   Closure(std::string typeEncoding);
 };
+
+} // namespace objc_bridge
 
 #endif /* CLOSURE_H */

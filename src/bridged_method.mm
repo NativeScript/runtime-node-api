@@ -1,6 +1,8 @@
 #include "bridged_method.h"
 #include "node_api_util.h"
 
+namespace objc_bridge {
+
 NAPI_FUNCTION(BridgedMethod) {
   napi_value jsThis;
   BridgedMethod *method;
@@ -127,3 +129,5 @@ NAPI_FUNCTION(BridgedSetter) {
 
   return nullptr;
 }
+
+} // namespace objc_bridge

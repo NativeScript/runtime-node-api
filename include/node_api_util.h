@@ -1,5 +1,5 @@
-#ifndef node_api_util_h
-#define node_api_util_h
+#ifndef NODE_API_UTIL_H
+#define NODE_API_UTIL_H
 
 #include "js_native_api.h"
 #include "objc_bridge_data.h"
@@ -55,22 +55,26 @@
   napi_value JS_##name(napi_env env, napi_callback_info cbinfo)
 
 #define NAPI_FUNCTION_DESC(name)                                               \
-  { #name, NULL, JS_##name, NULL, NULL, NULL, napi_enumerable, NULL }
+  {                                                                            \
+#name, NULL, JS_##name, NULL, NULL, NULL, napi_enumerable, NULL            \
+  }
 
-static inline napi_ref make_ref(napi_env env, napi_value value) {
+namespace objc_bridge {
+
+inline napi_ref make_ref(napi_env env, napi_value value) {
   napi_ref ref;
   napi_create_reference(env, value, 1, &ref);
   return ref;
 }
 
-static inline napi_value get_ref_value(napi_env env, napi_ref ref) {
+inline napi_value get_ref_value(napi_env env, napi_ref ref) {
   napi_value value;
   napi_get_reference_value(env, ref, &value);
   return value;
 }
 
-static inline void napi_inherits(napi_env env, napi_value ctor,
-                                 napi_value super_ctor) {
+inline void napi_inherits(napi_env env, napi_value ctor,
+                          napi_value super_ctor) {
   napi_value global, global_object, set_proto, ctor_proto_prop,
       super_ctor_proto_prop;
   napi_value argv[2];
@@ -90,4 +94,6 @@ static inline void napi_inherits(napi_env env, napi_value ctor,
   napi_call_function(env, global, set_proto, 2, argv, NULL);
 }
 
-#endif /* node_api_util_h */
+} // namespace objc_bridge
+
+#endif /* NODE_API_UTIL_H */

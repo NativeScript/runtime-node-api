@@ -4,6 +4,8 @@
 #include "objc/runtime.h"
 #include "objc_bridge_data.h"
 
+namespace objc_bridge {
+
 napi_value JS_BridgedMethod(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedGetter(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedSetter(napi_env env, napi_callback_info cbinfo);
@@ -39,5 +41,7 @@ public:
     this->method = nullptr;
   }
 };
+
+} // namespace objc_bridge
 
 #endif /* BRIDGED_METHOD_H */

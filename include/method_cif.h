@@ -7,6 +7,8 @@
 #include "type_conv.h"
 #include <string>
 
+namespace objc_bridge {
+
 ffi_type *getTypeForEncoding(const char **encoding);
 
 class MethodCif {
@@ -31,5 +33,7 @@ public:
 
   void call(void *fnptr, void *rvalue, void **avalues);
 };
+
+} // namespace objc_bridge
 
 #endif /* METHOD_CIF_H */

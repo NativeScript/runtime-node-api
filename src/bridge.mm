@@ -3,6 +3,8 @@
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 
+using namespace objc_bridge;
+
 void finalize_bridge_data(napi_env env, void *data, void *hint) {
   ObjCBridgeData *bridgeData = (ObjCBridgeData *)data;
   delete bridgeData;

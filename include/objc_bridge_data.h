@@ -8,6 +8,8 @@
 #include <map>
 #include <string>
 
+namespace objc_bridge {
+
 class ObjCBridgeData {
 public:
   std::unordered_map<std::string, BridgedClass *> bridged_classes;
@@ -31,5 +33,7 @@ public:
 private:
   std::unordered_map<id, napi_ref> object_refs;
 };
+
+} // namespace objc_bridge
 
 #endif /* OBJC_BRIDGE_DATA_H */

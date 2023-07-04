@@ -6,6 +6,8 @@
 
 #include <Foundation/Foundation.h>
 
+namespace objc_bridge {
+
 // Bridge calls from Objective-C to JavaScript.
 // Opposite of what bridged_method.cc does - but a lot of type conversion logic
 // is reused, just in reverse.
@@ -72,3 +74,5 @@ Closure::Closure(std::string encoding) {
 
   ffi_prep_closure_loc(closure, cif, JSIMP, this, fnptr);
 }
+
+} // namespace objc_bridge

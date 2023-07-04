@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #include <objc/objc.h>
 
+namespace objc_bridge {
+
 // Get a Bridged Class by name, creating it if it doesn't exist.
 // This is used to cache BridgedClass instances.
 BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
@@ -40,7 +42,7 @@ MethodCif *ObjCBridgeData::getMethodCif(Method method) {
 void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   std::cout << "debug: finalizing object: " << data << std::endl;
   id object = static_cast<id>(data);
-  ObjCBridgeData* bridgeData = static_cast<ObjCBridgeData *>(hint);
+  ObjCBridgeData *bridgeData = static_cast<ObjCBridgeData *>(hint);
   bridgeData->unregisterObject(object);
 }
 
@@ -387,8 +389,9 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   this->bridged_classes[name] = bridgedClass;
 }
 
-void ObjCBridgeData::unregisterObject(id object) noexcept
-{
-   object_refs.erase(object);
-   [object release];
+void ObjCBridgeData::unregisterObject(id object) noexcept {
+  object_refs.erase(object);
+  [object release];
 }
+
+} // namespace objc_bridge

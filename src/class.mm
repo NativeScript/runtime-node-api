@@ -1,5 +1,7 @@
 #include "class.h"
 
+namespace objc_bridge {
+
 NAPI_FUNCTION(registerClass) {
   NAPI_CALLBACK_BEGIN(1)
   auto bridgeData = ObjCBridgeData::InstanceData(env);
@@ -28,3 +30,5 @@ NAPI_FUNCTION(getClass) {
 
   return get_ref_value(env, cls->constructor);
 }
+
+} // namespace objc_bridge

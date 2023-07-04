@@ -5,6 +5,8 @@
 
 #import <Foundation/Foundation.h>
 
+namespace objc_bridge {
+
 ffi_type *typeFromStruct(const char **encoding) {
   ffi_type *type = new ffi_type;
   type->type = FFI_TYPE_STRUCT;
@@ -798,3 +800,5 @@ js_free getNativeFree(const char *encoding) {
     return nullptr;
   }
 }
+
+} // namespace objc_bridge

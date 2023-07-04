@@ -7,6 +7,8 @@
 #include <set>
 #include <string>
 
+namespace objc_bridge {
+
 class BridgedClass {
 public:
   std::string name;
@@ -20,5 +22,7 @@ public:
   BridgedClass() {}
   BridgedClass(napi_env env, std::string name);
 };
+
+} // namespace objc_bridge
 
 #endif /* BRIDGED_CLASS_H */

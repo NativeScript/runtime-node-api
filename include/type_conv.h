@@ -5,13 +5,15 @@
 //  Created by Diljit Singh on 16/06/23.
 //
 
-#ifndef type_conv_h
-#define type_conv_h
+#ifndef TYPE_CONV_H
+#define TYPE_CONV_H
 
 #include "ffi.h"
 #include "js_native_api.h"
 #include "objc/runtime.h"
 #include <iostream>
+
+namespace objc_bridge {
 
 typedef napi_value (*js_from_native)(napi_env, void *, ffi_type *);
 typedef void (*js_to_native)(napi_env, napi_value, void *, bool *, bool *);
@@ -29,4 +31,6 @@ js_free getNativeFree(const char *encoding);
                     bool *shouldFree, bool *shouldFreeAny)
 #define JS_FREE(name) void js_free_##name(napi_env env, void *value)
 
-#endif /* type_conv_h */
+} // namespace objc_bridge
+
+#endif /* TYPE_CONV_H */

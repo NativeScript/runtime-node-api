@@ -3,6 +3,8 @@
 #include <Foundation/Foundation.h>
 #include <vector>
 
+namespace objc_bridge {
+
 MethodCif::MethodCif(std::string encoding) {
   auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
   unsigned long numberOfArguments = signature.numberOfArguments;
@@ -65,3 +67,5 @@ MethodCif::MethodCif(std::string encoding) {
 void MethodCif::call(void *fnptr, void *rvalue, void **avalues) {
   ffi_call(this->cif, FFI_FN(fnptr), rvalue, avalues);
 }
+
+} // namespace objc_bridge

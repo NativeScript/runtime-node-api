@@ -1,10 +1,14 @@
-#ifndef class_h
-#define class_h
+#ifndef CLASS_H
+#define CLASS_H
 
 #include "node_api_util.h"
-#include "stdlib.h"
+#include <cstdlib>
+
+namespace objc_bridge {
 
 NAPI_FUNCTION(registerClass);
 NAPI_FUNCTION(getClass);
 
-#endif /* class_h */
+}
+
+#endif /* CLASS_H */

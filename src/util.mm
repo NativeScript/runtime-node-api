@@ -1,5 +1,7 @@
 #include "util.h"
 
+namespace objc_bridge {
+
 std::string implicitSetterSelector(std::string name) {
   std::string setter;
   setter += "set";
@@ -24,3 +26,5 @@ std::string jsifySelector(std::string selector) {
   }
   return jsifiedSelector;
 }
+
+} // namespace objc_bridge

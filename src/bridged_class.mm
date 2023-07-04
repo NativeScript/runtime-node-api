@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #include <string>
 
+namespace objc_bridge {
+
 NAPI_FUNCTION(BridgedConstructor) {
   NAPI_CALLBACK_BEGIN(0)
 
@@ -451,3 +453,5 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   defineProperties(env, bridgeData, metaClass, supercallConstructor,
                    superConstructor, true);
 }
+
+} // namespace objc_bridge
