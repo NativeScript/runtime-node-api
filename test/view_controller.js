@@ -28,18 +28,18 @@ export class ApplicationDelegate extends NSObject {
   }
 
   applicationDidFinishLaunching(_notification) {
-    const menu = NSMenu.alloc().init();
+    const menu = NSMenu.new();
     NSApp.mainMenu = menu;
 
-    const appMenuItem = NSMenuItem.alloc().init();
+    const appMenuItem = NSMenuItem.new();
     menu.addItem(appMenuItem);
 
-    const appMenu = NSMenu.alloc().init();
+    const appMenu = NSMenu.new();
     appMenuItem.submenu = appMenu;
 
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
-    const controller = ViewController.alloc().init();
+    const controller = ViewController.new();
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
@@ -76,7 +76,7 @@ export class ViewController extends NSViewController {
   button = null;
 
   loadView() {
-    this.view = NSView.alloc().init();
+    this.view = NSView.new();
   }
 
   viewDidLoad() {
@@ -94,13 +94,13 @@ export class ViewController extends NSViewController {
     label.drawsBackground = false;
     label.editable = false;
     label.selectable = false;
-    label.alignment = 1 /* NSTextAlignmentCenter */;
+    label.alignment = NSTextAlignment.center;
     label.setTranslatesAutoresizingMaskIntoConstraints(false);
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      2, /* NSBoldFontMask */
+      NSFontTraitMask.bold,
     );
 
     label.sizeToFit();
@@ -109,9 +109,9 @@ export class ViewController extends NSViewController {
       NSMakeRect(0, 0, 500, 500),
     );
 
-    vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
-    vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
-    vstack.distribution = 0 /* NSStackViewDistributionFill */;
+    vstack.orientation = NSUserInterfaceLayoutOrientation.vertical;
+    vstack.alignment = NSLayoutAttribute.centerX;
+    vstack.distribution = NSStackViewDistribution.fill;
     vstack.spacing = 40;
     vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
 
@@ -130,23 +130,20 @@ export class ViewController extends NSViewController {
       "buttonClicked",
     );
 
-    button.bezelStyle = 4 /* NSRoundedBezelStyle */;
-    button.setButtonType(0 /* NSMomentaryLightButton */);
+    button.bezelStyle = NSBezelStyle.rounded;
+    button.setButtonType(NSButtonType.momentaryLight);
     button.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(button.font.fontName, 20),
-      2, /* NSBoldFontMask */
+      NSFontTraitMask.bold,
     );
     button.sizeToFit();
     button.setTranslatesAutoresizingMaskIntoConstraints(false);
 
     this.button = button;
 
-    vstack.addViewInGravity(
-      imageView,
-      2, /* NSStackViewGravityCenter */
-    );
-    vstack.addViewInGravity(label, 2 /* NSStackViewGravityCenter */);
-    vstack.addViewInGravity(button, 2 /* NSStackViewGravityCenter */);
+    vstack.addViewInGravity(imageView, NSStackViewGravity.center);
+    vstack.addViewInGravity(label, NSStackViewGravity.center);
+    vstack.addViewInGravity(button, NSStackViewGravity.center);
 
     this.view.addSubview(vstack);
 
@@ -160,7 +157,7 @@ export class ViewController extends NSViewController {
 
   buttonClicked(_sender) {
     if (this.i == 0) {
-      const alert = NSAlert.alloc().init();
+      const alert = NSAlert.new();
       alert.icon = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
         "cursorarrow.click",
         null,
@@ -174,9 +171,9 @@ export class ViewController extends NSViewController {
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(0);
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
 
-NSApp.delegate = ApplicationDelegate.alloc().init();
+NSApp.delegate = ApplicationDelegate.new();
 
 NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

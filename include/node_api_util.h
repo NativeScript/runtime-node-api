@@ -28,7 +28,7 @@
   NAPI_ERROR_INFO                                                              \
   napi_throw_error(env, NULL, error_info->error_message);
 
-#ifdef DEBUG
+#ifndef DEBUG
 
 #define NAPI_GUARD(expr)                                                       \
   status = expr;                                                               \
@@ -55,9 +55,7 @@
   napi_value JS_##name(napi_env env, napi_callback_info cbinfo)
 
 #define NAPI_FUNCTION_DESC(name)                                               \
-  {                                                                            \
-#name, NULL, JS_##name, NULL, NULL, NULL, napi_enumerable, NULL            \
-  }
+  { #name, NULL, JS_##name, NULL, NULL, NULL, napi_enumerable, NULL }
 
 namespace objc_bridge {
 

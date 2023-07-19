@@ -1,4 +1,5 @@
 #include "closure.h"
+#include "js_native_api_types.h"
 #include "node_api_util.h"
 #include "objc/message.h"
 #include "objc_bridge_data.h"
@@ -17,11 +18,17 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   auto bridgeData = ObjCBridgeData::InstanceData(env);
   napi_value func = get_ref_value(env, closure->func);
   napi_value thisArg = bridgeData->getObject(env, *(id *)args[0]);
+  if (thisArg == nil) {
+    NSLog(@"ObjC->JS: thisArg is nil, the JS object was probably garbage "
+          @"collected");
+  }
   napi_value result;
   napi_value argv[cif->nargs - 2];
   for (int i = 2; i < cif->nargs; i++) {
     argv[i - 2] = closure->convertArgType[i](env, args[i], cif->arg_types[i]);
   }
+  // Clear any pending exceptions before calling the function.
+  napi_get_and_clear_last_exception(env, &result);
   napi_status status =
       napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
   bool shouldFree;
@@ -29,11 +36,13 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   if (status != napi_ok) {
     napi_get_and_clear_last_exception(env, &result);
     napi_value errstr;
-    napi_get_named_property(env, result, "stack", &errstr);
-    char errbuf[1024];
+    NAPI_GUARD(napi_get_named_property(env, result, "stack", &errstr)) {
+      return;
+    }
+    char errbuf[512];
     size_t errlen;
-    napi_get_value_string_utf8(env, errstr, errbuf, 1024, &errlen);
-    std::cout << "ObjC->JS call failed: " << errbuf << std::endl;
+    napi_get_value_string_utf8(env, errstr, errbuf, 512, &errlen);
+    NSLog(@"ObjC->JS call failed: %s", errbuf);
     napi_throw(env, result);
   }
 }

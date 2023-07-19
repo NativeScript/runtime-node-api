@@ -1,5 +1,7 @@
 #include "bridged_method.h"
 #include "node_api_util.h"
+#import <Foundation/Foundation.h>
+#include <objc/runtime.h>
 
 namespace objc_bridge {
 

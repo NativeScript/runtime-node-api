@@ -42,6 +42,12 @@ typedef enum MDTypeKind : uint8_t {
   // Block type is further specification of pointer type.
   // It will also point to the signature of the block in signatures section.
   mdTypeBlock,
+  // Non-objc types.
+  mdTypeUInt128,
+  mdTypeLongDouble,
+  mdTypeVector,
+  mdTypeExtVector,
+  mdTypeComplex,
 } MDTypeKind;
 
 typedef enum MDTypeFlag : uint8_t {
@@ -60,17 +66,46 @@ typedef struct MDTypeInfo {
   MDTypeInfo *elementType;
   // For mdTypeUnion, it is list of pointers to union type members.
   std::vector<MDTypeInfo *> unionMembers;
+  // For mdTypeBlock, it points to the signature of the block in signatures
+  // section.
+  MDSectionOffset blockSignature;
+  // Size is not a part of the metadata, but its used here for convenience.
+  size_t size;
 } MDTypeInfo;
+
+typedef enum MDVariableEvalKind : uint8_t {
+  mdEvalNone,
+  mdEvalInt64,
+  mdEvalDouble,
+  mdEvalString,
+} MDVariableEvalKind;
+
+typedef struct MDVariable {
+  MDSectionOffset name;
+  MDTypeInfo *type;
+  MDVariableEvalKind evalKind;
+  void *value;
+} MDVariable;
+
+typedef struct MDEnumMember {
+  MDSectionOffset name;
+  int64_t value;
+} MDEnumMember;
+
+typedef struct MDEnum {
+  MDSectionOffset name;
+  std::vector<MDEnumMember> members;
+} MDEnum;
 
 typedef struct MDStructField {
   MDSectionOffset name;
   uint16_t offset;
-  uint16_t size;
   MDTypeInfo *type;
 } MDStructField;
 
 typedef struct MDStruct {
   MDSectionOffset name;
+  uint16_t size;
   std::vector<MDStructField> fields;
 } MDStruct;
 
@@ -78,6 +113,12 @@ typedef struct MDSignature {
   MDTypeInfo *returnType;
   std::vector<MDTypeInfo *> arguments;
 } MDSignature;
+
+typedef struct MDFunction {
+  MDSectionOffset name;
+  MDSectionOffset framework;
+  MDSectionOffset signature;
+} MDFunction;
 
 typedef enum MDMemberFlag : uint8_t {
   mdMemberFlagNull = 0,
@@ -111,11 +152,10 @@ typedef struct MDProtocol {
 } MDProtocol;
 
 // Binary serialization/deserialization interface.
-template <typename T> class MDSerde {
+template <typename T> class MDSerializer {
 public:
   virtual size_t size(T value) = 0;
   virtual void serialize(T value, void *data) = 0;
-  virtual T deserialize(void *data, size_t *offset) = 0;
 };
 
 template <class T, class U>
@@ -125,21 +165,16 @@ static inline void ptr_add(void **ptr, size_t size) {
   *ptr = (void *)(((char *)(*ptr)) + size);
 }
 
-class MDStringSerde : public MDSerde<std::string> {
+class MDStringSerde : public MDSerializer<std::string> {
 public:
   size_t size(std::string value) override { return value.size() + 1; }
 
   void serialize(std::string value, void *data) override {
     memcpy(data, value.c_str(), value.size() + 1);
   }
-
-  std::string deserialize(void *data, size_t *offset) override {
-    *offset += strlen((char *)data) + 1;
-    return std::string((char *)data);
-  }
 };
 
-class MDTypeInfoSerde : public MDSerde<MDTypeInfo *> {
+class MDTypeInfoSerde : public MDSerializer<MDTypeInfo *> {
 public:
   size_t size(MDTypeInfo *value) override {
     size_t size = 0;
@@ -162,6 +197,11 @@ public:
     case mdTypeUnion:
       // Members
       size += sizeof(MDSectionOffset) * value->unionMembers.size();
+      break;
+
+    case mdTypeBlock:
+      // Signature
+      size += sizeof(MDSectionOffset);
       break;
 
     default:
@@ -216,14 +256,17 @@ public:
       break;
     }
 
+    case mdTypeBlock: {
+      // Signature
+      MDSectionOffset signatureOffset = value->blockSignature;
+      memcpy(data, &signatureOffset, sizeof(MDSectionOffset));
+      ptr_add(&data, sizeof(MDSectionOffset));
+      break;
+    }
+
     default:
       break;
     }
-  }
-
-  MDTypeInfo *deserialize(void *data, size_t *offset) override {
-    *offset += 0;
-    return nullptr;
   }
 
   std::string encode(MDTypeInfo *type) {
@@ -276,12 +319,16 @@ public:
                encode(type->elementType) + "]";
       break;
     case mdTypeStruct:
+      // TODO
       result = "{struct_placeholder=dddd}";
       break;
     case mdTypeUnion:
+      // TODO
       result = "(union_placeholder=sS)";
       break;
     case mdTypeBlock:
+      result = "^?";
+      break;
     case mdTypePointer:
       result = "^v";
       break;
@@ -300,12 +347,207 @@ public:
     case mdTypeSelector:
       result = ":";
       break;
+    // just for type unique keys
+    case mdTypeUInt128:
+      result = "uint128";
+      break;
+    case mdTypeLongDouble:
+      result = "longdouble";
+      break;
+    case mdTypeVector:
+      result = "vector";
+      break;
+    case mdTypeExtVector:
+      result = "extvector";
+      break;
+    case mdTypeComplex:
+      result = "complex";
+      break;
     }
     return result;
   }
 };
 
-class MDSignatureSerde : public MDSerde<MDSignature *> {
+class MDStructFieldSerde : public MDSerializer<MDStructField> {
+public:
+  size_t size(MDStructField value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Offset
+    size += sizeof(uint16_t);
+    // Type
+    MDTypeInfoSerde typeSerde;
+    size += typeSerde.size(value.type);
+    return size;
+  }
+
+  void serialize(MDStructField value, void *data) override {
+    // Name
+    MDSectionOffset nameOffset = value.name;
+    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Offset
+    uint16_t offset = value.offset;
+    memcpy(data, &offset, sizeof(uint16_t));
+    ptr_add(&data, sizeof(uint16_t));
+    // Type
+    MDTypeInfoSerde typeSerde;
+    typeSerde.serialize(value.type, data);
+  }
+};
+
+class MDStructSerde : public MDSerializer<MDStruct *> {
+public:
+  size_t size(MDStruct *value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Size
+    size += sizeof(uint16_t);
+    // Fields
+    size += sizeof(MDStructField) * value->fields.size();
+    return size;
+  }
+
+  void serialize(MDStruct *value, void *data) override {
+    // Name
+    MDSectionOffset nameOffset = value->name;
+    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
+    if (!value->fields.empty()) {
+      MDSectionOffset *serializedPtr = (MDSectionOffset *)data;
+      *serializedPtr |= mdSectionOffsetNext;
+    }
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Size
+    uint16_t size = value->size;
+    memcpy(data, &size, sizeof(uint16_t));
+    ptr_add(&data, sizeof(uint16_t));
+    // Fields
+    MDStructFieldSerde fieldSerde;
+    for (size_t i = 0; i < value->fields.size(); i++) {
+      MDStructField field = value->fields[i];
+      fieldSerde.serialize(field, data);
+      if (i != value->fields.size() - 1) {
+        MDSectionOffset *serializedPtr = (MDSectionOffset *)data;
+        *serializedPtr |= mdSectionOffsetNext;
+      }
+      ptr_add(&data, fieldSerde.size(field));
+    }
+  }
+};
+
+inline size_t mdEvalKindSize(MDVariableEvalKind evalKind) {
+  switch (evalKind) {
+  case mdEvalNone:
+    return 0;
+  case mdEvalInt64:
+    return sizeof(int64_t);
+  case mdEvalDouble:
+    return sizeof(double);
+  case mdEvalString:
+    return sizeof(MDSectionOffset);
+  default:
+    return 0;
+  }
+}
+
+class MDVariableSerde : public MDSerializer<MDVariable *> {
+public:
+  size_t size(MDVariable *value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Kind
+    size += sizeof(MDTypeKind);
+    // Eval Kind
+    size += sizeof(MDVariableEvalKind);
+    if (value->evalKind == mdEvalNone) {
+      return size;
+    }
+    // Value
+    size += mdEvalKindSize(value->evalKind);
+    return size;
+  }
+
+  void serialize(MDVariable *value, void *data) override {
+    // Name
+    MDSectionOffset nameOffset = value->name;
+    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Kind
+    MDTypeKind kind = value->type->kind;
+    memcpy(data, &kind, sizeof(MDTypeKind));
+    ptr_add(&data, sizeof(MDTypeKind));
+    // Eval Kind
+    MDVariableEvalKind evalKind = value->evalKind;
+    memcpy(data, &evalKind, sizeof(MDVariableEvalKind));
+    ptr_add(&data, sizeof(MDVariableEvalKind));
+    if (value->evalKind == mdEvalNone) {
+      return;
+    }
+    // Value
+    size_t evalSize = mdEvalKindSize(value->evalKind);
+    memcpy(data, value->value, evalSize);
+    ptr_add(&data, evalSize);
+  }
+};
+
+class MDEnumMemberSerde : public MDSerializer<MDEnumMember *> {
+public:
+  size_t size(MDEnumMember *value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Value
+    size += sizeof(int64_t);
+    return size;
+  }
+
+  void serialize(MDEnumMember *value, void *data) override {
+    // Name
+    memcpy(data, &value->name, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Value
+    memcpy(data, &value->value, sizeof(int64_t));
+    ptr_add(&data, sizeof(int64_t));
+  }
+};
+
+class MDEnumSerde : public MDSerializer<MDEnum *> {
+public:
+  size_t size(MDEnum *value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Members
+    MDEnumMemberSerde memberSerde;
+    size += value->members.size() * memberSerde.size(&value->members[0]);
+    return size;
+  }
+
+  void serialize(MDEnum *value, void *data) override {
+    // Name
+    MDSectionOffset nameOffset = value->name;
+    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Members
+    size_t membersSize = value->members.size();
+    MDEnumMemberSerde memberSerde;
+    for (size_t i = 0; i < membersSize; i++) {
+      MDEnumMember member = value->members[i];
+      size_t memberSize = memberSerde.size(&member);
+      memberSerde.serialize(&member, data);
+      if (i != membersSize - 1) {
+        MDSectionOffset *serializedPtr = (MDSectionOffset *)data;
+        *serializedPtr |= mdSectionOffsetNext;
+      }
+      ptr_add(&data, memberSize);
+    }
+  }
+};
+
+class MDSignatureSerde : public MDSerializer<MDSignature *> {
 public:
   size_t size(MDSignature *value) override {
     size_t size = 0;
@@ -341,11 +583,6 @@ public:
     }
   }
 
-  MDSignature *deserialize(void *data, size_t *offset) override {
-    *offset += 0;
-    return nullptr;
-  }
-
   std::string encode(MDSignature *signature) {
     MDTypeInfoSerde typeInfoSerde;
     std::string result = typeInfoSerde.encode(signature->returnType) + "@:";
@@ -356,7 +593,36 @@ public:
   }
 };
 
-class MDMemberSerde : public MDSerde<MDMember> {
+class MDFunctionSerde : public MDSerializer<MDFunction *> {
+public:
+  size_t size(MDFunction *value) override {
+    size_t size = 0;
+    // Name
+    size += sizeof(MDSectionOffset);
+    // Framework
+    size += sizeof(MDSectionOffset);
+    // Signature
+    size += sizeof(MDSectionOffset);
+    return size;
+  }
+
+  void serialize(MDFunction *value, void *data) override {
+    // Name
+    MDSectionOffset nameOffset = value->name;
+    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Framework
+    MDSectionOffset frameworkOffset = value->framework;
+    memcpy(data, &frameworkOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // Signature
+    MDSectionOffset signatureOffset = value->signature;
+    memcpy(data, &signatureOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+  }
+};
+
+class MDMemberSerde : public MDSerializer<MDMember> {
 public:
   size_t size(MDMember value) override {
     size_t size = 0;
@@ -430,15 +696,9 @@ public:
       ptr_add(&data, sizeof(MDSectionOffset));
     }
   }
-
-  MDMember deserialize(void *data, size_t *offset) override {
-    MDMember member{};
-    *offset += 0;
-    return member;
-  }
 };
 
-class MDProtocolSerde : public MDSerde<MDProtocol *> {
+class MDProtocolSerde : public MDSerializer<MDProtocol *> {
 public:
   size_t size(MDProtocol *value) override {
     auto memberSerde = MDMemberSerde();
@@ -499,14 +759,9 @@ public:
       ptr_add(&data, sizeof(MDSectionOffset));
     }
   }
-
-  MDProtocol *deserialize(void *data, size_t *offset) override {
-    *offset += 0;
-    return nullptr;
-  }
 };
 
-template <typename T, Derived<MDSerde<T>> S>
+template <typename T, Derived<MDSerializer<T>> S>
 class MDSection : public std::unordered_map<MDSectionOffset, T> {
 public:
   size_t section_offset;
@@ -532,42 +787,75 @@ public:
 
 #define MD_HEADER_MAGIC_SIZE 4
 #define MD_HEADER_MAGIC "NSMD"
-#define MD_HEADER_VERSION_SIZE 1
+#define MD_HEADER_VERSION_SIZE 2
 #define MD_HEADER_VERSION 1
+#define MD_HEADER_SIZE (MD_HEADER_MAGIC_SIZE + MD_HEADER_VERSION_SIZE)
 
-#define MD_NUM_SECTIONS 3
+#define MD_NUM_SECTIONS 7
 
 typedef enum MDSectionID : uint8_t {
   mdSectionStrings,
-  mdSectionignatures,
+  mdSectionConstants,
+  mdSectionEnums,
+  mdSectionSignatures,
+  mdSectionFunctions,
   mdSectionProtocols,
+  // mdSectionClasses,
+  mdSectionStructs,
 } MDSectionID;
 
-class MDMetadata {
+class MDMetadataWriter {
 public:
   /// Sections
-
   MDSection<std::string, MDStringSerde> strings;
+  MDSection<MDVariable *, MDVariableSerde> constants;
+  MDSection<MDEnum *, MDEnumSerde> enums;
   MDSection<MDSignature *, MDSignatureSerde> signatures;
+  MDSection<MDFunction *, MDFunctionSerde> functions;
   MDSection<MDProtocol *, MDProtocolSerde> protocols;
+  // MDSection<MDClass *, MDClassSerde> classes;
+  MDSection<MDStruct *, MDStructSerde> structs;
 
-  MDMetadata()
+  MDMetadataWriter()
       : strings(MDStringSerde()), signatures(MDSignatureSerde()),
-        protocols(MDProtocolSerde()) {}
+        protocols(MDProtocolSerde()), enums(MDEnumSerde()),
+        constants(MDVariableSerde()), functions(MDFunctionSerde()),
+        structs(MDStructSerde()) {}
 
   std::pair<void *, size_t> serialize() {
     // Header
-    size_t size = MD_HEADER_MAGIC_SIZE + MD_HEADER_VERSION_SIZE;
+    size_t size = MD_HEADER_SIZE;
+
     // Section Offsets
-    size_t section_offsets = sizeof(MDSectionOffset) * MD_NUM_SECTIONS;
+    // Strings section is always first, offset is just after header
+    // so we don't write it here.
+    MDSectionOffset section_offsets =
+        sizeof(MDSectionOffset) * (MD_NUM_SECTIONS - 1);
     size += section_offsets;
 
     // Strings
     size += strings.section_size;
+
+    // Constants
+    size += constants.section_size;
+
+    // Enums
+    size += enums.section_size;
+
     // Signatures
     size += signatures.section_size;
+
+    // Functions
+    size += functions.section_size;
+
     // Protocols
     size += protocols.section_size;
+
+    // Classes
+    // size += classes.section_size;
+
+    // Structs
+    size += structs.section_size;
 
     void *orig_data = malloc(size);
     void *data = orig_data;
@@ -580,26 +868,74 @@ public:
     ptr_add(&data, MD_HEADER_VERSION_SIZE);
 
     // Section Offsets
-    MDSectionOffset baseSectionOffset =
-        MD_HEADER_MAGIC_SIZE + MD_HEADER_VERSION_SIZE + section_offsets;
+
+    MDSectionOffset baseSectionOffset = MD_HEADER_SIZE + section_offsets;
+
     MDSectionOffset stringsOffset = baseSectionOffset;
-    memcpy(data, &stringsOffset, sizeof(MDSectionOffset));
+    // memcpy(data, &stringsOffset, sizeof(MDSectionOffset));
+    // ptr_add(&data, sizeof(MDSectionOffset));
+
+    MDSectionOffset constantsOffset =
+        stringsOffset + (MDSectionOffset)strings.section_size;
+    memcpy(data, &constantsOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
-    MDSectionOffset signaturesOffset = stringsOffset + strings.section_size;
+
+    MDSectionOffset enumsOffset =
+        constantsOffset + (MDSectionOffset)constants.section_size;
+    memcpy(data, &enumsOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+
+    MDSectionOffset signaturesOffset =
+        enumsOffset + (MDSectionOffset)enums.section_size;
     memcpy(data, &signaturesOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
+
+    MDSectionOffset functionsOffset =
+        signaturesOffset + (MDSectionOffset)signatures.section_size;
+    memcpy(data, &functionsOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+
     MDSectionOffset protocolsOffset =
-        signaturesOffset + signatures.section_size;
+        functionsOffset + (MDSectionOffset)functions.section_size;
     memcpy(data, &protocolsOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
 
-    size_t offset = 0;
+    // MDSectionOffset classesOffset = protocolsOffset + protocols.section_size;
+    // memcpy(data, &classesOffset, sizeof(MDSectionOffset));
+    // ptr_add(&data, sizeof(MDSectionOffset));
+
+    MDSectionOffset structsOffset =
+        protocolsOffset + (MDSectionOffset)protocols.section_size;
+    memcpy(data, &structsOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
+
+    MDSectionOffset offset = 0;
 
     // Strings
     while (offset < strings.section_size) {
       std::string str = strings[offset];
       size_t serializedSize = strings.serde.size(str);
       strings.serde.serialize(str, data);
+      ptr_add(&data, serializedSize);
+      offset += serializedSize;
+    }
+
+    // Constants
+    offset = 0;
+    while (offset < constants.section_size) {
+      MDVariable *constant = constants[offset];
+      size_t serializedSize = constants.serde.size(constant);
+      constants.serde.serialize(constant, data);
+      ptr_add(&data, serializedSize);
+      offset += serializedSize;
+    }
+
+    // Enums
+    offset = 0;
+    while (offset < enums.section_size) {
+      MDEnum *enum_ = enums[offset];
+      size_t serializedSize = enums.serde.size(enum_);
+      enums.serde.serialize(enum_, data);
       ptr_add(&data, serializedSize);
       offset += serializedSize;
     }
@@ -614,6 +950,16 @@ public:
       offset += serializedSize;
     }
 
+    // Functions
+    offset = 0;
+    while (offset < functions.section_size) {
+      MDFunction *function = functions[offset];
+      size_t serializedSize = functions.serde.size(function);
+      functions.serde.serialize(function, data);
+      ptr_add(&data, serializedSize);
+      offset += serializedSize;
+    }
+
     // Protocols
     offset = 0;
     while (offset < protocols.section_size) {
@@ -624,6 +970,111 @@ public:
       offset += serializedSize;
     }
 
+    // TODO
+    // Classes
+
+    // Structs
+    offset = 0;
+    while (offset < structs.section_size) {
+      MDStruct *struct_ = structs[offset];
+      size_t serializedSize = structs.serde.size(struct_);
+      structs.serde.serialize(struct_, data);
+      ptr_add(&data, serializedSize);
+      offset += serializedSize;
+    }
+
     return std::make_pair(orig_data, size);
+  }
+};
+
+typedef char MDHeaderMagic[MD_HEADER_MAGIC_SIZE];
+
+class MDMetadataReader {
+public:
+  void *data;
+
+  MDSectionOffset stringsOffset;
+  MDSectionOffset constantsOffset;
+  MDSectionOffset enumsOffset;
+  MDSectionOffset signaturesOffset;
+  MDSectionOffset functionsOffset;
+  MDSectionOffset protocolsOffset;
+  // MDSectionOffset classesOffset;
+  MDSectionOffset structsOffset;
+
+  MDMetadataReader(void *data) : data(data) {
+    MDHeaderMagic magic;
+    memcpy(magic, data, MD_HEADER_MAGIC_SIZE);
+    if (memcmp(magic, MD_HEADER_MAGIC, MD_HEADER_MAGIC_SIZE) != 0) {
+      fprintf(stderr, "Invalid metadata header magic\n");
+      exit(1);
+    }
+    ptr_add(&data, MD_HEADER_MAGIC_SIZE);
+
+    uint16_t version;
+    memcpy(&version, data, MD_HEADER_VERSION_SIZE);
+    if (version != MD_HEADER_VERSION) {
+      fprintf(stderr, "Invalid metadata header version\n");
+      exit(1);
+    }
+    ptr_add(&data, MD_HEADER_VERSION_SIZE);
+
+    stringsOffset =
+        MD_HEADER_SIZE + sizeof(MDSectionOffset) * (MD_NUM_SECTIONS - 1);
+    constantsOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+    enumsOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+    signaturesOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+    functionsOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+    protocolsOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+    // classesOffset = *(MDSectionOffset *)data;
+    // ptr_add(&data, sizeof(MDSectionOffset));
+    structsOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
+  }
+
+  inline char *resolveString(MDSectionOffset offset) {
+    return (char *)data + stringsOffset + offset;
+  }
+
+  inline MDSectionOffset getOffset(MDSectionOffset offset) {
+    return *(MDSectionOffset *)((char *)data + offset);
+  }
+
+  inline char *getString(MDSectionOffset offset) {
+    MDSectionOffset stringOffset = getOffset(offset);
+    return resolveString(stringOffset);
+  }
+
+  inline MDTypeKind getTypeKind(MDSectionOffset offset) {
+    return *(MDTypeKind *)((char *)data + offset);
+  }
+
+  inline uint16_t getArraySize(MDSectionOffset offset) {
+    return *(uint16_t *)((char *)data + offset);
+  }
+
+  inline int64_t getEnumValue(MDSectionOffset offset) {
+    return *(int64_t *)((char *)data + offset);
+  }
+
+  inline MDMemberFlag getMemberFlag(MDSectionOffset offset) {
+    return *(MDMemberFlag *)((char *)data + offset);
+  }
+
+  inline MDVariableEvalKind getVariableEvalKind(MDSectionOffset offset) {
+    return *(MDVariableEvalKind *)((char *)data + offset);
+  }
+
+  inline double getDouble(MDSectionOffset offset) {
+    return *(double *)((char *)data + offset);
+  }
+
+  inline int64_t getInt64(MDSectionOffset offset) {
+    return *(int64_t *)((char *)data + offset);
   }
 };

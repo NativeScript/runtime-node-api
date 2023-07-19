@@ -8,6 +8,21 @@
 
 namespace objc_bridge {
 
+ObjCBridgeData::ObjCBridgeData() {
+  auto f = fopen("metadata/metadata.nsmd", "r");
+  if (f == nullptr) {
+    fprintf(stderr, "metadata.nsmd not found\n");
+    exit(1);
+  }
+  fseek(f, 0, SEEK_END);
+  auto size = ftell(f);
+  fseek(f, 0, SEEK_SET);
+  auto buffer = (uint8_t *)malloc(size);
+  fread(buffer, 1, size, f);
+  fclose(f);
+  metadata = new MDMetadataReader(buffer);
+}
+
 // Get a Bridged Class by name, creating it if it doesn't exist.
 // This is used to cache BridgedClass instances.
 BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
@@ -40,7 +55,9 @@ MethodCif *ObjCBridgeData::getMethodCif(Method method) {
 }
 
 void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
-  std::cout << "debug: finalizing object: " << data << std::endl;
+#ifdef DEBUG
+  NSLog(@"debug: finalizing object: %p", data);
+#endif
   id object = static_cast<id>(data);
   ObjCBridgeData *bridgeData = static_cast<ObjCBridgeData *>(hint);
   bridgeData->unregisterObject(object);
@@ -96,6 +113,7 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
+    // [obj retain];
     NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object,
                          (void *)this, &this->object_refs[obj])) {
       NAPI_THROW_LAST_ERROR
@@ -391,7 +409,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
 void ObjCBridgeData::unregisterObject(id object) noexcept {
   object_refs.erase(object);
-  [object release];
+  // [object release];
 }
 
 } // namespace objc_bridge

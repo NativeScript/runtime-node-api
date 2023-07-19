@@ -15,7 +15,6 @@ set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 set(EXEC_SOURCE_FILES

@@ -25,6 +25,8 @@ if (!VALID_PLATFORMS.includes(targetPlatform)) {
   );
 }
 
+const buildConfig = Deno.args.includes("debug") ? "Debug" : "Release";
+
 // Ensure we have a build directory
 await Deno.mkdir("../build").catch(() => {});
 
@@ -44,7 +46,7 @@ async function build(target: string) {
   await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} `;
 
   // Build the project
-  await $`cmake --build ../build/${target} --config Release`;
+  await $`cmake --build ../build/${target} --config ${buildConfig}`;
 
   if (target === "macos" || target === "macos-x86") {
     // Copy the built app to the build directory
@@ -56,8 +58,8 @@ async function build(target: string) {
 }
 
 const TARGET_RELEASE_FOLDERS: Record<string, string> = {
-  "ios": "Release-iphoneos",
-  "ios-sim": "Release-iphonesimulator",
+  "ios": `${buildConfig}-iphoneos`,
+  "ios-sim": `${buildConfig}-iphonesimulator`,
 };
 
 if (import.meta.main) {

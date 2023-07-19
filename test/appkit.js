@@ -23,8 +23,42 @@ export class ApplicationDelegate extends NSObject {
     objc.registerClass(this);
   }
 
+  running = true;
+
   applicationDidFinishLaunching(_notification) {
-    Window.alloc().init();
+    this.window = Window.new();
+
+    NSApp.stop(this);
+
+    this.runloopMode = NSString.stringWithUTF8String("kCFRunLoopDefaultMode")
+      .retain();
+
+    const loop = () => {
+      const event = NSApp.nextEventMatchingMaskUntilDateInModeDequeue(
+        2n ** 64n - 1n,
+        null,
+        this.runloopMode,
+        true,
+      );
+
+      if (event != null) {
+        NSApp.sendEvent(event);
+      }
+
+      if (this.running) {
+        setTimeout(loop, 10);
+      }
+    };
+
+    setTimeout(loop, 0);
+
+    setTimeout(() => {
+      console.log("[setTimeout] after 2 seconds");
+    }, 2000);
+  }
+
+  applicationWillTerminate(_notification) {
+    this.running = false;
   }
 }
 
@@ -36,13 +70,13 @@ export class Window extends NSWindow {
   }
 
   init() {
-    const menu = NSMenu.alloc().init();
+    const menu = NSMenu.new();
     NSApp.mainMenu = menu;
 
-    const appMenuItem = NSMenuItem.alloc().init();
+    const appMenuItem = NSMenuItem.new();
     menu.addItem(appMenuItem);
 
-    const appMenu = NSMenu.alloc().init();
+    const appMenu = NSMenu.new();
     appMenuItem.submenu = appMenu;
 
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
@@ -66,13 +100,13 @@ export class Window extends NSWindow {
     label.drawsBackground = false;
     label.editable = false;
     label.selectable = false;
-    label.alignment = 1 /* NSTextAlignmentCenter */;
+    label.alignment = NSTextAlignment.center;
     label.setTranslatesAutoresizingMaskIntoConstraints(false);
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      2, /* NSBoldFontMask */
+      NSFontTraitMask.bold,
     );
 
     label.sizeToFit();
@@ -81,9 +115,9 @@ export class Window extends NSWindow {
       NSMakeRect(0, 0, 500, 500),
     );
 
-    vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
-    vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
-    vstack.distribution = 0 /* NSStackViewDistributionFill */;
+    vstack.orientation = NSUserInterfaceLayoutOrientation.vertical;
+    vstack.alignment = NSLayoutAttribute.centerX;
+    vstack.distribution = NSStackViewDistribution.fill;
     vstack.spacing = 40;
     vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
 
@@ -96,11 +130,8 @@ export class Window extends NSWindow {
 
     const imageView = NSImageView.imageViewWithImage(image);
 
-    vstack.addViewInGravity(
-      imageView,
-      2, /* NSStackViewGravityCenter */
-    );
-    vstack.addViewInGravity(label, 2 /* NSStackViewGravityCenter */);
+    vstack.addViewInGravity(imageView, NSStackViewGravity.center);
+    vstack.addViewInGravity(label, NSStackViewGravity.center);
 
     this.contentView.addSubview(vstack);
 
@@ -125,14 +156,13 @@ export class Window extends NSWindow {
     return this;
   }
 
-  windowShouldClose(sender) {
-    NSApp.terminate(sender);
-    return true;
+  windowWillClose(_notification) {
+    NSApp.terminate(this);
   }
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(0);
-NSApp.delegate = ApplicationDelegate.alloc().init();
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
+NSApp.delegate = ApplicationDelegate.new();
 NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

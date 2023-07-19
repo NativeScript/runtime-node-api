@@ -1,6 +1,7 @@
 #ifndef OBJC_BRIDGE_DATA_H
 #define OBJC_BRIDGE_DATA_H
 
+#include "Metadata.h"
 #include "bridged_class.h"
 #include "js_native_api.h"
 #include "method_cif.h"
@@ -14,6 +15,9 @@ class ObjCBridgeData {
 public:
   std::unordered_map<std::string, BridgedClass *> bridged_classes;
   std::unordered_map<std::string, MethodCif *> method_cifs;
+  std::unordered_map<MDSectionOffset, napi_ref> mdValueCache;
+
+  MDMetadataReader *metadata;
 
   static inline ObjCBridgeData *InstanceData(napi_env env) {
     ObjCBridgeData *bridgeData;
@@ -29,6 +33,8 @@ public:
   napi_value getObject(napi_env env, id object);
   void registerClass(napi_env env, napi_value constructor);
   void unregisterObject(id object) noexcept;
+
+  ObjCBridgeData();
 
 private:
   std::unordered_map<id, napi_ref> object_refs;

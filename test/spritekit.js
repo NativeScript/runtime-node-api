@@ -34,18 +34,18 @@ export class ApplicationDelegate extends NSObject {
   }
 
   applicationDidFinishLaunching(_notification) {
-    const menu = NSMenu.alloc().init();
+    const menu = NSMenu.new();
     NSApp.mainMenu = menu;
 
-    const appMenuItem = NSMenuItem.alloc().init();
+    const appMenuItem = NSMenuItem.new();
     menu.addItem(appMenuItem);
 
-    const appMenu = NSMenu.alloc().init();
+    const appMenu = NSMenu.new();
     appMenuItem.submenu = appMenu;
 
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
-    const controller = ViewController.alloc().init();
+    const controller = ViewController.new();
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "SpriteKit";
@@ -280,7 +280,7 @@ export class ViewController extends NSViewController {
 
     const scene = BattlefieldScene.sceneWithSize(NSMakeSize(800, 600));
 
-    scene.scaleMode = 1 /* SKSceneScaleModeAspectFill */;
+    scene.scaleMode = SKSceneScaleMode.aspectFill;
 
     this.view.presentScene(scene);
 
@@ -292,9 +292,9 @@ export class ViewController extends NSViewController {
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(0);
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
 
-NSApp.delegate = ApplicationDelegate.alloc().init();
+NSApp.delegate = ApplicationDelegate.new();
 
 NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

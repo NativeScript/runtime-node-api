@@ -1,9 +1,12 @@
 #include "type_conv.h"
 #include "bridged_class.h"
+#include "js_native_api.h"
+#include "js_native_api_types.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 
 #import <Foundation/Foundation.h>
+#include <stdbool.h>
 
 namespace objc_bridge {
 
@@ -373,6 +376,7 @@ JS_TO_NATIVE(objc_object) {
 
   napi_valuetype type;
   napi_typeof(env, value, &type);
+
   if (type == napi_null || type == napi_undefined) {
     *res = nil;
     return;
@@ -463,8 +467,6 @@ JS_TO_NATIVE(sint) {
 
   int32_t *res = (int32_t *)result;
 
-  *res = 0;
-
   NAPI_GUARD(napi_get_value_int32(env, value, res)) {
     NAPI_THROW_LAST_ERROR
     *res = 0;
@@ -492,26 +494,22 @@ JS_TO_NATIVE(slong) {
 
   int64_t *res = (int64_t *)result;
 
-  *res = 0;
+  napi_valuetype type;
+  napi_typeof(env, value, &type);
 
-  NAPI_GUARD(napi_get_value_int64(env, value, res)) {
-    NAPI_THROW_LAST_ERROR
-    *res = 0;
-    return;
-  }
-}
-
-JS_TO_NATIVE(sint64) {
-  NAPI_PREAMBLE
-
-  int64_t *res = (int64_t *)result;
-
-  *res = 0;
-
-  NAPI_GUARD(napi_get_value_int64(env, value, res)) {
-    NAPI_THROW_LAST_ERROR
-    *res = 0;
-    return;
+  if (type == napi_bigint) {
+    bool lossless = false;
+    NAPI_GUARD(napi_get_value_bigint_int64(env, value, res, &lossless)) {
+      NAPI_THROW_LAST_ERROR
+      *res = 0;
+      return;
+    }
+  } else {
+    NAPI_GUARD(napi_get_value_int64(env, value, res)) {
+      NAPI_THROW_LAST_ERROR
+      *res = 0;
+      return;
+    }
   }
 }
 
@@ -563,30 +561,26 @@ JS_TO_NATIVE(ulong) {
   NAPI_PREAMBLE
 
   uint64_t *res = (uint64_t *)result;
-  int64_t val = 0;
 
-  NAPI_GUARD(napi_get_value_int64(env, value, &val)) {
-    NAPI_THROW_LAST_ERROR
-    *res = 0;
-    return;
+  napi_valuetype type;
+  napi_typeof(env, value, &type);
+
+  if (type == napi_bigint) {
+    bool lossless = false;
+    NAPI_GUARD(napi_get_value_bigint_uint64(env, value, res, &lossless)) {
+      NAPI_THROW_LAST_ERROR
+      *res = 0;
+      return;
+    }
+  } else {
+    int64_t val = 0;
+    NAPI_GUARD(napi_get_value_int64(env, value, &val)) {
+      NAPI_THROW_LAST_ERROR
+      *res = 0;
+      return;
+    }
+    *res = (uint64_t)val;
   }
-
-  *res = (uint64_t)val;
-}
-
-JS_TO_NATIVE(uint64) {
-  NAPI_PREAMBLE
-
-  uint64_t *res = (uint64_t *)result;
-  int64_t val = 0;
-
-  NAPI_GUARD(napi_get_value_int64(env, value, &val)) {
-    NAPI_THROW_LAST_ERROR
-    *res = 0;
-    return;
-  }
-
-  *res = (uint64_t)val;
 }
 
 JS_TO_NATIVE(float) {
@@ -637,6 +631,8 @@ JS_TO_NATIVE(bool) {
   NAPI_PREAMBLE
 
   bool *res = (bool *)result;
+
+  napi_coerce_to_bool(env, value, &value);
 
   NAPI_GUARD(napi_get_value_bool(env, value, res)) {
     NAPI_THROW_LAST_ERROR
@@ -725,7 +721,7 @@ js_to_native getConvToNative(const char *encoding) {
   case 'l':
     return js_to_slong;
   case 'q':
-    return js_to_sint64;
+    return js_to_slong;
   case 'C':
     return js_to_uchar;
   case 'I':
@@ -735,7 +731,7 @@ js_to_native getConvToNative(const char *encoding) {
   case 'L':
     return js_to_ulong;
   case 'Q':
-    return js_to_uint64;
+    return js_to_ulong;
   case 'f':
     return js_to_float;
   case 'd':
@@ -759,7 +755,7 @@ js_to_native getConvToNative(const char *encoding) {
     //    case '(':
     //      return js_to_pointer;
   case 'b':
-    return js_to_uint64;
+    return js_to_ulong;
   case '^':
     return js_to_pointer;
   case '?':
