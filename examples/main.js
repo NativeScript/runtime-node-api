@@ -7,6 +7,12 @@ const {
 
 const str = NSString.stringWithUTF8String("Hello World");
 
+const str2 = new Proxy(str, {
+  get: (target, prop) => {
+    return target[prop];
+  },
+});
+
 bench("noop", () => {});
 
 bench("[str length] (manual, direct)", () => {
@@ -15,6 +21,10 @@ bench("[str length] (manual, direct)", () => {
 
 bench("[str length] (dynamic, ffi)", () => {
   str.length;
+});
+
+bench("[str length] (dynamic, proxy)", () => {
+  str2.length;
 });
 
 await run({

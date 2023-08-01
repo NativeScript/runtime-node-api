@@ -116,7 +116,6 @@ typedef struct MDSignature {
 
 typedef struct MDFunction {
   MDSectionOffset name;
-  MDSectionOffset framework;
   MDSectionOffset signature;
 } MDFunction;
 
@@ -552,9 +551,14 @@ public:
   size_t size(MDSignature *value) override {
     size_t size = 0;
     // Return type
-    size += sizeof(MDSectionOffset);
+    auto typeInfoSerde = MDTypeInfoSerde();
+    auto returnTypeSize = typeInfoSerde.size(value->returnType);
+    size += returnTypeSize;
     // Arguments
-    size += sizeof(MDSectionOffset) * value->arguments.size();
+    for (auto arg : value->arguments) {
+      auto argTypeSize = typeInfoSerde.size(arg);
+      size += argTypeSize;
+    }
     return size;
   }
 
@@ -599,8 +603,6 @@ public:
     size_t size = 0;
     // Name
     size += sizeof(MDSectionOffset);
-    // Framework
-    size += sizeof(MDSectionOffset);
     // Signature
     size += sizeof(MDSectionOffset);
     return size;
@@ -610,10 +612,6 @@ public:
     // Name
     MDSectionOffset nameOffset = value->name;
     memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
-    // Framework
-    MDSectionOffset frameworkOffset = value->framework;
-    memcpy(data, &frameworkOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
     // Signature
     MDSectionOffset signatureOffset = value->signature;
@@ -992,6 +990,7 @@ typedef char MDHeaderMagic[MD_HEADER_MAGIC_SIZE];
 class MDMetadataReader {
 public:
   void *data;
+  size_t size;
 
   MDSectionOffset stringsOffset;
   MDSectionOffset constantsOffset;
@@ -1002,7 +1001,7 @@ public:
   // MDSectionOffset classesOffset;
   MDSectionOffset structsOffset;
 
-  MDMetadataReader(void *data) : data(data) {
+  MDMetadataReader(void *data, size_t size) : data(data), size(size) {
     MDHeaderMagic magic;
     memcpy(magic, data, MD_HEADER_MAGIC_SIZE);
     if (memcmp(magic, MD_HEADER_MAGIC, MD_HEADER_MAGIC_SIZE) != 0) {

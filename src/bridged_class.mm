@@ -1,5 +1,5 @@
 #include "bridged_class.h"
-#include "bridged_method.h"
+#include "native_call.h"
 #include "node_api_util.h"
 #include "util.h"
 

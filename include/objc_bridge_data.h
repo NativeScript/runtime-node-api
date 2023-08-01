@@ -6,16 +6,26 @@
 #include "js_native_api.h"
 #include "method_cif.h"
 #include "objc/runtime.h"
+#include <dlfcn.h>
 #include <map>
 #include <string>
 
 namespace objc_bridge {
+
+typedef struct CFunction {
+  void *fnptr;
+  MethodCif *cif;
+} CFunction;
 
 class ObjCBridgeData {
 public:
   std::unordered_map<std::string, BridgedClass *> bridged_classes;
   std::unordered_map<std::string, MethodCif *> method_cifs;
   std::unordered_map<MDSectionOffset, napi_ref> mdValueCache;
+  std::unordered_map<MDSectionOffset, CFunction *> cFunctionCache;
+  std::unordered_map<MDSectionOffset, MethodCif *> mdSignatureCache;
+
+  void *self_dl;
 
   MDMetadataReader *metadata;
 
@@ -33,6 +43,32 @@ public:
   napi_value getObject(napi_env env, id object);
   void registerClass(napi_env env, napi_value constructor);
   void unregisterObject(id object) noexcept;
+
+  inline CFunction *getCFunction(MDSectionOffset offset) {
+    auto cached = cFunctionCache.find(offset);
+    if (cached != cFunctionCache.end()) {
+      return cached->second;
+    }
+
+    auto sigOffset = metadata->signaturesOffset +
+                     metadata->getOffset(offset + sizeof(MDSectionOffset));
+    auto cachedCif = mdSignatureCache.find(sigOffset);
+
+    auto cFunction = new CFunction();
+    cFunction->fnptr = dlsym(self_dl, metadata->getString(offset));
+    cFunction->cif = nullptr;
+    cFunctionCache[offset] = cFunction;
+
+    if (cachedCif != mdSignatureCache.end()) {
+      cFunction->cif = cachedCif->second;
+    } else {
+      auto cif = new MethodCif(metadata, sigOffset);
+      cFunction->cif = cif;
+      mdSignatureCache[sigOffset] = cif;
+    }
+
+    return cFunction;
+  }
 
   ObjCBridgeData();
 

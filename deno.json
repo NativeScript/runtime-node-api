@@ -18,6 +18,6 @@
   },
 
   "fmt": {
-    "exclude": ["build", "libffi", "node_modules"]
+    "exclude": ["build", "libffi", "node_modules", "metadata"]
   }
 }

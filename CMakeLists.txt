@@ -73,10 +73,11 @@ include_directories(
 set(LIB_SOURCE_FILES
   src/objc.mm
   src/bridge.mm
+  src/block.mm
   src/class.mm
   src/closure.mm
   src/bridged_class.mm
-  src/bridged_method.mm
+  src/native_call.mm
   src/method_cif.mm
   src/objc_bridge_data.mm
   src/type_conv.mm

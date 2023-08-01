@@ -1,6 +1,8 @@
 #include "bridge.h"
 #include "Metadata.h"
+#include "block.h"
 #include "class.h"
+#include "native_call.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 #import <Foundation/Foundation.h>
@@ -16,12 +18,18 @@ NAPI_FUNCTION(variableGetter) {
   void *data;
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+  MDSectionOffset originalOffset = offset;
   auto bridgeData = ObjCBridgeData::InstanceData(env);
 
   auto cached = bridgeData->mdValueCache[offset];
   if (cached != nullptr) {
     return get_ref_value(env, cached);
   }
+
+  // name
+  offset += sizeof(MDSectionOffset);
+  // typeKind
+  offset += sizeof(MDTypeKind);
 
   auto evalKind = bridgeData->metadata->getVariableEvalKind(offset);
   offset += sizeof(MDVariableEvalKind);
@@ -52,7 +60,7 @@ NAPI_FUNCTION(variableGetter) {
   }
 
   if (result != nullptr) {
-    bridgeData->mdValueCache[offset] = make_ref(env, result);
+    bridgeData->mdValueCache[originalOffset] = make_ref(env, result);
   }
 
   return result;
@@ -62,6 +70,7 @@ NAPI_FUNCTION(enumGetter) {
   void *data;
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+  MDSectionOffset originalOffset = offset;
   auto bridgeData = ObjCBridgeData::InstanceData(env);
 
   auto cached = bridgeData->mdValueCache[offset];
@@ -69,7 +78,39 @@ NAPI_FUNCTION(enumGetter) {
     return get_ref_value(env, cached);
   }
 
-  napi_value result = nullptr;
+  napi_value result;
+  napi_create_object(env, &result);
+
+  // name
+  offset += sizeof(MDSectionOffset);
+
+  bool next = true;
+  while (next) {
+    auto nameOffset = bridgeData->metadata->getOffset(offset);
+    next = (nameOffset & mdSectionOffsetNext) != 0;
+    nameOffset &= ~mdSectionOffsetNext;
+    auto name = bridgeData->metadata->resolveString(nameOffset);
+    offset += sizeof(MDSectionOffset);
+    int64_t value = bridgeData->metadata->getEnumValue(offset);
+    offset += sizeof(int64_t);
+
+    napi_value member;
+    napi_create_int64(env, value, &member);
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes = napi_enumerable,
+        .getter = nullptr,
+        .setter = nullptr,
+        .value = member,
+        .data = nullptr,
+        .method = nullptr,
+    };
+
+    napi_define_properties(env, result, 1, &prop);
+  }
+
+  bridgeData->mdValueCache[originalOffset] = make_ref(env, result);
 
   return result;
 }
@@ -88,9 +129,11 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   const napi_property_descriptor properties[] = {
       NAPI_FUNCTION_DESC(getClass),
       NAPI_FUNCTION_DESC(registerClass),
+      NAPI_FUNCTION_DESC(registerBlock),
+      NAPI_FUNCTION_DESC(import),
   };
 
-  NAPI_GUARD(napi_define_properties(env, exports, 2, properties)) {
+  NAPI_GUARD(napi_define_properties(env, exports, 4, properties)) {
     NAPI_THROW_LAST_ERROR
     return exports;
   }
@@ -100,6 +143,7 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
   MDSectionOffset offset = bridgeData->metadata->constantsOffset;
   while (offset < bridgeData->metadata->enumsOffset) {
+    MDSectionOffset originalOffset = offset;
     auto name = bridgeData->metadata->getString(offset);
     offset += sizeof(MDSectionOffset);
     auto typeKind = bridgeData->metadata->getTypeKind(offset);
@@ -113,7 +157,7 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
         .getter = JS_variableGetter,
         .setter = nullptr,
         .value = nullptr,
-        .data = nullptr,
+        .data = (void *)((size_t)originalOffset),
         .method = nullptr,
     };
 
@@ -143,47 +187,48 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
   offset = bridgeData->metadata->enumsOffset;
   while (offset < bridgeData->metadata->signaturesOffset) {
+    MDSectionOffset originalOffset = offset;
     auto name = bridgeData->metadata->getString(offset);
     offset += sizeof(MDSectionOffset);
-
-    napi_value result;
-    napi_create_object(env, &result);
 
     bool next = true;
     while (next) {
       auto nameOffset = bridgeData->metadata->getOffset(offset);
       next = (nameOffset & mdSectionOffsetNext) != 0;
-      nameOffset &= ~mdSectionOffsetNext;
-      auto name = bridgeData->metadata->resolveString(nameOffset);
       offset += sizeof(MDSectionOffset);
-      int64_t value = bridgeData->metadata->getEnumValue(offset);
       offset += sizeof(int64_t);
-
-      napi_value member;
-      napi_create_int64(env, value, &member);
-
-      napi_property_descriptor prop = {
-          .utf8name = name,
-          .attributes = napi_enumerable,
-          .getter = nullptr,
-          .setter = nullptr,
-          .value = member,
-          .data = nullptr,
-          .method = nullptr,
-      };
-
-      napi_define_properties(env, result, 1, &prop);
     }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes = napi_enumerable,
+        .getter = JS_enumGetter,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .method = nullptr,
+    };
+    napi_define_properties(env, global, 1, &prop);
+  }
+
+  offset = bridgeData->metadata->functionsOffset;
+  while (offset < bridgeData->metadata->protocolsOffset) {
+    MDSectionOffset originalOffset = offset;
+    auto name = bridgeData->metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+    auto signature = bridgeData->metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
 
     napi_property_descriptor prop = {
         .utf8name = name,
         .attributes = napi_enumerable,
         .getter = nullptr,
         .setter = nullptr,
-        .value = result,
-        .data = nullptr,
-        .method = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .method = JS_CFunction,
     };
+
     napi_define_properties(env, global, 1, &prop);
   }
 

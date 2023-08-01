@@ -1,6 +1,7 @@
 #ifndef METHOD_CIF_H
 #define METHOD_CIF_H
 
+#include "Metadata.h"
 #include "ffi.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
@@ -13,7 +14,7 @@ ffi_type *getTypeForEncoding(const char **encoding);
 
 class MethodCif {
 public:
-  ffi_cif *cif;
+  ffi_cif cif;
   unsigned int argc;
   size_t frameLength;
   size_t rvalueLength;
@@ -29,7 +30,9 @@ public:
   bool shouldFreeAny;
   bool *shouldFree;
 
+  MethodCif();
   MethodCif(std::string typeEncoding);
+  MethodCif(MDMetadataReader *reader, MDSectionOffset offset);
 
   void call(void *fnptr, void *rvalue, void **avalues);
 };

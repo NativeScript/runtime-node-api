@@ -8,6 +8,7 @@ namespace objc_bridge {
 
 NAPI_FUNCTION(registerClass);
 NAPI_FUNCTION(getClass);
+NAPI_FUNCTION(import);
 
 }
 

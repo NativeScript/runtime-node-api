@@ -486,6 +486,12 @@ private:
   }
 
   void processFunction(CXCursor cursor) {
+    // Skip if its inlined / defined in header, won't be available at
+    // runtime.
+    if (clang_Cursor_isFunctionInlined(cursor)) {
+      return;
+    }
+
     auto fw = getFrameworkName(cursor);
     if (!frameworks.contains(fw)) {
       return;
@@ -500,7 +506,6 @@ private:
     MDFunction *function = new MDFunction();
 
     function->name = metadata->strings.add(protocolName, protocolName);
-    function->framework = metadata->strings.add(fw, fw);
 
     auto signature = new MDSignature();
 
@@ -770,6 +775,11 @@ int main(int argc, char **argv) {
                                       "CoreImage",
                                       "CoreData",
                                       "CoreMIDI",
+                                      "CoreML",
+                                      "CoreBluetooth",
+                                      "CoreLocation",
+                                      "CoreMotion",
+                                      "MLCompute",
                                       "AudioToolbox",
                                       "AudioUnit",
                                       "AVFoundation",

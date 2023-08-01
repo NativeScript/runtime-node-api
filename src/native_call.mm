@@ -1,9 +1,50 @@
-#include "bridged_method.h"
+#include "native_call.h"
+#include "Metadata.h"
 #include "node_api_util.h"
+#include "objc_bridge_data.h"
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
 
 namespace objc_bridge {
+
+NAPI_FUNCTION(CFunction) {
+  void *_offset;
+
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &_offset);
+
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  MDSectionOffset offset = (MDSectionOffset)((size_t)_offset);
+
+  auto func = bridgeData->getCFunction(offset);
+  auto cif = func->cif;
+
+  size_t argc = cif->argc;
+  napi_get_cb_info(env, cbinfo, &argc, cif->argv, nullptr, nullptr);
+
+  void **avalues = cif->avalues;
+  void *rvalue = cif->rvalue;
+
+  bool shouldFreeAny = false;
+  bool shouldFree[cif->argc];
+
+  if (cif->argc > 0) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      shouldFree[i] = false;
+      cif->convertArgType[i](env, cif->argv[i], avalues[i], &shouldFree[i],
+                             &shouldFreeAny);
+    }
+  }
+
+  cif->call(func->fnptr, rvalue, avalues);
+
+  for (unsigned int i = 0; i < cif->argc; i++) {
+    if (shouldFree[i]) {
+      cif->freeArgValue[i](env, *((void **)avalues[i]));
+    }
+  }
+
+  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
+}
 
 NAPI_FUNCTION(BridgedMethod) {
   napi_value jsThis;
@@ -55,7 +96,7 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  return cif->convertReturnType(env, rvalue, cif->cif->rtype);
+  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
 }
 
 NAPI_FUNCTION(BridgedGetter) {
@@ -88,7 +129,7 @@ NAPI_FUNCTION(BridgedGetter) {
     cif->call((void *)objc_msgSendSuper, rvalue, avalues);
   }
 
-  return cif->convertReturnType(env, rvalue, cif->cif->rtype);
+  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
 }
 
 NAPI_FUNCTION(BridgedSetter) {

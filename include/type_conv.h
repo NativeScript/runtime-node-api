@@ -8,6 +8,7 @@
 #ifndef TYPE_CONV_H
 #define TYPE_CONV_H
 
+#include "Metadata.h"
 #include "ffi.h"
 #include "js_native_api.h"
 #include "objc/runtime.h"
@@ -19,10 +20,15 @@ typedef napi_value (*js_from_native)(napi_env, void *, ffi_type *);
 typedef void (*js_to_native)(napi_env, napi_value, void *, bool *, bool *);
 typedef void (*js_free)(napi_env, void *);
 
-ffi_type *getTypeForEncoding(const char **encoding);
-js_from_native getConvFromNative(const char *encoding);
-js_to_native getConvToNative(const char *encoding);
-js_free getNativeFree(const char *encoding);
+typedef struct TypeInfo {
+  ffi_type *type;
+  js_from_native fromNative;
+  js_to_native toNative;
+  js_free free;
+} TypeInfo;
+
+TypeInfo getTypeInfo(const char **encoding);
+TypeInfo getTypeInfo(MDMetadataReader *reader, MDSectionOffset *offset);
 
 #define JS_FROM_NATIVE(name)                                                   \
   napi_value js_from_##name(napi_env env, void *value, ffi_type *type)

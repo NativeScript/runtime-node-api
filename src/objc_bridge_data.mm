@@ -9,6 +9,7 @@
 namespace objc_bridge {
 
 ObjCBridgeData::ObjCBridgeData() {
+  self_dl = dlopen(nullptr, RTLD_NOW);
   auto f = fopen("metadata/metadata.nsmd", "r");
   if (f == nullptr) {
     fprintf(stderr, "metadata.nsmd not found\n");
@@ -20,7 +21,7 @@ ObjCBridgeData::ObjCBridgeData() {
   auto buffer = (uint8_t *)malloc(size);
   fread(buffer, 1, size, f);
   fclose(f);
-  metadata = new MDMetadataReader(buffer);
+  metadata = new MDMetadataReader(buffer, size);
 }
 
 // Get a Bridged Class by name, creating it if it doesn't exist.
@@ -371,7 +372,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     auto pair = methodMap[name];
     if (pair.first != nullptr) {
       std::string encoding = pair.second;
-      auto closure = new Closure(encoding);
+      auto closure = new Closure(encoding, false);
       closure->env = env;
       napi_value func;
       napi_get_named_property(env, prototype, name.c_str(), &func);
