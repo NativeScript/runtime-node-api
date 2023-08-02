@@ -5,8 +5,6 @@ JavaScript land. Made using Node-API and `libffi` under the hood.
 
 ## Building
 
-Only macOS supported right now.
-
 ```sh
 deno task build-libffi
 
@@ -15,22 +13,31 @@ deno task build macos
 deno task build ios-universal
 ```
 
-## Bundling sample AppKit app
+## Run examples
 
 ```sh
-deno task bundle # bundle app
-deno task open-bundle # run app
+node examples/foundation.js
+# or
+deno run -A examples/foundation.js
+
+# ML Compute example
+node examples/mlcompute.js
+
+# AppKit related examples
+node examples/appkit.js
+node examples/split_view.js
+node examples/view_controller.js
+node examples/spritekit.js
 ```
 
 ## Notes
 
-AppKit usage currently relies on struct support, which has an issue with Deno
-right now.
+Deno Node-API has an issue with `napi_get_all_property_names`.
 
-So without a custom deno build from the below PR, you can't use AppKit in Deno
+Without a custom deno build from the below PR, you can't use AppKit in Deno
 (works in Node).
 
-Upstream PR: https://github.com/denoland/deno/pull/19551
+Upstream PR: https://github.com/denoland/deno/pull/19585
 
 ## License
 

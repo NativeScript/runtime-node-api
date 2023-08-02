@@ -129,7 +129,7 @@ Closure::Closure(std::string encoding, bool isBlock) {
   [signature release];
 
   ffi_status status =
-      ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argc + skipArgs, rtype, atypes);
+      ffi_prep_cif(&cif, FFI_DEFAULT_ABI, (int)argc + skipArgs, rtype, atypes);
 
   if (status != FFI_OK) {
     std::cout << "ffi_prep_cif failed" << std::endl;

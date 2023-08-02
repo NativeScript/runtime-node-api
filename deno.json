@@ -2,7 +2,7 @@
   "app": {
     "name": "NativeScript for macOS",
     "identifier": "com.nativescript.AppKit",
-    "entryPoint": "test/spritekit.js",
+    "entryPoint": "examples/split_view.js",
     "assets": "./assets",
     "icon": "./assets/NativeScript.icns",
     "version": "0.1.0"
@@ -11,7 +11,7 @@
   "tasks": {
     "build-libffi": "deno run -A scripts/build_libffi.ts",
     "build": "deno run -A scripts/build.ts",
-    "bench": "node test/main.js",
+    "bench": "node examples/main.js",
     "deno": "../deno/target/release/deno run -A",
     "bundle": "deno run -A --unstable scripts/bundler.ts",
     "open-bundle": "open \"NativeScript for macOS.app\""

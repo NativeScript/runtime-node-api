@@ -76,13 +76,6 @@ export class ApplicationDelegate extends NSObject {
 }
 
 export class Node extends NSObject {
-  static exposedMethods = {
-    initWithSymbolTitleChildren: {
-      params: ["string", "string", "id"],
-      returns: "id",
-    },
-  };
-
   static {
     objc.registerClass(this);
   }
