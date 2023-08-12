@@ -408,20 +408,10 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   napi_define_properties(env, prototype, 1, &prop);
 
   if (isNativeObject) {
-    // Create Symbol.for("nodejs.util.inspect.custom")
-    napi_value global, Symbol, SymbolFor, customInspect, symbolString;
-    napi_get_global(env, &global);
-    napi_get_named_property(env, global, "Symbol", &Symbol);
-    napi_get_named_property(env, Symbol, "for", &SymbolFor);
-    napi_create_string_utf8(env, "nodejs.util.inspect.custom", NAPI_AUTO_LENGTH,
-                            &symbolString);
-    napi_call_function(env, global, SymbolFor, 1, &symbolString,
-                       &customInspect);
-
     // Define custom inspect property.
     const napi_property_descriptor property = {
         .utf8name = nil,
-        .name = customInspect,
+        .name = jsSymbolFor(env, "nodejs.util.inspect.custom"),
         .method = JS_CustomInspect,
         .getter = nil,
         .setter = nil,

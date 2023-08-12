@@ -294,6 +294,7 @@ private:
 
     MDStruct *structure = new MDStruct();
     structure->name = metadata->strings.add(nameStr, nameStr);
+    structure->size = clang_Type_getSizeOf(clang_getCursorType(cursor));
 
     current_struct = structure;
 
@@ -312,7 +313,7 @@ private:
             std::string nameStr =
                 clang_getCString(clang_getCursorSpelling(cursor));
             field.name = metadata->strings.add(nameStr, nameStr);
-            field.offset = clang_Cursor_getOffsetOfField(cursor);
+            field.offset = clang_Cursor_getOffsetOfField(cursor) / 8;
             field.type = state->processType(clang_getCursorType(cursor));
             structure->fields.emplace_back(field);
             break;
@@ -325,6 +326,11 @@ private:
           return CXChildVisit_Continue;
         },
         this);
+
+    if (structure->fields.size() == 0) {
+      delete structure;
+      return;
+    }
 
     metadata->structs.add(structure, nameStr);
   }
@@ -649,6 +655,10 @@ private:
       CXString name = clang_getTypeSpelling(canonicalType);
       std::string nameStr = clang_getCString(name);
       clang_disposeString(name);
+      std::cout << "namestr: " << nameStr << std::endl;
+      nameStr = nameStr.substr(nameStr[0] == 'u'   ? 6
+                               : nameStr[0] == 's' ? 7
+                                                   : 0);
       MDSectionOffset mdName = metadata->strings.add(nameStr, nameStr);
       result->kind = mdTypeStruct;
       result->structOffset = mdName;
@@ -763,37 +773,18 @@ int main(int argc, char **argv) {
                     "MacOSX.platform/Developer/SDKs/MacOSX.sdk";
   std::string frameworksDir = sdk + "/System/Library/Frameworks";
 
-  std::set<std::string> frameworks = {"Foundation",
-                                      "AppKit",
-                                      "CoreFoundation",
-                                      "CoreGraphics",
-                                      "CoreText",
-                                      "CoreServices",
-                                      "CoreAudio",
-                                      "CoreMedia",
-                                      "CoreVideo",
-                                      "CoreImage",
-                                      "CoreData",
-                                      "CoreMIDI",
-                                      "CoreML",
-                                      "CoreBluetooth",
-                                      "CoreLocation",
-                                      "CoreMotion",
-                                      "MLCompute",
-                                      "AudioToolbox",
-                                      "AudioUnit",
-                                      "AVFoundation",
-                                      "QuartzCore",
-                                      "Metal",
-                                      "MetalKit",
-                                      "MetalPerformanceShaders",
-                                      "SpriteKit",
-                                      "SceneKit",
-                                      "ModelIO",
-                                      "GameController",
-                                      "GameKit",
-                                      "GameplayKit",
-                                      "WebKit"};
+  std::set<std::string> frameworks = {
+      "Foundation",     "AppKit",        "CoreFoundation",
+      "CoreGraphics",   "CoreText",      "CoreServices",
+      "CoreAudio",      "CoreMedia",     "CoreVideo",
+      "CoreImage",      "CoreData",      "CoreMIDI",
+      "CoreML",         "CoreBluetooth", "CoreLocation",
+      "CoreMotion",     "MLCompute",     "AudioToolbox",
+      "AudioUnit",      "AVFoundation",  "QuartzCore",
+      "Metal",          "MetalKit",      "MetalPerformanceShaders",
+      "SpriteKit",      "SceneKit",      "ModelIO",
+      "GameController", "GameKit",       "GameplayKit",
+      "WebKit"};
 
   std::vector<std::string> args = {
       "-Xclang",

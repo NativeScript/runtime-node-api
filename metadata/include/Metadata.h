@@ -164,6 +164,12 @@ static inline void ptr_add(void **ptr, size_t size) {
   *ptr = (void *)(((char *)(*ptr)) + size);
 }
 
+#define addsize(expr) size += sizeof(expr)
+
+#define binwrite(expr)                                                         \
+  memcpy(data, &expr, sizeof(expr));                                           \
+  ptr_add(&data, sizeof(expr))
+
 class MDStringSerde : public MDSerializer<std::string> {
 public:
   size_t size(std::string value) override { return value.size() + 1; }
@@ -181,26 +187,32 @@ public:
     size += sizeof(MDTypeKind);
 
     switch (value->kind) {
-    case mdTypeArray:
+    case mdTypeArray: {
       // Array size
-      size += sizeof(uint16_t);
+      addsize(value->arraySize);
       // Element type
-      size += sizeof(MDSectionOffset);
+      MDTypeInfoSerde elementSerde;
+      size += elementSerde.size(value->elementType);
       break;
+    }
 
     case mdTypeStruct:
       // Struct key
-      size += sizeof(MDSectionOffset);
+      addsize(value->structOffset);
       break;
 
-    case mdTypeUnion:
+    case mdTypeUnion: {
       // Members
-      size += sizeof(MDSectionOffset) * value->unionMembers.size();
+      MDTypeInfoSerde elementSerde;
+      for (auto member : value->unionMembers) {
+        size += elementSerde.size(member);
+      }
       break;
+    }
 
     case mdTypeBlock:
       // Signature
-      size += sizeof(MDSectionOffset);
+      addsize(value->blockSignature);
       break;
 
     default:
@@ -213,27 +225,21 @@ public:
   void serialize(MDTypeInfo *value, void *data) override {
     // Kind
     MDTypeKind kind = value->kind;
-    memcpy(data, &kind, sizeof(MDTypeKind));
-    ptr_add(&data, sizeof(MDTypeKind));
+    binwrite(value->kind);
 
     switch (value->kind) {
     case mdTypeArray: {
       // Array size
-      uint16_t arraySize = value->arraySize;
-      memcpy(data, &arraySize, sizeof(uint16_t));
-      ptr_add(&data, sizeof(uint16_t));
+      binwrite(value->arraySize);
       // Element type
-      MDSectionOffset elementTypeKey = value->elementType->kind;
-      memcpy(data, &elementTypeKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      serialize(value->elementType, data);
+      ptr_add(&data, size(value->elementType));
       break;
     }
 
     case mdTypeStruct: {
       // Struct key
-      MDSectionOffset structOffset = value->structOffset;
-      memcpy(data, &structOffset, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value->structOffset);
       break;
     }
 
@@ -243,13 +249,11 @@ public:
       for (size_t i = 0; i < unionMembersSize; i++) {
         MDTypeInfo *member = value->unionMembers[i];
         size_t mSize = size(member);
-        void *serialized = malloc(mSize);
-        serialize(member, serialized);
+        serialize(member, data);
         if (i != unionMembersSize - 1) {
-          uint8_t *serializedPtr = (uint8_t *)serialized;
+          uint8_t *serializedPtr = (uint8_t *)data;
           *serializedPtr |= mdTypeFlagNext;
         }
-        memcpy(data, serialized, mSize);
         ptr_add(&data, mSize);
       }
       break;
@@ -257,9 +261,7 @@ public:
 
     case mdTypeBlock: {
       // Signature
-      MDSectionOffset signatureOffset = value->blockSignature;
-      memcpy(data, &signatureOffset, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value->blockSignature);
       break;
     }
 
@@ -388,8 +390,8 @@ public:
     ptr_add(&data, sizeof(MDSectionOffset));
     // Offset
     uint16_t offset = value.offset;
-    memcpy(data, &offset, sizeof(uint16_t));
-    ptr_add(&data, sizeof(uint16_t));
+    memcpy(data, &offset, sizeof(offset));
+    ptr_add(&data, sizeof(offset));
     // Type
     MDTypeInfoSerde typeSerde;
     typeSerde.serialize(value.type, data);
@@ -405,7 +407,10 @@ public:
     // Size
     size += sizeof(uint16_t);
     // Fields
-    size += sizeof(MDStructField) * value->fields.size();
+    MDStructFieldSerde fieldSerde;
+    for (MDStructField field : value->fields) {
+      size += fieldSerde.size(field);
+    }
     return size;
   }
 
@@ -413,15 +418,11 @@ public:
     // Name
     MDSectionOffset nameOffset = value->name;
     memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    if (!value->fields.empty()) {
-      MDSectionOffset *serializedPtr = (MDSectionOffset *)data;
-      *serializedPtr |= mdSectionOffsetNext;
-    }
     ptr_add(&data, sizeof(MDSectionOffset));
     // Size
     uint16_t size = value->size;
-    memcpy(data, &size, sizeof(uint16_t));
-    ptr_add(&data, sizeof(uint16_t));
+    memcpy(data, &size, sizeof(size));
+    ptr_add(&data, sizeof(size));
     // Fields
     MDStructFieldSerde fieldSerde;
     for (size_t i = 0; i < value->fields.size(); i++) {

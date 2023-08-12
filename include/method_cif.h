@@ -22,17 +22,16 @@ public:
   void *rvalue;
   void **avalues;
 
-  js_from_native convertReturnType;
-  js_to_native *convertArgType;
-  js_free *freeArgValue;
+  std::shared_ptr<TypeConv> returnType;
+  std::vector<std::shared_ptr<TypeConv>> argTypes;
 
   napi_value *argv;
   bool shouldFreeAny;
   bool *shouldFree;
 
   MethodCif();
-  MethodCif(std::string typeEncoding);
-  MethodCif(MDMetadataReader *reader, MDSectionOffset offset);
+  MethodCif(napi_env env, std::string typeEncoding);
+  MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset);
 
   void call(void *fnptr, void *rvalue, void **avalues);
 };

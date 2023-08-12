@@ -8,7 +8,7 @@
 
 namespace objc_bridge {
 
-MethodCif::MethodCif(std::string encoding) {
+MethodCif::MethodCif(napi_env env, std::string encoding) {
   auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
   unsigned long numberOfArguments = signature.numberOfArguments;
   this->argc = (int)numberOfArguments - 2;
@@ -17,10 +17,9 @@ MethodCif::MethodCif(std::string encoding) {
   unsigned int argc = (unsigned int)numberOfArguments;
 
   const char *returnType = signature.methodReturnType;
-  auto retTypeInfo = getTypeInfo(&returnType);
-  this->convertReturnType = retTypeInfo.fromNative;
+  this->returnType = TypeConv::Make(env, &returnType);
 
-  ffi_type *rtype = retTypeInfo.type;
+  ffi_type *rtype = this->returnType->type;
   ffi_type **atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argc);
 
   unsigned long methodReturnLength = signature.methodReturnLength;
@@ -31,9 +30,6 @@ MethodCif::MethodCif(std::string encoding) {
   this->frameLength = frameLength;
 
   this->avalues = (void **)malloc(sizeof(void *) * argc);
-  this->convertArgType =
-      (js_to_native *)malloc(sizeof(js_to_native) * this->argc);
-  this->freeArgValue = (js_free *)malloc(sizeof(js_free) * this->argc);
   this->shouldFree = (bool *)malloc(sizeof(bool) * this->argc);
   memset(this->shouldFree, false, sizeof(bool) * this->argc);
   this->shouldFreeAny = false;
@@ -41,12 +37,11 @@ MethodCif::MethodCif(std::string encoding) {
   for (int i = 0; i < numberOfArguments; i++) {
     const char *argenc = [signature getArgumentTypeAtIndex:i];
 
-    auto argTypeInfo = getTypeInfo(&argenc);
-    atypes[i] = argTypeInfo.type;
+    auto argTypeInfo = TypeConv::Make(env, &argenc);
+    atypes[i] = argTypeInfo->type;
 
     if (i >= 2) {
-      this->convertArgType[i - 2] = argTypeInfo.toNative;
-      this->freeArgValue[i - 2] = argTypeInfo.free;
+      this->argTypes.push_back(argTypeInfo);
     }
   }
 
@@ -65,41 +60,34 @@ MethodCif::MethodCif(std::string encoding) {
   }
 }
 
-MethodCif::MethodCif(MDMetadataReader *reader, MDSectionOffset offset) {
+MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
+                     MDSectionOffset offset) {
   MDSectionOffset originalOffset = offset;
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
-  auto retTypeInfo = getTypeInfo(reader, &offset);
-  ffi_type *rtype = retTypeInfo.type;
+
+  this->returnType = TypeConv::Make(env, reader, &offset);
+  ffi_type *rtype = this->returnType->type;
   ffi_type **atypes = nullptr;
 
-  this->convertReturnType = retTypeInfo.fromNative;
-
   if (next) {
-    std::vector<TypeInfo> atypesvec;
-
     while (next) {
       auto argTypeKind = reader->getTypeKind(offset);
       next = (argTypeKind & mdTypeFlagNext) != 0;
-      auto argTypeInfo = getTypeInfo(reader, &offset);
-      atypesvec.push_back(argTypeInfo);
+      auto argTypeInfo = TypeConv::Make(env, reader, &offset);
+      argTypes.push_back(argTypeInfo);
     }
 
-    this->argc = (int)atypesvec.size();
+    this->argc = (int)argTypes.size();
     this->argv = (napi_value *)malloc(sizeof(napi_value) * this->argc);
     this->avalues = (void **)malloc(sizeof(void *) * this->argc);
-    this->convertArgType =
-        (js_to_native *)malloc(sizeof(js_to_native) * this->argc);
-    this->freeArgValue = (js_free *)malloc(sizeof(js_free) * this->argc);
     this->shouldFree = (bool *)malloc(sizeof(bool) * this->argc);
 
     atypes = (ffi_type **)malloc(sizeof(ffi_type *) * this->argc);
 
     for (int i = 0; i < this->argc; i++) {
-      atypes[i] = atypesvec[i].type;
-      this->avalues[i] = malloc(atypesvec[i].type->size);
-      this->convertArgType[i] = atypesvec[i].toNative;
-      this->freeArgValue[i] = atypesvec[i].free;
+      atypes[i] = argTypes[i]->type;
+      this->avalues[i] = malloc(argTypes[i]->type->size);
       this->shouldFree[i] = false;
     }
   } else {

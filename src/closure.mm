@@ -30,7 +30,7 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 
   napi_value argv[cif->nargs - 2];
   for (int i = 2; i < cif->nargs; i++) {
-    argv[i - 2] = closure->convertArgType[i](env, args[i], cif->arg_types[i]);
+    argv[i - 2] = closure->argTypes[i]->toJS(env, args[i]);
   }
 
   // Clear any pending exceptions before calling the function.
@@ -40,7 +40,7 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
       napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
 
   bool shouldFree;
-  closure->convertReturnType(env, result, ret, &shouldFree, &shouldFree);
+  closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
 
   if (status != napi_ok) {
     napi_get_and_clear_last_exception(env, &result);
@@ -69,8 +69,7 @@ void JSBlockIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 
   napi_value argv[cif->nargs - 1];
   for (int i = 0; i < cif->nargs - 1; i++) {
-    argv[i] =
-        closure->convertArgType[i](env, args[i + 1], cif->arg_types[i + 1]);
+    argv[i] = closure->argTypes[i]->toJS(env, args[i + 1]);
   }
 
   // Clear any pending exceptions before calling the function.
@@ -83,7 +82,7 @@ void JSBlockIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
       napi_call_function(env, thisArg, func, cif->nargs - 1, argv, &result);
 
   bool shouldFree;
-  closure->convertReturnType(env, result, ret, &shouldFree, &shouldFree);
+  closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
 
   if (status != napi_ok) {
     napi_get_and_clear_last_exception(env, &result);
@@ -104,16 +103,13 @@ Closure::Closure(std::string encoding, bool isBlock) {
   size_t argc = signature.numberOfArguments;
 
   const char *returnType = signature.methodReturnType;
-  auto retTypeInfo = getTypeInfo(&returnType);
-  this->convertReturnType = retTypeInfo.toNative;
+  this->returnType = TypeConv::Make(env, &returnType);
 
   int skipArgs = isBlock ? 1 : 0;
 
-  ffi_type *rtype = retTypeInfo.type;
+  ffi_type *rtype = this->returnType->type;
   ffi_type **atypes =
       (ffi_type **)malloc(sizeof(ffi_type *) * (argc + skipArgs));
-  this->convertArgType =
-      (js_from_native *)malloc(sizeof(js_from_native) * argc);
 
   if (isBlock) {
     atypes[0] = &ffi_type_pointer;
@@ -121,9 +117,9 @@ Closure::Closure(std::string encoding, bool isBlock) {
 
   for (int i = 0; i < argc; i++) {
     const char *argenc = [signature getArgumentTypeAtIndex:i];
-    auto argTypeInfo = getTypeInfo(&argenc);
-    atypes[i + skipArgs] = argTypeInfo.type;
-    this->convertArgType[i] = argTypeInfo.fromNative;
+    auto argTypeInfo = TypeConv::Make(env, &argenc);
+    atypes[i + skipArgs] = argTypeInfo->type;
+    this->argTypes.push_back(argTypeInfo);
   }
 
   [signature release];

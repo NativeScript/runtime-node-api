@@ -69,8 +69,6 @@ const callback = objc.registerBlock("v@@d", (output, error, time) => {
   console.log(output, error, time);
 });
 
-console.log(callback);
-
 inference.executeWithInputsDataBatchSizeOptionsCompletionHandler(
   { input: dataInput },
   batchSize,

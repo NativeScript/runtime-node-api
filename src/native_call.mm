@@ -15,7 +15,7 @@ NAPI_FUNCTION(CFunction) {
   auto bridgeData = ObjCBridgeData::InstanceData(env);
   MDSectionOffset offset = (MDSectionOffset)((size_t)_offset);
 
-  auto func = bridgeData->getCFunction(offset);
+  auto func = bridgeData->getCFunction(env, offset);
   auto cif = func->cif;
 
   size_t argc = cif->argc;
@@ -30,8 +30,8 @@ NAPI_FUNCTION(CFunction) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      cif->convertArgType[i](env, cif->argv[i], avalues[i], &shouldFree[i],
-                             &shouldFreeAny);
+      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i], &shouldFree[i],
+                                 &shouldFreeAny);
     }
   }
 
@@ -39,11 +39,11 @@ NAPI_FUNCTION(CFunction) {
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
-      cif->freeArgValue[i](env, *((void **)avalues[i]));
+      cif->argTypes[i]->free(env, *((void **)avalues[i]));
     }
   }
 
-  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
+  return cif->returnType->toJS(env, rvalue);
 }
 
 NAPI_FUNCTION(BridgedMethod) {
@@ -57,7 +57,8 @@ NAPI_FUNCTION(BridgedMethod) {
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
-    cif = method->methodCif = method->bridgeData->getMethodCif(method->method);
+    cif = method->methodCif =
+        method->bridgeData->getMethodCif(env, method->method);
   }
 
   size_t argc = cif->argc;
@@ -75,8 +76,8 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      cif->convertArgType[i](env, cif->argv[i], avalues[i + 2], &shouldFree[i],
-                             &shouldFreeAny);
+      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
+                                 &shouldFree[i], &shouldFreeAny);
     }
   }
 
@@ -92,11 +93,11 @@ NAPI_FUNCTION(BridgedMethod) {
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
-      cif->freeArgValue[i](env, *((void **)avalues[i + 2]));
+      cif->argTypes[i]->free(env, *((void **)avalues[i + 2]));
     }
   }
 
-  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
+  return cif->returnType->toJS(env, rvalue);
 }
 
 NAPI_FUNCTION(BridgedGetter) {
@@ -110,7 +111,8 @@ NAPI_FUNCTION(BridgedGetter) {
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
-    cif = method->methodCif = method->bridgeData->getMethodCif(method->method);
+    cif = method->methodCif =
+        method->bridgeData->getMethodCif(env, method->method);
   }
 
   void *avalues[2];
@@ -129,7 +131,7 @@ NAPI_FUNCTION(BridgedGetter) {
     cif->call((void *)objc_msgSendSuper, rvalue, avalues);
   }
 
-  return cif->convertReturnType(env, rvalue, cif->cif.rtype);
+  return cif->returnType->toJS(env, rvalue);
 }
 
 NAPI_FUNCTION(BridgedSetter) {
@@ -145,7 +147,7 @@ NAPI_FUNCTION(BridgedSetter) {
   MethodCif *cif = method->setterMethodCif;
   if (cif == nullptr) {
     cif = method->setterMethodCif =
-        method->bridgeData->getMethodCif(method->setterMethod);
+        method->bridgeData->getMethodCif(env, method->setterMethod);
   }
 
   void **avalues = cif->avalues;
@@ -154,7 +156,7 @@ NAPI_FUNCTION(BridgedSetter) {
   avalues[0] = (void *)&self;
   avalues[1] = (void *)&method->setterSelector;
   bool shouldFree = false;
-  cif->convertArgType[0](env, argv, avalues[2], &shouldFree, &shouldFree);
+  cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 
   if (!method->supercall) {
     cif->call((void *)objc_msgSend, rvalue, avalues);
@@ -167,7 +169,7 @@ NAPI_FUNCTION(BridgedSetter) {
   }
 
   if (shouldFree) {
-    cif->freeArgValue[0](env, *((void **)avalues[2]));
+    cif->argTypes[0]->free(env, *((void **)avalues[2]));
   }
 
   return nullptr;

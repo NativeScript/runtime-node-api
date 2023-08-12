@@ -24,6 +24,32 @@ ObjCBridgeData::ObjCBridgeData() {
   metadata = new MDMetadataReader(buffer, size);
 }
 
+CFunction *ObjCBridgeData::getCFunction(napi_env env, MDSectionOffset offset) {
+  auto cached = cFunctionCache.find(offset);
+  if (cached != cFunctionCache.end()) {
+    return cached->second;
+  }
+
+  auto sigOffset = metadata->signaturesOffset +
+                   metadata->getOffset(offset + sizeof(MDSectionOffset));
+  auto cachedCif = mdSignatureCache.find(sigOffset);
+
+  auto cFunction = new CFunction();
+  cFunction->fnptr = dlsym(self_dl, metadata->getString(offset));
+  cFunction->cif = nullptr;
+  cFunctionCache[offset] = cFunction;
+
+  if (cachedCif != mdSignatureCache.end()) {
+    cFunction->cif = cachedCif->second;
+  } else {
+    auto cif = new MethodCif(env, metadata, sigOffset);
+    cFunction->cif = cif;
+    mdSignatureCache[sigOffset] = cif;
+  }
+
+  return cFunction;
+}
+
 // Get a Bridged Class by name, creating it if it doesn't exist.
 // This is used to cache BridgedClass instances.
 BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
@@ -42,14 +68,14 @@ BridgedClass *ObjCBridgeData::getBridgedClass(napi_env env,
 // Essentially, we cache libffi structures per unique method signature,
 // this helps us avoid the overhead of creating them on the fly for each
 // invocation.
-MethodCif *ObjCBridgeData::getMethodCif(Method method) {
+MethodCif *ObjCBridgeData::getMethodCif(napi_env env, Method method) {
   auto encoding = std::string(method_getTypeEncoding(method));
   auto find = this->method_cifs[encoding];
   if (find != nullptr) {
     return find;
   }
 
-  auto methodCif = new MethodCif(encoding);
+  auto methodCif = new MethodCif(env, encoding);
   this->method_cifs[encoding] = methodCif;
 
   return methodCif;
@@ -75,7 +101,7 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
     return nullptr;
   }
 
-  auto find = this->object_refs[obj];
+  auto find = this->objectRefs[obj];
   if (find != nullptr) {
     return get_ref_value(env, find);
   }
@@ -116,12 +142,12 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
     }
     // [obj retain];
     NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object,
-                         (void *)this, &this->object_refs[obj])) {
+                         (void *)this, &this->objectRefs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
     // FIXME: This should be fixed in Deno, its impl of napi_wrap is wrong.
-    NAPI_GUARD(napi_create_reference(env, result, 0, &this->object_refs[obj])) {
+    NAPI_GUARD(napi_create_reference(env, result, 0, &this->objectRefs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
@@ -409,7 +435,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 }
 
 void ObjCBridgeData::unregisterObject(id object) noexcept {
-  object_refs.erase(object);
+  objectRefs.erase(object);
   // [object release];
 }
 

@@ -82,6 +82,7 @@ set(LIB_SOURCE_FILES
   src/objc_bridge_data.mm
   src/type_conv.mm
   src/util.mm
+  src/struct.mm
 )
 
 add_library(

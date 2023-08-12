@@ -77,13 +77,15 @@ export class BattlefieldScene extends SKScene {
 
   didMoveToView(_view) {
     const indicatorHeight = 22;
+    const indicatorSize = this.frame.size;
+    indicatorSize.height = indicatorHeight;
     this.indicator = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 1, 0, 1),
-      NSMakeSize(new Float64Array(this.frame)[2], indicatorHeight),
+      indicatorSize,
     );
     this.indicator.position = NSMakeSize(
-      new Float64Array(this.frame)[2] / 2,
-      0 + (indicatorHeight / 2),
+      this.frame.size.width / 2,
+      indicatorHeight / 2,
     );
     this.addChild(this.indicator);
 
@@ -151,11 +153,8 @@ export class BattlefieldScene extends SKScene {
     deltaTime,
     currentRotationInRadians,
   ) {
-    currentPos = new Float64Array(currentPos);
-    targetPos = new Float64Array(targetPos);
-
-    const xDiff = targetPos[0] - currentPos[0];
-    const yDiff = targetPos[1] - currentPos[1];
+    const xDiff = targetPos.x - currentPos.x;
+    const yDiff = targetPos.y - currentPos.y;
 
     const angleInRadians = Math.atan2(yDiff, xDiff);
     const speed = baseSpeed / (1000 / deltaTime);
@@ -164,21 +163,21 @@ export class BattlefieldScene extends SKScene {
 
     const x = xDiff >= 0
       ? Math.min(
-        currentPos[0] + maxAdvanceX,
-        targetPos[0],
+        currentPos.x + maxAdvanceX,
+        targetPos.x,
       )
       : Math.max(
-        currentPos[0] + maxAdvanceX,
-        targetPos[0],
+        currentPos.x + maxAdvanceX,
+        targetPos.x,
       );
     const y = yDiff >= 0
       ? Math.min(
-        currentPos[1] + maxAdvanceY,
-        targetPos[1],
+        currentPos.y + maxAdvanceY,
+        targetPos.y,
       )
       : Math.max(
-        currentPos[1] + maxAdvanceY,
-        targetPos[1],
+        currentPos.y + maxAdvanceY,
+        targetPos.y,
       );
 
     const degToRad = Math.PI / 180;
@@ -226,7 +225,7 @@ export class BattlefieldScene extends SKScene {
   }
 
   mouseDragged(theEvent) {
-    this.heroTargetPos = new Float64Array(theEvent.locationInNode(this));
+    this.heroTargetPos = theEvent.locationInNode(this);
   }
 
   didBeginContact(contact) {

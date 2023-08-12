@@ -132,11 +132,6 @@ export class ViewController extends NSViewController {
 
     button.bezelStyle = NSBezelStyle.rounded;
     button.setButtonType(NSButtonType.momentaryLight);
-    button.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
-      NSFont.fontWithNameSize(button.font.fontName, 20),
-      NSFontTraitMask.bold,
-    );
-    button.sizeToFit();
     button.setTranslatesAutoresizingMaskIntoConstraints(false);
 
     this.button = button;

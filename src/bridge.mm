@@ -2,9 +2,13 @@
 #include "Metadata.h"
 #include "block.h"
 #include "class.h"
+#include "js_native_api.h"
+#include "js_native_api_types.h"
 #include "native_call.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
+#include "struct.h"
+#include "type_conv.h"
 #import <Foundation/Foundation.h>
 
 using namespace objc_bridge;
@@ -115,6 +119,18 @@ NAPI_FUNCTION(enumGetter) {
   return result;
 }
 
+NAPI_FUNCTION(structGetter) {
+  NAPI_PREAMBLE
+
+  void *data;
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
+  MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto structInfo = bridgeData->getStructInfo(env, offset);
+  return StructObject::getJSClass(env, structInfo);
+}
+
 NAPI_EXPORT NAPI_MODULE_REGISTER {
   NAPI_PREAMBLE
 
@@ -141,7 +157,41 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   napi_value global;
   napi_get_global(env, &global);
 
-  MDSectionOffset offset = bridgeData->metadata->constantsOffset;
+  MDSectionOffset offset = bridgeData->metadata->structsOffset;
+  while (offset < bridgeData->metadata->size) {
+    MDSectionOffset originalOffset = offset;
+    auto name = bridgeData->metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+    auto size = bridgeData->metadata->getArraySize(offset);
+    offset += sizeof(uint16_t);
+
+    std::string nameStr = name;
+    bridgeData->structOffsets[nameStr] = originalOffset;
+
+    bool next = true;
+    while (next) {
+      MDSectionOffset nameOffset = bridgeData->metadata->getOffset(offset);
+      next = (nameOffset & mdSectionOffsetNext) != 0;
+      nameOffset &= ~mdSectionOffsetNext;
+      auto name = bridgeData->metadata->resolveString(nameOffset);
+      offset += sizeof(MDSectionOffset);
+      offset += sizeof(uint16_t);
+      TypeConv::Make(env, bridgeData->metadata, &offset);
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes = napi_enumerable,
+        .method = nullptr,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .getter = JS_structGetter,
+    };
+    napi_define_properties(env, global, 1, &prop);
+  }
+
+  offset = bridgeData->metadata->constantsOffset;
   while (offset < bridgeData->metadata->enumsOffset) {
     MDSectionOffset originalOffset = offset;
     auto name = bridgeData->metadata->getString(offset);

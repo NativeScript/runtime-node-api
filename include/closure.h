@@ -19,8 +19,8 @@ public:
   ffi_closure *closure;
   void *fnptr;
 
-  js_to_native convertReturnType;
-  js_from_native *convertArgType;
+  std::shared_ptr<TypeConv> returnType;
+  std::vector<std::shared_ptr<TypeConv>> argTypes;
 
   Closure(std::string typeEncoding, bool isBlock);
   // Closure(MDMetadataReader *reader, MDSectionOffset *offset, bool isBlock);
