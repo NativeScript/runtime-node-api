@@ -1,9 +1,11 @@
 #include "closure.h"
 #include "Metadata.h"
+#include "autoreleasepool.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
 #include "objc/message.h"
 #include "objc_bridge_data.h"
+#include "type_conv.h"
 #include "util.h"
 
 #include <Foundation/Foundation.h>
@@ -30,14 +32,16 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 
   napi_value argv[cif->nargs - 2];
   for (int i = 2; i < cif->nargs; i++) {
-    argv[i - 2] = closure->argTypes[i]->toJS(env, args[i]);
+    argv[i - 2] = closure->argTypes[i]->toJS(env, args[i], kBlockParam);
   }
 
   // Clear any pending exceptions before calling the function.
   napi_get_and_clear_last_exception(env, &result);
 
+  auto pool = objc_autoreleasePoolPush();
   napi_status status =
       napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
+  objc_autoreleasePoolPop(pool);
 
   bool shouldFree;
   closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
@@ -69,17 +73,19 @@ void JSBlockIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 
   napi_value argv[cif->nargs - 1];
   for (int i = 0; i < cif->nargs - 1; i++) {
-    argv[i] = closure->argTypes[i]->toJS(env, args[i + 1]);
+    argv[i] = closure->argTypes[i]->toJS(env, args[i + 1], kBlockParam);
   }
 
   // Clear any pending exceptions before calling the function.
   napi_get_and_clear_last_exception(env, &result);
 
+  auto pool = objc_autoreleasePoolPush();
   // TODO: what about calling from a different thread?
   // Currently, V8 will crash if you call a function from a different thread
   // than the Isolate.
   napi_status status =
       napi_call_function(env, thisArg, func, cif->nargs - 1, argv, &result);
+  objc_autoreleasePoolPop(pool);
 
   bool shouldFree;
   closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);

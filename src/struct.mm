@@ -2,6 +2,7 @@
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
+#include "type_conv.h"
 #include "util.h"
 #include <cstring>
 
@@ -54,21 +55,16 @@ NAPI_FUNCTION(StructConstructor) {
   napi_valuetype argType;
   napi_typeof(env, arg, &argType);
 
-  auto object = new StructObject(info);
-  napi_ref ref;
-  napi_wrap(env, jsThis, object, StructObject_finalize, nullptr, &ref);
+  StructObject *object;
 
   if (argType == napi_object) {
-    for (auto &field : info->fields) {
-      bool hasProp = false;
-      napi_has_named_property(env, arg, field.name, &hasProp);
-      if (!hasProp)
-        continue;
-      napi_value property;
-      napi_get_named_property(env, arg, field.name, &property);
-      object->set(env, &field, property);
-    }
+    object = new StructObject(env, info, arg);
+  } else {
+    object = new StructObject(info);
   }
+
+  napi_ref ref;
+  napi_wrap(env, jsThis, object, StructObject_finalize, nullptr, &ref);
 
   return jsThis;
 }
@@ -114,17 +110,48 @@ NAPI_FUNCTION(StructCustomInspect) {
   return result;
 }
 
-inline StructObject::StructObject(StructInfo *info) {
+inline StructObject::StructObject(StructInfo *info, void *data) {
   this->info = info;
-  this->data = malloc(info->size);
-  memset(this->data, 0, this->info->size);
+  if (data == nullptr) {
+    this->data = malloc(info->size);
+    memset(this->data, 0, this->info->size);
+    this->owned = true;
+  } else {
+    this->data = data;
+    this->owned = false;
+  }
 }
 
-StructObject::~StructObject() { free(this->data); }
+StructObject::StructObject(napi_env env, StructInfo *info, napi_value object,
+                           void *memory) {
+  this->info = info;
+  if (memory == nullptr) {
+    this->owned = true;
+    this->data = malloc(info->size);
+  } else {
+    this->owned = false;
+    this->data = memory;
+  }
+
+  for (auto &field : info->fields) {
+    bool hasProp = false;
+    napi_has_named_property(env, object, field.name, &hasProp);
+    if (!hasProp)
+      continue;
+    napi_value property;
+    napi_get_named_property(env, object, field.name, &property);
+    set(env, &field, property);
+  }
+}
+
+StructObject::~StructObject() {
+  if (this->owned)
+    free(this->data);
+}
 
 napi_value StructObject::get(napi_env env, StructFieldInfo *field) {
   auto data = (char *)this->data + field->offset;
-  return field->type->toJS(env, data);
+  return field->type->toJS(env, data, kStructZeroCopy);
 }
 
 void StructObject::set(napi_env env, StructFieldInfo *field, napi_value value) {
@@ -188,13 +215,25 @@ napi_value StructObject::getJSClass(napi_env env, StructInfo *info) {
   return result;
 }
 
-napi_value StructObject::fromNative(napi_env env, StructInfo *info,
-                                    void *data) {
+napi_value StructObject::fromNative(napi_env env, StructInfo *info, void *data,
+                                    bool owned) {
   napi_value result;
   napi_value cls = getJSClass(env, info);
   napi_new_instance(env, cls, 0, nullptr, &result);
   auto object = StructObject::unwrap(env, result);
-  memcpy(object->data, data, info->size);
+  if (owned) {
+    if (object->owned) {
+      memcpy(object->data, data, info->size);
+    } else {
+      object->data = malloc(info->size);
+      memcpy(object->data, data, info->size);
+      object->owned = true;
+    }
+  } else {
+    object->~StructObject();
+    object->data = data;
+    object->owned = false;
+  }
   return result;
 }
 

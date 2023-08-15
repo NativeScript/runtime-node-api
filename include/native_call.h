@@ -11,6 +11,13 @@ napi_value JS_BridgedMethod(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedGetter(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedSetter(napi_env env, napi_callback_info cbinfo);
 
+inline bool isSelectorOwned(SEL sel) {
+  std::string selectorName = sel_getName(sel);
+  return selectorName.find("copy") == 0 ||
+         selectorName.find("mutableCopy") == 0 ||
+         selectorName.find("new") == 0 || selectorName.find("alloc") == 0;
+}
+
 class BridgedMethod {
 public:
   SEL selector;
@@ -24,6 +31,7 @@ public:
   bool isStatic;
   napi_ref originalConstructor;
   bool supercall = false;
+  bool returnOwned;
 
   BridgedMethod(ObjCBridgeData *bridgeData, SEL selector, Method method) {
     this->selector = selector;
@@ -31,6 +39,7 @@ public:
     this->setterMethod = nullptr;
     this->bridgeData = bridgeData;
     this->property = nullptr;
+    this->returnOwned = isSelectorOwned(selector);
   }
 
   BridgedMethod(ObjCBridgeData *bridgeData, SEL selector, SEL setterSelector,

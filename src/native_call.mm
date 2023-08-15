@@ -2,6 +2,7 @@
 #include "Metadata.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
+#include "type_conv.h"
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
 
@@ -97,7 +98,8 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  return cif->returnType->toJS(env, rvalue);
+  return cif->returnType->toJS(env, rvalue,
+                               method->returnOwned ? kReturnOwned : 0);
 }
 
 NAPI_FUNCTION(BridgedGetter) {

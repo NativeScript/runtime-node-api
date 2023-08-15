@@ -29,6 +29,8 @@ public:
   bool shouldFreeAny;
   bool *shouldFree;
 
+  bool returnOwned = false;
+
   MethodCif();
   MethodCif(napi_env env, std::string typeEncoding);
   MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset);

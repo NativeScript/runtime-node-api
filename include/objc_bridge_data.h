@@ -2,6 +2,7 @@
 #define OBJC_BRIDGE_DATA_H
 
 #include "Metadata.h"
+#include "autoreleasepool.h"
 #include "bridged_class.h"
 #include "js_native_api.h"
 #include "method_cif.h"
@@ -12,6 +13,7 @@
 #include <map>
 #include <stdint.h>
 #include <string>
+#include <unordered_set>
 
 namespace objc_bridge {
 
@@ -19,6 +21,22 @@ typedef struct CFunction {
   void *fnptr;
   MethodCif *cif;
 } CFunction;
+
+// Determines how retain/release should be called when an Objective-C
+// object is exposed to JavaScript land.
+typedef enum ObjectOwnership {
+  // The object is already owned by JS land, and will be released
+  // when the JS object is garbage collected.
+  kOwnedObject,
+  // The object is not owned by JS land, so to "take ownership"
+  // we will call retain and release when the JS object is
+  // garbage collected.
+  kUnownedObject,
+  // The object is not owned by JS land, but we will not call
+  // retain/release at all. This is useful for objects that
+  // passed to JS land as callback parameters.
+  kBorrowedObject,
+} ObjectOwnership;
 
 class ObjCBridgeData {
 public:
@@ -44,7 +62,8 @@ public:
 
   BridgedClass *getBridgedClass(napi_env env, std::string class_name);
   MethodCif *getMethodCif(napi_env env, Method method);
-  napi_value getObject(napi_env env, id object);
+  napi_value getObject(napi_env env, id object,
+                       ObjectOwnership ownership = kUnownedObject);
   void registerClass(napi_env env, napi_value constructor);
   void unregisterObject(id object) noexcept;
 
@@ -63,10 +82,12 @@ public:
   }
 
   ObjCBridgeData();
+  ~ObjCBridgeData();
 
 private:
   std::unordered_map<id, napi_ref> objectRefs;
   std::unordered_map<MDSectionOffset, StructInfo *> structInfoCache;
+  void *objc_autoreleasePool;
 };
 
 } // namespace objc_bridge

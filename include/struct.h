@@ -28,8 +28,11 @@ class StructObject {
 public:
   void *data;
   StructInfo *info;
+  bool owned;
 
-  StructObject(StructInfo *info);
+  StructObject(StructInfo *info, void *data = nullptr);
+  StructObject(napi_env env, StructInfo *info, napi_value object,
+               void *memory = nullptr);
 
   napi_value get(napi_env env, StructFieldInfo *field);
   void set(napi_env env, StructFieldInfo *field, napi_value value);
@@ -37,7 +40,8 @@ public:
   static StructObject *unwrap(napi_env env, napi_value object);
   static napi_value defineJSClass(napi_env env, StructInfo *info);
   static napi_value getJSClass(napi_env env, StructInfo *info);
-  static napi_value fromNative(napi_env env, StructInfo *info, void *data);
+  static napi_value fromNative(napi_env env, StructInfo *info, void *data,
+                               bool owned);
 
   ~StructObject();
 };

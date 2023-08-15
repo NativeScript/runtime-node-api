@@ -71,6 +71,7 @@ include_directories(
 )
 
 set(LIB_SOURCE_FILES
+  src/autoreleasepool.mm
   src/objc.mm
   src/bridge.mm
   src/block.mm

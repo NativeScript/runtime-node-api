@@ -30,8 +30,7 @@ export class ApplicationDelegate extends NSObject {
 
     NSApp.stop(this);
 
-    this.runloopMode = NSString.stringWithUTF8String("kCFRunLoopDefaultMode")
-      .retain();
+    this.runloopMode = NSString.stringWithUTF8String("kCFRunLoopDefaultMode");
 
     const loop = () => {
       const event = NSApp.nextEventMatchingMaskUntilDateInModeDequeue(

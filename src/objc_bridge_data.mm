@@ -22,6 +22,13 @@ ObjCBridgeData::ObjCBridgeData() {
   fread(buffer, 1, size, f);
   fclose(f);
   metadata = new MDMetadataReader(buffer, size);
+  objc_autoreleasePool = objc_autoreleasePoolPush();
+}
+
+ObjCBridgeData::~ObjCBridgeData() {
+  objc_autoreleasePoolPop(objc_autoreleasePool);
+  delete metadata;
+  dlclose(self_dl);
 }
 
 CFunction *ObjCBridgeData::getCFunction(napi_env env, MDSectionOffset offset) {
@@ -90,11 +97,14 @@ void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   bridgeData->unregisterObject(object);
 }
 
+void finalize_objc_object_noop(napi_env, void *, void *) {}
+
 // Get a napi_value for an Objective-C object, creating it if it doesn't exist.
 // Here we also ensure that the native object always points to the same
 // JS object, this makes sure that we only ever finalize it once.
 // Might want to consider using associated objects instead of a hashtable.
-napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
+napi_value ObjCBridgeData::getObject(napi_env env, id obj,
+                                     ObjectOwnership ownership) {
   NAPI_PREAMBLE
 
   if (obj == nullptr) {
@@ -140,8 +150,10 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
-    // [obj retain];
-    NAPI_GUARD(napi_wrap(env, result, (void *)obj, finalize_objc_object,
+    NAPI_GUARD(napi_wrap(env, result, (void *)obj,
+                         ownership == kBorrowedObject
+                             ? finalize_objc_object_noop
+                             : finalize_objc_object,
                          (void *)this, &this->objectRefs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
@@ -150,6 +162,10 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj) {
     NAPI_GUARD(napi_create_reference(env, result, 0, &this->objectRefs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
+    }
+
+    if (ownership == kUnownedObject) {
+      [obj retain];
     }
   }
 
@@ -436,7 +452,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
 void ObjCBridgeData::unregisterObject(id object) noexcept {
   objectRefs.erase(object);
-  // [object release];
+  [object release];
 }
 
 } // namespace objc_bridge

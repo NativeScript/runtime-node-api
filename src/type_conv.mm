@@ -109,7 +109,7 @@ class VoidTypeConv : public TypeConv {
 public:
   VoidTypeConv() { type = &ffi_type_void; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_get_null(env, &result);
     return result;
@@ -123,7 +123,7 @@ class SCharTypeConv : public TypeConv {
 public:
   SCharTypeConv() { type = &ffi_type_schar; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_int32(env, *(int8_t *)value, &result);
     return result;
@@ -144,7 +144,7 @@ class UCharTypeConv : public TypeConv {
 public:
   UCharTypeConv() { type = &ffi_type_uchar; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_uint32(env, *(uint8_t *)value, &result);
     return result;
@@ -165,7 +165,7 @@ class UInt8TypeConv : public TypeConv {
 public:
   UInt8TypeConv() { type = &ffi_type_uint8; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_uint32(env, *(uint8_t *)value, &result);
     return result;
@@ -186,7 +186,7 @@ class SInt16TypeConv : public TypeConv {
 public:
   SInt16TypeConv() { type = &ffi_type_sshort; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_int32(env, *(int16_t *)value, &result);
     return result;
@@ -207,7 +207,7 @@ class UInt16TypeConv : public TypeConv {
 public:
   UInt16TypeConv() { type = &ffi_type_ushort; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_uint32(env, *(uint16_t *)value, &result);
     return result;
@@ -228,7 +228,7 @@ class SInt32TypeConv : public TypeConv {
 public:
   SInt32TypeConv() { type = &ffi_type_sint; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_int32(env, *(int32_t *)value, &result);
     return result;
@@ -249,7 +249,7 @@ class UInt32TypeConv : public TypeConv {
 public:
   UInt32TypeConv() { type = &ffi_type_uint; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_uint32(env, *(uint32_t *)value, &result);
     return result;
@@ -270,7 +270,7 @@ class SInt64TypeConv : public TypeConv {
 public:
   SInt64TypeConv() { type = &ffi_type_sint64; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     int64_t val = *(int64_t *)value;
     napi_create_int64(env, val, &result);
@@ -305,7 +305,7 @@ class UInt64TypeConv : public TypeConv {
 public:
   UInt64TypeConv() { type = &ffi_type_uint64; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     uint64_t val = *(uint64_t *)value;
     napi_create_int64(env, (int64_t)val, &result);
@@ -340,7 +340,7 @@ class Float32TypeConv : public TypeConv {
 public:
   Float32TypeConv() { type = &ffi_type_float; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_double(env, *(float *)value, &result);
     return result;
@@ -361,7 +361,7 @@ class Float64TypeConv : public TypeConv {
 public:
   Float64TypeConv() { type = &ffi_type_double; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_double(env, *(double *)value, &result);
     return result;
@@ -382,7 +382,7 @@ class BoolTypeConv : public TypeConv {
 public:
   BoolTypeConv() { type = &ffi_type_uint8; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_get_boolean(env, *(bool *)value, &result);
     return result;
@@ -403,7 +403,7 @@ class PointerTypeConv : public TypeConv {
 public:
   PointerTypeConv() { type = &ffi_type_pointer; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value external;
     napi_create_external(env, value, nullptr, nullptr, &external);
     return external;
@@ -484,7 +484,7 @@ class StringTypeConv : public TypeConv {
 public:
   StringTypeConv() { type = &ffi_type_pointer; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     napi_create_string_utf8(env, (char *)value, NAPI_AUTO_LENGTH, &result);
     return result;
@@ -528,10 +528,19 @@ class ObjCObjectTypeConv : public TypeConv {
 public:
   ObjCObjectTypeConv() { type = &ffi_type_pointer; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     id obj = *((id *)value);
     auto bridgeData = ObjCBridgeData::InstanceData(env);
-    auto object = bridgeData->getObject(env, obj);
+
+    ObjectOwnership ownership;
+    if ((flags & kReturnOwned) != 0)
+      ownership = kOwnedObject;
+    else if ((flags & kBlockParam) != 0)
+      ownership = kBorrowedObject;
+    else
+      ownership = kUnownedObject;
+
+    auto object = bridgeData->getObject(env, obj, ownership);
     if (object == nullptr) {
       napi_value null;
       napi_get_null(env, &null);
@@ -586,8 +595,6 @@ public:
         return;
       }
       *res = [NSNumber numberWithDouble:val];
-      // *shouldFree = true;
-      // *shouldFreeAny = true;
       break;
     }
 
@@ -598,8 +605,6 @@ public:
         return;
       }
       *res = [NSNumber numberWithBool:val];
-      // *shouldFree = true;
-      // *shouldFreeAny = true;
       break;
     }
 
@@ -611,8 +616,6 @@ public:
         return;
       }
       *res = [NSNumber numberWithLongLong:val];
-      // *shouldFree = true;
-      // *shouldFreeAny = true;
       break;
     }
 
@@ -695,7 +698,7 @@ class ObjCClassTypeConv : public TypeConv {
 public:
   ObjCClassTypeConv() { type = &ffi_type_pointer; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     Class cls = *((Class *)value);
 
     if (cls == nullptr) {
@@ -733,7 +736,7 @@ class SelectorTypeConv : public TypeConv {
 public:
   SelectorTypeConv() { type = &ffi_type_pointer; }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     SEL val = *((SEL *)value);
     napi_create_string_utf8(env, sel_getName(val), NAPI_AUTO_LENGTH, &result);
@@ -771,12 +774,18 @@ public:
     this->type = type;
   }
 
-  napi_value toJS(napi_env env, void *value) override {
+  inline StructInfo *getInfo(napi_env env) {
     if (!structInfoSearched) {
       auto bridgeData = ObjCBridgeData::InstanceData(env);
       info = bridgeData->getStructInfo(env, structOffset);
       structInfoSearched = true;
     }
+
+    return info;
+  }
+
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    auto info = getInfo(env);
 
     if (info == nullptr) {
       napi_value result;
@@ -785,7 +794,8 @@ public:
       memcpy(data, value, type->size);
       return result;
     } else {
-      return StructObject::fromNative(env, info, value);
+      return StructObject::fromNative(env, info, value,
+                                      (flags & kStructZeroCopy) == 0);
     }
   }
 
@@ -811,15 +821,30 @@ public:
       return;
     }
 
+    napi_valuetype type;
+    napi_typeof(env, value, &type);
+
+    if (type != napi_object) {
+      napi_throw_type_error(env, "TypeError",
+                            "Invalid struct type, must be Struct Object, "
+                            "Struct Object Descriptor or TypedArray");
+      return;
+    }
+
     auto structObject = StructObject::unwrap(env, value);
     if (structObject != nullptr) {
       memcpy(result, structObject->data, structObject->info->size);
       return;
     }
 
-    napi_throw_type_error(
-        env, "TypeError",
-        "Invalid struct type, must be Struct Object or TypedArray");
+    if (info == nullptr) {
+      napi_throw_type_error(
+          env, "TypeError",
+          "Invalid struct type, must be Struct Object or TypedArray");
+      return;
+    }
+
+    StructObject(env, info, value, result);
   }
 };
 
@@ -833,7 +858,7 @@ public:
     type = &ffi_type_pointer;
   }
 
-  napi_value toJS(napi_env env, void *value) override {
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value result;
     void *data;
     napi_create_arraybuffer(env, type->size, &data, &result);
@@ -867,7 +892,9 @@ public:
     // type = &ffi_type_pointer;
   }
 
-  napi_value toJS(napi_env env, void *value) override { return nullptr; }
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    return nullptr;
+  }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {}
@@ -882,7 +909,9 @@ public:
     type = &ffi_type_pointer;
   }
 
-  napi_value toJS(napi_env env, void *value) override { return nullptr; }
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    return nullptr;
+  }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {}

@@ -10,6 +10,7 @@
 #include "struct.h"
 #include "type_conv.h"
 #import <Foundation/Foundation.h>
+#include "autoreleasepool.h"
 
 using namespace objc_bridge;
 
@@ -147,9 +148,10 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
       NAPI_FUNCTION_DESC(registerClass),
       NAPI_FUNCTION_DESC(registerBlock),
       NAPI_FUNCTION_DESC(import),
+      NAPI_FUNCTION_DESC(autoreleasepool),
   };
 
-  NAPI_GUARD(napi_define_properties(env, exports, 4, properties)) {
+  NAPI_GUARD(napi_define_properties(env, exports, 5, properties)) {
     NAPI_THROW_LAST_ERROR
     return exports;
   }
