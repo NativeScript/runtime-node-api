@@ -837,6 +837,8 @@ public:
       return;
     }
 
+    auto info = getInfo(env);
+
     if (info == nullptr) {
       napi_throw_type_error(
           env, "TypeError",

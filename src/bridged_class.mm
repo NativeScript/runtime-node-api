@@ -1,4 +1,5 @@
 #include "bridged_class.h"
+#include "js_native_api.h"
 #include "native_call.h"
 #include "node_api_util.h"
 #include "util.h"
@@ -232,6 +233,12 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
 
     auto result = addedSelectors.insert(selector);
     if (!result.second) {
+      continue;
+    }
+
+    bool hasProperty = false;
+    napi_has_named_property(env, object, result.first->c_str(), &hasProperty);
+    if (hasProperty) {
       continue;
     }
 

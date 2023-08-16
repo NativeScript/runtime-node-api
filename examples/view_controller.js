@@ -129,7 +129,7 @@ export class ViewController extends NSViewController {
       this,
       "buttonClicked",
     );
-
+    button.controlSize = NSControlSize.large;
     button.bezelStyle = NSBezelStyle.rounded;
     button.setButtonType(NSButtonType.momentaryLight);
     button.setTranslatesAutoresizingMaskIntoConstraints(false);

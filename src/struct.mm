@@ -179,7 +179,7 @@ napi_value StructObject::defineJSClass(napi_env env, StructInfo *info) {
     prop->name = nullptr;
     prop->method = nullptr;
     prop->value = nullptr;
-    prop->attributes = napi_enumerable;
+    prop->attributes = (napi_property_attributes) (napi_enumerable | napi_writable);
     prop->data = &info->fields[i];
     prop->getter = JS_StructPropertyGetter;
     prop->setter = JS_StructPropertySetter;
