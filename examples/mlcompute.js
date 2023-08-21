@@ -1,16 +1,6 @@
-import { classes, objc } from "../index.js";
+import { objc } from "../index.js";
 
 objc.import("MLCompute");
-
-const {
-  MLCTensor,
-  MLCTensorData,
-  MLCGraph,
-  MLCInferenceGraph,
-  MLCFullyConnectedLayer,
-  MLCConvolutionDescriptor,
-  MLCDevice,
-} = classes;
 
 const batchSize = 1;
 const shape = [batchSize, 28, 28, 1];

@@ -533,12 +533,13 @@ public:
     auto bridgeData = ObjCBridgeData::InstanceData(env);
 
     ObjectOwnership ownership;
-    if ((flags & kReturnOwned) != 0)
+    if ((flags & kReturnOwned) != 0) {
       ownership = kOwnedObject;
-    else if ((flags & kBlockParam) != 0)
+    } else if ((flags & kBlockParam) != 0) {
       ownership = kBorrowedObject;
-    else
+    } else {
       ownership = kUnownedObject;
+    }
 
     auto object = bridgeData->getObject(env, obj, ownership);
     if (object == nullptr) {

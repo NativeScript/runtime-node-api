@@ -130,11 +130,10 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
 
   unsigned int count, actualCount;
   count = actualCount = 0;
-  _Nonnull Method *methods = class_copyMethodList(nativeClass, &count);
+  auto methods = class_copyMethodList(nativeClass, &count);
 
   unsigned int propertyCount = 0;
-  _Nonnull objc_property_t *properties =
-      class_copyPropertyList(nativeClass, &propertyCount);
+  auto properties = class_copyPropertyList(nativeClass, &propertyCount);
 
   std::set<std::string> addedMethods, addedProperties, addedSelectors;
 
@@ -150,8 +149,8 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
 
     std::string getter, setter;
 
-    char *getter_c = property_copyAttributeValue(property, "G");
-    char *setter_c = property_copyAttributeValue(property, "S");
+    auto getter_c = property_copyAttributeValue(property, "G");
+    auto setter_c = property_copyAttributeValue(property, "S");
 
     if (getter_c == nullptr) {
       getter = name;
@@ -169,11 +168,11 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
       continue;
     }
 
-    SEL getterSel = sel_registerName(getter.c_str());
-    SEL setterSel = sel_registerName(setter.c_str());
+    auto getterSel = sel_registerName(getter.c_str());
+    auto setterSel = sel_registerName(setter.c_str());
 
-    Method getterMethod = class_getInstanceMethod(nativeClass, getterSel);
-    Method setterMethod = class_getInstanceMethod(nativeClass, setterSel);
+    auto getterMethod = class_getInstanceMethod(nativeClass, getterSel);
+    auto setterMethod = class_getInstanceMethod(nativeClass, setterSel);
 
     if (getterMethod != nil) {
       auto result = addedSelectors.insert(getter);
@@ -227,8 +226,8 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
   }
 
   for (unsigned int i = 0; i < count; i++) {
-    Method method = methods[i];
-    SEL sel = method_getName(methods[i]);
+    auto method = methods[i];
+    auto sel = method_getName(methods[i]);
     std::string selector = sel_getName(sel);
 
     auto result = addedSelectors.insert(selector);
@@ -242,7 +241,7 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
       continue;
     }
 
-    std::string name = jsifySelector(selector);
+    auto name = jsifySelector(selector);
 
     result = addedMethods.insert(name);
     if (!result.second) {
@@ -290,6 +289,8 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
   }
 }
 
+std::string NativeObjectName = "NativeObject";
+
 // Bridge an Objective-C class to JavaScript on the fly. Runtime introspection
 // is used to determine the class's properties and methods.
 // In an overview, we define two versions of same class. One is the "normal"
@@ -301,7 +302,6 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
 BridgedClass::BridgedClass(napi_env env, std::string name) {
   Class nativeClass = objc_getClass(name.c_str());
 
-  std::string NativeObjectName = "NativeObject";
   bool isNativeObject = name == NativeObjectName;
 
   if (nativeClass == nil && !isNativeObject) {
@@ -322,6 +322,7 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   NAPI_GUARD(napi_define_class(env, name.c_str(), name.length(),
                                JS_BridgedConstructor, (void *)this, 0, nil,
                                &constructor)) {
+    NSLog(@"Failed to define class: %s: %d", name.c_str(), status);
     NAPI_THROW_LAST_ERROR
     return;
   }
@@ -356,6 +357,9 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
   napi_value superConstructor = nil, superPrototype = nil,
              superConstructorSupercall = nil, superPrototypeSupercall = nil;
 
+  // If the class requested isn't NativeObject - the class which every bridged
+  // class extends - we need to find the super class and inherit from it, if it
+  // exists.
   if (!isNativeObject) {
     Class superClass = nil;
     if (nativeClass != nil) {
@@ -426,10 +430,12 @@ BridgedClass::BridgedClass(napi_env env, std::string name) {
         .attributes = napi_enumerable,
         .data = nil,
     };
+
     napi_define_properties(env, prototype, 1, &property);
     napi_define_properties(env, constructor, 1, &property);
     napi_define_properties(env, supercallPrototype, 1, &property);
     napi_define_properties(env, supercallConstructor, 1, &property);
+
     return;
   }
 

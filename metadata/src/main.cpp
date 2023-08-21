@@ -176,6 +176,11 @@ public:
             break;
           }
 
+          case CXCursor_ObjCInterfaceDecl: {
+            state->processClass(cursor);
+            break;
+          }
+
           case CXCursor_StructDecl: {
             state->processStruct(cursor);
             break;
@@ -275,6 +280,102 @@ private:
     metadata->protocols.add(protocol, nameStr);
 
     current_protocol = nullptr;
+    processed_cmethods.clear();
+    processed_imethods.clear();
+    processed_properties.clear();
+  }
+
+  bool isClassMethodRequired(CXCursor cursor) {
+    bool required = false;
+    for (int i = 0; i < clang_Cursor_getNumArguments(cursor); i++) {
+      auto arg = clang_Cursor_getArgument(cursor, i);
+      auto type = clang_getCursorType(arg);
+      auto canonicalType = clang_getCanonicalType(type);
+      auto kind = canonicalType.kind;
+      if (kind == CXType_BlockPointer) {
+        required = true;
+        break;
+      }
+    }
+    return required;
+  }
+
+  void processClass(CXCursor cursor) {
+    CXString name = clang_getCursorSpelling(cursor);
+    std::string nameStr = clang_getCString(name);
+    clang_disposeString(name);
+
+    auto fw = getFrameworkName(cursor);
+    if (!frameworks.contains(fw) && nameStr != "NSObject") {
+      return;
+    }
+
+    // std::cout << "class: " << nameStr << std::endl;
+
+    if (processed_protocols.contains(nameStr)) {
+      return;
+    } else {
+      processed_protocols.insert(nameStr);
+    }
+
+    MDSectionOffset mdName = metadata->strings.add(nameStr, nameStr);
+
+    MDClass *cls = new MDClass();
+    cls->name = mdName;
+    cls->superclass = 0;
+
+    current_class = cls;
+
+    clang_visitChildren(
+        cursor,
+        [](CXCursor cursor, CXCursor parent, CXClientData clientData) {
+          auto state = (MDCXState *)clientData;
+          auto metadata = state->metadata;
+          auto cls = state->current_class;
+
+          CXCursorKind kind = clang_getCursorKind(cursor);
+
+          switch (kind) {
+          case CXCursor_ObjCSuperClassRef: {
+            cls->superclass = 0;
+            break;
+          }
+
+          case CXCursor_ObjCInstanceMethodDecl: {
+            if (!state->isClassMethodRequired(cursor)) {
+              break;
+            }
+            auto member = state->processMethod(cursor, false);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          case CXCursor_ObjCClassMethodDecl: {
+            if (!state->isClassMethodRequired(cursor)) {
+              break;
+            }
+            auto member = state->processMethod(cursor, true);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          default:
+            break;
+          }
+
+          return CXChildVisit_Continue;
+        },
+        this);
+
+    metadata->classes.add(cls, nameStr);
+
+    current_class = nullptr;
     processed_cmethods.clear();
     processed_imethods.clear();
     processed_properties.clear();
@@ -655,7 +756,6 @@ private:
       CXString name = clang_getTypeSpelling(canonicalType);
       std::string nameStr = clang_getCString(name);
       clang_disposeString(name);
-      std::cout << "namestr: " << nameStr << std::endl;
       nameStr = nameStr.substr(nameStr[0] == 'u'   ? 6
                                : nameStr[0] == 's' ? 7
                                                    : 0);
@@ -758,9 +858,11 @@ private:
   std::set<std::string> processed_imethods;
   std::set<std::string> processed_cmethods;
   std::set<std::string> processed_properties;
+  std::set<std::string> processed_classes;
 
   MDProtocol *current_protocol;
   MDEnum *current_enum;
+  MDClass *current_class;
   std::vector<std::string> current_enum_names;
   std::vector<int64_t> current_enum_values;
   MDStruct *current_struct;
@@ -880,6 +982,8 @@ int main(int argc, char **argv) {
             << metadata->protocols.section_size / 1024. << " KB" << std::endl;
   std::cout << "    structs (n, size): " << metadata->structs.size() << ", "
             << metadata->structs.section_size / 1024. << " KB" << std::endl;
+  std::cout << "    classes (n, size): " << metadata->classes.size() << ", "
+            << metadata->classes.section_size / 1024. << " KB" << std::endl;
 
   auto file = std::fopen("metadata.nsmd", "w");
   std::fwrite(result.first, 1, result.second, file);

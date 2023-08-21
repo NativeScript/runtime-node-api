@@ -49,6 +49,7 @@ public:
     this->property = property;
     this->bridgeData = bridgeData;
     this->method = nullptr;
+    this->returnOwned = false;
   }
 };
 

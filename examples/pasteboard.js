@@ -1,6 +1,4 @@
-import { classes } from "../index.js";
-
-const { NSPasteboard } = classes;
+import "../index.js";
 
 const pasteboard = NSPasteboard.generalPasteboard;
 

@@ -1,5 +1,6 @@
 #include "objc_bridge_data.h"
 #include "closure.h"
+#include "js_native_api.h"
 #include "node_api_util.h"
 #include "util.h"
 
@@ -113,7 +114,12 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj,
 
   auto find = this->objectRefs[obj];
   if (find != nullptr) {
-    return get_ref_value(env, find);
+    auto value = get_ref_value(env, find);
+    if (value != nullptr) {
+      return value;
+    }
+
+    this->unregisterObject(obj);
   }
 
   Class cls = object_getClass(obj);
@@ -150,16 +156,17 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj,
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
-    NAPI_GUARD(napi_wrap(env, result, (void *)obj,
-                         ownership == kBorrowedObject
-                             ? finalize_objc_object_noop
-                             : finalize_objc_object,
-                         (void *)this, &this->objectRefs[obj])) {
+
+    NAPI_GUARD(napi_wrap(env, result, obj, nullptr, nullptr, nullptr)) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
-    // FIXME: This should be fixed in Deno, its impl of napi_wrap is wrong.
-    NAPI_GUARD(napi_create_reference(env, result, 0, &this->objectRefs[obj])) {
+
+    NAPI_GUARD(napi_add_finalizer(env, result, obj,
+                                  ownership == kBorrowedObject
+                                      ? finalize_objc_object_noop
+                                      : finalize_objc_object,
+                                  this, &this->objectRefs[obj])) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
@@ -451,8 +458,10 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 }
 
 void ObjCBridgeData::unregisterObject(id object) noexcept {
-  objectRefs.erase(object);
-  [object release];
+  if (objectRefs.contains(object)) {
+    objectRefs.erase(object);
+    [object release];
+  }
 }
 
 } // namespace objc_bridge

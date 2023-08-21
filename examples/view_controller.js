@@ -1,24 +1,4 @@
-import { classes, NSMakeRect, NSMakeSize, objc } from "../index.js";
-
-const {
-  NSApplication,
-  NSObject,
-  NSViewController,
-  NSView,
-  NSWindow,
-  NSMenu,
-  NSMenuItem,
-  NSTextField,
-  NSImage,
-  NSImageView,
-  NSColor,
-  NSFont,
-  NSFontManager,
-  NSStackView,
-  NSString,
-  NSButton,
-  NSAlert,
-} = classes;
+import { NSMakeRect, NSMakeSize, objc } from "../index.js";
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
@@ -97,7 +77,6 @@ export class ViewController extends NSViewController {
     label.alignment = NSTextAlignment.center;
     label.setTranslatesAutoresizingMaskIntoConstraints(false);
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
-
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
       NSFontTraitMask.bold,

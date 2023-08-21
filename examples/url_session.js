@@ -1,11 +1,6 @@
 // TODO: needs block support on different threads
 
-import { classes, objc } from "../index.js";
-
-const {
-  NSURL,
-  NSURLSession,
-} = classes;
+import { objc } from "../index.js";
 
 const completionHandler = objc.registerBlock(
   "v@@@",

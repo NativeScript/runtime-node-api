@@ -1,5 +1,6 @@
 #include "bridge.h"
 #include "Metadata.h"
+#include "autoreleasepool.h"
 #include "block.h"
 #include "class.h"
 #include "js_native_api.h"
@@ -10,7 +11,6 @@
 #include "struct.h"
 #include "type_conv.h"
 #import <Foundation/Foundation.h>
-#include "autoreleasepool.h"
 
 using namespace objc_bridge;
 
@@ -132,6 +132,29 @@ NAPI_FUNCTION(structGetter) {
   return StructObject::getJSClass(env, structInfo);
 }
 
+NAPI_FUNCTION(classGetter) {
+  void *data;
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
+  MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+
+  auto cached = bridgeData->mdValueCache[offset];
+  if (cached != nullptr) {
+    return get_ref_value(env, cached);
+  }
+
+  std::string name = bridgeData->metadata->getString(offset);
+  auto cls = bridgeData->getBridgedClass(env, name);
+
+  if (cls != nullptr) {
+    bridgeData->mdValueCache[offset] = cls->constructor;
+  } else {
+    return nullptr;
+  }
+
+  return get_ref_value(env, cls->constructor);
+}
+
 NAPI_EXPORT NAPI_MODULE_REGISTER {
   NAPI_PREAMBLE
 
@@ -144,10 +167,8 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   }
 
   const napi_property_descriptor properties[] = {
-      NAPI_FUNCTION_DESC(getClass),
-      NAPI_FUNCTION_DESC(registerClass),
-      NAPI_FUNCTION_DESC(registerBlock),
-      NAPI_FUNCTION_DESC(import),
+      NAPI_FUNCTION_DESC(getClass),        NAPI_FUNCTION_DESC(registerClass),
+      NAPI_FUNCTION_DESC(registerBlock),   NAPI_FUNCTION_DESC(import),
       NAPI_FUNCTION_DESC(autoreleasepool),
   };
 
@@ -279,6 +300,49 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
         .value = nullptr,
         .data = (void *)((size_t)originalOffset),
         .method = JS_CFunction,
+    };
+
+    napi_define_properties(env, global, 1, &prop);
+  }
+
+  offset = bridgeData->metadata->classesOffset;
+  while (offset < bridgeData->metadata->structsOffset) {
+    MDSectionOffset originalOffset = offset;
+    auto name = bridgeData->metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+    auto superclass = bridgeData->metadata->getOffset(offset);
+    offset += sizeof(superclass);
+
+    bool next = (superclass & mdSectionOffsetNext) != 0;
+
+    while (next) {
+      auto flags = bridgeData->metadata->getMemberFlag(offset);
+      next = (flags & mdMemberNext) != 0;
+      offset += sizeof(flags);
+
+      if ((flags & mdMemberProperty) != 0) {
+        bool readonly = (flags & mdMemberReadonly) != 0;
+        offset += sizeof(MDSectionOffset); // name
+        offset += sizeof(MDSectionOffset); // getterSelector
+        if (!readonly)
+          offset += sizeof(MDSectionOffset); // setterSelector
+        offset += sizeof(MDSectionOffset);   // getterSignature
+        if (!readonly)
+          offset += sizeof(MDSectionOffset); // setterSignature
+      } else {
+        offset += sizeof(MDSectionOffset); // selector
+        offset += sizeof(MDSectionOffset); // signature
+      }
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes = napi_enumerable,
+        .method = nullptr,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .getter = JS_classGetter,
     };
 
     napi_define_properties(env, global, 1, &prop);

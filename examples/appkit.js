@@ -1,20 +1,4 @@
-import { classes, NSMakeRect, NSMakeSize, objc } from "../index.js";
-
-const {
-  NSObject,
-  NSApplication,
-  NSWindow,
-  NSMenu,
-  NSMenuItem,
-  NSTextField,
-  NSImage,
-  NSImageView,
-  NSColor,
-  NSFont,
-  NSFontManager,
-  NSStackView,
-  NSString,
-} = classes;
+import { NSMakeRect, NSMakeSize, objc } from "../index.js";
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate"];

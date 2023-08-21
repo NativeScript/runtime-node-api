@@ -150,6 +150,12 @@ typedef struct MDProtocol {
   std::vector<MDMember> members;
 } MDProtocol;
 
+typedef struct MDClass {
+  MDSectionOffset name;
+  MDSectionOffset superclass;
+  std::vector<MDMember> members;
+} MDClass;
+
 // Binary serialization/deserialization interface.
 template <typename T> class MDSerializer {
 public:
@@ -184,7 +190,7 @@ public:
   size_t size(MDTypeInfo *value) override {
     size_t size = 0;
     // Kind
-    size += sizeof(MDTypeKind);
+    addsize(value->kind);
 
     switch (value->kind) {
     case mdTypeArray: {
@@ -224,7 +230,6 @@ public:
 
   void serialize(MDTypeInfo *value, void *data) override {
     // Kind
-    MDTypeKind kind = value->kind;
     binwrite(value->kind);
 
     switch (value->kind) {
@@ -374,9 +379,9 @@ public:
   size_t size(MDStructField value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value.name);
     // Offset
-    size += sizeof(uint16_t);
+    addsize(value.offset);
     // Type
     MDTypeInfoSerde typeSerde;
     size += typeSerde.size(value.type);
@@ -385,13 +390,9 @@ public:
 
   void serialize(MDStructField value, void *data) override {
     // Name
-    MDSectionOffset nameOffset = value.name;
-    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value.name);
     // Offset
-    uint16_t offset = value.offset;
-    memcpy(data, &offset, sizeof(offset));
-    ptr_add(&data, sizeof(offset));
+    binwrite(value.offset);
     // Type
     MDTypeInfoSerde typeSerde;
     typeSerde.serialize(value.type, data);
@@ -403,9 +404,9 @@ public:
   size_t size(MDStruct *value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Size
-    size += sizeof(uint16_t);
+    addsize(value->size);
     // Fields
     MDStructFieldSerde fieldSerde;
     for (MDStructField field : value->fields) {
@@ -416,13 +417,9 @@ public:
 
   void serialize(MDStruct *value, void *data) override {
     // Name
-    MDSectionOffset nameOffset = value->name;
-    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Size
-    uint16_t size = value->size;
-    memcpy(data, &size, sizeof(size));
-    ptr_add(&data, sizeof(size));
+    binwrite(value->size);
     // Fields
     MDStructFieldSerde fieldSerde;
     for (size_t i = 0; i < value->fields.size(); i++) {
@@ -457,11 +454,11 @@ public:
   size_t size(MDVariable *value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Kind
-    size += sizeof(MDTypeKind);
+    addsize(value->type->kind);
     // Eval Kind
-    size += sizeof(MDVariableEvalKind);
+    addsize(value->evalKind);
     if (value->evalKind == mdEvalNone) {
       return size;
     }
@@ -472,17 +469,11 @@ public:
 
   void serialize(MDVariable *value, void *data) override {
     // Name
-    MDSectionOffset nameOffset = value->name;
-    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Kind
-    MDTypeKind kind = value->type->kind;
-    memcpy(data, &kind, sizeof(MDTypeKind));
-    ptr_add(&data, sizeof(MDTypeKind));
+    binwrite(value->type->kind);
     // Eval Kind
-    MDVariableEvalKind evalKind = value->evalKind;
-    memcpy(data, &evalKind, sizeof(MDVariableEvalKind));
-    ptr_add(&data, sizeof(MDVariableEvalKind));
+    binwrite(value->evalKind);
     if (value->evalKind == mdEvalNone) {
       return;
     }
@@ -498,19 +489,17 @@ public:
   size_t size(MDEnumMember *value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Value
-    size += sizeof(int64_t);
+    addsize(value->value);
     return size;
   }
 
   void serialize(MDEnumMember *value, void *data) override {
     // Name
-    memcpy(data, &value->name, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Value
-    memcpy(data, &value->value, sizeof(int64_t));
-    ptr_add(&data, sizeof(int64_t));
+    binwrite(value->value);
   }
 };
 
@@ -519,7 +508,7 @@ public:
   size_t size(MDEnum *value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Members
     MDEnumMemberSerde memberSerde;
     size += value->members.size() * memberSerde.size(&value->members[0]);
@@ -528,9 +517,7 @@ public:
 
   void serialize(MDEnum *value, void *data) override {
     // Name
-    MDSectionOffset nameOffset = value->name;
-    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Members
     size_t membersSize = value->members.size();
     MDEnumMemberSerde memberSerde;
@@ -603,21 +590,17 @@ public:
   size_t size(MDFunction *value) override {
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Signature
-    size += sizeof(MDSectionOffset);
+    addsize(value->signature);
     return size;
   }
 
   void serialize(MDFunction *value, void *data) override {
     // Name
-    MDSectionOffset nameOffset = value->name;
-    memcpy(data, &nameOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Signature
-    MDSectionOffset signatureOffset = value->signature;
-    memcpy(data, &signatureOffset, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->signature);
   }
 };
 
@@ -626,28 +609,29 @@ public:
   size_t size(MDMember value) override {
     size_t size = 0;
     // Flags
-    size += sizeof(MDMemberFlag);
+    addsize(value.flags);
 
     if (value.flags & mdMemberProperty) {
       // Name
-      size += sizeof(MDSectionOffset);
+      addsize(value.name);
       // Getter selector
-      size += sizeof(MDSectionOffset);
+      addsize(value.getterSelector);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter selector
-        size += sizeof(MDSectionOffset);
+        addsize(value.setterSelector);
       }
+
       // Getter signature
-      size += sizeof(MDSectionOffset);
+      addsize(value.getterSignature);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter signature
-        size += sizeof(MDSectionOffset);
+        addsize(value.setterSignature);
       }
     } else {
       // Method selector
-      size += sizeof(MDSectionOffset);
+      addsize(value.methodSelector);
       // Method signature
-      size += sizeof(MDSectionOffset);
+      addsize(value.signature);
     }
 
     return size;
@@ -655,44 +639,28 @@ public:
 
   void serialize(MDMember value, void *data) override {
     // Flags
-    MDMemberFlag flags = value.flags;
-    memcpy(data, &flags, sizeof(MDMemberFlag));
-    ptr_add(&data, sizeof(MDMemberFlag));
+    binwrite(value.flags);
 
     if (value.flags & mdMemberProperty) {
       // Name
-      MDSectionOffset nameKey = value.name;
-      memcpy(data, &nameKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value.name);
       // Getter selector
-      MDSectionOffset getterSelectorKey = value.getterSelector;
-      memcpy(data, &getterSelectorKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value.getterSelector);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter selector
-        MDSectionOffset setterSelectorKey = value.setterSelector;
-        memcpy(data, &setterSelectorKey, sizeof(MDSectionOffset));
-        ptr_add(&data, sizeof(MDSectionOffset));
+        binwrite(value.setterSelector);
       }
       // Getter signature
-      MDSectionOffset getterSignatureKey = value.getterSignature;
-      memcpy(data, &getterSignatureKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value.getterSignature);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter signature
-        MDSectionOffset setterSignatureKey = value.setterSignature;
-        memcpy(data, &setterSignatureKey, sizeof(MDSectionOffset));
-        ptr_add(&data, sizeof(MDSectionOffset));
+        binwrite(value.setterSignature);
       }
     } else {
       // Method selector
-      MDSectionOffset methodSelectorKey = value.methodSelector;
-      memcpy(data, &methodSelectorKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value.methodSelector);
       // Method signature
-      MDSectionOffset methodSignatureKey = value.signature;
-      memcpy(data, &methodSignatureKey, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(value.signature);
     }
   }
 };
@@ -703,7 +671,7 @@ public:
     auto memberSerde = MDMemberSerde();
     size_t size = 0;
     // Name
-    size += sizeof(MDSectionOffset);
+    addsize(value->name);
     // Protocols
     size_t protocolsSize = value->protocols.size();
     if (protocolsSize > 0) {
@@ -760,6 +728,47 @@ public:
   }
 };
 
+class MDClassSerde : public MDSerializer<MDClass *> {
+public:
+  size_t size(MDClass *value) override {
+    auto memberSerde = MDMemberSerde();
+    size_t size = 0;
+    // Name
+    addsize(value->name);
+    // Superclass
+    addsize(value->superclass);
+    // Members
+    size_t membersSize = value->members.size();
+    for (auto &member : value->members) {
+      size += memberSerde.size(member);
+    }
+    return size;
+  }
+
+  void serialize(MDClass *value, void *data) override {
+    auto memberSerde = MDMemberSerde();
+    // Name
+    binwrite(value->name);
+    // Super class
+    MDSectionOffset superclassKey = value->superclass;
+    if (!value->members.empty()) {
+      superclassKey |= mdSectionOffsetNext;
+    }
+    binwrite(superclassKey);
+    // Members
+    size_t membersSize = value->members.size();
+    for (int i = 0; i < membersSize; i++) {
+      auto member = value->members[i];
+      memberSerde.serialize(member, data);
+      if (i != membersSize - 1) {
+        MDMemberFlag *serializedPtr = (MDMemberFlag *)data;
+        *serializedPtr = MDMemberFlag(*serializedPtr | mdMemberNext);
+      }
+      ptr_add(&data, memberSerde.size(member));
+    }
+  }
+};
+
 template <typename T, Derived<MDSerializer<T>> S>
 class MDSection : public std::unordered_map<MDSectionOffset, T> {
 public:
@@ -790,7 +799,7 @@ public:
 #define MD_HEADER_VERSION 1
 #define MD_HEADER_SIZE (MD_HEADER_MAGIC_SIZE + MD_HEADER_VERSION_SIZE)
 
-#define MD_NUM_SECTIONS 7
+#define MD_NUM_SECTIONS 8
 
 typedef enum MDSectionID : uint8_t {
   mdSectionStrings,
@@ -799,7 +808,7 @@ typedef enum MDSectionID : uint8_t {
   mdSectionSignatures,
   mdSectionFunctions,
   mdSectionProtocols,
-  // mdSectionClasses,
+  mdSectionClasses,
   mdSectionStructs,
 } MDSectionID;
 
@@ -812,14 +821,14 @@ public:
   MDSection<MDSignature *, MDSignatureSerde> signatures;
   MDSection<MDFunction *, MDFunctionSerde> functions;
   MDSection<MDProtocol *, MDProtocolSerde> protocols;
-  // MDSection<MDClass *, MDClassSerde> classes;
+  MDSection<MDClass *, MDClassSerde> classes;
   MDSection<MDStruct *, MDStructSerde> structs;
 
   MDMetadataWriter()
       : strings(MDStringSerde()), signatures(MDSignatureSerde()),
         protocols(MDProtocolSerde()), enums(MDEnumSerde()),
         constants(MDVariableSerde()), functions(MDFunctionSerde()),
-        structs(MDStructSerde()) {}
+        structs(MDStructSerde()), classes(MDClassSerde()) {}
 
   std::pair<void *, size_t> serialize() {
     // Header
@@ -851,7 +860,7 @@ public:
     size += protocols.section_size;
 
     // Classes
-    // size += classes.section_size;
+    size += classes.section_size;
 
     // Structs
     size += structs.section_size;
@@ -899,12 +908,12 @@ public:
     memcpy(data, &protocolsOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
 
-    // MDSectionOffset classesOffset = protocolsOffset + protocols.section_size;
-    // memcpy(data, &classesOffset, sizeof(MDSectionOffset));
-    // ptr_add(&data, sizeof(MDSectionOffset));
+    MDSectionOffset classesOffset = protocolsOffset + protocols.section_size;
+    memcpy(data, &classesOffset, sizeof(MDSectionOffset));
+    ptr_add(&data, sizeof(MDSectionOffset));
 
     MDSectionOffset structsOffset =
-        protocolsOffset + (MDSectionOffset)protocols.section_size;
+        classesOffset + (MDSectionOffset)classes.section_size;
     memcpy(data, &structsOffset, sizeof(MDSectionOffset));
     ptr_add(&data, sizeof(MDSectionOffset));
 
@@ -969,8 +978,15 @@ public:
       offset += serializedSize;
     }
 
-    // TODO
     // Classes
+    offset = 0;
+    while (offset < classes.section_size) {
+      MDClass *class_ = classes[offset];
+      size_t serializedSize = classes.serde.size(class_);
+      classes.serde.serialize(class_, data);
+      ptr_add(&data, serializedSize);
+      offset += serializedSize;
+    }
 
     // Structs
     offset = 0;
@@ -999,7 +1015,7 @@ public:
   MDSectionOffset signaturesOffset;
   MDSectionOffset functionsOffset;
   MDSectionOffset protocolsOffset;
-  // MDSectionOffset classesOffset;
+  MDSectionOffset classesOffset;
   MDSectionOffset structsOffset;
 
   MDMetadataReader(void *data, size_t size) : data(data), size(size) {
@@ -1031,8 +1047,8 @@ public:
     ptr_add(&data, sizeof(MDSectionOffset));
     protocolsOffset = *(MDSectionOffset *)data;
     ptr_add(&data, sizeof(MDSectionOffset));
-    // classesOffset = *(MDSectionOffset *)data;
-    // ptr_add(&data, sizeof(MDSectionOffset));
+    classesOffset = *(MDSectionOffset *)data;
+    ptr_add(&data, sizeof(MDSectionOffset));
     structsOffset = *(MDSectionOffset *)data;
     ptr_add(&data, sizeof(MDSectionOffset));
   }

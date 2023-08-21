@@ -102,6 +102,33 @@ NAPI_FUNCTION(BridgedMethod) {
                                method->returnOwned ? kReturnOwned : 0);
 }
 
+// For signature id method(id, SEL);
+NAPI_FUNCTION(BridgedMethod_id) {
+  napi_value jsThis;
+  BridgedMethod *method;
+
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
+
+  id self;
+  napi_unwrap(env, jsThis, (void **)&self);
+
+  id rvalue;
+
+  if (!method->supercall) {
+    auto msgSend = (id(*)(id, SEL))objc_msgSend;
+    rvalue = msgSend(self, method->selector);
+  } else {
+    struct objc_super superobj = {self,
+                                  class_getSuperclass(object_getClass(self))};
+    auto superobjPtr = &superobj;
+    auto msgSendSuper = (id(*)(struct objc_super *, SEL))objc_msgSendSuper;
+    rvalue = msgSendSuper(superobjPtr, method->selector);
+  }
+
+  return method->methodCif->returnType->toJS(
+      env, &rvalue, method->returnOwned ? kReturnOwned : 0);
+}
+
 NAPI_FUNCTION(BridgedGetter) {
   napi_value jsThis;
   BridgedMethod *method;
@@ -133,7 +160,7 @@ NAPI_FUNCTION(BridgedGetter) {
     cif->call((void *)objc_msgSendSuper, rvalue, avalues);
   }
 
-  return cif->returnType->toJS(env, rvalue);
+  return cif->returnType->toJS(env, rvalue, 0);
 }
 
 NAPI_FUNCTION(BridgedSetter) {

@@ -1,30 +1,13 @@
 import {
   CGRectGetMidX,
   CGRectGetMidY,
-  classes,
+  NSMakePoint,
   NSMakeRect,
   NSMakeSize,
   objc,
 } from "../index.js";
 
-const { NSBundle } = classes;
-
-NSBundle.bundleWithPath("/System/Library/Frameworks/SpriteKit.framework")
-  .load();
-
-const {
-  NSApplication,
-  NSObject,
-  NSViewController,
-  NSWindow,
-  NSMenu,
-  NSMenuItem,
-  NSColor,
-  SKScene,
-  SKView,
-  SKSpriteNode,
-  SKPhysicsBody,
-} = classes;
+objc.import("SpriteKit");
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
@@ -83,7 +66,7 @@ export class BattlefieldScene extends SKScene {
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 1, 0, 1),
       indicatorSize,
     );
-    this.indicator.position = NSMakeSize(
+    this.indicator.position = NSMakePoint(
       this.frame.size.width / 2,
       indicatorHeight / 2,
     );
@@ -125,12 +108,12 @@ export class BattlefieldScene extends SKScene {
     this.villain.physicsBody.contactTestBitMask = this.heroHitCategory;
     this.villain.physicsBody.collisionBitMask = this.heroHitCategory;
 
-    this.hero.position = NSMakeSize(
+    this.hero.position = NSMakePoint(
       CGRectGetMidX(this.frame),
       3 * (CGRectGetMidY(this.frame) / 2),
     );
 
-    this.villain.position = NSMakeSize(
+    this.villain.position = NSMakePoint(
       CGRectGetMidX(this.frame),
       CGRectGetMidY(this.frame) / 2,
     );
@@ -142,7 +125,7 @@ export class BattlefieldScene extends SKScene {
     this.addChild(this.hero);
     this.addChild(this.villain);
 
-    this.physicsWorld.gravity = NSMakeSize(0, 0);
+    this.physicsWorld.gravity = NSMakePoint(0, 0);
     this.physicsWorld.contactDelegate = this;
   }
 
@@ -194,7 +177,7 @@ export class BattlefieldScene extends SKScene {
       (currentRotationInRadians + optimalEasedRotation) % 360;
 
     return {
-      point: NSMakeSize(x, y),
+      point: NSMakePoint(x, y),
       rotation: newRotationInDegrees * degToRad,
     };
   }

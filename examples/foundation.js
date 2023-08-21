@@ -1,8 +1,4 @@
-import { classes } from "../index.js";
-
-const {
-  NSString,
-} = classes;
+import "../index.js";
 
 console.log(NSString.stringWithUTF8String("Hello, macOS").length);
 
