@@ -97,6 +97,7 @@ set(LIB_SOURCE_FILES
   src/type_conv.mm
   src/util.mm
   src/struct.mm
+  src/object_ref.mm
   segappend/src/segappend.cc
 )
 

@@ -8,6 +8,7 @@
 #include "native_call.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
+#include "object_ref.h"
 #include "struct.h"
 #include "type_conv.h"
 #import <Foundation/Foundation.h>
@@ -191,6 +192,18 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   };
 
   napi_define_properties(env, global, 1, &objc_object);
+
+  napi_property_descriptor objectRefClass = {
+      .utf8name = "ObjectRef",
+      .attributes = napi_enumerable,
+      .getter = nullptr,
+      .setter = nullptr,
+      .method = nullptr,
+      .data = nullptr,
+      .value = defineObjectRefClass(env),
+  };
+
+  napi_define_properties(env, global, 1, &objectRefClass);
 
   MDSectionOffset offset = bridgeData->metadata->structsOffset;
   while (offset < bridgeData->metadata->size) {

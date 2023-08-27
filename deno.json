@@ -18,7 +18,14 @@
   },
 
   "fmt": {
-    "exclude": ["build", "libffi", "node_modules", "metadata", ".vscode"]
+    "exclude": [
+      "build",
+      "libffi",
+      "node_modules",
+      "metadata",
+      ".vscode",
+      "segappend"
+    ]
   },
 
   "imports": {

@@ -423,6 +423,7 @@ public:
     case napi_undefined:
       *res = nullptr;
       return;
+
     case napi_bigint: {
       uint64_t val = 0;
       bool lossless = false;
@@ -434,6 +435,7 @@ public:
       *res = (void *)val;
       return;
     }
+
     case napi_external: {
       NAPI_GUARD(napi_get_value_external(env, value, res)) {
         NAPI_THROW_LAST_ERROR
