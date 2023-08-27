@@ -2,27 +2,50 @@
 #include "closure.h"
 #include "js_native_api.h"
 #include "node_api_util.h"
+#include "segappend.h"
 #include "util.h"
 
 #import <Foundation/Foundation.h>
 #include <objc/objc.h>
 
+#ifdef EMBED_METADATA_SIZE
+const unsigned char __attribute__((section("__NSMD,__objc_metadata")))
+embedded_metadata[EMBED_METADATA_SIZE] = "NSMDSectionHeader";
+#endif
+
 namespace objc_bridge {
 
-ObjCBridgeData::ObjCBridgeData() {
+ObjCBridgeData::ObjCBridgeData(const char *metadata_path) {
   self_dl = dlopen(nullptr, RTLD_NOW);
-  auto f = fopen("metadata/metadata.nsmd", "r");
-  if (f == nullptr) {
-    fprintf(stderr, "metadata.nsmd not found\n");
-    exit(1);
+
+#ifdef EMBED_METADATA_SIZE
+  metadata =
+      new MDMetadataReader((void *)embedded_metadata, EMBED_METADATA_SIZE);
+#else
+  void *segmentData;
+  unsigned long segmentSize = 0;
+  auto status =
+      segappend_load_segment("__objc_metadata", &segmentData, &segmentSize);
+  if (status == segappend_ok) {
+    metadata = new MDMetadataReader(segmentData, segmentSize);
+  } else {
+    auto f = fopen(metadata_path == nullptr ? "metadata/metadata.nsmd"
+                                            : metadata_path,
+                   "r");
+    if (f == nullptr) {
+      fprintf(stderr, "metadata.nsmd not found\n");
+      exit(1);
+    }
+    fseek(f, 0, SEEK_END);
+    auto size = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    auto buffer = (uint8_t *)malloc(size);
+    fread(buffer, 1, size, f);
+    fclose(f);
+    metadata = new MDMetadataReader(buffer, size);
   }
-  fseek(f, 0, SEEK_END);
-  auto size = ftell(f);
-  fseek(f, 0, SEEK_SET);
-  auto buffer = (uint8_t *)malloc(size);
-  fread(buffer, 1, size, f);
-  fclose(f);
-  metadata = new MDMetadataReader(buffer, size);
+#endif
+
   objc_autoreleasePool = objc_autoreleasePoolPush();
 }
 
@@ -283,8 +306,9 @@ void addProtocol(
   free((void *)protocols);
 }
 
-void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
-  napi_value classExternal, prototype;
+void ObjCBridgeData::registerClass(napi_env env, napi_value constructor,
+                                   bool silentFail) {
+  napi_value classExternal, prototype, registered;
   napi_get_named_property(env, constructor, "__class__", &classExternal);
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
@@ -295,6 +319,12 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   napi_get_named_property(env, constructor, "name", &className);
   napi_get_value_string_utf8(env, className, name_buf, 512, nullptr);
   std::string name = name_buf;
+
+  if (bridged_classes.contains(name)) {
+    if (!silentFail)
+      NSLog(@"Class already registered: %s", name.c_str());
+    return;
+  }
 
   Class cls = objc_allocateClassPair(superClassNative, name.c_str(), 0);
 

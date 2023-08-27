@@ -64,7 +64,8 @@ public:
   MethodCif *getMethodCif(napi_env env, Method method);
   napi_value getObject(napi_env env, id object,
                        ObjectOwnership ownership = kUnownedObject);
-  void registerClass(napi_env env, napi_value constructor);
+  void registerClass(napi_env env, napi_value constructor,
+                     bool silentFail = false);
   void unregisterObject(id object) noexcept;
 
   CFunction *getCFunction(napi_env env, MDSectionOffset offset);
@@ -81,7 +82,7 @@ public:
     return structInfo;
   }
 
-  ObjCBridgeData();
+  ObjCBridgeData(const char *metadata_path = nullptr);
   ~ObjCBridgeData();
 
 private:

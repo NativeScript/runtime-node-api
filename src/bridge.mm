@@ -180,8 +180,23 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   napi_value global;
   napi_get_global(env, &global);
 
+  napi_property_descriptor objc_object = {
+      .utf8name = "objc",
+      .attributes = napi_enumerable,
+      .getter = nullptr,
+      .setter = nullptr,
+      .value = exports,
+      .data = nullptr,
+      .method = nullptr,
+  };
+
+  napi_define_properties(env, global, 1, &objc_object);
+
   MDSectionOffset offset = bridgeData->metadata->structsOffset;
   while (offset < bridgeData->metadata->size) {
+    // Sometimes there is padding after file ends.
+    if (bridgeData->metadata->getOffset(offset) == 0)
+      break;
     MDSectionOffset originalOffset = offset;
     auto name = bridgeData->metadata->getString(offset);
     offset += sizeof(MDSectionOffset);

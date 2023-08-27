@@ -43,7 +43,9 @@ async function build(target: string) {
   await ensureTargetDir(target);
 
   // Generate the build files
-  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} `;
+  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DMETADATA_SIZE=${
+    Deno.lstatSync(new URL("../metadata/metadata.nsmd", import.meta.url)).size
+  }`;
 
   // Build the project
   await $`cmake --build ../build/${target} --config ${buildConfig}`;
@@ -51,7 +53,7 @@ async function build(target: string) {
   if (target === "macos" || target === "macos-x86") {
     // Copy the built app to the build directory
     await Deno.copyFile(
-      `../build/${target}/Release/libObjCBridge.dylib`,
+      `../build/${target}/Release/ObjCBridgeWM.node`,
       `../build/${target}/ObjCBridge.node`,
     );
   }

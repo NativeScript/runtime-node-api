@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 set(BRIDGE_TARGET_PLATFORM "macos" CACHE STRING "Target platform for the Objective-C bridge")
+set(METADATA_SIZE 0 CACHE STRING "Size of embedded metadata in bytes")
 
 project(ObjCBridge)
 
@@ -8,6 +9,7 @@ set(NAME ObjCBridge)
 set(VERSION 0.1.0)
 
 set(CMAKE_C_FLAGS "-fobjective-c")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shorten-64-to-32")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -49,6 +51,14 @@ else()
   return()
 endif()
 
+if(METADATA_SIZE EQUAL 0)
+  unset(METADATA_SIZE)
+else()
+  message(STATUS "EMBED_METADATA_SIZE = ${METADATA_SIZE}"
+    " (metadata will be embedded in the library)")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEMBED_METADATA_SIZE=${METADATA_SIZE}")
+endif()
+
 message(STATUS "BRIDGE_TARGET_PLATFORM = ${BRIDGE_TARGET_PLATFORM}")
 
 execute_process(
@@ -63,11 +73,14 @@ set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT_INT}" CACHE INTERNAL "")
 
 message(STATUS "SDK = ${CMAKE_OSX_SYSROOT}")
 
+add_subdirectory("segappend")
+
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/metadata/include
   ${CMAKE_CURRENT_SOURCE_DIR}/libffi/${LIBFFI_BUILD}/include
   /Library/Developer/CommandLineTools/usr/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/segappend/include
 )
 
 set(LIB_SOURCE_FILES
@@ -84,6 +97,7 @@ set(LIB_SOURCE_FILES
   src/type_conv.mm
   src/util.mm
   src/struct.mm
+  segappend/src/segappend.cc
 )
 
 add_library(
@@ -113,6 +127,26 @@ if(TARGET_PLATFORM_MACOS)
 
   add_custom_command(TARGET ${NAME} POST_BUILD
     COMMAND /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string ${CMAKE_OSX_DEPLOYMENT_TARGET}" $<TARGET_FILE_DIR:${NAME}>/Resources/Info.plist
+  )
+
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND cp $<TARGET_FILE:${NAME}> $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+  )
+
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND codesign --remove-signature $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+  )
+
+  # add_custom_command(TARGET ${NAME} POST_BUILD
+  #   COMMAND $<TARGET_FILE:segappend_util> $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node __objc_metadata ${CMAKE_CURRENT_SOURCE_DIR}/metadata/metadata.nsmd $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+  # )
+
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+  )
+
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND codesign -fs - $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
   )
 endif()
 

@@ -1,4 +1,4 @@
-import { NSMakeRect, NSMakeSize, objc } from "../index.js";
+import "objc";
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate"];
@@ -65,7 +65,7 @@ export class Window extends NSWindow {
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
     super.initWithContentRectStyleMaskBackingDefer(
-      NSMakeRect(0, 0, 500, 500),
+      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
       1 | 2 | 4 | 8,
       2,
       false,
@@ -75,7 +75,10 @@ export class Window extends NSWindow {
 
     this.delegate = this;
 
-    const label = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 390, 100));
+    const label = NSTextField.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 390, height: 100 },
+    });
 
     label.stringValue = "Hello, macOS";
 
@@ -95,7 +98,7 @@ export class Window extends NSWindow {
     label.sizeToFit();
 
     const vstack = NSStackView.alloc().initWithFrame(
-      NSMakeRect(0, 0, 500, 500),
+      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
     );
 
     vstack.orientation = NSUserInterfaceLayoutOrientation.vertical;
@@ -109,7 +112,7 @@ export class Window extends NSWindow {
     );
     const image = NSImage.alloc().initWithContentsOfFile(imageURL);
 
-    image.size = NSMakeSize(128, 128);
+    image.size = { width: 128, height: 128 };
 
     const imageView = NSImageView.imageViewWithImage(image);
 

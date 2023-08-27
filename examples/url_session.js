@@ -1,6 +1,6 @@
 // TODO: needs block support on different threads
 
-import { objc } from "../index.js";
+import "objc";
 
 const completionHandler = objc.registerBlock(
   "v@@@",

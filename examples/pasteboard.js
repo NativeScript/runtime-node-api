@@ -1,4 +1,4 @@
-import "../index.js";
+import "objc";
 
 const pasteboard = NSPasteboard.generalPasteboard;
 

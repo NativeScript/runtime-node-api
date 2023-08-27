@@ -1,4 +1,4 @@
-import { NSMakeRect, NSMakeSize, objc } from "../index.js";
+import "objc";
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
@@ -62,10 +62,10 @@ export class ViewController extends NSViewController {
   viewDidLoad() {
     super.viewDidLoad();
 
-    this.view.frame = NSMakeRect(0, 0, 500, 500);
+    this.view.frame = { size: { width: 500, height: 500 } };
 
     const label = NSTextField.alloc().initWithFrame(
-      NSMakeRect(0, 0, 390, 100),
+      { size: { width: 390, height: 100 } },
     );
 
     label.stringValue = "Hello, macOS";
@@ -85,7 +85,7 @@ export class ViewController extends NSViewController {
     label.sizeToFit();
 
     const vstack = NSStackView.alloc().initWithFrame(
-      NSMakeRect(0, 0, 500, 500),
+      { size: { width: 500, height: 500 } },
     );
 
     vstack.orientation = NSUserInterfaceLayoutOrientation.vertical;
@@ -99,7 +99,7 @@ export class ViewController extends NSViewController {
     );
     const image = NSImage.alloc().initWithContentsOfFile(imageURL);
 
-    image.size = NSMakeSize(128, 128);
+    image.size = { width: 128, height: 128 };
 
     const imageView = NSImageView.imageViewWithImage(image);
 

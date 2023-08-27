@@ -2,6 +2,7 @@
 #include "js_native_api.h"
 #include "native_call.h"
 #include "node_api_util.h"
+#include "objc_bridge_data.h"
 #include "util.h"
 
 #import <Foundation/Foundation.h>
@@ -59,6 +60,10 @@ NAPI_FUNCTION(BridgedConstructor) {
                        &isEqual);
 
     if (isEqual) {
+      // Register class if it hasn't been registered yet.
+      auto bridgeData = ObjCBridgeData::InstanceData(env);
+      bridgeData->registerClass(env, targetPrototypeConstructor, true);
+
       napi_value supercallPrototype =
           get_ref_value(env, bridgedClass->supercallPrototype);
       napi_value supercallConstructor =

@@ -1,4 +1,4 @@
-import { objc } from "../index.js";
+import "objc";
 
 objc.import("MLCompute");
 

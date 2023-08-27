@@ -1,4 +1,4 @@
-import { NSMakeRect, NSMakeSize, objc } from "../index.js";
+import "objc";
 
 export class ApplicationDelegate extends NSObject {
   static protocols = ["NSApplicationDelegate"];
@@ -8,18 +8,18 @@ export class ApplicationDelegate extends NSObject {
   }
 
   applicationDidFinishLaunching(_notification) {
-    const menu = NSMenu.alloc().init();
+    const menu = NSMenu.new();
     NSApp.mainMenu = menu;
 
-    const appMenuItem = NSMenuItem.alloc().init();
+    const appMenuItem = NSMenuItem.new();
     menu.addItem(appMenuItem);
 
-    const appMenu = NSMenu.alloc().init();
+    const appMenu = NSMenu.new();
     appMenuItem.submenu = appMenu;
 
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
-    const controller = SplitViewController.alloc().init();
+    const controller = SplitViewController.new();
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
@@ -82,7 +82,7 @@ export class SidebarViewController extends NSViewController {
   ];
 
   loadView() {
-    const outline = NSOutlineView.alloc().init();
+    const outline = NSOutlineView.new();
 
     outline.headerView = null;
     outline.indentationPerLevel = 10;
@@ -101,7 +101,7 @@ export class SidebarViewController extends NSViewController {
 
     outline.expandItemExpandChildren(this.items[0], true);
 
-    const scrollView = NSScrollView.alloc().init();
+    const scrollView = NSScrollView.new();
 
     scrollView.hasVerticalScroller = true;
     scrollView.hasHorizontalScroller = false;
@@ -116,7 +116,7 @@ export class SidebarViewController extends NSViewController {
   }
 
   outlineViewViewForTableColumnItem(_outlineView, _tableColumn, item) {
-    const text = NSTextField.alloc().init();
+    const text = NSTextField.new();
     const imageView = item.symbol
       ? NSImageView.imageViewWithImage(
         NSImage.imageWithSystemSymbolNameAccessibilityDescription(
@@ -124,14 +124,14 @@ export class SidebarViewController extends NSViewController {
           null,
         ),
       )
-      : NSImageView.alloc().init();
+      : NSImageView.new();
 
     text.bordered = false;
     text.drawsBackground = false;
     text.stringValue = item.title;
     text.editable = false;
 
-    const view = NSTableCellView.alloc().init();
+    const view = NSTableCellView.new();
 
     view.textField = text;
     view.imageView = imageView;
@@ -187,10 +187,10 @@ export class ContentViewController extends NSViewController {
   }
 
   loadView() {
-    const view = NSView.alloc().init();
+    const view = NSView.new();
 
     const label = NSTextField.alloc().initWithFrame(
-      NSMakeRect(0, 0, 390, 100),
+      { point: { x: 0, y: 0 }, size: { width: 390, height: 100 } },
     );
 
     label.stringValue = "Hello, macOS";
@@ -213,7 +213,7 @@ export class ContentViewController extends NSViewController {
     this.label = label;
 
     const vstack = NSStackView.alloc().initWithFrame(
-      NSMakeRect(0, 0, 500, 500),
+      { point: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
     );
 
     vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
@@ -227,7 +227,7 @@ export class ContentViewController extends NSViewController {
     );
     const image = NSImage.alloc().initWithContentsOfFile(imageURL);
 
-    image.size = NSMakeSize(128, 128);
+    image.size = { width: 128, height: 128 };
 
     const imageView = NSImageView.imageViewWithImage(image);
 
@@ -257,11 +257,14 @@ export class SplitViewController extends NSSplitViewController {
     objc.registerClass(this);
   }
 
-  sidebarView = SidebarViewController.alloc().init();
-  contentView = ContentViewController.alloc().init();
+  sidebarView = SidebarViewController.new();
+  contentView = ContentViewController.new();
 
   viewDidLoad() {
-    this.view.frame = NSMakeRect(0, 0, 800, 600);
+    this.view.frame = {
+      point: { x: 0, y: 0 },
+      size: { width: 800, height: 600 },
+    };
 
     const sidebarItem = NSSplitViewItem.sidebarWithViewController(
       this.sidebarView,
@@ -281,13 +284,13 @@ export class SplitViewController extends NSSplitViewController {
   }
 
   toolbarAllowedItemIdentifiers(_toolbar) {
-    const array = NSMutableArray.alloc().init();
+    const array = NSMutableArray.new();
     array.addObject("NSToolbarToggleSidebarItem");
     return array;
   }
 
   toolbarDefaultItemIdentifiers(_toolbar) {
-    const array = NSMutableArray.alloc().init();
+    const array = NSMutableArray.new();
     array.addObject("NSToolbarToggleSidebarItem");
     return array;
   }
@@ -316,7 +319,7 @@ export class SplitViewController extends NSSplitViewController {
 const NSApp = NSApplication.sharedApplication;
 NSApp.setActivationPolicy(0);
 
-NSApp.delegate = ApplicationDelegate.alloc().init();
+NSApp.delegate = ApplicationDelegate.new();
 
 NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

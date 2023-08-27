@@ -1,4 +1,4 @@
-import "../index.js";
+import "objc";
 
 console.log(NSString.stringWithUTF8String("Hello, macOS").length);
 

@@ -1,0 +1,3 @@
+[submodule "segappend"]
+	path = segappend
+	url = https://github.com/DjDeveloperr/segappend

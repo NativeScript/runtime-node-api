@@ -1,11 +1,4 @@
-import {
-  CGRectGetMidX,
-  CGRectGetMidY,
-  NSMakePoint,
-  NSMakeRect,
-  NSMakeSize,
-  objc,
-} from "../index.js";
+import "objc";
 
 objc.import("SpriteKit");
 
@@ -66,13 +59,13 @@ export class BattlefieldScene extends SKScene {
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 1, 0, 1),
       indicatorSize,
     );
-    this.indicator.position = NSMakePoint(
-      this.frame.size.width / 2,
-      indicatorHeight / 2,
-    );
+    this.indicator.position = {
+      x: this.frame.size.width / 2,
+      y: indicatorHeight / 2,
+    };
     this.addChild(this.indicator);
 
-    const heroSize = NSMakeSize(25, 25);
+    const heroSize = { width: 25, height: 25 };
     this.hero = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 0, 1, 1),
       heroSize,
@@ -90,7 +83,7 @@ export class BattlefieldScene extends SKScene {
     this.hero.physicsBody.contactTestBitMask = this.villainHitCategory;
     this.hero.physicsBody.collisionBitMask = this.villainHitCategory;
 
-    const villainSize = NSMakeSize(50, 50);
+    const villainSize = { width: 50, height: 50 };
     this.villain = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(1, 0, 0, 1),
       villainSize,
@@ -108,15 +101,15 @@ export class BattlefieldScene extends SKScene {
     this.villain.physicsBody.contactTestBitMask = this.heroHitCategory;
     this.villain.physicsBody.collisionBitMask = this.heroHitCategory;
 
-    this.hero.position = NSMakePoint(
-      CGRectGetMidX(this.frame),
-      3 * (CGRectGetMidY(this.frame) / 2),
-    );
+    this.hero.position = {
+      x: CGRectGetMidX(this.frame),
+      y: 3 * (CGRectGetMidY(this.frame) / 2),
+    };
 
-    this.villain.position = NSMakePoint(
-      CGRectGetMidX(this.frame),
-      CGRectGetMidY(this.frame) / 2,
-    );
+    this.villain.position = {
+      x: CGRectGetMidX(this.frame),
+      y: CGRectGetMidY(this.frame) / 2,
+    };
 
     this.heroTargetPos = this.hero.position;
     this.heroBaseSpeed = 5 / 1.5;
@@ -125,7 +118,7 @@ export class BattlefieldScene extends SKScene {
     this.addChild(this.hero);
     this.addChild(this.villain);
 
-    this.physicsWorld.gravity = NSMakePoint(0, 0);
+    this.physicsWorld.gravity = { x: 0, y: 0 };
     this.physicsWorld.contactDelegate = this;
   }
 
@@ -177,7 +170,7 @@ export class BattlefieldScene extends SKScene {
       (currentRotationInRadians + optimalEasedRotation) % 360;
 
     return {
-      point: NSMakePoint(x, y),
+      point: { x, y },
       rotation: newRotationInDegrees * degToRad,
     };
   }
@@ -248,19 +241,21 @@ export class BattlefieldScene extends SKScene {
   }
 }
 
+const frameSize = { width: 800, height: 600 };
+
 export class ViewController extends NSViewController {
   static {
     objc.registerClass(this);
   }
 
   loadView() {
-    this.view = SKView.alloc().initWithFrame(NSMakeRect(0, 0, 800, 600));
+    this.view = SKView.alloc().initWithFrame({ size: frameSize });
   }
 
   viewDidLoad() {
     super.viewDidLoad();
 
-    const scene = BattlefieldScene.sceneWithSize(NSMakeSize(800, 600));
+    const scene = BattlefieldScene.sceneWithSize(frameSize);
 
     scene.scaleMode = SKSceneScaleMode.aspectFill;
 

@@ -19,5 +19,9 @@
 
   "fmt": {
     "exclude": ["build", "libffi", "node_modules", "metadata", ".vscode"]
+  },
+
+  "imports": {
+    "objc": "./mod.ts"
   }
 }
