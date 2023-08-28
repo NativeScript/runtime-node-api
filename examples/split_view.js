@@ -48,16 +48,11 @@ export class ApplicationDelegate extends NSObject {
   }
 }
 
-export class Node extends NSObject {
-  static {
-    objc.registerClass(this);
-  }
-
-  initWithSymbolTitleChildren(symbol, title, children = []) {
+export class Node {
+  constructor(symbol, title, children = []) {
     this.symbol = symbol;
     this.title = title;
     this.children = children;
-    return this;
   }
 }
 
@@ -69,15 +64,15 @@ export class SidebarViewController extends NSViewController {
   }
 
   items = [
-    Node.new().initWithSymbolTitleChildren("icloud.fill", "Container", [
-      Node.new().initWithSymbolTitleChildren("house", "First"),
-      Node.new().initWithSymbolTitleChildren("heart", "Second"),
-      Node.new().initWithSymbolTitleChildren("star", "Third"),
+    new Node("icloud.fill", "Container", [
+      new Node("house", "First"),
+      new Node("heart", "Second"),
+      new Node("star", "Third"),
     ]),
-    Node.new().initWithSymbolTitleChildren("tray.full", "Container 2", [
-      Node.new().initWithSymbolTitleChildren("house", "First"),
-      Node.new().initWithSymbolTitleChildren("heart", "Second"),
-      Node.new().initWithSymbolTitleChildren("star", "Third"),
+    new Node("tray.full", "Container 2", [
+      new Node("house", "First"),
+      new Node("heart", "Second"),
+      new Node("star", "Third"),
     ]),
   ];
 
@@ -171,7 +166,7 @@ export class SidebarViewController extends NSViewController {
   outlineViewSelectionDidChange(_notification) {
     const outlineView = _notification.object;
     const item = outlineView.itemAtRow(outlineView.selectedRow);
-    if (this.contentView) {
+    if (this.contentView && item !== null) {
       this.contentView.label.stringValue = `Selected: ${item.title}`;
     }
   }

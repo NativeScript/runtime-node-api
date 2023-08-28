@@ -85,8 +85,10 @@ public:
   ObjCBridgeData(const char *metadata_path = nullptr);
   ~ObjCBridgeData();
 
-private:
+public:
   std::unordered_map<id, napi_ref> objectRefs;
+
+private:
   std::unordered_map<MDSectionOffset, StructInfo *> structInfoCache;
   void *objc_autoreleasePool;
 };

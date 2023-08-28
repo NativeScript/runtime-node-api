@@ -4,6 +4,7 @@
 #include "ffi.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
+#include "js_object.h"
 #include "node_api_util.h"
 #include "objc_bridge_data.h"
 
@@ -631,7 +632,7 @@ public:
       break;
 
     case napi_object:
-    case napi_function:
+    case napi_function: {
       status = napi_unwrap(env, value, (void **)res);
 
       if (status != napi_ok) {
@@ -652,6 +653,21 @@ public:
 
           return;
         } else {
+          napi_value global, jsObject, jsObjectPrototype, valuePrototype;
+          napi_get_global(env, &global);
+          napi_get_named_property(env, global, "Object", &jsObject);
+          napi_get_named_property(env, jsObject, "prototype",
+                                  &jsObjectPrototype);
+          napi_get_named_property(env, value, "prototype", &valuePrototype);
+          bool isEqual;
+          napi_strict_equals(env, jsObjectPrototype, valuePrototype, &isEqual);
+
+          if (!isEqual) {
+            auto bridgeData = ObjCBridgeData::InstanceData(env);
+            *res = jsObjectToId(env, value);
+            return;
+          }
+
           *res = [NSMutableDictionary dictionary];
           napi_value keys;
           napi_get_property_names(env, value, &keys);
@@ -673,12 +689,10 @@ public:
 
           return;
         }
-
-        NAPI_THROW_LAST_ERROR
-        *res = nil;
       }
 
       break;
+    }
 
     default:
       napi_throw_error(env, nullptr, "Invalid object type");
