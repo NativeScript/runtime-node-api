@@ -653,14 +653,12 @@ public:
 
           return;
         } else {
-          napi_value global, jsObject, jsObjectPrototype, valuePrototype;
+          napi_value global, jsObject, valueConstructor;
           napi_get_global(env, &global);
           napi_get_named_property(env, global, "Object", &jsObject);
-          napi_get_named_property(env, jsObject, "prototype",
-                                  &jsObjectPrototype);
-          napi_get_named_property(env, value, "prototype", &valuePrototype);
+          napi_get_named_property(env, value, "constructor", &valueConstructor);
           bool isEqual;
-          napi_strict_equals(env, jsObjectPrototype, valuePrototype, &isEqual);
+          napi_strict_equals(env, jsObject, valueConstructor, &isEqual);
 
           if (!isEqual) {
             auto bridgeData = ObjCBridgeData::InstanceData(env);
