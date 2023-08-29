@@ -43,7 +43,7 @@ async function build(target: string) {
   await ensureTargetDir(target);
 
   // Generate the build files
-  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DMETADATA_SIZE=${
+  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DMETADATA_SIZE=${
     Deno.lstatSync(new URL("../metadata/metadata.nsmd", import.meta.url)).size
   }`;
 
