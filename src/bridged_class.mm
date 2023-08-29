@@ -113,6 +113,7 @@ NAPI_FUNCTION(CustomInspect) {
 }
 
 // TODO: Remove this function at some point
+// It was used to compare libffi overhead.
 NAPI_FUNCTION(lengthCustom) {
   napi_value jsThis;
   void *data;

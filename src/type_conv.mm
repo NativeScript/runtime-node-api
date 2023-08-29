@@ -861,6 +861,7 @@ public:
       return;
     }
 
+    // Serialize directly to previously allocated memory
     StructObject(env, info, value, result);
   }
 };
@@ -885,6 +886,7 @@ public:
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
+    // TODO?
     NAPI_PREAMBLE
 
     void *data;
@@ -910,11 +912,14 @@ public:
   }
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    NSLog(@"UnionTypeConv toJS: TODO");
     return nullptr;
   }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
-                bool *shouldFreeAny) override {}
+                bool *shouldFreeAny) override {
+    NSLog(@"UnionTypeConv toNative: TODO");
+  }
 };
 
 class VectorTypeConv : public TypeConv {
@@ -927,11 +932,14 @@ public:
   }
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    NSLog(@"VectorTypeConv toJS: TODO");
     return nullptr;
   }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
-                bool *shouldFreeAny) override {}
+                bool *shouldFreeAny) override {
+    NSLog(@"VectorTypeConv toNative: TODO");
+  }
 };
 
 std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, const char **encoding) {

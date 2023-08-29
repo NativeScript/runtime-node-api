@@ -8,6 +8,8 @@
 
 namespace objc_bridge {
 
+napi_value JS_structGetter(napi_env env, napi_callback_info info);
+
 typedef struct StructFieldInfo {
   char *name;
   uint16_t offset;

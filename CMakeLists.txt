@@ -99,6 +99,8 @@ set(LIB_SOURCE_FILES
   src/struct.mm
   src/object_ref.mm
   src/js_object.mm
+  src/enum.mm
+  src/variable.mm
   segappend/src/segappend.cc
 )
 

@@ -28,6 +28,17 @@
     ]
   },
 
+  "lint": {
+    "exclude": [
+      "build",
+      "libffi",
+      "node_modules",
+      "metadata",
+      ".vscode",
+      "segappend"
+    ]
+  },
+
   "imports": {
     "objc": "./mod.ts"
   }

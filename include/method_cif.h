@@ -10,8 +10,6 @@
 
 namespace objc_bridge {
 
-ffi_type *getTypeForEncoding(const char **encoding);
-
 class MethodCif {
 public:
   ffi_cif cif;
@@ -29,7 +27,6 @@ public:
   bool shouldFreeAny;
   bool *shouldFree;
 
-  MethodCif();
   MethodCif(napi_env env, std::string typeEncoding);
   MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset);
 

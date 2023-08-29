@@ -65,4 +65,27 @@ NAPI_FUNCTION(import) {
   return nullptr;
 }
 
+NAPI_FUNCTION(classGetter) {
+  void *data;
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
+  MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+
+  auto cached = bridgeData->mdValueCache[offset];
+  if (cached != nullptr) {
+    return get_ref_value(env, cached);
+  }
+
+  std::string name = bridgeData->metadata->getString(offset);
+  auto cls = bridgeData->getBridgedClass(env, name);
+
+  if (cls != nullptr) {
+    bridgeData->mdValueCache[offset] = cls->constructor;
+  } else {
+    return nullptr;
+  }
+
+  return get_ref_value(env, cls->constructor);
+}
+
 } // namespace objc_bridge
