@@ -73,7 +73,7 @@ set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT_INT}" CACHE INTERNAL "")
 
 message(STATUS "SDK = ${CMAKE_OSX_SYSROOT}")
 
-add_subdirectory("segappend")
+# add_subdirectory("segappend")
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
