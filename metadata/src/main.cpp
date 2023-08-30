@@ -871,22 +871,15 @@ private:
 #define UMBRELLA_HEADER "umbrella.h"
 
 int main(int argc, char **argv) {
-  std::string sdk = "/Applications/Xcode.app/Contents/Developer/Platforms/"
-                    "MacOSX.platform/Developer/SDKs/MacOSX.sdk";
+  char *outputFile = argv[1];
+  std::string sdk = argv[2];
   std::string frameworksDir = sdk + "/System/Library/Frameworks";
 
-  std::set<std::string> frameworks = {
-      "Foundation",     "AppKit",        "CoreFoundation",
-      "CoreGraphics",   "CoreText",      "CoreServices",
-      "CoreAudio",      "CoreMedia",     "CoreVideo",
-      "CoreImage",      "CoreData",      "CoreMIDI",
-      "CoreML",         "CoreBluetooth", "CoreLocation",
-      "CoreMotion",     "MLCompute",     "AudioToolbox",
-      "AudioUnit",      "AVFoundation",  "QuartzCore",
-      "Metal",          "MetalKit",      "MetalPerformanceShaders",
-      "SpriteKit",      "SceneKit",      "ModelIO",
-      "GameController", "GameKit",       "GameplayKit",
-      "WebKit"};
+  std::set<std::string> frameworks;
+
+  for (int i = 3; i < argc; i++) {
+    frameworks.insert(argv[i]);
+  }
 
   std::vector<std::string> args = {
       "-Xclang",
@@ -985,7 +978,7 @@ int main(int argc, char **argv) {
   std::cout << "    classes (n, size): " << metadata->classes.size() << ", "
             << metadata->classes.section_size / 1024. << " KB" << std::endl;
 
-  auto file = std::fopen("metadata.nsmd", "w");
+  auto file = std::fopen(outputFile, "w");
   std::fwrite(result.first, 1, result.second, file);
   std::fclose(file);
 

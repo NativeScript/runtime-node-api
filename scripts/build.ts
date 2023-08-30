@@ -43,17 +43,29 @@ async function build(target: string) {
   await ensureTargetDir(target);
 
   // Generate the build files
-  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DMETADATA_SIZE=${
-    Deno.lstatSync(new URL("../metadata/metadata.nsmd", import.meta.url)).size
+  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
+    target.startsWith("ios-test")
+      ? ""
+      : `-DMETADATA_SIZE=${
+        Deno.lstatSync(
+          new URL(
+            `../metadata/metadata.${
+              target.startsWith("ios") ? "ios" : "macos"
+            }.nsmd`,
+            import.meta.url,
+          ),
+        )
+          .size
+      }`
   }`;
 
   // Build the project
   await $`cmake --build ../build/${target} --config ${buildConfig}`;
 
-  if (target === "macos" || target === "macos-x86") {
+  if (target.startsWith("macos")) {
     // Copy the built app to the build directory
     await Deno.copyFile(
-      `../build/${target}/Release/ObjCBridgeWM.node`,
+      `../build/${target}/Release/libObjCBridge.dylib`,
       `../build/${target}/ObjCBridge.node`,
     );
   }

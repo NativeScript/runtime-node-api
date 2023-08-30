@@ -197,8 +197,7 @@ public:
       // Array size
       addsize(value->arraySize);
       // Element type
-      MDTypeInfoSerde elementSerde;
-      size += elementSerde.size(value->elementType);
+      size += this->size(value->elementType);
       break;
     }
 
@@ -209,9 +208,8 @@ public:
 
     case mdTypeUnion: {
       // Members
-      MDTypeInfoSerde elementSerde;
       for (auto member : value->unionMembers) {
-        size += elementSerde.size(member);
+        size += this->size(member);
       }
       break;
     }

@@ -14,7 +14,8 @@
     "bench": "node examples/main.js",
     "deno": "../deno/target/release/deno run -A",
     "bundle": "deno run -A --unstable scripts/bundler.ts",
-    "open-bundle": "open \"NativeScript for macOS.app\""
+    "open-bundle": "open \"NativeScript for macOS.app\"",
+    "metagen": "deno run -A --unstable scripts/metagen.ts"
   },
 
   "fmt": {

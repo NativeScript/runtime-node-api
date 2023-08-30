@@ -337,6 +337,53 @@ public:
 static const std::shared_ptr<UInt64TypeConv> uint64TypeConv =
     std::make_shared<UInt64TypeConv>();
 
+class UInt128TypeConv : public TypeConv {
+private:
+  ffi_type _type = {.size = 0,
+                    .alignment = 0,
+                    .type = FFI_TYPE_STRUCT,
+                    .elements = (ffi_type *[]){
+                        &ffi_type_uint64,
+                        &ffi_type_uint64,
+                        nullptr,
+                    }};
+
+public:
+  UInt128TypeConv() { type = &_type; }
+
+  // TODO
+
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    napi_value result;
+    uint64_t val = *(uint64_t *)value;
+    napi_create_int64(env, (int64_t)val, &result);
+    return result;
+  }
+
+  void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
+                bool *shouldFreeAny) override {
+    napi_valuetype valuetype;
+    napi_typeof(env, value, &valuetype);
+
+    switch (valuetype) {
+    case napi_number:
+      napi_get_value_int64(env, value, (int64_t *)result);
+      break;
+    case napi_bigint: {
+      bool lossless;
+      napi_get_value_bigint_uint64(env, value, (uint64_t *)result, &lossless);
+      break;
+    }
+    default:
+      napi_throw_type_error(env, nullptr, "Expected a number or bigint");
+      break;
+    }
+  }
+};
+
+static const std::shared_ptr<UInt128TypeConv> uint128TypeConv =
+    std::make_shared<UInt128TypeConv>();
+
 class Float32TypeConv : public TypeConv {
 public:
   Float32TypeConv() { type = &ffi_type_float; }
@@ -1170,6 +1217,16 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
 
   case mdTypeVector: {
     return pointerTypeConv;
+  }
+
+  case mdTypeBlock: {
+    // TODO
+    *offset += sizeof(MDSectionOffset);
+    return pointerTypeConv;
+  }
+
+  case mdTypeUInt128: {
+    return uint128TypeConv;
   }
 
   default:

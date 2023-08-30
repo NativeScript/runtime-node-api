@@ -1,9 +1,9 @@
-const [binaryFile] = Deno.args;
+const [binaryFile, metadataFile] = Deno.args;
 
 const binary = await Deno.readFile(binaryFile);
 
 const metadata = await Deno.readFile(
-  new URL("../metadata/metadata.nsmd", import.meta.url),
+  new URL(`../metadata/${metadataFile}`, import.meta.url),
 );
 
 let offset = -1;
@@ -28,6 +28,7 @@ if (offset === -1) {
   throw new Error("Could not find metadata section");
 }
 
+console.log(`Writing metadata to offset ${offset}`);
 binary.set(metadata, offset);
 
 await Deno.writeFile(binaryFile, binary);

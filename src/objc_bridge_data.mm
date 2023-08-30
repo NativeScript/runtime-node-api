@@ -29,9 +29,8 @@ ObjCBridgeData::ObjCBridgeData(const char *metadata_path) {
   if (status == segappend_ok) {
     metadata = new MDMetadataReader(segmentData, segmentSize);
   } else {
-    auto f = fopen(metadata_path == nullptr ? "metadata/metadata.nsmd"
-                                            : metadata_path,
-                   "r");
+    auto f =
+        fopen(metadata_path == nullptr ? "metadata.nsmd" : metadata_path, "r");
     if (f == nullptr) {
       fprintf(stderr, "metadata.nsmd not found\n");
       exit(1);

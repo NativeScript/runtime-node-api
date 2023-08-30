@@ -133,24 +133,24 @@ if(TARGET_PLATFORM_MACOS)
     COMMAND /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string ${CMAKE_OSX_DEPLOYMENT_TARGET}" $<TARGET_FILE_DIR:${NAME}>/Resources/Info.plist
   )
 
+  set(METADATA_FILE "metadata.macos.nsmd")
+elseif(TARGET_PLATFORM_IOS)
+  set(METADATA_FILE "metadata.ios.nsmd")
+endif()
+
+if(NOT METADATA_SIZE EQUAL 0)
+  message(STATUS "Added script to embed metadata in the library")
+
   add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND cp $<TARGET_FILE:${NAME}> $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+    COMMAND codesign --remove-signature $<TARGET_FILE:${NAME}>
   )
 
   add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND codesign --remove-signature $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
-  )
-
-  # add_custom_command(TARGET ${NAME} POST_BUILD
-  #   COMMAND $<TARGET_FILE:segappend_util> $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node __objc_metadata ${CMAKE_CURRENT_SOURCE_DIR}/metadata/metadata.nsmd $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
-  # )
-
-  add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+    COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE:${NAME}> ${METADATA_FILE}
   )
 
   add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND codesign -fs - $<TARGET_FILE_DIR:${NAME}>/ObjCBridgeWM.node
+    COMMAND codesign -fs - $<TARGET_FILE:${NAME}>
   )
 endif()
 
