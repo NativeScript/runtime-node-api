@@ -1,9 +1,5 @@
-import { classes } from "../index.js";
+import "objc";
 import { bench, run } from "mitata";
-
-const {
-  NSString,
-} = classes;
 
 const str = NSString.stringWithUTF8String("Hello World");
 

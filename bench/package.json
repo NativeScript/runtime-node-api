@@ -1,0 +1,17 @@
+{
+  "name": "bench",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mitata": "^0.1.6",
+    "objc": "file:.."
+  }
+}

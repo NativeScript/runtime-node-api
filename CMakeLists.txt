@@ -56,7 +56,7 @@ if(METADATA_SIZE EQUAL 0)
 else()
   message(STATUS "EMBED_METADATA_SIZE = ${METADATA_SIZE}"
     " (metadata will be embedded in the library)")
-  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEMBED_METADATA_SIZE=${METADATA_SIZE}")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEMBED_METADATA_SIZE=${METADATA_SIZE}")
 endif()
 
 message(STATUS "BRIDGE_TARGET_PLATFORM = ${BRIDGE_TARGET_PLATFORM}")
@@ -138,17 +138,17 @@ endif()
 if(NOT METADATA_SIZE EQUAL 0)
   message(STATUS "Added script to embed metadata in the library")
 
-  # add_custom_command(TARGET ${NAME} POST_BUILD
-  #   COMMAND codesign --remove-signature $<TARGET_FILE:${NAME}>
-  # )
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND codesign --remove-signature $<TARGET_FILE:${NAME}>
+  )
 
-  # add_custom_command(TARGET ${NAME} POST_BUILD
-  #   COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE:${NAME}> ${METADATA_FILE}
-  # )
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE:${NAME}> ${METADATA_FILE}
+  )
 
-  # add_custom_command(TARGET ${NAME} POST_BUILD
-  #   COMMAND codesign -fs - $<TARGET_FILE:${NAME}>
-  # )
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND codesign -fs - $<TARGET_FILE:${NAME}>
+  )
 endif()
 
 message(STATUS "LIBFFI_BUILD = ${LIBFFI_BUILD}")
