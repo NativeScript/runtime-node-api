@@ -2,10 +2,10 @@
 #define CLOSURE_H
 
 #include "Metadata.h"
+#include "TypeConv.h"
 #include "ffi.h"
 #include "js_native_api.h"
 #include "objc/runtime.h"
-#include "type_conv.h"
 #include <string>
 
 namespace objc_bridge {
@@ -23,7 +23,9 @@ public:
   std::vector<std::shared_ptr<TypeConv>> argTypes;
 
   Closure(std::string typeEncoding, bool isBlock);
-  // Closure(MDMetadataReader *reader, MDSectionOffset *offset, bool isBlock);
+  Closure(MDMetadataReader *reader, MDSectionOffset offset,
+          bool isBlock = false, std::string *encoding = nullptr,
+          bool isMethod = false);
 
   ~Closure() {
     napi_delete_reference(env, func);

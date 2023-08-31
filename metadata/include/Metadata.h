@@ -692,9 +692,7 @@ public:
   void serialize(MDProtocol *value, void *data) override {
     auto memberSerde = MDMemberSerde();
     // Name
-    MDSectionOffset nameKey = value->name;
-    memcpy(data, &nameKey, sizeof(MDSectionOffset));
-    ptr_add(&data, sizeof(MDSectionOffset));
+    binwrite(value->name);
     // Protocols
     size_t protocolsSize = value->protocols.size();
     if (protocolsSize > 0) {
@@ -708,8 +706,7 @@ public:
       }
     } else {
       MDSectionOffset nullOffset = 0;
-      memcpy(data, &nullOffset, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      binwrite(nullOffset);
     }
     // Members
     size_t membersSize = value->members.size();
@@ -719,9 +716,8 @@ public:
         ptr_add(&data, memberSerde.size(member));
       }
     } else {
-      MDSectionOffset nullOffset = 0;
-      memcpy(data, &nullOffset, sizeof(MDSectionOffset));
-      ptr_add(&data, sizeof(MDSectionOffset));
+      MDMemberFlag flagNull = (MDMemberFlag)0;
+      binwrite(flagNull);
     }
   }
 };

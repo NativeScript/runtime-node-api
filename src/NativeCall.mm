@@ -1,8 +1,8 @@
-#include "native_call.h"
+#include "NativeCall.h"
 #include "Metadata.h"
+#include "ObjCBridgeData.h"
+#include "TypeConv.h"
 #include "node_api_util.h"
-#include "objc_bridge_data.h"
-#include "type_conv.h"
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
 

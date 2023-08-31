@@ -1,4 +1,5 @@
-#include "block.h"
+#include "Block.h"
+#include "ObjCBridgeData.h"
 #include "js_native_api.h"
 #include "objc/runtime.h"
 #import <Foundation/Foundation.h>

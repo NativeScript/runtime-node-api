@@ -2,7 +2,6 @@
 #define NODE_API_UTIL_H
 
 #include "js_native_api.h"
-#include "objc_bridge_data.h"
 
 #define NAPI_EXPORT __attribute__((visibility("default")))
 

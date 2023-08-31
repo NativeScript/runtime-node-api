@@ -33,6 +33,8 @@ export class ApplicationDelegate extends NSObject {
     );
 
     window.makeKeyAndOrderFront(this);
+
+    NSApp.activateIgnoringOtherApps(false);
   }
 
   windowWillClose(_notification) {

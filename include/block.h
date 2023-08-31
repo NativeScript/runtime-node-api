@@ -1,7 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "closure.h"
+#include "Closure.h"
 #include "node_api_util.h"
 #include <cstdlib>
 

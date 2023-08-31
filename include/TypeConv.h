@@ -31,6 +31,8 @@ public:
                         bool *shouldFree, bool *shouldFreeAny) {}
 
   virtual void free(napi_env env, void *value) {}
+
+  virtual void encode(std::string *encoding) {}
 };
 
 } // namespace objc_bridge

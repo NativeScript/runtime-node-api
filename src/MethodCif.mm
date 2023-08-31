@@ -1,7 +1,7 @@
-#include "method_cif.h"
+#include "MethodCif.h"
 #include "Metadata.h"
-#include "type_conv.h"
-#include "util.h"
+#include "TypeConv.h"
+#include "Util.h"
 #include <Foundation/Foundation.h>
 #include <iostream>
 #include <vector>
@@ -62,7 +62,6 @@ MethodCif::MethodCif(napi_env env, std::string encoding) {
 
 MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
                      MDSectionOffset offset) {
-  MDSectionOffset originalOffset = offset;
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
 
@@ -101,7 +100,7 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
       ffi_prep_cif(&cif, FFI_DEFAULT_ABI, this->argc, rtype, atypes);
 
   if (status != FFI_OK) {
-    std::cout << "Failed to prepare CIF, libffi returned error:" << status
+    std::cout << "Failed to prepare CIF, libffi returned error: " << status
               << std::endl;
     return;
   }

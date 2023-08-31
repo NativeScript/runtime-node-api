@@ -1,9 +1,10 @@
-#include "struct.h"
+#include "Struct.h"
+#include "ObjCBridgeData.h"
+#include "TypeConv.h"
+#include "Util.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
-#include "type_conv.h"
-#include "util.h"
 #include <cstring>
 
 namespace objc_bridge {

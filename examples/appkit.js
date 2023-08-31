@@ -12,6 +12,8 @@ export class ApplicationDelegate extends NSObject {
   applicationDidFinishLaunching(_notification) {
     this.window = Window.new();
 
+    NSApp.activateIgnoringOtherApps(false);
+
     NSApp.stop(this);
 
     this.runloopMode = NSString.stringWithUTF8String("kCFRunLoopDefaultMode");
@@ -72,8 +74,19 @@ export class Window extends NSWindow {
     );
 
     this.title = "NativeScript for macOS";
-
     this.delegate = this;
+
+    this.makeKeyAndOrderFront(NSApp);
+    this.releasedWhenClosed = false;
+
+    this.center();
+
+    this.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
+      118 / 255,
+      171 / 255,
+      235 / 255,
+      1,
+    );
 
     const label = NSTextField.alloc().initWithFrame({
       origin: { x: 0, y: 0 },
@@ -128,17 +141,6 @@ export class Window extends NSWindow {
       this.contentView.centerYAnchor,
     ).active = true;
 
-    this.backgroundColor = NSColor.colorWithSRGBRedGreenBlueAlpha(
-      118 / 255,
-      171 / 255,
-      235 / 255,
-      1,
-    );
-
-    this.center();
-    this.makeKeyAndOrderFront(NSApp);
-    this.releasedWhenClosed = false;
-
     return this;
   }
 
@@ -150,5 +152,4 @@ export class Window extends NSWindow {
 const NSApp = NSApplication.sharedApplication;
 NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
 NSApp.delegate = ApplicationDelegate.new();
-NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

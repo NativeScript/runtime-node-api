@@ -44,19 +44,17 @@ async function build(target: string) {
 
   // Generate the build files
   await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
-    target.startsWith("ios-test")
-      ? ""
-      : `-DMETADATA_SIZE=${
-        Deno.lstatSync(
-          new URL(
-            `../metadata/metadata.${
-              target.startsWith("ios") ? "ios" : "macos"
-            }.nsmd`,
-            import.meta.url,
-          ),
-        )
-          .size
-      }`
+    target.startsWith("ios-test") ? "" : `-DMETADATA_SIZE=${
+      Deno.lstatSync(
+        new URL(
+          `../metadata/metadata.${
+            target.startsWith("ios") ? "ios" : "macos"
+          }.nsmd`,
+          import.meta.url,
+        ),
+      )
+        .size
+    }`
   }`;
 
   // Build the project

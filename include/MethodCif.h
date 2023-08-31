@@ -5,7 +5,7 @@
 #include "ffi.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
-#include "type_conv.h"
+#include "TypeConv.h"
 #include <string>
 
 namespace objc_bridge {

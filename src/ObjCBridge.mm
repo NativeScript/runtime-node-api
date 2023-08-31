@@ -1,18 +1,19 @@
-#include "bridge.h"
+#include "AutoreleasePool.h"
+#include "Block.h"
+#include "Bridge.h"
+#include "Class.h"
+#include "Enum.h"
 #include "Metadata.h"
-#include "autoreleasepool.h"
-#include "block.h"
-#include "class.h"
-#include "enum.h"
+#include "NativeCall.h"
+#include "ObjCBridgeData.h"
+#include "ObjectRef.h"
+#include "Struct.h"
+#include "TypeConv.h"
+#include "Variable.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
-#include "native_call.h"
 #include "node_api_util.h"
-#include "objc_bridge_data.h"
-#include "object_ref.h"
-#include "struct.h"
-#include "type_conv.h"
-#include "variable.h"
+
 #import <Foundation/Foundation.h>
 
 using namespace objc_bridge;
@@ -26,40 +27,38 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   auto bridgeData = new ObjCBridgeData();
   napi_set_instance_data(env, (void *)bridgeData, finalize_bridge_data, nil);
 
-  const napi_property_descriptor properties[] = {
+  const napi_property_descriptor objcProperties[] = {
       NAPI_FUNCTION_DESC(getClass),        NAPI_FUNCTION_DESC(registerClass),
       NAPI_FUNCTION_DESC(registerBlock),   NAPI_FUNCTION_DESC(import),
       NAPI_FUNCTION_DESC(autoreleasepool),
   };
 
-  napi_define_properties(env, exports, 5, properties);
+  napi_define_properties(env, exports, 5, objcProperties);
 
   napi_value global;
   napi_get_global(env, &global);
 
-  napi_property_descriptor objc_object = {
-      .utf8name = "objc",
-      .attributes = napi_enumerable,
-      .getter = nullptr,
-      .setter = nullptr,
-      .value = exports,
-      .data = nullptr,
-      .method = nullptr,
-  };
+  const napi_property_descriptor globalProperties[] = {
+      {
+          .utf8name = "objc",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .value = exports,
+          .data = nullptr,
+          .method = nullptr,
+      },
+      {
+          .utf8name = "ObjectRef",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .method = nullptr,
+          .data = nullptr,
+          .value = defineObjectRefClass(env),
+      }};
 
-  napi_define_properties(env, global, 1, &objc_object);
-
-  napi_property_descriptor objectRefClass = {
-      .utf8name = "ObjectRef",
-      .attributes = napi_enumerable,
-      .getter = nullptr,
-      .setter = nullptr,
-      .method = nullptr,
-      .data = nullptr,
-      .value = defineObjectRefClass(env),
-  };
-
-  napi_define_properties(env, global, 1, &objectRefClass);
+  napi_define_properties(env, global, 2, globalProperties);
 
   auto offset = bridgeData->metadata->structsOffset;
   while (offset < bridgeData->metadata->size) {
@@ -231,6 +230,47 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
     napi_define_properties(env, global, 1, &prop);
   }
+
+  // offset = bridgeData->metadata->protocolsOffset;
+  // while (offset < bridgeData->metadata->classesOffset) {
+  //   MDSectionOffset originalOffset = offset;
+  //   auto name = bridgeData->metadata->getString(offset);
+  //   offset += sizeof(MDSectionOffset);
+
+  //   bool next = true;
+
+  //   while (next) {
+  //     auto flags = bridgeData->metadata->getMemberFlag(offset);
+  //     next = (flags & mdMemberNext) != 0;
+  //     offset += sizeof(flags);
+
+  //     if ((flags & mdMemberProperty) != 0) {
+  //       bool readonly = (flags & mdMemberReadonly) != 0;
+  //       offset += sizeof(MDSectionOffset); // name
+  //       offset += sizeof(MDSectionOffset); // getterSelector
+  //       if (!readonly)
+  //         offset += sizeof(MDSectionOffset); // setterSelector
+  //       offset += sizeof(MDSectionOffset);   // getterSignature
+  //       if (!readonly)
+  //         offset += sizeof(MDSectionOffset); // setterSignature
+  //     } else {
+  //       offset += sizeof(MDSectionOffset); // selector
+  //       offset += sizeof(MDSectionOffset); // signature
+  //     }
+  //   }
+
+  //   napi_property_descriptor prop = {
+  //       .utf8name = name,
+  //       .attributes = napi_enumerable,
+  //       .method = nullptr,
+  //       .setter = nullptr,
+  //       .value = nullptr,
+  //       .data = (void *)((size_t)originalOffset),
+  //       .getter = JS_classGetter,
+  //   };
+
+  //   napi_define_properties(env, global, 1, &prop);
+  // }
 
   return exports;
 }

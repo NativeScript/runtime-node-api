@@ -37,6 +37,8 @@ export class ApplicationDelegate extends NSObject {
     window.setAcceptsMouseMovedEvents(true);
 
     window.makeKeyAndOrderFront(this);
+
+    NSApp.activateIgnoringOtherApps(false);
   }
 
   windowWillClose(_notification) {

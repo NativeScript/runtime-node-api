@@ -1,4 +1,4 @@
-#include "autoreleasepool.h"
+#include "AutoreleasePool.h"
 
 namespace objc_bridge {
 

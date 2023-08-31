@@ -1,6 +1,6 @@
-#include "js_object.h"
+#include "JSObject.h"
+#include "ObjCBridgeData.h"
 #include "js_native_api.h"
-#include "objc_bridge_data.h"
 
 #import <Foundation/Foundation.h>
 

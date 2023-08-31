@@ -1,12 +1,12 @@
-#include "closure.h"
+#include "Closure.h"
+#include "AutoreleasePool.h"
 #include "Metadata.h"
-#include "autoreleasepool.h"
+#include "ObjCBridgeData.h"
+#include "TypeConv.h"
+#include "Util.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
 #include "objc/message.h"
-#include "objc_bridge_data.h"
-#include "type_conv.h"
-#include "util.h"
 
 #include <Foundation/Foundation.h>
 
@@ -144,44 +144,55 @@ Closure::Closure(std::string encoding, bool isBlock) {
                        fnptr);
 }
 
-// Closure::Closure(MDMetadataReader *reader, MDSectionOffset *offset,
-//                  bool isBlock) {
-//   size_t argc = 0;
+Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
+                 std::string *encoding, bool isMethod) {
+  auto returnTypeKind = reader->getTypeKind(offset);
+  bool next = (returnTypeKind & mdTypeFlagNext) != 0;
 
-//   cif = (ffi_cif *)malloc(sizeof(ffi_cif));
+  returnType = TypeConv::Make(env, reader, &offset);
+  if (encoding != nullptr)
+    returnType->encode(encoding);
+  ffi_type *rtype = returnType->type;
+  ffi_type **atypes = nullptr;
 
-//   const char *returnType = signature.methodReturnType;
-//   auto retTypeInfo = getTypeInfo(&returnType);
-//   this->convertReturnType = retTypeInfo.toNative;
+  if (isBlock) {
+    const char *argenc = "^v";
+    argTypes.push_back(TypeConv::Make(env, &argenc));
+  }
 
-//   ffi_type *rtype = retTypeInfo.type;
-//   ffi_type **atypes = (ffi_type **)malloc(sizeof(ffi_type *) * (argc + 1));
-//   this->convertArgType =
-//       (js_from_native *)malloc(sizeof(js_from_native) * argc);
+  if (isMethod && encoding != nullptr) {
+    *encoding += "@:";
+  }
 
-//   atypes[0] = &ffi_type_pointer;
+  while (next) {
+    auto argTypeKind = reader->getTypeKind(offset);
+    next = (argTypeKind & mdTypeFlagNext) != 0;
+    auto argTypeInfo = TypeConv::Make(env, reader, &offset);
+    if (encoding != nullptr)
+      argTypeInfo->encode(encoding);
+    argTypes.push_back(argTypeInfo);
+  }
 
-//   for (int i = 0; i < argc; i++) {
-//     const char *argenc = [signature getArgumentTypeAtIndex:i];
-//     auto argTypeInfo = getTypeInfo(&argenc);
-//     atypes[i + 1] = argTypeInfo.type;
-//     this->convertArgType[i] = argTypeInfo.fromNative;
-//   }
+  if (!argTypes.empty()) {
+    atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argTypes.size());
 
-//   [signature release];
+    for (int i = 0; i < argTypes.size(); i++) {
+      atypes[i] = argTypes[i]->type;
+    }
+  }
 
-//   ffi_status status =
-//       ffi_prep_cif(cif, FFI_DEFAULT_ABI, (int)(argc + 1), rtype, atypes);
+  ffi_status status =
+      ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argTypes.size(), rtype, atypes);
 
-//   if (status != FFI_OK) {
-//     std::cout << "ffi_prep_cif failed" << std::endl;
-//     return;
-//   }
+  if (status != FFI_OK) {
+    std::cout << "Failed to prepare CIF, libffi returned error:" << status
+              << std::endl;
 
-//   closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
+    closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
 
-//   ffi_prep_closure_loc(closure, cif, isBlock ? JSBlockIMP : JSIMP, this,
-//   fnptr);
-// }
+    ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
+                         fnptr);
+  }
+}
 
 } // namespace objc_bridge

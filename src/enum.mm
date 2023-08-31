@@ -1,4 +1,5 @@
-#include "enum.h"
+#include "Enum.h"
+#include "ObjCBridgeData.h"
 
 namespace objc_bridge {
 

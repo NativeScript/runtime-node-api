@@ -2,8 +2,8 @@
 #define STRUCT_H
 
 #include "Metadata.h"
+#include "TypeConv.h"
 #include "js_native_api.h"
-#include "type_conv.h"
 #include <stdint.h>
 
 namespace objc_bridge {

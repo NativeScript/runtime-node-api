@@ -1,4 +1,6 @@
-#include "variable.h"
+#include "Variable.h"
+#include "Metadata.h"
+#include "ObjCBridgeData.h"
 
 namespace objc_bridge {
 

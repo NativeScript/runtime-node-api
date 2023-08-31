@@ -1,16 +1,17 @@
-#include "type_conv.h"
+#include "TypeConv.h"
+#include "Class.h"
+#include "JSObject.h"
 #include "Metadata.h"
-#include "bridged_class.h"
+#include "ObjCBridgeData.h"
 #include "ffi.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
-#include "js_object.h"
 #include "node_api_util.h"
-#include "objc_bridge_data.h"
 
 #import <Foundation/Foundation.h>
 #include <memory>
 #include <stdbool.h>
+#include <string>
 
 namespace objc_bridge {
 
@@ -58,7 +59,7 @@ ffi_type *typeFromStruct(napi_env env, MDMetadataReader *reader,
   type->elements = nullptr;
 
   MDSectionOffset nameOffset = reader->getOffset(structOffset);
-  bool next = nameOffset & mdSectionOffsetNext;
+  bool next = true;
   structOffset += sizeof(MDSectionOffset); // skip name
   structOffset += sizeof(uint16_t);        // skip size
 
@@ -115,6 +116,8 @@ public:
     napi_get_null(env, &result);
     return result;
   }
+
+  void encode(std::string *encoding) override { *encoding += "v"; }
 };
 
 static const std::shared_ptr<VoidTypeConv> voidTypeConv =
@@ -136,6 +139,8 @@ public:
     napi_get_value_int32(env, value, &val);
     *(int8_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "c"; }
 };
 
 static const std::shared_ptr<SCharTypeConv> scharTypeConv =
@@ -157,6 +162,8 @@ public:
     napi_get_value_uint32(env, value, &val);
     *(uint8_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "C"; }
 };
 
 static const std::shared_ptr<UCharTypeConv> ucharTypeConv =
@@ -178,6 +185,8 @@ public:
     napi_get_value_uint32(env, value, &val);
     *(uint8_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "C"; }
 };
 
 static const std::shared_ptr<UInt8TypeConv> uint8TypeConv =
@@ -199,6 +208,8 @@ public:
     napi_get_value_int32(env, value, &val);
     *(int16_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "s"; }
 };
 
 static const std::shared_ptr<SInt16TypeConv> sint16TypeConv =
@@ -220,6 +231,8 @@ public:
     napi_get_value_uint32(env, value, &val);
     *(uint16_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "S"; }
 };
 
 static const std::shared_ptr<UInt16TypeConv> uint16TypeConv =
@@ -241,6 +254,8 @@ public:
     napi_get_value_int32(env, value, &val);
     *(int32_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "i"; }
 };
 
 static const std::shared_ptr<SInt32TypeConv> sint32TypeConv =
@@ -262,6 +277,8 @@ public:
     napi_get_value_uint32(env, value, &val);
     *(uint32_t *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "I"; }
 };
 
 static const std::shared_ptr<UInt32TypeConv> uint32TypeConv =
@@ -297,6 +314,8 @@ public:
       break;
     }
   }
+
+  void encode(std::string *encoding) override { *encoding += "q"; }
 };
 
 static const std::shared_ptr<SInt64TypeConv> sint64TypeConv =
@@ -332,6 +351,8 @@ public:
       break;
     }
   }
+
+  void encode(std::string *encoding) override { *encoding += "Q"; }
 };
 
 static const std::shared_ptr<UInt64TypeConv> uint64TypeConv =
@@ -400,6 +421,8 @@ public:
     napi_get_value_double(env, value, &val);
     *(float *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "f"; }
 };
 
 static const std::shared_ptr<Float32TypeConv> float32TypeConv =
@@ -421,6 +444,8 @@ public:
     napi_get_value_double(env, value, &val);
     *(double *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "d"; }
 };
 
 static const std::shared_ptr<Float64TypeConv> float64TypeConv =
@@ -442,6 +467,8 @@ public:
     napi_get_value_bool(env, value, &val);
     *(bool *)result = val;
   }
+
+  void encode(std::string *encoding) override { *encoding += "B"; }
 };
 
 static const std::shared_ptr<BoolTypeConv> boolTypeConv =
@@ -525,6 +552,8 @@ public:
       return;
     }
   }
+
+  void encode(std::string *encoding) override { *encoding += "^v"; }
 };
 
 static const std::shared_ptr<PointerTypeConv> pointerTypeConv =
@@ -569,6 +598,8 @@ public:
   }
 
   void free(napi_env env, void *value) override { ::free(value); }
+
+  void encode(std::string *encoding) override { *encoding += "*"; }
 };
 
 static const std::shared_ptr<StringTypeConv> stringTypeConv =
@@ -751,6 +782,8 @@ public:
     auto bridgeData = ObjCBridgeData::InstanceData(env);
     bridgeData->unregisterObject(obj);
   }
+
+  void encode(std::string *encoding) override { *encoding += "@"; }
 };
 
 static const std::shared_ptr<ObjCObjectTypeConv> objcObjectTypeConv =
@@ -787,6 +820,8 @@ public:
     ObjCObjectTypeConv typeConv;
     typeConv.toNative(env, value, result, shouldFree, shouldFreeAny);
   }
+
+  void encode(std::string *encoding) override { *encoding += "#"; }
 };
 
 static const std::shared_ptr<ObjCClassTypeConv> objcClassTypeConv =
@@ -820,6 +855,8 @@ public:
 
     *res = sel_registerName(selector_name_buf);
   }
+
+  void encode(std::string *encoding) override { *encoding += ":"; }
 };
 
 static const std::shared_ptr<SelectorTypeConv> selectorTypeConv =
@@ -947,6 +984,13 @@ public:
 
     memcpy(result, data, length * getTypedArrayUnitLength(type));
   }
+
+  void encode(std::string *encoding) override {
+    *encoding += "[";
+    *encoding += arraySize;
+    elementType->encode(encoding);
+    *encoding += "]";
+  }
 };
 
 class UnionTypeConv : public TypeConv {
@@ -966,6 +1010,14 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     NSLog(@"UnionTypeConv toNative: TODO");
+  }
+
+  void encode(std::string *encoding) override {
+    *encoding += "(";
+    for (auto &ty : types) {
+      ty->encode(encoding);
+    }
+    *encoding += ")";
   }
 };
 
@@ -1226,6 +1278,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeUInt128: {
+    NSLog(@"mdTypeUInt128: TODO");
     return uint128TypeConv;
   }
 

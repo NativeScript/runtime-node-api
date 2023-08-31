@@ -56,7 +56,7 @@ if(METADATA_SIZE EQUAL 0)
 else()
   message(STATUS "EMBED_METADATA_SIZE = ${METADATA_SIZE}"
     " (metadata will be embedded in the library)")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEMBED_METADATA_SIZE=${METADATA_SIZE}")
+  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEMBED_METADATA_SIZE=${METADATA_SIZE}")
 endif()
 
 message(STATUS "BRIDGE_TARGET_PLATFORM = ${BRIDGE_TARGET_PLATFORM}")
@@ -80,28 +80,25 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/metadata/include
   ${CMAKE_CURRENT_SOURCE_DIR}/libffi/${LIBFFI_BUILD}/include
   /Library/Developer/CommandLineTools/usr/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/segappend/include
 )
 
 set(LIB_SOURCE_FILES
-  src/autoreleasepool.mm
-  src/objc.mm
-  src/bridge.mm
-  src/block.mm
-  src/class.mm
-  src/closure.mm
-  src/bridged_class.mm
-  src/native_call.mm
-  src/method_cif.mm
-  src/objc_bridge_data.mm
-  src/type_conv.mm
-  src/util.mm
-  src/struct.mm
-  src/object_ref.mm
-  src/js_object.mm
-  src/enum.mm
-  src/variable.mm
-  segappend/src/segappend.cc
+  src/AutoreleasePool.mm
+  src/Protocols.mm
+  src/ObjCBridge.mm
+  src/Block.mm
+  src/Class.mm
+  src/Closure.mm
+  src/NativeCall.mm
+  src/MethodCif.mm
+  src/ObjCBridgeData.mm
+  src/TypeConv.mm
+  src/Util.mm
+  src/Struct.mm
+  src/ObjectRef.mm
+  src/JSObject.mm
+  src/Enum.mm
+  src/Variable.mm
 )
 
 add_library(
@@ -141,17 +138,17 @@ endif()
 if(NOT METADATA_SIZE EQUAL 0)
   message(STATUS "Added script to embed metadata in the library")
 
-  add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND codesign --remove-signature $<TARGET_FILE:${NAME}>
-  )
+  # add_custom_command(TARGET ${NAME} POST_BUILD
+  #   COMMAND codesign --remove-signature $<TARGET_FILE:${NAME}>
+  # )
 
-  add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE:${NAME}> ${METADATA_FILE}
-  )
+  # add_custom_command(TARGET ${NAME} POST_BUILD
+  #   COMMAND deno run -A ${CMAKE_CURRENT_SOURCE_DIR}/scripts/write_metadata.ts $<TARGET_FILE:${NAME}> ${METADATA_FILE}
+  # )
 
-  add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND codesign -fs - $<TARGET_FILE:${NAME}>
-  )
+  # add_custom_command(TARGET ${NAME} POST_BUILD
+  #   COMMAND codesign -fs - $<TARGET_FILE:${NAME}>
+  # )
 endif()
 
 message(STATUS "LIBFFI_BUILD = ${LIBFFI_BUILD}")

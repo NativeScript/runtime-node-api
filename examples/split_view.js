@@ -35,12 +35,14 @@ export class ApplicationDelegate extends NSObject {
     toolbar.allowsUserCustomization = true;
     toolbar.autosavesConfiguration = true;
 
-    window.toolbarStyle = 3 /* NSToolbarStyleUnified */;
+    window.toolbarStyle = NSWindowToolbarStyle.unified;
 
     window.toolbar = toolbar;
     toolbar.validateVisibleItems();
 
-    window.makeKeyAndOrderFront(this);
+    window.makeKeyAndOrderFront(NSApp);
+
+    NSApp.activateIgnoringOtherApps(false);
   }
 
   applicationShouldTerminateAfterLastWindowClosed(_sender) {
@@ -85,7 +87,7 @@ export class SidebarViewController extends NSViewController {
     outline.allowsColumnResizing = false;
     outline.allowsColumnSelection = false;
     outline.allowsEmptySelection = false;
-    outline.rowSizeStyle = 2 /* NSTableViewRowSizeStyleMedium */;
+    outline.rowSizeStyle = NSTableViewRowSizeStyle.medium;
 
     outline.delegate = this;
     outline.dataSource = this;
@@ -100,9 +102,6 @@ export class SidebarViewController extends NSViewController {
 
     scrollView.hasVerticalScroller = true;
     scrollView.hasHorizontalScroller = false;
-    scrollView.borderType = 0 /* NSNoBorder */;
-    scrollView.autohidesScrollers = true;
-    scrollView.verticalScrollElasticity = 2;
     scrollView.documentView = outline;
     scrollView.drawsBackground = false;
     scrollView.setTranslatesAutoresizingMaskIntoConstraints(false);
@@ -185,7 +184,7 @@ export class ContentViewController extends NSViewController {
     const view = NSView.new();
 
     const label = NSTextField.alloc().initWithFrame(
-      { point: { x: 0, y: 0 }, size: { width: 390, height: 100 } },
+      { origin: { x: 0, y: 0 }, size: { width: 390, height: 100 } },
     );
 
     label.stringValue = "Hello, macOS";
@@ -208,7 +207,7 @@ export class ContentViewController extends NSViewController {
     this.label = label;
 
     const vstack = NSStackView.alloc().initWithFrame(
-      { point: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
+      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
     );
 
     vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
@@ -257,7 +256,7 @@ export class SplitViewController extends NSSplitViewController {
 
   viewDidLoad() {
     this.view.frame = {
-      point: { x: 0, y: 0 },
+      origin: { x: 0, y: 0 },
       size: { width: 800, height: 600 },
     };
 
@@ -316,5 +315,4 @@ NSApp.setActivationPolicy(0);
 
 NSApp.delegate = ApplicationDelegate.new();
 
-NSApp.activateIgnoringOtherApps(true);
 NSApp.run();

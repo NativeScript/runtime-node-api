@@ -1,14 +1,14 @@
 #ifndef OBJC_BRIDGE_DATA_H
 #define OBJC_BRIDGE_DATA_H
 
+#include "AutoreleasePool.h"
+#include "Class.h"
 #include "Metadata.h"
-#include "autoreleasepool.h"
-#include "bridged_class.h"
+#include "MethodCif.h"
+#include "Struct.h"
+#include "TypeConv.h"
 #include "js_native_api.h"
-#include "method_cif.h"
 #include "objc/runtime.h"
-#include "struct.h"
-#include "type_conv.h"
 #include <dlfcn.h>
 #include <map>
 #include <stdint.h>
@@ -46,10 +46,14 @@ public:
   std::unordered_map<MDSectionOffset, CFunction *> cFunctionCache;
   std::unordered_map<MDSectionOffset, MethodCif *> mdSignatureCache;
   std::unordered_map<std::string, MDSectionOffset> structOffsets;
+  std::unordered_map<std::string, MDSectionOffset> protocolOffsets;
 
   void *self_dl;
 
   MDMetadataReader *metadata;
+
+  ObjCBridgeData(const char *metadata_path = nullptr);
+  ~ObjCBridgeData();
 
   static inline ObjCBridgeData *InstanceData(napi_env env) {
     ObjCBridgeData *bridgeData;
@@ -81,9 +85,6 @@ public:
 
     return structInfo;
   }
-
-  ObjCBridgeData(const char *metadata_path = nullptr);
-  ~ObjCBridgeData();
 
 public:
   std::unordered_map<id, napi_ref> objectRefs;

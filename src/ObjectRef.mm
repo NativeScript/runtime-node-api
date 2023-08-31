@@ -1,8 +1,8 @@
-#include "object_ref.h"
+#include "ObjectRef.h"
+#include "TypeConv.h"
+#include "Util.h"
 #include "js_native_api.h"
 #include "node_api_util.h"
-#include "type_conv.h"
-#include "util.h"
 
 #import <Foundation/Foundation.h>
 
