@@ -63,7 +63,7 @@ async function build(target: string) {
   if (target.startsWith("macos")) {
     // Copy the built app to the build directory
     await Deno.copyFile(
-      `../build/${target}/Release/libObjCBridge.dylib`,
+      `../build/${target}/${buildConfig}/libObjCBridge.dylib`,
       `../build/${target}/ObjCBridge.node`,
     );
   }

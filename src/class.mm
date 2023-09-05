@@ -218,15 +218,12 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
                       napi_value superObject, bool supercall) {
   NAPI_PREAMBLE
 
-  unsigned int count, actualCount;
-  count = actualCount = 0;
-  auto methods = class_copyMethodList(nativeClass, &count);
-
   unsigned int propertyCount = 0;
   auto properties = class_copyPropertyList(nativeClass, &propertyCount);
 
   std::set<std::string> addedMethods, addedProperties, addedSelectors;
 
+  // Define properties
   for (unsigned int i = 0; i < propertyCount; i++) {
     objc_property_t property = properties[i];
     std::string name = property_getName(property);
@@ -309,13 +306,22 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
       continue;
     }
 
+    if (!supercall)
+      NSLog(@"- property: %s", (&*pair.first)->c_str());
+
     NAPI_GUARD(napi_define_properties(env, object, 1, &desc)) {
       NAPI_THROW_LAST_ERROR
       return;
     }
   }
 
-  for (unsigned int i = 0; i < count; i++) {
+  free(properties);
+
+  unsigned int methodCount = 0;
+  auto methods = class_copyMethodList(nativeClass, &methodCount);
+
+  // Define methods
+  for (unsigned int i = 0; i < methodCount; i++) {
     auto method = methods[i];
     auto sel = method_getName(methods[i]);
     std::string selector = sel_getName(sel);
@@ -369,7 +375,8 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
     desc.getter = nil;
     desc.setter = nil;
     desc.value = nil;
-    desc.attributes = (napi_property_attributes)(napi_enumerable);
+    desc.attributes =
+        (napi_property_attributes)(napi_enumerable | napi_configurable);
     desc.method = JS_BridgedMethod;
 
     NAPI_GUARD(napi_define_properties(env, object, 1, &desc)) {
@@ -377,6 +384,8 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
       return;
     }
   }
+
+  free(methods);
 }
 
 std::string NativeObjectName = "NativeObject";
