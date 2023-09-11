@@ -306,9 +306,6 @@ void defineProperties(napi_env env, ObjCBridgeData *bridgeData,
       continue;
     }
 
-    if (!supercall)
-      NSLog(@"- property: %s", (&*pair.first)->c_str());
-
     NAPI_GUARD(napi_define_properties(env, object, 1, &desc)) {
       NAPI_THROW_LAST_ERROR
       return;

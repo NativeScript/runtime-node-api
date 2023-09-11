@@ -1,8 +1,4 @@
-console.log(performance.now());
-
 import "objc";
-
-console.log(performance.now());
 
 console.log(NSString.stringWithUTF8String("Hello, macOS").length);
 

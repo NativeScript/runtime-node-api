@@ -873,6 +873,8 @@ public:
     this->type = type;
   }
 
+  // ~StructTypeConv() { delete type; }
+
   inline StructInfo *getInfo(napi_env env) {
     if (!structInfoSearched) {
       auto bridgeData = ObjCBridgeData::InstanceData(env);
@@ -1222,7 +1224,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
     return stringTypeConv;
   }
 
-  case mdTypeObject: {
+  case mdTypeAnyObject: {
     return objcObjectTypeConv;
   }
 
@@ -1243,10 +1245,10 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeStruct: {
-    auto structName = reader->getString(*offset);
+    auto structOffset = reader->getOffset(*offset) + reader->structsOffset;
+    auto structName = reader->getString(structOffset);
     *offset += sizeof(MDSectionOffset);
     auto bridgeData = ObjCBridgeData::InstanceData(env);
-    auto structOffset = bridgeData->structOffsets[structName];
     auto type = typeFromStruct(env, reader, structOffset);
     return std::make_shared<StructTypeConv>(StructTypeConv(structOffset, type));
   }
@@ -1278,7 +1280,6 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeUInt128: {
-    NSLog(@"mdTypeUInt128: TODO");
     return uint128TypeConv;
   }
 

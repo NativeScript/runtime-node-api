@@ -188,6 +188,62 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
     napi_define_properties(env, global, 1, &prop);
   }
 
+  offset = bridgeData->metadata->protocolsOffset;
+  while (offset < bridgeData->metadata->classesOffset) {
+    MDSectionOffset originalOffset = offset;
+
+    auto nameOffset = bridgeData->metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
+    bool next = (nameOffset & mdSectionOffsetNext) != 0;
+    nameOffset &= ~mdSectionOffsetNext;
+
+    auto name = bridgeData->metadata->resolveString(nameOffset);
+
+    std::string nameStr = name;
+    bridgeData->protocolOffsets[nameStr] = originalOffset;
+
+    while (next) {
+      auto protocolImpl = bridgeData->metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset);
+      next = (protocolImpl & mdSectionOffsetNext) != 0;
+    }
+
+    next = true;
+
+    while (next) {
+      auto flags = bridgeData->metadata->getMemberFlag(offset);
+      next = (flags & mdMemberNext) != 0;
+      offset += sizeof(flags);
+
+      if (flags == mdMemberFlagNull)
+        break;
+
+      if ((flags & mdMemberProperty) != 0) {
+        bool readonly = (flags & mdMemberReadonly) != 0;
+
+        offset += sizeof(MDSectionOffset); // name
+
+        offset += sizeof(MDSectionOffset); // getterSelector
+        if (!readonly)
+          offset += sizeof(MDSectionOffset); // setterSelector
+        TypeConv::Make(env, bridgeData->metadata, &offset);
+      } else {
+        offset += sizeof(MDSectionOffset); // selector
+        offset += sizeof(MDSectionOffset); // signature
+      }
+    }
+
+    // napi_property_descriptor prop = {
+    //     .utf8name = name,
+    //     .attributes = (napi_property_attributes)(napi_enumerable |
+    //     napi_configurable), .method = nullptr, .setter = nullptr, .value =
+    //     nullptr, .data = (void *)((size_t)originalOffset), .getter =
+    //     JS_classGetter,
+    // };
+
+    // napi_define_properties(env, global, 1, &prop);
+  }
+
   offset = bridgeData->metadata->classesOffset;
   while (offset < bridgeData->metadata->structsOffset) {
     MDSectionOffset originalOffset = offset;
@@ -209,9 +265,7 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
         offset += sizeof(MDSectionOffset); // getterSelector
         if (!readonly)
           offset += sizeof(MDSectionOffset); // setterSelector
-        offset += sizeof(MDSectionOffset);   // getterSignature
-        if (!readonly)
-          offset += sizeof(MDSectionOffset); // setterSignature
+        TypeConv::Make(env, bridgeData->metadata, &offset);
       } else {
         offset += sizeof(MDSectionOffset); // selector
         offset += sizeof(MDSectionOffset); // signature
@@ -220,7 +274,8 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
     napi_property_descriptor prop = {
         .utf8name = name,
-        .attributes = napi_enumerable,
+        .attributes =
+            (napi_property_attributes)(napi_enumerable | napi_configurable),
         .method = nullptr,
         .setter = nullptr,
         .value = nullptr,
@@ -230,47 +285,6 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
     napi_define_properties(env, global, 1, &prop);
   }
-
-  // offset = bridgeData->metadata->protocolsOffset;
-  // while (offset < bridgeData->metadata->classesOffset) {
-  //   MDSectionOffset originalOffset = offset;
-  //   auto name = bridgeData->metadata->getString(offset);
-  //   offset += sizeof(MDSectionOffset);
-
-  //   bool next = true;
-
-  //   while (next) {
-  //     auto flags = bridgeData->metadata->getMemberFlag(offset);
-  //     next = (flags & mdMemberNext) != 0;
-  //     offset += sizeof(flags);
-
-  //     if ((flags & mdMemberProperty) != 0) {
-  //       bool readonly = (flags & mdMemberReadonly) != 0;
-  //       offset += sizeof(MDSectionOffset); // name
-  //       offset += sizeof(MDSectionOffset); // getterSelector
-  //       if (!readonly)
-  //         offset += sizeof(MDSectionOffset); // setterSelector
-  //       offset += sizeof(MDSectionOffset);   // getterSignature
-  //       if (!readonly)
-  //         offset += sizeof(MDSectionOffset); // setterSignature
-  //     } else {
-  //       offset += sizeof(MDSectionOffset); // selector
-  //       offset += sizeof(MDSectionOffset); // signature
-  //     }
-  //   }
-
-  //   napi_property_descriptor prop = {
-  //       .utf8name = name,
-  //       .attributes = napi_enumerable,
-  //       .method = nullptr,
-  //       .setter = nullptr,
-  //       .value = nullptr,
-  //       .data = (void *)((size_t)originalOffset),
-  //       .getter = JS_classGetter,
-  //   };
-
-  //   napi_define_properties(env, global, 1, &prop);
-  // }
 
   return exports;
 }

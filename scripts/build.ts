@@ -32,11 +32,11 @@ await Deno.mkdir("../build").catch(() => {});
 
 async function ensureTargetDir(target: string) {
   // Clean any previous target specific build
-  await Deno.remove(`../build/${target}`, { recursive: true }).catch(
-    () => {},
-  );
+  // await Deno.remove(`../build/${target}`, { recursive: true }).catch(
+  //   () => {},
+  // );
   // Create a new target specific build directory
-  await Deno.mkdir(`../build/${target}`);
+  await Deno.mkdir(`../build/${target}`).catch(() => {});
 }
 
 async function build(target: string) {

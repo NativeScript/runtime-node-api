@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <iostream>
 #include <string>
 #include <unordered_map>
@@ -9,13 +10,13 @@
 // Bit 0-31: key
 typedef uint32_t MDSectionOffset;
 
-typedef enum MDSectionOffsetFlag : uint32_t {
+enum MDSectionOffsetFlag : uint32_t {
   mdSectionOffsetNext = 1u << 31,
-} MDSectionOffsetFlag;
+};
 
 // Bits 0-2: flags (3 flags)
 // Bits 3-7: kind (max 32 kinds)
-typedef enum MDTypeKind : uint8_t {
+enum MDTypeKind : uint8_t {
   mdTypeChar,
   mdTypeSInt,
   mdTypeSShort,
@@ -31,7 +32,16 @@ typedef enum MDTypeKind : uint8_t {
   mdTypeUInt8,
   mdTypeVoid,
   mdTypeString,
-  mdTypeObject,
+
+  // Objects are classified into 3 types:
+  // 1. id is any object, we have to do lookup for class at runtime
+  mdTypeAnyObject,
+  // 2. id<protocol> is protocol object, protocol definition offset is resolved
+  // beforehand
+  mdTypeProtocolObject,
+  // 3. Class * is class object, class definition offset is resolved beforehand
+  mdTypeClassObject,
+
   mdTypeClass,
   mdTypeSelector,
   mdTypeArray,
@@ -39,29 +49,36 @@ typedef enum MDTypeKind : uint8_t {
   mdTypeUnion,
   mdTypePointer,
   mdTypeBool,
+
   // Block type is further specification of pointer type.
   // It will also point to the signature of the block in signatures section.
   mdTypeBlock,
+
   // Non-objc types.
   mdTypeUInt128,
   mdTypeLongDouble,
   mdTypeVector,
   mdTypeExtVector,
   mdTypeComplex,
-} MDTypeKind;
+};
 
-typedef enum MDTypeFlag : uint8_t {
+enum MDTypeFlag : uint8_t {
   mdTypeFlagNext = 1 << 7,
   mdTypeFlagReserved = 1 << 6,
   mdTypeFlagReserved2 = 1 << 5,
-} MDTypeFlag;
+};
 
-typedef struct MDTypeInfo {
+struct MDTypeInfo {
   MDTypeKind kind;
   uint16_t arraySize;
   // If kind is mdTypeStruct, then this key points to the definition in structs
   // section.
   MDSectionOffset structOffset;
+  // For mdTypeClassObject, it points to the definition in the classes section.
+  MDSectionOffset classOffset;
+  // For mdTypeClassObject or mdTypeProtocolObject, it can also point to the
+  // definition in the protocols section.
+  std::vector<MDSectionOffset> protocolOffsets;
   // For mdTypeArray, it points to the element type.
   MDTypeInfo *elementType;
   // For mdTypeUnion, it is list of pointers to union type members.
@@ -71,55 +88,55 @@ typedef struct MDTypeInfo {
   MDSectionOffset blockSignature;
   // Size is not a part of the metadata, but its used here for convenience.
   size_t size;
-} MDTypeInfo;
+};
 
-typedef enum MDVariableEvalKind : uint8_t {
+enum MDVariableEvalKind : uint8_t {
   mdEvalNone,
   mdEvalInt64,
   mdEvalDouble,
   mdEvalString,
-} MDVariableEvalKind;
+};
 
-typedef struct MDVariable {
+struct MDVariable {
   MDSectionOffset name;
   MDTypeInfo *type;
   MDVariableEvalKind evalKind;
   void *value;
-} MDVariable;
+};
 
-typedef struct MDEnumMember {
+struct MDEnumMember {
   MDSectionOffset name;
   int64_t value;
-} MDEnumMember;
+};
 
-typedef struct MDEnum {
+struct MDEnum {
   MDSectionOffset name;
   std::vector<MDEnumMember> members;
-} MDEnum;
+};
 
-typedef struct MDStructField {
+struct MDStructField {
   MDSectionOffset name;
   uint16_t offset;
   MDTypeInfo *type;
-} MDStructField;
+};
 
-typedef struct MDStruct {
+struct MDStruct {
   MDSectionOffset name;
   uint16_t size;
   std::vector<MDStructField> fields;
-} MDStruct;
+};
 
-typedef struct MDSignature {
+struct MDSignature {
   MDTypeInfo *returnType;
   std::vector<MDTypeInfo *> arguments;
-} MDSignature;
+};
 
-typedef struct MDFunction {
+struct MDFunction {
   MDSectionOffset name;
   MDSectionOffset signature;
-} MDFunction;
+};
 
-typedef enum MDMemberFlag : uint8_t {
+enum MDMemberFlag : uint8_t {
   mdMemberFlagNull = 0,
   mdMemberProperty = 1 << 1,
   mdMemberReadonly = 1 << 2,
@@ -127,9 +144,9 @@ typedef enum MDMemberFlag : uint8_t {
   mdMemberStatic = 1 << 4,
   mdMemberMethod = 1 << 5,
   mdMemberNext = 1 << 7,
-} MDMemberFlag;
+};
 
-typedef struct MDMember {
+struct MDMember {
   MDMemberFlag flags;
 
   // Only for methods.
@@ -140,21 +157,20 @@ typedef struct MDMember {
   MDSectionOffset name;
   MDSectionOffset getterSelector;
   MDSectionOffset setterSelector;
-  MDSectionOffset getterSignature;
-  MDSectionOffset setterSignature;
-} MDMember;
+  MDTypeInfo *propertyType;
+};
 
-typedef struct MDProtocol {
+struct MDProtocol {
   MDSectionOffset name;
   std::vector<MDSectionOffset> protocols;
   std::vector<MDMember> members;
-} MDProtocol;
+};
 
-typedef struct MDClass {
+struct MDClass {
   MDSectionOffset name;
   MDSectionOffset superclass;
   std::vector<MDMember> members;
-} MDClass;
+};
 
 // Binary serialization/deserialization interface.
 template <typename T> class MDSerializer {
@@ -219,6 +235,16 @@ public:
       addsize(value->blockSignature);
       break;
 
+    case mdTypeProtocolObject:
+      // Protocols list
+      size += sizeof(MDSectionOffset) * value->protocolOffsets.size();
+      break;
+
+    case mdTypeClassObject:
+      // Class + protocols list
+      size += sizeof(MDSectionOffset) * (value->protocolOffsets.size() + 1);
+      break;
+
     default:
       break;
     }
@@ -266,6 +292,34 @@ public:
       // Signature
       binwrite(value->blockSignature);
       break;
+    }
+
+    case mdTypeProtocolObject: {
+      // Protocols list
+      for (size_t i = 0; i < value->protocolOffsets.size(); i++) {
+        MDSectionOffset protocol = value->protocolOffsets[i];
+        if (i == value->protocolOffsets.size() - 1) {
+          protocol |= mdSectionOffsetNext;
+        }
+        binwrite(protocol);
+      }
+    }
+
+    case mdTypeClassObject: {
+      // Class
+      MDSectionOffset classOffset =
+          value->protocolOffsets.empty() ? 0 : mdSectionOffsetNext;
+      classOffset |= value->classOffset;
+      binwrite(classOffset);
+
+      // Protocols list
+      for (size_t i = 0; i < value->protocolOffsets.size(); i++) {
+        MDSectionOffset protocol = value->protocolOffsets[i];
+        if (i == value->protocolOffsets.size() - 1) {
+          protocol |= mdSectionOffsetNext;
+        }
+        binwrite(protocol);
+      }
     }
 
     default:
@@ -342,7 +396,9 @@ public:
     case mdTypeString:
       result = "*";
       break;
-    case mdTypeObject:
+    case mdTypeAnyObject:
+    case mdTypeProtocolObject:
+    case mdTypeClassObject:
       result = "@";
       break;
     case mdTypeClass:
@@ -619,12 +675,9 @@ public:
         addsize(value.setterSelector);
       }
 
-      // Getter signature
-      addsize(value.getterSignature);
-      if ((value.flags & mdMemberReadonly) == 0) {
-        // Setter signature
-        addsize(value.setterSignature);
-      }
+      // Property type
+      MDTypeInfoSerde typeInfoSerde;
+      size += typeInfoSerde.size(value.propertyType);
     } else {
       // Method selector
       addsize(value.methodSelector);
@@ -648,12 +701,10 @@ public:
         // Setter selector
         binwrite(value.setterSelector);
       }
-      // Getter signature
-      binwrite(value.getterSignature);
-      if ((value.flags & mdMemberReadonly) == 0) {
-        // Setter signature
-        binwrite(value.setterSignature);
-      }
+
+      // Property type
+      MDTypeInfoSerde typeInfoSerde;
+      typeInfoSerde.serialize(value.propertyType, data);
     } else {
       // Method selector
       binwrite(value.methodSelector);
@@ -666,20 +717,18 @@ public:
 class MDProtocolSerde : public MDSerializer<MDProtocol *> {
 public:
   size_t size(MDProtocol *value) override {
-    auto memberSerde = MDMemberSerde();
     size_t size = 0;
     // Name
     addsize(value->name);
+
     // Protocols
     size_t protocolsSize = value->protocols.size();
-    if (protocolsSize > 0) {
-      size += sizeof(MDSectionOffset) * protocolsSize;
-    } else {
-      size += sizeof(MDSectionOffset);
-    }
+    size += sizeof(MDSectionOffset) * protocolsSize;
+
     // Members
     size_t membersSize = value->members.size();
     if (membersSize > 0) {
+      auto memberSerde = MDMemberSerde();
       for (auto &member : value->members) {
         size += memberSerde.size(member);
       }
@@ -692,32 +741,34 @@ public:
   void serialize(MDProtocol *value, void *data) override {
     auto memberSerde = MDMemberSerde();
     // Name
-    binwrite(value->name);
+    auto nameOffset =
+        value->name | (value->protocols.empty() ? 0 : mdSectionOffsetNext);
+    binwrite(nameOffset);
+
     // Protocols
     size_t protocolsSize = value->protocols.size();
-    if (protocolsSize > 0) {
-      for (size_t i = 0; i < protocolsSize; i++) {
-        MDSectionOffset protocol = value->protocols[i];
-        if (i == protocolsSize - 1) {
-          protocol |= mdSectionOffsetNext;
-        }
-        memcpy(data, &protocol, sizeof(MDSectionOffset));
-        ptr_add(&data, sizeof(MDSectionOffset));
+    for (size_t i = 0; i < protocolsSize; i++) {
+      auto protocol = value->protocols[i];
+      if (i != protocolsSize - 1) {
+        protocol |= mdSectionOffsetNext;
       }
-    } else {
-      MDSectionOffset nullOffset = 0;
-      binwrite(nullOffset);
+      binwrite(protocol);
     }
+
     // Members
     size_t membersSize = value->members.size();
-    if (membersSize > 0) {
-      for (auto &member : value->members) {
-        memberSerde.serialize(member, data);
-        ptr_add(&data, memberSerde.size(member));
+    for (int i = 0; i < membersSize; i++) {
+      auto member = value->members[i];
+      memberSerde.serialize(member, data);
+      if (i != membersSize - 1) {
+        MDMemberFlag *serializedPtr = (MDMemberFlag *)data;
+        *serializedPtr = MDMemberFlag(*serializedPtr | mdMemberNext);
       }
-    } else {
-      MDMemberFlag flagNull = (MDMemberFlag)0;
-      binwrite(flagNull);
+      ptr_add(&data, memberSerde.size(member));
+    }
+    if (membersSize == 0) {
+      auto flag = mdMemberFlagNull;
+      binwrite(flag);
     }
   }
 };

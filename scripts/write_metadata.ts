@@ -23,7 +23,7 @@ for (let i = 0; i < binary.byteLength; i++) {
 }
 
 if (offsets.length < 1) {
-  throw new Error("Could not find metadata section");
+  console.log("No empty metadata section found");
 }
 
 for (const offset of offsets) {

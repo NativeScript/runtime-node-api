@@ -7,6 +7,7 @@
 #include <iostream>
 #include <set>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 std::vector<std::string> splitCamelCase(std::string value) {
@@ -201,6 +202,11 @@ public:
             break;
           }
 
+          case CXCursor_ObjCCategoryDecl: {
+            state->processCategory(cursor);
+            break;
+          }
+
           default:
             break;
           }
@@ -208,6 +214,63 @@ public:
           return CXChildVisit_Continue;
         },
         this);
+
+    for (auto &cls : classes) {
+      if (processed_categories.contains(cls->name)) {
+        auto &categories = processed_categories[cls->name];
+        for (auto member : categories) {
+          cls->members.emplace_back(member);
+        }
+      }
+
+      metadata->classes.add(cls, metadata->strings[cls->name]);
+    }
+
+    // Resolve names into respective definition section offsets.
+
+    for (auto &resolvable : class_resolvables) {
+      bool found = false;
+      for (auto &pair : metadata->classes) {
+        if (pair.second->name == *resolvable) {
+          found = true;
+          *resolvable = pair.first;
+          break;
+        }
+      }
+      if (!found) {
+        *resolvable = 0;
+      }
+    }
+
+    for (auto &resolvable : protocol_resolvables) {
+      bool found = false;
+      for (auto &pair : metadata->protocols) {
+        if (pair.second->name == *resolvable) {
+          found = true;
+          *resolvable = pair.first;
+          break;
+        }
+      }
+      if (!found) {
+        *resolvable = 0;
+      }
+    }
+
+    for (auto &resolvable : struct_resolvables) {
+      bool found = false;
+      for (auto &pair : metadata->structs) {
+        if (pair.second->name == *resolvable) {
+          found = true;
+          *resolvable = pair.first;
+          break;
+        }
+      }
+      if (!found) {
+        *resolvable = 0;
+      }
+    }
+
+    std::cout << "Processed headers" << std::endl;
   }
 
 private:
@@ -277,27 +340,16 @@ private:
         },
         this);
 
+    for (auto &protocol : protocol->protocols) {
+      protocol_resolvables.insert(&protocol);
+    }
+
     metadata->protocols.add(protocol, nameStr);
 
     current_protocol = nullptr;
     processed_cmethods.clear();
     processed_imethods.clear();
     processed_properties.clear();
-  }
-
-  bool isClassMethodRequired(CXCursor cursor) {
-    bool required = false;
-    for (int i = 0; i < clang_Cursor_getNumArguments(cursor); i++) {
-      auto arg = clang_Cursor_getArgument(cursor, i);
-      auto type = clang_getCursorType(arg);
-      auto canonicalType = clang_getCanonicalType(type);
-      auto kind = canonicalType.kind;
-      if (kind == CXType_BlockPointer) {
-        required = true;
-        break;
-      }
-    }
-    return required;
   }
 
   void processClass(CXCursor cursor) {
@@ -309,8 +361,6 @@ private:
     if (!frameworks.contains(fw) && nameStr != "NSObject") {
       return;
     }
-
-    // std::cout << "class: " << nameStr << std::endl;
 
     if (processed_protocols.contains(nameStr)) {
       return;
@@ -337,14 +387,14 @@ private:
 
           switch (kind) {
           case CXCursor_ObjCSuperClassRef: {
-            cls->superclass = 0;
+            CXString name = clang_getCursorSpelling(cursor);
+            std::string nameStr = clang_getCString(name);
+            cls->superclass = metadata->strings.add(nameStr, nameStr);
+            clang_disposeString(name);
             break;
           }
 
           case CXCursor_ObjCInstanceMethodDecl: {
-            if (!state->isClassMethodRequired(cursor)) {
-              break;
-            }
             auto member = state->processMethod(cursor, false);
             if (member.flags == mdMemberFlagNull) {
               break;
@@ -354,10 +404,16 @@ private:
           }
 
           case CXCursor_ObjCClassMethodDecl: {
-            if (!state->isClassMethodRequired(cursor)) {
+            auto member = state->processMethod(cursor, true);
+            if (member.flags == mdMemberFlagNull) {
               break;
             }
-            auto member = state->processMethod(cursor, true);
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          case CXCursor_ObjCPropertyDecl: {
+            auto member = state->processProperty(cursor);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -373,7 +429,11 @@ private:
         },
         this);
 
-    metadata->classes.add(cls, nameStr);
+    classes.emplace_back(cls);
+
+    if (cls->superclass != 0) {
+      class_resolvables.insert(&cls->superclass);
+    }
 
     current_class = nullptr;
     processed_cmethods.clear();
@@ -381,15 +441,99 @@ private:
     processed_properties.clear();
   }
 
-  void processStruct(CXCursor cursor) {
+  void processCategory(CXCursor cursor) {
     auto fw = getFrameworkName(cursor);
     if (!frameworks.contains(fw)) {
       return;
     }
 
+    current_category.interface = 0;
+    current_category.members = std::vector<MDMember>();
+
+    clang_visitChildren(
+        cursor,
+        [](CXCursor cursor, CXCursor parent, CXClientData clientData) {
+          auto state = (MDCXState *)clientData;
+          auto metadata = state->metadata;
+          auto cls = &state->current_category;
+
+          CXCursorKind kind = clang_getCursorKind(cursor);
+
+          switch (kind) {
+          case CXCursor_ObjCClassRef: {
+            CXString name = clang_getCursorSpelling(cursor);
+            std::string nameStr = clang_getCString(name);
+            cls->interface = metadata->strings.add(nameStr, nameStr);
+            clang_disposeString(name);
+            break;
+          }
+
+          case CXCursor_ObjCInstanceMethodDecl: {
+            auto member = state->processMethod(cursor, false);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          case CXCursor_ObjCClassMethodDecl: {
+            auto member = state->processMethod(cursor, true);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          case CXCursor_ObjCPropertyDecl: {
+            auto member = state->processProperty(cursor);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            cls->members.emplace_back(member);
+            break;
+          }
+
+          default:
+            break;
+          }
+
+          return CXChildVisit_Continue;
+        },
+        this);
+
+    if (current_category.interface == 0) {
+      return;
+    }
+
+    if (!processed_categories.contains(current_category.interface)) {
+      processed_categories[current_category.interface] =
+          std::vector<MDMember>();
+    }
+
+    auto members = &processed_categories[current_category.interface];
+    for (auto member : current_category.members) {
+      // std::cout << "  - " << member.name << std::endl;
+      members->emplace_back(member);
+    }
+
+    processed_cmethods.clear();
+    processed_imethods.clear();
+    processed_properties.clear();
+  }
+
+  MDSectionOffset processStruct(CXCursor cursor, bool required = false) {
     CXString name = clang_getCursorSpelling(cursor);
     std::string nameStr = clang_getCString(name);
     clang_disposeString(name);
+
+    struct_cursors[nameStr] = cursor;
+
+    auto fw = getFrameworkName(cursor);
+    if (!frameworks.contains(fw)) {
+      return 0;
+    }
 
     // std::cout << "struct: " << nameStr << std::endl;
 
@@ -430,10 +574,10 @@ private:
 
     if (structure->fields.size() == 0) {
       delete structure;
-      return;
+      return 0;
     }
 
-    metadata->structs.add(structure, nameStr);
+    return metadata->structs.add(structure, nameStr);
   }
 
   void processEnum(CXCursor cursor) {
@@ -651,6 +795,7 @@ private:
 
     if (processed_methods.contains(selector)) {
       MDMember member;
+      member.flags = mdMemberFlagNull;
       return member;
     } else {
       processed_methods.insert(selector);
@@ -660,6 +805,7 @@ private:
     // std::cout << "  " << selector << std::endl;
 
     MDMember member;
+    member.name = 0;
     member.flags = mdMemberMethod;
     if (isClassMethod) {
       member.flags = (MDMemberFlag)(member.flags | mdMemberStatic);
@@ -669,7 +815,7 @@ private:
     auto signature = new MDSignature();
 
     auto resultType = clang_getCursorResultType(cursor);
-    signature->returnType = processType(resultType);
+    signature->returnType = processType(resultType, true);
 
     auto argc = clang_Cursor_getNumArguments(cursor);
 
@@ -685,7 +831,54 @@ private:
     return member;
   }
 
-  MDTypeInfo *processType(CXType type) {
+  MDMember processProperty(CXCursor cursor) {
+    CXString name = clang_getCursorSpelling(cursor);
+    std::string selector = clang_getCString(name);
+    clang_disposeString(name);
+
+    if (processed_properties.contains(selector)) {
+      MDMember member;
+      member.flags = mdMemberFlagNull;
+      return member;
+    } else {
+      processed_properties.insert(selector);
+    }
+
+    MDSectionOffset mdName = metadata->strings.add(selector, selector);
+
+    MDMember member;
+    member.flags = mdMemberProperty;
+
+    member.name = mdName;
+
+    auto attrs = clang_Cursor_getObjCPropertyAttributes(cursor, 0);
+    if (attrs & CXObjCPropertyAttr_readonly) {
+      member.flags = (MDMemberFlag)(member.flags | mdMemberReadonly);
+    }
+
+    MDSectionOffset getterSelector = 0, setterSelector = 0;
+
+    auto getterName = clang_Cursor_getObjCPropertyGetterName(cursor);
+    auto getterNameStr = clang_getCString(getterName);
+    if (getterNameStr != nullptr) {
+      getterSelector = metadata->strings.add(getterNameStr, getterNameStr);
+    }
+
+    auto setterName = clang_Cursor_getObjCPropertySetterName(cursor);
+    auto setterNameStr = clang_getCString(setterName);
+    if (setterNameStr != nullptr) {
+      setterSelector = metadata->strings.add(setterNameStr, setterNameStr);
+    }
+
+    member.getterSelector = getterSelector;
+    member.setterSelector = setterSelector;
+
+    member.propertyType = processType(clang_getCursorType(cursor), true);
+
+    return member;
+  }
+
+  MDTypeInfo *processType(CXType type, bool isReturnType = false) {
     auto canonicalType = clang_getCanonicalType(type);
 
     auto result = new MDTypeInfo();
@@ -762,12 +955,22 @@ private:
       MDSectionOffset mdName = metadata->strings.add(nameStr, nameStr);
       result->kind = mdTypeStruct;
       result->structOffset = mdName;
+      struct_resolvables.insert(&result->structOffset);
       break;
     }
 
-    case CXType_ObjCObjectPointer:
-      result->kind = mdTypeObject;
+    case CXType_ObjCObjectPointer: {
+      CXString name = clang_getTypeSpelling(canonicalType);
+      std::string nameStr = clang_getCString(name);
+      clang_disposeString(name);
+      CXString name2 = clang_getTypeSpelling(type);
+      std::string nameStr2 = clang_getCString(name2);
+      clang_disposeString(name2);
+      result->kind = mdTypeAnyObject;
+      // if (isReturnType) std::cout << "  - " << nameStr << ", " << nameStr2 <<
+      // ", is return: " << (int)isReturnType << std::endl;
       break;
+    }
 
     case CXType_ObjCSel:
       result->kind = mdTypeSelector;
@@ -852,6 +1055,12 @@ private:
     return result;
   }
 
+  std::unordered_map<std::string, CXCursor> class_cursors;
+  std::unordered_map<std::string, CXCursor> protocol_cursors;
+  std::unordered_map<std::string, CXCursor> struct_cursors;
+
+  std::unordered_map<MDSectionOffset, std::vector<MDMember>>
+      processed_categories;
   std::set<std::string> processed_protocols;
   std::set<std::string> processed_enums;
   std::set<std::string> processed_consts;
@@ -860,12 +1069,22 @@ private:
   std::set<std::string> processed_properties;
   std::set<std::string> processed_classes;
 
+  std::vector<MDClass *> classes;
+
+  std::set<MDSectionOffset *> class_resolvables;
+  std::set<MDSectionOffset *> protocol_resolvables;
+  std::set<MDSectionOffset *> struct_resolvables;
+
   MDProtocol *current_protocol;
   MDEnum *current_enum;
   MDClass *current_class;
   std::vector<std::string> current_enum_names;
   std::vector<int64_t> current_enum_values;
   MDStruct *current_struct;
+  struct {
+    MDSectionOffset interface;
+    std::vector<MDMember> members;
+  } current_category;
 };
 
 #define UMBRELLA_HEADER "umbrella.h"
@@ -939,7 +1158,11 @@ int main(int argc, char **argv) {
     if (severity != CXDiagnostic_Error && severity != CXDiagnostic_Fatal) {
       continue;
     }
-    CXString string = clang_formatDiagnostic(diagnostic, 0);
+    CXString string = clang_formatDiagnostic(
+        diagnostic,
+        CXDiagnostic_DisplayCategoryId | CXDiagnostic_DisplaySourceLocation |
+            CXDiagnostic_DisplayColumn | CXDiagnostic_DisplaySourceRanges |
+            CXDiagnostic_DisplayOption);
     std::cout << clang_getCString(string) << std::endl;
     clang_disposeString(string);
   }

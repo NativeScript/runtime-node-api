@@ -315,62 +315,57 @@ public:
 };
 
 void addProtocol(
-    ObjCBridgeData *bridgeData, Class cls, const char *name,
+    napi_env env, ObjCBridgeData *bridgeData, Class cls, MDSectionOffset offset,
     std::unordered_map<std::string, MethodDescriptor *> &methodMap) {
-  auto protocol = objc_getProtocol(name);
-  if (protocol != nullptr)
-    class_addProtocol(cls, protocol);
+  auto nameOffset = bridgeData->metadata->getOffset(offset);
+  offset += sizeof(MDSectionOffset);
+  bool next = (nameOffset & mdSectionOffsetNext) != 0;
+  nameOffset &= ~mdSectionOffsetNext;
 
-  std::string namestr = name;
-  auto offset = bridgeData->protocolOffsets[namestr];
-
-  // if (offset == 0) {
-  //   return;
-  // }
-
-  // TODO: use metadata
-
-  if (protocol == nullptr) {
-    return;
+  auto name = bridgeData->metadata->resolveString(nameOffset);
+  auto proto = objc_getProtocol(name);
+  if (proto != nullptr) {
+    class_addProtocol(cls, proto);
   }
 
-  unsigned int methodCount = 0;
-
-  auto methods =
-      protocol_copyMethodDescriptionList(protocol, false, true, &methodCount);
-
-  for (uint32_t i = 0; i < methodCount; i++) {
-    auto method = methods[i];
-    SEL selector = method.name;
-    std::string name = sel_getName(selector);
-    name = jsifySelector(name);
-    methodMap[name] = new MethodDescriptor(selector, method.types);
+  while (next) {
+    auto protocolImpl = bridgeData->metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
+    next = (protocolImpl & mdSectionOffsetNext) != 0;
+    protocolImpl &= ~mdSectionOffsetNext;
+    if (protocolImpl != 0)
+      addProtocol(env, bridgeData, cls, protocolImpl, methodMap);
   }
 
-  free(methods);
+  next = true;
 
-  methods =
-      protocol_copyMethodDescriptionList(protocol, true, true, &methodCount);
+  while (next) {
+    auto flags = bridgeData->metadata->getMemberFlag(offset);
+    next = (flags & mdMemberNext) != 0;
+    offset += sizeof(flags);
 
-  for (uint32_t i = 0; i < methodCount; i++) {
-    auto method = methods[i];
-    SEL selector = method.name;
-    std::string name = sel_getName(selector);
-    name = jsifySelector(name);
-    methodMap[name] = new MethodDescriptor(selector, method.types);
+    if (flags == mdMemberFlagNull)
+      break;
+
+    if ((flags & mdMemberProperty) != 0) {
+      bool readonly = (flags & mdMemberReadonly) != 0;
+
+      offset += sizeof(MDSectionOffset); // name
+
+      offset += sizeof(MDSectionOffset); // getterSelector
+      if (!readonly)
+        offset += sizeof(MDSectionOffset); // setterSelector
+      TypeConv::Make(env, bridgeData->metadata, &offset);
+    } else {
+      auto selector = bridgeData->metadata->getString(offset);
+      offset += sizeof(MDSectionOffset); // selector
+      auto signature = bridgeData->metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset); // signature
+      auto jsName = jsifySelector(selector);
+      methodMap[jsName] =
+          new MethodDescriptor(sel_registerName(selector), signature);
+    }
   }
-
-  free(methods);
-
-  unsigned int protocolsCount = 0;
-
-  auto protocols = protocol_copyProtocolList(protocol, &protocolsCount);
-
-  for (uint32_t i = 0; i < protocolsCount; i++) {
-    addProtocol(bridgeData, cls, protocol_getName(protocols[i]), methodMap);
-  }
-
-  free((void *)protocols);
 }
 
 void ObjCBridgeData::registerClass(napi_env env, napi_value constructor,
@@ -497,7 +492,11 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor,
     while (i < length) {
       napi_get_element(env, protocols, i, &protocol);
       napi_get_value_string_utf8(env, protocol, name_buf, 512, nullptr);
-      addProtocol(this, cls, name_buf, methodMap);
+      std::string name = name_buf;
+      auto offset = protocolOffsets[name];
+      if (offset == 0)
+        continue;
+      addProtocol(env, this, cls, offset, methodMap);
       i++;
     }
   }
@@ -535,14 +534,15 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor,
 
       case kMethodDescSignatureOffset: {
         std::string encoding;
-        auto closure = new Closure(this->metadata, desc->inner.signatureOffset,
-                                   false, &encoding, true);
+        auto closure = new Closure(
+            metadata, metadata->signaturesOffset + desc->inner.signatureOffset,
+            false, &encoding, true);
         closure->env = env;
         napi_value func;
         napi_get_named_property(env, prototype, name.c_str(), &func);
         closure->func = make_ref(env, func);
         auto added = class_addMethod(cls, desc->selector, (IMP)closure->fnptr,
-                                     encoding.c_str());
+                                     strdup(encoding.c_str()));
         if (!added) {
           std::cout << "Failed to add method " << name << std::endl;
         }

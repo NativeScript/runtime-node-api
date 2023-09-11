@@ -108,8 +108,8 @@ Closure::Closure(std::string encoding, bool isBlock) {
   auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
   size_t argc = signature.numberOfArguments;
 
-  const char *returnType = signature.methodReturnType;
-  this->returnType = TypeConv::Make(env, &returnType);
+  const char *rtypeEncoding = signature.methodReturnType;
+  returnType = TypeConv::Make(env, &rtypeEncoding);
 
   int skipArgs = isBlock ? 1 : 0;
 
@@ -150,8 +150,10 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
 
   returnType = TypeConv::Make(env, reader, &offset);
+
   if (encoding != nullptr)
     returnType->encode(encoding);
+
   ffi_type *rtype = returnType->type;
   ffi_type **atypes = nullptr;
 
@@ -161,7 +163,12 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
   }
 
   if (isMethod && encoding != nullptr) {
-    *encoding += "@:";
+    const char *argenc = "@";
+    *encoding += argenc;
+    argTypes.push_back(TypeConv::Make(env, &argenc));
+    argenc = ":";
+    *encoding += argenc;
+    argTypes.push_back(TypeConv::Make(env, &argenc));
   }
 
   while (next) {
@@ -187,12 +194,12 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
   if (status != FFI_OK) {
     std::cout << "Failed to prepare CIF, libffi returned error:" << status
               << std::endl;
-
-    closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
-
-    ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
-                         fnptr);
   }
+
+  closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
+
+  ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
+                       fnptr);
 }
 
 } // namespace objc_bridge

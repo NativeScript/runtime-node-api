@@ -24,8 +24,8 @@ const COMMON_FRAMEWORKS = [
   "SpriteKit",
   "SceneKit",
   "ModelIO",
-  "GameController",
-  "GameKit",
+  // "GameController",
+  // "GameKit",
   "GameplayKit",
   "WebKit",
 ];
@@ -65,22 +65,28 @@ if (!sdk) {
   throw new Error(`Invalid platform: ${Deno.args[0]}`);
 }
 
+const exec = new URL("../metadata/build/MetadataGenerator", import.meta.url);
+const args = [
+  new URL(`../metadata/metadata.${Deno.args[0]}.nsmd`, import.meta.url)
+    .pathname,
+  sdk.path,
+  ...sdk.frameworks,
+];
+
+console.log(`%c$ MetadataGenerator ${args.join(" ")}`, "color: grey");
+
 const proc = new Deno.Command(
-  new URL("../metadata/build/MetadataGenerator", import.meta.url),
+  exec,
   {
     stdin: "null",
     stdout: "inherit",
     stderr: "inherit",
-    args: [
-      new URL(`../metadata/metadata.${Deno.args[0]}.nsmd`, import.meta.url)
-        .pathname,
-      sdk.path,
-      ...sdk.frameworks,
-    ],
+    args,
   },
 );
 
 const output = proc.outputSync();
 if (!output.success) {
+  console.log(output);
   throw new Error("Failed to generate metadata");
 }

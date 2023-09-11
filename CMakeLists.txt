@@ -84,7 +84,7 @@ include_directories(
 
 set(LIB_SOURCE_FILES
   src/AutoreleasePool.mm
-  src/Protocols.mm
+  src/Protocol.mm
   src/ObjCBridge.mm
   src/Block.mm
   src/Class.mm
