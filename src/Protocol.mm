@@ -63,6 +63,7 @@ BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
   napi_value constructor, prototype;
   napi_define_class(env, name.c_str(), NAPI_AUTO_LENGTH, JS_ProtocolConstructor,
                     nullptr, 0, nullptr, &constructor);
+  napi_wrap(env, constructor, this, nullptr, nullptr, nullptr);
 
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
@@ -84,8 +85,6 @@ BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
     napi_value protoValue = get_ref_value(env, proto->constructor);
     napi_inherits(env, constructor, protoValue);
   }
-
-  napi_wrap(env, constructor, this, nullptr, nullptr, nullptr);
 
   next = true;
 

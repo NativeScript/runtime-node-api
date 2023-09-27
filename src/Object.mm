@@ -184,6 +184,12 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
     unregisterObject(obj);
   }
 
+  auto cls = object_getClass(obj);
+  auto mdFindByPointer = mdClassesByPointer.find(cls);
+  if (mdFindByPointer != mdClassesByPointer.end()) {
+    classOffset = mdFindByPointer->second;
+  }
+
   napi_value constructor = nullptr;
   if (classOffset != 0) {
     auto bridgedCls = getClass(env, classOffset);
@@ -202,7 +208,7 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
 
     constructor = get_ref_value(env, proto->constructor);
   } else {
-    constructor = findConstructorForObject(env, this, obj);
+    constructor = findConstructorForObject(env, this, obj, cls);
   }
 
   if (constructor == nullptr) {

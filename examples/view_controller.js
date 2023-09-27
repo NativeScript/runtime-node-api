@@ -78,7 +78,7 @@ export class ViewController extends NSViewController {
     label.editable = false;
     label.selectable = false;
     label.alignment = NSTextAlignment.center;
-    label.setTranslatesAutoresizingMaskIntoConstraints(false);
+    label.translatesAutoresizingMaskIntoConstraints = false;
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
@@ -95,7 +95,7 @@ export class ViewController extends NSViewController {
     vstack.alignment = NSLayoutAttribute.centerX;
     vstack.distribution = NSStackViewDistribution.fill;
     vstack.spacing = 40;
-    vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
+    vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const imageURL = NSString.stringWithUTF8String(
       new URL("../assets/NativeScript.png", import.meta.url).pathname,
@@ -114,7 +114,7 @@ export class ViewController extends NSViewController {
     button.controlSize = NSControlSize.large;
     button.bezelStyle = NSBezelStyle.rounded;
     button.setButtonType(NSButtonType.momentaryLight);
-    button.setTranslatesAutoresizingMaskIntoConstraints(false);
+    button.translatesAutoresizingMaskIntoConstraints = false;
 
     this.button = button;
 

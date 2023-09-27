@@ -104,7 +104,7 @@ export class SidebarViewController extends NSViewController {
     scrollView.hasHorizontalScroller = false;
     scrollView.documentView = outline;
     scrollView.drawsBackground = false;
-    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false);
+    scrollView.translatesAutoresizingMaskIntoConstraints = false;
 
     this.view = scrollView;
   }
@@ -194,7 +194,7 @@ export class ContentViewController extends NSViewController {
     label.editable = false;
     label.selectable = false;
     label.alignment = 1 /* NSTextAlignmentCenter */;
-    label.setTranslatesAutoresizingMaskIntoConstraints(false);
+    label.translatesAutoresizingMaskIntoConstraints = false;
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
@@ -214,7 +214,7 @@ export class ContentViewController extends NSViewController {
     vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
     vstack.distribution = 0 /* NSStackViewDistributionFill */;
     vstack.spacing = 40;
-    vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
+    vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const imageURL = NSString.stringWithUTF8String(
       new URL("../assets/NativeScript.png", import.meta.url).pathname,

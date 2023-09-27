@@ -100,7 +100,7 @@ export class Window extends NSWindow {
     label.editable = false;
     label.selectable = false;
     label.alignment = NSTextAlignment.center;
-    label.setTranslatesAutoresizingMaskIntoConstraints(false);
+    label.translatesAutoresizingMaskIntoConstraints = false;
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
@@ -118,7 +118,7 @@ export class Window extends NSWindow {
     vstack.alignment = NSLayoutAttribute.centerX;
     vstack.distribution = NSStackViewDistribution.fill;
     vstack.spacing = 40;
-    vstack.setTranslatesAutoresizingMaskIntoConstraints(false);
+    vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const imageURL = NSString.stringWithUTF8String(
       new URL("../assets/NativeScript.png", import.meta.url).pathname,

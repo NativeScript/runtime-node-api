@@ -1,6 +1,7 @@
 #include "Closure.h"
 #include "ObjCBridgeData.h"
 #include "Util.h"
+#import <Foundation/Foundation.h>
 
 namespace objc_bridge {
 
