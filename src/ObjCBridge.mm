@@ -40,6 +40,10 @@ NAPI_FUNCTION(getArrayBuffer) {
 }
 
 NAPI_EXPORT NAPI_MODULE_REGISTER {
+  return objc_bridge_init(env, exports);
+}
+
+NAPI_EXPORT napi_value objc_bridge_init(napi_env env, napi_value exports) {
   auto bridgeData = new ObjCBridgeData();
   napi_set_instance_data(env, (void *)bridgeData, finalize_bridge_data, nil);
 
