@@ -2,10 +2,10 @@
 #define METHOD_CIF_H
 
 #include "Metadata.h"
+#include "TypeConv.h"
 #include "ffi.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
-#include "TypeConv.h"
 #include <string>
 
 namespace objc_bridge {
@@ -28,7 +28,8 @@ public:
   bool *shouldFree;
 
   MethodCif(napi_env env, std::string typeEncoding);
-  MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset);
+  MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset,
+            bool isMethod = false);
 
   void call(void *fnptr, void *rvalue, void **avalues);
 };

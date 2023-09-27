@@ -10,6 +10,10 @@
 // Bit 0-31: key
 typedef uint32_t MDSectionOffset;
 
+// Since beginning of the section, 0 can point to the first element,
+// so we use this value to indicate null.
+#define MD_SECTION_OFFSET_NULL ((MDSectionOffset)0xFFFFFFFF >> 1)
+
 enum MDSectionOffsetFlag : uint32_t {
   mdSectionOffsetNext = 1u << 31,
 };
@@ -33,7 +37,7 @@ enum MDTypeKind : uint8_t {
   mdTypeVoid,
   mdTypeString,
 
-  // Objects are classified into 3 types:
+  // Objects are classified into 4 types:
   // 1. id is any object, we have to do lookup for class at runtime
   mdTypeAnyObject,
   // 2. id<protocol> is protocol object, protocol definition offset is resolved
@@ -41,6 +45,8 @@ enum MDTypeKind : uint8_t {
   mdTypeProtocolObject,
   // 3. Class * is class object, class definition offset is resolved beforehand
   mdTypeClassObject,
+  // 4. Instance Type Object
+  mdTypeInstanceObject,
 
   mdTypeClass,
   mdTypeSelector,
@@ -138,11 +144,12 @@ struct MDFunction {
 
 enum MDMemberFlag : uint8_t {
   mdMemberFlagNull = 0,
-  mdMemberProperty = 1 << 1,
-  mdMemberReadonly = 1 << 2,
-  mdMemberRequired = 1 << 3,
-  mdMemberStatic = 1 << 4,
-  mdMemberMethod = 1 << 5,
+  mdMemberProperty = 1 << 0,
+  mdMemberReadonly = 1 << 1,
+  mdMemberRequired = 1 << 2,
+  mdMemberStatic = 1 << 3,
+  mdMemberMethod = 1 << 4,
+  mdMemberReturnOwned = 1 << 5,
   mdMemberNext = 1 << 7,
 };
 
@@ -157,7 +164,8 @@ struct MDMember {
   MDSectionOffset name;
   MDSectionOffset getterSelector;
   MDSectionOffset setterSelector;
-  MDTypeInfo *propertyType;
+  MDSectionOffset getterSignature;
+  MDSectionOffset setterSignature;
 };
 
 struct MDProtocol {
@@ -298,7 +306,7 @@ public:
       // Protocols list
       for (size_t i = 0; i < value->protocolOffsets.size(); i++) {
         MDSectionOffset protocol = value->protocolOffsets[i];
-        if (i == value->protocolOffsets.size() - 1) {
+        if (i != value->protocolOffsets.size() - 1) {
           protocol |= mdSectionOffsetNext;
         }
         binwrite(protocol);
@@ -315,7 +323,7 @@ public:
       // Protocols list
       for (size_t i = 0; i < value->protocolOffsets.size(); i++) {
         MDSectionOffset protocol = value->protocolOffsets[i];
-        if (i == value->protocolOffsets.size() - 1) {
+        if (i != value->protocolOffsets.size() - 1) {
           protocol |= mdSectionOffsetNext;
         }
         binwrite(protocol);
@@ -377,8 +385,9 @@ public:
                encode(type->elementType) + "]";
       break;
     case mdTypeStruct:
-      // TODO
-      result = "{struct_placeholder=dddd}";
+      result = "{structOffset=";
+      result += std::to_string(type->structOffset);
+      result += "}";
       break;
     case mdTypeUnion:
       // TODO
@@ -397,9 +406,31 @@ public:
       result = "*";
       break;
     case mdTypeAnyObject:
-    case mdTypeProtocolObject:
-    case mdTypeClassObject:
       result = "@";
+      break;
+    case mdTypeInstanceObject:
+      result = "@\"instancetype\"";
+      break;
+    case mdTypeProtocolObject:
+      result = "@\"<";
+      for (auto offset : type->protocolOffsets) {
+        result += std::to_string(offset);
+        result += ",";
+      }
+      result += ">\"";
+      break;
+    case mdTypeClassObject:
+      result = "@\"";
+      result += std::to_string(type->classOffset);
+      if (!type->protocolOffsets.empty()) {
+        result += "<";
+        for (auto offset : type->protocolOffsets) {
+          result += std::to_string(offset);
+          result += ",";
+        }
+        result += ">";
+      }
+      result += "\"";
       break;
     case mdTypeClass:
       result = "#";
@@ -670,14 +701,12 @@ public:
       addsize(value.name);
       // Getter selector
       addsize(value.getterSelector);
+      addsize(value.getterSignature);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter selector
         addsize(value.setterSelector);
+        addsize(value.setterSignature);
       }
-
-      // Property type
-      MDTypeInfoSerde typeInfoSerde;
-      size += typeInfoSerde.size(value.propertyType);
     } else {
       // Method selector
       addsize(value.methodSelector);
@@ -697,14 +726,12 @@ public:
       binwrite(value.name);
       // Getter selector
       binwrite(value.getterSelector);
+      binwrite(value.getterSignature);
       if ((value.flags & mdMemberReadonly) == 0) {
         // Setter selector
         binwrite(value.setterSelector);
+        binwrite(value.setterSignature);
       }
-
-      // Property type
-      MDTypeInfoSerde typeInfoSerde;
-      typeInfoSerde.serialize(value.propertyType, data);
     } else {
       // Method selector
       binwrite(value.methodSelector);

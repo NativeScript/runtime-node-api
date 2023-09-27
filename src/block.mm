@@ -40,7 +40,7 @@ namespace objc_bridge {
 
 void *stackBlockISA = nullptr;
 
-void registerBlock(napi_env env, Closure *closure, napi_value callback) {
+id registerBlock(napi_env env, Closure *closure, napi_value callback) {
   auto block = new Block_literal_1();
   if (stackBlockISA == nullptr) {
     stackBlockISA = dlsym(RTLD_DEFAULT, "_NSConcreteStackBlock");
@@ -61,6 +61,8 @@ void registerBlock(napi_env env, Closure *closure, napi_value callback) {
   napi_remove_wrap(env, callback, nullptr);
   napi_ref ref;
   napi_wrap(env, callback, block, block_finalize, nullptr, &ref);
+
+  return (id)block;
 }
 
 NAPI_FUNCTION(registerBlock) {

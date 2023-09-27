@@ -3,7 +3,7 @@ import "objc";
 objc.import("SpriteKit");
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
+  static protocols = [NSApplicationDelegate, NSWindowDelegate];
 
   static {
     objc.registerClass(this);
@@ -47,7 +47,7 @@ export class ApplicationDelegate extends NSObject {
 }
 
 export class BattlefieldScene extends SKScene {
-  static protocols = ["SKPhysicsContactDelegate"];
+  static protocols = [SKPhysicsContactDelegate];
 
   static {
     objc.registerClass(this);

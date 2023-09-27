@@ -1,7 +1,7 @@
 import "objc";
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate"];
+  static protocols = [NSApplicationDelegate];
 
   static {
     objc.registerClass(this);
@@ -59,7 +59,7 @@ export class Node {
 }
 
 export class SidebarViewController extends NSViewController {
-  static protocols = ["NSOutlineViewDelegate", "NSOutlineViewDataSource"];
+  static protocols = [NSOutlineViewDelegate, NSOutlineViewDataSource];
 
   static {
     objc.registerClass(this);
@@ -245,7 +245,7 @@ export class ContentViewController extends NSViewController {
 }
 
 export class SplitViewController extends NSSplitViewController {
-  static protocols = ["NSToolbarDelegate"];
+  static protocols = [NSToolbarDelegate];
 
   static {
     objc.registerClass(this);

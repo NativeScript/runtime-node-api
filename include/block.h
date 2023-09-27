@@ -7,7 +7,7 @@
 
 namespace objc_bridge {
 
-void registerBlock(napi_env env, Closure *closure, napi_value callback);
+id registerBlock(napi_env env, Closure *closure, napi_value callback);
 
 NAPI_FUNCTION(registerBlock);
 

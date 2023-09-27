@@ -1,7 +1,7 @@
 import "objc";
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate", "NSWindowDelegate"];
+  static protocols = [NSApplicationDelegate, NSWindowDelegate];
 
   static {
     objc.registerClass(this);
@@ -20,6 +20,7 @@ export class ApplicationDelegate extends NSObject {
     appMenu.addItemWithTitleActionKeyEquivalent("Quit", "terminate:", "q");
 
     const controller = ViewController.new();
+    globalThis.vc = controller;
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";

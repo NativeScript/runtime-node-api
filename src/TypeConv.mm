@@ -1,5 +1,7 @@
 #include "TypeConv.h"
+#include "Block.h"
 #include "Class.h"
+#include "Closure.h"
 #include "JSObject.h"
 #include "Metadata.h"
 #include "ObjCBridgeData.h"
@@ -12,6 +14,7 @@
 #include <memory>
 #include <stdbool.h>
 #include <string>
+#include <vector>
 
 namespace objc_bridge {
 
@@ -480,7 +483,7 @@ public:
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     napi_value external;
-    napi_create_external(env, value, nullptr, nullptr, &external);
+    napi_create_external(env, *((void **)value), nullptr, nullptr, &external);
     return external;
   }
 
@@ -559,6 +562,93 @@ public:
 static const std::shared_ptr<PointerTypeConv> pointerTypeConv =
     std::make_shared<PointerTypeConv>();
 
+class BlockTypeConv : public TypeConv {
+public:
+  MDSectionOffset signatureOffset;
+
+  BlockTypeConv(MDSectionOffset signatureOffset)
+      : signatureOffset(signatureOffset) {
+    type = &ffi_type_pointer;
+  }
+
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    // TODO: Maybe a wrapper function?
+    napi_value external;
+    napi_create_external(env, value, nullptr, nullptr, &external);
+    return external;
+  }
+
+  void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
+                bool *shouldFreeAny) override {
+    NAPI_PREAMBLE
+
+    void **res = (void **)result;
+
+    napi_valuetype type;
+    napi_typeof(env, value, &type);
+
+    switch (type) {
+    case napi_null:
+    case napi_undefined:
+      *res = nullptr;
+      return;
+
+    case napi_bigint: {
+      uint64_t val = 0;
+      bool lossless = false;
+      NAPI_GUARD(napi_get_value_bigint_uint64(env, value, &val, &lossless)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+      *res = (void *)val;
+      return;
+    }
+
+    case napi_external: {
+      NAPI_GUARD(napi_get_value_external(env, value, res)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+      return;
+    }
+
+    case napi_object: {
+      NAPI_GUARD(napi_unwrap(env, value, res)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+    }
+
+    case napi_function: {
+      void *wrapped;
+      status = napi_unwrap(env, value, &wrapped);
+      if (status == napi_ok) {
+        *res = wrapped;
+        return;
+      }
+
+      auto bridgeData = ObjCBridgeData::InstanceData(env);
+      auto closure = new Closure(bridgeData->metadata, signatureOffset, true);
+      closure->env = env;
+      closure->func = make_ref(env, value);
+      id block = registerBlock(env, closure, value);
+      *res = (void *)block;
+      return;
+    }
+
+    default:
+      napi_throw_error(env, nullptr, "Invalid block pointer type");
+      *res = nullptr;
+      return;
+    }
+  }
+
+  void encode(std::string *encoding) override { *encoding += "^v"; }
+};
+
 class StringTypeConv : public TypeConv {
 public:
   StringTypeConv() { type = &ffi_type_pointer; }
@@ -607,11 +697,32 @@ static const std::shared_ptr<StringTypeConv> stringTypeConv =
 
 class ObjCObjectTypeConv : public TypeConv {
 public:
+  MDSectionOffset classOffset = 0;
+  std::vector<MDSectionOffset> protocolOffsets;
+
   ObjCObjectTypeConv() { type = &ffi_type_pointer; }
+
+  ObjCObjectTypeConv(MDSectionOffset classOffset,
+                     std::vector<MDSectionOffset> protocolOffsets)
+      : classOffset(classOffset), protocolOffsets(protocolOffsets) {
+    type = &ffi_type_pointer;
+  }
+
+  ObjCObjectTypeConv(std::vector<MDSectionOffset> protocolOffsets)
+      : protocolOffsets(protocolOffsets) {
+    type = &ffi_type_pointer;
+  }
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     id obj = *((id *)value);
+    if (obj == nil) {
+      napi_value null;
+      napi_get_null(env, &null);
+      return null;
+    }
+
     auto bridgeData = ObjCBridgeData::InstanceData(env);
+    auto clsName = bridgeData->metadata->getString(classOffset);
 
     ObjectOwnership ownership;
     if ((flags & kReturnOwned) != 0) {
@@ -622,7 +733,8 @@ public:
       ownership = kUnownedObject;
     }
 
-    auto object = bridgeData->getObject(env, obj, ownership);
+    auto object = bridgeData->getObject(env, obj, ownership, classOffset,
+                                        &protocolOffsets);
     if (object == nullptr) {
       napi_value null;
       napi_get_null(env, &null);
@@ -789,6 +901,17 @@ public:
 static const std::shared_ptr<ObjCObjectTypeConv> objcObjectTypeConv =
     std::make_shared<ObjCObjectTypeConv>();
 
+class ObjCInstanceObjectTypeConv : public ObjCObjectTypeConv {
+public:
+  ObjCInstanceObjectTypeConv() {
+    type = &ffi_type_pointer;
+    kind = mdTypeInstanceObject;
+  }
+};
+
+static const auto objcInstanceObjectTypeConv =
+    std::make_shared<ObjCInstanceObjectTypeConv>();
+
 class ObjCClassTypeConv : public TypeConv {
 public:
   ObjCClassTypeConv() { type = &ffi_type_pointer; }
@@ -800,11 +923,9 @@ public:
       return nullptr;
     }
 
-    std::string name = class_getName(cls);
-
     auto bridgeData = ObjCBridgeData::InstanceData(env);
 
-    BridgedClass *bridgedCls = bridgeData->getBridgedClass(env, name);
+    BridgedClass *bridgedCls = bridgeData->classesByPointer[cls];
 
     if (bridgedCls == nullptr) {
       return nullptr;
@@ -1228,6 +1349,56 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
     return objcObjectTypeConv;
   }
 
+  case mdTypeInstanceObject: {
+    return objcInstanceObjectTypeConv;
+  }
+
+  case mdTypeClassObject: {
+    auto classOffset = reader->getOffset(*offset);
+    *offset += sizeof(MDSectionOffset);
+    bool next = (classOffset & mdSectionOffsetNext) != 0;
+    classOffset &= ~mdSectionOffsetNext;
+    if (classOffset == MD_SECTION_OFFSET_NULL) {
+      classOffset = 0;
+    } else {
+      classOffset += reader->classesOffset;
+    }
+    std::vector<MDSectionOffset> protocolOffsets;
+    while (next) {
+      auto protocolOffset = reader->getOffset(*offset);
+      *offset += sizeof(MDSectionOffset);
+      next = (protocolOffset & mdSectionOffsetNext) != 0;
+      protocolOffset &= ~mdSectionOffsetNext;
+      if (protocolOffset == MD_SECTION_OFFSET_NULL) {
+        protocolOffset = 0;
+      } else {
+        protocolOffset += reader->protocolsOffset;
+        protocolOffsets.push_back(protocolOffset);
+      }
+    }
+    return std::make_shared<ObjCObjectTypeConv>(
+        ObjCObjectTypeConv(classOffset, protocolOffsets));
+  }
+
+  case mdTypeProtocolObject: {
+    std::vector<MDSectionOffset> protocolOffsets;
+    bool next = true;
+    while (next) {
+      auto protocolOffset = reader->getOffset(*offset);
+      *offset += sizeof(MDSectionOffset);
+      next = (protocolOffset & mdSectionOffsetNext) != 0;
+      protocolOffset &= ~mdSectionOffsetNext;
+      if (protocolOffset == MD_SECTION_OFFSET_NULL) {
+        protocolOffset = 0;
+      } else {
+        protocolOffset += reader->protocolsOffset;
+        protocolOffsets.push_back(protocolOffset);
+      }
+    }
+    return std::make_shared<ObjCObjectTypeConv>(
+        ObjCObjectTypeConv(protocolOffsets));
+  }
+
   case mdTypeClass: {
     return objcClassTypeConv;
   }
@@ -1245,9 +1416,13 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeStruct: {
-    auto structOffset = reader->getOffset(*offset) + reader->structsOffset;
-    auto structName = reader->getString(structOffset);
+    auto structOffset = reader->getOffset(*offset);
     *offset += sizeof(MDSectionOffset);
+    if (structOffset == MD_SECTION_OFFSET_NULL) {
+      return pointerTypeConv;
+    }
+    structOffset += reader->structsOffset;
+    auto structName = reader->getString(structOffset);
     auto bridgeData = ObjCBridgeData::InstanceData(env);
     auto type = typeFromStruct(env, reader, structOffset);
     return std::make_shared<StructTypeConv>(StructTypeConv(structOffset, type));
@@ -1274,9 +1449,9 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeBlock: {
-    // TODO
+    auto blockSignature = reader->getOffset(*offset) + reader->signaturesOffset;
     *offset += sizeof(MDSectionOffset);
-    return pointerTypeConv;
+    return std::make_shared<BlockTypeConv>(BlockTypeConv(blockSignature));
   }
 
   case mdTypeUInt128: {

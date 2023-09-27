@@ -1,9 +1,10 @@
 import "objc";
 
-console.log(NSString.stringWithUTF8String("Hello, macOS").length);
+console.log(NSObject.new());
+console.log(NSString.stringWithUTF8String("Hello, macOS").constructor);
 
 // const device = MTLCreateSystemDefaultDevice();
-// console.log(device);
+// console.log(device, device.constructor.name);
 
 // const queue = device.newCommandQueue();
 // console.log(queue);

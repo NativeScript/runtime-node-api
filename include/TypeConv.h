@@ -22,6 +22,7 @@ public:
                                         MDSectionOffset *offset);
 
   ffi_type *type;
+  MDTypeKind kind = mdTypeChar;
 
   virtual napi_value toJS(napi_env env, void *value, uint32_t flags = 0) {
     return nullptr;

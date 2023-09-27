@@ -55,13 +55,11 @@ inference.compileWithOptionsDevice(
   device,
 );
 
-const callback = objc.registerBlock("v@@d", (output, error, time) => {
-  console.log(output, error, time);
-});
-
 inference.executeWithInputsDataBatchSizeOptionsCompletionHandler(
   { input: dataInput },
   batchSize,
   MLCExecutionOptions.synchronous,
-  callback,
+  (output, error, time) => {
+    console.log(output, error, time);
+  },
 );

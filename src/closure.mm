@@ -21,8 +21,10 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   auto bridgeData = ObjCBridgeData::InstanceData(env);
 
   napi_value func = get_ref_value(env, closure->func);
+  napi_value constructor = get_ref_value(env, closure->thisConstructor);
 
-  napi_value thisArg = bridgeData->getObject(env, *(id *)args[0]);
+  id self = *(id *)args[0];
+  napi_value thisArg = bridgeData->getObject(env, self, constructor);
   if (thisArg == nil) {
     NSLog(@"ObjC->JS: thisArg is nil, the JS object was probably garbage "
           @"collected");
@@ -157,11 +159,6 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
   ffi_type *rtype = returnType->type;
   ffi_type **atypes = nullptr;
 
-  if (isBlock) {
-    const char *argenc = "^v";
-    argTypes.push_back(TypeConv::Make(env, &argenc));
-  }
-
   if (isMethod && encoding != nullptr) {
     const char *argenc = "@";
     *encoding += argenc;
@@ -180,16 +177,21 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
     argTypes.push_back(argTypeInfo);
   }
 
-  if (!argTypes.empty()) {
-    atypes = (ffi_type **)malloc(sizeof(ffi_type *) * argTypes.size());
+  auto skipArgs = isBlock ? 1 : 0;
 
+  if (!argTypes.empty() || isBlock) {
+    atypes =
+        (ffi_type **)malloc(sizeof(ffi_type *) * (argTypes.size() + skipArgs));
+    if (isBlock) {
+      atypes[0] = &ffi_type_pointer;
+    }
     for (int i = 0; i < argTypes.size(); i++) {
-      atypes[i] = argTypes[i]->type;
+      atypes[i + skipArgs] = argTypes[i]->type;
     }
   }
 
-  ffi_status status =
-      ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argTypes.size(), rtype, atypes);
+  ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI,
+                                   argTypes.size() + skipArgs, rtype, atypes);
 
   if (status != FFI_OK) {
     std::cout << "Failed to prepare CIF, libffi returned error:" << status

@@ -24,10 +24,17 @@ const COMMON_FRAMEWORKS = [
   "SpriteKit",
   "SceneKit",
   "ModelIO",
-  // "GameController",
+  "GameController",
   // "GameKit",
   "GameplayKit",
   "WebKit",
+  "CloudKit",
+  "Intents",
+  "Contacts",
+  "CoreSpotlight",
+  "JavaScriptCore",
+  "UserNotifications",
+  "CoreHaptics",
 ];
 
 const MACOS_FRAMEWORKS = [

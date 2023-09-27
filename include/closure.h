@@ -13,6 +13,7 @@ namespace objc_bridge {
 class Closure {
 public:
   napi_env env;
+  napi_ref thisConstructor;
   napi_ref func;
 
   ffi_cif cif;

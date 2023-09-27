@@ -2,6 +2,8 @@
 #include "Metadata.h"
 #include "ObjCBridgeData.h"
 #include "TypeConv.h"
+#include "js_native_api.h"
+#include "js_native_api_types.h"
 #include "node_api_util.h"
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
@@ -59,7 +61,7 @@ NAPI_FUNCTION(BridgedMethod) {
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
     cif = method->methodCif =
-        method->bridgeData->getMethodCif(env, method->method);
+        method->bridgeData->getMethodCif(env, method->signature);
   }
 
   size_t argc = cif->argc;
@@ -77,6 +79,10 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
+      napi_valuetype type;
+      napi_typeof(env, cif->argv[i], &type);
+      std::string encoding;
+      cif->argTypes[i]->encode(&encoding);
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
                                  &shouldFree[i], &shouldFreeAny);
     }
@@ -98,35 +104,18 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  return cif->returnType->toJS(env, rvalue,
-                               method->returnOwned ? kReturnOwned : 0);
-}
-
-// For signature id method(id, SEL);
-NAPI_FUNCTION(BridgedMethod_id) {
-  napi_value jsThis;
-  BridgedMethod *method;
-
-  napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
-
-  id self;
-  napi_unwrap(env, jsThis, (void **)&self);
-
-  id rvalue;
-
-  if (!method->supercall) {
-    auto msgSend = (id(*)(id, SEL))objc_msgSend;
-    rvalue = msgSend(self, method->selector);
-  } else {
-    struct objc_super superobj = {self,
-                                  class_getSuperclass(object_getClass(self))};
-    auto superobjPtr = &superobj;
-    auto msgSendSuper = (id(*)(struct objc_super *, SEL))objc_msgSendSuper;
-    rvalue = msgSendSuper(superobjPtr, method->selector);
+  if (cif->returnType->kind == mdTypeInstanceObject) {
+    napi_value constructor = jsThis;
+    if (!method->classMethod)
+      napi_get_named_property(env, jsThis, "constructor", &constructor);
+    id obj = *((id *)rvalue);
+    return method->bridgeData->getObject(env, obj, constructor,
+                                         method->returnOwned ? kOwnedObject
+                                                             : kUnownedObject);
   }
 
-  return method->methodCif->returnType->toJS(
-      env, &rvalue, method->returnOwned ? kReturnOwned : 0);
+  return cif->returnType->toJS(env, rvalue,
+                               method->returnOwned ? kReturnOwned : 0);
 }
 
 NAPI_FUNCTION(BridgedGetter) {
@@ -141,7 +130,7 @@ NAPI_FUNCTION(BridgedGetter) {
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
     cif = method->methodCif =
-        method->bridgeData->getMethodCif(env, method->method);
+        method->bridgeData->getMethodCif(env, method->signature);
   }
 
   void *avalues[2];
@@ -160,6 +149,17 @@ NAPI_FUNCTION(BridgedGetter) {
     cif->call((void *)objc_msgSendSuper, rvalue, avalues);
   }
 
+  if (cif->returnType->kind == mdTypeInstanceObject) {
+    napi_value constructor = jsThis;
+    if (!method->classMethod) {
+      napi_get_named_property(env, jsThis, "constructor", &constructor);
+    }
+
+    return method->bridgeData->getObject(env, *((id *)rvalue), constructor,
+                                         method->returnOwned ? kOwnedObject
+                                                             : kUnownedObject);
+  }
+
   return cif->returnType->toJS(env, rvalue, 0);
 }
 
@@ -176,7 +176,7 @@ NAPI_FUNCTION(BridgedSetter) {
   MethodCif *cif = method->setterMethodCif;
   if (cif == nullptr) {
     cif = method->setterMethodCif =
-        method->bridgeData->getMethodCif(env, method->setterMethod);
+        method->bridgeData->getMethodCif(env, method->setterSignature);
   }
 
   void **avalues = cif->avalues;

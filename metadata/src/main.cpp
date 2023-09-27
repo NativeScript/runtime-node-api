@@ -31,6 +31,12 @@ std::vector<std::string> splitCamelCase(std::string value) {
   return result;
 }
 
+inline bool isSelectorOwned(std::string selectorName) {
+  return selectorName.find("copy") == 0 ||
+         selectorName.find("mutableCopy") == 0 ||
+         selectorName.find("new") == 0 || selectorName.find("alloc") == 0;
+}
+
 // Transforms verbose enum member names into shorter ones, as we fit them inside
 // a JS object instead of making top level object.
 // so enum like: NSBackgroundActivityResult
@@ -155,6 +161,13 @@ inline std::string getFrameworkName(CXCursor cursor) {
   return frameworkName;
 }
 
+static inline void rtrim(std::string &s) {
+  s.erase(std::find_if(s.rbegin(), s.rend(),
+                       [](unsigned char ch) { return !std::isspace(ch); })
+              .base(),
+          s.end());
+}
+
 class MDCXState {
 public:
   MDMetadataWriter *metadata;
@@ -216,14 +229,7 @@ public:
         this);
 
     for (auto &cls : classes) {
-      if (processed_categories.contains(cls->name)) {
-        auto &categories = processed_categories[cls->name];
-        for (auto member : categories) {
-          cls->members.emplace_back(member);
-        }
-      }
-
-      metadata->classes.add(cls, metadata->strings[cls->name]);
+      postProcessClass(cls);
     }
 
     // Resolve names into respective definition section offsets.
@@ -238,7 +244,16 @@ public:
         }
       }
       if (!found) {
-        *resolvable = 0;
+        auto name = metadata->strings[*resolvable];
+        if (class_cursors.contains(name)) {
+          auto cls = processClass(class_cursors[name], true);
+          auto offset = postProcessClass(cls);
+          *resolvable = offset;
+        } else {
+          *resolvable = MD_SECTION_OFFSET_NULL;
+          std::cout << "Could not resolve class: " << name
+                    << ", num: " << *resolvable << std::endl;
+        }
       }
     }
 
@@ -252,7 +267,10 @@ public:
         }
       }
       if (!found) {
-        *resolvable = 0;
+        auto name = metadata->strings[*resolvable];
+        std::cout << "Could not resolve protocol: " << name
+                  << ", num: " << *resolvable << std::endl;
+        *resolvable = MD_SECTION_OFFSET_NULL;
       }
     }
 
@@ -266,7 +284,10 @@ public:
         }
       }
       if (!found) {
-        *resolvable = 0;
+        // auto name = metadata->strings[*resolvable];
+        // std::cout << "Could not resolve struct: " << name
+        //           << ", num: " << *resolvable << std::endl;
+        *resolvable = MD_SECTION_OFFSET_NULL;
       }
     }
 
@@ -274,15 +295,26 @@ public:
   }
 
 private:
-  void processProtocol(CXCursor cursor) {
-    auto fw = getFrameworkName(cursor);
-    if (!frameworks.contains(fw)) {
-      return;
+  MDSectionOffset postProcessClass(MDClass *cls) {
+    if (processed_categories.contains(cls->name)) {
+      auto &categories = processed_categories[cls->name];
+      for (auto member : categories) {
+        cls->members.emplace_back(member);
+      }
     }
 
+    return metadata->classes.add(cls, metadata->strings[cls->name]);
+  }
+
+  void processProtocol(CXCursor cursor, bool required = false) {
     CXString name = clang_getCursorSpelling(cursor);
     std::string nameStr = clang_getCString(name);
     clang_disposeString(name);
+
+    auto fw = getFrameworkName(cursor);
+    if (!frameworks.contains(fw) && nameStr != "NSObject" && !required) {
+      return;
+    }
 
     // std::cout << "protocol: " << nameStr << std::endl;
 
@@ -315,7 +347,7 @@ private:
           }
 
           case CXCursor_ObjCInstanceMethodDecl: {
-            auto member = state->processMethod(cursor, false);
+            auto member = state->processMethod(cursor, false, 0);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -324,7 +356,16 @@ private:
           }
 
           case CXCursor_ObjCClassMethodDecl: {
-            auto member = state->processMethod(cursor, true);
+            auto member = state->processMethod(cursor, true, 0);
+            if (member.flags == mdMemberFlagNull) {
+              break;
+            }
+            protocol->members.emplace_back(member);
+            break;
+          }
+
+          case CXCursor_ObjCPropertyDecl: {
+            auto member = state->processProperty(cursor, 0);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -352,27 +393,29 @@ private:
     processed_properties.clear();
   }
 
-  void processClass(CXCursor cursor) {
+  MDClass *processClass(CXCursor cursor, bool required = false) {
     CXString name = clang_getCursorSpelling(cursor);
     std::string nameStr = clang_getCString(name);
     clang_disposeString(name);
 
+    class_cursors[nameStr] = cursor;
+
     auto fw = getFrameworkName(cursor);
-    if (!frameworks.contains(fw) && nameStr != "NSObject") {
-      return;
+    if (!frameworks.contains(fw) && nameStr != "NSObject" && !required) {
+      return nullptr;
     }
 
-    if (processed_protocols.contains(nameStr)) {
-      return;
+    if (processed_classes.contains(nameStr)) {
+      return nullptr;
     } else {
-      processed_protocols.insert(nameStr);
+      processed_classes.insert(nameStr);
     }
 
     MDSectionOffset mdName = metadata->strings.add(nameStr, nameStr);
 
     MDClass *cls = new MDClass();
     cls->name = mdName;
-    cls->superclass = 0;
+    cls->superclass = MD_SECTION_OFFSET_NULL;
 
     current_class = cls;
 
@@ -395,7 +438,7 @@ private:
           }
 
           case CXCursor_ObjCInstanceMethodDecl: {
-            auto member = state->processMethod(cursor, false);
+            auto member = state->processMethod(cursor, false, cls->name);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -404,7 +447,7 @@ private:
           }
 
           case CXCursor_ObjCClassMethodDecl: {
-            auto member = state->processMethod(cursor, true);
+            auto member = state->processMethod(cursor, true, cls->name);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -413,7 +456,7 @@ private:
           }
 
           case CXCursor_ObjCPropertyDecl: {
-            auto member = state->processProperty(cursor);
+            auto member = state->processProperty(cursor, cls->name);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -431,7 +474,7 @@ private:
 
     classes.emplace_back(cls);
 
-    if (cls->superclass != 0) {
+    if (cls->superclass != MD_SECTION_OFFSET_NULL) {
       class_resolvables.insert(&cls->superclass);
     }
 
@@ -439,6 +482,8 @@ private:
     processed_cmethods.clear();
     processed_imethods.clear();
     processed_properties.clear();
+
+    return cls;
   }
 
   void processCategory(CXCursor cursor) {
@@ -469,7 +514,7 @@ private:
           }
 
           case CXCursor_ObjCInstanceMethodDecl: {
-            auto member = state->processMethod(cursor, false);
+            auto member = state->processMethod(cursor, false, cls->interface);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -478,7 +523,7 @@ private:
           }
 
           case CXCursor_ObjCClassMethodDecl: {
-            auto member = state->processMethod(cursor, true);
+            auto member = state->processMethod(cursor, true, cls->interface);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -487,7 +532,7 @@ private:
           }
 
           case CXCursor_ObjCPropertyDecl: {
-            auto member = state->processProperty(cursor);
+            auto member = state->processProperty(cursor, cls->interface);
             if (member.flags == mdMemberFlagNull) {
               break;
             }
@@ -749,14 +794,14 @@ private:
     }
 
     CXString name = clang_getCursorSpelling(cursor);
-    std::string protocolName = clang_getCString(name);
+    std::string funcName = clang_getCString(name);
     clang_disposeString(name);
 
     // std::cout << "function: " << protocolName << std::endl;
 
     MDFunction *function = new MDFunction();
 
-    function->name = metadata->strings.add(protocolName, protocolName);
+    function->name = metadata->strings.add(funcName, funcName);
 
     auto signature = new MDSignature();
 
@@ -774,7 +819,7 @@ private:
     function->signature =
         metadata->signatures.add(signature, serde.encode(signature));
 
-    metadata->functions.add(function, protocolName);
+    metadata->functions.add(function, funcName);
   }
 
   MDSectionOffset processProtocolRef(CXCursor cursor) {
@@ -785,7 +830,8 @@ private:
     return mdName;
   }
 
-  MDMember processMethod(CXCursor cursor, bool isClassMethod) {
+  MDMember processMethod(CXCursor cursor, bool isClassMethod,
+                         MDSectionOffset classNameOffset) {
     std::set<std::string> &processed_methods =
         isClassMethod ? processed_cmethods : processed_imethods;
 
@@ -810,28 +856,31 @@ private:
     if (isClassMethod) {
       member.flags = (MDMemberFlag)(member.flags | mdMemberStatic);
     }
+    if (isSelectorOwned(selector)) {
+      member.flags = (MDMemberFlag)(member.flags | mdMemberReturnOwned);
+    }
     member.methodSelector = mdSelector;
 
     auto signature = new MDSignature();
 
     auto resultType = clang_getCursorResultType(cursor);
-    signature->returnType = processType(resultType, true);
+    signature->returnType = processType(resultType, classNameOffset);
 
     auto argc = clang_Cursor_getNumArguments(cursor);
 
     for (int i = 0; i < argc; i++) {
       auto argType = clang_getCursorType(clang_Cursor_getArgument(cursor, i));
-      signature->arguments.emplace_back(processType(argType));
+      signature->arguments.emplace_back(processType(argType, classNameOffset));
     }
 
     MDSignatureSerde serde;
-    member.signature =
-        metadata->signatures.add(signature, serde.encode(signature));
-
+    auto encoding = serde.encode(signature);
+    std::string className = metadata->strings[classNameOffset];
+    member.signature = metadata->signatures.add(signature, encoding);
     return member;
   }
 
-  MDMember processProperty(CXCursor cursor) {
+  MDMember processProperty(CXCursor cursor, MDSectionOffset classNameOffset) {
     CXString name = clang_getCursorSpelling(cursor);
     std::string selector = clang_getCString(name);
     clang_disposeString(name);
@@ -856,6 +905,10 @@ private:
       member.flags = (MDMemberFlag)(member.flags | mdMemberReadonly);
     }
 
+    if (attrs & CXObjCPropertyAttr_class) {
+      member.flags = (MDMemberFlag)(member.flags | mdMemberStatic);
+    }
+
     MDSectionOffset getterSelector = 0, setterSelector = 0;
 
     auto getterName = clang_Cursor_getObjCPropertyGetterName(cursor);
@@ -873,12 +926,27 @@ private:
     member.getterSelector = getterSelector;
     member.setterSelector = setterSelector;
 
-    member.propertyType = processType(clang_getCursorType(cursor), true);
+    auto type = processType(clang_getCursorType(cursor), classNameOffset);
+
+    auto getter = new MDSignature();
+    getter->returnType = type;
+    MDSignatureSerde serde;
+    member.getterSignature =
+        metadata->signatures.add(getter, serde.encode(getter));
+
+    if (setterSelector != 0) {
+      auto setter = new MDSignature();
+      setter->returnType = new MDTypeInfo();
+      setter->returnType->kind = mdTypeVoid;
+      setter->arguments.emplace_back(type);
+      member.setterSignature =
+          metadata->signatures.add(setter, serde.encode(setter));
+    }
 
     return member;
   }
 
-  MDTypeInfo *processType(CXType type, bool isReturnType = false) {
+  MDTypeInfo *processType(CXType type, MDSectionOffset classNameOffset = 0) {
     auto canonicalType = clang_getCanonicalType(type);
 
     auto result = new MDTypeInfo();
@@ -941,6 +1009,18 @@ private:
       break;
 
     case CXType_Pointer: {
+      // Check if its a string
+      auto pointeeType = clang_getPointeeType(canonicalType);
+      auto name = clang_getTypeSpelling(pointeeType);
+      std::string nameStr = clang_getCString(name);
+      clang_disposeString(name);
+      if (pointeeType.kind == CXType_Char_S) {
+        result->kind = mdTypeString;
+        break;
+      } else if (pointeeType.kind == CXType_ObjCSel) {
+        result->kind = mdTypeSelector;
+        break;
+      }
       result->kind = mdTypePointer;
       break;
     }
@@ -960,15 +1040,63 @@ private:
     }
 
     case CXType_ObjCObjectPointer: {
-      CXString name = clang_getTypeSpelling(canonicalType);
-      std::string nameStr = clang_getCString(name);
-      clang_disposeString(name);
-      CXString name2 = clang_getTypeSpelling(type);
-      std::string nameStr2 = clang_getCString(name2);
-      clang_disposeString(name2);
-      result->kind = mdTypeAnyObject;
-      // if (isReturnType) std::cout << "  - " << nameStr << ", " << nameStr2 <<
-      // ", is return: " << (int)isReturnType << std::endl;
+      CXString nameStr = clang_getTypeSpelling(type);
+      std::string name = clang_getCString(nameStr);
+      clang_disposeString(nameStr);
+
+      CXString canonicalNameStr = clang_getTypeSpelling(canonicalType);
+      std::string canonicalName = clang_getCString(canonicalNameStr);
+      clang_disposeString(canonicalNameStr);
+
+      if (canonicalName.find("const ") == 0) {
+        canonicalName = canonicalName.substr(6);
+      }
+
+      if (canonicalName.find("__kindof ") == 0) {
+        canonicalName = canonicalName.substr(9);
+      }
+
+      if (canonicalName == "id" || canonicalName == "Class") {
+        if (name == "instancetype") {
+          result->kind = mdTypeInstanceObject;
+          break;
+        }
+        // Just ID, we gotta look up the class name at runtime.
+        result->kind = mdTypeAnyObject;
+      } else if (canonicalName == "Protocol *") {
+        result->kind = mdTypePointer;
+      } else if (canonicalName.find("id<") == 0 ||
+                 canonicalName.find("Class<") == 0) {
+        // Just ID but this time we have protocols specified, which we can add
+        // onto the object prototype.
+        auto size = canonicalName.size();
+        auto commaOffset = canonicalName.find(",");
+        auto endOffset = canonicalName.find(">");
+        auto skip = canonicalName.find("id<") == 0 ? 3 : 6;
+        if (commaOffset < endOffset) {
+          endOffset = commaOffset;
+        }
+        auto protocols = canonicalName.substr(skip, endOffset - skip);
+        result->kind = mdTypeProtocolObject;
+        result->protocolOffsets.emplace_back(
+            metadata->strings.add(protocols, protocols));
+        protocol_resolvables.insert(&result->protocolOffsets.back());
+      } else if (canonicalName.find("<") < canonicalName.size()) {
+        // We have protocols specified, but we also have a class name.
+        auto cls = canonicalName.substr(0, canonicalName.find("<"));
+        rtrim(cls);
+        result->kind = mdTypeClassObject;
+        result->classOffset = metadata->strings.add(cls, cls);
+        class_resolvables.insert(&result->classOffset);
+      } else {
+        // We have a class name.
+        auto cls = canonicalName.substr(0, canonicalName.find("*"));
+        rtrim(cls);
+        result->kind = mdTypeClassObject;
+        result->classOffset = metadata->strings.add(cls, cls);
+        class_resolvables.insert(&result->classOffset);
+      }
+
       break;
     }
 

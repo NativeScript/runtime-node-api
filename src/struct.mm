@@ -7,6 +7,8 @@
 #include "node_api_util.h"
 #include <cstring>
 
+#import <Foundation/Foundation.h>
+
 namespace objc_bridge {
 
 NAPI_FUNCTION(structGetter) {

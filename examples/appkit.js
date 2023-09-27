@@ -1,7 +1,7 @@
 import "objc";
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = ["NSApplicationDelegate"];
+  static protocols = [NSApplicationDelegate];
 
   static {
     objc.registerClass(this);
@@ -48,7 +48,7 @@ export class ApplicationDelegate extends NSObject {
 }
 
 export class Window extends NSWindow {
-  static protocols = ["NSWindowDelegate"];
+  static protocols = [NSWindowDelegate];
 
   static {
     objc.registerClass(this);

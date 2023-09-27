@@ -1,5 +1,6 @@
 #include "MethodCif.h"
 #include "Metadata.h"
+#include "ObjCBridgeData.h"
 #include "TypeConv.h"
 #include "Util.h"
 #include <Foundation/Foundation.h>
@@ -7,6 +8,34 @@
 #include <vector>
 
 namespace objc_bridge {
+
+// Essentially, we cache libffi structures per unique method signature,
+// this helps us avoid the overhead of creating them on the fly for each
+// invocation.
+MethodCif *ObjCBridgeData::getMethodCif(napi_env env, Method method) {
+  auto encoding = std::string(method_getTypeEncoding(method));
+  auto find = this->method_cifs[encoding];
+  if (find != nullptr) {
+    return find;
+  }
+
+  auto methodCif = new MethodCif(env, encoding);
+  this->method_cifs[encoding] = methodCif;
+
+  return methodCif;
+}
+
+MethodCif *ObjCBridgeData::getMethodCif(napi_env env, MDSectionOffset offset) {
+  auto find = this->mdMethodSignatureCache[offset];
+  if (find != nullptr) {
+    return find;
+  }
+
+  auto methodCif = new MethodCif(env, metadata, offset, true);
+  this->mdMethodSignatureCache[offset] = methodCif;
+
+  return methodCif;
+}
 
 MethodCif::MethodCif(napi_env env, std::string encoding) {
   auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
@@ -61,15 +90,19 @@ MethodCif::MethodCif(napi_env env, std::string encoding) {
 }
 
 MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
-                     MDSectionOffset offset) {
+                     MDSectionOffset offset, bool isMethod) {
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
 
-  this->returnType = TypeConv::Make(env, reader, &offset);
-  ffi_type *rtype = this->returnType->type;
+  returnType = TypeConv::Make(env, reader, &offset);
+
   ffi_type **atypes = nullptr;
 
-  if (next) {
+  auto implicitArgs = isMethod ? 2 : 0;
+
+  shouldFreeAny = false;
+
+  if (next || isMethod) {
     while (next) {
       auto argTypeKind = reader->getTypeKind(offset);
       next = (argTypeKind & mdTypeFlagNext) != 0;
@@ -77,27 +110,34 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
       argTypes.push_back(argTypeInfo);
     }
 
-    this->argc = (int)argTypes.size();
-    this->argv = (napi_value *)malloc(sizeof(napi_value) * this->argc);
-    this->avalues = (void **)malloc(sizeof(void *) * this->argc);
-    this->shouldFree = (bool *)malloc(sizeof(bool) * this->argc);
+    argc = (int)argTypes.size();
 
-    atypes = (ffi_type **)malloc(sizeof(ffi_type *) * this->argc);
+    auto totalArgc = argc + implicitArgs;
 
-    for (int i = 0; i < this->argc; i++) {
-      atypes[i] = argTypes[i]->type;
-      this->avalues[i] = malloc(argTypes[i]->type->size);
-      this->shouldFree[i] = false;
+    argv = (napi_value *)malloc(sizeof(napi_value) * argc);
+    shouldFree = (bool *)malloc(sizeof(bool) * argc);
+
+    atypes = (ffi_type **)malloc(sizeof(ffi_type *) * totalArgc);
+    avalues = (void **)malloc(sizeof(void *) * totalArgc);
+
+    if (isMethod) {
+      atypes[0] = &ffi_type_pointer;
+      atypes[1] = &ffi_type_pointer;
+    }
+
+    for (int i = 0; i < argc; i++) {
+      atypes[i + implicitArgs] = argTypes[i]->type;
+      shouldFree[i] = false;
     }
   } else {
-    this->argc = 0;
-    this->argv = nullptr;
-    this->avalues = nullptr;
-    this->shouldFree = nullptr;
+    argc = 0;
+    argv = nullptr;
+    avalues = nullptr;
+    shouldFree = nullptr;
   }
 
-  ffi_status status =
-      ffi_prep_cif(&cif, FFI_DEFAULT_ABI, this->argc, rtype, atypes);
+  ffi_status status = ffi_prep_cif(&cif, FFI_DEFAULT_ABI, argc + implicitArgs,
+                                   returnType->type, atypes);
 
   if (status != FFI_OK) {
     std::cout << "Failed to prepare CIF, libffi returned error: " << status
@@ -105,13 +145,16 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
     return;
   }
 
-  this->rvalue = malloc(cif.rtype->size);
-  this->rvalueLength = cif.rtype->size;
-  this->frameLength = cif.flags;
+  for (int i = implicitArgs; i < (argc + implicitArgs); i++) {
+    avalues[i] = malloc(cif.arg_types[i]->size);
+  }
+
+  rvalue = malloc(cif.rtype->size);
+  rvalueLength = cif.rtype->size;
 }
 
 void MethodCif::call(void *fnptr, void *rvalue, void **avalues) {
-  ffi_call(&this->cif, FFI_FN(fnptr), rvalue, avalues);
+  ffi_call(&cif, FFI_FN(fnptr), rvalue, avalues);
 }
 
 } // namespace objc_bridge

@@ -99,6 +99,9 @@ set(LIB_SOURCE_FILES
   src/JSObject.mm
   src/Enum.mm
   src/Variable.mm
+  src/Object.mm
+  src/CustomClass.mm
+  src/CFunction.mm
 )
 
 add_library(

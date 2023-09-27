@@ -9,11 +9,11 @@ void JSObject_finalize(napi_env, void *data, void *) {
   [obj release];
 }
 
-@interface JSObject : NSObject
-
-@property(nonatomic) objc_bridge::ObjCBridgeData *bridgeData;
-@property(nonatomic) napi_env env;
-@property(nonatomic) napi_ref ref;
+@interface JSObject : NSObject {
+  napi_env env;
+  napi_ref ref;
+  objc_bridge::ObjCBridgeData *bridgeData;
+}
 
 - (instancetype)initWithEnv:(napi_env)env value:(napi_value)value;
 - (napi_value)value;
@@ -22,27 +22,27 @@ void JSObject_finalize(napi_env, void *data, void *) {
 
 @implementation JSObject
 
-- (instancetype)initWithEnv:(napi_env)env value:(napi_value)value {
+- (instancetype)initWithEnv:(napi_env)_env value:(napi_value)value {
   [super init];
-  self.env = env;
-  napi_add_finalizer(env, value, self, JSObject_finalize, nullptr, &_ref);
+  self->env = _env;
+  napi_add_finalizer(env, value, self, JSObject_finalize, nullptr, &ref);
   uint32_t result;
-  napi_reference_ref(env, _ref, &result);
+  napi_reference_ref(env, ref, &result);
   napi_wrap(env, value, self, nullptr, nullptr, nullptr);
-  _bridgeData = objc_bridge::ObjCBridgeData::InstanceData(env);
-  _bridgeData->objectRefs[self] = _ref;
+  bridgeData = objc_bridge::ObjCBridgeData::InstanceData(env);
+  bridgeData->objectRefs[self] = ref;
   return self;
 }
 
 - (napi_value)value {
   napi_value result;
-  napi_get_reference_value(self.env, self.ref, &result);
+  napi_get_reference_value(env, ref, &result);
   return result;
 }
 
 - (void)dealloc {
-  napi_delete_reference(self.env, self.ref);
-  _bridgeData->objectRefs.erase(self);
+  napi_delete_reference(env, ref);
+  bridgeData->objectRefs.erase(self);
   [super dealloc];
 }
 
