@@ -1366,10 +1366,6 @@ declare class CGPoint {
   y: number;
 }
 
-declare class __CFPlugInInstance {
-  constructor(init?: __CFPlugInInstance);
-}
-
 declare class __CFCalendar {
   constructor(init?: __CFCalendar);
 }
@@ -1396,6 +1392,10 @@ declare class CFXMLParserCallBacks {
   handleError: (p1: interop.PointerConvertible, p2: interop.Enum<typeof CFXMLParserStatusCode>, p3: interop.PointerConvertible) => number | null;
 }
 
+declare class __CFPlugInInstance {
+  constructor(init?: __CFPlugInInstance);
+}
+
 declare class CFDictionaryKeyCallBacks {
   constructor(init?: CFDictionaryKeyCallBacks);
   version: number;
@@ -1412,16 +1412,6 @@ declare class __CFCharacterSet {
 
 declare class __CFArray {
   constructor(init?: __CFArray);
-}
-
-declare class CGRect {
-  constructor(init?: CGRect);
-  origin: CGPoint;
-  size: CGSize;
-}
-
-declare class __CFNotificationCenter {
-  constructor(init?: __CFNotificationCenter);
 }
 
 declare class __CFMessagePort {
@@ -1516,14 +1506,6 @@ declare class __CFBitVector {
   constructor(init?: __CFBitVector);
 }
 
-declare class CFXMLEntityInfo {
-  constructor(init?: CFXMLEntityInfo);
-  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
-  replacementText: interop.Pointer;
-  entityID: CFXMLExternalID;
-  notationName: interop.Pointer;
-}
-
 declare class CFArrayCallBacks {
   constructor(init?: CFArrayCallBacks);
   version: number;
@@ -1533,30 +1515,63 @@ declare class CFArrayCallBacks {
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
 }
 
-declare class CFSocketContext {
-  constructor(init?: CFSocketContext);
+declare class CFXMLEntityInfo {
+  constructor(init?: CFXMLEntityInfo);
+  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
+  replacementText: interop.Pointer;
+  entityID: CFXMLExternalID;
+  notationName: interop.Pointer;
+}
+
+declare class CFRunLoopSourceContext1 {
+  constructor(init?: CFRunLoopSourceContext1);
   version: number;
   info: interop.Pointer;
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  hash: (p1: interop.PointerConvertible) => number | null;
+  getPort: (p1: interop.PointerConvertible) => number | null;
+  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
-declare class CFAllocatorContext {
-  constructor(init?: CFAllocatorContext);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  allocate: (p1: number, p2: number, p3: interop.PointerConvertible) => interop.Pointer | null;
-  reallocate: (p1: interop.PointerConvertible, p2: number, p3: number, p4: interop.PointerConvertible) => interop.Pointer | null;
-  deallocate: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
-  preferredSize: (p1: number, p2: number, p3: interop.PointerConvertible) => number | null;
+declare class CFSocketSignature {
+  constructor(init?: CFSocketSignature);
+  protocolFamily: number;
+  socketType: number;
+  protocol: number;
+  address: interop.Pointer;
 }
 
-declare class __CFBag {
-  constructor(init?: __CFBag);
+declare class __CFLocale {
+  constructor(init?: __CFLocale);
+}
+
+declare class CGRect {
+  constructor(init?: CGRect);
+  origin: CGPoint;
+  size: CGSize;
+}
+
+declare class __CFNotificationCenter {
+  constructor(init?: __CFNotificationCenter);
+}
+
+declare class __CFUserNotification {
+  constructor(init?: __CFUserNotification);
+}
+
+declare class __CFDateFormatter {
+  constructor(init?: __CFDateFormatter);
+}
+
+declare class __CFBundle {
+  constructor(init?: __CFBundle);
+}
+
+declare class __CFURLEnumerator {
+  constructor(init?: __CFURLEnumerator);
 }
 
 declare class CFUUIDBytes {
@@ -1579,36 +1594,8 @@ declare class CFUUIDBytes {
   byte15: number;
 }
 
-declare class CFSocketSignature {
-  constructor(init?: CFSocketSignature);
-  protocolFamily: number;
-  socketType: number;
-  protocol: number;
-  address: interop.Pointer;
-}
-
-declare class __CFLocale {
-  constructor(init?: __CFLocale);
-}
-
-declare class __CFUserNotification {
-  constructor(init?: __CFUserNotification);
-}
-
-declare class __CFDateFormatter {
-  constructor(init?: __CFDateFormatter);
-}
-
-declare class __CFBundle {
-  constructor(init?: __CFBundle);
-}
-
-declare class __CFURLEnumerator {
-  constructor(init?: __CFURLEnumerator);
-}
-
-declare class __CFUUID {
-  constructor(init?: __CFUUID);
+declare class __CFBag {
+  constructor(init?: __CFBag);
 }
 
 declare class CFGregorianUnits {
@@ -1657,6 +1644,10 @@ declare class CFSetCallBacks {
 
 declare class __CFRunLoopObserver {
   constructor(init?: __CFRunLoopObserver);
+}
+
+declare class __CFUUID {
+  constructor(init?: __CFUUID);
 }
 
 declare class __CFNull {
@@ -1748,6 +1739,28 @@ declare class CFGregorianDate {
   hour: number;
   minute: number;
   second: number;
+}
+
+declare class CFSocketContext {
+  constructor(init?: CFSocketContext);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+}
+
+declare class CFAllocatorContext {
+  constructor(init?: CFAllocatorContext);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  allocate: (p1: number, p2: number, p3: interop.PointerConvertible) => interop.Pointer | null;
+  reallocate: (p1: interop.PointerConvertible, p2: number, p3: number, p4: interop.PointerConvertible) => interop.Pointer | null;
+  deallocate: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
+  preferredSize: (p1: number, p2: number, p3: interop.PointerConvertible) => number | null;
 }
 
 declare class CFTreeContext {
@@ -1903,19 +1916,6 @@ declare class CFStreamError {
   constructor(init?: CFStreamError);
   domain: number;
   error: number;
-}
-
-declare class CFRunLoopSourceContext1 {
-  constructor(init?: CFRunLoopSourceContext1);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  hash: (p1: interop.PointerConvertible) => number | null;
-  getPort: (p1: interop.PointerConvertible) => number | null;
-  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
 declare class __CFAllocator {

@@ -1204,6 +1204,12 @@ declare class MTLClearColor {
   alpha: number;
 }
 
+declare class MTLSizeAndAlign {
+  constructor(init?: MTLSizeAndAlign);
+  size: number;
+  align: number;
+}
+
 declare class MTLAccelerationStructureSizes {
   constructor(init?: MTLAccelerationStructureSizes);
   accelerationStructureSize: number;
@@ -1247,6 +1253,13 @@ declare class MTLRegion {
   size: MTLSize;
 }
 
+declare class MTLSize {
+  constructor(init?: MTLSize);
+  width: number;
+  height: number;
+  depth: number;
+}
+
 declare class MTLTriangleTessellationFactorsHalf {
   constructor(init?: MTLTriangleTessellationFactorsHalf);
   edgeTessellationFactor: unknown /* const array */;
@@ -1255,19 +1268,6 @@ declare class MTLTriangleTessellationFactorsHalf {
 
 declare class _MTLPackedFloat3 {
   constructor(init?: _MTLPackedFloat3);
-}
-
-declare class MTLSizeAndAlign {
-  constructor(init?: MTLSizeAndAlign);
-  size: number;
-  align: number;
-}
-
-declare class MTLSize {
-  constructor(init?: MTLSize);
-  width: number;
-  height: number;
-  depth: number;
 }
 
 declare class MTLMapIndirectArguments {
@@ -1301,13 +1301,6 @@ declare class MTLCounterResultStageUtilization {
   postTessellationVertexCycles: number;
   fragmentCycles: number;
   renderTargetCycles: number;
-}
-
-declare class unnamed_17629971107438600975 {
-  constructor(init?: unnamed_17629971107438600975);
-  x: number;
-  y: number;
-  z: number;
 }
 
 declare class _MTLPackedFloat4x3 {
@@ -1353,11 +1346,18 @@ declare class MTLViewport {
   zfar: number;
 }
 
-type unnamed_14751907459691266012Descriptor = 
+declare class unnamed_9525557080087447827 {
+  constructor(init?: unnamed_9525557080087447827);
+  x: number;
+  y: number;
+  z: number;
+}
+
+type unnamed_10383400595083478791Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_14751907459691266012 {
-  constructor(init?: unnamed_14751907459691266012Descriptor);
+declare class unnamed_10383400595083478791 {
+  constructor(init?: unnamed_10383400595083478791Descriptor);
   elements: unknown /* const array */;
 }
 

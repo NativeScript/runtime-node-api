@@ -1169,13 +1169,6 @@ declare class _MTLPackedFloat4x3 {
   columns: unknown /* const array */;
 }
 
-declare class unnamed_11045558346284825206 {
-  constructor(init?: unnamed_11045558346284825206);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class _MTLPackedFloat3 {
   constructor(init?: _MTLPackedFloat3);
 }
@@ -1229,14 +1222,6 @@ declare class MTLScissorRect {
 declare class MTLDispatchThreadgroupsIndirectArguments {
   constructor(init?: MTLDispatchThreadgroupsIndirectArguments);
   threadgroupsPerGrid: unknown /* const array */;
-}
-
-declare class MTLClearColor {
-  constructor(init?: MTLClearColor);
-  red: number;
-  green: number;
-  blue: number;
-  alpha: number;
 }
 
 declare class MTLSizeAndAlign {
@@ -1310,6 +1295,21 @@ declare class MTLOrigin {
   z: number;
 }
 
+declare class unnamed_16783916636243138524 {
+  constructor(init?: unnamed_16783916636243138524);
+  x: number;
+  y: number;
+  z: number;
+}
+
+declare class MTLClearColor {
+  constructor(init?: MTLClearColor);
+  red: number;
+  green: number;
+  blue: number;
+  alpha: number;
+}
+
 declare class MTLStageInRegionIndirectArguments {
   constructor(init?: MTLStageInRegionIndirectArguments);
   stageInOrigin: unknown /* const array */;
@@ -1361,11 +1361,11 @@ declare class MTLSamplePosition {
   y: number;
 }
 
-type unnamed_10935855329707026904Descriptor = 
+type unnamed_9264046387786578300Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_10935855329707026904 {
-  constructor(init?: unnamed_10935855329707026904Descriptor);
+declare class unnamed_9264046387786578300 {
+  constructor(init?: unnamed_9264046387786578300Descriptor);
   elements: unknown /* const array */;
 }
 

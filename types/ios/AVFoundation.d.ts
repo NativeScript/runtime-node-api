@@ -2334,6 +2334,14 @@ declare class AVCaptureWhiteBalanceTemperatureAndTintValues {
   tint: number;
 }
 
+declare class AVSampleCursorChunkInfo {
+  constructor(init?: AVSampleCursorChunkInfo);
+  chunkSampleCount: number;
+  chunkHasUniformSampleSizes: boolean;
+  chunkHasUniformSampleDurations: boolean;
+  chunkHasUniformFormatDescriptions: boolean;
+}
+
 declare class AVCaptureWhiteBalanceChromaticityValues {
   constructor(init?: AVCaptureWhiteBalanceChromaticityValues);
   x: number;
@@ -2345,14 +2353,6 @@ declare class AVCaptureWhiteBalanceGains {
   redGain: number;
   greenGain: number;
   blueGain: number;
-}
-
-declare class AVSampleCursorChunkInfo {
-  constructor(init?: AVSampleCursorChunkInfo);
-  chunkSampleCount: number;
-  chunkHasUniformSampleSizes: boolean;
-  chunkHasUniformSampleDurations: boolean;
-  chunkHasUniformFormatDescriptions: boolean;
 }
 
 declare class AVSampleCursorStorageRange {

@@ -132,18 +132,18 @@ declare class SMPTETime {
   mFrames: number;
 }
 
-declare class AudioBufferList {
-  constructor(init?: AudioBufferList);
-  mNumberBuffers: number;
-  mBuffers: unknown /* const array */;
-}
-
 declare class AudioChannelLayout {
   constructor(init?: AudioChannelLayout);
   mChannelLayoutTag: number;
   mChannelBitmap: interop.Enum<typeof AudioChannelBitmap>;
   mNumberChannelDescriptions: number;
   mChannelDescriptions: unknown /* const array */;
+}
+
+declare class AudioBufferList {
+  constructor(init?: AudioBufferList);
+  mNumberBuffers: number;
+  mBuffers: unknown /* const array */;
 }
 
 declare class AudioBuffer {

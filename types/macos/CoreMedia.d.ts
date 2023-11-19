@@ -1236,10 +1236,6 @@ declare const CMStereoViewComponents: {
   RightEye: 2,
 };
 
-declare class opaqueCMBufferQueue {
-  constructor(init?: opaqueCMBufferQueue);
-}
-
 declare class OpaqueCMMemoryPool {
   constructor(init?: OpaqueCMMemoryPool);
 }
@@ -1325,6 +1321,10 @@ declare class opaqueCMFormatDescription {
 
 declare class opaqueCMBufferQueueTriggerToken {
   constructor(init?: opaqueCMBufferQueueTriggerToken);
+}
+
+declare class opaqueCMBufferQueue {
+  constructor(init?: opaqueCMBufferQueue);
 }
 
 declare class OpaqueCMTagCollection {

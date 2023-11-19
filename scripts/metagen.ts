@@ -53,22 +53,32 @@ interface SDK {
   target: string;
 }
 
+function getSDKPath(platform: string) {
+  const { stdout, success } = new Deno.Command("xcrun", {
+    args: ["--sdk", platform, "--show-sdk-path"],
+    stdout: "piped",
+    stderr: "inherit",
+    stdin: "null",
+  }).outputSync();
+  if (!success) {
+    throw new Error(`Failed to get SDK path for ${platform}`);
+  }
+  return new TextDecoder().decode(stdout).trim();
+}
+
 const sdks: Record<string, SDK> = {
   macos: {
-    path:
-      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
+    path: getSDKPath("macosx"),
     frameworks: [...COMMON_FRAMEWORKS, ...MACOS_FRAMEWORKS],
     target: "arm64-apple-macos11.0",
   },
   ios: {
-    path:
-      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
+    path: getSDKPath("iphoneos"),
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
     target: "arm64-apple-ios13.0",
   },
   "ios-sim": {
-    path:
-      "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
+    path: getSDKPath("iphonesimulator"),
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
     target: "arm64-apple-ios13.0-simulator",
   },

@@ -1285,6 +1285,10 @@ declare class __CFTree {
   constructor(init?: __CFTree);
 }
 
+declare class __CFData {
+  constructor(init?: __CFData);
+}
+
 declare class CFAllocatorContext {
   constructor(init?: CFAllocatorContext);
   version: number;
@@ -1311,6 +1315,16 @@ declare class CFFileDescriptorContext {
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
 }
 
+declare class CFGregorianUnits {
+  constructor(init?: CFGregorianUnits);
+  years: number;
+  months: number;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 declare class __CFNumber {
   constructor(init?: __CFNumber);
 }
@@ -1326,6 +1340,15 @@ declare class CFRunLoopObserverContext {
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+}
+
+declare class CFBinaryHeapCallBacks {
+  constructor(init?: CFBinaryHeapCallBacks);
+  version: number;
+  retain: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  compare: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => interop.Enum<typeof CFComparisonResult> | null;
 }
 
 declare class __CFRunLoop {
@@ -1356,15 +1379,6 @@ declare class __CFTimeZone {
 
 declare class __CFURLEnumerator {
   constructor(init?: __CFURLEnumerator);
-}
-
-declare class CFBinaryHeapCallBacks {
-  constructor(init?: CFBinaryHeapCallBacks);
-  version: number;
-  retain: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  compare: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => interop.Enum<typeof CFComparisonResult> | null;
 }
 
 declare class CFSwappedFloat32 {
@@ -1623,20 +1637,6 @@ declare class CFBinaryHeapCompareContext {
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-}
-
-declare class __CFData {
-  constructor(init?: __CFData);
-}
-
-declare class CFGregorianUnits {
-  constructor(init?: CFGregorianUnits);
-  years: number;
-  months: number;
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
 }
 
 declare class CGAffineTransform {

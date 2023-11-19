@@ -505,17 +505,24 @@ declare class MPSImageHistogramInfo {
   maxPixelValue: unknown /* ext vector */;
 }
 
-declare class MPSImageKeypointData {
-  constructor(init?: MPSImageKeypointData);
-  keypointCoordinate: unknown /* ext vector */;
-  keypointColorValue: number;
-}
-
 declare class MPSCustomKernelArgumentCount {
   constructor(init?: MPSCustomKernelArgumentCount);
   destinationTextureCount: number;
   sourceTextureCount: number;
   broadcastTextureCount: number;
+}
+
+declare class MPSCustomKernelInfo {
+  constructor(init?: MPSCustomKernelInfo);
+  clipOrigin: unknown /* ext vector */;
+  clipSize: unknown /* ext vector */;
+  destinationFeatureChannels: number;
+  destImageArraySize: number;
+  sourceImageCount: number;
+  threadgroupSize: number;
+  subbatchIndex: number;
+  subbatchStride: number;
+  idiv: MPSIntegerDivisionParams;
 }
 
 declare class MPSCustomKernelSourceInfo {
@@ -546,12 +553,16 @@ declare class MPSMatrixOffset {
   columnOffset: number;
 }
 
-declare class MPSScaleTransform {
-  constructor(init?: MPSScaleTransform);
-  scaleX: number;
-  scaleY: number;
-  translateX: number;
-  translateY: number;
+declare class MPSStateTextureInfo {
+  constructor(init?: MPSStateTextureInfo);
+  width: number;
+  height: number;
+  depth: number;
+  arrayLength: number;
+  pixelFormat: interop.Enum<typeof MTLPixelFormat>;
+  textureType: interop.Enum<typeof MTLTextureType>;
+  usage: interop.Enum<typeof MTLTextureUsage>;
+  _reserved: unknown /* const array */;
 }
 
 declare class MPSRegion {
@@ -581,22 +592,18 @@ declare class MPSMatrixCopyOffsets {
   destinationColumnOffset: number;
 }
 
-declare class MPSStateTextureInfo {
-  constructor(init?: MPSStateTextureInfo);
-  width: number;
-  height: number;
-  depth: number;
-  arrayLength: number;
-  pixelFormat: interop.Enum<typeof MTLPixelFormat>;
-  textureType: interop.Enum<typeof MTLTextureType>;
-  usage: interop.Enum<typeof MTLTextureUsage>;
-  _reserved: unknown /* const array */;
-}
-
 declare class MPSImageReadWriteParams {
   constructor(init?: MPSImageReadWriteParams);
   featureChannelOffset: number;
   numberOfFeatureChannelsToReadWrite: number;
+}
+
+declare class MPSScaleTransform {
+  constructor(init?: MPSScaleTransform);
+  scaleX: number;
+  scaleY: number;
+  translateX: number;
+  translateY: number;
 }
 
 declare class MPSImageCoordinate {
@@ -606,17 +613,11 @@ declare class MPSImageCoordinate {
   channel: number;
 }
 
-declare class MPSCustomKernelInfo {
-  constructor(init?: MPSCustomKernelInfo);
-  clipOrigin: unknown /* ext vector */;
-  clipSize: unknown /* ext vector */;
-  destinationFeatureChannels: number;
-  destImageArraySize: number;
-  sourceImageCount: number;
-  threadgroupSize: number;
-  subbatchIndex: number;
-  subbatchStride: number;
-  idiv: MPSIntegerDivisionParams;
+declare class unnamed_6486681537133921041 {
+  constructor(init?: unnamed_6486681537133921041);
+  x: number;
+  y: number;
+  z: number;
 }
 
 declare class MPSIntersectionDistancePrimitiveIndex {
@@ -641,15 +642,14 @@ declare class MPSIntersectionDistancePrimitiveIndexBufferIndexInstanceIndex {
   instanceIndex: number;
 }
 
-declare class _MPSPackedFloat3 {
-  constructor(init?: _MPSPackedFloat3);
+declare class MPSImageKeypointData {
+  constructor(init?: MPSImageKeypointData);
+  keypointCoordinate: unknown /* ext vector */;
+  keypointColorValue: number;
 }
 
-declare class unnamed_15796424113688628113 {
-  constructor(init?: unnamed_15796424113688628113);
-  x: number;
-  y: number;
-  z: number;
+declare class _MPSPackedFloat3 {
+  constructor(init?: _MPSPackedFloat3);
 }
 
 declare class MPSRayPackedOriginDirection {
@@ -703,11 +703,11 @@ declare class MPSImageRegion {
   size: MPSImageCoordinate;
 }
 
-type unnamed_11368365051287814323Descriptor = 
+type unnamed_17959249312542781988Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_11368365051287814323 {
-  constructor(init?: unnamed_11368365051287814323Descriptor);
+declare class unnamed_17959249312542781988 {
+  constructor(init?: unnamed_17959249312542781988Descriptor);
   elements: unknown /* const array */;
 }
 

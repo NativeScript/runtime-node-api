@@ -1240,10 +1240,6 @@ declare class OpaqueCMTagCollection {
   constructor(init?: OpaqueCMTagCollection);
 }
 
-declare class OpaqueCMMemoryPool {
-  constructor(init?: OpaqueCMMemoryPool);
-}
-
 declare class opaqueCMBufferQueue {
   constructor(init?: opaqueCMBufferQueue);
 }
@@ -1266,6 +1262,10 @@ declare class CMBufferHandlers {
   compare: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => interop.Enum<typeof CFComparisonResult> | null;
   dataBecameReadyNotification: interop.Pointer;
   getSize: (p1: interop.PointerConvertible) => number | null;
+}
+
+declare class OpaqueCMMemoryPool {
+  constructor(init?: OpaqueCMMemoryPool);
 }
 
 declare class CMTimeMapping {

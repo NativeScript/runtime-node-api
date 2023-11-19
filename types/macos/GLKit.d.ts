@@ -18,14 +18,6 @@ declare class _GLKMatrix2 {
   m: unknown /* const array */;
 }
 
-type _GLKMatrix4Descriptor = 
-  | { m: unknown /* const array */ };
-
-declare class _GLKMatrix4 {
-  constructor(init?: _GLKMatrix4Descriptor);
-  m: unknown /* const array */;
-}
-
 type _GLKVector3Descriptor = 
   | { v: unknown /* const array */ };
 
@@ -48,5 +40,13 @@ type _GLKVector2Descriptor =
 declare class _GLKVector2 {
   constructor(init?: _GLKVector2Descriptor);
   v: unknown /* const array */;
+}
+
+type _GLKMatrix4Descriptor = 
+  | { m: unknown /* const array */ };
+
+declare class _GLKMatrix4 {
+  constructor(init?: _GLKMatrix4Descriptor);
+  m: unknown /* const array */;
 }
 

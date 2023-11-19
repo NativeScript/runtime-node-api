@@ -2148,12 +2148,6 @@ declare const CTUnderlineStyleModifiers: {
   DashDotDot: 1024,
 };
 
-declare class FontVariation {
-  constructor(init?: FontVariation);
-  name: number;
-  value: number;
-}
-
 declare class sfntFeatureHeader {
   constructor(init?: sfntFeatureHeader);
   version: number;
@@ -2163,12 +2157,6 @@ declare class sfntFeatureHeader {
   names: unknown /* const array */;
   settings: unknown /* const array */;
   runs: unknown /* const array */;
-}
-
-declare class sfntFontFeatureSetting {
-  constructor(init?: sfntFontFeatureSetting);
-  setting: number;
-  nameID: number;
 }
 
 declare class sfntFeatureName {
@@ -2276,6 +2264,11 @@ declare class BslnFormat1Part {
   constructor(init?: BslnFormat1Part);
   deltas: unknown /* const array */;
   mappingData: SFNTLookupTable;
+}
+
+declare class BslnFormat0Part {
+  constructor(init?: BslnFormat0Part);
+  deltas: unknown /* const array */;
 }
 
 declare class KerxSubtableHeader {
@@ -2514,6 +2507,13 @@ declare class JustPCAction {
   actions: unknown /* const array */;
 }
 
+declare class JustPCConditionalAddAction {
+  constructor(init?: JustPCConditionalAddAction);
+  substThreshold: number;
+  addGlyph: number;
+  substGlyph: number;
+}
+
 declare class LcarCaretTable {
   constructor(init?: LcarCaretTable);
   version: number;
@@ -2550,6 +2550,14 @@ declare class STXEntryOne {
   index1: number;
 }
 
+declare class STEntryTwo {
+  constructor(init?: STEntryTwo);
+  newState: number;
+  flags: number;
+  offset1: number;
+  offset2: number;
+}
+
 declare class STHeader {
   constructor(init?: STHeader);
   filler: number;
@@ -2557,14 +2565,6 @@ declare class STHeader {
   classTableOffset: number;
   stateArrayOffset: number;
   entryTableOffset: number;
-}
-
-declare class STEntryTwo {
-  constructor(init?: STEntryTwo);
-  newState: number;
-  flags: number;
-  offset1: number;
-  offset2: number;
 }
 
 declare class SFNTLookupSingleHeader {
@@ -2636,10 +2636,6 @@ declare class __CTParagraphStyle {
   constructor(init?: __CTParagraphStyle);
 }
 
-declare class __CTFontCollection {
-  constructor(init?: __CTFontCollection);
-}
-
 declare class JustPCActionSubrecord {
   constructor(init?: JustPCActionSubrecord);
   theClass: number;
@@ -2648,22 +2644,10 @@ declare class JustPCActionSubrecord {
   data: number;
 }
 
-declare class KerxControlPointAction {
-  constructor(init?: KerxControlPointAction);
-  markControlPoint: number;
-  currControlPoint: number;
-}
-
-declare class BslnFormat0Part {
-  constructor(init?: BslnFormat0Part);
-  deltas: unknown /* const array */;
-}
-
-declare class JustPCConditionalAddAction {
-  constructor(init?: JustPCConditionalAddAction);
-  substThreshold: number;
-  addGlyph: number;
-  substGlyph: number;
+declare class sfntFontFeatureSetting {
+  constructor(init?: sfntFontFeatureSetting);
+  setting: number;
+  nameID: number;
 }
 
 declare class MortTable {
@@ -2820,6 +2804,12 @@ declare class KernKerningPair {
   right: number;
 }
 
+declare class KerxControlPointAction {
+  constructor(init?: KerxControlPointAction);
+  markControlPoint: number;
+  currControlPoint: number;
+}
+
 declare class sfntDescriptorHeader {
   constructor(init?: sfntDescriptorHeader);
   version: number;
@@ -2859,6 +2849,12 @@ declare class MorxContextualSubtable {
   constructor(init?: MorxContextualSubtable);
   header: STXHeader;
   substitutionTableOffset: number;
+}
+
+declare class FontVariation {
+  constructor(init?: FontVariation);
+  name: number;
+  value: number;
 }
 
 declare class KerxStateEntry {
@@ -2978,6 +2974,10 @@ declare class SFNTLookupSingle {
   value: unknown /* const array */;
 }
 
+declare class __CTFontCollection {
+  constructor(init?: __CTFontCollection);
+}
+
 declare class __CTLine {
   constructor(init?: __CTLine);
 }
@@ -3065,6 +3065,22 @@ declare class BslnFormatUnion {
   fmt3Part: BslnFormat3Part;
 }
 
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
+
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
+}
+
 type KerxFormatSpecificHeaderDescriptor = 
   | { orderedList: KerxOrderedListHeader }
   | { stateTable: KerxStateHeader }
@@ -3109,22 +3125,6 @@ declare class KernFormatSpecificHeader {
   stateTable: KernStateHeader;
   simpleArray: KernSimpleArrayHeader;
   indexArray: KernIndexArrayHeader;
-}
-
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
-
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
 }
 
 type MortSpecificSubtableDescriptor = 

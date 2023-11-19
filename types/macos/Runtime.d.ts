@@ -35,6 +35,12 @@ declare class ProcessSerialNumber {
   lowLongOfPSN: number;
 }
 
+declare class HFSUniStr255 {
+  constructor(init?: HFSUniStr255);
+  length: number;
+  unicode: unknown /* const array */;
+}
+
 declare class __sFILE {
   constructor(init?: __sFILE);
   _p: interop.Pointer;
@@ -124,12 +130,6 @@ declare class wide {
 declare class simd_float4x4 {
   constructor(init?: simd_float4x4);
   columns: unknown /* const array */;
-}
-
-declare class HFSUniStr255 {
-  constructor(init?: HFSUniStr255);
-  length: number;
-  unicode: unknown /* const array */;
 }
 
 declare class _xpc_type_s {

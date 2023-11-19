@@ -966,10 +966,6 @@ declare class CGPDFStream {
   constructor(init?: CGPDFStream);
 }
 
-declare class __IOSurface {
-  constructor(init?: __IOSurface);
-}
-
 declare class CGPathElement {
   constructor(init?: CGPathElement);
   type: interop.Enum<typeof CGPathElementType>;
@@ -990,6 +986,10 @@ declare class CGPSConverterCallbacks {
   noteProgress: (p1: interop.PointerConvertible) => void | null;
   noteMessage: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
   releaseInfo: (p1: interop.PointerConvertible) => void | null;
+}
+
+declare class __IOSurface {
+  constructor(init?: __IOSurface);
 }
 
 declare class CGDisplayStreamUpdate {

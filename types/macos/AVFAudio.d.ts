@@ -98,12 +98,6 @@ declare const AVAudio3DMixingPointSourceInHeadMode: {
   Bypass: 1,
 };
 
-declare class AVAudio3DVectorOrientation {
-  constructor(init?: AVAudio3DVectorOrientation);
-  forward: AVAudio3DPoint;
-  up: AVAudio3DPoint;
-}
-
 declare class AVAudio3DPoint {
   constructor(init?: AVAudio3DPoint);
   x: number;
@@ -122,6 +116,12 @@ declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
   constructor(init?: AVAudioVoiceProcessingOtherAudioDuckingConfiguration);
   enableAdvancedDucking: boolean;
   duckingLevel: interop.Enum<typeof AVAudioVoiceProcessingOtherAudioDuckingLevel>;
+}
+
+declare class AVAudio3DVectorOrientation {
+  constructor(init?: AVAudio3DVectorOrientation);
+  forward: AVAudio3DPoint;
+  up: AVAudio3DPoint;
 }
 
 declare interface AVAudioStereoMixing extends NSObjectProtocol {

@@ -2868,6 +2868,22 @@ declare class sfntCMapExtendedSubHeader {
   language: number;
 }
 
+declare class KernSubtableHeader {
+  constructor(init?: KernSubtableHeader);
+  length: number;
+  stInfo: number;
+  tupleIndex: number;
+  fsHeader: KernFormatSpecificHeader;
+}
+
+declare class STXEntryTwo {
+  constructor(init?: STXEntryTwo);
+  newState: number;
+  flags: number;
+  index1: number;
+  index2: number;
+}
+
 declare class JustPCActionSubrecord {
   constructor(init?: JustPCActionSubrecord);
   theClass: number;
@@ -3035,22 +3051,6 @@ declare class LtagStringRange {
   constructor(init?: LtagStringRange);
   offset: number;
   length: number;
-}
-
-declare class KernSubtableHeader {
-  constructor(init?: KernSubtableHeader);
-  length: number;
-  stInfo: number;
-  tupleIndex: number;
-  fsHeader: KernFormatSpecificHeader;
-}
-
-declare class STXEntryTwo {
-  constructor(init?: STXEntryTwo);
-  newState: number;
-  flags: number;
-  index1: number;
-  index2: number;
 }
 
 type BslnFormatUnionDescriptor = 

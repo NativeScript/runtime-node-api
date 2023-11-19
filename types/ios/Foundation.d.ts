@@ -2722,6 +2722,15 @@ declare class NSHashEnumerator {
   _bs: interop.Pointer;
 }
 
+declare class NSHashTableCallBacks {
+  constructor(init?: NSHashTableCallBacks);
+  hash: (p1: NSHashTable, p2: interop.PointerConvertible) => number | null;
+  isEqual: (p1: NSHashTable, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => boolean | null;
+  retain: (p1: NSHashTable, p2: interop.PointerConvertible) => void | null;
+  release: (p1: NSHashTable, p2: interop.PointerConvertible) => void | null;
+  describe: (p1: NSHashTable, p2: interop.PointerConvertible) => string | null;
+}
+
 declare class NSSwappedDouble {
   constructor(init?: NSSwappedDouble);
   v: number;
@@ -2742,15 +2751,6 @@ declare class NSMapEnumerator {
   _pi: number;
   _si: number;
   _bs: interop.Pointer;
-}
-
-declare class NSHashTableCallBacks {
-  constructor(init?: NSHashTableCallBacks);
-  hash: (p1: NSHashTable, p2: interop.PointerConvertible) => number | null;
-  isEqual: (p1: NSHashTable, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => boolean | null;
-  retain: (p1: NSHashTable, p2: interop.PointerConvertible) => void | null;
-  release: (p1: NSHashTable, p2: interop.PointerConvertible) => void | null;
-  describe: (p1: NSHashTable, p2: interop.PointerConvertible) => string | null;
 }
 
 declare class NSFastEnumerationState {

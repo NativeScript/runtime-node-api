@@ -443,6 +443,13 @@ declare class MPSIntersectionDistancePrimitiveIndexInstanceIndexCoordinates {
   coordinates: unknown /* ext vector */;
 }
 
+declare class MPSIntersectionDistancePrimitiveIndexInstanceIndex {
+  constructor(init?: MPSIntersectionDistancePrimitiveIndexInstanceIndex);
+  distance: number;
+  primitiveIndex: number;
+  instanceIndex: number;
+}
+
 declare class MPSIntersectionDistancePrimitiveIndexBufferIndex {
   constructor(init?: MPSIntersectionDistancePrimitiveIndexBufferIndex);
   distance: number;
@@ -468,19 +475,8 @@ declare class _MPSAxisAlignedBoundingBox {
   max: unknown /* ext vector */;
 }
 
-declare class MPSRayOriginMinDistanceDirectionMaxDistance {
-  constructor(init?: MPSRayOriginMinDistanceDirectionMaxDistance);
-  origin: _MPSPackedFloat3;
-  minDistance: number;
-  direction: _MPSPackedFloat3;
-  maxDistance: number;
-}
-
-declare class unnamed_6608925309574776898 {
-  constructor(init?: unnamed_6608925309574776898);
-  x: number;
-  y: number;
-  z: number;
+declare class _MPSPackedFloat3 {
+  constructor(init?: _MPSPackedFloat3);
 }
 
 declare class MPSNDArraySizes {
@@ -526,10 +522,11 @@ declare class MPSScaleTransform {
   translateY: number;
 }
 
-declare class MPSRegion {
-  constructor(init?: MPSRegion);
-  origin: MPSOrigin;
-  size: MPSSize;
+declare class MPSOffset {
+  constructor(init?: MPSOffset);
+  x: number;
+  y: number;
+  z: number;
 }
 
 declare class MPSIntersectionDistancePrimitiveIndexCoordinates {
@@ -557,17 +554,6 @@ declare class MPSOrigin {
   x: number;
   y: number;
   z: number;
-}
-
-declare class MPSIntersectionDistancePrimitiveIndexInstanceIndex {
-  constructor(init?: MPSIntersectionDistancePrimitiveIndexInstanceIndex);
-  distance: number;
-  primitiveIndex: number;
-  instanceIndex: number;
-}
-
-declare class _MPSPackedFloat3 {
-  constructor(init?: _MPSPackedFloat3);
 }
 
 declare class MPSNDArrayOffsets {
@@ -638,6 +624,13 @@ declare class MPSRayOriginMaskDirectionMaxDistance {
   maxDistance: number;
 }
 
+declare class unnamed_11956708817307392451 {
+  constructor(init?: unnamed_11956708817307392451);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class MPSCustomKernelSourceInfo {
   constructor(init?: MPSCustomKernelSourceInfo);
   kernelOrigin: unknown /* ext vector */;
@@ -652,18 +645,17 @@ declare class MPSCustomKernelSourceInfo {
   imageArraySize: number;
 }
 
+declare class MPSRegion {
+  constructor(init?: MPSRegion);
+  origin: MPSOrigin;
+  size: MPSSize;
+}
+
 declare class MPSCustomKernelArgumentCount {
   constructor(init?: MPSCustomKernelArgumentCount);
   destinationTextureCount: number;
   sourceTextureCount: number;
   broadcastTextureCount: number;
-}
-
-declare class MPSOffset {
-  constructor(init?: MPSOffset);
-  x: number;
-  y: number;
-  z: number;
 }
 
 declare class MPSIntersectionDistance {
@@ -690,6 +682,14 @@ declare class MPSRayPackedOriginDirection {
   direction: _MPSPackedFloat3;
 }
 
+declare class MPSRayOriginMinDistanceDirectionMaxDistance {
+  constructor(init?: MPSRayOriginMinDistanceDirectionMaxDistance);
+  origin: _MPSPackedFloat3;
+  minDistance: number;
+  direction: _MPSPackedFloat3;
+  maxDistance: number;
+}
+
 declare class MPSImageCoordinate {
   constructor(init?: MPSImageCoordinate);
   x: number;
@@ -703,11 +703,11 @@ declare class MPSMatrixOffset {
   columnOffset: number;
 }
 
-type unnamed_2154762081723663051Descriptor = 
+type unnamed_4843475888788833882Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_2154762081723663051 {
-  constructor(init?: unnamed_2154762081723663051Descriptor);
+declare class unnamed_4843475888788833882 {
+  constructor(init?: unnamed_4843475888788833882Descriptor);
   elements: unknown /* const array */;
 }
 

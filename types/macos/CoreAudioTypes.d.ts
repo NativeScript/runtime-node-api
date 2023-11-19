@@ -75,24 +75,6 @@ declare class AudioBuffer {
   mData: interop.Pointer;
 }
 
-declare class AudioChannelDescription {
-  constructor(init?: AudioChannelDescription);
-  mChannelLabel: number;
-  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
-  mCoordinates: unknown /* const array */;
-}
-
-declare class AudioTimeStamp {
-  constructor(init?: AudioTimeStamp);
-  mSampleTime: number;
-  mHostTime: number;
-  mRateScalar: number;
-  mWordClockTime: number;
-  mSMPTETime: SMPTETime;
-  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
-  mReserved: number;
-}
-
 declare class AudioValueRange {
   constructor(init?: AudioValueRange);
   mMinimum: number;
@@ -119,10 +101,28 @@ declare class AudioClassDescription {
   mManufacturer: number;
 }
 
+declare class AudioChannelDescription {
+  constructor(init?: AudioChannelDescription);
+  mChannelLabel: number;
+  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
+  mCoordinates: unknown /* const array */;
+}
+
 declare class AudioFormatListItem {
   constructor(init?: AudioFormatListItem);
   mASBD: AudioStreamBasicDescription;
   mChannelLayoutTag: number;
+}
+
+declare class AudioTimeStamp {
+  constructor(init?: AudioTimeStamp);
+  mSampleTime: number;
+  mHostTime: number;
+  mRateScalar: number;
+  mWordClockTime: number;
+  mSMPTETime: SMPTETime;
+  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
+  mReserved: number;
 }
 
 declare class SMPTETime {
