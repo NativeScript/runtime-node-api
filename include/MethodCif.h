@@ -1,7 +1,7 @@
 #ifndef METHOD_CIF_H
 #define METHOD_CIF_H
 
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "TypeConv.h"
 #include "ffi.h"
 #include "objc/message.h"

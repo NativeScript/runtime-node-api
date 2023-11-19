@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "cmake-init": "cmake -S. -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+    "cmake-build": "cmake --build build --config Release",
+    "build": "deno task cmake-init && deno task cmake-build"
+  }
+}

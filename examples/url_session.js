@@ -1,18 +1,24 @@
-// TODO: needs block support on different threads
+// @ts-check
 
 import "objc";
 
-const completionHandler = objc.registerBlock(
-  "v@@@",
-  (data, response, error) => {
-    console.log(data, response, error);
-    CFRunLoopStop(CFRunLoopGetCurrent());
-  },
-);
-
 const url = NSURL.URLWithString("https://www.google.com/");
 const session = NSURLSession.sharedSession;
-const task = session.dataTaskWithURLCompletionHandler(url, completionHandler);
+let stopped = false;
+const task = session.dataTaskWithURLCompletionHandler(
+  url,
+  (_data, response, _error) => {
+    console.log("status code:", response);
+    stopped = true;
+  },
+);
 task.resume();
 
-CFRunLoopRun();
+// Here, we'll run the runloop until the task is complete,
+// in a way that JS event loop will still be running.
+const interval = setInterval(() => {
+  CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, 1);
+  if (stopped) {
+    clearInterval(interval);
+  }
+}, 0);

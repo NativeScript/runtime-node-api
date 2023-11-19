@@ -1,9 +1,9 @@
 import "objc";
 import { bench, run } from "mitata";
 
-const str = NSString.stringWithUTF8String("Hello World");
+const arr = NSMutableArray.arrayWithCapacity(100);
 
-const str2 = new Proxy(str, {
+const arr2 = new Proxy(arr, {
   get: (target, prop) => {
     return target[prop];
   },
@@ -11,16 +11,12 @@ const str2 = new Proxy(str, {
 
 bench("noop", () => {});
 
-bench("[str length] (manual, direct)", () => {
-  str.lengthCustom;
+bench("[arr count] (dynamic, ffi)", () => {
+  arr.count;
 });
 
-bench("[str length] (dynamic, ffi)", () => {
-  str.length;
-});
-
-bench("[str length] (dynamic, proxy)", () => {
-  str2.length;
+bench("[arr count] (dynamic, proxy)", () => {
+  arr2.count;
 });
 
 await run({

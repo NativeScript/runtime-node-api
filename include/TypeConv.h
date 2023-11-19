@@ -1,11 +1,13 @@
 #ifndef TYPE_CONV_H
 #define TYPE_CONV_H
 
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "ffi.h"
 #include "js_native_api.h"
 #include "objc/runtime.h"
 #include <iostream>
+
+using namespace metagen;
 
 namespace objc_bridge {
 
@@ -19,7 +21,8 @@ class TypeConv {
 public:
   static std::shared_ptr<TypeConv> Make(napi_env env, const char **encoding);
   static std::shared_ptr<TypeConv> Make(napi_env env, MDMetadataReader *reader,
-                                        MDSectionOffset *offset);
+                                        MDSectionOffset *offset,
+                                        uint8_t opaquePointers = 0);
 
   ffi_type *type;
   MDTypeKind kind = mdTypeChar;

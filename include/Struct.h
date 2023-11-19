@@ -1,7 +1,7 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "TypeConv.h"
 #include "js_native_api.h"
 #include <stdint.h>
@@ -9,6 +9,7 @@
 namespace objc_bridge {
 
 napi_value JS_structGetter(napi_env env, napi_callback_info info);
+napi_value JS_unionGetter(napi_env env, napi_callback_info info);
 
 typedef struct StructFieldInfo {
   char *name;
@@ -25,6 +26,9 @@ typedef struct StructInfo {
 
 StructInfo *getStructInfoFromMetadata(napi_env env, MDMetadataReader *metadata,
                                       MDSectionOffset offset);
+StructInfo *getStructInfoFromUnionMetadata(napi_env env,
+                                           MDMetadataReader *metadata,
+                                           MDSectionOffset offset);
 
 class StructObject {
 public:

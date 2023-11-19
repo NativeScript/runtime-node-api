@@ -142,8 +142,7 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
                         JS_ProtocolConstructor, nullptr, 0, nullptr,
                         &constructor);
       for (auto impl : impls) {
-        napi_value protoValue = get_ref_value(env, impl->constructor);
-        napi_inherits(env, constructor, protoValue);
+        defineProtocolMembers(env, impl->membersOffset, constructor);
       }
 
       bridgeData->constructorsByPointer[cls] = make_ref(env, constructor);
@@ -185,6 +184,7 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
   }
 
   auto cls = object_getClass(obj);
+
   auto mdFindByPointer = mdClassesByPointer.find(cls);
   if (mdFindByPointer != mdClassesByPointer.end()) {
     classOffset = mdFindByPointer->second;

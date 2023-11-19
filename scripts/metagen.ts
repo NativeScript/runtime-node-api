@@ -25,7 +25,7 @@ const COMMON_FRAMEWORKS = [
   "SceneKit",
   "ModelIO",
   "GameController",
-  // "GameKit",
+  "GameKit",
   "GameplayKit",
   "WebKit",
   "CloudKit",
@@ -35,6 +35,9 @@ const COMMON_FRAMEWORKS = [
   "JavaScriptCore",
   "UserNotifications",
   "CoreHaptics",
+  "EventKit",
+  "AddressBook",
+  "MapKit",
 ];
 
 const MACOS_FRAMEWORKS = [
@@ -47,6 +50,7 @@ const IOS_FRAMEWORKS = ["UIKit"];
 interface SDK {
   path: string;
   frameworks: string[];
+  target: string;
 }
 
 const sdks: Record<string, SDK> = {
@@ -54,27 +58,41 @@ const sdks: Record<string, SDK> = {
     path:
       "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk",
     frameworks: [...COMMON_FRAMEWORKS, ...MACOS_FRAMEWORKS],
+    target: "arm64-apple-macos11.0",
   },
   ios: {
     path:
       "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
+    target: "arm64-apple-ios13.0",
   },
   "ios-sim": {
     path:
       "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk",
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
+    target: "arm64-apple-ios13.0-simulator",
   },
 };
 
-const sdk = sdks[Deno.args[0] ?? "macos"];
+const sdkName = Deno.args[0] ?? "macos";
+const sdk = sdks[sdkName];
 if (!sdk) {
-  throw new Error(`Invalid platform: ${Deno.args[0]}`);
+  throw new Error(`Invalid platform: ${sdkName}`);
 }
+
+await Deno.remove(new URL(`../types/${sdkName}`, import.meta.url), {
+  recursive: true,
+}).catch(() => {});
+await Deno.mkdir(new URL(`../types/${sdkName}`, import.meta.url), {
+  recursive: true,
+}).catch(() => {});
 
 const exec = new URL("../metadata/build/MetadataGenerator", import.meta.url);
 const args = [
-  new URL(`../metadata/metadata.${Deno.args[0]}.nsmd`, import.meta.url)
+  sdk.target,
+  new URL(`../metadata/metadata.${sdkName}.nsmd`, import.meta.url)
+    .pathname,
+  new URL(`../types/${sdkName}`, import.meta.url)
     .pathname,
   sdk.path,
   ...sdk.frameworks,

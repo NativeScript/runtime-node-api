@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "transform-core": "rm -rf ./core && cp -r ../../NativeScript/dist/packages/core ./core && deno run -A --unstable transform_core.js ios",
+    "bundle": "./node_modules/.bin/esbuild --bundle --outfile=/Users/dj/Projects/hermes-testing/HermesTest/HermesTest/main.js --format=esm src/index.js"
+  }
+}

@@ -1,11 +1,12 @@
 #include "NativeCall.h"
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "ObjCBridgeData.h"
 #include "TypeConv.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
 #import <Foundation/Foundation.h>
+#include <objc/objc.h>
 #include <objc/runtime.h>
 
 namespace objc_bridge {
@@ -55,8 +56,12 @@ NAPI_FUNCTION(BridgedMethod) {
 
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
 
-  id self;
+  id self = nil;
   napi_unwrap(env, jsThis, (void **)&self);
+  if (self == nil) {
+    napi_throw_error(env, nullptr, "self is nil");
+    return nullptr;
+  }
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
@@ -88,7 +93,10 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  if (!method->supercall) {
+  bool supercall;
+  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+
+  if (!supercall) {
     cif->call((void *)objc_msgSend, rvalue, avalues);
   } else {
     struct objc_super superobj = {self,
@@ -139,7 +147,10 @@ NAPI_FUNCTION(BridgedGetter) {
   avalues[0] = (void *)&self;
   avalues[1] = (void *)&method->selector;
 
-  if (!method->supercall) {
+  bool supercall;
+  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+
+  if (!supercall) {
     cif->call((void *)objc_msgSend, rvalue, avalues);
   } else {
     struct objc_super superobj = {self,
@@ -187,7 +198,10 @@ NAPI_FUNCTION(BridgedSetter) {
   bool shouldFree = false;
   cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 
-  if (!method->supercall) {
+  bool supercall;
+  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+
+  if (!supercall) {
     cif->call((void *)objc_msgSend, rvalue, avalues);
   } else {
     struct objc_super superobj = {self,

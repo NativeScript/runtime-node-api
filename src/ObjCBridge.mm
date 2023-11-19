@@ -3,7 +3,9 @@
 #include "Bridge.h"
 #include "Class.h"
 #include "Enum.h"
+#include "Interop.h"
 #include "Metadata.h"
+#include "MetadataReader.h"
 #include "NativeCall.h"
 #include "ObjCBridgeData.h"
 #include "ObjectRef.h"
@@ -19,16 +21,10 @@
 
 using namespace objc_bridge;
 
-void finalize_bridge_data(napi_env env, void *data, void *hint) {
-  auto bridgeData = (ObjCBridgeData *)data;
-  delete bridgeData;
-}
-
 NAPI_FUNCTION(getArrayBuffer) {
   NAPI_CALLBACK_BEGIN(2)
 
-  void *ptr;
-  napi_get_value_external(env, argv[0], &ptr);
+  void *ptr = Pointer::unwrap(env, argv[0])->data;
   int64_t length;
   napi_get_value_int64(env, argv[1], &length);
 
@@ -39,13 +35,33 @@ NAPI_FUNCTION(getArrayBuffer) {
   return arrayBuffer;
 }
 
-NAPI_EXPORT NAPI_MODULE_REGISTER {
-  return objc_bridge_init(env, exports);
+NAPI_FUNCTION(init) {
+  NAPI_CALLBACK_BEGIN(1)
+  napi_valuetype type;
+  napi_typeof(env, argv[0], &type);
+  const char *metadata_path = nullptr;
+  if (type == napi_string) {
+    size_t len;
+    napi_get_value_string_utf8(env, argv[0], nullptr, 0, &len);
+    metadata_path = (char *)malloc(len + 1);
+    napi_get_value_string_utf8(env, argv[0], (char *)metadata_path, len + 1,
+                               &len);
+  }
+  objc_bridge_init(env, metadata_path);
+  return nullptr;
 }
 
-NAPI_EXPORT napi_value objc_bridge_init(napi_env env, napi_value exports) {
-  auto bridgeData = new ObjCBridgeData();
-  napi_set_instance_data(env, (void *)bridgeData, finalize_bridge_data, nil);
+NAPI_EXPORT NAPI_MODULE_REGISTER {
+  const napi_property_descriptor property = NAPI_FUNCTION_DESC(init);
+  napi_define_properties(env, exports, 1, &property);
+  return exports;
+}
+
+NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
+  auto bridgeData = new ObjCBridgeData(env, metadata_path);
+
+  napi_value objc;
+  napi_create_object(env, &objc);
 
   const napi_property_descriptor objcProperties[] = {
       NAPI_FUNCTION_DESC(registerClass),  NAPI_FUNCTION_DESC(registerBlock),
@@ -53,7 +69,7 @@ NAPI_EXPORT napi_value objc_bridge_init(napi_env env, napi_value exports) {
       NAPI_FUNCTION_DESC(getArrayBuffer),
   };
 
-  napi_define_properties(env, exports, 5, objcProperties);
+  napi_define_properties(env, objc, 5, objcProperties);
 
   napi_value global;
   napi_get_global(env, &global);
@@ -64,7 +80,7 @@ NAPI_EXPORT napi_value objc_bridge_init(napi_env env, napi_value exports) {
           .attributes = napi_enumerable,
           .getter = nullptr,
           .setter = nullptr,
-          .value = exports,
+          .value = objc,
           .data = nullptr,
           .method = nullptr,
       },
@@ -76,257 +92,26 @@ NAPI_EXPORT napi_value objc_bridge_init(napi_env env, napi_value exports) {
           .method = nullptr,
           .data = nullptr,
           .value = defineObjectRefClass(env),
+      },
+      {
+          .utf8name = "NativeClass",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .method = JS_registerClass,
+          .data = nullptr,
+          .value = nullptr,
       }};
 
-  napi_define_properties(env, global, 2, globalProperties);
+  napi_define_properties(env, global, 3, globalProperties);
 
-  auto offset = bridgeData->metadata->structsOffset;
-  while (offset < bridgeData->metadata->size) {
-    // Sometimes there is padding after file ends.
-    if (bridgeData->metadata->getOffset(offset) == 0)
-      break;
-    MDSectionOffset originalOffset = offset;
-    auto name = bridgeData->metadata->getString(offset);
-    offset += sizeof(MDSectionOffset);
-    auto size = bridgeData->metadata->getArraySize(offset);
-    offset += sizeof(uint16_t);
+  registerInterop(env, global);
 
-    std::string nameStr = name;
-    bridgeData->structOffsets[nameStr] = originalOffset;
-
-    bool next = true;
-    while (next) {
-      MDSectionOffset nameOffset = bridgeData->metadata->getOffset(offset);
-      next = (nameOffset & mdSectionOffsetNext) != 0;
-      nameOffset &= ~mdSectionOffsetNext;
-      auto name = bridgeData->metadata->resolveString(nameOffset);
-      offset += sizeof(MDSectionOffset);
-      offset += sizeof(uint16_t);
-      TypeConv::Make(env, bridgeData->metadata, &offset);
-    }
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes = napi_enumerable,
-        .method = nullptr,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .getter = JS_structGetter,
-    };
-    napi_define_properties(env, global, 1, &prop);
-  }
-
-  offset = bridgeData->metadata->constantsOffset;
-  while (offset < bridgeData->metadata->enumsOffset) {
-    MDSectionOffset originalOffset = offset;
-    auto name = bridgeData->metadata->getString(offset);
-    offset += sizeof(MDSectionOffset);
-    auto typeKind = bridgeData->metadata->getTypeKind(offset);
-    offset += sizeof(MDTypeKind);
-    auto evalKind = bridgeData->metadata->getVariableEvalKind(offset);
-    offset += sizeof(MDVariableEvalKind);
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes = napi_enumerable,
-        .getter = JS_variableGetter,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .method = nullptr,
-    };
-
-    switch (evalKind) {
-    case mdEvalDouble: {
-      offset += sizeof(double);
-      napi_define_properties(env, global, 1, &prop);
-      break;
-    }
-
-    case mdEvalInt64: {
-      offset += sizeof(int64_t);
-      napi_define_properties(env, global, 1, &prop);
-      break;
-    }
-
-    case mdEvalString: {
-      offset += sizeof(MDSectionOffset);
-      napi_define_properties(env, global, 1, &prop);
-      break;
-    }
-
-    default:
-      break;
-    }
-  }
-
-  offset = bridgeData->metadata->enumsOffset;
-  while (offset < bridgeData->metadata->signaturesOffset) {
-    MDSectionOffset originalOffset = offset;
-    auto name = bridgeData->metadata->getString(offset);
-    offset += sizeof(MDSectionOffset);
-
-    bool next = true;
-    while (next) {
-      auto nameOffset = bridgeData->metadata->getOffset(offset);
-      next = (nameOffset & mdSectionOffsetNext) != 0;
-      offset += sizeof(MDSectionOffset);
-      offset += sizeof(int64_t);
-    }
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes = napi_enumerable,
-        .getter = JS_enumGetter,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .method = nullptr,
-    };
-    napi_define_properties(env, global, 1, &prop);
-  }
-
-  offset = bridgeData->metadata->functionsOffset;
-  while (offset < bridgeData->metadata->protocolsOffset) {
-    MDSectionOffset originalOffset = offset;
-    auto name = bridgeData->metadata->getString(offset);
-    offset += sizeof(MDSectionOffset);
-    auto signature = bridgeData->metadata->getOffset(offset);
-    offset += sizeof(MDSectionOffset);
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes = napi_enumerable,
-        .getter = nullptr,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .method = JS_CFunction,
-    };
-
-    napi_define_properties(env, global, 1, &prop);
-  }
-
-  offset = bridgeData->metadata->classesOffset;
-  while (offset < bridgeData->metadata->structsOffset) {
-    MDSectionOffset originalOffset = offset;
-    auto name = bridgeData->metadata->getString(offset);
-    offset += sizeof(MDSectionOffset);
-    auto superclass = bridgeData->metadata->getOffset(offset);
-    offset += sizeof(superclass);
-
-    bool next = (superclass & mdSectionOffsetNext) != 0;
-
-    while (next) {
-      auto flags = bridgeData->metadata->getMemberFlag(offset);
-      next = (flags & mdMemberNext) != 0;
-      offset += sizeof(flags);
-
-      if ((flags & mdMemberProperty) != 0) {
-        bool readonly = (flags & mdMemberReadonly) != 0;
-        offset += sizeof(MDSectionOffset); // name
-        offset += sizeof(MDSectionOffset); // getterSelector
-        offset += sizeof(MDSectionOffset); // getterSignature
-        if (!readonly) {
-          offset += sizeof(MDSectionOffset); // setterSelector
-          offset += sizeof(MDSectionOffset); // setterSignature
-        }
-      } else {
-        offset += sizeof(MDSectionOffset); // selector
-        offset += sizeof(MDSectionOffset); // signature
-      }
-    }
-
-    auto nativeClass = objc_getClass(name);
-    if (nativeClass != nil) {
-      bridgeData->mdClassesByPointer[nativeClass] = originalOffset;
-    }
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes =
-            (napi_property_attributes)(napi_enumerable | napi_configurable),
-        .method = nullptr,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .getter = JS_classGetter,
-    };
-
-    napi_define_properties(env, global, 1, &prop);
-  }
-
-  offset = bridgeData->metadata->protocolsOffset;
-  while (offset < bridgeData->metadata->classesOffset) {
-    MDSectionOffset originalOffset = offset;
-
-    auto nameOffset = bridgeData->metadata->getOffset(offset);
-    offset += sizeof(MDSectionOffset);
-    bool next = (nameOffset & mdSectionOffsetNext) != 0;
-    nameOffset &= ~mdSectionOffsetNext;
-
-    auto name = bridgeData->metadata->resolveString(nameOffset);
-    // bridgeData->protocolOffsets[name] = originalOffset;
-    auto objcProtocol = objc_getProtocol(name);
-    if (objcProtocol != nil) {
-      bridgeData->mdProtocolsByPointer[objcProtocol] = originalOffset;
-    }
-
-    while (next) {
-      auto protocolImpl = bridgeData->metadata->getOffset(offset);
-      offset += sizeof(MDSectionOffset);
-      next = (protocolImpl & mdSectionOffsetNext) != 0;
-    }
-
-    next = true;
-
-    while (next) {
-      auto flags = bridgeData->metadata->getMemberFlag(offset);
-      next = (flags & mdMemberNext) != 0;
-      offset += sizeof(flags);
-
-      if (flags == mdMemberFlagNull)
-        break;
-
-      if ((flags & mdMemberProperty) != 0) {
-        bool readonly = (flags & mdMemberReadonly) != 0;
-        offset += sizeof(MDSectionOffset); // name
-        offset += sizeof(MDSectionOffset); // getterSelector
-        offset += sizeof(MDSectionOffset); // getterSignature
-        if (!readonly) {
-          offset += sizeof(MDSectionOffset); // setterSelector
-          offset += sizeof(MDSectionOffset); // setterSignature
-        }
-      } else {
-        offset += sizeof(MDSectionOffset); // selector
-        offset += sizeof(MDSectionOffset); // signature
-      }
-    }
-
-    napi_property_descriptor prop = {
-        .utf8name = name,
-        .attributes =
-            (napi_property_attributes)(napi_enumerable | napi_configurable),
-        .method = nullptr,
-        .setter = nullptr,
-        .value = nullptr,
-        .data = (void *)((size_t)originalOffset),
-        .getter = JS_protocolGetter,
-    };
-
-    bool alreadyHasGlobal = false;
-    napi_has_named_property(env, global, name, &alreadyHasGlobal);
-
-    if (alreadyHasGlobal) {
-      std::string nameStr = name;
-      nameStr += "Protocol";
-      prop.utf8name = nameStr.c_str();
-      napi_define_properties(env, global, 1, &prop);
-    } else {
-      napi_define_properties(env, global, 1, &prop);
-    }
-  }
-
-  return exports;
+  bridgeData->registerVarGlobals(env, global);
+  bridgeData->registerEnumGlobals(env, global);
+  bridgeData->registerStructGlobals(env, global);
+  bridgeData->registerUnionGlobals(env, global);
+  bridgeData->registerFunctionGlobals(env, global);
+  bridgeData->registerClassGlobals(env, global);
+  bridgeData->registerProtocolGlobals(env, global);
 }

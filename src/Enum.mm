@@ -1,7 +1,37 @@
 #include "Enum.h"
 #include "ObjCBridgeData.h"
+#import <Foundation/Foundation.h>
 
 namespace objc_bridge {
+
+void ObjCBridgeData::registerEnumGlobals(napi_env env, napi_value global) {
+  MDSectionOffset offset = metadata->enumsOffset;
+  while (offset < metadata->signaturesOffset) {
+    MDSectionOffset originalOffset = offset;
+    auto name = metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+
+    bool next = true;
+    while (next) {
+      auto nameOffset = metadata->getOffset(offset);
+      next = (nameOffset & mdSectionOffsetNext) != 0;
+      offset += sizeof(MDSectionOffset);
+      offset += sizeof(int64_t);
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes =
+            (napi_property_attributes)(napi_enumerable | napi_configurable),
+        .getter = JS_enumGetter,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .method = nullptr,
+    };
+    napi_define_properties(env, global, 1, &prop);
+  }
+}
 
 NAPI_FUNCTION(enumGetter) {
   void *data;

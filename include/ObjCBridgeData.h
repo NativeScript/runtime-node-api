@@ -4,7 +4,7 @@
 #include "AutoreleasePool.h"
 #include "CFunction.h"
 #include "Class.h"
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "MethodCif.h"
 #include "Protocol.h"
 #include "Struct.h"
@@ -18,6 +18,8 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+
+using namespace metagen;
 
 namespace objc_bridge {
 
@@ -39,7 +41,7 @@ typedef enum ObjectOwnership {
 
 class ObjCBridgeData {
 public:
-  ObjCBridgeData(const char *metadata_path = nullptr);
+  ObjCBridgeData(napi_env env, const char *metadata_path = nullptr);
   ~ObjCBridgeData();
 
   static inline ObjCBridgeData *InstanceData(napi_env env) {
@@ -50,6 +52,14 @@ public:
     }
     return bridgeData;
   }
+
+  void registerVarGlobals(napi_env env, napi_value global);
+  void registerEnumGlobals(napi_env env, napi_value global);
+  void registerStructGlobals(napi_env env, napi_value global);
+  void registerUnionGlobals(napi_env env, napi_value global);
+  void registerFunctionGlobals(napi_env env, napi_value global);
+  void registerClassGlobals(napi_env env, napi_value global);
+  void registerProtocolGlobals(napi_env env, napi_value global);
 
   BridgedClass *getClass(napi_env env, MDSectionOffset offset);
 
@@ -83,8 +93,23 @@ public:
     return structInfo;
   }
 
+  inline StructInfo *getUnionInfo(napi_env env, MDSectionOffset offset) {
+    auto cached = structInfoCache.find(offset);
+    if (cached != structInfoCache.end()) {
+      return cached->second;
+    }
+
+    auto structInfo = getStructInfoFromUnionMetadata(env, metadata, offset);
+    structInfoCache[offset] = structInfo;
+
+    return structInfo;
+  }
+
 public:
   std::unordered_map<id, napi_ref> objectRefs;
+
+  napi_ref pointerClass;
+  napi_ref referenceClass;
 
   std::unordered_map<MDSectionOffset, BridgedClass *> classes;
   std::unordered_map<MDSectionOffset, BridgedProtocol *> protocols;
@@ -93,12 +118,13 @@ public:
   std::unordered_map<Protocol *, MDSectionOffset> mdProtocolsByPointer;
   std::unordered_map<Class, napi_ref> constructorsByPointer;
 
-  std::unordered_map<std::string, MethodCif *> method_cifs;
+  std::unordered_map<std::string, MethodCif *> methodCifs;
   std::unordered_map<MDSectionOffset, napi_ref> mdValueCache;
   std::unordered_map<MDSectionOffset, CFunction *> cFunctionCache;
   std::unordered_map<MDSectionOffset, MethodCif *> mdFunctionSignatureCache;
   std::unordered_map<MDSectionOffset, MethodCif *> mdMethodSignatureCache;
   std::unordered_map<std::string, MDSectionOffset> structOffsets;
+  std::unordered_map<std::string, MDSectionOffset> unionOffsets;
   // std::unordered_map<std::string, MDSectionOffset> protocolOffsets;
 
   void *self_dl;

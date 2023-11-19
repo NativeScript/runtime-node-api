@@ -1,12 +1,17 @@
+// @ts-check
+
 import "objc";
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = [NSApplicationDelegate];
+  static ObjCProtocols = [NSApplicationDelegate];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
+  /**
+   * @param {NSNotification} _notification
+   */
   applicationDidFinishLaunching(_notification) {
     const menu = NSMenu.new();
     NSApp.mainMenu = menu;
@@ -23,19 +28,19 @@ export class ApplicationDelegate extends NSObject {
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
-    window.styleMask = 1 | 2 | 4 | 8 | (1 << 15);
-    // window.titlebarAppearsTransparent = true;
-    // window.titleVisibility = 1 /* NSWindowTitleHidden */;
+    window.styleMask = NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
+      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable |
+      NSWindowStyleMask.FullSizeContentView;
 
     const toolbar = NSToolbar.alloc().initWithIdentifier(
       "com.nativescript.mainWindowToolbar",
     );
     toolbar.delegate = controller;
-    toolbar.displayMode = 2;
+    toolbar.displayMode = NSToolbarDisplayMode.IconOnly;
     toolbar.allowsUserCustomization = true;
     toolbar.autosavesConfiguration = true;
 
-    window.toolbarStyle = NSWindowToolbarStyle.unified;
+    window.toolbarStyle = NSWindowToolbarStyle.Unified;
 
     window.toolbar = toolbar;
     toolbar.validateVisibleItems();
@@ -45,12 +50,21 @@ export class ApplicationDelegate extends NSObject {
     NSApp.activateIgnoringOtherApps(false);
   }
 
+  /**
+   * @param {NSObject} _sender
+   * @returns {boolean}
+   */
   applicationShouldTerminateAfterLastWindowClosed(_sender) {
     return true;
   }
 }
 
 export class Node {
+  /**
+   * @param {string} symbol
+   * @param {string} title
+   * @param {Array<Node>} children
+   */
   constructor(symbol, title, children = []) {
     this.symbol = symbol;
     this.title = title;
@@ -59,10 +73,10 @@ export class Node {
 }
 
 export class SidebarViewController extends NSViewController {
-  static protocols = [NSOutlineViewDelegate, NSOutlineViewDataSource];
+  static ObjCProtocols = [NSOutlineViewDelegate, NSOutlineViewDataSource];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
   items = [
@@ -81,13 +95,16 @@ export class SidebarViewController extends NSViewController {
   loadView() {
     const outline = NSOutlineView.new();
 
+    // TODO: fix this
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
     outline.headerView = null;
     outline.indentationPerLevel = 10;
     outline.allowsColumnReordering = false;
     outline.allowsColumnResizing = false;
     outline.allowsColumnSelection = false;
     outline.allowsEmptySelection = false;
-    outline.rowSizeStyle = NSTableViewRowSizeStyle.medium;
+    outline.rowSizeStyle = NSTableViewRowSizeStyle.Medium;
 
     outline.delegate = this;
     outline.dataSource = this;
@@ -109,6 +126,12 @@ export class SidebarViewController extends NSViewController {
     this.view = scrollView;
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {NSTableColumn} _tableColumn
+   * @param {Node} item
+   * @returns
+   */
   outlineViewViewForTableColumnItem(_outlineView, _tableColumn, item) {
     const text = NSTextField.new();
     const imageView = item.symbol
@@ -120,10 +143,10 @@ export class SidebarViewController extends NSViewController {
       )
       : NSImageView.new();
 
-    text.bordered = false;
+    text.isBordered = false;
     text.drawsBackground = false;
     text.stringValue = item.title;
-    text.editable = false;
+    text.isEditable = false;
 
     const view = NSTableCellView.new();
 
@@ -136,6 +159,11 @@ export class SidebarViewController extends NSViewController {
     return view;
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {Node | null} item
+   * @returns
+   */
   outlineViewNumberOfChildrenOfItem(_outlineView, item) {
     if (item === null) {
       return this.items.length;
@@ -144,10 +172,21 @@ export class SidebarViewController extends NSViewController {
     return item.children.length;
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {Node | null} item
+   * @returns
+   */
   outlineViewIsItemExpandable(_outlineView, item) {
     return item !== null && item.children.length > 0;
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {number} index
+   * @param {Node | null} item
+   * @returns
+   */
   outlineViewChildOfItem(_outlineView, index, item) {
     if (item === null) {
       return this.items[index];
@@ -156,20 +195,37 @@ export class SidebarViewController extends NSViewController {
     return item.children[index];
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {NSTableColumn} _column
+   * @param {Node} item
+   * @returns
+   */
   outlineViewObjectValueForTableColumnByItem(_outlineView, _column, item) {
     return item.title;
   }
 
+  /**
+   * @type {ContentViewController | null}
+   */
   contentView = null;
 
+  /**
+   * @param {NSNotification} _notification
+   */
   outlineViewSelectionDidChange(_notification) {
     const outlineView = _notification.object;
     const item = outlineView.itemAtRow(outlineView.selectedRow);
-    if (this.contentView && item !== null) {
+    if (this.contentView?.label && item !== null) {
       this.contentView.label.stringValue = `Selected: ${item.title}`;
     }
   }
 
+  /**
+   * @param {NSOutlineView} _outlineView
+   * @param {Node | null} item
+   * @returns
+   */
   outlineViewShouldSelectItem(_outlineView, item) {
     return item !== null && item.children.length === 0;
   }
@@ -177,8 +233,11 @@ export class SidebarViewController extends NSViewController {
 
 export class ContentViewController extends NSViewController {
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
+
+  /** @type {NSTextField | null} */
+  label = null;
 
   loadView() {
     const view = NSView.new();
@@ -189,17 +248,17 @@ export class ContentViewController extends NSViewController {
 
     label.stringValue = "Hello, macOS";
 
-    label.bezeled = false;
+    label.isBezeled = false;
     label.drawsBackground = false;
-    label.editable = false;
-    label.selectable = false;
-    label.alignment = 1 /* NSTextAlignmentCenter */;
+    label.isEditable = false;
+    label.isSelectable = false;
+    label.alignment = NSTextAlignment.Center;
     label.translatesAutoresizingMaskIntoConstraints = false;
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 35),
-      2, /* NSBoldFontMask */
+      NSFontTraitMask.Bold,
     );
 
     label.sizeToFit();
@@ -210,16 +269,15 @@ export class ContentViewController extends NSViewController {
       { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
     );
 
-    vstack.orientation = 1 /* NSUserInterfaceLayoutOrientationVertical */;
-    vstack.alignment = 9 /* NSLayoutAttributeCenterX */;
-    vstack.distribution = 0 /* NSStackViewDistributionFill */;
+    vstack.orientation = NSUserInterfaceLayoutOrientation.Vertical;
+    vstack.alignment = NSLayoutAttribute.CenterX;
+    vstack.distribution = NSStackViewDistribution.Fill;
     vstack.spacing = 40;
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
-    const imageURL = NSString.stringWithUTF8String(
+    const image = NSImage.alloc().initWithContentsOfFile(
       new URL("../assets/NativeScript.png", import.meta.url).pathname,
     );
-    const image = NSImage.alloc().initWithContentsOfFile(imageURL);
 
     image.size = { width: 128, height: 128 };
 
@@ -227,28 +285,28 @@ export class ContentViewController extends NSViewController {
 
     vstack.addViewInGravity(
       imageView,
-      2, /* NSStackViewGravityCenter */
+      NSStackViewGravity.Center,
     );
-    vstack.addViewInGravity(label, 2 /* NSStackViewGravityCenter */);
+    vstack.addViewInGravity(label, NSStackViewGravity.Center);
 
     view.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
       view.centerXAnchor,
-    ).active = true;
+    ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
       view.centerYAnchor,
-    ).active = true;
+    ).isActive = true;
 
     this.view = view;
   }
 }
 
 export class SplitViewController extends NSSplitViewController {
-  static protocols = [NSToolbarDelegate];
+  static ObjCProtocols = [NSToolbarDelegate];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
   sidebarView = SidebarViewController.new();
@@ -277,18 +335,32 @@ export class SplitViewController extends NSSplitViewController {
     this.sidebarView.contentView = this.contentView;
   }
 
+  /**
+   * @param {NSToolbar} _toolbar
+   * @returns
+   */
   toolbarAllowedItemIdentifiers(_toolbar) {
     const array = NSMutableArray.new();
     array.addObject("NSToolbarToggleSidebarItem");
     return array;
   }
 
+  /**
+   * @param {NSToolbar} _toolbar
+   * @returns
+   */
   toolbarDefaultItemIdentifiers(_toolbar) {
     const array = NSMutableArray.new();
     array.addObject("NSToolbarToggleSidebarItem");
     return array;
   }
 
+  /**
+   * @param {NSToolbar} _toolbar
+   * @param {string} identifier
+   * @param {any} _flag
+   * @returns
+   */
   toolbarItemForItemIdentifierWillBeInsertedIntoToolbar(
     _toolbar,
     identifier,
@@ -305,13 +377,17 @@ export class SplitViewController extends NSSplitViewController {
     return item;
   }
 
+  /**
+   * @param {NSObject} _item
+   * @returns
+   */
   validateToolbarItem(_item) {
     return true;
   }
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(0);
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
 
 NSApp.delegate = ApplicationDelegate.new();
 

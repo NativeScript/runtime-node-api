@@ -1,5 +1,5 @@
 #include "Protocol.h"
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "NativeCall.h"
 #include "ObjCBridgeData.h"
 #include "Util.h"
@@ -8,6 +8,69 @@
 #import <Foundation/Foundation.h>
 
 namespace objc_bridge {
+
+void ObjCBridgeData::registerProtocolGlobals(napi_env env, napi_value global) {
+  MDSectionOffset offset = metadata->protocolsOffset;
+  while (offset < metadata->classesOffset) {
+    MDSectionOffset originalOffset = offset;
+
+    auto nameOffset = metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
+    bool next = (nameOffset & mdSectionOffsetNext) != 0;
+    nameOffset &= ~mdSectionOffsetNext;
+
+    auto name = metadata->resolveString(nameOffset);
+    // protocolOffsets[name] = originalOffset;
+    auto objcProtocol = objc_getProtocol(name);
+    if (objcProtocol != nil) {
+      mdProtocolsByPointer[objcProtocol] = originalOffset;
+    }
+
+    while (next) {
+      auto protocolImpl = metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset);
+      next = (protocolImpl & mdSectionOffsetNext) != 0;
+    }
+
+    next = true;
+
+    while (next) {
+      auto flags = metadata->getMemberFlag(offset);
+      next = (flags & mdMemberNext) != 0;
+      offset += sizeof(flags);
+
+      if (flags == mdMemberFlagNull)
+        break;
+
+      if ((flags & mdMemberProperty) != 0) {
+        bool readonly = (flags & mdMemberReadonly) != 0;
+        offset += sizeof(MDSectionOffset); // name
+        offset += sizeof(MDSectionOffset); // getterSelector
+        offset += sizeof(MDSectionOffset); // getterSignature
+        if (!readonly) {
+          offset += sizeof(MDSectionOffset); // setterSelector
+          offset += sizeof(MDSectionOffset); // setterSignature
+        }
+      } else {
+        offset += sizeof(MDSectionOffset); // selector
+        offset += sizeof(MDSectionOffset); // signature
+      }
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes =
+            (napi_property_attributes)(napi_enumerable | napi_configurable),
+        .method = nullptr,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .getter = JS_protocolGetter,
+    };
+
+    napi_define_properties(env, global, 1, &prop);
+  }
+}
 
 BridgedProtocol *ObjCBridgeData::getProtocol(napi_env env,
                                              MDSectionOffset offset) {
@@ -49,44 +112,14 @@ NAPI_FUNCTION(ProtocolConstructor) {
   return jsThis;
 }
 
-BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
-  this->metadataOffset = offset;
+void defineProtocolMembers(napi_env env, MDSectionOffset offset,
+                           napi_value constructor) {
   auto bridgeData = ObjCBridgeData::InstanceData(env);
 
-  auto nameOffset = bridgeData->metadata->getOffset(offset);
-  offset += sizeof(MDSectionOffset);
-  bool next = (nameOffset & mdSectionOffsetNext) != 0;
-  nameOffset &= ~mdSectionOffsetNext;
-
-  name = bridgeData->metadata->resolveString(nameOffset);
-
-  napi_value constructor, prototype;
-  napi_define_class(env, name.c_str(), NAPI_AUTO_LENGTH, JS_ProtocolConstructor,
-                    nullptr, 0, nullptr, &constructor);
-  napi_wrap(env, constructor, this, nullptr, nullptr, nullptr);
-
+  napi_value prototype;
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
-  this->constructor = make_ref(env, constructor);
-
-  if (!next) {
-    // Get the NativeObject class.
-    auto cls = bridgeData->getClass(env, MD_SECTION_OFFSET_NULL);
-    napi_inherits(env, constructor, get_ref_value(env, cls->constructor));
-  }
-
-  while (next) {
-    auto protocolImpl = bridgeData->metadata->getOffset(offset);
-    offset += sizeof(MDSectionOffset);
-    next = (protocolImpl & mdSectionOffsetNext) != 0;
-    protocolImpl &= ~mdSectionOffsetNext;
-    auto proto = bridgeData->getProtocol(
-        env, protocolImpl + bridgeData->metadata->protocolsOffset);
-    napi_value protoValue = get_ref_value(env, proto->constructor);
-    napi_inherits(env, constructor, protoValue);
-  }
-
-  next = true;
+  bool next = true;
 
   while (next) {
     auto flags = bridgeData->metadata->getMemberFlag(offset);
@@ -179,13 +212,52 @@ BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
           .getter = nil,
           .setter = nil,
           .value = nil,
-          .attributes = napi_enumerable,
+          .attributes =
+              (napi_property_attributes)(napi_configurable | napi_writable |
+                                         napi_enumerable),
           .data = method,
       };
 
       napi_define_properties(env, jsObject, 1, &property);
     }
   }
+}
+
+BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
+  this->metadataOffset = offset;
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+
+  auto nameOffset = bridgeData->metadata->getOffset(offset);
+  offset += sizeof(MDSectionOffset);
+  bool next = (nameOffset & mdSectionOffsetNext) != 0;
+  nameOffset &= ~mdSectionOffsetNext;
+
+  name = bridgeData->metadata->resolveString(nameOffset);
+
+  napi_value constructor;
+  napi_define_class(env, name.c_str(), NAPI_AUTO_LENGTH, JS_ProtocolConstructor,
+                    nullptr, 0, nullptr, &constructor);
+  napi_wrap(env, constructor, this, nullptr, nullptr, nullptr);
+
+  this->constructor = make_ref(env, constructor);
+
+  // Get the NativeObject class and inherit from it
+  auto cls = bridgeData->getClass(env, MD_SECTION_OFFSET_NULL);
+  napi_inherits(env, constructor, get_ref_value(env, cls->constructor));
+
+  while (next) {
+    auto protocolImpl = bridgeData->metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
+    next = (protocolImpl & mdSectionOffsetNext) != 0;
+    protocolImpl &= ~mdSectionOffsetNext;
+    auto proto = bridgeData->getProtocol(
+        env, protocolImpl + bridgeData->metadata->protocolsOffset);
+    defineProtocolMembers(env, proto->membersOffset, constructor);
+  }
+
+  membersOffset = offset;
+
+  defineProtocolMembers(env, membersOffset, constructor);
 }
 
 } // namespace objc_bridge

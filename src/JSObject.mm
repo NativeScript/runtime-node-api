@@ -48,6 +48,12 @@ void JSObject_finalize(napi_env, void *data, void *) {
 
 @end
 
+@protocol Test
+
+@optional @property (nonatomic, readonly) bool optionalString;
+
+@end
+
 namespace objc_bridge {
 
 id jsObjectToId(napi_env env, napi_value value) {

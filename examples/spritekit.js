@@ -1,14 +1,20 @@
+// @ts-check
+
 import "objc";
 
 objc.import("SpriteKit");
+objc.import("GameController");
 
 export class ApplicationDelegate extends NSObject {
-  static protocols = [NSApplicationDelegate, NSWindowDelegate];
+  static ObjCProtocols = [NSApplicationDelegate, NSWindowDelegate];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
+  /**
+   * @param {NSNotification} _notification
+   */
   applicationDidFinishLaunching(_notification) {
     const menu = NSMenu.new();
     NSApp.mainMenu = menu;
@@ -34,25 +40,50 @@ export class ApplicationDelegate extends NSObject {
       1,
     );
 
-    window.setAcceptsMouseMovedEvents(true);
+    window.acceptsMouseMovedEvents = true;
 
     window.makeKeyAndOrderFront(this);
 
     NSApp.activateIgnoringOtherApps(false);
   }
 
+  /**
+   * @param {NSNotification} _notification
+   */
   windowWillClose(_notification) {
     NSApp.terminate(this);
   }
 }
 
 export class BattlefieldScene extends SKScene {
-  static protocols = [SKPhysicsContactDelegate];
+  static ObjCProtocols = [SKPhysicsContactDelegate];
+
+  static ObjCExposedMethods = {
+    controllerDidConnect: {
+      params: [NSNotification],
+      returns: interop.types.void,
+    },
+  };
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
+  /** @type {GCController | null} */
+  controller = null;
+
+  initControllerSupport() {
+    NSNotificationCenter.defaultCenter.addObserverSelectorNameObject(
+      this,
+      "controllerDidConnect",
+      GCControllerDidBecomeCurrentNotification,
+      null,
+    );
+  }
+
+  /**
+   * @param {SKView} _view
+   */
   didMoveToView(_view) {
     const indicatorHeight = 22;
     const indicatorSize = this.frame.size;
@@ -120,10 +151,18 @@ export class BattlefieldScene extends SKScene {
     this.addChild(this.hero);
     this.addChild(this.villain);
 
-    this.physicsWorld.gravity = { x: 0, y: 0 };
+    this.physicsWorld.gravity = { dx: 0, dy: 0 };
     this.physicsWorld.contactDelegate = this;
   }
 
+  /**
+   * @param {number} baseSpeed
+   * @param {CGPoint} currentPos
+   * @param {CGPoint} targetPos
+   * @param {number} deltaTime
+   * @param {number} currentRotationInRadians
+   * @returns
+   */
   diffFn(
     baseSpeed,
     currentPos,
@@ -177,8 +216,18 @@ export class BattlefieldScene extends SKScene {
     };
   }
 
+  /**
+   * @param {number} _currentTime
+   */
   update(_currentTime) {
     const idealDeltaTime = 60;
+
+    if (
+      !this.hero || !this.villain || !this.villainBaseSpeed ||
+      !this.heroBaseSpeed || !this.heroTargetPos
+    ) {
+      return;
+    }
 
     const forVillain = this.diffFn(
       this.villainBaseSpeed,
@@ -200,46 +249,71 @@ export class BattlefieldScene extends SKScene {
 
     this.hero.position = forHero.point;
     this.hero.zRotation = forVillain.rotation;
+
+    if (this.controller) {
+      const extendedGamepad = this.controller.extendedGamepad;
+      const leftThumbstick = extendedGamepad.leftThumbstick;
+      const x = leftThumbstick.xAxis.value;
+      const y = leftThumbstick.yAxis.value;
+      const deadZone = 0.25;
+      const speed = 5;
+
+      if (Math.abs(x) > deadZone || Math.abs(y) > deadZone) {
+        this.heroTargetPos = {
+          x: this.hero.position.x + x * speed,
+          y: this.hero.position.y + y * speed,
+        };
+      }
+    }
   }
 
+  /**
+   * @param {NSEvent} theEvent
+   */
   mouseDragged(theEvent) {
     this.heroTargetPos = theEvent.locationInNode(this);
   }
 
+  /**
+   * @param {SKPhysicsContact} contact
+   */
   didBeginContact(contact) {
     if (!contact.bodyA || !contact.bodyB) {
       return;
     }
 
     if (
-      contact.bodyA.categoryBitMask === this.villainHitCategory ||
-      contact.bodyB.categoryBitMask === this.villainHitCategory
+      (contact.bodyA.categoryBitMask === this.villainHitCategory ||
+        contact.bodyB.categoryBitMask === this.villainHitCategory) &&
+      this.indicator
     ) {
-      this.indicator.color = NSColor.colorWithSRGBRedGreenBlueAlpha(
-        1,
-        0,
-        0,
-        1,
-      );
+      this.indicator.color = NSColor.redColor;
     }
   }
 
+  /**
+   * @param {SKPhysicsContact} contact
+   */
   didEndContact(contact) {
     if (!contact.bodyA || !contact.bodyB) {
       return;
     }
 
     if (
-      contact.bodyA.categoryBitMask === this.villainHitCategory ||
-      contact.bodyB.categoryBitMask === this.villainHitCategory
+      (contact.bodyA.categoryBitMask === this.villainHitCategory ||
+        contact.bodyB.categoryBitMask === this.villainHitCategory) &&
+      this.indicator
     ) {
-      this.indicator.color = NSColor.colorWithSRGBRedGreenBlueAlpha(
-        0,
-        1,
-        0,
-        1,
-      );
+      this.indicator.color = NSColor.greenColor;
     }
+  }
+
+  /**
+   * @param {NSNotification} _notif
+   */
+  controllerDidConnect(_notif) {
+    const controller = GCController.current;
+    this.controller = controller;
   }
 }
 
@@ -247,33 +321,43 @@ const frameSize = { width: 800, height: 600 };
 
 export class ViewController extends NSViewController {
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
   loadView() {
-    this.view = SKView.alloc().initWithFrame({ size: frameSize });
+    this.view = SKView.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: frameSize,
+    });
   }
 
   viewDidLoad() {
     super.viewDidLoad();
 
     const scene = BattlefieldScene.sceneWithSize(frameSize);
+    scene.initControllerSupport();
 
-    scene.scaleMode = SKSceneScaleMode.aspectFill;
+    scene.scaleMode = SKSceneScaleMode.AspectFill;
 
-    this.view.presentScene(scene);
+    /**
+     * @type {SKView}
+     */
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    const skView = this.view;
 
-    this.view.preferredFramesPerSecond = 120;
-    this.view.showsFPS = true;
-    this.view.showsNodeCount = true;
-    this.view.ignoresSiblingOrder = true;
+    skView.presentScene(scene);
+
+    skView.preferredFramesPerSecond = 120;
+    skView.showsFPS = true;
+    skView.showsNodeCount = true;
+    skView.ignoresSiblingOrder = true;
   }
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
 
 NSApp.delegate = ApplicationDelegate.new();
 
-NSApp.activateIgnoringOtherApps(true);
-NSApp.run();
+NSApplicationMain(0, null);

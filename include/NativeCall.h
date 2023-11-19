@@ -22,7 +22,6 @@ public:
   MethodCif *methodCif = nullptr;
   MethodCif *setterMethodCif = nullptr;
   bool returnOwned;
-  bool supercall;
   bool classMethod;
 };
 

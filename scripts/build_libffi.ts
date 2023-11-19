@@ -8,6 +8,8 @@ Deno.chdir(new URL("../libffi", import.meta.url));
 Deno.env.set("CC", "clang");
 Deno.env.set("CFLAGS", "-w");
 
+const archs = ["arm64", "x86_64"];
+
 if (
   !Deno.env.get("SKIP_GENERATE_SOURCE") &&
   !Deno.args.includes("--skip-generate-source")
@@ -29,13 +31,54 @@ for (
   await $`make -C build_${dir} install`;
 }
 
-await Deno.remove("build_macosx-universal", { recursive: true }).catch(
+// iOS
+
+await Deno.remove("prebuilt/iphoneos-arm64", { recursive: true }).catch(
   () => {},
 );
-await Deno.mkdir("build_macosx-universal/.libs", { recursive: true });
-await Deno.mkdir("build_macosx-universal/include", { recursive: true });
+await Deno.mkdir("prebuilt/iphoneos-arm64/include", { recursive: true });
 
-const archs = ["arm64", "x86_64"];
+await Deno.copyFile(
+  "build_iphoneos-arm64/include/ffi.h",
+  "prebuilt/iphoneos-arm64/include/ffi.h",
+);
+
+await Deno.copyFile(
+  "build_iphoneos-arm64/include/ffitarget.h",
+  "prebuilt/iphoneos-arm64/include/ffitarget.h",
+);
+
+await Deno.copyFile(
+  "build_iphoneos-arm64/.libs/libffi_convenience.a",
+  "prebuilt/iphoneos-arm64/libffi.a",
+);
+
+// macOS
+
+await Deno.remove("prebuilt/macosx-universal", { recursive: true }).catch(
+  () => {},
+);
+await Deno.mkdir("prebuilt/macosx-universal/include", { recursive: true });
+
+await combineHeaders("macosx");
+
+await $`lipo -create -output prebuilt/macosx-universal/libffi.a build_macosx-x86_64/.libs/libffi_convenience.a build_macosx-arm64/.libs/libffi_convenience.a`;
+
+// iOS Simulator
+
+await Deno.remove("prebuilt/iphonesimulator-universal", { recursive: true })
+  .catch(
+    () => {},
+  );
+await Deno.mkdir("prebuilt/iphonesimulator-universal/include", {
+  recursive: true,
+});
+
+await $`lipo -create -output prebuilt/iphonesimulator-universal/libffi.a build_iphonesimulator-x86_64/.libs/libffi_convenience.a build_iphonesimulator-arm64/.libs/libffi_convenience.a`;
+
+await combineHeaders("iphonesimulator");
+
+// Utility
 
 async function combineHeaders(target: string) {
   const ffi_h_arm64 = await Deno.readTextFile(
@@ -60,7 +103,7 @@ async function combineHeaders(target: string) {
   ${ffi_h_arm64}
   #elif defined(__x86_64__)
   ${ffi_h_x86_64}
-  #else
+  #else 
   #error "Unsupported architecture"
   #endif
   `;
@@ -81,28 +124,12 @@ async function combineHeaders(target: string) {
   `;
 
   await Deno.writeTextFile(
-    `build_${target}-universal/include/ffi.h`,
+    `prebuilt/${target}-universal/include/ffi.h`,
     ffi_h_universal,
   );
 
   await Deno.writeTextFile(
-    `build_${target}-universal/include/ffitarget.h`,
+    `prebuilt/${target}-universal/include/ffitarget.h`,
     ffitarget_h_universal,
   );
 }
-
-await combineHeaders("macosx");
-
-await $`lipo -create -output build_macosx-universal/.libs/libffi_convenience.a build_macosx-x86_64/.libs/libffi_convenience.a build_macosx-arm64/.libs/libffi_convenience.a`;
-
-await Deno.remove("build_iphonesimulator-universal", { recursive: true }).catch(
-  () => {},
-);
-await Deno.mkdir("build_iphonesimulator-universal/.libs", { recursive: true });
-await Deno.mkdir("build_iphonesimulator-universal/include", {
-  recursive: true,
-});
-
-await $`lipo -create -output build_iphonesimulator-universal/.libs/libffi_convenience.a build_iphonesimulator-x86_64/.libs/libffi_convenience.a build_iphonesimulator-arm64/.libs/libffi_convenience.a`;
-
-await combineHeaders("iphonesimulator");

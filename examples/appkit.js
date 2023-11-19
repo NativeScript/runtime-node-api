@@ -1,14 +1,22 @@
+// @ts-check
+
 import "objc";
 
+/**
+ * @implements {NSApplicationDelegate}
+ */
 export class ApplicationDelegate extends NSObject {
-  static protocols = [NSApplicationDelegate];
+  static ObjCProtocols = [NSApplicationDelegate];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
   running = true;
 
+  /**
+   * @param {NSNotification} _notification
+   */
   applicationDidFinishLaunching(_notification) {
     this.window = Window.new();
 
@@ -16,13 +24,11 @@ export class ApplicationDelegate extends NSObject {
 
     NSApp.stop(this);
 
-    this.runloopMode = NSString.stringWithUTF8String("kCFRunLoopDefaultMode");
-
     const loop = () => {
       const event = NSApp.nextEventMatchingMaskUntilDateInModeDequeue(
-        2n ** 64n - 1n,
+        NSEventMask.Any,
         null,
-        this.runloopMode,
+        "kCFRunLoopDefaultMode",
         true,
       );
 
@@ -42,16 +48,22 @@ export class ApplicationDelegate extends NSObject {
     }, 2000);
   }
 
+  /**
+   * @param {NSNotification} _notification
+   */
   applicationWillTerminate(_notification) {
     this.running = false;
   }
 }
 
+/**
+ * @implements {NSWindowDelegate}
+ */
 export class Window extends NSWindow {
-  static protocols = [NSWindowDelegate];
+  static ObjCProtocols = [NSWindowDelegate];
 
   static {
-    objc.registerClass(this);
+    NativeClass(this);
   }
 
   init() {
@@ -68,7 +80,8 @@ export class Window extends NSWindow {
 
     super.initWithContentRectStyleMaskBackingDefer(
       { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
-      1 | 2 | 4 | 8,
+      NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
+        NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable,
       2,
       false,
     );
@@ -95,17 +108,17 @@ export class Window extends NSWindow {
 
     label.stringValue = "Hello, macOS";
 
-    label.bezeled = false;
+    label.isBezeled = false;
     label.drawsBackground = false;
-    label.editable = false;
-    label.selectable = false;
-    label.alignment = NSTextAlignment.center;
+    label.isEditable = false;
+    label.isSelectable = false;
+    label.alignment = NSTextAlignment.Center;
     label.translatesAutoresizingMaskIntoConstraints = false;
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      NSFontTraitMask.bold,
+      NSFontTraitMask.Bold,
     );
 
     label.sizeToFit();
@@ -114,42 +127,45 @@ export class Window extends NSWindow {
       { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
     );
 
-    vstack.orientation = NSUserInterfaceLayoutOrientation.vertical;
-    vstack.alignment = NSLayoutAttribute.centerX;
-    vstack.distribution = NSStackViewDistribution.fill;
+    vstack.orientation = NSUserInterfaceLayoutOrientation.Vertical;
+    vstack.alignment = NSLayoutAttribute.CenterX;
+    vstack.distribution = NSStackViewDistribution.Fill;
     vstack.spacing = 40;
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
-    const imageURL = NSString.stringWithUTF8String(
+    const image = NSImage.alloc().initWithContentsOfFile(
       new URL("../assets/NativeScript.png", import.meta.url).pathname,
     );
-    const image = NSImage.alloc().initWithContentsOfFile(imageURL);
 
     image.size = { width: 128, height: 128 };
 
     const imageView = NSImageView.imageViewWithImage(image);
 
-    vstack.addViewInGravity(imageView, NSStackViewGravity.center);
-    vstack.addViewInGravity(label, NSStackViewGravity.center);
+    vstack.addViewInGravity(imageView, NSStackViewGravity.Center);
+    vstack.addViewInGravity(label, NSStackViewGravity.Center);
 
     this.contentView.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
       this.contentView.centerXAnchor,
-    ).active = true;
+    ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
       this.contentView.centerYAnchor,
-    ).active = true;
+    ).isActive = true;
 
     return this;
   }
 
+  /**
+   * @param {NSNotification} _notification
+   */
   windowWillClose(_notification) {
     NSApp.terminate(this);
   }
 }
 
 const NSApp = NSApplication.sharedApplication;
-NSApp.setActivationPolicy(NSApplicationActivationPolicy.regular);
+
+NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
 NSApp.delegate = ApplicationDelegate.new();
 NSApp.run();

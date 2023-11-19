@@ -1,6 +1,7 @@
 #include "Closure.h"
 #include "ObjCBridgeData.h"
 #include "Util.h"
+#include "js_native_api.h"
 #import <Foundation/Foundation.h>
 
 namespace objc_bridge {
@@ -128,10 +129,14 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   napi_get_named_property(env, constructor, "__class__", &classExternal);
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
-  Class superClassNative;
+  Class superClassNative = nullptr;
   napi_get_value_external(env, classExternal, (void **)&superClassNative);
 
-  auto bridgedSuperClass = classesByPointer[superClassNative];
+  if (superClassNative == nullptr) {
+    superClassNative = [NSObject class];
+  }
+
+  BridgedClass *bridgedSuperClass = classesByPointer[superClassNative];
 
   napi_value className;
   napi_get_named_property(env, constructor, "name", &className);
@@ -168,11 +173,11 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   napi_value exposedMethods, exposedMethodNames;
   bool hasExposedMethods = false;
-  napi_has_named_property(env, constructor, "exposedMethods",
+  napi_has_named_property(env, constructor, "ObjCExposedMethods",
                           &hasExposedMethods);
 
   if (hasExposedMethods) {
-    napi_get_named_property(env, constructor, "exposedMethods",
+    napi_get_named_property(env, constructor, "ObjCExposedMethods",
                             &exposedMethods);
 
     // napi_get_all_property_names(
@@ -227,8 +232,17 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     auto offset = currentClass->metadataOffset;
     if (offset == MD_SECTION_OFFSET_NULL)
       break;
-    auto name = metadata->getString(offset);
+    auto nameOffset = metadata->getOffset(offset);
     offset += sizeof(MDSectionOffset); // name
+    auto hasProtocols = (nameOffset & mdSectionOffsetNext) != 0;
+    while (hasProtocols) {
+      auto protocolOffset = metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset); // protocol
+      hasProtocols = (protocolOffset & mdSectionOffsetNext) != 0;
+      protocolOffset &= ~mdSectionOffsetNext;
+      // addProtocol(env, this, cls, protocolOffset + metadata->protocolsOffset,
+      //             methodMap);
+    }
     auto superClassOffset = metadata->getOffset(offset);
     offset += sizeof(MDSectionOffset); // superclass
     auto hasMembers = (superClassOffset & mdSectionOffsetNext) != 0;
@@ -240,10 +254,10 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   napi_value protocols, protocol;
   bool hasProtocols = false;
-  napi_has_named_property(env, constructor, "protocols", &hasProtocols);
+  napi_has_named_property(env, constructor, "ObjCProtocols", &hasProtocols);
 
   if (hasProtocols) {
-    napi_get_named_property(env, constructor, "protocols", &protocols);
+    napi_get_named_property(env, constructor, "ObjCProtocols", &protocols);
 
     uint32_t i = 0;
     uint32_t length = 0;
@@ -281,9 +295,14 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   napi_create_external(env, (void *)cls, nullptr, nullptr, &external);
   napi_set_named_property(env, constructor, "__class__", external);
 
+  napi_value jsTrue;
+  napi_get_boolean(env, true, &jsTrue);
+  napi_set_named_property(env, constructor, "__objc_msgSendSuper__", jsTrue);
+  napi_set_named_property(env, prototype, "__objc_msgSendSuper__", jsTrue);
+
   uint32_t i = 0;
-  napi_value property;
   while (i < propertyCount) {
+    napi_value property;
     napi_get_element(env, properties, i, &property);
     napi_get_value_string_utf8(env, property, name_buf, 512, nullptr);
     std::string name = name_buf;
@@ -301,9 +320,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
         auto closure = new Closure(encoding, false);
         closure->env = env;
-        napi_value func;
-        napi_get_named_property(env, prototype, name.c_str(), &func);
-        closure->func = make_ref(env, func);
+        closure->propertyName = name;
         closure->thisConstructor = bridgedClass->constructor;
         auto added =
             class_addMethod(cls, desc->selector, (IMP)closure->fnptr, encoding);
@@ -319,9 +336,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
             metadata, metadata->signaturesOffset + desc->inner.signatureOffset,
             false, &encoding, true);
         closure->env = env;
-        napi_value func;
-        napi_get_named_property(env, prototype, name.c_str(), &func);
-        closure->func = make_ref(env, func);
+        closure->propertyName = name;
         closure->thisConstructor = bridgedClass->constructor;
         auto added = class_addMethod(cls, desc->selector, (IMP)closure->fnptr,
                                      encoding.c_str());

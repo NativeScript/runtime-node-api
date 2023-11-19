@@ -24,7 +24,7 @@ if(BRIDGE_TARGET_PLATFORM STREQUAL "ios")
   set(CMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2")
   set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE "NO")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
-  set(LIBFFI_BUILD "build_iphoneos-arm64")
+  set(LIBFFI_BUILD "iphoneos-arm64")
   set(TARGET_PLATFORM_IOS TRUE)
   set(SDK_NAME "iphoneos")
   set(CMAKE_OSX_ARCHITECTURES "arm64")
@@ -33,7 +33,7 @@ elseif(BRIDGE_TARGET_PLATFORM STREQUAL "ios-sim")
   set(CMAKE_XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "1,2")
   set(CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE "NO")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
-  set(LIBFFI_BUILD "build_iphonesimulator-universal")
+  set(LIBFFI_BUILD "iphonesimulator-universal")
   set(TARGET_PLATFORM_IOS TRUE)
   set(TARGET_PLATFORM_SIM TRUE)
   set(SDK_NAME "iphonesimulator")
@@ -41,7 +41,7 @@ elseif(BRIDGE_TARGET_PLATFORM STREQUAL "ios-sim")
 elseif(BRIDGE_TARGET_PLATFORM STREQUAL "macos")
   set(CMAKE_XCODE_ATTRIBUTE_MACOSX_DEPLOYMENT_TARGET "13.0")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
-  set(LIBFFI_BUILD "build_macosx-universal")
+  set(LIBFFI_BUILD "macosx-universal")
   set(TARGET_PLATFORM_MACOS TRUE)
   unset(BUILD_FRAMEWORK)
   set(SDK_NAME "macosx")
@@ -78,7 +78,7 @@ message(STATUS "SDK = ${CMAKE_OSX_SYSROOT}")
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/metadata/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/libffi/${LIBFFI_BUILD}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/libffi/prebuilt/${LIBFFI_BUILD}/include
   /Library/Developer/CommandLineTools/usr/include
 )
 
@@ -102,6 +102,7 @@ set(LIB_SOURCE_FILES
   src/Object.mm
   src/CustomClass.mm
   src/CFunction.mm
+  src/Interop.mm
 )
 
 add_library(
@@ -159,14 +160,14 @@ message(STATUS "LIBFFI_BUILD = ${LIBFFI_BUILD}")
 target_link_directories(
   ${NAME}
   PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/libffi/${LIBFFI_BUILD}/.libs
+  ${CMAKE_CURRENT_SOURCE_DIR}/libffi/prebuilt/${LIBFFI_BUILD}
 )
 
 target_link_libraries(
   ${NAME}
   PRIVATE
   objc
-  ffi_convenience
+  ffi
   "-framework Foundation"
 )
 

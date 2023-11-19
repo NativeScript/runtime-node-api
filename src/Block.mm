@@ -1,6 +1,6 @@
 #include "Block.h"
 #include "ObjCBridgeData.h"
-#include "js_native_api.h"
+#include "node_api_util.h"
 #include "objc/runtime.h"
 #import <Foundation/Foundation.h>
 
@@ -25,10 +25,7 @@ struct Block_literal_1 {
 };
 
 void block_copy(void *dest, void *src) {}
-void block_release(void *src) {
-  auto block = (Block_literal_1 *)src;
-  delete block->closure;
-}
+void block_release(void *src) {}
 
 void block_finalize(napi_env env, void *data, void *hint) {
   auto block = (Block_literal_1 *)data;
@@ -59,8 +56,24 @@ id registerBlock(napi_env env, Closure *closure, napi_value callback) {
   block->descriptor->signature = nullptr;
 
   napi_remove_wrap(env, callback, nullptr);
-  napi_ref ref;
+  napi_ref ref = nullptr;
   napi_wrap(env, callback, block, block_finalize, nullptr, &ref);
+  if (ref == nullptr) {
+    // Deno doesn't handle napi_wrap properly.
+    ref = make_ref(env, callback, 0);
+  }
+  closure->func = ref;
+
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  if (napiSupportsThreadsafeFunctions(bridgeData->self_dl)) {
+    napi_value workName;
+    napi_create_string_utf8(env, "Block", NAPI_AUTO_LENGTH, &workName);
+    napi_create_threadsafe_function(env, callback, nullptr, workName, 0, 1,
+                                    nullptr, nullptr, closure,
+                                    callJSBlockFromMainThread, &closure->tsfn);
+    if (closure->tsfn)
+      napi_unref_threadsafe_function(env, closure->tsfn);
+  }
 
   return (id)block;
 }
@@ -78,8 +91,6 @@ NAPI_FUNCTION(registerBlock) {
 
   auto closure = new Closure(enc, true);
   closure->env = env;
-  closure->func = make_ref(env, callback);
-
   registerBlock(env, closure, callback);
 
   return callback;

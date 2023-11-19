@@ -2,8 +2,10 @@
 #include "Block.h"
 #include "Class.h"
 #include "Closure.h"
+#include "Interop.h"
 #include "JSObject.h"
 #include "Metadata.h"
+#include "MetadataReader.h"
 #include "ObjCBridgeData.h"
 #include "ffi.h"
 #include "js_native_api.h"
@@ -12,6 +14,7 @@
 
 #import <Foundation/Foundation.h>
 #include <memory>
+#include <objc/runtime.h>
 #include <stdbool.h>
 #include <string>
 #include <vector>
@@ -54,7 +57,7 @@ ffi_type *typeFromStruct(napi_env env, const char **encoding) {
 }
 
 ffi_type *typeFromStruct(napi_env env, MDMetadataReader *reader,
-                         MDSectionOffset structOffset) {
+                         MDSectionOffset structOffset, bool isUnion) {
   ffi_type *type = new ffi_type;
   type->type = FFI_TYPE_STRUCT;
   type->size = 0;
@@ -62,6 +65,7 @@ ffi_type *typeFromStruct(napi_env env, MDMetadataReader *reader,
   type->elements = nullptr;
 
   MDSectionOffset nameOffset = reader->getOffset(structOffset);
+  auto name = reader->resolveString(nameOffset);
   bool next = true;
   structOffset += sizeof(MDSectionOffset); // skip name
   structOffset += sizeof(uint16_t);        // skip size
@@ -71,9 +75,14 @@ ffi_type *typeFromStruct(napi_env env, MDMetadataReader *reader,
   while (next) {
     nameOffset = reader->getOffset(structOffset);
     next = nameOffset & mdSectionOffsetNext;
+    nameOffset &= ~mdSectionOffsetNext;
+    if (nameOffset == MD_SECTION_OFFSET_NULL) {
+      break;
+    }
     structOffset += sizeof(MDSectionOffset); // skip name
-    structOffset += sizeof(uint16_t);        // skip offset
-    ffi_type *elementType = TypeConv::Make(env, reader, &structOffset)->type;
+    if (!isUnion)
+      structOffset += sizeof(uint16_t); // skip offset
+    ffi_type *elementType = TypeConv::Make(env, reader, &structOffset, 1)->type;
     elements.push_back(elementType);
   }
 
@@ -139,6 +148,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     int32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_int32(env, value, &val);
     *(int8_t *)result = val;
   }
@@ -162,6 +172,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     uint32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_uint32(env, value, &val);
     *(uint8_t *)result = val;
   }
@@ -185,6 +196,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     uint32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_uint32(env, value, &val);
     *(uint8_t *)result = val;
   }
@@ -208,6 +220,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     int32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_int32(env, value, &val);
     *(int16_t *)result = val;
   }
@@ -231,6 +244,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     uint32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_uint32(env, value, &val);
     *(uint16_t *)result = val;
   }
@@ -254,6 +268,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     int32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_int32(env, value, &val);
     *(int32_t *)result = val;
   }
@@ -277,6 +292,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     uint32_t val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_uint32(env, value, &val);
     *(uint32_t *)result = val;
   }
@@ -421,6 +437,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     double val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_double(env, value, &val);
     *(float *)result = val;
   }
@@ -444,6 +461,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     double val;
+    napi_coerce_to_number(env, value, &value);
     napi_get_value_double(env, value, &val);
     *(double *)result = val;
   }
@@ -467,6 +485,7 @@ public:
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
     bool val;
+    napi_coerce_to_bool(env, value, &value);
     napi_get_value_bool(env, value, &val);
     *(bool *)result = val;
   }
@@ -479,12 +498,17 @@ static const std::shared_ptr<BoolTypeConv> boolTypeConv =
 
 class PointerTypeConv : public TypeConv {
 public:
+  std::shared_ptr<TypeConv> pointeeType = nullptr;
+
   PointerTypeConv() { type = &ffi_type_pointer; }
 
+  PointerTypeConv(std::shared_ptr<TypeConv> pointeeType)
+      : pointeeType(pointeeType) {
+    type = &ffi_type_pointer;
+  }
+
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
-    napi_value external;
-    napi_create_external(env, *((void **)value), nullptr, nullptr, &external);
-    return external;
+    return Pointer::create(env, *((void **)value));
   }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
@@ -524,6 +548,30 @@ public:
     }
 
     case napi_object: {
+      if (Pointer::isInstance(env, value)) {
+        Pointer *ptr = Pointer::unwrap(env, value);
+        *res = ptr->data;
+        return;
+      }
+
+      if (Reference::isInstance(env, value)) {
+        Reference *ref = Reference::unwrap(env, value);
+        if (ref->data == nullptr) {
+          ref->type = pointeeType;
+          ref->data = malloc(pointeeType->type->size);
+          if (ref->initValue) {
+            napi_value initValue = get_ref_value(env, ref->initValue);
+            bool shouldFree;
+            ref->type->toNative(env, initValue, ref->data, &shouldFree,
+                                &shouldFree);
+            napi_delete_reference(env, ref->initValue);
+            ref->initValue = nullptr;
+          }
+        }
+        *res = ref->data;
+        return;
+      }
+
       void *wrapped;
       status = napi_unwrap(env, value, &wrapped);
       if (status == napi_ok) {
@@ -649,6 +697,102 @@ public:
   void encode(std::string *encoding) override { *encoding += "^v"; }
 };
 
+void function_pointer_finalize(napi_env env, void *finalize_data,
+                               void *finalize_hint) {
+  Closure *closure = (Closure *)finalize_hint;
+  delete closure;
+}
+
+class FunctionPointerTypeConv : public TypeConv {
+public:
+  MDSectionOffset signatureOffset;
+
+  FunctionPointerTypeConv(MDSectionOffset signatureOffset)
+      : signatureOffset(signatureOffset) {
+    type = &ffi_type_pointer;
+  }
+
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    // TODO: Maybe a wrapper function?
+    napi_value external;
+    napi_create_external(env, value, nullptr, nullptr, &external);
+    return external;
+  }
+
+  void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
+                bool *shouldFreeAny) override {
+    NAPI_PREAMBLE
+
+    void **res = (void **)result;
+
+    napi_valuetype type;
+    napi_typeof(env, value, &type);
+
+    switch (type) {
+    case napi_null:
+    case napi_undefined:
+      *res = nullptr;
+      return;
+
+    case napi_bigint: {
+      uint64_t val = 0;
+      bool lossless = false;
+      NAPI_GUARD(napi_get_value_bigint_uint64(env, value, &val, &lossless)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+      *res = (void *)val;
+      return;
+    }
+
+    case napi_external: {
+      NAPI_GUARD(napi_get_value_external(env, value, res)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+      return;
+    }
+
+    case napi_object: {
+      NAPI_GUARD(napi_unwrap(env, value, res)) {
+        NAPI_THROW_LAST_ERROR
+        *res = nullptr;
+        return;
+      }
+    }
+
+    case napi_function: {
+      void *wrapped;
+      status = napi_unwrap(env, value, &wrapped);
+      if (status == napi_ok) {
+        *res = wrapped;
+        return;
+      }
+
+      auto bridgeData = ObjCBridgeData::InstanceData(env);
+      auto closure = new Closure(bridgeData->metadata, signatureOffset, true);
+      closure->env = env;
+      closure->func = make_ref(env, value);
+      napi_remove_wrap(env, value, nullptr);
+      napi_ref ref;
+      napi_wrap(env, value, closure->fnptr, function_pointer_finalize, closure,
+                &ref);
+      *res = (void *)closure->fnptr;
+      return;
+    }
+
+    default:
+      napi_throw_error(env, nullptr, "Invalid block pointer type");
+      *res = nullptr;
+      return;
+    }
+  }
+
+  void encode(std::string *encoding) override { *encoding += "^v"; }
+};
+
 class StringTypeConv : public TypeConv {
 public:
   StringTypeConv() { type = &ffi_type_pointer; }
@@ -722,7 +866,6 @@ public:
     }
 
     auto bridgeData = ObjCBridgeData::InstanceData(env);
-    auto clsName = bridgeData->metadata->getString(classOffset);
 
     ObjectOwnership ownership;
     if ((flags & kReturnOwned) != 0) {
@@ -759,14 +902,13 @@ public:
       return;
 
     case napi_string: {
-      char *str;
       size_t len = 0;
       NAPI_GUARD(napi_get_value_string_utf8(env, value, nullptr, len, &len)) {
         NAPI_THROW_LAST_ERROR
         return;
       }
 
-      str = (char *)malloc(len + 1);
+      char *str = (char *)malloc(len + 1);
 
       NAPI_GUARD(napi_get_value_string_utf8(env, value, str, len + 1, &len)) {
         NAPI_THROW_LAST_ERROR
@@ -776,7 +918,7 @@ public:
 
       str[len] = '\0';
 
-      *res = [NSString stringWithUTF8String:str];
+      *res = [[[NSString alloc] initWithUTF8String:str] autorelease];
 
       ::free(str);
       break;
@@ -911,6 +1053,34 @@ public:
 
 static const auto objcInstanceObjectTypeConv =
     std::make_shared<ObjCInstanceObjectTypeConv>();
+
+class ObjCNSStringObjectTypeConv : public TypeConv {
+public:
+  ObjCNSStringObjectTypeConv() { type = &ffi_type_pointer; }
+
+  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
+    NSString *str = *((NSString **)value);
+
+    if (str == nullptr) {
+      return nullptr;
+    }
+
+    napi_value result;
+    napi_create_string_utf8(env, [str UTF8String], [str length], &result);
+    return result;
+  }
+
+  void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
+                bool *shouldFreeAny) override {
+    ObjCObjectTypeConv typeConv;
+    typeConv.toNative(env, value, result, shouldFree, shouldFreeAny);
+  }
+
+  void encode(std::string *encoding) override { *encoding += "@"; }
+};
+
+static const std::shared_ptr<ObjCNSStringObjectTypeConv>
+    objcNSStringObjectTypeConv = std::make_shared<ObjCNSStringObjectTypeConv>();
 
 class ObjCClassTypeConv : public TypeConv {
 public:
@@ -1116,34 +1286,6 @@ public:
   }
 };
 
-class UnionTypeConv : public TypeConv {
-public:
-  std::vector<std::shared_ptr<TypeConv>> types;
-
-  UnionTypeConv(std::vector<std::shared_ptr<TypeConv>> types) : types(types) {
-    // TODO: type should not be pointer
-    // type = &ffi_type_pointer;
-  }
-
-  napi_value toJS(napi_env env, void *value, uint32_t flags) override {
-    NSLog(@"UnionTypeConv toJS: TODO");
-    return nullptr;
-  }
-
-  void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
-                bool *shouldFreeAny) override {
-    NSLog(@"UnionTypeConv toNative: TODO");
-  }
-
-  void encode(std::string *encoding) override {
-    *encoding += "(";
-    for (auto &ty : types) {
-      ty->encode(encoding);
-    }
-    *encoding += ")";
-  }
-};
-
 class VectorTypeConv : public TypeConv {
 public:
   // TypeConv elementType;
@@ -1253,15 +1395,6 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, const char **encoding) {
     auto type = typeFromStruct(env, encoding);
     return std::make_shared<StructTypeConv>(StructTypeConv(structOffset, type));
   }
-  case '(': {
-    std::vector<std::shared_ptr<TypeConv>> types;
-    while (**encoding != ')') {
-      auto type = TypeConv::Make(env, encoding);
-      types.push_back(type);
-    }
-    (*encoding)++; // skip ')'
-    return std::make_shared<UnionTypeConv>(UnionTypeConv(types));
-  }
   case 'b': {
     (*encoding)++;
     char c = **encoding;
@@ -1284,7 +1417,8 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, const char **encoding) {
 }
 
 std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
-                                         MDSectionOffset *offset) {
+                                         MDSectionOffset *offset,
+                                         uint8_t opaquePointers) {
   auto kind = reader->getTypeKind(*offset);
   bool next = kind & mdTypeFlagNext;
   kind = (MDTypeKind)(kind & ~mdTypeFlagNext);
@@ -1308,6 +1442,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
     return sint64TypeConv;
   }
 
+  case mdTypeUInt8:
   case mdTypeUChar: {
     return ucharTypeConv;
   }
@@ -1376,8 +1511,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
         protocolOffsets.push_back(protocolOffset);
       }
     }
-    return std::make_shared<ObjCObjectTypeConv>(
-        ObjCObjectTypeConv(classOffset, protocolOffsets));
+    return std::make_shared<ObjCObjectTypeConv>(classOffset, protocolOffsets);
   }
 
   case mdTypeProtocolObject: {
@@ -1395,8 +1529,11 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
         protocolOffsets.push_back(protocolOffset);
       }
     }
-    return std::make_shared<ObjCObjectTypeConv>(
-        ObjCObjectTypeConv(protocolOffsets));
+    return std::make_shared<ObjCObjectTypeConv>(protocolOffsets);
+  }
+
+  case mdTypeNSStringObject: {
+    return objcNSStringObjectTypeConv;
   }
 
   case mdTypeClass: {
@@ -1418,29 +1555,27 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   case mdTypeStruct: {
     auto structOffset = reader->getOffset(*offset);
     *offset += sizeof(MDSectionOffset);
+    auto isUnion = (structOffset & mdSectionOffsetNext) != 0;
+    structOffset &= ~mdSectionOffsetNext;
     if (structOffset == MD_SECTION_OFFSET_NULL) {
       return pointerTypeConv;
     }
-    structOffset += reader->structsOffset;
+    structOffset += isUnion ? reader->unionsOffset : reader->structsOffset;
     auto structName = reader->getString(structOffset);
     auto bridgeData = ObjCBridgeData::InstanceData(env);
-    auto type = typeFromStruct(env, reader, structOffset);
-    return std::make_shared<StructTypeConv>(StructTypeConv(structOffset, type));
-  }
-
-  case mdTypeUnion: {
-    bool next = true;
-    std::vector<std::shared_ptr<TypeConv>> types;
-    while (next) {
-      auto typeKind = reader->getTypeKind(*offset);
-      next = (typeKind & mdTypeFlagNext) != 0;
-      auto type = TypeConv::Make(env, reader, offset);
-      types.push_back(type);
-    }
-    return std::make_shared<UnionTypeConv>(UnionTypeConv(types));
+    auto type = opaquePointers == 2
+                    ? nullptr
+                    : typeFromStruct(env, reader, structOffset, isUnion);
+    return std::make_shared<StructTypeConv>(structOffset, type);
   }
 
   case mdTypePointer: {
+    auto pointeeType =
+        TypeConv::Make(env, reader, offset, opaquePointers == 1 ? 2 : 0);
+    return std::make_shared<PointerTypeConv>(pointeeType);
+  }
+
+  case mdTypeOpaquePointer: {
     return pointerTypeConv;
   }
 
@@ -1451,11 +1586,27 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   case mdTypeBlock: {
     auto blockSignature = reader->getOffset(*offset) + reader->signaturesOffset;
     *offset += sizeof(MDSectionOffset);
-    return std::make_shared<BlockTypeConv>(BlockTypeConv(blockSignature));
+    return std::make_shared<BlockTypeConv>(blockSignature);
+  }
+
+  case mdTypeFunctionPointer: {
+    auto blockSignature = reader->getOffset(*offset) + reader->signaturesOffset;
+    *offset += sizeof(MDSectionOffset);
+    return std::make_shared<FunctionPointerTypeConv>(blockSignature);
   }
 
   case mdTypeUInt128: {
     return uint128TypeConv;
+  }
+
+  case mdTypeExtVector: {
+    // TODO
+    return pointerTypeConv;
+  }
+
+  case mdTypeComplex: {
+    // TODO
+    return pointerTypeConv;
   }
 
   default:

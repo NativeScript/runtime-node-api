@@ -83,6 +83,11 @@ if (import.meta.main) {
       await build(target);
     }
 
+    await Deno.remove(
+      `../build/${targetPlatform}/ObjCBridge.xcframework`,
+      { recursive: true },
+    ).catch(() => {});
+
     await $`xcodebuild -create-xcframework ${
       targets.map((
         target,

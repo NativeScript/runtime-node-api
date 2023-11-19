@@ -1,5 +1,5 @@
 #include "MethodCif.h"
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "ObjCBridgeData.h"
 #include "TypeConv.h"
 #include "Util.h"
@@ -14,13 +14,13 @@ namespace objc_bridge {
 // invocation.
 MethodCif *ObjCBridgeData::getMethodCif(napi_env env, Method method) {
   auto encoding = std::string(method_getTypeEncoding(method));
-  auto find = this->method_cifs[encoding];
+  auto find = this->methodCifs[encoding];
   if (find != nullptr) {
     return find;
   }
 
   auto methodCif = new MethodCif(env, encoding);
-  this->method_cifs[encoding] = methodCif;
+  this->methodCifs[encoding] = methodCif;
 
   return methodCif;
 }

@@ -1,4 +1,9 @@
 #include "Util.h"
+#include "Metadata.h"
+#include "js_native_api.h"
+#include "js_native_api_types.h"
+
+using namespace metagen;
 
 namespace objc_bridge {
 
@@ -44,53 +49,68 @@ std::string getEncodedType(napi_env env, napi_value value) {
   napi_typeof(env, value, &type);
 
   switch (type) {
-  case napi_string: {
-    size_t len;
-    napi_get_value_string_utf8(env, value, name_buf, 512, &len);
-    std::string name = name_buf;
-    if (name == "id") {
-      return "@";
-    } else if (name == "void") {
+  case napi_number: {
+    int32_t number = -1;
+    napi_get_value_int32(env, value, &number);
+
+    switch (number) {
+    case mdTypeVoid:
       return "v";
-    } else if (name == "bool") {
+
+    case mdTypeBool:
       return "B";
-    } else if (name == "char") {
+
+    case mdTypeChar:
       return "c";
-    } else if (name == "unsigned char") {
+
+    case mdTypeUInt8:
       return "C";
-    } else if (name == "short") {
+
+    case mdTypeSShort:
       return "s";
-    } else if (name == "unsigned short") {
+
+    case mdTypeUShort:
       return "S";
-    } else if (name == "int") {
+
+    case mdTypeSInt:
       return "i";
-    } else if (name == "unsigned int") {
+
+    case mdTypeUInt:
       return "I";
-    } else if (name == "long") {
-      return "l";
-    } else if (name == "unsigned long") {
-      return "L";
-    } else if (name == "long long") {
+
+    case mdTypeSInt64:
       return "q";
-    } else if (name == "unsigned long long") {
+
+    case mdTypeUInt64:
       return "Q";
-    } else if (name == "float") {
+
+    case mdTypeFloat:
       return "f";
-    } else if (name == "double") {
+
+    case mdTypeDouble:
       return "d";
-    } else if (name == "string") {
+
+    case mdTypeString:
       return "*";
-    } else if (name == "pointer") {
+
+    case mdTypeAnyObject:
+      return "@";
+
+    case mdTypePointer:
       return "^v";
-    } else if (name == "class") {
-      return "#";
-    } else if (name == "selector") {
+
+    case mdTypeSelector:
       return ":";
-    } else {
+
+    default:
       napi_throw_error(env, nullptr, "Invalid type");
       return "v";
     }
   }
+
+  case napi_function:
+    // Must be a native class constructor like NSObject.
+    return "@";
 
   default:
     napi_throw_error(env, nullptr, "Invalid type");

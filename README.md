@@ -6,8 +6,6 @@ JavaScript land. Made using Node-API and `libffi` under the hood.
 ## Building
 
 ```sh
-deno task build-libffi
-
 deno task build macos
 # or build for iOS
 deno task build ios-universal

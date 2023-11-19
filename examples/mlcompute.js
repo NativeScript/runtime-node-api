@@ -1,3 +1,5 @@
+// @ts-check
+
 import "objc";
 
 objc.import("MLCompute");
@@ -9,17 +11,17 @@ const layerSize = 128;
 
 const tInput = MLCTensor.tensorWithShapeDataType(
   shape,
-  MLCDataType.float32,
+  MLCDataType.Float32,
 );
 const tWeights = MLCTensor.tensorWithShapeRandomInitializerTypeDataType(
   [1, imageSize, layerSize, 1],
-  MLCRandomInitializerType.glorotUniform,
-  MLCDataType.float32,
+  MLCRandomInitializerType.GlorotUniform,
+  MLCDataType.Float32,
 );
 const tBiases = MLCTensor.tensorWithShapeRandomInitializerTypeDataType(
   [1, layerSize, 1, 1],
-  MLCRandomInitializerType.glorotUniform,
-  MLCDataType.float32,
+  MLCRandomInitializerType.GlorotUniform,
+  MLCDataType.Float32,
 );
 
 const input = new Float32Array(imageSize * batchSize).fill(1);
@@ -43,22 +45,30 @@ const denseLayer = MLCFullyConnectedLayer.layerWithWeightsBiasesDescriptor(
     ),
 );
 
+if (!denseLayer) {
+  throw new Error("denseLayer is null");
+}
+
 graph.nodeWithLayerSources(denseLayer, [tInput]);
 
 const device = MLCDevice.gpuDevice();
+
+if (!device) {
+  throw new Error("device is null");
+}
 
 const inference = MLCInferenceGraph.graphWithGraphObjects([graph]);
 inference.addInputs({ input: tInput });
 
 inference.compileWithOptionsDevice(
-  MLCGraphCompilationOptions.debugLayers,
+  MLCGraphCompilationOptions.DebugLayers,
   device,
 );
 
 inference.executeWithInputsDataBatchSizeOptionsCompletionHandler(
   { input: dataInput },
   batchSize,
-  MLCExecutionOptions.synchronous,
+  MLCExecutionOptions.Synchronous,
   (output, error, time) => {
     console.log(output, error, time);
   },

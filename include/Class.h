@@ -1,12 +1,14 @@
 #ifndef BRIDGED_CLASS_H
 #define BRIDGED_CLASS_H
 
-#include "Metadata.h"
+#include "MetadataReader.h"
 #include "node_api_util.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
 #include <set>
 #include <string>
+
+using namespace metagen;
 
 namespace objc_bridge {
 
@@ -24,8 +26,6 @@ public:
 
   napi_ref constructor;
   napi_ref prototype;
-  napi_ref supercallPrototype;
-  napi_ref supercallConstructor;
 
   BridgedClass() {}
   BridgedClass(napi_env env, MDSectionOffset offset);

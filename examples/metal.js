@@ -1,3 +1,5 @@
+// @ts-check
+
 import "../index.js";
 
 objc.import("Metal");
@@ -5,23 +7,45 @@ objc.import("Metal");
 const arrayLength = 1 << 24;
 const bufferSize = arrayLength * Float32Array.BYTES_PER_ELEMENT;
 
+/**
+ * @param {number} width
+ * @param {number} height
+ * @param {number} depth
+ * @returns
+ */
 function MTLSizeMake(width, height, depth) {
   return { width, height, depth };
 }
 
+/**
+ * @param {interop.Pointer} ptr
+ * @param {number} size
+ * @returns
+ */
 function getFloat32Array(ptr, size) {
   const ab = objc.getArrayBuffer(ptr, size);
   return new Float32Array(ab);
 }
 
 class MetalAdder {
+  /** @type {MTLBuffer | null} */
+  mBufferA = null;
+  /** @type {MTLBuffer | null} */
+  mBufferB = null;
+  /** @type {MTLBuffer | null} */
+  mBufferResult = null;
+  /**
+   * @param {MTLDevice} device
+   */
   constructor(device) {
     this.device = device;
+
+    const error = new interop.Reference();
 
     const library = device.newLibraryWithSourceOptionsError(
       `
       #include <metal_stdlib>
-      using namespace metal;
+      using namespace metall; // error
       
       kernel void add_arrays(device const float* inA,
                             device const float* inB,
@@ -32,12 +56,15 @@ class MetalAdder {
       }
       `,
       null,
-      null,
+      error,
     );
+
+    if (!library) {
+      console.log(error.value);
+    }
 
     const addFunction = library.newFunctionWithName("add_arrays");
 
-    const error = new ObjectRef();
     this.pipelineState = device.newComputePipelineStateWithFunctionError(
       addFunction,
       error,
@@ -52,15 +79,15 @@ class MetalAdder {
   prepareData() {
     this.mBufferA = this.device.newBufferWithLengthOptions(
       bufferSize,
-      MTLResourceOptions.storageModeShared,
+      MTLResourceOptions.StorageModeShared,
     );
     this.mBufferB = this.device.newBufferWithLengthOptions(
       bufferSize,
-      MTLResourceOptions.storageModeShared,
+      MTLResourceOptions.StorageModeShared,
     );
     this.mBufferResult = this.device.newBufferWithLengthOptions(
       bufferSize,
-      MTLResourceOptions.storageModeShared,
+      MTLResourceOptions.StorageModeShared,
     );
 
     this.generateRandomFloatData(this.mBufferA);
@@ -89,6 +116,9 @@ class MetalAdder {
     this.verifyResults();
   }
 
+  /**
+   * @param {MTLComputeCommandEncoder} computeEncoder
+   */
   encodeAddCommand(computeEncoder) {
     computeEncoder.setComputePipelineState(this.pipelineState);
     computeEncoder.setBufferOffsetAtIndex(this.mBufferA, 0, 0);
@@ -97,7 +127,7 @@ class MetalAdder {
 
     const gridSize = MTLSizeMake(arrayLength, 1, 1);
 
-    const threadGroupSize = this.pipelineState.maxTotalThreadsPerThreadgroup;
+    let threadGroupSize = this.pipelineState.maxTotalThreadsPerThreadgroup;
     if (threadGroupSize > arrayLength) {
       threadGroupSize = arrayLength;
     }
@@ -110,6 +140,9 @@ class MetalAdder {
     );
   }
 
+  /**
+   * @param {MTLBuffer} buffer
+   */
   generateRandomFloatData(buffer) {
     const contents = getFloat32Array(buffer.contents(), bufferSize);
     for (let i = 0; i < arrayLength; i++) {
@@ -118,6 +151,10 @@ class MetalAdder {
   }
 
   verifyResults() {
+    if (!this.mBufferA || !this.mBufferB || !this.mBufferResult) {
+      return;
+    }
+
     const a = getFloat32Array(this.mBufferA.contents(), bufferSize);
     const b = getFloat32Array(this.mBufferB.contents(), bufferSize);
     const result = getFloat32Array(this.mBufferResult.contents(), bufferSize);
@@ -135,7 +172,11 @@ class MetalAdder {
 
 const device = MTLCopyAllDevices().firstObject;
 
-const adder = new MetalAdder(device);
+if (!device) {
+  throw new Error("device is null");
+}
+
+const adder = new MetalAdder(/** @type {MTLDevice} */ (device));
 
 adder.prepareData();
 

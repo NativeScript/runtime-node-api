@@ -11,6 +11,87 @@
 
 namespace objc_bridge {
 
+void ObjCBridgeData::registerStructGlobals(napi_env env, napi_value global) {
+  MDSectionOffset offset = metadata->structsOffset;
+  while (offset < metadata->unionsOffset) {
+    // Sometimes there is padding after file ends.
+    if (metadata->getOffset(offset) == 0)
+      break;
+    MDSectionOffset originalOffset = offset;
+    auto name = metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+    auto size = metadata->getArraySize(offset);
+    offset += sizeof(uint16_t);
+
+    std::string nameStr = name;
+    structOffsets[nameStr] = originalOffset;
+
+    bool next = true;
+    while (next) {
+      MDSectionOffset nameOffset = metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset);
+      next = (nameOffset & mdSectionOffsetNext) != 0;
+      nameOffset &= ~mdSectionOffsetNext;
+      if (nameOffset == MD_SECTION_OFFSET_NULL)
+        break;
+      auto name = metadata->resolveString(nameOffset);
+      offset += sizeof(uint16_t);
+      TypeConv::Make(env, metadata, &offset);
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes =
+            (napi_property_attributes)(napi_enumerable | napi_configurable),
+        .method = nullptr,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .getter = JS_structGetter,
+    };
+    napi_define_properties(env, global, 1, &prop);
+  }
+}
+
+void ObjCBridgeData::registerUnionGlobals(napi_env env, napi_value global) {
+  MDSectionOffset offset = metadata->unionsOffset;
+  while (offset < metadata->size) {
+    // Sometimes there is padding after file ends.
+    if (metadata->getOffset(offset) == 0)
+      break;
+    MDSectionOffset originalOffset = offset;
+    auto name = metadata->getString(offset);
+    offset += sizeof(MDSectionOffset);
+    auto size = metadata->getArraySize(offset);
+    offset += sizeof(uint16_t);
+
+    std::string nameStr = name;
+    unionOffsets[nameStr] = originalOffset;
+
+    bool next = true;
+    while (next) {
+      MDSectionOffset nameOffset = metadata->getOffset(offset);
+      next = (nameOffset & mdSectionOffsetNext) != 0;
+      nameOffset &= ~mdSectionOffsetNext;
+      auto name = metadata->resolveString(nameOffset);
+      offset += sizeof(MDSectionOffset);
+      TypeConv::Make(env, metadata, &offset);
+    }
+
+    napi_property_descriptor prop = {
+        .utf8name = name,
+        .attributes =
+            (napi_property_attributes)(napi_enumerable | napi_configurable),
+        .method = nullptr,
+        .setter = nullptr,
+        .value = nullptr,
+        .data = (void *)((size_t)originalOffset),
+        .getter = JS_unionGetter,
+    };
+    napi_define_properties(env, global, 1, &prop);
+  }
+}
+
 NAPI_FUNCTION(structGetter) {
   NAPI_PREAMBLE
 
@@ -20,6 +101,18 @@ NAPI_FUNCTION(structGetter) {
 
   auto bridgeData = ObjCBridgeData::InstanceData(env);
   auto structInfo = bridgeData->getStructInfo(env, offset);
+  return StructObject::getJSClass(env, structInfo);
+}
+
+NAPI_FUNCTION(unionGetter) {
+  NAPI_PREAMBLE
+
+  void *data;
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
+  MDSectionOffset offset = (MDSectionOffset)((size_t)data);
+
+  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto structInfo = bridgeData->getUnionInfo(env, offset);
   return StructObject::getJSClass(env, structInfo);
 }
 
@@ -41,11 +134,47 @@ StructInfo *getStructInfoFromMetadata(napi_env env, MDMetadataReader *metadata,
     if (next) {
       nameOffset &= ~mdSectionOffsetNext;
     }
+    if (nameOffset == MD_SECTION_OFFSET_NULL) {
+      break;
+    }
     auto fieldInfo = StructFieldInfo();
     fieldInfo.name = metadata->resolveString(nameOffset);
     offset += sizeof(MDSectionOffset);
     fieldInfo.offset = metadata->getArraySize(offset);
     offset += sizeof(uint16_t);
+    fieldInfo.type = TypeConv::Make(env, metadata, &offset);
+    structInfo->fields.push_back(fieldInfo);
+  }
+
+  return structInfo;
+}
+
+StructInfo *getStructInfoFromUnionMetadata(napi_env env,
+                                           MDMetadataReader *metadata,
+                                           MDSectionOffset offset) {
+  auto originalOffset = offset;
+
+  auto structInfo = new StructInfo();
+  auto name = metadata->getString(offset);
+  structInfo->name = name;
+  offset += sizeof(MDSectionOffset);
+  structInfo->size = metadata->getArraySize(offset);
+  offset += sizeof(uint16_t);
+
+  bool next = true;
+  while (next) {
+    MDSectionOffset nameOffset = metadata->getOffset(offset);
+    offset += sizeof(MDSectionOffset);
+    next = (nameOffset & mdSectionOffsetNext) != 0;
+    if (next) {
+      nameOffset &= ~mdSectionOffsetNext;
+    }
+    if (nameOffset == 0) {
+      break;
+    }
+    auto fieldInfo = StructFieldInfo();
+    fieldInfo.name = metadata->resolveString(nameOffset);
+    fieldInfo.offset = 0;
     fieldInfo.type = TypeConv::Make(env, metadata, &offset);
     structInfo->fields.push_back(fieldInfo);
   }

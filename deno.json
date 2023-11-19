@@ -15,7 +15,8 @@
     "deno": "../deno/target/release/deno run -A",
     "bundle": "deno run -A --unstable scripts/bundler.ts",
     "open-bundle": "open \"NativeScript for macOS.app\"",
-    "metagen": "deno run -A --unstable scripts/metagen.ts"
+    "metagen": "deno run -A --unstable scripts/metagen.ts",
+    "build-metagen": "cd metadata && deno task build"
   },
 
   "fmt": {
@@ -25,7 +26,10 @@
       "node_modules",
       "metadata",
       ".vscode",
-      "segappend"
+      "segappend",
+      "types",
+      "runtime/build",
+      "core-test"
     ]
   },
 
@@ -36,7 +40,8 @@
       "node_modules",
       "metadata",
       ".vscode",
-      "segappend"
+      "segappend",
+      "types"
     ]
   },
 
