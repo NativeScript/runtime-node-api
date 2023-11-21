@@ -98,22 +98,10 @@ declare class simd_float4x3 {
   columns: unknown /* const array */;
 }
 
-declare class os_workgroup_attr_opaque_s {
-  constructor(init?: os_workgroup_attr_opaque_s);
-  sig: number;
-  opaque: unknown /* const array */;
-}
-
 declare class Point {
   constructor(init?: Point);
   v: number;
   h: number;
-}
-
-declare class Float80 {
-  constructor(init?: Float80);
-  exp: number;
-  man: unknown /* const array */;
 }
 
 declare class simd_float2x2 {
@@ -132,6 +120,12 @@ declare class simd_float4x4 {
   columns: unknown /* const array */;
 }
 
+declare class os_workgroup_attr_opaque_s {
+  constructor(init?: os_workgroup_attr_opaque_s);
+  sig: number;
+  opaque: unknown /* const array */;
+}
+
 declare class _xpc_type_s {
   constructor(init?: _xpc_type_s);
 }
@@ -139,6 +133,12 @@ declare class _xpc_type_s {
 declare class simd_float3x3 {
   constructor(init?: simd_float3x3);
   columns: unknown /* const array */;
+}
+
+declare class Float80 {
+  constructor(init?: Float80);
+  exp: number;
+  man: unknown /* const array */;
 }
 
 declare interface NSObjectProtocol {

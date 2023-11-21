@@ -1,36 +1,20 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kABSourceTypeCardDAV: number;
-
-declare const kABOtherLabel: interop.Pointer;
-
-declare const kABPersonAlternateBirthdayYearKey: interop.Pointer;
-
-declare const kABSourceTypeLocal: number;
-
-declare const kABPersonBirthdayProperty: number;
-
-declare const kABPersonPhoneMainLabel: interop.Pointer;
-
-declare const kABPersonAlternateBirthdayCalendarIdentifierKey: interop.Pointer;
-
-declare const kABSourceTypeProperty: number;
-
-declare const kABPersonRelatedNamesProperty: number;
-
-declare const kABPersonSocialProfileServiceFacebook: interop.Pointer;
-
 declare const kABGroupNameProperty: number;
 
 declare const kABPersonAlternateBirthdayDayKey: interop.Pointer;
 
-declare const kABPersonAlternateBirthdayIsLeapMonthKey: interop.Pointer;
-
-declare const kABPersonAlternateBirthdayEraKey: interop.Pointer;
-
-declare const kABPersonSocialProfileServiceLinkedIn: interop.Pointer;
+declare const kABPersonAlternateBirthdayMonthKey: interop.Pointer;
 
 declare const kABPersonSocialProfileServiceMyspace: interop.Pointer;
+
+declare const kABPersonSocialProfileServiceSinaWeibo: interop.Pointer;
+
+declare const kABPersonSocialProfileServiceTwitter: interop.Pointer;
+
+declare const kABPersonSocialProfileUserIdentifierKey: interop.Pointer;
+
+declare const kABPersonSocialProfileURLKey: interop.Pointer;
 
 declare const kABPersonSocialProfileProperty: number;
 
@@ -38,65 +22,89 @@ declare const kABPersonManagerLabel: interop.Pointer;
 
 declare const kABPersonAssistantLabel: interop.Pointer;
 
-declare const kABPersonFriendLabel: interop.Pointer;
+declare const kABPersonPartnerLabel: interop.Pointer;
+
+declare const kABPersonSpouseLabel: interop.Pointer;
+
+declare const kABPersonChildLabel: interop.Pointer;
 
 declare const kABPersonSisterLabel: interop.Pointer;
 
-declare const kABPersonMotherLabel: interop.Pointer;
+declare const kABPersonBrotherLabel: interop.Pointer;
+
+declare const kABPersonParentLabel: interop.Pointer;
 
 declare const kABPersonFatherLabel: interop.Pointer;
 
-declare const kABPersonHomePageLabel: interop.Pointer;
+declare const kABPersonInstantMessageUsernameKey: interop.Pointer;
+
+declare const kABPersonInstantMessageServiceGaduGadu: interop.Pointer;
+
+declare const kABPersonInstantMessageServiceFacebook: interop.Pointer;
+
+declare const kABPersonInstantMessageServiceQQ: interop.Pointer;
+
+declare const kABPersonInstantMessageServiceAIM: interop.Pointer;
+
+declare const kABPersonInstantMessageServiceMSN: interop.Pointer;
 
 declare const kABPersonInstantMessageServiceJabber: interop.Pointer;
 
-declare const kABPersonInstantMessageServiceYahoo: interop.Pointer;
+declare const kABPersonInstantMessageServiceKey: interop.Pointer;
 
-declare const kABPersonPhonePagerLabel: interop.Pointer;
+declare const kABPersonInstantMessageProperty: number;
+
+declare const kABPersonPhoneOtherFAXLabel: interop.Pointer;
 
 declare const kABPersonPhoneMobileLabel: interop.Pointer;
 
 declare const kABPersonPhoneProperty: number;
 
-declare const kABPersonKindPerson: interop.Pointer;
+declare const kABPersonKindOrganization: interop.Pointer;
 
-declare const kABPersonAnniversaryLabel: interop.Pointer;
+declare const kABPersonKindProperty: number;
 
 declare const kABPersonDateProperty: number;
 
-declare const kABPersonAddressCountryCodeKey: interop.Pointer;
+declare const kABPersonAddressCountryKey: interop.Pointer;
 
 declare const kABPersonAddressStateKey: interop.Pointer;
 
-declare const kABPersonAddressProperty: number;
+declare const kABPersonAddressCityKey: interop.Pointer;
 
 declare const kABPersonModificationDateProperty: number;
 
-declare const kABPersonCreationDateProperty: number;
-
 declare const kABPersonEmailProperty: number;
 
-declare const kABPersonMiddleNamePhoneticProperty: number;
+declare const kABPersonOrganizationProperty: number;
+
+declare const kABPersonLastNamePhoneticProperty: number;
+
+declare const kABPersonFirstNamePhoneticProperty: number;
+
+declare const kABPersonNicknameProperty: number;
+
+declare const kABPersonSuffixProperty: number;
 
 declare const kABPersonPrefixProperty: number;
 
-declare const kABPersonMiddleNameProperty: number;
-
-declare const kABPersonFirstNameProperty: number;
-
-declare const kABWorkLabel: interop.Pointer;
+declare const kABPersonLastNameProperty: number;
 
 declare const kABPersonCompositeNameFormatFirstNameFirst: number;
 
-declare const kABPersonAlternateBirthdayProperty: number;
+declare const kABPersonSortByFirstName: number;
 
 declare const kABSourceNameProperty: number;
 
 declare const kABSourceTypeCardDAVSearch: number;
 
-declare const ABAddressBookErrorDomain: interop.Pointer;
+declare const kABSourceTypeLDAP: number;
 
-declare const kABMultiDateTimePropertyType: number;
+declare const kABSourceTypeMobileMe: number;
+
+declare const kABSourceTypeExchange: number;
+
+declare const kABOperationNotPermittedByStoreError: number;
 
 declare const kABMultiRealPropertyType: number;
 
@@ -104,135 +112,127 @@ declare const kABMultiIntegerPropertyType: number;
 
 declare const kABMultiStringPropertyType: number;
 
+declare const kABDictionaryPropertyType: number;
+
 declare const kABDateTimePropertyType: number;
-
-declare const kABRealPropertyType: number;
-
-declare const kABIntegerPropertyType: number;
-
-declare const kABStringPropertyType: number;
-
-declare const kABInvalidPropertyType: number;
 
 declare const kABSourceType: number;
 
-declare const kABGroupType: number;
+declare const kABPersonType: number;
 
-declare const kABPersonAddressStreetKey: interop.Pointer;
+declare const kABPersonRelatedNamesProperty: number;
 
-declare const kABPersonPhoneOtherFAXLabel: interop.Pointer;
-
-declare const kABPersonSocialProfileServiceTwitter: interop.Pointer;
-
-declare const kABSourceTypeMobileMe: number;
+declare const kABPersonAnniversaryLabel: interop.Pointer;
 
 declare const kABPersonPhoneHomeFAXLabel: interop.Pointer;
 
+declare const kABPersonCreationDateProperty: number;
+
+declare const kABSourceTypeExchangeGAL: number;
+
 declare const kABPersonInstantMessageServiceGoogleTalk: interop.Pointer;
 
-declare const kABPersonDepartmentProperty: number;
+declare const kABPersonAlternateBirthdayProperty: number;
 
-declare const kABPersonURLProperty: number;
+declare const kABPersonAlternateBirthdayIsLeapMonthKey: interop.Pointer;
 
-declare const kABPersonNicknameProperty: number;
+declare const kABSourceTypeProperty: number;
+
+declare const kABPersonSocialProfileUsernameKey: interop.Pointer;
+
+declare const kABStringPropertyType: number;
 
 declare const kABPersonNoteProperty: number;
 
-declare const kABPersonSocialProfileServiceSinaWeibo: interop.Pointer;
-
-declare const kABPersonInstantMessageServiceICQ: interop.Pointer;
-
-declare const kABPersonPartnerLabel: interop.Pointer;
-
-declare const kABPersonChildLabel: interop.Pointer;
-
-declare const kABPersonAlternateBirthdayMonthKey: interop.Pointer;
-
-declare const kABPersonInstantMessageUsernameKey: interop.Pointer;
-
-declare const kABHomeLabel: interop.Pointer;
-
-declare const kABPersonParentLabel: interop.Pointer;
-
 declare const kABPersonJobTitleProperty: number;
 
-declare const kABPersonInstantMessageServiceAIM: interop.Pointer;
+declare const kABPersonSocialProfileServiceFacebook: interop.Pointer;
 
-declare const kABPersonCompositeNameFormatLastNameFirst: number;
+declare const kABPersonAddressProperty: number;
 
-declare const kABPersonKindOrganization: interop.Pointer;
-
-declare const kABPersonSpouseLabel: interop.Pointer;
+declare const kABHomeLabel: interop.Pointer;
 
 declare const kABPersonPhoneWorkFAXLabel: interop.Pointer;
 
 declare const kABPersonAddressZIPKey: interop.Pointer;
 
-declare const kABPersonSocialProfileUsernameKey: interop.Pointer;
-
-declare const kABPersonFirstNamePhoneticProperty: number;
-
-declare const kABPersonOrganizationProperty: number;
-
-declare const kABPersonSocialProfileServiceFlickr: interop.Pointer;
-
-declare const kABPersonSocialProfileURLKey: interop.Pointer;
-
-declare const kABPersonSocialProfileServiceGameCenter: interop.Pointer;
-
-declare const kABSourceTypeExchangeGAL: number;
-
-declare const kABPersonSortByLastName: number;
-
-declare const kABPersonInstantMessageServiceQQ: interop.Pointer;
-
-declare const kABPersonInstantMessageProperty: number;
-
-declare const kABPersonPhoneIPhoneLabel: interop.Pointer;
+declare const kABOperationNotPermittedByUserError: number;
 
 declare const kABPersonSocialProfileServiceKey: interop.Pointer;
 
-declare const kABPersonInstantMessageServiceGaduGadu: interop.Pointer;
+declare const kABPersonAddressCountryCodeKey: interop.Pointer;
 
-declare const kABPersonBrotherLabel: interop.Pointer;
+declare const kABPersonAlternateBirthdayCalendarIdentifierKey: interop.Pointer;
 
-declare const kABPersonSuffixProperty: number;
+declare const kABSourceTypeLocal: number;
 
-declare const kABOperationNotPermittedByUserError: number;
+declare const kABPersonKindPerson: interop.Pointer;
+
+declare const kABPersonAlternateBirthdayYearKey: interop.Pointer;
+
+declare const kABPersonPhoneMainLabel: interop.Pointer;
+
+declare const kABPersonSocialProfileServiceFlickr: interop.Pointer;
+
+declare const kABPersonSocialProfileServiceLinkedIn: interop.Pointer;
+
+declare const kABPersonPhoneIPhoneLabel: interop.Pointer;
+
+declare const kABPersonFirstNameProperty: number;
+
+declare const kABPersonMotherLabel: interop.Pointer;
 
 declare const kABPersonInstantMessageServiceSkype: interop.Pointer;
 
-declare const kABPersonAddressCityKey: interop.Pointer;
+declare const kABOtherLabel: interop.Pointer;
 
-declare const kABPersonLastNamePhoneticProperty: number;
+declare const kABGroupType: number;
 
-declare const kABPersonLastNameProperty: number;
+declare const kABPersonFriendLabel: interop.Pointer;
 
-declare const kABSourceTypeLDAP: number;
+declare const kABSourceTypeCardDAV: number;
+
+declare const kABPersonHomePageLabel: interop.Pointer;
+
+declare const kABWorkLabel: interop.Pointer;
+
+declare const kABMultiDateTimePropertyType: number;
+
+declare const kABPersonMiddleNamePhoneticProperty: number;
+
+declare const ABAddressBookErrorDomain: interop.Pointer;
+
+declare const kABPersonSocialProfileServiceGameCenter: interop.Pointer;
+
+declare const kABPersonDepartmentProperty: number;
+
+declare const kABIntegerPropertyType: number;
+
+declare const kABPersonSortByLastName: number;
+
+declare const kABPersonAlternateBirthdayEraKey: interop.Pointer;
+
+declare const kABPersonCompositeNameFormatLastNameFirst: number;
+
+declare const kABPersonPhonePagerLabel: interop.Pointer;
 
 declare const kABMultiDictionaryPropertyType: number;
 
-declare const kABPersonAddressCountryKey: interop.Pointer;
+declare const kABPersonInstantMessageServiceYahoo: interop.Pointer;
 
-declare const kABPersonType: number;
+declare const kABPersonAddressStreetKey: interop.Pointer;
 
-declare const kABPersonInstantMessageServiceFacebook: interop.Pointer;
+declare const kABPersonMiddleNameProperty: number;
 
-declare const kABPersonSocialProfileUserIdentifierKey: interop.Pointer;
+declare const kABPersonURLProperty: number;
 
-declare const kABPersonInstantMessageServiceMSN: interop.Pointer;
+declare const kABPersonInstantMessageServiceICQ: interop.Pointer;
 
-declare const kABDictionaryPropertyType: number;
+declare const kABRealPropertyType: number;
 
-declare const kABPersonKindProperty: number;
+declare const kABPersonBirthdayProperty: number;
 
-declare const kABPersonInstantMessageServiceKey: interop.Pointer;
-
-declare const kABSourceTypeExchange: number;
-
-declare const kABOperationNotPermittedByStoreError: number;
-
-declare const kABPersonSortByFirstName: number;
+declare const kABInvalidPropertyType: number;
 
 declare const ABPersonImageFormat: {
   Thumbnail: 0,

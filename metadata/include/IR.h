@@ -348,7 +348,7 @@ public:
   void processClassRefs();
   void processProtocolRefs();
 
-  std::unordered_set<std::string> frameworks;
+  std::unordered_set<std::string> includePaths;
 
   std::unordered_map<std::string, VariableDecl> variables;
   std::unordered_map<std::string, EnumDecl> enums;

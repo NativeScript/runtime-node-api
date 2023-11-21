@@ -1014,7 +1014,8 @@ public:
             napi_value elem;
             napi_get_property(env, value, key, &elem);
             toNative(env, elem, (void *)&obj, shouldFree, shouldFreeAny);
-            [(*res) setObject:obj forKey:[NSString stringWithUTF8String:buf]];
+            if (obj != nil)
+              [(*res) setObject:obj forKey:[NSString stringWithUTF8String:buf]];
           }
 
           return;

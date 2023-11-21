@@ -16,15 +16,15 @@ declare const MTKTextureLoaderOptionCubeLayout: string;
 
 declare const MTKTextureLoaderOptionTextureStorageMode: string;
 
+declare const MTKTextureLoaderOptionTextureCPUCacheMode: string;
+
 declare const MTKTextureLoaderOptionSRGB: string;
 
 declare const MTKTextureLoaderOptionAllocateMipmaps: string;
 
-declare const MTKTextureLoaderOptionTextureCPUCacheMode: string;
+declare const MTKTextureLoaderOptionTextureUsage: string;
 
 declare const MTKTextureLoaderOriginBottomLeft: string;
-
-declare const MTKTextureLoaderOptionTextureUsage: string;
 
 declare const MTKTextureLoaderOptionLoadAsArray: string;
 

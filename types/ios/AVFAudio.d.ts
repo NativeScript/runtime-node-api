@@ -1,13 +1,6 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const AVAudio3DMixingSourceMode: {
-  SpatializeIfMono: 0,
-  Bypass: 1,
-  PointSource: 2,
-  AmbienceBed: 3,
-};
-
 declare const AVAudio3DMixingRenderingAlgorithm: {
   EqualPowerPanning: 0,
   SphericalHead: 1,
@@ -23,6 +16,13 @@ declare const AVAudioEnvironmentOutputType: {
   Headphones: 1,
   BuiltInSpeakers: 2,
   ExternalSpeakers: 3,
+};
+
+declare const AVAudio3DMixingSourceMode: {
+  SpatializeIfMono: 0,
+  Bypass: 1,
+  PointSource: 2,
+  AmbienceBed: 3,
 };
 
 declare const AVAudioEngineManualRenderingStatus: {
@@ -64,18 +64,6 @@ declare const AVAudioUnitReverbPreset: {
   LargeHall2: 12,
 };
 
-declare const AVAudioEnvironmentDistanceAttenuationModel: {
-  Exponential: 1,
-  Inverse: 2,
-  Linear: 3,
-};
-
-declare const AVAudioSessionRecordPermission: {
-  Undetermined: 1970168948,
-  Denied: 1684369017,
-  Granted: 1735552628,
-};
-
 declare const AVAudioSessionRouteSharingPolicy: {
   Default: 0,
   LongFormAudio: 1,
@@ -84,21 +72,10 @@ declare const AVAudioSessionRouteSharingPolicy: {
   LongFormVideo: 3,
 };
 
-declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
-  Default: 0,
-  Min: 10,
-  Mid: 20,
-  Max: 30,
-};
-
-declare const AVAudioVoiceProcessingSpeechActivityEvent: {
-  Started: 0,
-  Ended: 1,
-};
-
-declare const AVAudioEngineManualRenderingMode: {
-  Offline: 0,
-  Realtime: 1,
+declare const AVAudioEnvironmentDistanceAttenuationModel: {
+  Exponential: 1,
+  Inverse: 2,
+  Linear: 3,
 };
 
 declare const AVAudioUnitEQFilterType: {
@@ -115,17 +92,40 @@ declare const AVAudioUnitEQFilterType: {
   ResonantHighShelf: 10,
 };
 
+declare const AVAudioSessionRecordPermission: {
+  Undetermined: 1970168948,
+  Denied: 1684369017,
+  Granted: 1735552628,
+};
+
+declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
+  Default: 0,
+  Min: 10,
+  Mid: 20,
+  Max: 30,
+};
+
+declare const AVAudio3DMixingPointSourceInHeadMode: {
+  Mono: 0,
+  Bypass: 1,
+};
+
+declare const AVAudioVoiceProcessingSpeechActivityEvent: {
+  Started: 0,
+  Ended: 1,
+};
+
+declare const AVAudioEngineManualRenderingMode: {
+  Offline: 0,
+  Realtime: 1,
+};
+
 declare const AVAudioCommonFormat: {
   OtherFormat: 0,
   PCMFormatFloat32: 1,
   PCMFormatFloat64: 2,
   PCMFormatInt16: 3,
   PCMFormatInt32: 4,
-};
-
-declare const AVAudio3DMixingPointSourceInHeadMode: {
-  Mono: 0,
-  Bypass: 1,
 };
 
 declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
@@ -141,17 +141,17 @@ declare class AVAudio3DAngularOrientation {
   roll: number;
 }
 
+declare class AVAudio3DVectorOrientation {
+  constructor(init?: AVAudio3DVectorOrientation);
+  forward: AVAudio3DPoint;
+  up: AVAudio3DPoint;
+}
+
 declare class AVAudio3DPoint {
   constructor(init?: AVAudio3DPoint);
   x: number;
   y: number;
   z: number;
-}
-
-declare class AVAudio3DVectorOrientation {
-  constructor(init?: AVAudio3DVectorOrientation);
-  forward: AVAudio3DPoint;
-  up: AVAudio3DPoint;
 }
 
 declare interface AVAudioStereoMixing extends NSObjectProtocol {
@@ -490,24 +490,6 @@ declare class AVAudioSession extends NSObject {
   readonly prefersNoInterruptionsFromSystemAlerts: boolean;
 }
 
-declare class AVAudioSessionDataSourceDescription extends NSObject {
-  readonly dataSourceID: NSNumber;
-
-  readonly dataSourceName: string;
-
-  readonly location: string;
-
-  readonly orientation: string;
-
-  readonly supportedPolarPatterns: NSArray;
-
-  readonly selectedPolarPattern: string;
-
-  readonly preferredPolarPattern: string;
-
-  setPreferredPolarPatternError(pattern: string | null, outError: interop.PointerConvertible): boolean;
-}
-
 declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing {
   readonly connectionPoint: AVAudioConnectionPoint;
 
@@ -584,80 +566,28 @@ declare class AVAudioEnvironmentReverbParameters extends NSObject {
   loadFactoryReverbPreset(preset: interop.Enum<typeof AVAudioUnitReverbPreset>): void;
 }
 
-declare class AVAudioFormat extends NSObject implements NSSecureCoding {
-  initWithStreamDescription(asbd: interop.PointerConvertible): this;
+declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
+  initWithLayoutTag(layoutTag: number): this;
 
-  initWithStreamDescriptionChannelLayout(asbd: interop.PointerConvertible, layout: AVAudioChannelLayout | null): this;
-
-  initStandardFormatWithSampleRateChannels(sampleRate: number, channels: number): this;
-
-  initStandardFormatWithSampleRateChannelLayout(sampleRate: number, layout: AVAudioChannelLayout): this;
-
-  initWithCommonFormatSampleRateChannelsInterleaved(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, channels: number, interleaved: boolean): this;
-
-  initWithCommonFormatSampleRateInterleavedChannelLayout(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, interleaved: boolean, layout: AVAudioChannelLayout): this;
-
-  initWithSettings(settings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
-
-  initWithCMAudioFormatDescription(formatDescription: interop.PointerConvertible): this;
+  initWithLayout(layout: interop.PointerConvertible): this;
 
   isEqual(object: interop.Object): boolean;
 
-  readonly isStandard: boolean;
+  static layoutWithLayoutTag<This extends abstract new (...args: any) => any>(this: This, layoutTag: number): InstanceType<This>;
 
-  readonly commonFormat: interop.Enum<typeof AVAudioCommonFormat>;
+  static layoutWithLayout<This extends abstract new (...args: any) => any>(this: This, layout: interop.PointerConvertible): InstanceType<This>;
+
+  readonly layoutTag: number;
+
+  readonly layout: interop.Pointer;
 
   readonly channelCount: number;
-
-  readonly sampleRate: number;
-
-  readonly isInterleaved: boolean;
-
-  readonly streamDescription: interop.Pointer;
-
-  readonly channelLayout: AVAudioChannelLayout;
-
-  magicCookie: NSData;
-
-  readonly settings: NSDictionary;
-
-  readonly formatDescription: interop.Pointer;
 
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class AVAudioNode extends NSObject {
-  reset(): void;
-
-  inputFormatForBus(bus: number): AVAudioFormat;
-
-  outputFormatForBus(bus: number): AVAudioFormat;
-
-  nameForInputBus(bus: number): string;
-
-  nameForOutputBus(bus: number): string;
-
-  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
-
-  removeTapOnBus(bus: number): void;
-
-  readonly engine: AVAudioEngine;
-
-  readonly numberOfInputs: number;
-
-  readonly numberOfOutputs: number;
-
-  readonly lastRenderTime: AVAudioTime;
-
-  readonly AUAudioUnit: AUAudioUnit;
-
-  readonly latency: number;
-
-  readonly outputPresentationLatency: number;
 }
 
 declare class AVAudioEngine extends NSObject {
@@ -745,28 +675,120 @@ declare class AVAudioEngine extends NSObject {
   disconnectMIDIOutput(node: AVAudioNode): void;
 }
 
-declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
-  initWithLayoutTag(layoutTag: number): this;
+declare class AVAudioFormat extends NSObject implements NSSecureCoding {
+  initWithStreamDescription(asbd: interop.PointerConvertible): this;
 
-  initWithLayout(layout: interop.PointerConvertible): this;
+  initWithStreamDescriptionChannelLayout(asbd: interop.PointerConvertible, layout: AVAudioChannelLayout | null): this;
+
+  initStandardFormatWithSampleRateChannels(sampleRate: number, channels: number): this;
+
+  initStandardFormatWithSampleRateChannelLayout(sampleRate: number, layout: AVAudioChannelLayout): this;
+
+  initWithCommonFormatSampleRateChannelsInterleaved(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, channels: number, interleaved: boolean): this;
+
+  initWithCommonFormatSampleRateInterleavedChannelLayout(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, interleaved: boolean, layout: AVAudioChannelLayout): this;
+
+  initWithSettings(settings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
+
+  initWithCMAudioFormatDescription(formatDescription: interop.PointerConvertible): this;
 
   isEqual(object: interop.Object): boolean;
 
-  static layoutWithLayoutTag<This extends abstract new (...args: any) => any>(this: This, layoutTag: number): InstanceType<This>;
+  readonly isStandard: boolean;
 
-  static layoutWithLayout<This extends abstract new (...args: any) => any>(this: This, layout: interop.PointerConvertible): InstanceType<This>;
-
-  readonly layoutTag: number;
-
-  readonly layout: interop.Pointer;
+  readonly commonFormat: interop.Enum<typeof AVAudioCommonFormat>;
 
   readonly channelCount: number;
+
+  readonly sampleRate: number;
+
+  readonly isInterleaved: boolean;
+
+  readonly streamDescription: interop.Pointer;
+
+  readonly channelLayout: AVAudioChannelLayout;
+
+  magicCookie: NSData;
+
+  readonly settings: NSDictionary;
+
+  readonly formatDescription: interop.Pointer;
 
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class AVAudioNode extends NSObject {
+  reset(): void;
+
+  inputFormatForBus(bus: number): AVAudioFormat;
+
+  outputFormatForBus(bus: number): AVAudioFormat;
+
+  nameForInputBus(bus: number): string;
+
+  nameForOutputBus(bus: number): string;
+
+  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
+
+  removeTapOnBus(bus: number): void;
+
+  readonly engine: AVAudioEngine;
+
+  readonly numberOfInputs: number;
+
+  readonly numberOfOutputs: number;
+
+  readonly lastRenderTime: AVAudioTime;
+
+  readonly AUAudioUnit: AUAudioUnit;
+
+  readonly latency: number;
+
+  readonly outputPresentationLatency: number;
+}
+
+declare class AVAudioSessionPortDescription extends NSObject {
+  readonly portType: string;
+
+  readonly portName: string;
+
+  readonly UID: string;
+
+  readonly hasHardwareVoiceCallProcessing: boolean;
+
+  readonly isSpatialAudioEnabled: boolean;
+
+  readonly channels: NSArray;
+
+  readonly dataSources: NSArray;
+
+  readonly selectedDataSource: AVAudioSessionDataSourceDescription;
+
+  readonly preferredDataSource: AVAudioSessionDataSourceDescription;
+
+  setPreferredDataSourceError(dataSource: AVAudioSessionDataSourceDescription | null, outError: interop.PointerConvertible): boolean;
+}
+
+declare class AVAudioSessionDataSourceDescription extends NSObject {
+  readonly dataSourceID: NSNumber;
+
+  readonly dataSourceName: string;
+
+  readonly location: string;
+
+  readonly orientation: string;
+
+  readonly supportedPolarPatterns: NSArray;
+
+  readonly selectedPolarPattern: string;
+
+  readonly preferredPolarPattern: string;
+
+  setPreferredPolarPatternError(pattern: string | null, outError: interop.PointerConvertible): boolean;
 }
 
 declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixing {
@@ -851,27 +873,5 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
   occlusion: number;
 
   position: AVAudio3DPoint;
-}
-
-declare class AVAudioSessionPortDescription extends NSObject {
-  readonly portType: string;
-
-  readonly portName: string;
-
-  readonly UID: string;
-
-  readonly hasHardwareVoiceCallProcessing: boolean;
-
-  readonly isSpatialAudioEnabled: boolean;
-
-  readonly channels: NSArray;
-
-  readonly dataSources: NSArray;
-
-  readonly selectedDataSource: AVAudioSessionDataSourceDescription;
-
-  readonly preferredDataSource: AVAudioSessionDataSourceDescription;
-
-  setPreferredDataSourceError(dataSource: AVAudioSessionDataSourceDescription | null, outError: interop.PointerConvertible): boolean;
 }
 

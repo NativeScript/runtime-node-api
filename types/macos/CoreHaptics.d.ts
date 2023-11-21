@@ -53,17 +53,17 @@ declare const CHHapticPatternKeyEventDuration: string;
 
 declare const CHHapticPatternKeyParameter: string;
 
+declare const CHHapticDynamicParameterIDAudioBrightnessControl: string;
+
 declare const CHHapticDynamicParameterIDAudioPanControl: string;
+
+declare const CHHapticEventParameterIDHapticSharpness: string;
 
 declare const CHHapticDynamicParameterIDHapticDecayTimeControl: string;
 
 declare const CHHapticDynamicParameterIDAudioDecayTimeControl: string;
 
-declare const CHHapticEventParameterIDHapticSharpness: string;
-
 declare const CHHapticPatternKeyEventType: string;
-
-declare const CHHapticDynamicParameterIDAudioBrightnessControl: string;
 
 declare const CHHapticEventParameterIDAttackTime: string;
 
@@ -131,19 +131,6 @@ declare const CHHapticEngineStoppedReason: {
   SystemError: -1,
 };
 
-declare interface CHHapticDeviceCapability {
-  readonly supportsHaptics: boolean;
-
-  readonly supportsAudio: boolean;
-
-  attributesForEventParameterEventTypeError(inParameter: string, type: string, outError: interop.PointerConvertible): CHHapticParameterAttributes;
-
-  attributesForDynamicParameterError(inParameter: string, outError: interop.PointerConvertible): CHHapticParameterAttributes;
-}
-
-declare class CHHapticDeviceCapability extends NativeObject implements CHHapticDeviceCapability {
-}
-
 declare interface CHHapticAdvancedPatternPlayer extends CHHapticPatternPlayer {
   pauseAtTimeError(time: number, outError: interop.PointerConvertible): boolean;
 
@@ -193,6 +180,19 @@ declare interface CHHapticParameterAttributes extends NSObjectProtocol {
 declare class CHHapticParameterAttributes extends NativeObject implements CHHapticParameterAttributes {
 }
 
+declare interface CHHapticDeviceCapability {
+  readonly supportsHaptics: boolean;
+
+  readonly supportsAudio: boolean;
+
+  attributesForEventParameterEventTypeError(inParameter: string, type: string, outError: interop.PointerConvertible): CHHapticParameterAttributes;
+
+  attributesForDynamicParameterError(inParameter: string, outError: interop.PointerConvertible): CHHapticParameterAttributes;
+}
+
+declare class CHHapticDeviceCapability extends NativeObject implements CHHapticDeviceCapability {
+}
+
 declare class CHHapticPattern extends NSObject {
   readonly duration: number;
 
@@ -205,6 +205,60 @@ declare class CHHapticPattern extends NSObject {
   initWithContentsOfURLError(ahapURL: NSURL, outError: interop.PointerConvertible): this;
 
   exportDictionaryAndReturnError(outError: interop.PointerConvertible): NSDictionary;
+}
+
+declare class CHHapticEvent extends NSObject {
+  readonly type: string;
+
+  readonly eventParameters: NSArray;
+
+  relativeTime: number;
+
+  duration: number;
+
+  initWithEventTypeParametersRelativeTime(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
+
+  initWithEventTypeParametersRelativeTimeDuration(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
+
+  initWithAudioResourceIDParametersRelativeTime(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
+
+  initWithAudioResourceIDParametersRelativeTimeDuration(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
+}
+
+declare class CHHapticParameterCurve extends NSObject {
+  readonly parameterID: string;
+
+  relativeTime: number;
+
+  readonly controlPoints: NSArray;
+
+  initWithParameterIDControlPointsRelativeTime(parameterID: string, controlPoints: NSArray<interop.Object> | Array<interop.Object>, relativeTime: number): this;
+}
+
+declare class CHHapticParameterCurveControlPoint extends NSObject {
+  relativeTime: number;
+
+  value: number;
+
+  initWithRelativeTimeValue(time: number, value: number): this;
+}
+
+declare class CHHapticDynamicParameter extends NSObject {
+  readonly parameterID: string;
+
+  value: number;
+
+  relativeTime: number;
+
+  initWithParameterIDValueRelativeTime(parameterID: string, value: number, time: number): this;
+}
+
+declare class CHHapticEventParameter extends NSObject {
+  readonly parameterID: string;
+
+  value: number;
+
+  initWithParameterIDValue(parameterID: string, value: number): this;
 }
 
 declare class CHHapticEngine extends NSObject {
@@ -249,59 +303,5 @@ declare class CHHapticEngine extends NSObject {
   playPatternFromURLError(fileURL: NSURL, outError: interop.PointerConvertible): boolean;
 
   playPatternFromDataError(data: NSData, outError: interop.PointerConvertible): boolean;
-}
-
-declare class CHHapticParameterCurveControlPoint extends NSObject {
-  relativeTime: number;
-
-  value: number;
-
-  initWithRelativeTimeValue(time: number, value: number): this;
-}
-
-declare class CHHapticDynamicParameter extends NSObject {
-  readonly parameterID: string;
-
-  value: number;
-
-  relativeTime: number;
-
-  initWithParameterIDValueRelativeTime(parameterID: string, value: number, time: number): this;
-}
-
-declare class CHHapticEventParameter extends NSObject {
-  readonly parameterID: string;
-
-  value: number;
-
-  initWithParameterIDValue(parameterID: string, value: number): this;
-}
-
-declare class CHHapticEvent extends NSObject {
-  readonly type: string;
-
-  readonly eventParameters: NSArray;
-
-  relativeTime: number;
-
-  duration: number;
-
-  initWithEventTypeParametersRelativeTime(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
-
-  initWithEventTypeParametersRelativeTimeDuration(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
-
-  initWithAudioResourceIDParametersRelativeTime(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
-
-  initWithAudioResourceIDParametersRelativeTimeDuration(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
-}
-
-declare class CHHapticParameterCurve extends NSObject {
-  readonly parameterID: string;
-
-  relativeTime: number;
-
-  readonly controlPoints: NSArray;
-
-  initWithParameterIDControlPointsRelativeTime(parameterID: string, controlPoints: NSArray<interop.Object> | Array<interop.Object>, relativeTime: number): this;
 }
 

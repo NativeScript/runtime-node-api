@@ -17,11 +17,11 @@ declare const kJSPropertyAttributeReadOnly: number;
 
 declare const kJSPropertyAttributeNone: number;
 
-declare const JSPropertyDescriptorValueKey: string;
+declare const JSPropertyDescriptorGetKey: string;
 
 declare const JSPropertyDescriptorWritableKey: string;
 
-declare const JSPropertyDescriptorGetKey: string;
+declare const JSPropertyDescriptorValueKey: string;
 
 declare const JSPropertyDescriptorConfigurableKey: string;
 
@@ -343,44 +343,6 @@ declare class JSVirtualMachine extends NSObject {
   removeManagedReferenceWithOwner(object: interop.Object, owner: interop.Object): void;
 }
 
-declare class JSContext extends NSObject {
-  init(): this;
-
-  initWithVirtualMachine(virtualMachine: JSVirtualMachine): this;
-
-  evaluateScript(script: string): JSValue;
-
-  evaluateScriptWithSourceURL(script: string, sourceURL: NSURL): JSValue;
-
-  static currentContext(): JSContext;
-
-  static currentCallee(): JSValue;
-
-  static currentThis(): JSValue;
-
-  static currentArguments(): NSArray;
-
-  readonly globalObject: JSValue;
-
-  exception: JSValue;
-
-  exceptionHandler: (p1: JSContext, p2: JSValue) => void;
-
-  readonly virtualMachine: JSVirtualMachine;
-
-  name: string;
-
-  isInspectable: boolean;
-
-  objectForKeyedSubscript(key: interop.Object): JSValue;
-
-  setObjectForKeyedSubscript(object: interop.Object, key: NSObject): void;
-
-  static contextWithJSGlobalContextRef(jsGlobalContextRef: interop.PointerConvertible): JSContext;
-
-  readonly JSGlobalContextRef: interop.Pointer;
-}
-
 declare class JSValue extends NSObject {
   readonly context: JSContext;
 
@@ -507,6 +469,44 @@ declare class JSValue extends NSObject {
   static valueWithJSValueRefInContext(value: interop.PointerConvertible, context: JSContext): JSValue;
 
   readonly JSValueRef: interop.Pointer;
+}
+
+declare class JSContext extends NSObject {
+  init(): this;
+
+  initWithVirtualMachine(virtualMachine: JSVirtualMachine): this;
+
+  evaluateScript(script: string): JSValue;
+
+  evaluateScriptWithSourceURL(script: string, sourceURL: NSURL): JSValue;
+
+  static currentContext(): JSContext;
+
+  static currentCallee(): JSValue;
+
+  static currentThis(): JSValue;
+
+  static currentArguments(): NSArray;
+
+  readonly globalObject: JSValue;
+
+  exception: JSValue;
+
+  exceptionHandler: (p1: JSContext, p2: JSValue) => void;
+
+  readonly virtualMachine: JSVirtualMachine;
+
+  name: string;
+
+  isInspectable: boolean;
+
+  objectForKeyedSubscript(key: interop.Object): JSValue;
+
+  setObjectForKeyedSubscript(object: interop.Object, key: NSObject): void;
+
+  static contextWithJSGlobalContextRef(jsGlobalContextRef: interop.PointerConvertible): JSContext;
+
+  readonly JSGlobalContextRef: interop.Pointer;
 }
 
 declare class JSManagedValue extends NSObject {

@@ -99,14 +99,41 @@ await Deno.mkdir(new URL(`../types/${sdkName}`, import.meta.url), {
 
 const exec = new URL("../metadata/build/MetadataGenerator", import.meta.url);
 const args = [
-  sdk.target,
-  new URL(`../metadata/metadata.${sdkName}.nsmd`, import.meta.url)
-    .pathname,
-  new URL(`../types/${sdkName}`, import.meta.url)
-    .pathname,
-  sdk.path,
-  ...sdk.frameworks,
+  `target=${sdk.target}`,
+  `output=${
+    new URL(`../metadata/metadata.${sdkName}.nsmd`, import.meta.url)
+      .pathname
+  }`,
+  `types=${
+    new URL(`../types/${sdkName}`, import.meta.url)
+      .pathname
+  }`,
+  `sdk=${sdk.path}`,
 ];
+
+for (const framework of sdk.frameworks) {
+  args.push(`framework=${framework}`);
+}
+
+const customFrameworks = [
+  "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",
+];
+
+for (const framework of customFrameworks) {
+  args.push(`include=${framework}`);
+  args.push(`headers=${framework}/Headers`);
+  args.push(`import="TNSWidgets.h"`);
+}
+
+args.push(
+  "include=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
+);
+args.push(
+  "headers=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
+);
+args.push('import="NativeScriptEmbedder.h"');
+args.push('import="NativeScriptUtils.h"');
+args.push('import="UIView+NativeScript.h"');
 
 console.log(`%c$ MetadataGenerator ${args.join(" ")}`, "color: grey");
 

@@ -14,15 +14,15 @@ declare const GKPlayerDidChangeNotificationName: string;
 
 declare const GKPlayerIDNoLongerAvailable: string;
 
-declare const GKErrorDomain: string;
+declare const GKSessionErrorDomain: string;
 
 declare const GKExchangeTimeoutNone: number;
-
-declare const GKSessionErrorDomain: string;
 
 declare const GKTurnTimeoutDefault: number;
 
 declare const GKGameSessionErrorDomain: string;
+
+declare const GKErrorDomain: string;
 
 declare const GKVoiceChatPlayerState: {
   Connected: 0,
@@ -140,6 +140,11 @@ declare const GKLeaderboardType: {
   Recurring: 1,
 };
 
+declare const GKLeaderboardPlayerScope: {
+  Global: 0,
+  FriendsOnly: 1,
+};
+
 declare const GKLeaderboardTimeScope: {
   Today: 0,
   Week: 1,
@@ -198,6 +203,51 @@ declare const GKPlayerConnectionState: {
   Disconnected: 2,
 };
 
+declare const GKInviteRecipientResponse: {
+  InviteRecipientResponseAccepted: 0,
+  InviteRecipientResponseDeclined: 1,
+  InviteRecipientResponseFailed: 2,
+  InviteRecipientResponseIncompatible: 3,
+  InviteRecipientResponseUnableToConnect: 4,
+  InviteRecipientResponseNoAnswer: 5,
+  InviteeResponseAccepted: 0,
+  InviteeResponseDeclined: 1,
+  InviteeResponseFailed: 2,
+  InviteeResponseIncompatible: 3,
+  InviteeResponseUnableToConnect: 4,
+  InviteeResponseNoAnswer: 5,
+};
+
+declare const GKMatchSendDataMode: {
+  Reliable: 0,
+  Unreliable: 1,
+};
+
+declare const GKSendDataMode: {
+  Reliable: 0,
+  Unreliable: 1,
+};
+
+declare const GKTurnBasedExchangeStatus: {
+  Unknown: 0,
+  Active: 1,
+  Complete: 2,
+  Resolved: 3,
+  Canceled: 4,
+};
+
+declare const GKMatchmakingMode: {
+  Default: 0,
+  NearbyOnly: 1,
+  AutomatchOnly: 2,
+  InviteOnly: 3,
+};
+
+declare const GKConnectionState: {
+  Not: 0,
+  GKConnectionStateConnected: 1,
+};
+
 declare const GKSessionError: {
   InvalidParameter: 30500,
   PeerNotFound: 30501,
@@ -215,51 +265,6 @@ declare const GKSessionError: {
   Internal: 30203,
   Unknown: 30204,
   System: 30205,
-};
-
-declare const GKInviteRecipientResponse: {
-  InviteRecipientResponseAccepted: 0,
-  InviteRecipientResponseDeclined: 1,
-  InviteRecipientResponseFailed: 2,
-  InviteRecipientResponseIncompatible: 3,
-  InviteRecipientResponseUnableToConnect: 4,
-  InviteRecipientResponseNoAnswer: 5,
-  InviteeResponseAccepted: 0,
-  InviteeResponseDeclined: 1,
-  InviteeResponseFailed: 2,
-  InviteeResponseIncompatible: 3,
-  InviteeResponseUnableToConnect: 4,
-  InviteeResponseNoAnswer: 5,
-};
-
-declare const GKTurnBasedExchangeStatus: {
-  Unknown: 0,
-  Active: 1,
-  Complete: 2,
-  Resolved: 3,
-  Canceled: 4,
-};
-
-declare const GKMatchSendDataMode: {
-  Reliable: 0,
-  Unreliable: 1,
-};
-
-declare const GKSendDataMode: {
-  Reliable: 0,
-  Unreliable: 1,
-};
-
-declare const GKTransportType: {
-  Unreliable: 0,
-  Reliable: 1,
-};
-
-declare const GKMatchmakingMode: {
-  Default: 0,
-  NearbyOnly: 1,
-  AutomatchOnly: 2,
-  InviteOnly: 3,
 };
 
 declare const GKTurnBasedParticipantStatus: {
@@ -285,14 +290,9 @@ declare const GKFriendsAuthorizationStatus: {
   Authorized: 3,
 };
 
-declare const GKLeaderboardPlayerScope: {
-  Global: 0,
-  FriendsOnly: 1,
-};
-
-declare const GKConnectionState: {
-  Not: 0,
-  GKConnectionStateConnected: 1,
+declare const GKTransportType: {
+  Unreliable: 0,
+  Reliable: 1,
 };
 
 declare interface GKPeerPickerControllerDelegate extends NSObjectProtocol {
@@ -462,13 +462,6 @@ declare interface GKChallengeEventHandlerDelegate extends NSObjectProtocol {
 declare class GKChallengeEventHandlerDelegate extends NativeObject implements GKChallengeEventHandlerDelegate {
 }
 
-declare interface GKLeaderboardViewControllerDelegate extends NSObjectProtocol {
-  leaderboardViewControllerDidFinish(viewController: GKLeaderboardViewController): void;
-}
-
-declare class GKLeaderboardViewControllerDelegate extends NativeObject implements GKLeaderboardViewControllerDelegate {
-}
-
 declare interface GKTurnBasedEventListener {
   playerDidRequestMatchWithOtherPlayers?(player: GKPlayer, playersToInvite: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -496,6 +489,20 @@ declare interface GKLocalPlayerListener extends GKChallengeListener, GKInviteEve
 declare class GKLocalPlayerListener extends NativeObject implements GKLocalPlayerListener {
 }
 
+declare interface GKFriendRequestComposeViewControllerDelegate {
+  friendRequestComposeViewControllerDidFinish(viewController: GKFriendRequestComposeViewController): void;
+}
+
+declare class GKFriendRequestComposeViewControllerDelegate extends NativeObject implements GKFriendRequestComposeViewControllerDelegate {
+}
+
+declare interface GKGameCenterControllerDelegate extends NSObjectProtocol {
+  gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController): void;
+}
+
+declare class GKGameCenterControllerDelegate extends NativeObject implements GKGameCenterControllerDelegate {
+}
+
 declare interface GKTurnBasedMatchmakerViewControllerDelegate extends NSObjectProtocol {
   turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController): void;
 
@@ -509,20 +516,6 @@ declare interface GKTurnBasedMatchmakerViewControllerDelegate extends NSObjectPr
 declare class GKTurnBasedMatchmakerViewControllerDelegate extends NativeObject implements GKTurnBasedMatchmakerViewControllerDelegate {
 }
 
-declare interface GKGameCenterControllerDelegate extends NSObjectProtocol {
-  gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController): void;
-}
-
-declare class GKGameCenterControllerDelegate extends NativeObject implements GKGameCenterControllerDelegate {
-}
-
-declare interface GKFriendRequestComposeViewControllerDelegate {
-  friendRequestComposeViewControllerDidFinish(viewController: GKFriendRequestComposeViewController): void;
-}
-
-declare class GKFriendRequestComposeViewControllerDelegate extends NativeObject implements GKFriendRequestComposeViewControllerDelegate {
-}
-
 declare interface GKAchievementViewControllerDelegate extends NSObjectProtocol {
   achievementViewControllerDidFinish(viewController: GKAchievementViewController): void;
 }
@@ -530,36 +523,11 @@ declare interface GKAchievementViewControllerDelegate extends NSObjectProtocol {
 declare class GKAchievementViewControllerDelegate extends NativeObject implements GKAchievementViewControllerDelegate {
 }
 
-declare class GKVoiceChatService extends NSObject {
-  static defaultVoiceChatService(): GKVoiceChatService;
+declare interface GKLeaderboardViewControllerDelegate extends NSObjectProtocol {
+  leaderboardViewControllerDidFinish(viewController: GKLeaderboardViewController): void;
+}
 
-  static isVoIPAllowed(): boolean;
-
-  client: GKVoiceChatClient;
-
-  startVoiceChatWithParticipantIDError(participantID: string, error: interop.PointerConvertible): boolean;
-
-  stopVoiceChatWithParticipantID(participantID: string): void;
-
-  acceptCallIDError(callID: number, error: interop.PointerConvertible): boolean;
-
-  denyCallID(callID: number): void;
-
-  receivedRealTimeDataFromParticipantID(audio: NSData, participantID: string): void;
-
-  receivedDataFromParticipantID(arbitraryData: NSData, participantID: string): void;
-
-  isMicrophoneMuted: boolean;
-
-  remoteParticipantVolume: number;
-
-  isOutputMeteringEnabled: boolean;
-
-  isInputMeteringEnabled: boolean;
-
-  readonly outputMeterLevel: number;
-
-  readonly inputMeterLevel: number;
+declare class GKLeaderboardViewControllerDelegate extends NativeObject implements GKLeaderboardViewControllerDelegate {
 }
 
 declare class GKVoiceChat extends NSObject {
@@ -680,46 +648,6 @@ declare class GKMatchmaker extends NSObject {
   findPlayersForHostedMatchRequestWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 }
 
-declare class GKInvite extends NSObject {
-  readonly sender: GKPlayer;
-
-  readonly isHosted: boolean;
-
-  readonly playerGroup: number;
-
-  readonly playerAttributes: number;
-
-  readonly inviter: string;
-}
-
-declare class GKMatchRequest extends NSObject {
-  minPlayers: number;
-
-  maxPlayers: number;
-
-  playerGroup: number;
-
-  playerAttributes: number;
-
-  get recipients(): NSArray;
-  set recipients(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  inviteMessage: string;
-
-  defaultNumberOfPlayers: number;
-
-  restrictToAutomatch: boolean;
-
-  recipientResponseHandler: (p1: GKPlayer, p2: interop.Enum<typeof GKInviteRecipientResponse>) => void;
-
-  inviteeResponseHandler: (p1: string, p2: interop.Enum<typeof GKInviteRecipientResponse>) => void;
-
-  static maxPlayersAllowedForMatchOfType(matchType: interop.Enum<typeof GKMatchType>): number;
-
-  get playersToInvite(): NSArray;
-  set playersToInvite(value: NSArray<interop.Object> | Array<interop.Object>);
-}
-
 declare class GKTurnBasedEventHandler extends NSObject {
   static sharedTurnBasedEventHandler(): GKTurnBasedEventHandler;
 
@@ -736,30 +664,74 @@ declare class GKTurnBasedExchangeReply extends NSObject {
   readonly replyDate: NSDate;
 }
 
-declare class GKTurnBasedExchange extends NSObject {
-  readonly exchangeID: string;
+declare class GKTurnBasedMatch extends NSObject {
+  readonly matchID: string;
 
-  readonly sender: GKTurnBasedParticipant;
+  readonly creationDate: NSDate;
 
-  readonly recipients: NSArray;
+  readonly participants: NSArray;
 
-  readonly status: interop.Enum<typeof GKTurnBasedExchangeStatus>;
+  readonly status: interop.Enum<typeof GKTurnBasedMatchStatus>;
 
-  readonly message: string;
+  readonly currentParticipant: GKTurnBasedParticipant;
 
-  readonly data: NSData;
+  readonly matchData: NSData;
 
-  readonly sendDate: NSDate;
+  setLocalizableMessageWithKeyArguments(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object> | null): void;
 
-  readonly timeoutDate: NSDate;
+  message: string;
 
-  readonly completionDate: NSDate;
+  readonly matchDataMaximumSize: number;
 
-  readonly replies: NSArray;
+  readonly exchanges: NSArray;
 
-  cancelWithLocalizableMessageKeyArgumentsCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+  readonly activeExchanges: NSArray;
 
-  replyWithLocalizableMessageKeyArgumentsDataCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, data: NSData, completionHandler: (p1: NSError) => void | null): void;
+  readonly completedExchanges: NSArray;
+
+  readonly exchangeDataMaximumSize: number;
+
+  readonly exchangeMaxInitiatedExchangesPerPlayer: number;
+
+  static findMatchForRequestWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
+
+  static loadMatchesWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  static loadMatchWithIDWithCompletionHandler(matchID: string, completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
+
+  rematchWithCompletionHandler(completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
+
+  acceptInviteWithCompletionHandler(completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
+
+  declineInviteWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  removeWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  loadMatchDataWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
+
+  endTurnWithNextParticipantsTurnTimeoutMatchDataCompletionHandler(nextParticipants: NSArray<interop.Object> | Array<interop.Object>, timeout: number, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  participantQuitInTurnWithOutcomeNextParticipantsTurnTimeoutMatchDataCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, nextParticipants: NSArray<interop.Object> | Array<interop.Object>, timeout: number, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  participantQuitOutOfTurnWithOutcomeWithCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, completionHandler: (p1: NSError) => void | null): void;
+
+  endMatchInTurnWithMatchDataCompletionHandler(matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  endMatchInTurnWithMatchDataScoresAchievementsCompletionHandler(matchData: NSData, scores: NSArray<interop.Object> | Array<interop.Object> | null, achievements: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSError) => void | null): void;
+
+  endMatchInTurnWithMatchDataLeaderboardScoresAchievementsCompletionHandler(matchData: NSData, scores: NSArray<interop.Object> | Array<interop.Object>, achievements: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  saveCurrentTurnWithMatchDataCompletionHandler(matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  saveMergedMatchDataWithResolvedExchangesCompletionHandler(matchData: NSData, exchanges: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  sendExchangeToParticipantsDataLocalizableMessageKeyArgumentsTimeoutCompletionHandler(participants: NSArray<interop.Object> | Array<interop.Object>, data: NSData, key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, timeout: number, completionHandler: (p1: GKTurnBasedExchange, p2: NSError) => void | null): void;
+
+  sendReminderToParticipantsLocalizableMessageKeyArgumentsCompletionHandler(participants: NSArray<interop.Object> | Array<interop.Object>, key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  endTurnWithNextParticipantMatchDataCompletionHandler(nextParticipant: GKTurnBasedParticipant, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  participantQuitInTurnWithOutcomeNextParticipantMatchDataCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, nextParticipant: GKTurnBasedParticipant, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
 }
 
 declare class GKTurnBasedParticipant extends NSObject {
@@ -890,24 +862,6 @@ declare class GKLeaderboardScore extends NSObject {
   context: number;
 
   leaderboardID: string;
-}
-
-declare class GKLeaderboardEntry extends NSObject {
-  readonly player: GKPlayer;
-
-  readonly rank: number;
-
-  readonly score: number;
-
-  readonly formattedScore: string;
-
-  readonly context: number;
-
-  readonly date: NSDate;
-
-  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
-
-  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
 }
 
 declare class GKScore extends NSObject implements NSCoding, NSSecureCoding {
@@ -1050,6 +1004,58 @@ declare class GKLeaderboard extends NSObject {
   loadImageWithCompletionHandler(completionHandler: (p1: UIImage, p2: NSError) => void | null): void;
 }
 
+declare class GKAchievement extends NSObject implements NSCoding, NSSecureCoding {
+  static loadAchievementsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  static resetAchievementsWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  initWithIdentifier(identifier: string | null): this;
+
+  initWithIdentifierPlayer(identifier: string | null, player: GKPlayer): this;
+
+  static reportAchievementsWithCompletionHandler(achievements: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  identifier: string;
+
+  percentComplete: number;
+
+  readonly isCompleted: boolean;
+
+  readonly lastReportedDate: NSDate;
+
+  showsCompletionBanner: boolean;
+
+  readonly player: GKPlayer;
+
+  reportAchievementWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  readonly isHidden: boolean;
+
+  initWithIdentifierForPlayer(identifier: string | null, playerID: string): this;
+
+  readonly playerID: string;
+
+  selectChallengeablePlayersWithCompletionHandler(players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  static reportAchievementsWithEligibleChallengesWithCompletionHandler(achievements: NSArray<interop.Object> | Array<interop.Object>, challenges: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  issueChallengeToPlayersMessage(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, message: string | null): void;
+
+  selectChallengeablePlayerIDsWithCompletionHandler(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+
+  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+
+  challengeComposeControllerWithPlayersMessageCompletionHandler(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, message: string | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  static readonly supportsSecureCoding: boolean;
+}
+
 declare class GKPlayer extends GKBasePlayer {
   scopedIDsArePersistent(): boolean;
 
@@ -1080,6 +1086,198 @@ declare class GKBasePlayer extends NSObject {
   readonly playerID: string;
 
   readonly displayName: string;
+}
+
+declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
+  static loadAchievementDescriptionsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  readonly identifier: string;
+
+  readonly groupIdentifier: string;
+
+  readonly title: string;
+
+  readonly achievedDescription: string;
+
+  readonly unachievedDescription: string;
+
+  readonly maximumPoints: number;
+
+  readonly isHidden: boolean;
+
+  readonly isReplayable: boolean;
+
+  readonly rarityPercent: NSNumber;
+
+  readonly image: UIImage;
+
+  loadImageWithCompletionHandler(completionHandler: (p1: UIImage, p2: NSError) => void | null): void;
+
+  static incompleteAchievementImage(): UIImage;
+
+  static placeholderCompletedAchievementImage(): UIImage;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  static readonly supportsSecureCoding: boolean;
+}
+
+declare class GKAchievementChallenge extends GKChallenge {
+  readonly achievement: GKAchievement;
+}
+
+declare class GKInvite extends NSObject {
+  readonly sender: GKPlayer;
+
+  readonly isHosted: boolean;
+
+  readonly playerGroup: number;
+
+  readonly playerAttributes: number;
+
+  readonly inviter: string;
+}
+
+declare class GKVoiceChatService extends NSObject {
+  static defaultVoiceChatService(): GKVoiceChatService;
+
+  static isVoIPAllowed(): boolean;
+
+  client: GKVoiceChatClient;
+
+  startVoiceChatWithParticipantIDError(participantID: string, error: interop.PointerConvertible): boolean;
+
+  stopVoiceChatWithParticipantID(participantID: string): void;
+
+  acceptCallIDError(callID: number, error: interop.PointerConvertible): boolean;
+
+  denyCallID(callID: number): void;
+
+  receivedRealTimeDataFromParticipantID(audio: NSData, participantID: string): void;
+
+  receivedDataFromParticipantID(arbitraryData: NSData, participantID: string): void;
+
+  isMicrophoneMuted: boolean;
+
+  remoteParticipantVolume: number;
+
+  isOutputMeteringEnabled: boolean;
+
+  isInputMeteringEnabled: boolean;
+
+  readonly outputMeterLevel: number;
+
+  readonly inputMeterLevel: number;
+}
+
+declare class GKTurnBasedExchange extends NSObject {
+  readonly exchangeID: string;
+
+  readonly sender: GKTurnBasedParticipant;
+
+  readonly recipients: NSArray;
+
+  readonly status: interop.Enum<typeof GKTurnBasedExchangeStatus>;
+
+  readonly message: string;
+
+  readonly data: NSData;
+
+  readonly sendDate: NSDate;
+
+  readonly timeoutDate: NSDate;
+
+  readonly completionDate: NSDate;
+
+  readonly replies: NSArray;
+
+  cancelWithLocalizableMessageKeyArgumentsCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  replyWithLocalizableMessageKeyArgumentsDataCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, data: NSData, completionHandler: (p1: NSError) => void | null): void;
+}
+
+declare class GKMatchRequest extends NSObject {
+  minPlayers: number;
+
+  maxPlayers: number;
+
+  playerGroup: number;
+
+  playerAttributes: number;
+
+  get recipients(): NSArray;
+  set recipients(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  inviteMessage: string;
+
+  defaultNumberOfPlayers: number;
+
+  restrictToAutomatch: boolean;
+
+  recipientResponseHandler: (p1: GKPlayer, p2: interop.Enum<typeof GKInviteRecipientResponse>) => void;
+
+  inviteeResponseHandler: (p1: string, p2: interop.Enum<typeof GKInviteRecipientResponse>) => void;
+
+  static maxPlayersAllowedForMatchOfType(matchType: interop.Enum<typeof GKMatchType>): number;
+
+  get playersToInvite(): NSArray;
+  set playersToInvite(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
+declare class GKSavedGame extends NSObject implements NSCopying {
+  readonly name: string;
+
+  readonly deviceName: string;
+
+  readonly modificationDate: NSDate;
+
+  loadDataWithCompletionHandler(handler: (p1: NSData, p2: NSError) => void | null): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class GKLeaderboardEntry extends NSObject {
+  readonly player: GKPlayer;
+
+  readonly rank: number;
+
+  readonly score: number;
+
+  readonly formattedScore: string;
+
+  readonly context: number;
+
+  readonly date: NSDate;
+
+  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+
+  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+}
+
+declare class GKCloudPlayer extends GKBasePlayer {
+  static getCurrentSignedInPlayerForContainerCompletionHandler(containerName: string | null, handler: (p1: GKCloudPlayer, p2: NSError) => void | null): void;
+}
+
+declare class GKGameCenterViewController extends UINavigationController {
+  gameCenterDelegate: GKGameCenterControllerDelegate;
+
+  initWithState(state: interop.Enum<typeof GKGameCenterViewControllerState>): this;
+
+  initWithLeaderboardIDPlayerScopeTimeScope(leaderboardID: string, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>, timeScope: interop.Enum<typeof GKLeaderboardTimeScope>): this;
+
+  initWithLeaderboardPlayerScope(leaderboard: GKLeaderboard, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>): this;
+
+  initWithAchievementID(achievementID: string): this;
+
+  viewState: interop.Enum<typeof GKGameCenterViewControllerState>;
+
+  leaderboardTimeScope: interop.Enum<typeof GKLeaderboardTimeScope>;
+
+  leaderboardIdentifier: string;
+
+  leaderboardCategory: string;
 }
 
 declare class GKLocalPlayer extends GKPlayer {
@@ -1144,166 +1342,6 @@ declare class GKLocalPlayer extends GKPlayer {
   deleteSavedGamesWithNameCompletionHandler(name: string, handler: (p1: NSError) => void | null): void;
 
   resolveConflictingSavedGamesWithDataCompletionHandler(conflictingSavedGames: NSArray<interop.Object> | Array<interop.Object>, data: NSData, handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-}
-
-declare class GKGameCenterViewController extends UINavigationController {
-  gameCenterDelegate: GKGameCenterControllerDelegate;
-
-  initWithState(state: interop.Enum<typeof GKGameCenterViewControllerState>): this;
-
-  initWithLeaderboardIDPlayerScopeTimeScope(leaderboardID: string, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>, timeScope: interop.Enum<typeof GKLeaderboardTimeScope>): this;
-
-  initWithLeaderboardPlayerScope(leaderboard: GKLeaderboard, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>): this;
-
-  initWithAchievementID(achievementID: string): this;
-
-  viewState: interop.Enum<typeof GKGameCenterViewControllerState>;
-
-  leaderboardTimeScope: interop.Enum<typeof GKLeaderboardTimeScope>;
-
-  leaderboardIdentifier: string;
-
-  leaderboardCategory: string;
-}
-
-declare class GKSavedGame extends NSObject implements NSCopying {
-  readonly name: string;
-
-  readonly deviceName: string;
-
-  readonly modificationDate: NSDate;
-
-  loadDataWithCompletionHandler(handler: (p1: NSData, p2: NSError) => void | null): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
-  static loadAchievementDescriptionsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  readonly identifier: string;
-
-  readonly groupIdentifier: string;
-
-  readonly title: string;
-
-  readonly achievedDescription: string;
-
-  readonly unachievedDescription: string;
-
-  readonly maximumPoints: number;
-
-  readonly isHidden: boolean;
-
-  readonly isReplayable: boolean;
-
-  readonly rarityPercent: NSNumber;
-
-  readonly image: UIImage;
-
-  loadImageWithCompletionHandler(completionHandler: (p1: UIImage, p2: NSError) => void | null): void;
-
-  static incompleteAchievementImage(): UIImage;
-
-  static placeholderCompletedAchievementImage(): UIImage;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  static readonly supportsSecureCoding: boolean;
-}
-
-declare class GKTurnBasedMatch extends NSObject {
-  readonly matchID: string;
-
-  readonly creationDate: NSDate;
-
-  readonly participants: NSArray;
-
-  readonly status: interop.Enum<typeof GKTurnBasedMatchStatus>;
-
-  readonly currentParticipant: GKTurnBasedParticipant;
-
-  readonly matchData: NSData;
-
-  setLocalizableMessageWithKeyArguments(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object> | null): void;
-
-  message: string;
-
-  readonly matchDataMaximumSize: number;
-
-  readonly exchanges: NSArray;
-
-  readonly activeExchanges: NSArray;
-
-  readonly completedExchanges: NSArray;
-
-  readonly exchangeDataMaximumSize: number;
-
-  readonly exchangeMaxInitiatedExchangesPerPlayer: number;
-
-  static findMatchForRequestWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
-
-  static loadMatchesWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  static loadMatchWithIDWithCompletionHandler(matchID: string, completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
-
-  rematchWithCompletionHandler(completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
-
-  acceptInviteWithCompletionHandler(completionHandler: (p1: GKTurnBasedMatch, p2: NSError) => void | null): void;
-
-  declineInviteWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  removeWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  loadMatchDataWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
-
-  endTurnWithNextParticipantsTurnTimeoutMatchDataCompletionHandler(nextParticipants: NSArray<interop.Object> | Array<interop.Object>, timeout: number, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  participantQuitInTurnWithOutcomeNextParticipantsTurnTimeoutMatchDataCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, nextParticipants: NSArray<interop.Object> | Array<interop.Object>, timeout: number, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  participantQuitOutOfTurnWithOutcomeWithCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, completionHandler: (p1: NSError) => void | null): void;
-
-  endMatchInTurnWithMatchDataCompletionHandler(matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  endMatchInTurnWithMatchDataScoresAchievementsCompletionHandler(matchData: NSData, scores: NSArray<interop.Object> | Array<interop.Object> | null, achievements: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSError) => void | null): void;
-
-  endMatchInTurnWithMatchDataLeaderboardScoresAchievementsCompletionHandler(matchData: NSData, scores: NSArray<interop.Object> | Array<interop.Object>, achievements: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  saveCurrentTurnWithMatchDataCompletionHandler(matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  saveMergedMatchDataWithResolvedExchangesCompletionHandler(matchData: NSData, exchanges: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  sendExchangeToParticipantsDataLocalizableMessageKeyArgumentsTimeoutCompletionHandler(participants: NSArray<interop.Object> | Array<interop.Object>, data: NSData, key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, timeout: number, completionHandler: (p1: GKTurnBasedExchange, p2: NSError) => void | null): void;
-
-  sendReminderToParticipantsLocalizableMessageKeyArgumentsCompletionHandler(participants: NSArray<interop.Object> | Array<interop.Object>, key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  endTurnWithNextParticipantMatchDataCompletionHandler(nextParticipant: GKTurnBasedParticipant, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  participantQuitInTurnWithOutcomeNextParticipantMatchDataCompletionHandler(matchOutcome: interop.Enum<typeof GKTurnBasedMatchOutcome>, nextParticipant: GKTurnBasedParticipant, matchData: NSData, completionHandler: (p1: NSError) => void | null): void;
-}
-
-declare class GKLeaderboardSet extends NSObject implements NSCoding, NSSecureCoding {
-  readonly title: string;
-
-  readonly groupIdentifier: string;
-
-  identifier: string;
-
-  static loadLeaderboardSetsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  loadLeaderboardsWithHandler(handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  loadLeaderboardsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  loadImageWithCompletionHandler(completionHandler: (p1: UIImage, p2: NSError) => void | null): void;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKMatch extends NSObject {
@@ -1372,58 +1410,20 @@ declare class GKSession extends NSObject {
   peersWithConnectionState(state: interop.Enum<typeof GKPeerConnectionState>): NSArray;
 }
 
-declare class GKAchievementChallenge extends GKChallenge {
-  readonly achievement: GKAchievement;
-}
+declare class GKLeaderboardSet extends NSObject implements NSCoding, NSSecureCoding {
+  readonly title: string;
 
-declare class GKCloudPlayer extends GKBasePlayer {
-  static getCurrentSignedInPlayerForContainerCompletionHandler(containerName: string | null, handler: (p1: GKCloudPlayer, p2: NSError) => void | null): void;
-}
-
-declare class GKAchievement extends NSObject implements NSCoding, NSSecureCoding {
-  static loadAchievementsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  static resetAchievementsWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  initWithIdentifier(identifier: string | null): this;
-
-  initWithIdentifierPlayer(identifier: string | null, player: GKPlayer): this;
-
-  static reportAchievementsWithCompletionHandler(achievements: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+  readonly groupIdentifier: string;
 
   identifier: string;
 
-  percentComplete: number;
+  static loadLeaderboardSetsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
-  readonly isCompleted: boolean;
+  loadLeaderboardsWithHandler(handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
-  readonly lastReportedDate: NSDate;
+  loadLeaderboardsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
-  showsCompletionBanner: boolean;
-
-  readonly player: GKPlayer;
-
-  reportAchievementWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  readonly isHidden: boolean;
-
-  initWithIdentifierForPlayer(identifier: string | null, playerID: string): this;
-
-  readonly playerID: string;
-
-  selectChallengeablePlayersWithCompletionHandler(players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  static reportAchievementsWithEligibleChallengesWithCompletionHandler(achievements: NSArray<interop.Object> | Array<interop.Object>, challenges: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  issueChallengeToPlayersMessage(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, message: string | null): void;
-
-  selectChallengeablePlayerIDsWithCompletionHandler(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
-
-  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
-
-  challengeComposeControllerWithPlayersMessageCompletionHandler(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, message: string | null, completionHandler: (p1: UIViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): UIViewController;
+  loadImageWithCompletionHandler(completionHandler: (p1: UIImage, p2: NSError) => void | null): void;
 
   encodeWithCoder(coder: NSCoder): void;
 

@@ -1,20 +1,12 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kCVPixelFormatBlockVerticalAlignment: interop.Pointer;
-
-declare const kCVPixelFormatType_128RGBAFloat: number;
-
 declare const kCVPixelFormatBlockWidth: interop.Pointer;
 
 declare const kCVOpenGLTextureCacheChromaSamplingModeAutomatic: interop.Pointer;
 
-declare const kCVPixelFormatType_444YpCbCr10BiPlanarVideoRange: number;
+declare const kCVReturnSuccess: number;
 
-declare const kCVImageBufferTransferFunction_ITU_R_709_2: interop.Pointer;
-
-declare const kCVImageBufferTransferFunction_ITU_R_2020: interop.Pointer;
-
-declare const kCVImageBufferDisplayDimensionsKey: interop.Pointer;
+declare const kCVPixelFormatBlockVerticalAlignment: interop.Pointer;
 
 declare const kCVPixelFormatType_Lossless_420YpCbCr8BiPlanarVideoRange: number;
 
@@ -95,6 +87,8 @@ declare const kCVPixelFormatType_422YpCbCr16BiPlanarVideoRange: number;
 declare const kCVPixelFormatType_16VersatileBayer: number;
 
 declare const kCVPixelFormatType_422YpCbCr10BiPlanarFullRange: number;
+
+declare const kCVPixelFormatType_444YpCbCr10BiPlanarVideoRange: number;
 
 declare const kCVPixelFormatType_DepthFloat32: number;
 
@@ -200,6 +194,8 @@ declare const kCVImageBufferTransferFunction_SMPTE_ST_2084_PQ: interop.Pointer;
 
 declare const kCVImageBufferTransferFunction_SMPTE_ST_428_1: interop.Pointer;
 
+declare const kCVImageBufferTransferFunction_ITU_R_2020: interop.Pointer;
+
 declare const kCVImageBufferTransferFunction_sRGB: interop.Pointer;
 
 declare const kCVImageBufferTransferFunction_EBU_3213: interop.Pointer;
@@ -240,26 +236,6 @@ declare const kCVImageBufferCleanApertureKey: interop.Pointer;
 
 declare const kCVImageBufferCGColorSpaceKey: interop.Pointer;
 
-declare const kCVPixelFormatType_420YpCbCr10BiPlanarVideoRange: number;
-
-declare const kCVImageBufferPixelAspectRatioVerticalSpacingKey: interop.Pointer;
-
-declare const kCVPixelFormatBlackBlock: interop.Pointer;
-
-declare const kCVPixelFormatType_420YpCbCr10BiPlanarFullRange: number;
-
-declare const kCVPixelFormatCodecType: interop.Pointer;
-
-declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
-
-declare const kCVPixelFormatType_TwoComponent32Float: number;
-
-declare const kCVImageBufferColorPrimaries_DCI_P3: interop.Pointer;
-
-declare const kCVImageBufferChromaLocation_Top: interop.Pointer;
-
-declare const kCVPixelFormatType_4444YpCbCrA8R: number;
-
 declare const kCVBufferTimeScaleKey: interop.Pointer;
 
 declare const kCVBufferTimeValueKey: interop.Pointer;
@@ -267,14 +243,6 @@ declare const kCVBufferTimeValueKey: interop.Pointer;
 declare const kCVBufferNonPropagatedAttachmentsKey: interop.Pointer;
 
 declare const kCVBufferPropagatedAttachmentsKey: interop.Pointer;
-
-declare const kCVOpenGLBufferMaximumMipmapLevel: interop.Pointer;
-
-declare const kCVPixelFormatType_DepthFloat16: number;
-
-declare const kCVReturnLast: number;
-
-declare const kCVReturnInvalidPoolAttributes: number;
 
 declare const kCVReturnPoolAllocationFailed: number;
 
@@ -290,7 +258,35 @@ declare const kCVReturnUnsupported: number;
 
 declare const kCVReturnError: number;
 
+declare const kCVPixelFormatType_420YpCbCr10BiPlanarFullRange: number;
+
+declare const kCVReturnInvalidPoolAttributes: number;
+
 declare const kCVIndefiniteTime: CVTime;
+
+declare const kCVReturnLast: number;
+
+declare const kCVPixelFormatCodecType: interop.Pointer;
+
+declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
+
+declare const kCVPixelFormatType_TwoComponent32Float: number;
+
+declare const kCVImageBufferColorPrimaries_DCI_P3: interop.Pointer;
+
+declare const kCVImageBufferChromaLocation_Top: interop.Pointer;
+
+declare const kCVPixelFormatType_4444YpCbCrA8R: number;
+
+declare const kCVPixelFormatType_420YpCbCr10BiPlanarVideoRange: number;
+
+declare const kCVImageBufferPixelAspectRatioVerticalSpacingKey: interop.Pointer;
+
+declare const kCVPixelFormatBlackBlock: interop.Pointer;
+
+declare const kCVOpenGLBufferMaximumMipmapLevel: interop.Pointer;
+
+declare const kCVPixelFormatType_DepthFloat16: number;
 
 declare const kCVOpenGLBufferInternalFormat: interop.Pointer;
 
@@ -318,8 +314,6 @@ declare const kCVPixelFormatType_40ARGBLEWideGamut: number;
 
 declare const kCVMetalTextureCacheMaximumTextureAgeKey: interop.Pointer;
 
-declare const kCVReturnSuccess: number;
-
 declare const kCVReturnFirst: number;
 
 declare const kCVPixelBufferMemoryAllocatorKey: interop.Pointer;
@@ -337,6 +331,8 @@ declare const kCVPixelFormatType_420YpCbCr8VideoRange_8A_TriPlanar: number;
 declare const kCVImageBufferYCbCrMatrix_ITU_R_709_2: interop.Pointer;
 
 declare const kCVPixelFormatOpenGLCompatibility: interop.Pointer;
+
+declare const kCVImageBufferTransferFunction_ITU_R_709_2: interop.Pointer;
 
 declare const kCVPixelFormatName: interop.Pointer;
 
@@ -414,6 +410,8 @@ declare const kCVPixelFormatType_TwoComponent16Half: number;
 
 declare const kCVImageBufferFieldDetailTemporalTopFirst: interop.Pointer;
 
+declare const kCVPixelFormatCGImageCompatibility: interop.Pointer;
+
 declare const kCVPixelFormatType_14Bayer_RGGB: number;
 
 declare const kCVPixelFormatType_48RGB: number;
@@ -440,11 +438,15 @@ declare const kCVPixelFormatType_1Monochrome: number;
 
 declare const kCVReturnDisplayLinkNotRunning: number;
 
+declare const kCVPixelFormatType_128RGBAFloat: number;
+
 declare const kCVPixelFormatType_444YpCbCr10: number;
 
 declare const kCVPixelFormatContainsRGB: interop.Pointer;
 
 declare const kCVOpenGLBufferPoolMaximumBufferAgeKey: interop.Pointer;
+
+declare const kCVImageBufferDisplayDimensionsKey: interop.Pointer;
 
 declare const kCVPixelFormatType_16LE565: number;
 
@@ -482,6 +484,8 @@ declare const kCVImageBufferFieldDetailKey: interop.Pointer;
 
 declare const kCVPixelFormatType_Lossy_32BGRA: number;
 
+declare const kCVReturnPixelBufferNotMetalCompatible: number;
+
 declare const kCVPixelBufferProResRAWKey_BlackLevel: interop.Pointer;
 
 declare const kCVPixelFormatBlockHeight: interop.Pointer;
@@ -489,8 +493,6 @@ declare const kCVPixelFormatBlockHeight: interop.Pointer;
 declare const kCVPixelFormatType_16Gray: number;
 
 declare const kCVPixelFormatConstant: interop.Pointer;
-
-declare const kCVReturnPixelBufferNotMetalCompatible: number;
 
 declare const kCVOpenGLTextureCacheChromaSamplingModeKey: interop.Pointer;
 
@@ -503,8 +505,6 @@ declare const kCVImageBufferChromaLocationBottomFieldKey: interop.Pointer;
 declare const kCVPixelFormatType_32ARGB: number;
 
 declare const kCVImageBufferChromaSubsampling_420: interop.Pointer;
-
-declare const kCVPixelFormatCGImageCompatibility: interop.Pointer;
 
 declare const kCVBufferMovieTimeKey: interop.Pointer;
 
@@ -557,14 +557,14 @@ declare const CVPixelBufferLockFlags: {
   kCVPixelBufferLock_ReadOnly: 1,
 };
 
-declare const CVAttachmentMode: {
-  Not: 0,
-  kCVAttachmentMode_ShouldPropagate: 1,
-};
-
 declare const CVSMPTETimeFlags: {
   Valid: 1,
   Running: 2,
+};
+
+declare const CVAttachmentMode: {
+  Not: 0,
+  kCVAttachmentMode_ShouldPropagate: 1,
 };
 
 declare const CVPixelBufferPoolFlushFlags: {
@@ -610,16 +610,29 @@ declare class CVPlanarComponentInfo {
   rowBytes: number;
 }
 
-declare class CVPlanarPixelBufferInfo {
-  constructor(init?: CVPlanarPixelBufferInfo);
-  componentInfo: unknown /* const array */;
-}
-
 declare class CVTime {
   constructor(init?: CVTime);
   timeValue: number;
   timeScale: number;
   flags: number;
+}
+
+declare class CVSMPTETime {
+  constructor(init?: CVSMPTETime);
+  subframes: number;
+  subframeDivisor: number;
+  counter: number;
+  type: number;
+  flags: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+  frames: number;
+}
+
+declare class CVPlanarPixelBufferInfo {
+  constructor(init?: CVPlanarPixelBufferInfo);
+  componentInfo: unknown /* const array */;
 }
 
 declare class __CVBuffer {
@@ -654,19 +667,6 @@ declare class __CVOpenGLBufferPool {
 
 declare class __CVDisplayLink {
   constructor(init?: __CVDisplayLink);
-}
-
-declare class CVSMPTETime {
-  constructor(init?: CVSMPTETime);
-  subframes: number;
-  subframeDivisor: number;
-  counter: number;
-  type: number;
-  flags: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-  frames: number;
 }
 
 declare class CVPlanarPixelBufferInfo_YCbCrBiPlanar {

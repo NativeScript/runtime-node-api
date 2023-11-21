@@ -11,6 +11,7 @@
 #include <set>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 using namespace metagen;
@@ -18,21 +19,16 @@ using namespace metagen;
 #define UMBRELLA_HEADER "umbrella.h"
 
 int main(int argc, char **argv) {
-  char *target = argv[1];
-  char *outputFile = argv[2];
-  char *outputTypesDir = argv[3];
-  std::string sdk = argv[4];
-  std::string frameworksDir = sdk + "/System/Library/Frameworks";
+  std::string outputFile;
+  std::string outputTypesDir;
+  std::string sdk;
+  std::string frameworksDir;
 
-  std::set<std::string> frameworks;
-
-  for (int i = 5; i < argc; i++) {
-    frameworks.insert(argv[i]);
-  }
+  std::string code = "";
 
   std::vector<std::string> args = {"-Xclang",
                                    "-isysroot",
-                                   sdk,
+                                   "",
                                    "-x",
                                    "objective-c",
                                    "-fno-objc-arc",
@@ -44,18 +40,54 @@ int main(int argc, char **argv) {
                                    "-Wno-expansion-to-defined",
                                    "-Wno-deprecated-declarations",
                                    "-Wno-objc-property-no-attribute",
-                                   "-std=gnu11",
-                                   "-I" + sdk + "/usr/include",
-                                   "-F" + frameworksDir,
-                                   "-target",
-                                   target};
+                                   "-std=gnu11"};
 
-  std::string code = "";
+  std::unordered_set<std::string> includePaths;
 
-  for (auto &framework : frameworks) {
-    args.emplace_back("-I" + frameworksDir + "/" + framework +
-                      ".framework/Headers");
-    code += "#import <" + framework + "/" + framework + ".h>\n";
+  for (int i = 1; i < argc; i++) {
+    std::string arg = argv[i];
+    if (arg.find("framework=") == 0) {
+      if (frameworksDir.empty()) {
+        std::cout << "framework= argument must be specified after sdk="
+                  << std::endl;
+        std::exit(1);
+      }
+
+      std::string framework = arg.substr(10);
+      std::string includePath = frameworksDir + "/" + framework + ".framework";
+      includePaths.emplace(includePath);
+      args.emplace_back("-I" + includePath + "/Headers");
+      code += "#import <" + framework + "/" + framework + ".h>\n";
+    } else if (arg.find("include=") == 0) {
+      std::string includeDir = arg.substr(8);
+      includePaths.emplace(includeDir);
+    } else if (arg.find("headers=") == 0) {
+      std::string includeDir = arg.substr(8);
+      args.emplace_back("-I" + includeDir);
+    } else if (arg.find("import=") == 0) {
+      std::string import = arg.substr(7);
+      code += "#import " + import + "\n";
+    } else if (arg.find("sdk=") == 0) {
+      sdk = arg.substr(4);
+      args[2] = sdk;
+      args.emplace_back("-I" + sdk + "/usr/include");
+      frameworksDir = sdk + "/System/Library/Frameworks";
+      args.emplace_back("-F" + frameworksDir);
+    } else if (arg.find("target=") == 0) {
+      std::string target = arg.substr(7);
+      args.emplace_back("-target");
+      args.emplace_back(target);
+    } else if (arg.find("arg=") == 0) {
+      std::string argval = arg.substr(4);
+      args.emplace_back(argval);
+    } else if (arg.find("output=") == 0) {
+      outputFile = arg.substr(7);
+    } else if (arg.find("types=") == 0) {
+      outputTypesDir = arg.substr(6);
+    } else {
+      std::cout << "Unknown argument: " << arg << std::endl;
+      std::exit(1);
+    }
   }
 
   std::vector<const char *> argsC(args.size());
@@ -72,12 +104,12 @@ int main(int argc, char **argv) {
       index, UMBRELLA_HEADER, argsC.data(), args.size(), nullptr, 0,
       CXTranslationUnit_None);
 
+  std::remove(UMBRELLA_HEADER);
+
   if (unit == nullptr) {
     std::cout << "Failed to parse translation unit" << std::endl;
     std::exit(1);
   }
-
-  std::remove(UMBRELLA_HEADER);
 
   // print diagnostics
   unsigned numDiagnostics = clang_getNumDiagnostics(unit);
@@ -100,9 +132,7 @@ int main(int argc, char **argv) {
   CXCursor cursor = clang_getTranslationUnitCursor(unit);
 
   MetadataFactory factory;
-  for (auto fw : frameworks) {
-    factory.frameworks.emplace(fw);
-  }
+  factory.includePaths = includePaths;
   factory.process(cursor);
   factory.postProcess();
 
@@ -121,7 +151,6 @@ int main(int argc, char **argv) {
   std::cout << "           total size: " << result.second / 1024. / 1024.
             << " MB" << std::endl;
   std::cout << "       total sections: " << MD_NUM_SECTIONS << std::endl;
-  std::cout << "       num frameworks: " << frameworks.size() << std::endl;
   std::cout << "    strings (n, size): " << writer.strings.size() << ", "
             << writer.strings.section_size / 1024. << " KB" << std::endl;
   std::cout << "     consts (n, size): " << writer.constants.size() << ","
@@ -141,7 +170,7 @@ int main(int argc, char **argv) {
   std::cout << "     unions (n, size): " << writer.unions.size() << ", "
             << writer.unions.section_size / 1024. << " KB" << std::endl;
 
-  auto file = std::fopen(outputFile, "w");
+  auto file = std::fopen(outputFile.c_str(), "w");
   std::fwrite(result.first, 1, result.second, file);
   std::fclose(file);
 

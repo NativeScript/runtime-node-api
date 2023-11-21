@@ -1,204 +1,30 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kCMMetadataDataType_QuickTimeMetadataDirection: interop.Pointer;
+declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35: number;
 
-declare const kCMMetadataBaseDataType_JSON: interop.Pointer;
+declare const kCMTimeCodeFlag_DropFrame: number;
 
-declare const kCMMetadataBaseDataType_PolygonF32: interop.Pointer;
+declare const kCMSampleBufferLensStabilizationInfo_Off: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_RectF32: interop.Pointer;
+declare const kCMBufferQueueTrigger_WhenEndOfDataReached: number;
 
-declare const kCMMetadataBaseDataType_DimensionsF32: interop.Pointer;
+declare const kCMTextJustification_centered: number;
 
-declare const kCMMetadataBaseDataType_PointF32: interop.Pointer;
+declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_UInt64: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_UInt32: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_UInt16: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_Float64: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_Float32: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_BMP: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_PNG: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_JPEG: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_GIF: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_UTF8: interop.Pointer;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
-
-declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
-
-declare const kCMMetadataKeySpace_QuickTimeMetadata: interop.Pointer;
-
-declare const kCMMetadataKeySpace_ISOUserData: interop.Pointer;
-
-declare const kCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes: number;
-
-declare const kCMMetadataDataTypeRegistryError_RequiresConformingBaseType: number;
-
-declare const kCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: number;
-
-declare const kCMMetadataDataTypeRegistryError_BadDataTypeIdentifier: number;
-
-declare const kCMMetadataDataTypeRegistryError_RequiredParameterMissing: number;
-
-declare const kCMMetadataDataTypeRegistryError_AllocationFailed: number;
-
-declare const kCMMetadataIdentifierError_NoKeyValueAvailable: number;
-
-declare const kCMMetadataIdentifierError_BadIdentifier: number;
-
-declare const kCMMetadataIdentifierError_BadKeyType: number;
-
-declare const kCMMetadataIdentifierError_BadKeyLength: number;
-
-declare const kCMMetadataIdentifierError_RequiredParameterMissing: number;
-
-declare const kCMMetadataIdentifierError_AllocationFailed: number;
-
-declare const kCMTextMarkupCharacterEdgeStyle_DropShadow: interop.Pointer;
-
-declare const kCMTextMarkupCharacterEdgeStyle_Uniform: interop.Pointer;
-
-declare const kCMTextMarkupCharacterEdgeStyle_Raised: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_CharacterEdgeStyle: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_OrthogonalLinePositionPercentageRelativeToWritingDirection: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_TextPositionPercentageRelativeToWritingDirection: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_Right: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_Left: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_End: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_Middle: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_Start: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_Alignment: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_RelativeFontSize: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_BaseFontSizePercentageRelativeToVideoHeight: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_SmallCapital: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_Casual: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_MonospaceSansSerif: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_MonospaceSerif: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_ProportionalSansSerif: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_ProportionalSerif: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_SansSerif: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_FontFamilyName: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_UnderlineStyle: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_ForegroundColorARGB: interop.Pointer;
-
-declare const kCMMemoryPoolOption_AgeOutPeriod: interop.Pointer;
-
-declare const kCMMemoryPoolError_InvalidParameter: number;
-
-declare const kCMSimpleQueueError_ParameterOutOfRange: number;
-
-declare const kCMSimpleQueueError_RequiredParameterMissing: number;
-
-declare const kCMBufferQueueTrigger_WhenBufferCountBecomesLessThan: number;
-
-declare const kCMBufferQueueTrigger_WhenReset: number;
-
-declare const kCMBufferQueueTrigger_WhenDataBecomesReady: number;
-
-declare const kCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges: number;
-
-declare const kCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: number;
-
-declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: number;
-
-declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
-
-declare const kCMBufferQueueError_InvalidBuffer: number;
-
-declare const kCMBufferQueueError_InvalidTriggerCondition: number;
-
-declare const kCMBufferQueueError_CannotModifyQueueFromTriggerCallback: number;
-
-declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
-
-declare const kCMBufferQueueError_RequiredParameterMissing: number;
-
-declare const kCMBufferQueueError_AllocationFailed: number;
-
-declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
-
-declare const kCMImageDescriptionFlavor_ISOFamily: interop.Pointer;
-
-declare const kCMImageDescriptionFlavor_QuickTimeMovie: interop.Pointer;
-
-declare const kCMFormatDescriptionBridgeError_InvalidSlice: number;
-
-declare const kCMFormatDescriptionBridgeError_IncompatibleFormatDescription: number;
-
-declare const kCMFormatDescriptionBridgeError_InvalidFormatDescription: number;
-
-declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
-
-declare const kCMFormatDescriptionBridgeError_AllocationFailed: number;
-
-declare const kCMFormatDescriptionBridgeError_InvalidParameter: number;
-
-declare const kCMTimebaseNotification_EffectiveRateChanged: interop.Pointer;
-
-declare const kCMSyncError_InvalidParameter: number;
-
-declare const kCMSyncError_MissingRequiredParameter: number;
-
-declare const kCMTimebaseError_ReadOnly: number;
+declare const kCMMetadataFormatType_Boxed: number;
 
 declare const kCMTimebaseError_TimerIntervalTooShort: number;
 
-declare const kCMTimebaseError_AllocationFailed: number;
+declare const kCMTimebaseError_ReadOnly: number;
 
-declare const kCMTimebaseError_MissingRequiredParameter: number;
+declare const kCMFormatDescriptionFieldDetail_TemporalBottomFirst: interop.Pointer;
 
-declare const kCMClockError_UnsupportedOperation: number;
+declare const kCMTextDisplayFlag_scrollOut: number;
 
-declare const kCMClockError_AllocationFailed: number;
+declare const kCMSubtitleFormatType_3GText: number;
 
-declare const kCMClockError_InvalidParameter: number;
-
-declare const kCMTextMarkupAttribute_CharacterBackgroundColorARGB: interop.Pointer;
-
-declare const kCMTextMarkupCharacterEdgeStyle_None: interop.Pointer;
-
-declare const kCMSoundDescriptionFlavor_ISOFamily: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_SInt64: interop.Pointer;
+declare const kCMFormatDescriptionChromaLocation_Bottom: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_Monospace: interop.Pointer;
 
@@ -206,21 +32,95 @@ declare const kCMFormatDescriptionKey_CleanApertureHeightRational: interop.Point
 
 declare const kCMMuxedStreamType_MPEG1System: number;
 
-declare const kCMVideoCodecType_DVCPro50NTSC: number;
+declare const kCMMetadataDataType_QuickTimeMetadataDirection: interop.Pointer;
 
-declare const kCMMetadataFormatType_Boxed: number;
+declare const kCMMetadataDataType_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35: number;
+declare const kCMMetadataBaseDataType_JSON: interop.Pointer;
 
-declare const kCMTimeCodeFlag_DropFrame: number;
+declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
 
-declare const kCMSampleBufferLensStabilizationInfo_Off: interop.Pointer;
+declare const kCMMetadataBaseDataType_PolygonF32: interop.Pointer;
 
-declare const kCMSubtitleFormatType_3GText: number;
+declare const kCMAudioFormatDescriptionMask_StreamBasicDescription: number;
 
-declare const kCMBufferQueueTrigger_WhenEndOfDataReached: number;
+declare const kCMMetadataBaseDataType_AffineTransformF64: interop.Pointer;
 
-declare const kCMTimeRangeZero: CMTimeRange;
+declare const kCMMetadataBaseDataType_DimensionsF32: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UInt64: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UInt16: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_SInt32: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_BMP: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UTF16: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UTF8: interop.Pointer;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataPreferredAffineTransform: interop.Pointer;
+
+declare const kCMMetadataKeySpace_Icy: interop.Pointer;
+
+declare const kCMMetadataKeySpace_QuickTimeMetadata: interop.Pointer;
+
+declare const kCMMetadataDataTypeRegistryError_BadDataTypeIdentifier: number;
+
+declare const kCMMetadataIdentifierError_BadKeySpace: number;
+
+declare const kCMMetadataIdentifierError_BadKey: number;
+
+declare const kCMTextMarkupCharacterEdgeStyle_DropShadow: interop.Pointer;
+
+declare const kCMTextMarkupCharacterEdgeStyle_None: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_WritingDirectionSizePercentage: interop.Pointer;
+
+declare const kCMTextMarkupAlignmentType_Left: interop.Pointer;
+
+declare const kCMTextMarkupAlignmentType_End: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_Alignment: interop.Pointer;
+
+declare const kCMTextVerticalLayout_LeftToRight: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_RelativeFontSize: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Casual: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_MonospaceSansSerif: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_ProportionalSansSerif: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_ProportionalSerif: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_FontFamilyName: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_UnderlineStyle: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_CharacterBackgroundColorARGB: interop.Pointer;
+
+declare const kCMTimebaseNotificationKey_EventTime: interop.Pointer;
+
+declare const kCMTimebaseNotification_TimeJumped: interop.Pointer;
+
+declare const kCMSyncError_InvalidParameter: number;
+
+declare const kCMTimebaseError_AllocationFailed: number;
+
+declare const kCMTimebaseError_MissingRequiredParameter: number;
+
+declare const kCMClockError_UnsupportedOperation: number;
+
+declare const kCMClockError_MissingRequiredParameter: number;
+
+declare const kCMMemoryPoolError_InvalidParameter: number;
+
+declare const kCMSimpleQueueError_AllocationFailed: number;
 
 declare const kCMTagDataTypeKey: interop.Pointer;
 
@@ -247,10 +147,6 @@ declare const kCMFormatDescriptionExtension_AuxiliaryTypeInfo: interop.Pointer;
 declare const kCMTagMediaTypeVideo: CMTag;
 
 declare const kCMTagInvalid: CMTag;
-
-declare const kCMTimeMappingTargetKey: interop.Pointer;
-
-declare const kCMMetadataBaseDataType_SInt8: interop.Pointer;
 
 declare const kCMTagCategoryKey: interop.Pointer;
 
@@ -310,6 +206,8 @@ declare const kCMSampleBufferConduitNotificationParameter_ResumeTag: interop.Poi
 
 declare const kCMSampleBufferNotification_DataFailed: interop.Pointer;
 
+declare const kCMMetadataBaseDataType_UInt8: interop.Pointer;
+
 declare const kCMTimingInfoInvalid: CMSampleTimingInfo;
 
 declare const kCMSampleBufferError_DataFailed: number;
@@ -324,6 +222,54 @@ declare const kCMSampleBufferError_SampleIndexOutOfRange: number;
 
 declare const kCMSampleBufferError_BufferNotReady: number;
 
+declare const kCMBufferQueueTrigger_WhenBufferCountBecomesLessThan: number;
+
+declare const kCMBufferQueueTrigger_WhenReset: number;
+
+declare const kCMBufferQueueTrigger_WhenDataBecomesReady: number;
+
+declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: number;
+
+declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
+
+declare const kCMBufferQueueError_InvalidBuffer: number;
+
+declare const kCMBufferQueueError_InvalidTriggerToken: number;
+
+declare const kCMBufferQueueError_InvalidTriggerCondition: number;
+
+declare const kCMBufferQueueError_CannotModifyQueueFromTriggerCallback: number;
+
+declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
+
+declare const kCMFormatDescriptionBridgeError_IncompatibleFormatDescription: number;
+
+declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
+
+declare const kCMFormatDescriptionBridgeError_AllocationFailed: number;
+
+declare const kCMFormatDescriptionBridgeError_InvalidParameter: number;
+
+declare const kCMBlockBufferCustomBlockSourceVersion: number;
+
+declare const kCMBlockBufferDontOptimizeDepthFlag: number;
+
+declare const kCMBlockBufferEmptyBBufErr: number;
+
+declare const kCMBlockBufferBadLengthParameterErr: number;
+
+declare const kCMBlockBufferBadOffsetParameterErr: number;
+
+declare const kCMBlockBufferBadCustomBlockSourceErr: number;
+
+declare const kCMSampleAttachmentKey_IsDependedOnByOthers: interop.Pointer;
+
+declare const kCMBlockBufferBlockAllocationFailedErr: number;
+
+declare const kCMBlockBufferStructureAllocationFailedErr: number;
+
+declare const kCMBlockBufferNoErr: number;
+
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_SetupData: interop.Pointer;
 
 declare const kCMMetadataFormatDescription_StructuralDependencyKey_DependencyIsInvalidFlag: interop.Pointer;
@@ -337,6 +283,8 @@ declare const kCMSampleBufferLensStabilizationInfo_Active: interop.Pointer;
 declare const kCMMetadataFormatDescriptionKey_DataType: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_LocalID: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_FontFamilyNameList: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_Namespace: interop.Pointer;
 
@@ -382,15 +330,11 @@ declare const kCMTextFormatDescriptionRect_Left: interop.Pointer;
 
 declare const kCMTextFormatDescriptionColor_Green: interop.Pointer;
 
-declare const kCMTextJustification_centered: number;
-
 declare const kCMTextJustification_left_top: number;
 
 declare const kCMTextDisplayFlag_fillTextRegion: number;
 
 declare const kCMTextDisplayFlag_scrollDirection_leftToRight: number;
-
-declare const kCMTextDisplayFlag_scrollOut: number;
 
 declare const kCMClosedCaptionFormatType_ATSC: number;
 
@@ -440,6 +384,8 @@ declare const kCMMPEG2VideoProfile_HDV_1080p25: number;
 
 declare const kCMMPEG2VideoProfile_HDV_720p24: number;
 
+declare const kCMMetadataDataTypeRegistryError_RequiresConformingBaseType: number;
+
 declare const kCMMPEG2VideoProfile_HDV_1080i50: number;
 
 declare const kCMFormatDescriptionChromaLocation_Left: interop.Pointer;
@@ -467,8 +413,6 @@ declare const kCMFormatDescriptionColorPrimaries_ITU_R_2020: interop.Pointer;
 declare const kCMFormatDescriptionColorPrimaries_DCI_P3: interop.Pointer;
 
 declare const kCMFormatDescriptionColorPrimaries_SMPTE_C: interop.Pointer;
-
-declare const kCMFormatDescriptionFieldDetail_TemporalBottomFirst: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_CleanApertureVerticalOffsetRational: interop.Pointer;
 
@@ -542,6 +486,8 @@ declare const kCMFormatDescriptionError_ValueNotAvailable: number;
 
 declare const kCMFormatDescriptionError_InvalidParameter: number;
 
+declare const kCMFormatDescriptionColorPrimaries_P3_D65: interop.Pointer;
+
 declare const kCMMediaType_ClosedCaption: number;
 
 declare const kCMFormatDescriptionKey_PixelAspectRatioVerticalSpacing: interop.Pointer;
@@ -556,17 +502,31 @@ declare const kCMMetadataFormatDescriptionKey_Value: interop.Pointer;
 
 declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
 
-declare const kCMVideoCodecType_AppleProRes422LT: number;
+declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
 
-declare const kCMMetadataIdentifierError_BadKey: number;
+declare const kCMMetadataIdentifierError_BadNumberKey: number;
 
-declare const kCMFormatDescriptionConformsToMPEG2VideoProfile: interop.Pointer;
+declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
-declare const kCMTimeRangeInvalid: CMTimeRange;
+declare const kCMTimeMappingTargetKey: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: number;
+declare const kCMTimeRangeZero: CMTimeRange;
+
+declare const kCMTimeFlagsKey: interop.Pointer;
+
+declare const kCMTimeValueKey: interop.Pointer;
+
+declare const kCMTimeZero: CMTime;
+
+declare const kCMTimePositiveInfinity: CMTime;
+
+declare const kCMTimeInvalid: CMTime;
+
+declare const kCMPersistentTrackID_Invalid: number;
 
 declare const kCMMPEG2VideoProfile_HDV_720p25: number;
+
+declare const kCMMetadataIdentifierError_BadIdentifier: number;
 
 declare const kCMPixelFormat_16LE565: number;
 
@@ -574,11 +534,19 @@ declare const kCMFormatDescriptionExtension_PixelAspectRatio: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XF: number;
 
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35: number;
+
+declare const kCMMetadataBaseDataType_SInt8: interop.Pointer;
+
 declare const kCMFormatDescriptionExtension_VerbatimISOSampleEntry: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_OrthogonalLinePositionPercentageRelativeToWritingDirection: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_HDV_720p30: number;
 
 declare const kCMTextMarkupCharacterEdgeStyle_Depressed: interop.Pointer;
+
+declare const kCMMetadataIdentifierError_BadKeyType: number;
 
 declare const kCMSampleAttachmentKey_HEVCSyncSampleNALUnitType: interop.Pointer;
 
@@ -592,47 +560,33 @@ declare const kCMFormatDescriptionExtension_GammaLevel: interop.Pointer;
 
 declare const kCMVideoCodecType_DisparityHEVC: number;
 
-declare const kCMFormatDescriptionChromaLocation_Bottom: interop.Pointer;
-
 declare const kCMVideoCodecType_AppleProRes4444: number;
+
+declare const kCMMetadataBaseDataType_SInt64: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
+
+declare const kCMVideoCodecType_AppleProRes422LT: number;
+
+declare const kCMTextMarkupCharacterEdgeStyle_Uniform: interop.Pointer;
+
+declare const kCMFormatDescriptionConformsToMPEG2VideoProfile: interop.Pointer;
+
+declare const kCMMetadataIdentifierError_NoKeyValueAvailable: number;
+
+declare const kCMTimeRangeInvalid: CMTimeRange;
+
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: number;
 
 declare const kCMFormatDescriptionExtension_ContentColorVolume: interop.Pointer;
 
 declare const kCMPixelFormat_422YpCbCr10: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35: number;
+declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
 
-declare const kCMBlockBufferCustomBlockSourceVersion: number;
+declare const kCMMetadataKeySpace_QuickTimeUserData: interop.Pointer;
 
-declare const kCMBlockBufferDontOptimizeDepthFlag: number;
-
-declare const kCMBlockBufferEmptyBBufErr: number;
-
-declare const kCMBlockBufferBadLengthParameterErr: number;
-
-declare const kCMBlockBufferBadOffsetParameterErr: number;
-
-declare const kCMBlockBufferBadCustomBlockSourceErr: number;
-
-declare const kCMSampleAttachmentKey_IsDependedOnByOthers: interop.Pointer;
-
-declare const kCMBlockBufferBlockAllocationFailedErr: number;
-
-declare const kCMBlockBufferStructureAllocationFailedErr: number;
-
-declare const kCMBlockBufferNoErr: number;
-
-declare const kCMTimeFlagsKey: interop.Pointer;
-
-declare const kCMTimeValueKey: interop.Pointer;
-
-declare const kCMTimeZero: CMTime;
-
-declare const kCMTimePositiveInfinity: CMTime;
-
-declare const kCMTimeInvalid: CMTime;
-
-declare const kCMPersistentTrackID_Invalid: number;
+declare const kCMTextMarkupAlignmentType_Middle: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_HEVCTemporalLevelInfo: interop.Pointer;
 
@@ -652,7 +606,7 @@ declare const kCMSampleBufferAttachmentKey_TrimDurationAtEnd: interop.Pointer;
 
 declare const kCMTextFormatDescriptionExtension_VerticalJustification: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_ItalicStyle: interop.Pointer;
+declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
 
 declare const kCMVideoCodecType_DVCProPAL: number;
 
@@ -660,27 +614,25 @@ declare const kCMMetadataKeySpace_ID3: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_StructuralDependency: interop.Pointer;
 
-declare const kCMClockError_MissingRequiredParameter: number;
-
 declare const kCMVideoCodecType_HEVCWithAlpha: number;
 
 declare const kCMMPEG2VideoProfile_HDV_1080p24: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35: number;
+declare const kCMMetadataBaseDataType_RectF32: interop.Pointer;
 
-declare const kCMSimpleQueueError_AllocationFailed: number;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35: number;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransform: interop.Pointer;
 
 declare const kCMTagProjectionTypeFisheye: CMTag;
-
-declare const kCMMetadataKeySpace_QuickTimeUserData: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_EarlierDisplayTimesAllowed: interop.Pointer;
 
 declare const kCMFormatDescriptionError_AllocationFailed: number;
 
 declare const kCMTimeRangeDurationKey: interop.Pointer;
+
+declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
 
 declare const kCMTextDisplayFlag_continuousKaraoke: number;
 
@@ -692,11 +644,11 @@ declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo: number
 
 declare const kCMTextFormatDescriptionColor_Alpha: interop.Pointer;
 
+declare const kCMMemoryPoolError_AllocationFailed: number;
+
 declare const kCMFormatDescriptionColorPrimaries_ITU_R_709_2: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50: number;
-
-declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50: number;
 
@@ -707,6 +659,8 @@ declare const kCMFormatDescriptionTransferFunction_ITU_R_2100_HLG: interop.Point
 declare const kCMSampleBufferError_RequiredParameterMissing: number;
 
 declare const kCMTextFormatType_3GText: number;
+
+declare const kCMMetadataDataTypeRegistryError_AllocationFailed: number;
 
 declare const kCMAttachmentMode_ShouldPropagate: number;
 
@@ -722,9 +676,15 @@ declare const kCMTextDisplayFlag_writeTextVertically: number;
 
 declare const kCMFormatDescriptionExtension_BytesPerRow: interop.Pointer;
 
+declare const kCMTextMarkupGenericFontName_SmallCapital: interop.Pointer;
+
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50: number;
 
+declare const kCMTextMarkupAttribute_GenericFontFamilyName: interop.Pointer;
+
 declare const kCMMuxedStreamType_DV: number;
+
+declare const kCMSimpleQueueError_RequiredParameterMissing: number;
 
 declare const kCMTextDisplayFlag_scrollDirection_rightToLeft: number;
 
@@ -736,6 +696,8 @@ declare const kCMBlockBufferBadPointerParameterErr: number;
 
 declare const kCMSampleAttachmentKey_NotSync: interop.Pointer;
 
+declare const kCMClockError_InvalidParameter: number;
+
 declare const kCMTextFormatDescriptionStyle_EndChar: interop.Pointer;
 
 declare const kCMBlockBufferUnallocatedBlockErr: number;
@@ -743,6 +705,10 @@ declare const kCMBlockBufferUnallocatedBlockErr: number;
 declare const kCMTextDisplayFlag_scrollIn: number;
 
 declare const kCMFormatDescriptionExtension_ContainsAlphaChannel: interop.Pointer;
+
+declare const kCMImageDescriptionFlavor_ISOFamily: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Serif: interop.Pointer;
 
 declare const kCMSampleBufferError_SampleTimingInfoInvalid: number;
 
@@ -758,8 +724,6 @@ declare const kCMTextFormatDescriptionExtension_DefaultTextBox: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_HEVCStepwiseTemporalSubLayerAccess: interop.Pointer;
 
-declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
-
 declare const kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix: interop.Pointer;
 
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
@@ -768,11 +732,7 @@ declare const kCMBlockBufferPermitEmptyReferenceFlag: number;
 
 declare const kCMMediaType_Text: number;
 
-declare const kCMSyncError_RateMustBeNonZero: number;
-
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50: number;
-
-declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
 
 declare const kCMVideoCodecType_MPEG4Video: number;
 
@@ -780,19 +740,15 @@ declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_DataTypeNamespace: interop.Pointer;
 
+declare const kCMTextMarkupGenericFontName_MonospaceSerif: interop.Pointer;
+
 declare const kCMHEVCTemporalLevelInfoKey_ProfileIndex: interop.Pointer;
 
 declare const kCMTextFormatDescriptionExtension_DisplayFlags: interop.Pointer;
 
-declare const kCMFormatDescriptionColorPrimaries_P3_D65: interop.Pointer;
-
 declare const kCMTextDisplayFlag_scrollDirection_bottomToTop: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35: number;
-
-declare const kCMMetadataBaseDataType_AffineTransformF64: interop.Pointer;
-
-declare const kCMAudioFormatDescriptionMask_StreamBasicDescription: number;
 
 declare const kCMFormatDescriptionExtension_ProtectedContentOriginalFormat: interop.Pointer;
 
@@ -806,9 +762,11 @@ declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35: number;
 
 declare const kCMVideoCodecType_DVCPAL: number;
 
+declare const kCMTextMarkupAttribute_BaseFontSizePercentageRelativeToVideoHeight: interop.Pointer;
+
 declare const kCMTimebaseError_InvalidParameter: number;
 
-declare const kCMTimebaseNotification_TimeJumped: interop.Pointer;
+declare const kCMTextMarkupGenericFontName_SansSerif: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_HDV_1080p30: number;
 
@@ -820,9 +778,9 @@ declare const kCMSampleBufferError_AllocationFailed: number;
 
 declare const kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions: interop.Pointer;
 
-declare const kCMTimebaseNotificationKey_EventTime: interop.Pointer;
-
 declare const kCMSampleBufferError_BufferHasNoSampleSizes: number;
+
+declare const kCMMetadataDataTypeRegistryError_RequiredParameterMissing: number;
 
 declare const kCMFormatDescriptionExtension_CleanAperture: interop.Pointer;
 
@@ -832,15 +790,25 @@ declare const kCMTextFormatDescriptionColor_Red: interop.Pointer;
 
 declare const kCMTextDisplayFlag_scrollDirection_topToBottom: number;
 
-declare const kCMMemoryPoolError_AllocationFailed: number;
+declare const kCMSyncError_RateMustBeNonZero: number;
+
+declare const kCMTextMarkupAttribute_BoldStyle: interop.Pointer;
 
 declare const kCMVideoCodecType_H263: number;
+
+declare const kCMMetadataBaseDataType_Float64: interop.Pointer;
 
 declare const kCMSampleBufferDroppedFrameReason_FrameWasLate: interop.Pointer;
 
 declare const kCMHEVCTemporalLevelInfoKey_LevelIndex: interop.Pointer;
 
+declare const kCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: number;
+
 declare const kCMSampleBufferNotificationParameter_OSStatus: interop.Pointer;
+
+declare const kCMSoundDescriptionFlavor_ISOFamily: interop.Pointer;
+
+declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_OriginalCompressionSettings: interop.Pointer;
 
@@ -852,8 +820,6 @@ declare const kCMPixelFormat_422YpCbCr8: number;
 
 declare const kCMTextFormatDescriptionStyle_StartChar: interop.Pointer;
 
-declare const kCMMetadataKeySpace_Icy: interop.Pointer;
-
 declare const kCMSampleBufferAttachmentKey_FillDiscontinuitiesWithSilence: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_ChromaLocationBottomField: interop.Pointer;
@@ -862,11 +828,15 @@ declare const kCMTextMarkupAttribute_VerticalLayout: interop.Pointer;
 
 declare const kCMPixelFormat_422YpCbCr8_yuvs: number;
 
+declare const kCMMetadataKeySpace_ISOUserData: interop.Pointer;
+
 declare const kCMMuxedStreamType_EmbeddedDeviceScreenRecording: number;
 
 declare const kCMVideoCodecType_422YpCbCr8: number;
 
 declare const kCMTagMediaTypeMetadata: CMTag;
+
+declare const kCMSyncError_MissingRequiredParameter: number;
 
 declare const kCMTimeMappingSourceKey: interop.Pointer;
 
@@ -886,13 +856,13 @@ declare const kCMVideoCodecType_VP9: number;
 
 declare const kCMVideoCodecType_DolbyVisionHEVC: number;
 
-declare const kCMMetadataBaseDataType_UInt8: interop.Pointer;
-
 declare const kCMSampleBufferError_DataCanceled: number;
 
 declare const kCMSampleBufferAttachmentKey_DisplayEmptyMediaImmediately: interop.Pointer;
 
 declare const kCMVideoCodecType_MPEG2Video: number;
+
+declare const kCMMetadataBaseDataType_UInt32: interop.Pointer;
 
 declare const kCMVideoCodecType_AppleProResRAW: number;
 
@@ -900,21 +870,31 @@ declare const kCMAudioFormatDescriptionMask_All: number;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan: number;
 
+declare const kCMMetadataIdentifier_QuickTimeMetadataDirection_Facing: interop.Pointer;
+
 declare const kCMVideoCodecType_H264: number;
 
 declare const kCMSampleBufferError_BufferHasNoSampleTimingInfo: number;
+
+declare const kCMBufferQueueError_RequiredParameterMissing: number;
 
 declare const kCMTextFormatDescriptionStyle_Height: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_AudioIndependentSampleDecoderRefreshCount: interop.Pointer;
 
+declare const kCMTextMarkupAttribute_TextPositionPercentageRelativeToWritingDirection: interop.Pointer;
+
 declare const kCMTagProjectionTypeEquirectangular: CMTag;
+
+declare const kCMTextMarkupAlignmentType_Right: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_ExtendedLanguageTag: interop.Pointer;
 
 declare const kCMTextFormatType_QTText: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35: number;
+
+declare const kCMMemoryPoolOption_AgeOutPeriod: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_CryptorSubsampleAuxiliaryData: interop.Pointer;
 
@@ -934,9 +914,13 @@ declare const kCMFormatDescriptionFieldDetail_TemporalTopFirst: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35: number;
 
+declare const kCMBufferQueueError_BadTriggerDuration: number;
+
 declare const kCMFormatDescriptionChromaLocation_DV420: interop.Pointer;
 
 declare const kCMSampleBufferError_AlreadyHasDataBuffer: number;
+
+declare const kCMTextMarkupAlignmentType_Start: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_LanguageTag: interop.Pointer;
 
@@ -948,6 +932,8 @@ declare const kCMFormatDescriptionChromaLocation_Top: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType: interop.Pointer;
 
+declare const kCMClockError_AllocationFailed: number;
+
 declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_601_4: interop.Pointer;
 
 declare const kCMSampleBufferConduitNotificationParameter_MaxUpcomingOutputPTS: interop.Pointer;
@@ -956,37 +942,35 @@ declare const kCMVideoCodecType_DepthHEVC: number;
 
 declare const kCMMetadataBaseDataType_RawData: interop.Pointer;
 
-declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
-
-declare const kCMTextVerticalLayout_LeftToRight: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_WritingDirectionSizePercentage: interop.Pointer;
+declare const kCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges: number;
 
 declare const kCMTimeCodeFormatDescriptionKey_Value: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_FontFamilyNameList: interop.Pointer;
+declare const kCMFormatDescriptionBridgeError_InvalidSlice: number;
 
 declare const kCMBufferQueueError_QueueIsFull: number;
 
-declare const kCMMetadataIdentifierError_BadNumberKey: number;
+declare const kCMTextMarkupAttribute_ForegroundColorARGB: interop.Pointer;
+
+declare const kCMTimebaseNotification_EffectiveRateChanged: interop.Pointer;
 
 declare const kCMTextJustification_bottom_right: number;
 
 declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineEarly: interop.Pointer;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataPreferredAffineTransform: interop.Pointer;
-
 declare const kCMSampleBufferError_InvalidEntryCount: number;
 
 declare const kCMSampleBufferConduitNotificationParameter_UpcomingOutputPTSRangeMayOverlapQueuedOutputPTSRange: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_BoldStyle: interop.Pointer;
-
 declare const kCMClosedCaptionFormatType_CEA708: number;
+
+declare const kCMVideoCodecType_DVCPro50NTSC: number;
 
 declare const kCMBlockBufferAssureMemoryNowFlag: number;
 
 declare const kCMMuxedStreamType_MPEG2Program: number;
+
+declare const kCMTextMarkupGenericFontName_Cursive: interop.Pointer;
 
 declare const kCMSampleBufferError_InvalidSampleData: number;
 
@@ -998,9 +982,9 @@ declare const kCMFormatDescriptionExtension_MasteringDisplayColorVolume: interop
 
 declare const kCMFormatDescriptionHeroEye_Right: interop.Pointer;
 
-declare const kCMMetadataDataType_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
+declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_GenericFontFamilyName: interop.Pointer;
+declare const kCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor: number;
 
 declare const kCMSampleBufferLensStabilizationInfo_Unavailable: interop.Pointer;
 
@@ -1008,11 +992,11 @@ declare const kCMTimeIndefinite: CMTime;
 
 declare const kCMHEVCTemporalLevelInfoKey_ConstraintIndicatorFlags: interop.Pointer;
 
-declare const kCMTextMarkupGenericFontName_Cursive: interop.Pointer;
-
 declare const kCMSampleBufferError_Invalidated: number;
 
 declare const kCMFormatDescriptionExtension_RevisionLevel: interop.Pointer;
+
+declare const kCMMetadataIdentifierError_RequiredParameterMissing: number;
 
 declare const kCMFormatDescriptionKey_CleanApertureHeight: interop.Pointer;
 
@@ -1026,9 +1010,13 @@ declare const kCMPixelFormat_444YpCbCr8: number;
 
 declare const kCMTextFormatDescriptionExtension_BackgroundColor: interop.Pointer;
 
+declare const kCMMetadataIdentifierError_BadKeyLength: number;
+
 declare const kCMSampleBufferConsumerNotification_BufferConsumed: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_SInt32: interop.Pointer;
+declare const kCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes: number;
+
+declare const kCMMetadataBaseDataType_PNG: interop.Pointer;
 
 declare const kCMVideoCodecType_DVCPROHD1080p30: number;
 
@@ -1040,9 +1028,17 @@ declare const kCMFormatDescriptionTransferFunction_UseGamma: interop.Pointer;
 
 declare const kCMSampleBufferConduitNotification_InhibitOutputUntil: interop.Pointer;
 
+declare const kCMMetadataIdentifierError_AllocationFailed: number;
+
+declare const kCMImageDescriptionFlavor_QuickTimeMovie: interop.Pointer;
+
+declare const kCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: number;
+
 declare const kCMMediaType_Metadata: number;
 
 declare const kCMSyncError_AllocationFailed: number;
+
+declare const kCMTextMarkupAttribute_CharacterEdgeStyle: interop.Pointer;
 
 declare const kCMSampleBufferLensStabilizationInfo_OutOfRange: interop.Pointer;
 
@@ -1054,15 +1050,13 @@ declare const kCMSampleBufferDroppedFrameReasonInfo_CameraModeSwitch: interop.Po
 
 declare const kCMVideoCodecType_AV1: number;
 
-declare const kCMBufferQueueError_InvalidTriggerToken: number;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataDirection_Facing: interop.Pointer;
-
 declare const kCMAudioFormatDescriptionMask_ChannelLayout: number;
 
 declare const kCMSampleAttachmentKey_HEVCTemporalSubLayerAccess: interop.Pointer;
 
 declare const kCMSampleBufferConduitNotificationParameter_MinUpcomingOutputPTS: interop.Pointer;
+
+declare const kCMTextMarkupCharacterEdgeStyle_Raised: interop.Pointer;
 
 declare const kCMFormatDescriptionColorPrimaries_EBU_3213: interop.Pointer;
 
@@ -1070,37 +1064,33 @@ declare const kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50: number;
 
-declare const kCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor: number;
-
 declare const kCMSampleBufferNotification_DataBecameReady: interop.Pointer;
 
 declare const kCMTagValueKey: interop.Pointer;
 
 declare const kCMMuxedStreamType_MPEG2Transport: number;
 
-declare const kCMTimeMappingInvalid: CMTimeMapping;
+declare const kCMMetadataBaseDataType_GIF: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_StereoCameraBaseline: interop.Pointer;
 
-declare const kCMTimeCodeFormatDescriptionExtension_SourceReferenceName: interop.Pointer;
+declare const kCMTimeMappingInvalid: CMTimeMapping;
 
-declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
+declare const kCMTimeCodeFormatDescriptionExtension_SourceReferenceName: interop.Pointer;
 
 declare const kCMBlockBufferAlwaysCopyDataFlag: number;
 
-declare const kCMBufferQueueError_BadTriggerDuration: number;
-
 declare const kCMTextFormatDescriptionStyle_Ascent: interop.Pointer;
-
-declare const kCMFormatDescriptionExtension_Depth: interop.Pointer;
 
 declare const kCMAttachmentMode_ShouldNotPropagate: number;
 
+declare const kCMFormatDescriptionExtension_Depth: interop.Pointer;
+
 declare const kCMTextDisplayFlag_obeySubtitleFormatting: number;
 
-declare const kCMFormatDescriptionExtension_FieldDetail: interop.Pointer;
+declare const kCMSimpleQueueError_ParameterOutOfRange: number;
 
-declare const kCMTextMarkupGenericFontName_Serif: interop.Pointer;
+declare const kCMFormatDescriptionExtension_FieldDetail: interop.Pointer;
 
 declare const kCMHEVCTemporalLevelInfoKey_TierFlag: interop.Pointer;
 
@@ -1116,13 +1106,21 @@ declare const kCMTextMarkupAttribute_BackgroundColorARGB: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35: number;
 
+declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
+
+declare const kCMMetadataBaseDataType_JPEG: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_PointF32: interop.Pointer;
+
 declare const kCMVideoCodecType_SorensonVideo3: number;
 
-declare const kCMMetadataBaseDataType_UTF16: interop.Pointer;
+declare const kCMMetadataBaseDataType_Float32: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35: number;
 
-declare const kCMMetadataIdentifierError_BadKeySpace: number;
+declare const kCMTextMarkupAttribute_ItalicStyle: interop.Pointer;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_ConformingDataTypes: interop.Pointer;
 
@@ -1140,11 +1138,13 @@ declare const kCMPixelFormat_4444YpCbCrA8: number;
 
 declare const kCMTagMediaSubTypeMebx: CMTag;
 
+declare const kCMFormatDescriptionBridgeError_InvalidFormatDescription: number;
+
 declare const kCMTextFormatDescriptionRect_Top: interop.Pointer;
 
-declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
-
 declare const kCMTextFormatDescriptionStyle_Font: interop.Pointer;
+
+declare const kCMBufferQueueError_AllocationFailed: number;
 
 declare const CMTagDataType: {
   Invalid: 0,
@@ -1154,23 +1154,18 @@ declare const CMTagDataType: {
   Flags: 7,
 };
 
-declare const CMTagCollectionError: {
-  ParamErr: -15740,
-  AllocationFailed: -15741,
-  InternalError: -15742,
-  InvalidTag: -15743,
-  InvalidTagCollectionDictionary: -15744,
-  InvalidTagCollectionData: -15745,
-  TagNotFound: -15746,
-  InvalidTagCollectionDataVersion: -15747,
-  ExhaustedBufferSize: -15748,
-  NotYetImplemented: -15749,
-};
-
-declare const CMTaggedBufferGroupError: {
-  ParamErr: -15780,
-  AllocationFailed: -15781,
-  InternalError: -15782,
+declare const CMTagCategory: {
+  Undefined: 0,
+  MediaType: 1835297121,
+  MediaSubType: 1836283234,
+  TrackID: 1953653099,
+  ChannelID: 1986226286,
+  VideoLayerID: 1986814329,
+  PixelFormat: 1885960294,
+  PackingType: 1885430635,
+  ProjectionType: 1886547818,
+  StereoView: 1702454643,
+  StereoViewInterpretation: 1702455664,
 };
 
 declare const CMPackingType: {
@@ -1191,18 +1186,17 @@ declare const CMTagError: {
   AllocationFailed: -15731,
 };
 
-declare const CMTagCategory: {
-  Undefined: 0,
-  MediaType: 1835297121,
-  MediaSubType: 1836283234,
-  TrackID: 1953653099,
-  ChannelID: 1986226286,
-  VideoLayerID: 1986814329,
-  PixelFormat: 1885960294,
-  PackingType: 1885430635,
-  ProjectionType: 1886547818,
-  StereoView: 1702454643,
-  StereoViewInterpretation: 1702455664,
+declare const CMTagCollectionError: {
+  ParamErr: -15740,
+  AllocationFailed: -15741,
+  InternalError: -15742,
+  InvalidTag: -15743,
+  InvalidTagCollectionDictionary: -15744,
+  InvalidTagCollectionData: -15745,
+  TagNotFound: -15746,
+  InvalidTagCollectionDataVersion: -15747,
+  ExhaustedBufferSize: -15748,
+  NotYetImplemented: -15749,
 };
 
 declare const CMTimeRoundingMethod: {
@@ -1236,26 +1230,11 @@ declare const CMStereoViewComponents: {
   RightEye: 2,
 };
 
-declare class OpaqueCMMemoryPool {
-  constructor(init?: OpaqueCMMemoryPool);
-}
-
-declare class opaqueCMSimpleQueue {
-  constructor(init?: opaqueCMSimpleQueue);
-}
-
-declare class CMBufferCallbacks {
-  constructor(init?: CMBufferCallbacks);
-  version: number;
-  refcon: interop.Pointer;
-  getDecodeTimeStamp: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
-  getPresentationTimeStamp: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
-  getDuration: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
-  isDataReady: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  compare: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => interop.Enum<typeof CFComparisonResult> | null;
-  dataBecameReadyNotification: interop.Pointer;
-  getSize: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-}
+declare const CMTaggedBufferGroupError: {
+  ParamErr: -15780,
+  AllocationFailed: -15781,
+  InternalError: -15782,
+};
 
 declare class CMBlockBufferCustomBlockSource {
   constructor(init?: CMBlockBufferCustomBlockSource);
@@ -1283,11 +1262,36 @@ declare class CMBufferHandlers {
   getSize: (p1: interop.PointerConvertible) => number | null;
 }
 
+declare class OpaqueCMMemoryPool {
+  constructor(init?: OpaqueCMMemoryPool);
+}
+
+declare class opaqueCMSimpleQueue {
+  constructor(init?: opaqueCMSimpleQueue);
+}
+
 declare class CMTag {
   constructor(init?: CMTag);
   category: interop.Enum<typeof CMTagCategory>;
   dataType: interop.Enum<typeof CMTagDataType>;
   value: number;
+}
+
+declare class CMBufferCallbacks {
+  constructor(init?: CMBufferCallbacks);
+  version: number;
+  refcon: interop.Pointer;
+  getDecodeTimeStamp: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
+  getPresentationTimeStamp: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
+  getDuration: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => CMTime | null;
+  isDataReady: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  compare: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => interop.Enum<typeof CFComparisonResult> | null;
+  dataBecameReadyNotification: interop.Pointer;
+  getSize: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+}
+
+declare class OpaqueCMBlockBuffer {
+  constructor(init?: OpaqueCMBlockBuffer);
 }
 
 declare class CMVideoDimensions {
@@ -1298,14 +1302,6 @@ declare class CMVideoDimensions {
 
 declare class OpaqueCMTaggedBufferGroup {
   constructor(init?: OpaqueCMTaggedBufferGroup);
-}
-
-declare class CMTime {
-  constructor(init?: CMTime);
-  value: number;
-  timescale: number;
-  flags: interop.Enum<typeof CMTimeFlags>;
-  epoch: number;
 }
 
 declare class CMSampleTimingInfo {
@@ -1319,12 +1315,16 @@ declare class opaqueCMFormatDescription {
   constructor(init?: opaqueCMFormatDescription);
 }
 
-declare class opaqueCMBufferQueueTriggerToken {
-  constructor(init?: opaqueCMBufferQueueTriggerToken);
-}
-
 declare class opaqueCMBufferQueue {
   constructor(init?: opaqueCMBufferQueue);
+}
+
+declare class CMTime {
+  constructor(init?: CMTime);
+  value: number;
+  timescale: number;
+  flags: interop.Enum<typeof CMTimeFlags>;
+  epoch: number;
 }
 
 declare class OpaqueCMTagCollection {
@@ -1339,6 +1339,10 @@ declare class OpaqueCMClock {
   constructor(init?: OpaqueCMClock);
 }
 
+declare class opaqueCMBufferQueueTriggerToken {
+  constructor(init?: opaqueCMBufferQueueTriggerToken);
+}
+
 declare class opaqueCMSampleBuffer {
   constructor(init?: opaqueCMSampleBuffer);
 }
@@ -1347,10 +1351,6 @@ declare class CMTimeRange {
   constructor(init?: CMTimeRange);
   start: CMTime;
   duration: CMTime;
-}
-
-declare class OpaqueCMBlockBuffer {
-  constructor(init?: OpaqueCMBlockBuffer);
 }
 
 declare function CMTimeMake(value: number, timescale: number): CMTime;
@@ -1389,51 +1389,49 @@ declare function CMTimeCopyDescription(allocator: interop.PointerConvertible, ti
 
 declare function CMTimeShow(time: CMTime): void;
 
-declare function CMSetAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, attachmentMode: number): void;
+declare function CMTimeRangeMake(start: CMTime, duration: CMTime): CMTimeRange;
 
-declare function CMGetAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible, attachmentModeOut: interop.PointerConvertible): interop.Pointer;
+declare function CMTimeRangeGetUnion(range: CMTimeRange, otherRange: CMTimeRange): CMTimeRange;
 
-declare function CMRemoveAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible): void;
+declare function CMTimeRangeGetIntersection(range: CMTimeRange, otherRange: CMTimeRange): CMTimeRange;
 
-declare function CMRemoveAllAttachments(target: interop.PointerConvertible): void;
+declare function CMTimeRangeEqual(range1: CMTimeRange, range2: CMTimeRange): number;
 
-declare function CMCopyDictionaryOfAttachments(allocator: interop.PointerConvertible, target: interop.PointerConvertible, attachmentMode: number): interop.Pointer;
+declare function CMTimeRangeContainsTime(range: CMTimeRange, time: CMTime): number;
 
-declare function CMSetAttachments(target: interop.PointerConvertible, theAttachments: interop.PointerConvertible, attachmentMode: number): void;
+declare function CMTimeRangeContainsTimeRange(range: CMTimeRange, otherRange: CMTimeRange): number;
 
-declare function CMPropagateAttachments(source: interop.PointerConvertible, destination: interop.PointerConvertible): void;
+declare function CMTimeRangeGetEnd(range: CMTimeRange): CMTime;
 
-declare function CMBlockBufferCreateEmpty(structureAllocator: interop.PointerConvertible, subBlockCapacity: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+declare function CMTimeMapTimeFromRangeToRange(t: CMTime, fromRange: CMTimeRange, toRange: CMTimeRange): CMTime;
 
-declare function CMBlockBufferCreateWithMemoryBlock(structureAllocator: interop.PointerConvertible, memoryBlock: interop.PointerConvertible, blockLength: number, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+declare function CMTimeClampToRange(time: CMTime, range: CMTimeRange): CMTime;
 
-declare function CMBlockBufferCreateWithBufferReference(structureAllocator: interop.PointerConvertible, bufferReference: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+declare function CMTimeMapDurationFromRangeToRange(dur: CMTime, fromRange: CMTimeRange, toRange: CMTimeRange): CMTime;
 
-declare function CMBlockBufferCreateContiguous(structureAllocator: interop.PointerConvertible, sourceBuffer: interop.PointerConvertible, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+declare function CMTimeFoldIntoRange(time: CMTime, foldRange: CMTimeRange): CMTime;
 
-declare function CMBlockBufferGetTypeID(): number;
+declare function CMTimeRangeFromTimeToTime(start: CMTime, end: CMTime): CMTimeRange;
 
-declare function CMBlockBufferAppendMemoryBlock(theBuffer: interop.PointerConvertible, memoryBlock: interop.PointerConvertible, blockLength: number, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number): number;
+declare function CMTimeRangeCopyAsDictionary(range: CMTimeRange, allocator: interop.PointerConvertible): interop.Pointer;
 
-declare function CMBlockBufferAppendBufferReference(theBuffer: interop.PointerConvertible, targetBBuf: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number): number;
+declare function CMTimeRangeMakeFromDictionary(dictionaryRepresentation: interop.PointerConvertible): CMTimeRange;
 
-declare function CMBlockBufferAssureBlockMemory(theBuffer: interop.PointerConvertible): number;
+declare function CMTimeRangeCopyDescription(allocator: interop.PointerConvertible, range: CMTimeRange): interop.Pointer;
 
-declare function CMBlockBufferAccessDataBytes(theBuffer: interop.PointerConvertible, offset: number, length: number, temporaryBlock: interop.PointerConvertible, returnedPointerOut: interop.PointerConvertible): number;
+declare function CMTimeRangeShow(range: CMTimeRange): void;
 
-declare function CMBlockBufferCopyDataBytes(theSourceBuffer: interop.PointerConvertible, offsetToData: number, dataLength: number, destination: interop.PointerConvertible): number;
+declare function CMTimeMappingMake(source: CMTimeRange, target: CMTimeRange): CMTimeMapping;
 
-declare function CMBlockBufferReplaceDataBytes(sourceBytes: interop.PointerConvertible, destinationBuffer: interop.PointerConvertible, offsetIntoDestination: number, dataLength: number): number;
+declare function CMTimeMappingMakeEmpty(target: CMTimeRange): CMTimeMapping;
 
-declare function CMBlockBufferFillDataBytes(fillByte: number, destinationBuffer: interop.PointerConvertible, offsetIntoDestination: number, dataLength: number): number;
+declare function CMTimeMappingCopyAsDictionary(mapping: CMTimeMapping, allocator: interop.PointerConvertible): interop.Pointer;
 
-declare function CMBlockBufferGetDataPointer(theBuffer: interop.PointerConvertible, offset: number, lengthAtOffsetOut: interop.PointerConvertible, totalLengthOut: interop.PointerConvertible, dataPointerOut: interop.PointerConvertible): number;
+declare function CMTimeMappingMakeFromDictionary(dictionaryRepresentation: interop.PointerConvertible): CMTimeMapping;
 
-declare function CMBlockBufferGetDataLength(theBuffer: interop.PointerConvertible): number;
+declare function CMTimeMappingCopyDescription(allocator: interop.PointerConvertible, mapping: CMTimeMapping): interop.Pointer;
 
-declare function CMBlockBufferIsRangeContiguous(theBuffer: interop.PointerConvertible, offset: number, length: number): number;
-
-declare function CMBlockBufferIsEmpty(theBuffer: interop.PointerConvertible): number;
+declare function CMTimeMappingShow(mapping: CMTimeMapping): void;
 
 declare function CMFormatDescriptionCreate(allocator: interop.PointerConvertible, mediaType: number, mediaSubType: number, extensions: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
 
@@ -1524,6 +1522,182 @@ declare function CMMetadataFormatDescriptionCreateByMergingMetadataFormatDescrip
 declare function CMMetadataFormatDescriptionGetKeyWithLocalID(desc: interop.PointerConvertible, localKeyID: number): interop.Pointer;
 
 declare function CMMetadataFormatDescriptionGetIdentifiers(desc: interop.PointerConvertible): interop.Pointer;
+
+declare function CMSetAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, attachmentMode: number): void;
+
+declare function CMGetAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible, attachmentModeOut: interop.PointerConvertible): interop.Pointer;
+
+declare function CMRemoveAttachment(target: interop.PointerConvertible, key: interop.PointerConvertible): void;
+
+declare function CMRemoveAllAttachments(target: interop.PointerConvertible): void;
+
+declare function CMCopyDictionaryOfAttachments(allocator: interop.PointerConvertible, target: interop.PointerConvertible, attachmentMode: number): interop.Pointer;
+
+declare function CMSetAttachments(target: interop.PointerConvertible, theAttachments: interop.PointerConvertible, attachmentMode: number): void;
+
+declare function CMPropagateAttachments(source: interop.PointerConvertible, destination: interop.PointerConvertible): void;
+
+declare function CMBlockBufferCreateEmpty(structureAllocator: interop.PointerConvertible, subBlockCapacity: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferCreateWithMemoryBlock(structureAllocator: interop.PointerConvertible, memoryBlock: interop.PointerConvertible, blockLength: number, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferCreateWithBufferReference(structureAllocator: interop.PointerConvertible, bufferReference: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferCreateContiguous(structureAllocator: interop.PointerConvertible, sourceBuffer: interop.PointerConvertible, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferGetTypeID(): number;
+
+declare function CMBlockBufferAppendMemoryBlock(theBuffer: interop.PointerConvertible, memoryBlock: interop.PointerConvertible, blockLength: number, blockAllocator: interop.PointerConvertible, customBlockSource: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number): number;
+
+declare function CMBlockBufferAppendBufferReference(theBuffer: interop.PointerConvertible, targetBBuf: interop.PointerConvertible, offsetToData: number, dataLength: number, flags: number): number;
+
+declare function CMBlockBufferAssureBlockMemory(theBuffer: interop.PointerConvertible): number;
+
+declare function CMBlockBufferAccessDataBytes(theBuffer: interop.PointerConvertible, offset: number, length: number, temporaryBlock: interop.PointerConvertible, returnedPointerOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferCopyDataBytes(theSourceBuffer: interop.PointerConvertible, offsetToData: number, dataLength: number, destination: interop.PointerConvertible): number;
+
+declare function CMBlockBufferReplaceDataBytes(sourceBytes: interop.PointerConvertible, destinationBuffer: interop.PointerConvertible, offsetIntoDestination: number, dataLength: number): number;
+
+declare function CMBlockBufferFillDataBytes(fillByte: number, destinationBuffer: interop.PointerConvertible, offsetIntoDestination: number, dataLength: number): number;
+
+declare function CMBlockBufferGetDataPointer(theBuffer: interop.PointerConvertible, offset: number, lengthAtOffsetOut: interop.PointerConvertible, totalLengthOut: interop.PointerConvertible, dataPointerOut: interop.PointerConvertible): number;
+
+declare function CMBlockBufferGetDataLength(theBuffer: interop.PointerConvertible): number;
+
+declare function CMBlockBufferIsRangeContiguous(theBuffer: interop.PointerConvertible, offset: number, length: number): number;
+
+declare function CMBlockBufferIsEmpty(theBuffer: interop.PointerConvertible): number;
+
+declare function CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator: interop.PointerConvertible, imageDescriptionData: interop.PointerConvertible, size: number, stringEncoding: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator: interop.PointerConvertible, imageDescriptionBlockBuffer: interop.PointerConvertible, stringEncoding: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMVideoFormatDescriptionCopyAsBigEndianImageDescriptionBlockBuffer(allocator: interop.PointerConvertible, videoFormatDescription: interop.PointerConvertible, stringEncoding: number, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianImageDescriptionToHost(imageDescriptionData: interop.PointerConvertible, imageDescriptionSize: number): number;
+
+declare function CMSwapHostEndianImageDescriptionToBig(imageDescriptionData: interop.PointerConvertible, imageDescriptionSize: number): number;
+
+declare function CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator: interop.PointerConvertible, soundDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator: interop.PointerConvertible, soundDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBuffer(allocator: interop.PointerConvertible, audioFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianSoundDescriptionToHost(soundDescriptionData: interop.PointerConvertible, soundDescriptionSize: number): number;
+
+declare function CMSwapHostEndianSoundDescriptionToBig(soundDescriptionData: interop.PointerConvertible, soundDescriptionSize: number): number;
+
+declare function CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator: interop.PointerConvertible, textDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, mediaType: number, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator: interop.PointerConvertible, textDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, mediaType: number, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMTextFormatDescriptionCopyAsBigEndianTextDescriptionBlockBuffer(allocator: interop.PointerConvertible, textFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianTextDescriptionToHost(textDescriptionData: interop.PointerConvertible, textDescriptionSize: number): number;
+
+declare function CMSwapHostEndianTextDescriptionToBig(textDescriptionData: interop.PointerConvertible, textDescriptionSize: number): number;
+
+declare function CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator: interop.PointerConvertible, closedCaptionDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator: interop.PointerConvertible, closedCaptionDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMClosedCaptionFormatDescriptionCopyAsBigEndianClosedCaptionDescriptionBlockBuffer(allocator: interop.PointerConvertible, closedCaptionFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData: interop.PointerConvertible, closedCaptionDescriptionSize: number): number;
+
+declare function CMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData: interop.PointerConvertible, closedCaptionDescriptionSize: number): number;
+
+declare function CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator: interop.PointerConvertible, timeCodeDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator: interop.PointerConvertible, timeCodeDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMTimeCodeFormatDescriptionCopyAsBigEndianTimeCodeDescriptionBlockBuffer(allocator: interop.PointerConvertible, timeCodeFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData: interop.PointerConvertible, timeCodeDescriptionSize: number): number;
+
+declare function CMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData: interop.PointerConvertible, timeCodeDescriptionSize: number): number;
+
+declare function CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator: interop.PointerConvertible, metadataDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator: interop.PointerConvertible, metadataDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
+
+declare function CMMetadataFormatDescriptionCopyAsBigEndianMetadataDescriptionBlockBuffer(allocator: interop.PointerConvertible, metadataFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
+
+declare function CMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData: interop.PointerConvertible, metadataDescriptionSize: number): number;
+
+declare function CMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData: interop.PointerConvertible, metadataDescriptionSize: number): number;
+
+declare function CMBufferQueueGetCallbacksForUnsortedSampleBuffers(): interop.Pointer;
+
+declare function CMBufferQueueGetCallbacksForSampleBuffersSortedByOutputPTS(): interop.Pointer;
+
+declare function CMBufferQueueCreate(allocator: interop.PointerConvertible, capacity: number, callbacks: interop.PointerConvertible, queueOut: interop.PointerConvertible): number;
+
+declare function CMBufferQueueCreateWithHandlers(allocator: interop.PointerConvertible, capacity: number, handlers: interop.PointerConvertible, queueOut: interop.PointerConvertible): number;
+
+declare function CMBufferQueueGetTypeID(): number;
+
+declare function CMBufferQueueEnqueue(queue: interop.PointerConvertible, buf: interop.PointerConvertible): number;
+
+declare function CMBufferQueueDequeueAndRetain(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMBufferQueueDequeueIfDataReadyAndRetain(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMBufferQueueGetHead(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMBufferQueueCopyHead(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMBufferQueueIsEmpty(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueMarkEndOfData(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueContainsEndOfData(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueIsAtEndOfData(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueReset(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueResetWithCallback(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible): number;
+
+declare function CMBufferQueueGetBufferCount(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueGetDuration(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetMinDecodeTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetFirstDecodeTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetMinPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetFirstPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetMaxPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetEndPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
+
+declare function CMBufferQueueGetTotalSize(queue: interop.PointerConvertible): number;
+
+declare function CMBufferQueueInstallTrigger(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible, condition: number, time: CMTime, triggerTokenOut: interop.PointerConvertible): number;
+
+declare function CMBufferQueueInstallTriggerWithIntegerThreshold(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible, condition: number, threshold: number, triggerTokenOut: interop.PointerConvertible): number;
+
+declare function CMBufferQueueInstallTriggerHandler(queue: interop.PointerConvertible, condition: number, time: CMTime, triggerTokenOut: interop.PointerConvertible, handler: (p1: interop.PointerConvertible) => void): number;
+
+declare function CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue: interop.PointerConvertible, condition: number, threshold: number, triggerTokenOut: interop.PointerConvertible, handler: (p1: interop.PointerConvertible) => void): number;
+
+declare function CMBufferQueueRemoveTrigger(queue: interop.PointerConvertible, triggerToken: interop.PointerConvertible): number;
+
+declare function CMBufferQueueTestTrigger(queue: interop.PointerConvertible, triggerToken: interop.PointerConvertible): number;
+
+declare function CMBufferQueueCallForEachBuffer(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number, refcon: interop.PointerConvertible): number;
+
+declare function CMBufferQueueSetValidationCallback(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => number, refcon: interop.PointerConvertible): number;
+
+declare function CMBufferQueueSetValidationHandler(queue: interop.PointerConvertible, handler: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number): number;
 
 declare function CMSampleBufferCreate(allocator: interop.PointerConvertible, dataBuffer: interop.PointerConvertible, dataReady: number, makeDataReadyCallback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number, makeDataReadyRefcon: interop.PointerConvertible, formatDescription: interop.PointerConvertible, numSamples: number, numSampleTimingEntries: number, sampleTimingArray: interop.PointerConvertible, numSampleSizeEntries: number, sampleSizeArray: interop.PointerConvertible, sampleBufferOut: interop.PointerConvertible): number;
 
@@ -1661,50 +1835,6 @@ declare function CMTagCopyAsDictionary(tag: CMTag, allocator: interop.PointerCon
 
 declare function CMTagMakeFromDictionary(dict: interop.PointerConvertible): CMTag;
 
-declare function CMTimeRangeMake(start: CMTime, duration: CMTime): CMTimeRange;
-
-declare function CMTimeRangeGetUnion(range: CMTimeRange, otherRange: CMTimeRange): CMTimeRange;
-
-declare function CMTimeRangeGetIntersection(range: CMTimeRange, otherRange: CMTimeRange): CMTimeRange;
-
-declare function CMTimeRangeEqual(range1: CMTimeRange, range2: CMTimeRange): number;
-
-declare function CMTimeRangeContainsTime(range: CMTimeRange, time: CMTime): number;
-
-declare function CMTimeRangeContainsTimeRange(range: CMTimeRange, otherRange: CMTimeRange): number;
-
-declare function CMTimeRangeGetEnd(range: CMTimeRange): CMTime;
-
-declare function CMTimeMapTimeFromRangeToRange(t: CMTime, fromRange: CMTimeRange, toRange: CMTimeRange): CMTime;
-
-declare function CMTimeClampToRange(time: CMTime, range: CMTimeRange): CMTime;
-
-declare function CMTimeMapDurationFromRangeToRange(dur: CMTime, fromRange: CMTimeRange, toRange: CMTimeRange): CMTime;
-
-declare function CMTimeFoldIntoRange(time: CMTime, foldRange: CMTimeRange): CMTime;
-
-declare function CMTimeRangeFromTimeToTime(start: CMTime, end: CMTime): CMTimeRange;
-
-declare function CMTimeRangeCopyAsDictionary(range: CMTimeRange, allocator: interop.PointerConvertible): interop.Pointer;
-
-declare function CMTimeRangeMakeFromDictionary(dictionaryRepresentation: interop.PointerConvertible): CMTimeRange;
-
-declare function CMTimeRangeCopyDescription(allocator: interop.PointerConvertible, range: CMTimeRange): interop.Pointer;
-
-declare function CMTimeRangeShow(range: CMTimeRange): void;
-
-declare function CMTimeMappingMake(source: CMTimeRange, target: CMTimeRange): CMTimeMapping;
-
-declare function CMTimeMappingMakeEmpty(target: CMTimeRange): CMTimeMapping;
-
-declare function CMTimeMappingCopyAsDictionary(mapping: CMTimeMapping, allocator: interop.PointerConvertible): interop.Pointer;
-
-declare function CMTimeMappingMakeFromDictionary(dictionaryRepresentation: interop.PointerConvertible): CMTimeMapping;
-
-declare function CMTimeMappingCopyDescription(allocator: interop.PointerConvertible, mapping: CMTimeMapping): interop.Pointer;
-
-declare function CMTimeMappingShow(mapping: CMTimeMapping): void;
-
 declare function CMTagCollectionGetTypeID(): number;
 
 declare function CMTagCollectionCreate(allocator: interop.PointerConvertible, tags: interop.PointerConvertible, tagCount: number, newCollectionOut: interop.PointerConvertible): number;
@@ -1805,6 +1935,32 @@ declare function CMSampleBufferCreateForTaggedBufferGroup(allocator: interop.Poi
 
 declare function CMSampleBufferGetTaggedBufferGroup(sbuf: interop.PointerConvertible): interop.Pointer;
 
+declare function CMSimpleQueueGetTypeID(): number;
+
+declare function CMSimpleQueueCreate(allocator: interop.PointerConvertible, capacity: number, queueOut: interop.PointerConvertible): number;
+
+declare function CMSimpleQueueEnqueue(queue: interop.PointerConvertible, element: interop.PointerConvertible): number;
+
+declare function CMSimpleQueueDequeue(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMSimpleQueueGetHead(queue: interop.PointerConvertible): interop.Pointer;
+
+declare function CMSimpleQueueReset(queue: interop.PointerConvertible): number;
+
+declare function CMSimpleQueueGetCapacity(queue: interop.PointerConvertible): number;
+
+declare function CMSimpleQueueGetCount(queue: interop.PointerConvertible): number;
+
+declare function CMMemoryPoolGetTypeID(): number;
+
+declare function CMMemoryPoolCreate(options: interop.PointerConvertible): interop.Pointer;
+
+declare function CMMemoryPoolGetAllocator(pool: interop.PointerConvertible): interop.Pointer;
+
+declare function CMMemoryPoolFlush(pool: interop.PointerConvertible): void;
+
+declare function CMMemoryPoolInvalidate(pool: interop.PointerConvertible): void;
+
 declare function CMClockGetTypeID(): number;
 
 declare function CMClockGetHostTimeClock(): interop.Pointer;
@@ -1892,162 +2048,6 @@ declare function CMSyncMightDrift(clockOrTimebase1: interop.PointerConvertible, 
 declare function CMSyncGetTime(clockOrTimebase: interop.PointerConvertible): CMTime;
 
 declare function CMTimebaseNotificationBarrier(timebase: interop.PointerConvertible): number;
-
-declare function CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator: interop.PointerConvertible, imageDescriptionData: interop.PointerConvertible, size: number, stringEncoding: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionBlockBuffer(allocator: interop.PointerConvertible, imageDescriptionBlockBuffer: interop.PointerConvertible, stringEncoding: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMVideoFormatDescriptionCopyAsBigEndianImageDescriptionBlockBuffer(allocator: interop.PointerConvertible, videoFormatDescription: interop.PointerConvertible, stringEncoding: number, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianImageDescriptionToHost(imageDescriptionData: interop.PointerConvertible, imageDescriptionSize: number): number;
-
-declare function CMSwapHostEndianImageDescriptionToBig(imageDescriptionData: interop.PointerConvertible, imageDescriptionSize: number): number;
-
-declare function CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData(allocator: interop.PointerConvertible, soundDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer(allocator: interop.PointerConvertible, soundDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBuffer(allocator: interop.PointerConvertible, audioFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianSoundDescriptionToHost(soundDescriptionData: interop.PointerConvertible, soundDescriptionSize: number): number;
-
-declare function CMSwapHostEndianSoundDescriptionToBig(soundDescriptionData: interop.PointerConvertible, soundDescriptionSize: number): number;
-
-declare function CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator: interop.PointerConvertible, textDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, mediaType: number, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator: interop.PointerConvertible, textDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, mediaType: number, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMTextFormatDescriptionCopyAsBigEndianTextDescriptionBlockBuffer(allocator: interop.PointerConvertible, textFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianTextDescriptionToHost(textDescriptionData: interop.PointerConvertible, textDescriptionSize: number): number;
-
-declare function CMSwapHostEndianTextDescriptionToBig(textDescriptionData: interop.PointerConvertible, textDescriptionSize: number): number;
-
-declare function CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionData(allocator: interop.PointerConvertible, closedCaptionDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescriptionBlockBuffer(allocator: interop.PointerConvertible, closedCaptionDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMClosedCaptionFormatDescriptionCopyAsBigEndianClosedCaptionDescriptionBlockBuffer(allocator: interop.PointerConvertible, closedCaptionFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianClosedCaptionDescriptionToHost(closedCaptionDescriptionData: interop.PointerConvertible, closedCaptionDescriptionSize: number): number;
-
-declare function CMSwapHostEndianClosedCaptionDescriptionToBig(closedCaptionDescriptionData: interop.PointerConvertible, closedCaptionDescriptionSize: number): number;
-
-declare function CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionData(allocator: interop.PointerConvertible, timeCodeDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMTimeCodeFormatDescriptionCreateFromBigEndianTimeCodeDescriptionBlockBuffer(allocator: interop.PointerConvertible, timeCodeDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMTimeCodeFormatDescriptionCopyAsBigEndianTimeCodeDescriptionBlockBuffer(allocator: interop.PointerConvertible, timeCodeFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianTimeCodeDescriptionToHost(timeCodeDescriptionData: interop.PointerConvertible, timeCodeDescriptionSize: number): number;
-
-declare function CMSwapHostEndianTimeCodeDescriptionToBig(timeCodeDescriptionData: interop.PointerConvertible, timeCodeDescriptionSize: number): number;
-
-declare function CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionData(allocator: interop.PointerConvertible, metadataDescriptionData: interop.PointerConvertible, size: number, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMMetadataFormatDescriptionCreateFromBigEndianMetadataDescriptionBlockBuffer(allocator: interop.PointerConvertible, metadataDescriptionBlockBuffer: interop.PointerConvertible, flavor: interop.PointerConvertible, formatDescriptionOut: interop.PointerConvertible): number;
-
-declare function CMMetadataFormatDescriptionCopyAsBigEndianMetadataDescriptionBlockBuffer(allocator: interop.PointerConvertible, metadataFormatDescription: interop.PointerConvertible, flavor: interop.PointerConvertible, blockBufferOut: interop.PointerConvertible): number;
-
-declare function CMSwapBigEndianMetadataDescriptionToHost(metadataDescriptionData: interop.PointerConvertible, metadataDescriptionSize: number): number;
-
-declare function CMSwapHostEndianMetadataDescriptionToBig(metadataDescriptionData: interop.PointerConvertible, metadataDescriptionSize: number): number;
-
-declare function CMBufferQueueGetCallbacksForUnsortedSampleBuffers(): interop.Pointer;
-
-declare function CMBufferQueueGetCallbacksForSampleBuffersSortedByOutputPTS(): interop.Pointer;
-
-declare function CMBufferQueueCreate(allocator: interop.PointerConvertible, capacity: number, callbacks: interop.PointerConvertible, queueOut: interop.PointerConvertible): number;
-
-declare function CMBufferQueueCreateWithHandlers(allocator: interop.PointerConvertible, capacity: number, handlers: interop.PointerConvertible, queueOut: interop.PointerConvertible): number;
-
-declare function CMBufferQueueGetTypeID(): number;
-
-declare function CMBufferQueueEnqueue(queue: interop.PointerConvertible, buf: interop.PointerConvertible): number;
-
-declare function CMBufferQueueDequeueAndRetain(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMBufferQueueDequeueIfDataReadyAndRetain(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMBufferQueueGetHead(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMBufferQueueCopyHead(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMBufferQueueIsEmpty(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueMarkEndOfData(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueContainsEndOfData(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueIsAtEndOfData(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueReset(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueResetWithCallback(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible): number;
-
-declare function CMBufferQueueGetBufferCount(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueGetDuration(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetMinDecodeTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetFirstDecodeTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetMinPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetFirstPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetMaxPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetEndPresentationTimeStamp(queue: interop.PointerConvertible): CMTime;
-
-declare function CMBufferQueueGetTotalSize(queue: interop.PointerConvertible): number;
-
-declare function CMBufferQueueInstallTrigger(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible, condition: number, time: CMTime, triggerTokenOut: interop.PointerConvertible): number;
-
-declare function CMBufferQueueInstallTriggerWithIntegerThreshold(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, refcon: interop.PointerConvertible, condition: number, threshold: number, triggerTokenOut: interop.PointerConvertible): number;
-
-declare function CMBufferQueueInstallTriggerHandler(queue: interop.PointerConvertible, condition: number, time: CMTime, triggerTokenOut: interop.PointerConvertible, handler: (p1: interop.PointerConvertible) => void): number;
-
-declare function CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue: interop.PointerConvertible, condition: number, threshold: number, triggerTokenOut: interop.PointerConvertible, handler: (p1: interop.PointerConvertible) => void): number;
-
-declare function CMBufferQueueRemoveTrigger(queue: interop.PointerConvertible, triggerToken: interop.PointerConvertible): number;
-
-declare function CMBufferQueueTestTrigger(queue: interop.PointerConvertible, triggerToken: interop.PointerConvertible): number;
-
-declare function CMBufferQueueCallForEachBuffer(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number, refcon: interop.PointerConvertible): number;
-
-declare function CMBufferQueueSetValidationCallback(queue: interop.PointerConvertible, callback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => number, refcon: interop.PointerConvertible): number;
-
-declare function CMBufferQueueSetValidationHandler(queue: interop.PointerConvertible, handler: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number): number;
-
-declare function CMSimpleQueueGetTypeID(): number;
-
-declare function CMSimpleQueueCreate(allocator: interop.PointerConvertible, capacity: number, queueOut: interop.PointerConvertible): number;
-
-declare function CMSimpleQueueEnqueue(queue: interop.PointerConvertible, element: interop.PointerConvertible): number;
-
-declare function CMSimpleQueueDequeue(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMSimpleQueueGetHead(queue: interop.PointerConvertible): interop.Pointer;
-
-declare function CMSimpleQueueReset(queue: interop.PointerConvertible): number;
-
-declare function CMSimpleQueueGetCapacity(queue: interop.PointerConvertible): number;
-
-declare function CMSimpleQueueGetCount(queue: interop.PointerConvertible): number;
-
-declare function CMMemoryPoolGetTypeID(): number;
-
-declare function CMMemoryPoolCreate(options: interop.PointerConvertible): interop.Pointer;
-
-declare function CMMemoryPoolGetAllocator(pool: interop.PointerConvertible): interop.Pointer;
-
-declare function CMMemoryPoolFlush(pool: interop.PointerConvertible): void;
-
-declare function CMMemoryPoolInvalidate(pool: interop.PointerConvertible): void;
 
 declare function CMMetadataCreateIdentifierForKeyAndKeySpace(allocator: interop.PointerConvertible, key: interop.PointerConvertible, keySpace: interop.PointerConvertible, identifierOut: interop.PointerConvertible): number;
 

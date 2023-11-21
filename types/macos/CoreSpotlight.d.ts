@@ -1,6 +1,6 @@
 /// <reference path="../../lib/types.d.ts" />
-/// <reference path="./Runtime.d.ts" />
 /// <reference path="./Foundation.d.ts" />
+/// <reference path="./Runtime.d.ts" />
 
 declare const CSSearchQueryErrorDomain: string;
 
@@ -77,50 +77,16 @@ declare interface CSSearchableIndexDelegate extends NSObjectProtocol {
 declare class CSSearchableIndexDelegate extends NativeObject implements CSSearchableIndexDelegate {
 }
 
-declare class CSImportExtension extends NSObject implements NSExtensionRequestHandling {
-  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): boolean;
+declare class CSUserQuery extends CSSearchQuery {
+  initWithUserQueryStringUserQueryContext(userQueryString: string | null, userQueryContext: CSUserQueryContext | null): this;
 
-  beginRequestWithExtensionContext(context: NSExtensionContext): void;
+  readonly foundSuggestionCount: number;
 
-  isEqual(object: interop.Object): boolean;
+  foundSuggestionsHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void;
 
-  readonly hash: number;
+  start(): void;
 
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
+  cancel(): void;
 }
 
 declare class CSUserQueryContext extends CSSearchQueryContext {
@@ -133,28 +99,6 @@ declare class CSUserQueryContext extends CSSearchQueryContext {
   maxResultCount: number;
 
   maxSuggestionCount: number;
-}
-
-declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
-  readonly localizedAttributedSuggestion: NSAttributedString;
-
-  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
-
-  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  score(): NSNumber;
-
-  suggestionDataSources(): NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CSSearchQuery extends NSObject {
@@ -234,6 +178,36 @@ declare class CSIndexExtensionRequestHandler extends NSObject implements NSExten
   fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: boolean, outError: interop.PointerConvertible): NSURL;
 }
 
+declare class CSSearchableIndex extends NSObject {
+  indexDelegate: CSSearchableIndexDelegate;
+
+  static isIndexingAvailable(): boolean;
+
+  static defaultSearchableIndex<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  initWithName(name: string): this;
+
+  initWithNameProtectionClass(name: string, protectionClass: string | null): this;
+
+  initWithNameProtectionClassBundleIdentifierOptions(name: string, protectionClass: string | null, bundleIdentifier: string, options: number): this;
+
+  indexSearchableItemsCompletionHandler(items: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  deleteSearchableItemsWithIdentifiersCompletionHandler(identifiers: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  deleteSearchableItemsWithDomainIdentifiersCompletionHandler(domainIdentifiers: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
+
+  deleteAllSearchableItemsWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  beginIndexBatch(): void;
+
+  endIndexBatchWithClientStateCompletionHandler(clientState: NSData, completionHandler: (p1: NSError) => void | null): void;
+
+  fetchLastClientStateWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
+
+  fetchDataForBundleIdentifierItemIdentifierContentTypeCompletionHandler(bundleIdentifier: string, itemIdentifier: string, contentType: UTType, completionHandler: (p1: NSData, p2: NSError) => void | null): void;
+}
+
 declare class CSSearchableItem extends NSObject implements NSSecureCoding, NSCopying {
   initWithUniqueIdentifierDomainIdentifierAttributeSet(uniqueIdentifier: string | null, domainIdentifier: string | null, attributeSet: CSSearchableItemAttributeSet): this;
 
@@ -278,32 +252,6 @@ declare class CSCustomAttributeKey extends NSObject implements NSCopying, NSSecu
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class CSLocalizedString extends NSString {
-  initWithLocalizedStrings(localizedStrings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
-
-  localizedString(): string;
-}
-
-declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, NSCopying {
-  get fetchAttributes(): NSArray;
-  set fetchAttributes(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  get filterQueries(): NSArray;
-  set filterQueries(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  keyboardLanguage: string;
-
-  sourceOptions: interop.Enum<typeof CSSearchQuerySourceOptions>;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CSPerson extends NSObject implements NSSecureCoding, NSCopying {
@@ -754,45 +702,97 @@ declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class CSSearchableIndex extends NSObject {
-  indexDelegate: CSSearchableIndexDelegate;
+declare class CSLocalizedString extends NSString {
+  initWithLocalizedStrings(localizedStrings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
 
-  static isIndexingAvailable(): boolean;
-
-  static defaultSearchableIndex<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  initWithName(name: string): this;
-
-  initWithNameProtectionClass(name: string, protectionClass: string | null): this;
-
-  initWithNameProtectionClassBundleIdentifierOptions(name: string, protectionClass: string | null, bundleIdentifier: string, options: number): this;
-
-  indexSearchableItemsCompletionHandler(items: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  deleteSearchableItemsWithIdentifiersCompletionHandler(identifiers: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  deleteSearchableItemsWithDomainIdentifiersCompletionHandler(domainIdentifiers: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
-
-  deleteAllSearchableItemsWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  beginIndexBatch(): void;
-
-  endIndexBatchWithClientStateCompletionHandler(clientState: NSData, completionHandler: (p1: NSError) => void | null): void;
-
-  fetchLastClientStateWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
-
-  fetchDataForBundleIdentifierItemIdentifierContentTypeCompletionHandler(bundleIdentifier: string, itemIdentifier: string, contentType: UTType, completionHandler: (p1: NSData, p2: NSError) => void | null): void;
+  localizedString(): string;
 }
 
-declare class CSUserQuery extends CSSearchQuery {
-  initWithUserQueryStringUserQueryContext(userQueryString: string | null, userQueryContext: CSUserQueryContext | null): this;
+declare class CSImportExtension extends NSObject implements NSExtensionRequestHandling {
+  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): boolean;
 
-  readonly foundSuggestionCount: number;
+  beginRequestWithExtensionContext(context: NSExtensionContext): void;
 
-  foundSuggestionsHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void;
+  isEqual(object: interop.Object): boolean;
 
-  start(): void;
+  readonly hash: number;
 
-  cancel(): void;
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, NSCopying {
+  get fetchAttributes(): NSArray;
+  set fetchAttributes(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  get filterQueries(): NSArray;
+  set filterQueries(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  keyboardLanguage: string;
+
+  sourceOptions: interop.Enum<typeof CSSearchQuerySourceOptions>;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
+  readonly localizedAttributedSuggestion: NSAttributedString;
+
+  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
+
+  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  score(): NSNumber;
+
+  suggestionDataSources(): NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

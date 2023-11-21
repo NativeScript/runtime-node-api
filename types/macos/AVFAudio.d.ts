@@ -58,13 +58,6 @@ declare const AVAudioUnitEQFilterType: {
   ResonantHighShelf: 10,
 };
 
-declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
-  Default: 0,
-  Min: 10,
-  Mid: 20,
-  Max: 30,
-};
-
 declare const AVAudio3DMixingRenderingAlgorithm: {
   EqualPowerPanning: 0,
   SphericalHead: 1,
@@ -75,17 +68,19 @@ declare const AVAudio3DMixingRenderingAlgorithm: {
   Auto: 7,
 };
 
-declare const AVAudioEngineManualRenderingMode: {
-  Offline: 0,
-  Realtime: 1,
-};
-
 declare const AVAudioCommonFormat: {
   OtherFormat: 0,
   PCMFormatFloat32: 1,
   PCMFormatFloat64: 2,
   PCMFormatInt16: 3,
   PCMFormatInt32: 4,
+};
+
+declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
+  Default: 0,
+  Min: 10,
+  Mid: 20,
+  Max: 30,
 };
 
 declare const AVAudioVoiceProcessingSpeechActivityEvent: {
@@ -96,6 +91,11 @@ declare const AVAudioVoiceProcessingSpeechActivityEvent: {
 declare const AVAudio3DMixingPointSourceInHeadMode: {
   Mono: 0,
   Bypass: 1,
+};
+
+declare const AVAudioEngineManualRenderingMode: {
+  Offline: 0,
+  Realtime: 1,
 };
 
 declare class AVAudio3DPoint {
@@ -452,6 +452,16 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class AVAudioIONode extends AVAudioNode {
+  readonly presentationLatency: number;
+
+  readonly audioUnit: interop.Pointer;
+
+  readonly isVoiceProcessingEnabled: boolean;
+
+  setVoiceProcessingEnabledError(enabled: boolean, outError: interop.PointerConvertible): boolean;
+}
+
 declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing {
   readonly connectionPoint: AVAudioConnectionPoint;
 
@@ -542,46 +552,6 @@ declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class AVAudioIONode extends AVAudioNode {
-  readonly presentationLatency: number;
-
-  readonly audioUnit: interop.Pointer;
-
-  readonly isVoiceProcessingEnabled: boolean;
-
-  setVoiceProcessingEnabledError(enabled: boolean, outError: interop.PointerConvertible): boolean;
-}
-
-declare class AVAudioNode extends NSObject {
-  reset(): void;
-
-  inputFormatForBus(bus: number): AVAudioFormat;
-
-  outputFormatForBus(bus: number): AVAudioFormat;
-
-  nameForInputBus(bus: number): string;
-
-  nameForOutputBus(bus: number): string;
-
-  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
-
-  removeTapOnBus(bus: number): void;
-
-  readonly engine: AVAudioEngine;
-
-  readonly numberOfInputs: number;
-
-  readonly numberOfOutputs: number;
-
-  readonly lastRenderTime: AVAudioTime;
-
-  readonly AUAudioUnit: AUAudioUnit;
-
-  readonly latency: number;
-
-  readonly outputPresentationLatency: number;
-}
-
 declare class AVAudioEngine extends NSObject {
   init(): this;
 
@@ -665,6 +635,36 @@ declare class AVAudioEngine extends NSObject {
   disconnectMIDIInput(node: AVAudioNode): void;
 
   disconnectMIDIOutput(node: AVAudioNode): void;
+}
+
+declare class AVAudioNode extends NSObject {
+  reset(): void;
+
+  inputFormatForBus(bus: number): AVAudioFormat;
+
+  outputFormatForBus(bus: number): AVAudioFormat;
+
+  nameForInputBus(bus: number): string;
+
+  nameForOutputBus(bus: number): string;
+
+  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
+
+  removeTapOnBus(bus: number): void;
+
+  readonly engine: AVAudioEngine;
+
+  readonly numberOfInputs: number;
+
+  readonly numberOfOutputs: number;
+
+  readonly lastRenderTime: AVAudioTime;
+
+  readonly AUAudioUnit: AUAudioUnit;
+
+  readonly latency: number;
+
+  readonly outputPresentationLatency: number;
 }
 
 declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixing {

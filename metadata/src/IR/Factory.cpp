@@ -1,5 +1,6 @@
 #include "IR.h"
 #include "MetadataWriter.h"
+#include <string>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -250,9 +251,20 @@ bool MetadataFactory::shouldProcess(CXCursor cursor, bool required) {
     return false;
   }
 
-  // TODO(Dj): Support user defined header files as well.
-  std::string framework = getFrameworkName(cursor);
-  return frameworks.contains(framework);
+  CXSourceLocation srcloc = clang_getCursorLocation(cursor);
+  CXFile file;
+  clang_getFileLocation(srcloc, &file, nullptr, nullptr, nullptr);
+  CXString fileName = clang_getFileName(file);
+  std::string fileNameStr = clang_getCString(fileName);
+  clang_disposeString(fileName);
+
+  for (const std::string &path : includePaths) {
+    if (fileNameStr.find(path) != std::string::npos) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 void MetadataFactory::processVariable(CXCursor cursor) {

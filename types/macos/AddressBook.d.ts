@@ -3,8 +3,6 @@
 
 declare const ABMultiValueIdentifiersErrorKey: string;
 
-declare const ABAddressBookErrorDomain: string;
-
 declare const ABPropertyReadOnlyError: number;
 
 declare const ABPropertyValueValidationError: number;
@@ -43,10 +41,6 @@ declare const kABSocialProfileServiceLinkedIn: string;
 
 declare const kABSocialProfileServiceKey: string;
 
-declare const kABSocialProfileUserIdentifierKey: string;
-
-declare const kABSocialProfileUsernameKey: string;
-
 declare const kABSocialProfileURLKey: string;
 
 declare const kABInstantMessageServiceICQ: string;
@@ -67,8 +61,6 @@ declare const kABMSNHomeLabel: string;
 
 declare const kABMSNWorkLabel: string;
 
-declare const kABJabberHomeLabel: string;
-
 declare const kABJabberInstantProperty: string;
 
 declare const kABAIMMobileMeLabel: string;
@@ -79,8 +71,6 @@ declare const kABAIMWorkLabel: string;
 
 declare const kABPhoneHomeFAXLabel: string;
 
-declare const kABPhoneMainLabel: string;
-
 declare const kABPhoneiPhoneLabel: string;
 
 declare const kABPhoneHomeLabel: string;
@@ -88,8 +78,6 @@ declare const kABPhoneHomeLabel: string;
 declare const kABPhoneProperty: string;
 
 declare const kABPersonFlags: string;
-
-declare const kABManagerLabel: string;
 
 declare const kABSpouseLabel: string;
 
@@ -133,11 +121,7 @@ declare const kABHomePageProperty: string;
 
 declare const kABOrganizationProperty: string;
 
-declare const kABMaidenNameProperty: string;
-
 declare const kABNicknameProperty: string;
-
-declare const kABLastNamePhoneticProperty: string;
 
 declare const kABFirstNamePhoneticProperty: string;
 
@@ -147,21 +131,39 @@ declare const kABModificationDateProperty: string;
 
 declare const kABCreationDateProperty: string;
 
-declare const kABFirstNameProperty: string;
+declare const kABSocialProfileUserIdentifierKey: string;
 
-declare const kABFatherLabel: string;
+declare const ABAddressBookErrorDomain: string;
+
+declare const kABMaidenNameProperty: string;
+
+declare const kABPhoneMainLabel: string;
+
+declare const kABJabberHomeLabel: string;
+
+declare const kABSocialProfileUsernameKey: string;
+
+declare const kABLastNamePhoneticProperty: string;
+
+declare const kABManagerLabel: string;
+
+declare const kABPhonePagerLabel: string;
 
 declare const kABInstantMessageServiceAIM: string;
 
 declare const kABDepartmentProperty: string;
+
+declare const kABPhoneWorkLabel: string;
+
+declare const kABFatherLabel: string;
+
+declare const kABFirstNameProperty: string;
 
 declare const kABSocialProfileServiceFlickr: string;
 
 declare const kABInstantMessageServiceGoogleTalk: string;
 
 declare const kABSocialProfileServiceTwitter: string;
-
-declare const kABPhoneWorkLabel: string;
 
 declare const kABICQWorkLabel: string;
 
@@ -225,9 +227,9 @@ declare const kABUIDProperty: string;
 
 declare const kABAddressCountryCodeKey: string;
 
-declare const kABPhonePagerLabel: string;
-
 declare const kABInstantMessageServiceJabber: string;
+
+declare const kABMiddleNamePhoneticProperty: string;
 
 declare const kABUpdatedRecords: string;
 
@@ -243,11 +245,29 @@ declare const kABSocialProfileServiceSinaWeibo: string;
 
 declare const kABPartnerLabel: string;
 
-declare const kABMiddleNamePhoneticProperty: string;
-
 declare const _ABSearchConjunction: {
   And: 0,
   Or: 1,
+};
+
+declare const _ABPropertyType: {
+  ErrorIn: 0,
+  String: 1,
+  Integer: 2,
+  Real: 3,
+  Date: 4,
+  Array: 5,
+  Dictionary: 6,
+  Data: 7,
+  DateComponents: 8,
+  MultiString: 257,
+  MultiInteger: 258,
+  MultiReal: 259,
+  MultiDate: 260,
+  MultiArray: 261,
+  MultiDictionary: 262,
+  MultiData: 263,
+  MultiDateComponents: 264,
 };
 
 declare const _ABSearchComparison: {
@@ -278,26 +298,6 @@ declare const _ABSearchComparison: {
   NotWithinIntervalFromTodayYearless: 24,
 };
 
-declare const _ABPropertyType: {
-  ErrorIn: 0,
-  String: 1,
-  Integer: 2,
-  Real: 3,
-  Date: 4,
-  Array: 5,
-  Dictionary: 6,
-  Data: 7,
-  DateComponents: 8,
-  MultiString: 257,
-  MultiInteger: 258,
-  MultiReal: 259,
-  MultiDate: 260,
-  MultiArray: 261,
-  MultiDictionary: 262,
-  MultiData: 263,
-  MultiDateComponents: 264,
-};
-
 declare function ABLocalizedPropertyOrLabel(propertyOrLabel: string): string;
 
 declare interface ABImageClient extends NSObjectProtocol {
@@ -305,6 +305,96 @@ declare interface ABImageClient extends NSObjectProtocol {
 }
 
 declare class ABImageClient extends NativeObject implements ABImageClient {
+}
+
+declare class ABMutableMultiValue extends ABMultiValue {
+  addValueWithLabel(value: interop.Object, label: string): string;
+
+  insertValueWithLabelAtIndex(value: interop.Object, label: string, index: number): string;
+
+  removeValueAndLabelAtIndex(index: number): boolean;
+
+  replaceValueAtIndexWithValue(index: number, value: interop.Object): boolean;
+
+  replaceLabelAtIndexWithLabel(index: number, label: string): boolean;
+
+  setPrimaryIdentifier(identifier: string): boolean;
+}
+
+declare class ABSearchElement extends NSObject {
+  static searchElementForConjunctionChildren(conjuction: number, children: NSArray<interop.Object> | Array<interop.Object>): ABSearchElement;
+
+  matchesRecord(record: ABRecord): boolean;
+}
+
+declare class ABGroup extends ABRecord {
+  members(): NSArray;
+
+  addMember(person: ABPerson): boolean;
+
+  removeMember(person: ABPerson): boolean;
+
+  subgroups(): NSArray;
+
+  addSubgroup(group: ABGroup): boolean;
+
+  removeSubgroup(group: ABGroup): boolean;
+
+  parentGroups(): NSArray;
+
+  setDistributionIdentifierForPropertyPerson(identifier: string, property: string, person: ABPerson): boolean;
+
+  distributionIdentifierForPropertyPerson(property: string, person: ABPerson): string;
+
+  static addPropertiesAndTypes(properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+
+  static removeProperties(properties: NSArray<interop.Object> | Array<interop.Object>): number;
+
+  static properties(): NSArray;
+
+  static typeOfProperty(property: string): number;
+
+  static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
+}
+
+declare class ABAddressBook extends NSObject {
+  static sharedAddressBook(): ABAddressBook;
+
+  static addressBook(): ABAddressBook;
+
+  recordsMatchingSearchElement(search: ABSearchElement): NSArray;
+
+  save(): boolean;
+
+  saveAndReturnError(error: interop.PointerConvertible): boolean;
+
+  hasUnsavedChanges(): boolean;
+
+  me(): ABPerson;
+
+  setMe(moi: ABPerson): void;
+
+  recordForUniqueId(uniqueId: string): ABRecord;
+
+  addRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
+
+  addRecord(record: ABRecord): boolean;
+
+  removeRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
+
+  removeRecord(record: ABRecord): boolean;
+
+  people(): NSArray;
+
+  groups(): NSArray;
+
+  recordClassFromUniqueId(uniqueId: string): string;
+
+  formattedAddressFromDictionary(address: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
+
+  defaultCountryCode(): string;
+
+  defaultNameOrdering(): number;
 }
 
 declare class ABPerson extends ABRecord {
@@ -379,95 +469,5 @@ declare class ABRecord extends NSObject {
   readonly uniqueId: string;
 
   readonly displayName: string;
-}
-
-declare class ABAddressBook extends NSObject {
-  static sharedAddressBook(): ABAddressBook;
-
-  static addressBook(): ABAddressBook;
-
-  recordsMatchingSearchElement(search: ABSearchElement): NSArray;
-
-  save(): boolean;
-
-  saveAndReturnError(error: interop.PointerConvertible): boolean;
-
-  hasUnsavedChanges(): boolean;
-
-  me(): ABPerson;
-
-  setMe(moi: ABPerson): void;
-
-  recordForUniqueId(uniqueId: string): ABRecord;
-
-  addRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
-
-  addRecord(record: ABRecord): boolean;
-
-  removeRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
-
-  removeRecord(record: ABRecord): boolean;
-
-  people(): NSArray;
-
-  groups(): NSArray;
-
-  recordClassFromUniqueId(uniqueId: string): string;
-
-  formattedAddressFromDictionary(address: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
-
-  defaultCountryCode(): string;
-
-  defaultNameOrdering(): number;
-}
-
-declare class ABGroup extends ABRecord {
-  members(): NSArray;
-
-  addMember(person: ABPerson): boolean;
-
-  removeMember(person: ABPerson): boolean;
-
-  subgroups(): NSArray;
-
-  addSubgroup(group: ABGroup): boolean;
-
-  removeSubgroup(group: ABGroup): boolean;
-
-  parentGroups(): NSArray;
-
-  setDistributionIdentifierForPropertyPerson(identifier: string, property: string, person: ABPerson): boolean;
-
-  distributionIdentifierForPropertyPerson(property: string, person: ABPerson): string;
-
-  static addPropertiesAndTypes(properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
-
-  static removeProperties(properties: NSArray<interop.Object> | Array<interop.Object>): number;
-
-  static properties(): NSArray;
-
-  static typeOfProperty(property: string): number;
-
-  static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
-}
-
-declare class ABMutableMultiValue extends ABMultiValue {
-  addValueWithLabel(value: interop.Object, label: string): string;
-
-  insertValueWithLabelAtIndex(value: interop.Object, label: string, index: number): string;
-
-  removeValueAndLabelAtIndex(index: number): boolean;
-
-  replaceValueAtIndexWithValue(index: number, value: interop.Object): boolean;
-
-  replaceLabelAtIndexWithLabel(index: number, label: string): boolean;
-
-  setPrimaryIdentifier(identifier: string): boolean;
-}
-
-declare class ABSearchElement extends NSObject {
-  static searchElementForConjunctionChildren(conjuction: number, children: NSArray<interop.Object> | Array<interop.Object>): ABSearchElement;
-
-  matchesRecord(record: ABRecord): boolean;
 }
 

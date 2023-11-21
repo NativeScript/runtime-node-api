@@ -101,13 +101,6 @@ declare class AudioClassDescription {
   mManufacturer: number;
 }
 
-declare class AudioChannelDescription {
-  constructor(init?: AudioChannelDescription);
-  mChannelLabel: number;
-  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
-  mCoordinates: unknown /* const array */;
-}
-
 declare class AudioFormatListItem {
   constructor(init?: AudioFormatListItem);
   mASBD: AudioStreamBasicDescription;
@@ -123,6 +116,13 @@ declare class AudioTimeStamp {
   mSMPTETime: SMPTETime;
   mFlags: interop.Enum<typeof AudioTimeStampFlags>;
   mReserved: number;
+}
+
+declare class AudioChannelDescription {
+  constructor(init?: AudioChannelDescription);
+  mChannelLabel: number;
+  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
+  mCoordinates: unknown /* const array */;
 }
 
 declare class SMPTETime {

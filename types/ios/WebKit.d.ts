@@ -22,25 +22,25 @@ declare const WKPreviewActionItemIdentifierOpen: string;
 
 declare const NSReadAccessURLDocumentOption: string;
 
-declare const WKWebsiteDataTypeLocalStorage: string;
-
-declare const WKWebsiteDataTypeMediaKeys: string;
-
-declare const WKWebsiteDataTypeDiskCache: string;
-
-declare const WKWebsiteDataTypeServiceWorkerRegistrations: string;
-
-declare const WKPreviewActionItemIdentifierShare: string;
+declare const WKWebsiteDataTypeSessionStorage: string;
 
 declare const WKPreviewActionItemIdentifierAddToReadingList: string;
 
-declare const WKWebsiteDataTypeSessionStorage: string;
+declare const WKWebsiteDataTypeMediaKeys: string;
 
-declare const WKErrorDomain: string;
+declare const WKWebsiteDataTypeLocalStorage: string;
+
+declare const WKPreviewActionItemIdentifierShare: string;
+
+declare const WKPreviewActionItemIdentifierCopy: string;
 
 declare const WKWebsiteDataTypeMemoryCache: string;
 
-declare const WKPreviewActionItemIdentifierCopy: string;
+declare const WKWebsiteDataTypeServiceWorkerRegistrations: string;
+
+declare const WKErrorDomain: string;
+
+declare const WKWebsiteDataTypeDiskCache: string;
 
 declare const WKDataDetectorTypes: {
   None: 0,
@@ -58,6 +58,12 @@ declare const WKDataDetectorTypes: {
 declare const WKUserScriptInjectionTime: {
   Start: 0,
   End: 1,
+};
+
+declare const WKDialogResult: {
+  ShowDefault: 1,
+  AskAgain: 2,
+  Handled: 3,
 };
 
 declare const WKInactiveSchedulingPolicy: {
@@ -100,14 +106,39 @@ declare const WKMediaPlaybackState: {
   Suspended: 3,
 };
 
+declare const WKDownloadRedirectPolicy: {
+  Cancel: 0,
+  Allow: 1,
+};
+
+declare const WKPermissionDecision: {
+  Prompt: 0,
+  Grant: 1,
+  Deny: 2,
+};
+
 declare const WKSelectionGranularity: {
   Dynamic: 0,
   Character: 1,
 };
 
-declare const WKDownloadRedirectPolicy: {
-  Cancel: 0,
-  Allow: 1,
+declare const WKFullscreenState: {
+  NotIn: 0,
+  Entering: 1,
+  In: 2,
+  Exiting: 3,
+};
+
+declare const WKCookiePolicy: {
+  Allow: 0,
+  Disallow: 1,
+};
+
+declare const WKAudiovisualMediaTypes: {
+  None: 0,
+  Audio: 1,
+  Video: 2,
+  All: -1,
 };
 
 declare const WKMediaCaptureType: {
@@ -116,9 +147,10 @@ declare const WKMediaCaptureType: {
   CameraAndMicrophone: 2,
 };
 
-declare const WKCookiePolicy: {
-  Allow: 0,
-  Disallow: 1,
+declare const WKMediaCaptureState: {
+  None: 0,
+  Active: 1,
+  Muted: 2,
 };
 
 declare const WKErrorCode: {
@@ -139,38 +171,6 @@ declare const WKErrorCode: {
   DuplicateCredential: 15,
   MalformedCredential: 16,
   CredentialNotFound: 17,
-};
-
-declare const WKFullscreenState: {
-  NotIn: 0,
-  Entering: 1,
-  In: 2,
-  Exiting: 3,
-};
-
-declare const WKDialogResult: {
-  ShowDefault: 1,
-  AskAgain: 2,
-  Handled: 3,
-};
-
-declare const WKAudiovisualMediaTypes: {
-  None: 0,
-  Audio: 1,
-  Video: 2,
-  All: -1,
-};
-
-declare const WKMediaCaptureState: {
-  None: 0,
-  Active: 1,
-  Muted: 2,
-};
-
-declare const WKPermissionDecision: {
-  Prompt: 0,
-  Grant: 1,
-  Deny: 2,
 };
 
 declare interface WKURLSchemeTask extends NSObjectProtocol {
@@ -289,18 +289,18 @@ declare interface WKDownloadDelegate extends NSObjectProtocol {
 declare class WKDownloadDelegate extends NativeObject implements WKDownloadDelegate {
 }
 
-declare interface WKScriptMessageHandler extends NSObjectProtocol {
-  userContentControllerDidReceiveScriptMessage(userContentController: WKUserContentController, message: WKScriptMessage): void;
-}
-
-declare class WKScriptMessageHandler extends NativeObject implements WKScriptMessageHandler {
-}
-
 declare interface WKHTTPCookieStoreObserver extends NSObjectProtocol {
   cookiesDidChangeInCookieStore?(cookieStore: WKHTTPCookieStore): void;
 }
 
 declare class WKHTTPCookieStoreObserver extends NativeObject implements WKHTTPCookieStoreObserver {
+}
+
+declare interface WKScriptMessageHandler extends NSObjectProtocol {
+  userContentControllerDidReceiveScriptMessage(userContentController: WKUserContentController, message: WKScriptMessage): void;
+}
+
+declare class WKScriptMessageHandler extends NativeObject implements WKScriptMessageHandler {
 }
 
 declare interface WKURLSchemeHandler extends NSObjectProtocol {
@@ -461,6 +461,22 @@ declare class WKNavigation extends NSObject {
   readonly effectiveContentMode: interop.Enum<typeof WKContentMode>;
 }
 
+declare class WKHTTPCookieStore extends NSObject {
+  getAllCookies(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  setCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+
+  deleteCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+
+  addObserver(observer: WKHTTPCookieStoreObserver): void;
+
+  removeObserver(observer: WKHTTPCookieStoreObserver): void;
+
+  setCookiePolicyCompletionHandler(policy: interop.Enum<typeof WKCookiePolicy>, completionHandler: () => void | null): void;
+
+  getCookiePolicy(completionHandler: (p1: interop.Enum<typeof WKCookiePolicy>) => void): void;
+}
+
 declare class WKWebView extends UIView {
   readonly configuration: WKWebViewConfiguration;
 
@@ -601,6 +617,14 @@ declare class WKWebView extends UIView {
   readonly certificateChain: NSArray;
 }
 
+declare class WKSecurityOrigin extends NSObject {
+  readonly protocol: string;
+
+  readonly host: string;
+
+  readonly port: number;
+}
+
 declare class WKContextMenuElementInfo extends NSObject {
   readonly linkURL: NSURL;
 }
@@ -639,6 +663,54 @@ declare class WKBackForwardListItem extends NSObject {
   readonly title: string;
 
   readonly initialURL: NSURL;
+}
+
+declare class WKWebsiteDataRecord extends NSObject {
+  readonly displayName: string;
+
+  readonly dataTypes: NSSet;
+}
+
+declare class WKFindResult extends NSObject implements NSCopying {
+  readonly matchFound: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKNavigationAction extends NSObject {
+  readonly sourceFrame: WKFrameInfo;
+
+  readonly targetFrame: WKFrameInfo;
+
+  readonly navigationType: interop.Enum<typeof WKNavigationType>;
+
+  readonly request: NSURLRequest;
+
+  readonly shouldPerformDownload: boolean;
+}
+
+declare class WKSnapshotConfiguration extends NSObject implements NSCopying {
+  rect: CGRect;
+
+  snapshotWidth: NSNumber;
+
+  afterScreenUpdates: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKUserScript extends NSObject implements NSCopying {
+  readonly source: string;
+
+  readonly injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>;
+
+  readonly isForMainFrameOnly: boolean;
+
+  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean): this;
+
+  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean, contentWorld: WKContentWorld): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class WKDownload extends NSObject implements NSProgressReporting {
@@ -693,118 +765,12 @@ declare class WKDownload extends NSObject implements NSProgressReporting {
   readonly debugDescription: string;
 }
 
-declare class WKHTTPCookieStore extends NSObject {
-  getAllCookies(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
-
-  setCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
-
-  deleteCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
-
-  addObserver(observer: WKHTTPCookieStoreObserver): void;
-
-  removeObserver(observer: WKHTTPCookieStoreObserver): void;
-
-  setCookiePolicyCompletionHandler(policy: interop.Enum<typeof WKCookiePolicy>, completionHandler: () => void | null): void;
-
-  getCookiePolicy(completionHandler: (p1: interop.Enum<typeof WKCookiePolicy>) => void): void;
-}
-
-declare class WKSecurityOrigin extends NSObject {
-  readonly protocol: string;
-
-  readonly host: string;
-
-  readonly port: number;
-}
-
-declare class WKWebsiteDataRecord extends NSObject {
-  readonly displayName: string;
-
-  readonly dataTypes: NSSet;
-}
-
-declare class WKNavigationAction extends NSObject {
-  readonly sourceFrame: WKFrameInfo;
-
-  readonly targetFrame: WKFrameInfo;
-
-  readonly navigationType: interop.Enum<typeof WKNavigationType>;
-
-  readonly request: NSURLRequest;
-
-  readonly shouldPerformDownload: boolean;
-}
-
-declare class WKSnapshotConfiguration extends NSObject implements NSCopying {
-  rect: CGRect;
-
-  snapshotWidth: NSNumber;
-
-  afterScreenUpdates: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKUserScript extends NSObject implements NSCopying {
-  readonly source: string;
-
-  readonly injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>;
-
-  readonly isForMainFrameOnly: boolean;
-
-  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean): this;
-
-  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean, contentWorld: WKContentWorld): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class WKWebpagePreferences extends NSObject {
   preferredContentMode: interop.Enum<typeof WKContentMode>;
 
   allowsContentJavaScript: boolean;
 
   isLockdownModeEnabled: boolean;
-}
-
-declare class WKContentWorld extends NSObject {
-  static readonly pageWorld: WKContentWorld;
-
-  static readonly defaultClientWorld: WKContentWorld;
-
-  static worldWithName(name: string): WKContentWorld;
-
-  readonly name: string;
-}
-
-declare class WKFindConfiguration extends NSObject implements NSCopying {
-  backwards: boolean;
-
-  caseSensitive: boolean;
-
-  wraps: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKFrameInfo extends NSObject implements NSCopying {
-  readonly isMainFrame: boolean;
-
-  readonly request: NSURLRequest;
-
-  readonly securityOrigin: WKSecurityOrigin;
-
-  readonly webView: WKWebView | null;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKProcessPool extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class WKWindowFeatures extends NSObject {
@@ -823,6 +789,28 @@ declare class WKWindowFeatures extends NSObject {
   readonly width: NSNumber;
 
   readonly height: NSNumber;
+}
+
+declare class WKFindConfiguration extends NSObject implements NSCopying {
+  backwards: boolean;
+
+  caseSensitive: boolean;
+
+  wraps: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKScriptMessage extends NSObject {
+  readonly body: interop.Object;
+
+  readonly webView: WKWebView;
+
+  readonly frameInfo: WKFrameInfo;
+
+  readonly name: string;
+
+  readonly world: WKContentWorld;
 }
 
 declare class WKPreferences extends NSObject implements NSSecureCoding {
@@ -851,25 +839,37 @@ declare class WKPreferences extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class WKScriptMessage extends NSObject {
-  readonly body: interop.Object;
+declare class WKProcessPool extends NSObject implements NSSecureCoding {
+  static readonly supportsSecureCoding: boolean;
 
-  readonly webView: WKWebView;
+  encodeWithCoder(coder: NSCoder): void;
 
-  readonly frameInfo: WKFrameInfo;
-
-  readonly name: string;
-
-  readonly world: WKContentWorld;
+  initWithCoder(coder: NSCoder): this;
 }
 
-declare class WKFindResult extends NSObject implements NSCopying {
-  readonly matchFound: boolean;
+declare class WKContentWorld extends NSObject {
+  static readonly pageWorld: WKContentWorld;
 
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  static readonly defaultClientWorld: WKContentWorld;
+
+  static worldWithName(name: string): WKContentWorld;
+
+  readonly name: string;
 }
 
 declare class WKContentRuleList extends NSObject {
   readonly identifier: string;
+}
+
+declare class WKFrameInfo extends NSObject implements NSCopying {
+  readonly isMainFrame: boolean;
+
+  readonly request: NSURLRequest;
+
+  readonly securityOrigin: WKSecurityOrigin;
+
+  readonly webView: WKWebView | null;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

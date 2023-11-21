@@ -60,6 +60,18 @@ declare const UNAuthorizationStatus: {
   Provisional: 3,
 };
 
+declare const UNNotificationActionOptions: {
+  AuthenticationRequired: 1,
+  Destructive: 2,
+  Foreground: 4,
+};
+
+declare const UNAlertStyle: {
+  None: 0,
+  Banner: 1,
+  Alert: 2,
+};
+
 declare const UNErrorCode: {
   NotificationsNotAllowed: 1,
   AttachmentInvalidURL: 100,
@@ -73,18 +85,6 @@ declare const UNErrorCode: {
   ContentProvidingObjectNotAllowed: 1500,
   ContentProvidingInvalid: 1501,
   BadgeInputInvalid: 1600,
-};
-
-declare const UNAlertStyle: {
-  None: 0,
-  Banner: 1,
-  Alert: 2,
-};
-
-declare const UNNotificationActionOptions: {
-  AuthenticationRequired: 1,
-  Destructive: 2,
-  Foreground: 4,
 };
 
 declare const UNNotificationPresentationOptions: {
@@ -240,80 +240,22 @@ declare class UNNotification extends NSObject implements NSCopying, NSSecureCodi
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class UNNotificationAction extends NSObject implements NSCopying, NSSecureCoding {
+declare class UNCalendarNotificationTrigger extends UNNotificationTrigger {
+  readonly dateComponents: NSDateComponents;
+
+  static triggerWithDateMatchingComponentsRepeats<This extends abstract new (...args: any) => any>(this: This, dateComponents: NSDateComponents, repeats: boolean): InstanceType<This>;
+
+  nextTriggerDate(): NSDate;
+}
+
+declare class UNNotificationAttachment extends NSObject implements NSCopying, NSSecureCoding {
   readonly identifier: string;
 
-  readonly title: string;
+  readonly URL: NSURL;
 
-  readonly options: interop.Enum<typeof UNNotificationActionOptions>;
+  readonly type: string;
 
-  readonly icon: UNNotificationActionIcon;
-
-  static actionWithIdentifierTitleOptions<This extends abstract new (...args: any) => any>(this: This, identifier: string, title: string, options: interop.Enum<typeof UNNotificationActionOptions>): InstanceType<This>;
-
-  static actionWithIdentifierTitleOptionsIcon<This extends abstract new (...args: any) => any>(this: This, identifier: string, title: string, options: interop.Enum<typeof UNNotificationActionOptions>, icon: UNNotificationActionIcon | null): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class UNTextInputNotificationResponse extends UNNotificationResponse {
-  readonly userText: string;
-}
-
-declare class UNNotificationContent extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
-  readonly attachments: NSArray;
-
-  readonly badge: NSNumber;
-
-  readonly body: string;
-
-  readonly categoryIdentifier: string;
-
-  readonly sound: UNNotificationSound;
-
-  readonly subtitle: string;
-
-  readonly threadIdentifier: string;
-
-  readonly title: string;
-
-  readonly userInfo: NSDictionary;
-
-  readonly summaryArgument: string;
-
-  readonly summaryArgumentCount: number;
-
-  readonly targetContentIdentifier: string;
-
-  readonly interruptionLevel: interop.Enum<typeof UNNotificationInterruptionLevel>;
-
-  readonly relevanceScore: number;
-
-  readonly filterCriteria: string;
-
-  contentByUpdatingWithProviderError(provider: UNNotificationContentProviding, outError: interop.PointerConvertible): UNNotificationContent;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class UNNotificationActionIcon extends NSObject implements NSCopying, NSSecureCoding {
-  static iconWithTemplateImageName<This extends abstract new (...args: any) => any>(this: This, templateImageName: string): InstanceType<This>;
-
-  static iconWithSystemImageName<This extends abstract new (...args: any) => any>(this: This, systemImageName: string): InstanceType<This>;
+  static attachmentWithIdentifierURLOptionsError<This extends abstract new (...args: any) => any>(this: This, identifier: string, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -376,60 +318,42 @@ declare class UNMutableNotificationContent extends UNNotificationContent {
   filterCriteria: string;
 }
 
-declare class UNCalendarNotificationTrigger extends UNNotificationTrigger {
-  readonly dateComponents: NSDateComponents;
+declare class UNNotificationContent extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
+  readonly attachments: NSArray;
 
-  static triggerWithDateMatchingComponentsRepeats<This extends abstract new (...args: any) => any>(this: This, dateComponents: NSDateComponents, repeats: boolean): InstanceType<This>;
+  readonly badge: NSNumber;
 
-  nextTriggerDate(): NSDate;
-}
+  readonly body: string;
 
-declare class UNNotificationSettings extends NSObject implements NSCopying, NSSecureCoding {
-  readonly authorizationStatus: interop.Enum<typeof UNAuthorizationStatus>;
+  readonly categoryIdentifier: string;
 
-  readonly soundSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly sound: UNNotificationSound;
 
-  readonly badgeSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly subtitle: string;
 
-  readonly alertSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly threadIdentifier: string;
 
-  readonly notificationCenterSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly title: string;
 
-  readonly lockScreenSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly userInfo: NSDictionary;
 
-  readonly alertStyle: interop.Enum<typeof UNAlertStyle>;
+  readonly summaryArgument: string;
 
-  readonly showPreviewsSetting: interop.Enum<typeof UNShowPreviewsSetting>;
+  readonly summaryArgumentCount: number;
 
-  readonly criticalAlertSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly targetContentIdentifier: string;
 
-  readonly providesAppNotificationSettings: boolean;
+  readonly interruptionLevel: interop.Enum<typeof UNNotificationInterruptionLevel>;
 
-  readonly timeSensitiveSetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly relevanceScore: number;
 
-  readonly scheduledDeliverySetting: interop.Enum<typeof UNNotificationSetting>;
+  readonly filterCriteria: string;
 
-  readonly directMessagesSetting: interop.Enum<typeof UNNotificationSetting>;
+  contentByUpdatingWithProviderError(provider: UNNotificationContentProviding, outError: interop.PointerConvertible): UNNotificationContent;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class UNNotificationAttachment extends NSObject implements NSCopying, NSSecureCoding {
-  readonly identifier: string;
-
-  readonly URL: NSURL;
-
-  readonly type: string;
-
-  static attachmentWithIdentifierURLOptionsError<This extends abstract new (...args: any) => any>(this: This, identifier: string, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -470,7 +394,80 @@ declare class UNUserNotificationCenter extends NSObject {
   setBadgeCountWithCompletionHandler(newBadgeCount: number, completionHandler: (p1: NSError) => void | null): void;
 }
 
-declare class UNPushNotificationTrigger extends UNNotificationTrigger {
+declare class UNTextInputNotificationResponse extends UNNotificationResponse {
+  readonly userText: string;
+}
+
+declare class UNNotificationSettings extends NSObject implements NSCopying, NSSecureCoding {
+  readonly authorizationStatus: interop.Enum<typeof UNAuthorizationStatus>;
+
+  readonly soundSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly badgeSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly alertSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly notificationCenterSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly lockScreenSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly alertStyle: interop.Enum<typeof UNAlertStyle>;
+
+  readonly showPreviewsSetting: interop.Enum<typeof UNShowPreviewsSetting>;
+
+  readonly criticalAlertSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly providesAppNotificationSettings: boolean;
+
+  readonly timeSensitiveSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly scheduledDeliverySetting: interop.Enum<typeof UNNotificationSetting>;
+
+  readonly directMessagesSetting: interop.Enum<typeof UNNotificationSetting>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class UNNotificationAction extends NSObject implements NSCopying, NSSecureCoding {
+  readonly identifier: string;
+
+  readonly title: string;
+
+  readonly options: interop.Enum<typeof UNNotificationActionOptions>;
+
+  readonly icon: UNNotificationActionIcon;
+
+  static actionWithIdentifierTitleOptions<This extends abstract new (...args: any) => any>(this: This, identifier: string, title: string, options: interop.Enum<typeof UNNotificationActionOptions>): InstanceType<This>;
+
+  static actionWithIdentifierTitleOptionsIcon<This extends abstract new (...args: any) => any>(this: This, identifier: string, title: string, options: interop.Enum<typeof UNNotificationActionOptions>, icon: UNNotificationActionIcon | null): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class UNNotificationActionIcon extends NSObject implements NSCopying, NSSecureCoding {
+  static iconWithTemplateImageName<This extends abstract new (...args: any) => any>(this: This, templateImageName: string): InstanceType<This>;
+
+  static iconWithSystemImageName<This extends abstract new (...args: any) => any>(this: This, systemImageName: string): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class UNTextInputNotificationAction extends UNNotificationAction {
@@ -481,5 +478,8 @@ declare class UNTextInputNotificationAction extends UNNotificationAction {
   readonly textInputButtonTitle: string;
 
   readonly textInputPlaceholder: string;
+}
+
+declare class UNPushNotificationTrigger extends UNNotificationTrigger {
 }
 

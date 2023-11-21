@@ -8,14 +8,14 @@ declare class __sFILEX {
   constructor(init?: __sFILEX);
 }
 
-declare class simd_float2x2 {
-  constructor(init?: simd_float2x2);
-  columns: unknown /* const array */;
-}
-
 declare class simd_quatf {
   constructor(init?: simd_quatf);
   vector: unknown /* ext vector */;
+}
+
+declare class simd_float2x2 {
+  constructor(init?: simd_float2x2);
+  columns: unknown /* const array */;
 }
 
 declare class simd_float4x4 {
@@ -37,6 +37,22 @@ declare class simd_float4x3 {
 declare class simd_quatd {
   constructor(init?: simd_quatd);
   vector: unknown /* ext vector */;
+}
+
+declare class __sbuf {
+  constructor(init?: __sbuf);
+  _base: interop.Pointer;
+  _size: number;
+}
+
+declare class simd_double4x4 {
+  constructor(init?: simd_double4x4);
+  columns: unknown /* const array */;
+}
+
+declare class simd_float3x3 {
+  constructor(init?: simd_float3x3);
+  columns: unknown /* const array */;
 }
 
 declare class __sFILE {
@@ -61,22 +77,6 @@ declare class __sFILE {
   _lb: __sbuf;
   _blksize: number;
   _offset: number;
-}
-
-declare class __sbuf {
-  constructor(init?: __sbuf);
-  _base: interop.Pointer;
-  _size: number;
-}
-
-declare class simd_double4x4 {
-  constructor(init?: simd_double4x4);
-  columns: unknown /* const array */;
-}
-
-declare class simd_float3x3 {
-  constructor(init?: simd_float3x3);
-  columns: unknown /* const array */;
 }
 
 declare class _acl {
@@ -126,6 +126,13 @@ declare interface NSObjectProtocol {
 }
 
 declare class NSObjectProtocol extends NativeObject implements NSObjectProtocol {
+}
+
+declare interface NativeScriptEmbedderDelegate {
+  presentNativeScriptApp(vc: UIViewController): interop.Object;
+}
+
+declare class NativeScriptEmbedderDelegate extends NativeObject implements NativeScriptEmbedderDelegate {
 }
 
 declare class NSObject extends NativeObject implements NSObjectProtocol {
@@ -521,8 +528,28 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   readonly debugDescription: string;
 }
 
+declare class NativeScriptEmbedder extends NSObject {
+  readonly delegate: NativeScriptEmbedderDelegate;
+
+  static sharedInstance(): NativeScriptEmbedder;
+}
+
 declare class OS_os_workgroup extends OS_object {
   init(): this;
+}
+
+declare class NativeScriptUtils extends NSObject {
+  static getSystemFontWeightItalicSymbolicTraits(size: number, weight: number, italic: boolean, symbolicTraits: interop.Enum<typeof UIFontDescriptorSymbolicTraits>): UIFont;
+
+  static createUIFont(font: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): UIFont;
+
+  static createMutableStringWithDetails(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSMutableAttributedString;
+
+  static createMutableStringForSpanFontColorBackgroundColorTextDecorationBaselineOffset(text: string, font: UIFont, color: UIColor, backgroundColor: UIColor, textDecoration: string, baselineOffset: number): NSMutableAttributedString;
+
+  static scaleImageWidthHeightScaleFactor(image: UIImage, width: number, height: number, scaleFactor: number): UIImage;
+
+  static getImageDataFormatQuality(image: UIImage, format: string, quality: number): NSData;
 }
 
 declare class OS_object extends NSObject {

@@ -6,9 +6,13 @@ declare const MTKModelErrorKey: string;
 
 declare const MTKTextureLoaderOriginFlippedVertically: string;
 
+declare const MTKTextureLoaderOriginBottomLeft: string;
+
 declare const MTKTextureLoaderOriginTopLeft: string;
 
 declare const MTKTextureLoaderOptionCubeLayout: string;
+
+declare const MTKTextureLoaderOptionTextureStorageMode: string;
 
 declare const MTKTextureLoaderOptionTextureCPUCacheMode: string;
 
@@ -24,17 +28,13 @@ declare const MTKTextureLoaderErrorKey: string;
 
 declare const MTKTextureLoaderErrorDomain: string;
 
-declare const MTKTextureLoaderOriginBottomLeft: string;
-
-declare const MTKModelErrorDomain: string;
-
-declare const MTKTextureLoaderOptionTextureStorageMode: string;
-
 declare const MTKTextureLoaderOptionLoadAsArray: string;
+
+declare const MTKTextureLoaderCubeLayoutVertical: string;
 
 declare const MTKTextureLoaderOptionOrigin: string;
 
-declare const MTKTextureLoaderCubeLayoutVertical: string;
+declare const MTKModelErrorDomain: string;
 
 declare function MTKModelIOVertexDescriptorFromMetal(metalDescriptor: MTLVertexDescriptor): MDLVertexDescriptor;
 

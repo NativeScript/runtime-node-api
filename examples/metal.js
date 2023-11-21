@@ -45,7 +45,7 @@ class MetalAdder {
     const library = device.newLibraryWithSourceOptionsError(
       `
       #include <metal_stdlib>
-      using namespace metall; // error
+      using namespace metal;
       
       kernel void add_arrays(device const float* inA,
                             device const float* inB,

@@ -3,71 +3,91 @@
 
 declare const CBUUIDCharacteristicAggregateFormatString: string;
 
-declare const CBUUIDClientCharacteristicConfigurationString: string;
-
-declare const CBUUIDCharacteristicUserDescriptionString: string;
+declare const CBUUIDCharacteristicExtendedPropertiesString: string;
 
 declare const CBPeripheralManagerRestoredStateAdvertisementDataKey: string;
 
-declare const CBErrorDomain: string;
+declare const CBPeripheralManagerRestoredStateServicesKey: string;
 
-declare const CBConnectPeripheralOptionEnableAutoReconnect: string;
+declare const CBPeripheralManagerOptionRestoreIdentifierKey: string;
 
-declare const CBCentralManagerRestoredStateScanOptionsKey: string;
-
-declare const CBCentralManagerScanOptionAllowDuplicatesKey: string;
-
-declare const CBCentralManagerOptionShowPowerAlertKey: string;
-
-declare const CBAdvertisementDataSolicitedServiceUUIDsKey: string;
-
-declare const CBAdvertisementDataManufacturerDataKey: string;
-
-declare const CBAdvertisementDataOverflowServiceUUIDsKey: string;
-
-declare const CBUUIDCharacteristicValidRangeString: string;
-
-declare const CBAdvertisementDataServiceUUIDsKey: string;
+declare const CBPeripheralManagerOptionShowPowerAlertKey: string;
 
 declare const CBATTErrorDomain: string;
 
-declare const CBAdvertisementDataLocalNameKey: string;
+declare const CBCentralManagerRestoredStateScanOptionsKey: string;
+
+declare const CBConnectPeripheralOptionStartDelayKey: string;
+
+declare const CBConnectPeripheralOptionNotifyOnDisconnectionKey: string;
+
+declare const CBConnectPeripheralOptionNotifyOnConnectionKey: string;
+
+declare const CBCentralManagerScanOptionAllowDuplicatesKey: string;
 
 declare const CBCentralManagerOptionRestoreIdentifierKey: string;
 
-declare const CBUUIDCharacteristicFormatString: string;
-
-declare const CBPeripheralManagerRestoredStateServicesKey: string;
-
-declare const CBCentralManagerRestoredStatePeripheralsKey: string;
+declare const CBAdvertisementDataOverflowServiceUUIDsKey: string;
 
 declare const CBAdvertisementDataServiceDataKey: string;
 
-declare const CBPeripheralManagerOptionRestoreIdentifierKey: string;
+declare const CBAdvertisementDataServiceUUIDsKey: string;
+
+declare const CBAdvertisementDataTxPowerLevelKey: string;
+
+declare const CBAdvertisementDataLocalNameKey: string;
+
+declare const CBUUIDL2CAPPSMCharacteristicString: string;
+
+declare const CBUUIDCharacteristicFormatString: string;
+
+declare const CBErrorDomain: string;
+
+declare const CBCentralManagerScanOptionSolicitedServiceUUIDsKey: string;
+
+declare const CBCentralManagerRestoredStatePeripheralsKey: string;
 
 declare const CBCentralManagerRestoredStateScanServicesKey: string;
 
 declare const CBAdvertisementDataIsConnectable: string;
 
-declare const CBConnectPeripheralOptionNotifyOnDisconnectionKey: string;
-
-declare const CBUUIDL2CAPPSMCharacteristicString: string;
-
-declare const CBPeripheralManagerOptionShowPowerAlertKey: string;
-
-declare const CBAdvertisementDataTxPowerLevelKey: string;
-
 declare const CBUUIDServerCharacteristicConfigurationString: string;
+
+declare const CBAdvertisementDataManufacturerDataKey: string;
 
 declare const CBConnectPeripheralOptionNotifyOnNotificationKey: string;
 
-declare const CBCentralManagerScanOptionSolicitedServiceUUIDsKey: string;
+declare const CBUUIDCharacteristicUserDescriptionString: string;
 
-declare const CBConnectPeripheralOptionStartDelayKey: string;
+declare const CBAdvertisementDataSolicitedServiceUUIDsKey: string;
 
-declare const CBConnectPeripheralOptionNotifyOnConnectionKey: string;
+declare const CBCentralManagerOptionShowPowerAlertKey: string;
 
-declare const CBUUIDCharacteristicExtendedPropertiesString: string;
+declare const CBUUIDClientCharacteristicConfigurationString: string;
+
+declare const CBUUIDCharacteristicValidRangeString: string;
+
+declare const CBConnectPeripheralOptionEnableAutoReconnect: string;
+
+declare const CBPeripheralState: {
+  Disconnected: 0,
+  Connecting: 1,
+  Connected: 2,
+  Disconnecting: 3,
+};
+
+declare const CBCharacteristicProperties: {
+  Broadcast: 1,
+  Read: 2,
+  WriteWithoutResponse: 4,
+  Write: 8,
+  Notify: 16,
+  Indicate: 32,
+  AuthenticatedSignedWrites: 64,
+  ExtendedProperties: 128,
+  NotifyEncryptionRequired: 256,
+  IndicateEncryptionRequired: 512,
+};
 
 declare const CBPeripheralManagerConnectionLatency: {
   Low: 0,
@@ -76,6 +96,43 @@ declare const CBPeripheralManagerConnectionLatency: {
 };
 
 declare const CBPeripheralManagerState: {
+  Unknown: 0,
+  Resetting: 1,
+  Unsupported: 2,
+  Unauthorized: 3,
+  PoweredOff: 4,
+  PoweredOn: 5,
+};
+
+declare const CBError: {
+  Unknown: 0,
+  InvalidParameters: 1,
+  InvalidHandle: 2,
+  NotConnected: 3,
+  OutOfSpace: 4,
+  OperationCancelled: 5,
+  ConnectionTimeout: 6,
+  PeripheralDisconnected: 7,
+  UUIDNotAllowed: 8,
+  AlreadyAdvertising: 9,
+  ConnectionFailed: 10,
+  ConnectionLimitReached: 11,
+  UnkownDevice: 12,
+  UnknownDevice: 12,
+  OperationNotSupported: 13,
+  PeerRemovedPairingInformation: 14,
+  EncryptionTimedOut: 15,
+  TooManyLEPairedDevices: 16,
+};
+
+declare const CBAttributePermissions: {
+  Readable: 1,
+  Writeable: 2,
+  ReadEncryptionRequired: 4,
+  WriteEncryptionRequired: 8,
+};
+
+declare const CBCentralManagerState: {
   Unknown: 0,
   Resetting: 1,
   Unsupported: 2,
@@ -105,22 +162,6 @@ declare const CBATTError: {
   InsufficientResources: 17,
 };
 
-declare const CBAttributePermissions: {
-  Readable: 1,
-  Writeable: 2,
-  ReadEncryptionRequired: 4,
-  WriteEncryptionRequired: 8,
-};
-
-declare const CBCentralManagerState: {
-  Unknown: 0,
-  Resetting: 1,
-  Unsupported: 2,
-  Unauthorized: 3,
-  PoweredOff: 4,
-  PoweredOn: 5,
-};
-
 declare const CBManagerAuthorization: {
   NotDetermined: 0,
   Restricted: 1,
@@ -137,11 +178,6 @@ declare const CBManagerState: {
   PoweredOn: 5,
 };
 
-declare const CBConnectionEvent: {
-  Disconnected: 0,
-  Connected: 1,
-};
-
 declare const CBPeripheralManagerAuthorizationStatus: {
   NotDetermined: 0,
   Restricted: 1,
@@ -149,51 +185,63 @@ declare const CBPeripheralManagerAuthorizationStatus: {
   Authorized: 3,
 };
 
-declare const CBCharacteristicProperties: {
-  Broadcast: 1,
-  Read: 2,
-  WriteWithoutResponse: 4,
-  Write: 8,
-  Notify: 16,
-  Indicate: 32,
-  AuthenticatedSignedWrites: 64,
-  ExtendedProperties: 128,
-  NotifyEncryptionRequired: 256,
-  IndicateEncryptionRequired: 512,
-};
-
-declare const CBPeripheralState: {
+declare const CBConnectionEvent: {
   Disconnected: 0,
-  Connecting: 1,
-  Connected: 2,
-  Disconnecting: 3,
-};
-
-declare const CBError: {
-  Unknown: 0,
-  InvalidParameters: 1,
-  InvalidHandle: 2,
-  NotConnected: 3,
-  OutOfSpace: 4,
-  OperationCancelled: 5,
-  ConnectionTimeout: 6,
-  PeripheralDisconnected: 7,
-  UUIDNotAllowed: 8,
-  AlreadyAdvertising: 9,
-  ConnectionFailed: 10,
-  ConnectionLimitReached: 11,
-  UnkownDevice: 12,
-  UnknownDevice: 12,
-  OperationNotSupported: 13,
-  PeerRemovedPairingInformation: 14,
-  EncryptionTimedOut: 15,
-  TooManyLEPairedDevices: 16,
+  Connected: 1,
 };
 
 declare const CBCharacteristicWriteType: {
   With: 0,
   Without: 1,
 };
+
+declare interface CBPeripheralManagerDelegate extends NSObjectProtocol {
+  peripheralManagerDidUpdateState(peripheral: CBPeripheralManager): void;
+
+  peripheralManagerWillRestoreState?(peripheral: CBPeripheralManager, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
+
+  peripheralManagerDidStartAdvertisingError?(peripheral: CBPeripheralManager, error: NSError | null): void;
+
+  peripheralManagerDidAddServiceError?(peripheral: CBPeripheralManager, service: CBService, error: NSError | null): void;
+
+  peripheralManagerCentralDidSubscribeToCharacteristic?(peripheral: CBPeripheralManager, central: CBCentral, characteristic: CBCharacteristic): void;
+
+  peripheralManagerCentralDidUnsubscribeFromCharacteristic?(peripheral: CBPeripheralManager, central: CBCentral, characteristic: CBCharacteristic): void;
+
+  peripheralManagerDidReceiveReadRequest?(peripheral: CBPeripheralManager, request: CBATTRequest): void;
+
+  peripheralManagerDidReceiveWriteRequests?(peripheral: CBPeripheralManager, requests: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  peripheralManagerIsReadyToUpdateSubscribers?(peripheral: CBPeripheralManager): void;
+
+  peripheralManagerDidPublishL2CAPChannelError?(peripheral: CBPeripheralManager, PSM: number, error: NSError | null): void;
+
+  peripheralManagerDidUnpublishL2CAPChannelError?(peripheral: CBPeripheralManager, PSM: number, error: NSError | null): void;
+
+  peripheralManagerDidOpenL2CAPChannelError?(peripheral: CBPeripheralManager, channel: CBL2CAPChannel | null, error: NSError | null): void;
+}
+
+declare class CBPeripheralManagerDelegate extends NativeObject implements CBPeripheralManagerDelegate {
+}
+
+declare interface CBCentralManagerDelegate extends NSObjectProtocol {
+  centralManagerDidUpdateState(central: CBCentralManager): void;
+
+  centralManagerWillRestoreState?(central: CBCentralManager, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
+
+  centralManagerDidDiscoverPeripheralAdvertisementDataRSSI?(central: CBCentralManager, peripheral: CBPeripheral, advertisementData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, RSSI: NSNumber): void;
+
+  centralManagerDidConnectPeripheral?(central: CBCentralManager, peripheral: CBPeripheral): void;
+
+  centralManagerDidFailToConnectPeripheralError?(central: CBCentralManager, peripheral: CBPeripheral, error: NSError | null): void;
+
+  centralManagerDidDisconnectPeripheralError?(central: CBCentralManager, peripheral: CBPeripheral, error: NSError | null): void;
+
+  centralManagerDidDisconnectPeripheralTimestampIsReconnectingError?(central: CBCentralManager, peripheral: CBPeripheral, timestamp: number, isReconnecting: boolean, error: NSError | null): void;
+}
+
+declare class CBCentralManagerDelegate extends NativeObject implements CBCentralManagerDelegate {
+}
 
 declare interface CBPeripheralDelegate extends NSObjectProtocol {
   peripheralDidUpdateName?(peripheral: CBPeripheral): void;
@@ -230,72 +278,14 @@ declare interface CBPeripheralDelegate extends NSObjectProtocol {
 declare class CBPeripheralDelegate extends NativeObject implements CBPeripheralDelegate {
 }
 
-declare interface CBCentralManagerDelegate extends NSObjectProtocol {
-  centralManagerDidUpdateState(central: CBCentralManager): void;
+declare class CBATTRequest extends NSObject {
+  readonly central: CBCentral;
 
-  centralManagerWillRestoreState?(central: CBCentralManager, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
+  readonly characteristic: CBCharacteristic;
 
-  centralManagerDidDiscoverPeripheralAdvertisementDataRSSI?(central: CBCentralManager, peripheral: CBPeripheral, advertisementData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, RSSI: NSNumber): void;
+  readonly offset: number;
 
-  centralManagerDidConnectPeripheral?(central: CBCentralManager, peripheral: CBPeripheral): void;
-
-  centralManagerDidFailToConnectPeripheralError?(central: CBCentralManager, peripheral: CBPeripheral, error: NSError | null): void;
-
-  centralManagerDidDisconnectPeripheralError?(central: CBCentralManager, peripheral: CBPeripheral, error: NSError | null): void;
-
-  centralManagerDidDisconnectPeripheralTimestampIsReconnectingError?(central: CBCentralManager, peripheral: CBPeripheral, timestamp: number, isReconnecting: boolean, error: NSError | null): void;
-}
-
-declare class CBCentralManagerDelegate extends NativeObject implements CBCentralManagerDelegate {
-}
-
-declare interface CBPeripheralManagerDelegate extends NSObjectProtocol {
-  peripheralManagerDidUpdateState(peripheral: CBPeripheralManager): void;
-
-  peripheralManagerWillRestoreState?(peripheral: CBPeripheralManager, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
-
-  peripheralManagerDidStartAdvertisingError?(peripheral: CBPeripheralManager, error: NSError | null): void;
-
-  peripheralManagerDidAddServiceError?(peripheral: CBPeripheralManager, service: CBService, error: NSError | null): void;
-
-  peripheralManagerCentralDidSubscribeToCharacteristic?(peripheral: CBPeripheralManager, central: CBCentral, characteristic: CBCharacteristic): void;
-
-  peripheralManagerCentralDidUnsubscribeFromCharacteristic?(peripheral: CBPeripheralManager, central: CBCentral, characteristic: CBCharacteristic): void;
-
-  peripheralManagerDidReceiveReadRequest?(peripheral: CBPeripheralManager, request: CBATTRequest): void;
-
-  peripheralManagerDidReceiveWriteRequests?(peripheral: CBPeripheralManager, requests: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  peripheralManagerIsReadyToUpdateSubscribers?(peripheral: CBPeripheralManager): void;
-
-  peripheralManagerDidPublishL2CAPChannelError?(peripheral: CBPeripheralManager, PSM: number, error: NSError | null): void;
-
-  peripheralManagerDidUnpublishL2CAPChannelError?(peripheral: CBPeripheralManager, PSM: number, error: NSError | null): void;
-
-  peripheralManagerDidOpenL2CAPChannelError?(peripheral: CBPeripheralManager, channel: CBL2CAPChannel | null, error: NSError | null): void;
-}
-
-declare class CBPeripheralManagerDelegate extends NativeObject implements CBPeripheralManagerDelegate {
-}
-
-// @ts-ignore
-declare class CBMutableCharacteristic extends CBCharacteristic {
-  permissions: interop.Enum<typeof CBAttributePermissions>;
-
-  readonly subscribedCentrals: NSArray;
-
-  // @ts-ignore
-  properties: interop.Enum<typeof CBCharacteristicProperties>;
-
-  // @ts-ignore
   value: NSData;
-
-  // @ts-ignore
-  get descriptors(): NSArray;
-  // @ts-ignore
-  set descriptors(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  initWithTypePropertiesValuePermissions(UUID: CBUUID, properties: interop.Enum<typeof CBCharacteristicProperties>, value: NSData | null, permissions: interop.Enum<typeof CBAttributePermissions>): this;
 }
 
 declare class CBCentralManager extends CBManager {
@@ -322,50 +312,6 @@ declare class CBCentralManager extends CBManager {
   cancelPeripheralConnection(peripheral: CBPeripheral): void;
 }
 
-declare class CBATTRequest extends NSObject {
-  readonly central: CBCentral;
-
-  readonly characteristic: CBCharacteristic;
-
-  readonly offset: number;
-
-  value: NSData;
-}
-
-declare class CBUUID extends NSObject implements NSCopying {
-  readonly data: NSData;
-
-  readonly UUIDString: string;
-
-  static UUIDWithString(theString: string): CBUUID;
-
-  static UUIDWithData(theData: NSData): CBUUID;
-
-  static UUIDWithCFUUID(theUUID: interop.PointerConvertible): CBUUID;
-
-  static UUIDWithNSUUID(theUUID: NSUUID): CBUUID;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CBMutableDescriptor extends CBDescriptor {
-  initWithTypeValue(UUID: CBUUID, value: interop.Object | null): this;
-}
-
-declare class CBCharacteristic extends CBAttribute {
-  readonly service: CBService | null;
-
-  readonly properties: interop.Enum<typeof CBCharacteristicProperties>;
-
-  readonly value: NSData;
-
-  readonly descriptors: NSArray;
-
-  readonly isBroadcasted: boolean;
-
-  readonly isNotifying: boolean;
-}
-
 // @ts-ignore
 declare class CBMutableService extends CBService {
   // @ts-ignore
@@ -381,22 +327,8 @@ declare class CBMutableService extends CBService {
   initWithTypePrimary(UUID: CBUUID, isPrimary: boolean): this;
 }
 
-declare class CBService extends CBAttribute {
-  readonly peripheral: CBPeripheral | null;
-
-  readonly isPrimary: boolean;
-
-  readonly includedServices: NSArray;
-
-  readonly characteristics: NSArray;
-}
-
 declare class CBAttribute extends NSObject {
   readonly UUID: CBUUID;
-}
-
-declare class CBCentral extends CBPeer {
-  readonly maximumUpdateValueLength: number;
 }
 
 declare class CBPeripheralManager extends CBManager {
@@ -441,6 +373,64 @@ declare class CBL2CAPChannel extends NSObject {
   readonly outputStream: NSOutputStream;
 
   readonly PSM: number;
+}
+
+declare class CBCentral extends CBPeer {
+  readonly maximumUpdateValueLength: number;
+}
+
+declare class CBMutableDescriptor extends CBDescriptor {
+  initWithTypeValue(UUID: CBUUID, value: interop.Object | null): this;
+}
+
+declare class CBDescriptor extends CBAttribute {
+  readonly characteristic: CBCharacteristic | null;
+
+  readonly value: interop.Object;
+}
+
+// @ts-ignore
+declare class CBMutableCharacteristic extends CBCharacteristic {
+  permissions: interop.Enum<typeof CBAttributePermissions>;
+
+  readonly subscribedCentrals: NSArray;
+
+  // @ts-ignore
+  properties: interop.Enum<typeof CBCharacteristicProperties>;
+
+  // @ts-ignore
+  value: NSData;
+
+  // @ts-ignore
+  get descriptors(): NSArray;
+  // @ts-ignore
+  set descriptors(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  initWithTypePropertiesValuePermissions(UUID: CBUUID, properties: interop.Enum<typeof CBCharacteristicProperties>, value: NSData | null, permissions: interop.Enum<typeof CBAttributePermissions>): this;
+}
+
+declare class CBCharacteristic extends CBAttribute {
+  readonly service: CBService | null;
+
+  readonly properties: interop.Enum<typeof CBCharacteristicProperties>;
+
+  readonly value: NSData;
+
+  readonly descriptors: NSArray;
+
+  readonly isBroadcasted: boolean;
+
+  readonly isNotifying: boolean;
+}
+
+declare class CBService extends CBAttribute {
+  readonly peripheral: CBPeripheral | null;
+
+  readonly isPrimary: boolean;
+
+  readonly includedServices: NSArray;
+
+  readonly characteristics: NSArray;
 }
 
 declare class CBPeer extends NSObject implements NSCopying {
@@ -495,9 +485,19 @@ declare class CBPeripheral extends CBPeer {
   openL2CAPChannel(PSM: number): void;
 }
 
-declare class CBDescriptor extends CBAttribute {
-  readonly characteristic: CBCharacteristic | null;
+declare class CBUUID extends NSObject implements NSCopying {
+  readonly data: NSData;
 
-  readonly value: interop.Object;
+  readonly UUIDString: string;
+
+  static UUIDWithString(theString: string): CBUUID;
+
+  static UUIDWithData(theData: NSData): CBUUID;
+
+  static UUIDWithCFUUID(theUUID: interop.PointerConvertible): CBUUID;
+
+  static UUIDWithNSUUID(theUUID: NSUUID): CBUUID;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

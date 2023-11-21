@@ -1,9 +1,110 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./Runtime.d.ts" />
 
+declare const EKErrorDomain: string;
+
 declare const EKEventStoreChangedNotification: string;
 
-declare const EKErrorDomain: string;
+declare const EKEventStatus: {
+  None: 0,
+  Confirmed: 1,
+  Tentative: 2,
+  Canceled: 3,
+};
+
+declare const EKSpan: {
+  ThisEvent: 0,
+  FutureEvents: 1,
+};
+
+declare const EKReminderPriority: {
+  None: 0,
+  High: 1,
+  Medium: 5,
+  Low: 9,
+};
+
+declare const EKAlarmProximity: {
+  None: 0,
+  Enter: 1,
+  Leave: 2,
+};
+
+declare const EKEntityMask: {
+  Event: 1,
+  Reminder: 2,
+};
+
+declare const EKSourceType: {
+  Local: 0,
+  Exchange: 1,
+  CalDAV: 2,
+  MobileMe: 3,
+  Subscribed: 4,
+  Birthdays: 5,
+};
+
+declare const EKCalendarType: {
+  Local: 0,
+  CalDAV: 1,
+  Exchange: 2,
+  Subscription: 3,
+  Birthday: 4,
+};
+
+declare const EKParticipantScheduleStatus: {
+  None: 0,
+  Pending: 1,
+  Sent: 2,
+  Delivered: 3,
+  RecipientNotRecognized: 4,
+  NoPrivileges: 5,
+  DeliveryFailed: 6,
+  CannotDeliver: 7,
+  RecipientNotAllowed: 8,
+};
+
+declare const EKParticipantRole: {
+  Unknown: 0,
+  Required: 1,
+  Optional: 2,
+  Chair: 3,
+  NonParticipant: 4,
+};
+
+declare const EKAuthorizationStatus: {
+  NotDetermined: 0,
+  Restricted: 1,
+  Denied: 2,
+  FullAccess: 3,
+  WriteOnly: 4,
+  Authorized: 3,
+};
+
+declare const EKWeekday: {
+  WeekdaySunday: 1,
+  WeekdayMonday: 2,
+  WeekdayTuesday: 3,
+  WeekdayWednesday: 4,
+  WeekdayThursday: 5,
+  WeekdayFriday: 6,
+  WeekdaySaturday: 7,
+  Sunday: 1,
+  Monday: 2,
+  Tuesday: 3,
+  Wednesday: 4,
+  Thursday: 5,
+  Friday: 6,
+  Saturday: 7,
+};
+
+declare const EKParticipantType: {
+  Unknown: 0,
+  Person: 1,
+  Room: 2,
+  Resource: 3,
+  Group: 4,
+};
 
 declare const EKEventAvailability: {
   NotSupported: -1,
@@ -13,18 +114,15 @@ declare const EKEventAvailability: {
   Unavailable: 3,
 };
 
-declare const EKRecurrenceFrequency: {
-  Daily: 0,
-  Weekly: 1,
-  Monthly: 2,
-  Yearly: 3,
-};
-
-declare const EKEventStatus: {
-  None: 0,
-  Confirmed: 1,
-  Tentative: 2,
-  Canceled: 3,
+declare const EKParticipantStatus: {
+  Unknown: 0,
+  Pending: 1,
+  Accepted: 2,
+  Declined: 3,
+  Tentative: 4,
+  Delegated: 5,
+  Completed: 6,
+  InProcess: 7,
 };
 
 declare const EKErrorCode: {
@@ -68,16 +166,12 @@ declare const EKErrorCode: {
   Last: 37,
 };
 
-declare const EKSpan: {
-  ThisEvent: 0,
-  FutureEvents: 1,
-};
-
-declare const EKReminderPriority: {
+declare const EKCalendarEventAvailabilityMask: {
   None: 0,
-  High: 1,
-  Medium: 5,
-  Low: 9,
+  Busy: 1,
+  Free: 2,
+  Tentative: 4,
+  Unavailable: 8,
 };
 
 declare const EKAlarmType: {
@@ -87,15 +181,11 @@ declare const EKAlarmType: {
   Email: 3,
 };
 
-declare const EKAlarmProximity: {
-  None: 0,
-  Enter: 1,
-  Leave: 2,
-};
-
-declare const EKEntityMask: {
-  Event: 1,
-  Reminder: 2,
+declare const EKRecurrenceFrequency: {
+  Daily: 0,
+  Weekly: 1,
+  Monthly: 2,
+  Yearly: 3,
 };
 
 declare const EKEntityType: {
@@ -103,121 +193,224 @@ declare const EKEntityType: {
   Reminder: 1,
 };
 
-declare const EKCalendarEventAvailabilityMask: {
-  None: 0,
-  Busy: 1,
-  Free: 2,
-  Tentative: 4,
-  Unavailable: 8,
-};
+declare class EKVirtualConferenceDescriptor extends NSObject {
+  initWithTitleURLDescriptorsConferenceDetails(title: string | null, URLDescriptors: NSArray<interop.Object> | Array<interop.Object>, conferenceDetails: string | null): this;
 
-declare const EKCalendarType: {
-  Local: 0,
-  CalDAV: 1,
-  Exchange: 2,
-  Subscription: 3,
-  Birthday: 4,
-};
+  readonly title: string;
 
-declare const EKParticipantRole: {
-  Unknown: 0,
-  Required: 1,
-  Optional: 2,
-  Chair: 3,
-  NonParticipant: 4,
-};
+  readonly URLDescriptors: NSArray;
 
-declare const EKParticipantType: {
-  Unknown: 0,
-  Person: 1,
-  Room: 2,
-  Resource: 3,
-  Group: 4,
-};
+  readonly conferenceDetails: string;
+}
 
-declare const EKAuthorizationStatus: {
-  NotDetermined: 0,
-  Restricted: 1,
-  Denied: 2,
-  FullAccess: 3,
-  WriteOnly: 4,
-  Authorized: 3,
-};
+declare class EKVirtualConferenceURLDescriptor extends NSObject {
+  initWithTitleURL(title: string | null, URL: NSURL): this;
 
-declare const EKParticipantScheduleStatus: {
-  None: 0,
-  Pending: 1,
-  Sent: 2,
-  Delivered: 3,
-  RecipientNotRecognized: 4,
-  NoPrivileges: 5,
-  DeliveryFailed: 6,
-  CannotDeliver: 7,
-  RecipientNotAllowed: 8,
-};
+  readonly title: string;
 
-declare const EKParticipantStatus: {
-  Unknown: 0,
-  Pending: 1,
-  Accepted: 2,
-  Declined: 3,
-  Tentative: 4,
-  Delegated: 5,
-  Completed: 6,
-  InProcess: 7,
-};
+  readonly URL: NSURL;
+}
 
-declare const EKWeekday: {
-  WeekdaySunday: 1,
-  WeekdayMonday: 2,
-  WeekdayTuesday: 3,
-  WeekdayWednesday: 4,
-  WeekdayThursday: 5,
-  WeekdayFriday: 6,
-  WeekdaySaturday: 7,
-  Sunday: 1,
-  Monday: 2,
-  Tuesday: 3,
-  Wednesday: 4,
-  Thursday: 5,
-  Friday: 6,
-  Saturday: 7,
-};
+declare class EKSource extends EKObject {
+  readonly sourceIdentifier: string;
 
-declare const EKSourceType: {
-  Local: 0,
-  Exchange: 1,
-  CalDAV: 2,
-  MobileMe: 3,
-  Subscribed: 4,
-  Birthdays: 5,
-};
+  readonly sourceType: interop.Enum<typeof EKSourceType>;
 
-declare class EKCalendar extends EKObject {
-  static calendarWithEventStore(eventStore: EKEventStore): EKCalendar;
+  readonly title: string;
 
-  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
+  readonly calendars: NSSet;
 
-  source: EKSource;
+  calendarsForEntityType(entityType: interop.Enum<typeof EKEntityType>): NSSet;
 
-  readonly calendarIdentifier: string;
+  readonly isDelegate: boolean;
+}
+
+declare class EKReminder extends EKCalendarItem {
+  static reminderWithEventStore(eventStore: EKEventStore): EKReminder;
+
+  startDateComponents: NSDateComponents;
+
+  dueDateComponents: NSDateComponents;
+
+  isCompleted: boolean;
+
+  completionDate: NSDate;
+
+  priority: number;
+}
+
+declare class EKRecurrenceDayOfWeek extends NSObject implements NSCopying, NSSecureCoding {
+  static dayOfWeek<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>): InstanceType<This>;
+
+  static dayOfWeekWeekNumber<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): InstanceType<This>;
+
+  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): interop.Object;
+
+  readonly dayOfTheWeek: interop.Enum<typeof EKWeekday>;
+
+  readonly weekNumber: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class EKParticipant extends EKObject implements NSCopying {
+  readonly URL: NSURL;
+
+  readonly name: string;
+
+  readonly participantStatus: interop.Enum<typeof EKParticipantStatus>;
+
+  readonly participantRole: interop.Enum<typeof EKParticipantRole>;
+
+  readonly participantType: interop.Enum<typeof EKParticipantType>;
+
+  readonly isCurrentUser: boolean;
+
+  readonly contactPredicate: NSPredicate;
+
+  ABRecordWithAddressBook(addressBook: interop.PointerConvertible): interop.Pointer;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class EKCalendarItem extends EKObject {
+  readonly UUID: string;
+
+  calendar: EKCalendar;
+
+  readonly calendarItemIdentifier: string;
+
+  readonly calendarItemExternalIdentifier: string;
 
   title: string;
 
-  readonly type: interop.Enum<typeof EKCalendarType>;
+  location: string;
 
-  readonly allowsContentModifications: boolean;
+  notes: string;
 
-  readonly isSubscribed: boolean;
+  URL: NSURL;
 
-  readonly isImmutable: boolean;
+  readonly lastModifiedDate: NSDate;
 
-  get CGColor(): interop.Pointer;
-  set CGColor(value: interop.PointerConvertible);
+  readonly creationDate: NSDate;
 
-  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
+  timeZone: NSTimeZone;
 
-  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
+  readonly hasAlarms: boolean;
+
+  readonly hasRecurrenceRules: boolean;
+
+  readonly hasAttendees: boolean;
+
+  readonly hasNotes: boolean;
+
+  readonly attendees: NSArray;
+
+  get alarms(): NSArray;
+  set alarms(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  addAlarm(alarm: EKAlarm): void;
+
+  removeAlarm(alarm: EKAlarm): void;
+
+  get recurrenceRules(): NSArray;
+  set recurrenceRules(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  addRecurrenceRule(rule: EKRecurrenceRule): void;
+
+  removeRecurrenceRule(rule: EKRecurrenceRule): void;
+}
+
+declare class EKAlarm extends EKObject implements NSCopying {
+  static alarmWithAbsoluteDate(date: NSDate): EKAlarm;
+
+  static alarmWithRelativeOffset(offset: number): EKAlarm;
+
+  relativeOffset: number;
+
+  absoluteDate: NSDate;
+
+  structuredLocation: EKStructuredLocation;
+
+  proximity: interop.Enum<typeof EKAlarmProximity>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class EKObject extends NSObject {
+  readonly hasChanges: boolean;
+
+  readonly isNew: boolean;
+
+  reset(): void;
+
+  rollback(): void;
+
+  refresh(): boolean;
+}
+
+declare class EKRecurrenceEnd extends NSObject implements NSCopying, NSSecureCoding {
+  static recurrenceEndWithEndDate<This extends abstract new (...args: any) => any>(this: This, endDate: NSDate): InstanceType<This>;
+
+  static recurrenceEndWithOccurrenceCount<This extends abstract new (...args: any) => any>(this: This, occurrenceCount: number): InstanceType<This>;
+
+  readonly endDate: NSDate;
+
+  readonly occurrenceCount: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class EKEvent extends EKCalendarItem {
+  static eventWithEventStore(eventStore: EKEventStore): EKEvent;
+
+  readonly eventIdentifier: string;
+
+  isAllDay: boolean;
+
+  startDate: NSDate;
+
+  endDate: NSDate;
+
+  structuredLocation: EKStructuredLocation;
+
+  compareStartDateWithEvent(other: EKEvent): interop.Enum<typeof NSComparisonResult>;
+
+  readonly organizer: EKParticipant;
+
+  availability: interop.Enum<typeof EKEventAvailability>;
+
+  readonly status: interop.Enum<typeof EKEventStatus>;
+
+  readonly isDetached: boolean;
+
+  readonly occurrenceDate: NSDate;
+
+  refresh(): boolean;
+
+  readonly birthdayContactIdentifier: string;
+
+  readonly birthdayPersonID: number;
+}
+
+declare class EKVirtualConferenceRoomTypeDescriptor extends NSObject {
+  initWithTitleIdentifier(title: string, identifier: string): this;
+
+  readonly title: string;
+
+  readonly identifier: string;
 }
 
 declare class EKVirtualConferenceProvider extends NSObject implements NSExtensionRequestHandling {
@@ -268,22 +461,31 @@ declare class EKVirtualConferenceProvider extends NSObject implements NSExtensio
   readonly debugDescription: string;
 }
 
-declare class EKVirtualConferenceDescriptor extends NSObject {
-  initWithTitleURLDescriptorsConferenceDetails(title: string | null, URLDescriptors: NSArray<interop.Object> | Array<interop.Object>, conferenceDetails: string | null): this;
+declare class EKCalendar extends EKObject {
+  static calendarWithEventStore(eventStore: EKEventStore): EKCalendar;
 
-  readonly title: string;
+  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
 
-  readonly URLDescriptors: NSArray;
+  source: EKSource;
 
-  readonly conferenceDetails: string;
-}
+  readonly calendarIdentifier: string;
 
-declare class EKVirtualConferenceURLDescriptor extends NSObject {
-  initWithTitleURL(title: string | null, URL: NSURL): this;
+  title: string;
 
-  readonly title: string;
+  readonly type: interop.Enum<typeof EKCalendarType>;
 
-  readonly URL: NSURL;
+  readonly allowsContentModifications: boolean;
+
+  readonly isSubscribed: boolean;
+
+  readonly isImmutable: boolean;
+
+  get CGColor(): interop.Pointer;
+  set CGColor(value: interop.PointerConvertible);
+
+  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
+
+  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
 }
 
 declare class EKStructuredLocation extends EKObject implements NSCopying {
@@ -298,20 +500,6 @@ declare class EKStructuredLocation extends EKObject implements NSCopying {
   radius: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class EKReminder extends EKCalendarItem {
-  static reminderWithEventStore(eventStore: EKEventStore): EKReminder;
-
-  startDateComponents: NSDateComponents;
-
-  dueDateComponents: NSDateComponents;
-
-  isCompleted: boolean;
-
-  completionDate: NSDate;
-
-  priority: number;
 }
 
 declare class EKRecurrenceRule extends EKObject implements NSCopying {
@@ -342,80 +530,6 @@ declare class EKRecurrenceRule extends EKObject implements NSCopying {
   readonly setPositions: NSArray;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class EKEvent extends EKCalendarItem {
-  static eventWithEventStore(eventStore: EKEventStore): EKEvent;
-
-  readonly eventIdentifier: string;
-
-  isAllDay: boolean;
-
-  startDate: NSDate;
-
-  endDate: NSDate;
-
-  structuredLocation: EKStructuredLocation;
-
-  compareStartDateWithEvent(other: EKEvent): interop.Enum<typeof NSComparisonResult>;
-
-  readonly organizer: EKParticipant;
-
-  availability: interop.Enum<typeof EKEventAvailability>;
-
-  readonly status: interop.Enum<typeof EKEventStatus>;
-
-  readonly isDetached: boolean;
-
-  readonly occurrenceDate: NSDate;
-
-  refresh(): boolean;
-
-  readonly birthdayContactIdentifier: string;
-
-  readonly birthdayPersonID: number;
-}
-
-declare class EKSource extends EKObject {
-  readonly sourceIdentifier: string;
-
-  readonly sourceType: interop.Enum<typeof EKSourceType>;
-
-  readonly title: string;
-
-  readonly calendars: NSSet;
-
-  calendarsForEntityType(entityType: interop.Enum<typeof EKEntityType>): NSSet;
-
-  readonly isDelegate: boolean;
-}
-
-declare class EKRecurrenceDayOfWeek extends NSObject implements NSCopying, NSSecureCoding {
-  static dayOfWeek<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>): InstanceType<This>;
-
-  static dayOfWeekWeekNumber<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): InstanceType<This>;
-
-  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): interop.Object;
-
-  readonly dayOfTheWeek: interop.Enum<typeof EKWeekday>;
-
-  readonly weekNumber: number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class EKVirtualConferenceRoomTypeDescriptor extends NSObject {
-  initWithTitleIdentifier(title: string, identifier: string): this;
-
-  readonly title: string;
-
-  readonly identifier: string;
 }
 
 declare class EKEventStore extends NSObject {
@@ -494,119 +608,5 @@ declare class EKEventStore extends NSObject {
   reset(): void;
 
   refreshSourcesIfNecessary(): void;
-}
-
-declare class EKCalendarItem extends EKObject {
-  readonly UUID: string;
-
-  calendar: EKCalendar;
-
-  readonly calendarItemIdentifier: string;
-
-  readonly calendarItemExternalIdentifier: string;
-
-  title: string;
-
-  location: string;
-
-  notes: string;
-
-  URL: NSURL;
-
-  readonly lastModifiedDate: NSDate;
-
-  readonly creationDate: NSDate;
-
-  timeZone: NSTimeZone;
-
-  readonly hasAlarms: boolean;
-
-  readonly hasRecurrenceRules: boolean;
-
-  readonly hasAttendees: boolean;
-
-  readonly hasNotes: boolean;
-
-  readonly attendees: NSArray;
-
-  get alarms(): NSArray;
-  set alarms(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  addAlarm(alarm: EKAlarm): void;
-
-  removeAlarm(alarm: EKAlarm): void;
-
-  get recurrenceRules(): NSArray;
-  set recurrenceRules(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  addRecurrenceRule(rule: EKRecurrenceRule): void;
-
-  removeRecurrenceRule(rule: EKRecurrenceRule): void;
-}
-
-declare class EKRecurrenceEnd extends NSObject implements NSCopying, NSSecureCoding {
-  static recurrenceEndWithEndDate<This extends abstract new (...args: any) => any>(this: This, endDate: NSDate): InstanceType<This>;
-
-  static recurrenceEndWithOccurrenceCount<This extends abstract new (...args: any) => any>(this: This, occurrenceCount: number): InstanceType<This>;
-
-  readonly endDate: NSDate;
-
-  readonly occurrenceCount: number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class EKParticipant extends EKObject implements NSCopying {
-  readonly URL: NSURL;
-
-  readonly name: string;
-
-  readonly participantStatus: interop.Enum<typeof EKParticipantStatus>;
-
-  readonly participantRole: interop.Enum<typeof EKParticipantRole>;
-
-  readonly participantType: interop.Enum<typeof EKParticipantType>;
-
-  readonly isCurrentUser: boolean;
-
-  readonly contactPredicate: NSPredicate;
-
-  ABRecordWithAddressBook(addressBook: interop.PointerConvertible): interop.Pointer;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class EKObject extends NSObject {
-  readonly hasChanges: boolean;
-
-  readonly isNew: boolean;
-
-  reset(): void;
-
-  rollback(): void;
-
-  refresh(): boolean;
-}
-
-declare class EKAlarm extends EKObject implements NSCopying {
-  static alarmWithAbsoluteDate(date: NSDate): EKAlarm;
-
-  static alarmWithRelativeOffset(offset: number): EKAlarm;
-
-  relativeOffset: number;
-
-  absoluteDate: NSDate;
-
-  structuredLocation: EKStructuredLocation;
-
-  proximity: interop.Enum<typeof EKAlarmProximity>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

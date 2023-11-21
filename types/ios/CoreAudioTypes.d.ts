@@ -140,16 +140,16 @@ declare class AudioChannelLayout {
   mChannelDescriptions: unknown /* const array */;
 }
 
-declare class AudioBufferList {
-  constructor(init?: AudioBufferList);
-  mNumberBuffers: number;
-  mBuffers: unknown /* const array */;
-}
-
 declare class AudioBuffer {
   constructor(init?: AudioBuffer);
   mNumberChannels: number;
   mDataByteSize: number;
   mData: interop.Pointer;
+}
+
+declare class AudioBufferList {
+  constructor(init?: AudioBufferList);
+  mNumberBuffers: number;
+  mBuffers: unknown /* const array */;
 }
 

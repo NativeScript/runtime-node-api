@@ -13,19 +13,19 @@ declare const kJSPropertyAttributeDontEnum: number;
 
 declare const kJSPropertyAttributeNone: number;
 
-declare const JSPropertyDescriptorValueKey: string;
-
-declare const kJSPropertyAttributeReadOnly: number;
+declare const JSPropertyDescriptorSetKey: string;
 
 declare const JSPropertyDescriptorGetKey: string;
-
-declare const JSPropertyDescriptorSetKey: string;
 
 declare const kJSClassDefinitionEmpty: JSClassDefinition;
 
 declare const JSPropertyDescriptorConfigurableKey: string;
 
 declare const JSPropertyDescriptorEnumerableKey: string;
+
+declare const JSPropertyDescriptorValueKey: string;
+
+declare const kJSPropertyAttributeReadOnly: number;
 
 declare const JSType: {
   Undefined: 0,
@@ -74,13 +74,6 @@ declare class JSClassDefinition {
   convertToType: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof JSType>, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
-declare class JSStaticFunction {
-  constructor(init?: JSStaticFunction);
-  name: string | null;
-  callAsFunction: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => interop.Pointer | null;
-  attributes: number;
-}
-
 declare class OpaqueJSValue {
   constructor(init?: OpaqueJSValue);
 }
@@ -95,6 +88,13 @@ declare class OpaqueJSClass {
 
 declare class OpaqueJSContextGroup {
   constructor(init?: OpaqueJSContextGroup);
+}
+
+declare class JSStaticFunction {
+  constructor(init?: JSStaticFunction);
+  name: string | null;
+  callAsFunction: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => interop.Pointer | null;
+  attributes: number;
 }
 
 declare class OpaqueJSString {
