@@ -50,6 +50,43 @@ NAPI_FUNCTION(CFunction) {
   return cif->returnType->toJS(env, rvalue);
 }
 
+inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
+                           id self, void **avalues, void *rvalue) {
+  bool supercall;
+  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+
+#if defined(x86_64)
+  bool isStret = cif->returnType->type->size > 16 &&
+                 cif->returnType->type->type == FFI_TYPE_STRUCT;
+#endif
+
+  if (!supercall) {
+#if defined(x86_64)
+    if (isStret) {
+      cif->call((void *)objc_msgSend_stret, rvalue, avalues);
+    } else {
+      cif->call((void *)objc_msgSend, rvalue, avalues);
+    }
+#else
+    cif->call((void *)objc_msgSend, rvalue, avalues);
+#endif
+  } else {
+    struct objc_super superobj = {self,
+                                  class_getSuperclass(object_getClass(self))};
+    auto superobjPtr = &superobj;
+    avalues[0] = (void *)&superobjPtr;
+#if defined(x86_64)
+    if (isStret) {
+      cif->call((void *)objc_msgSendSuper_stret, rvalue, avalues);
+    } else {
+      cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+    }
+#else
+    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+#endif
+  }
+}
+
 NAPI_FUNCTION(BridgedMethod) {
   napi_value jsThis;
   BridgedMethod *method;
@@ -93,18 +130,7 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  bool supercall;
-  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
-
-  if (!supercall) {
-    cif->call((void *)objc_msgSend, rvalue, avalues);
-  } else {
-    struct objc_super superobj = {self,
-                                  class_getSuperclass(object_getClass(self))};
-    auto superobjPtr = &superobj;
-    avalues[0] = (void *)&superobjPtr;
-    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
-  }
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
@@ -147,18 +173,7 @@ NAPI_FUNCTION(BridgedGetter) {
   avalues[0] = (void *)&self;
   avalues[1] = (void *)&method->selector;
 
-  bool supercall;
-  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
-
-  if (!supercall) {
-    cif->call((void *)objc_msgSend, rvalue, avalues);
-  } else {
-    struct objc_super superobj = {self,
-                                  class_getSuperclass(object_getClass(self))};
-    auto superobjPtr = &superobj;
-    avalues[0] = (void *)&superobjPtr;
-    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
-  }
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   if (cif->returnType->kind == mdTypeInstanceObject) {
     napi_value constructor = jsThis;
@@ -198,18 +213,7 @@ NAPI_FUNCTION(BridgedSetter) {
   bool shouldFree = false;
   cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 
-  bool supercall;
-  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
-
-  if (!supercall) {
-    cif->call((void *)objc_msgSend, rvalue, avalues);
-  } else {
-    struct objc_super superobj = {self,
-                                  class_getSuperclass(object_getClass(self))};
-    auto superobjPtr = &superobj;
-    avalues[0] = (void *)&superobjPtr;
-    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
-  }
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   if (shouldFree) {
     cif->argTypes[0]->free(env, *((void **)avalues[2]));
