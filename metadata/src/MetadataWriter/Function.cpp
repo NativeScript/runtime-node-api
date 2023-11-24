@@ -12,6 +12,7 @@ void MDMetadataWriter::write(FunctionDecl &decl) {
   for (auto param : decl.parameters) {
     mdSignature->arguments.push_back(getTypeInfo(param.type));
   }
+  mdSignature->isVariadic = decl.isVariadic;
 
   MDSignatureResolvable res{mdSignature, &mdFunction->signature};
   signatureResolvables.emplace_back(res);
@@ -38,9 +39,12 @@ void MDSignatureSerde::serialize(MDSignature *value, void *data) {
   auto typeInfoSerde = MDTypeInfoSerde();
   auto returnTypeSize = typeInfoSerde.size(value->returnType);
   typeInfoSerde.serialize(value->returnType, data);
+  MDTypeKind *data_kind = (MDTypeKind *)data;
   if (value->arguments.size() > 0) {
-    MDTypeKind *data_kind = (MDTypeKind *)data;
     data_kind[0] = (MDTypeKind)(value->returnType->kind | mdTypeFlagNext);
+  }
+  if (value->isVariadic) {
+    data_kind[0] = (MDTypeKind)(value->returnType->kind | mdTypeFlagVariadic);
   }
   ptr_add(&data, returnTypeSize);
   // Arguments
@@ -63,6 +67,9 @@ std::string MDSignatureSerde::encode(MDSignature *signature) {
   std::string result = typeInfoSerde.encode(signature->returnType) + "@:";
   for (auto arg : signature->arguments) {
     result += typeInfoSerde.encode(arg);
+  }
+  if (signature->isVariadic) {
+    result += "...";
   }
   return result;
 }

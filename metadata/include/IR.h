@@ -59,6 +59,7 @@ public:
   // kTypeCallback, kTypeFunctionPointer
   std::vector<TypeSpec> callbackArgs;
   std::shared_ptr<TypeSpec> callbackReturn;
+  bool isVariadic = false;
 
   // kTypeObject, kTypeInstanceObject, kTypeAnyObject
   std::string className;

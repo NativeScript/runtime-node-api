@@ -20,6 +20,7 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
 
     MDSignature *mdSignature = new MDSignature();
     mdSignature->returnType = info;
+    mdSignature->isVariadic = false;
     MDSignatureResolvable res{mdSignature, &member->getterSignature};
     signatureResolvables.emplace_back(res);
 
@@ -28,6 +29,7 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
       mdSetterSignature->arguments.push_back(info);
       mdSetterSignature->returnType = new MDTypeInfo();
       mdSetterSignature->returnType->kind = mdTypeVoid;
+      mdSetterSignature->isVariadic = false;
 
       MDSignatureResolvable setterRes{mdSetterSignature,
                                       &member->setterSignature};
@@ -57,6 +59,7 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
     for (auto param : decl.parameters) {
       mdSignature->arguments.push_back(getTypeInfo(param.type));
     }
+    mdSignature->isVariadic = decl.isVariadic;
     MDSignatureResolvable res{mdSignature, &member->signature};
     signatureResolvables.emplace_back(res);
     break;

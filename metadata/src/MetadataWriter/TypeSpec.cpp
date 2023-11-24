@@ -74,6 +74,7 @@ MDTypeInfo *MDMetadataWriter::getTypeInfo(TypeSpec &type) {
       sig->arguments.emplace_back(getTypeInfo(arg));
     }
     sig->returnType = getTypeInfo(*type.callbackReturn);
+    sig->isVariadic = type.isVariadic;
     info->kind = mdTypeBlock;
     MDSignatureResolvable res{sig, &info->signatureOffset};
     signatureResolvables.emplace_back(res);
@@ -87,6 +88,7 @@ MDTypeInfo *MDMetadataWriter::getTypeInfo(TypeSpec &type) {
       sig->arguments.emplace_back(getTypeInfo(arg));
     }
     sig->returnType = getTypeInfo(*type.callbackReturn);
+    sig->isVariadic = type.isVariadic;
     info->kind = mdTypeFunctionPointer;
     MDSignatureResolvable res{sig, &info->signatureOffset};
     signatureResolvables.emplace_back(res);

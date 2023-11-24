@@ -1422,7 +1422,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
                                          uint8_t opaquePointers) {
   auto kind = reader->getTypeKind(*offset);
   bool next = kind & mdTypeFlagNext;
-  kind = (MDTypeKind)(kind & ~mdTypeFlagNext);
+  kind = (MDTypeKind)((kind & ~mdTypeFlagNext) & ~mdTypeFlagVariadic);
   *offset += sizeof(MDTypeKind);
 
   switch (kind) {

@@ -186,6 +186,13 @@ declare interface NSObjectProtocol {
 declare class NSObjectProtocol extends NativeObject implements NSObjectProtocol {
 }
 
+declare interface NativeScriptEmbedderDelegate {
+  presentNativeScriptApp(vc: interop.Object): interop.Object;
+}
+
+declare class NativeScriptEmbedderDelegate extends NativeObject implements NativeScriptEmbedderDelegate {
+}
+
 declare class NSObject extends NativeObject implements NSObjectProtocol {
   static load(): void;
 
@@ -678,11 +685,31 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   readonly debugDescription: string;
 }
 
+declare class NativeScriptEmbedder extends NSObject {
+  readonly delegate: NativeScriptEmbedderDelegate;
+
+  static sharedInstance(): NativeScriptEmbedder;
+}
+
 declare class OS_os_workgroup extends OS_object {
   init(): this;
 }
 
 declare class OS_object extends NSObject {
   init(): this;
+}
+
+declare class NativeScriptUtils extends NSObject {
+  static getSystemFontWeightItalicSymbolicTraits(size: number, weight: interop.Object, italic: boolean, symbolicTraits: interop.Object): interop.Object;
+
+  static createUIFont(font: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): interop.Object;
+
+  static createMutableStringWithDetails(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSMutableAttributedString;
+
+  static createMutableStringForSpanFontColorBackgroundColorTextDecorationBaselineOffset(text: string, font: interop.Object, color: interop.Object, backgroundColor: interop.Object, textDecoration: string, baselineOffset: number): NSMutableAttributedString;
+
+  static scaleImageWidthHeightScaleFactor(image: interop.Object, width: number, height: number, scaleFactor: number): interop.Object;
+
+  static getImageDataFormatQuality(image: interop.Object, format: string, quality: number): NSData;
 }
 

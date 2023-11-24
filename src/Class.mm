@@ -77,6 +77,18 @@ void ObjCBridgeData::registerClassGlobals(napi_env env, napi_value global) {
 
 NAPI_FUNCTION(registerClass) {
   NAPI_CALLBACK_BEGIN(1)
+
+  // In case no arguments are passed, we just return the NativeObject class.
+  // This is to support both @NativeClass and @NativeClass() syntaxes.
+  // Maybe we should support more in future like
+  // @NativeClass(NSApplicationDelegate).
+  if (argc == 0) {
+    napi_value func;
+    napi_create_function(env, "NativeClass", NAPI_AUTO_LENGTH, JS_registerClass,
+                         nullptr, &func);
+    return func;
+  }
+
   auto bridgeData = ObjCBridgeData::InstanceData(env);
   bridgeData->registerClass(env, argv[0]);
   return nullptr;

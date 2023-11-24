@@ -4,10 +4,12 @@ import { StackLayout, Application, Label } from "../core/index.js";
 
 Application.run({
   create: () => {
+    setTimeout(() => {
+      alert("Hello World!");
+    }, 1000);
+
     const stackLayout = new StackLayout();
-    stackLayout.backgroundColor = "yellow";
-    stackLayout.width = 300;
-    stackLayout.height = 300;
+    stackLayout.backgroundColor = "white";
     
     const label = new Label();
     label.text = "Hello World!";

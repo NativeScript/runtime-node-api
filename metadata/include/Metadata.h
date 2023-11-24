@@ -75,7 +75,7 @@ enum MDTypeKind : uint8_t {
 
 enum MDTypeFlag : uint8_t {
   mdTypeFlagNext = 1 << 7,
-  mdTypeFlagReserved = 1 << 6,
+  mdTypeFlagVariadic = 1 << 6,
 };
 
 enum MDVariableEvalKind : uint8_t {

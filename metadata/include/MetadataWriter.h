@@ -74,6 +74,7 @@ struct MDUnion {
 struct MDSignature {
   MDTypeInfo *returnType;
   std::vector<MDTypeInfo *> arguments;
+  bool isVariadic;
 };
 
 struct MDFunction {
