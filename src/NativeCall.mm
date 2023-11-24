@@ -55,13 +55,13 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
   bool supercall;
   napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
 
-#if defined(x86_64)
+#if defined(__x86_64__)
   bool isStret = cif->returnType->type->size > 16 &&
                  cif->returnType->type->type == FFI_TYPE_STRUCT;
 #endif
 
   if (!supercall) {
-#if defined(x86_64)
+#if defined(__x86_64__)
     if (isStret) {
       cif->call((void *)objc_msgSend_stret, rvalue, avalues);
     } else {
@@ -75,7 +75,7 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
                                   class_getSuperclass(object_getClass(self))};
     auto superobjPtr = &superobj;
     avalues[0] = (void *)&superobjPtr;
-#if defined(x86_64)
+#if defined(__x86_64__)
     if (isStret) {
       cif->call((void *)objc_msgSendSuper_stret, rvalue, avalues);
     } else {
