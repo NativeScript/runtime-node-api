@@ -269,7 +269,7 @@ inline StructObject::StructObject(StructInfo *info, void *data) {
 StructObject::StructObject(napi_env env, StructInfo *info, napi_value object,
                            void *memory) {
   this->info = info;
-  NSLog(@"StructObject::StructObject %s, %p, %p", info->name, info, memory);
+
   if (memory == nullptr) {
     this->owned = true;
     this->data = malloc(info->size);
@@ -279,18 +279,15 @@ StructObject::StructObject(napi_env env, StructInfo *info, napi_value object,
   }
 
   for (auto &field : info->fields) {
-    NSLog(@"struct field %s", field.name);
     bool hasProp = false;
     napi_has_named_property(env, object, field.name, &hasProp);
-    if (!hasProp)
+    if (!hasProp) {
       continue;
+    }
     napi_value property;
     napi_get_named_property(env, object, field.name, &property);
-    NSLog(@"struct.set %s", field.name);
     set(env, &field, property);
   }
-
-  NSLog(@"struct done");
 }
 
 StructObject::~StructObject() {

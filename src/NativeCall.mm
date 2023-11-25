@@ -6,6 +6,7 @@
 #include "js_native_api_types.h"
 #include "node_api_util.h"
 #import <Foundation/Foundation.h>
+#include <cstring>
 #include <objc/objc.h>
 #include <objc/runtime.h>
 
@@ -25,7 +26,7 @@ NAPI_FUNCTION(CFunction) {
   size_t argc = cif->argc;
   napi_get_cb_info(env, cbinfo, &argc, cif->argv, nullptr, nullptr);
 
-  void **avalues = cif->avalues;
+  void *avalues[cif->argc];
   void *rvalue = cif->rvalue;
 
   bool shouldFreeAny = false;
@@ -34,6 +35,7 @@ NAPI_FUNCTION(CFunction) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
+      avalues[i] = cif->avalues[i];
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i], &shouldFree[i],
                                  &shouldFreeAny);
     }
@@ -109,7 +111,7 @@ NAPI_FUNCTION(BridgedMethod) {
   size_t argc = cif->argc;
   napi_get_cb_info(env, cbinfo, &argc, cif->argv, &jsThis, nullptr);
 
-  void **avalues = cif->avalues;
+  void *avalues[cif->cif.nargs];
   void *rvalue = cif->rvalue;
 
   avalues[0] = (void *)&self;
@@ -121,10 +123,7 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      napi_valuetype type;
-      napi_typeof(env, cif->argv[i], &type);
-      std::string encoding;
-      cif->argTypes[i]->encode(&encoding);
+      avalues[i] = cif->avalues[i + 2];
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
                                  &shouldFree[i], &shouldFreeAny);
     }
@@ -167,11 +166,8 @@ NAPI_FUNCTION(BridgedGetter) {
         method->bridgeData->getMethodCif(env, method->signature);
   }
 
-  void *avalues[2];
+  void *avalues[2] = {&self, &method->selector};
   void *rvalue = cif->rvalue;
-
-  avalues[0] = (void *)&self;
-  avalues[1] = (void *)&method->selector;
 
   objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
@@ -205,11 +201,9 @@ NAPI_FUNCTION(BridgedSetter) {
         method->bridgeData->getMethodCif(env, method->setterSignature);
   }
 
-  void **avalues = cif->avalues;
+  void *avalues[3] = {&self, &method->setterSelector, cif->avalues[2]};
   void *rvalue = nullptr;
 
-  avalues[0] = (void *)&self;
-  avalues[1] = (void *)&method->setterSelector;
   bool shouldFree = false;
   cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 

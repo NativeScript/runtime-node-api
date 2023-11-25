@@ -1239,12 +1239,8 @@ public:
       return;
     }
 
-    NSLog(@"Struct.toNative info: %s, %d", info->name, info->size);
-
     // Serialize directly to previously allocated memory
-    StructObject _(env, info, value, result);
-
-    NSLog(@"Struct.toNative done");
+    StructObject (env, info, value, result);
   }
 };
 
