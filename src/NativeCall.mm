@@ -123,7 +123,7 @@ NAPI_FUNCTION(BridgedMethod) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      avalues[i] = cif->avalues[i + 2];
+      avalues[i + 2] = cif->avalues[i + 2];
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
                                  &shouldFree[i], &shouldFreeAny);
     }
