@@ -209,10 +209,6 @@ NAPI_FUNCTION(releaseObject) {
   return nullptr;
 }
 
-// Common function used to define Objective-C properties & methods on a JS
-// constructor/prototype. This is used for both the main constructor/prototype,
-// as well as supercall constructor/prototype.
-
 std::string NativeObjectName = "NativeObject";
 
 // Bridge an Objective-C class to JavaScript on the fly. Runtime introspection
@@ -226,6 +222,8 @@ std::string NativeObjectName = "NativeObject";
 
 BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
   NAPI_PREAMBLE
+
+  this->env = env;
 
   metadataOffset = offset;
 
@@ -267,18 +265,10 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
                     (void *)this, 0, nil, &constructor);
 
   if (nativeClass != nil) {
-    NAPI_GUARD(
-        napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil)) {
-      NAPI_THROW_LAST_ERROR
-      return;
-    }
+    napi_wrap(env, constructor, (void *)nativeClass, nil, nil, nil);
   }
 
-  NAPI_GUARD(
-      napi_get_named_property(env, constructor, "prototype", &prototype)) {
-    NAPI_THROW_LAST_ERROR
-    return;
-  }
+  napi_get_named_property(env, constructor, "prototype", &prototype);
 
   napi_value superConstructor = nil, superPrototype = nil;
 
@@ -310,24 +300,10 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
     superclass = nullptr;
   }
 
-  napi_value classExternal;
-  NAPI_GUARD(napi_create_external(env, (void *)nativeClass, nil, nil,
-                                  &classExternal)) {
-    NAPI_THROW_LAST_ERROR
-    return;
-  }
-
-  NAPI_GUARD(
-      napi_set_named_property(env, constructor, "__class__", classExternal)) {
-    NAPI_THROW_LAST_ERROR
-    return;
-  }
-
   this->constructor = make_ref(env, constructor);
   this->prototype = make_ref(env, prototype);
 
   if (isNativeObject) {
-    // Define custom inspect property.
     napi_property_descriptor property = {
         .utf8name = nil,
         .name = jsSymbolFor(env, "nodejs.util.inspect.custom"),
@@ -340,7 +316,6 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
     };
 
     napi_define_properties(env, prototype, 1, &property);
-    // napi_define_properties(env, constructor, 1, &property);
 
     napi_value global, Symbol, SymbolDispose;
     napi_get_global(env, &global);
@@ -462,6 +437,11 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
       napi_define_properties(env, jsObject, 1, &property);
     }
   }
+}
+
+BridgedClass::~BridgedClass() {
+  napi_delete_reference(env, constructor);
+  napi_delete_reference(env, prototype);
 }
 
 } // namespace objc_bridge

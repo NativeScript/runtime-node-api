@@ -125,14 +125,17 @@ void addProtocol(napi_env env, ObjCBridgeData *bridgeData, Class cls,
 extern char name_buf[512];
 
 void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
-  napi_value classExternal, prototype, registered;
-  napi_get_named_property(env, constructor, "__class__", &classExternal);
+  napi_value prototype;
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
+  napi_value superConstructor;
+  napi_get_prototype(env, constructor, &superConstructor);
   Class superClassNative = nullptr;
-  napi_get_value_external(env, classExternal, (void **)&superClassNative);
+  napi_unwrap(env, superConstructor, (void **)&superClassNative);
 
   if (superClassNative == nullptr) {
+    // If the class does not inherit from a native class,
+    // by default it inherits from NSObject.
     superClassNative = [NSObject class];
   }
 
@@ -152,18 +155,9 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   napi_value properties;
 
-  napi_value jsGlobal, jsObject, jsObjectGetOwnPropertyNames;
-  napi_get_global(env, &jsGlobal);
-  napi_get_named_property(env, jsGlobal, "Object", &jsObject);
-  napi_get_named_property(env, jsObject, "getOwnPropertyNames",
-                          &jsObjectGetOwnPropertyNames);
-
-  napi_call_function(env, jsObject, jsObjectGetOwnPropertyNames, 1, &prototype,
-                     &properties);
-
-  // napi_get_all_property_names(env, prototype, napi_key_own_only,
-  //                             napi_key_skip_symbols,
-  //                             napi_key_numbers_to_strings, &properties);
+  napi_get_all_property_names(env, prototype, napi_key_own_only,
+                              napi_key_skip_symbols,
+                              napi_key_numbers_to_strings, &properties);
 
   uint32_t propertyCount = 0;
   napi_get_array_length(env, properties, &propertyCount);
@@ -180,12 +174,9 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     napi_get_named_property(env, constructor, "ObjCExposedMethods",
                             &exposedMethods);
 
-    // napi_get_all_property_names(
-    //     env, exposedMethods, napi_key_own_only, napi_key_skip_symbols,
-    //     napi_key_numbers_to_strings, &exposedMethodNames);
-
-    napi_call_function(env, jsObject, jsObjectGetOwnPropertyNames, 1,
-                       &exposedMethods, &exposedMethodNames);
+    napi_get_all_property_names(
+        env, exposedMethods, napi_key_own_only, napi_key_skip_symbols,
+        napi_key_numbers_to_strings, &exposedMethodNames);
 
     uint32_t exposedMethodCount = 0;
     napi_get_array_length(env, exposedMethodNames, &exposedMethodCount);
@@ -284,16 +275,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
 
   classesByPointer[cls] = bridgedClass;
 
-  void *alreadyWrapped;
-  napi_unwrap(env, constructor, &alreadyWrapped);
-  if (alreadyWrapped != nullptr) {
-    napi_remove_wrap(env, constructor, &alreadyWrapped);
-  }
   napi_wrap(env, constructor, (void *)cls, nullptr, nullptr, nullptr);
-
-  napi_value external;
-  napi_create_external(env, (void *)cls, nullptr, nullptr, &external);
-  napi_set_named_property(env, constructor, "__class__", external);
 
   napi_value jsTrue;
   napi_get_boolean(env, true, &jsTrue);

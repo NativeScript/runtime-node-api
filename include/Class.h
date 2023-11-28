@@ -24,11 +24,13 @@ public:
 
   BridgedClass *superclass;
 
+  napi_env env;
   napi_ref constructor;
   napi_ref prototype;
 
   BridgedClass() {}
   BridgedClass(napi_env env, MDSectionOffset offset);
+  ~BridgedClass();
 };
 
 } // namespace objc_bridge
