@@ -1,6 +1,6 @@
 #include "CFunction.h"
 #include "NativeCall.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 
 namespace objc_bridge {
 

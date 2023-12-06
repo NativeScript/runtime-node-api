@@ -1,5 +1,5 @@
 #include "Interop.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "Util.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"

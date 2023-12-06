@@ -1,6 +1,6 @@
 #include "Variable.h"
 #include "MetadataReader.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "js_native_api.h"
 
 namespace objc_bridge {

@@ -1,5 +1,5 @@
 #include "Closure.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "Util.h"
 #include "js_native_api.h"
 #import <Foundation/Foundation.h>

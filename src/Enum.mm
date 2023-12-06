@@ -1,5 +1,5 @@
 #include "Enum.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #import <Foundation/Foundation.h>
 
 namespace objc_bridge {

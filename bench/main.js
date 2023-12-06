@@ -1,6 +1,21 @@
 import "objc";
 import { bench, run } from "mitata";
 
+{
+  const arr = NSArray.array();
+
+  let total = 0;
+  let n = 1e6;
+
+  for (let i = 0; i < n; i++) {
+    const start = performance.now();
+    arr.count;
+    total += performance.now() - start;
+  }
+
+  console.log("ns/iter:", total * 1e6 / n);
+}
+
 const arr = NSMutableArray.arrayWithCapacity(100);
 
 const arr2 = new Proxy(arr, {

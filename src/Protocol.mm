@@ -1,7 +1,7 @@
 #include "Protocol.h"
 #include "MetadataReader.h"
 #include "NativeCall.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "Util.h"
 #include "node_api_util.h"
 

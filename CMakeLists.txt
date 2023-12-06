@@ -91,7 +91,6 @@ set(LIB_SOURCE_FILES
   src/Closure.mm
   src/NativeCall.mm
   src/MethodCif.mm
-  src/ObjCBridgeData.mm
   src/TypeConv.mm
   src/Util.mm
   src/Struct.mm
@@ -103,6 +102,7 @@ set(LIB_SOURCE_FILES
   src/CustomClass.mm
   src/CFunction.mm
   src/Interop.mm
+  src/InlineFunctions.mm
 )
 
 add_library(

@@ -1,6 +1,6 @@
 #include "MethodCif.h"
 #include "MetadataReader.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "TypeConv.h"
 #include "Util.h"
 #include <Foundation/Foundation.h>

@@ -1,3 +1,5 @@
+/// <reference path="./inline_functions.d.ts" />
+
 // It's a module
 export {};
 

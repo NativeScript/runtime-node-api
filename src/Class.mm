@@ -2,7 +2,7 @@
 #include "Metadata.h"
 #include "MetadataReader.h"
 #include "NativeCall.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "Protocol.h"
 #include "Util.h"
 #include "js_native_api.h"

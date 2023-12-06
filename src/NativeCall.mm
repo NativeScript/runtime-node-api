@@ -1,6 +1,6 @@
 #include "NativeCall.h"
 #include "MetadataReader.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "TypeConv.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
@@ -43,9 +43,11 @@ NAPI_FUNCTION(CFunction) {
 
   cif->call(func->fnptr, rvalue, avalues);
 
-  for (unsigned int i = 0; i < cif->argc; i++) {
-    if (shouldFree[i]) {
-      cif->argTypes[i]->free(env, *((void **)avalues[i]));
+  if (shouldFreeAny) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      if (shouldFree[i]) {
+        cif->argTypes[i]->free(env, *((void **)avalues[i]));
+      }
     }
   }
 
@@ -54,8 +56,9 @@ NAPI_FUNCTION(CFunction) {
 
 inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
                            id self, void **avalues, void *rvalue) {
-  bool supercall;
-  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+  // TODO: This seems bad for performance. Is there a better way?
+  bool supercall = false;
+  // napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
 
 #if defined(__x86_64__)
   bool isStret = cif->returnType->type->size > 16 &&

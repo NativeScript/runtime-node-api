@@ -1,7 +1,7 @@
 #ifndef BRIDGED_METHOD_H
 #define BRIDGED_METHOD_H
 
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "objc/runtime.h"
 
 namespace objc_bridge {

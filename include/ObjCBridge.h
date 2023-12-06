@@ -1,5 +1,5 @@
-#ifndef OBJC_BRIDGE_DATA_H
-#define OBJC_BRIDGE_DATA_H
+#ifndef OBJC_BRIDGE_H
+#define OBJC_BRIDGE_H
 
 #include "AutoreleasePool.h"
 #include "CFunction.h"
@@ -18,6 +18,9 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+
+extern "C" void objc_bridge_init(napi_env env, const char *metadata_path);
+extern "C" napi_value napi_register_module_v1(napi_env env, napi_value exports);
 
 using namespace metagen;
 
@@ -138,4 +141,4 @@ private:
 
 } // namespace objc_bridge
 
-#endif /* OBJC_BRIDGE_DATA_H */
+#endif /* OBJC_BRIDGE_H */

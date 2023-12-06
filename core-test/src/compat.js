@@ -8,7 +8,3 @@ globalThis.__dirname = NSBundle.mainBundle.bundlePath;
 WeakRef.prototype.get = function () {
   return this.deref();
 };
-
-globalThis.CGRectMake = function (x, y, width, height) {
-  return { origin: { x, y }, size: { width, height } };
-};

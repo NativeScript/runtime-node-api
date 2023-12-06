@@ -6,7 +6,7 @@
 #include "JSObject.h"
 #include "Metadata.h"
 #include "MetadataReader.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "ffi.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
@@ -1240,7 +1240,7 @@ public:
     }
 
     // Serialize directly to previously allocated memory
-    StructObject (env, info, value, result);
+    StructObject(env, info, value, result);
   }
 };
 

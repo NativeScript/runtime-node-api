@@ -1,5 +1,5 @@
 #include "JSObject.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "js_native_api.h"
 
 #import <Foundation/Foundation.h>
@@ -50,7 +50,8 @@ void JSObject_finalize(napi_env, void *data, void *) {
 
 @protocol Test
 
-@optional @property (nonatomic, readonly) bool optionalString;
+@optional
+@property(nonatomic, readonly) bool optionalString;
 
 @end
 

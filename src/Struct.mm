@@ -1,5 +1,5 @@
 #include "Struct.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "TypeConv.h"
 #include "Util.h"
 #include "js_native_api.h"

@@ -1,5 +1,5 @@
 #include "Block.h"
-#include "ObjCBridgeData.h"
+#include "ObjCBridge.h"
 #include "node_api_util.h"
 #include "objc/runtime.h"
 #import <Foundation/Foundation.h>
