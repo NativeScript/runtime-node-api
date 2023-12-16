@@ -332,6 +332,9 @@ public:
     case napi_null:
       *(int64_t *)result = 0;
       break;
+    case napi_string:
+      *(int64_t *)result = 0;
+      break;
     default:
       napi_throw_type_error(env, nullptr, "Expected a number or bigint");
       break;
