@@ -145,6 +145,8 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
   napi_get_named_property(env, constructor, "name", &className);
   napi_get_value_string_utf8(env, className, name_buf, 512, nullptr);
   std::string name = name_buf;
+  name += "_";
+  name += std::to_string(rand());
 
   Class cls = objc_allocateClassPair(superClassNative, name.c_str(), 0);
 

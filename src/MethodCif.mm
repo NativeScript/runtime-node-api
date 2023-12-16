@@ -93,6 +93,7 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
                      MDSectionOffset offset, bool isMethod) {
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
+  isVariadic = (returnTypeKind & mdTypeFlagVariadic) != 0;
 
   returnType = TypeConv::Make(env, reader, &offset);
 

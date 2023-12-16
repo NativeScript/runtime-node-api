@@ -58,7 +58,7 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
                            id self, void **avalues, void *rvalue) {
   // TODO: This seems bad for performance. Is there a better way?
   bool supercall = false;
-  // napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
 
 #if defined(__x86_64__)
   bool isStret = cif->returnType->type->size > 16 &&
@@ -131,6 +131,8 @@ NAPI_FUNCTION(BridgedMethod) {
                                  &shouldFree[i], &shouldFreeAny);
     }
   }
+
+  // NSLog(@"[call] %s", sel_getName(method->selector));
 
   objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 

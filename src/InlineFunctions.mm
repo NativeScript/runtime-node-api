@@ -5,15 +5,15 @@ namespace objc_bridge {
 
 static const char *inlineFunctionsSource = R"(
 
-globalThis.CGMakePoint = globalThis.NSMakePoint = function CGMakePoint(x, y) {
+globalThis.CGPointMake = globalThis.NSMakePoint = function CGMakePoint(x, y) {
   return { x, y };
 };
 
-globalThis.CGMakeSize = globalThis.NSMakeSize = function CGMakeSize(width, height) {
+globalThis.CGSizeMake = globalThis.NSMakeSize = function CGMakeSize(width, height) {
   return { width, height };
 };
 
-globalThis.CGMakeRect = globalThis.NSMakeRect = function CGMakeRect(x, y, width, height) {
+globalThis.CGRectMake = globalThis.NSMakeRect = function CGMakeRect(x, y, width, height) {
   return { origin: { x, y }, size: { width, height } };
 };
 

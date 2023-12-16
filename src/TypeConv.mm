@@ -328,6 +328,10 @@ public:
       napi_get_value_bigint_int64(env, value, (int64_t *)result, &lossless);
       break;
     }
+    case napi_undefined:
+    case napi_null:
+      *(int64_t *)result = 0;
+      break;
     default:
       napi_throw_type_error(env, nullptr, "Expected a number or bigint");
       break;
@@ -365,6 +369,10 @@ public:
       napi_get_value_bigint_uint64(env, value, (uint64_t *)result, &lossless);
       break;
     }
+    case napi_undefined:
+    case napi_null:
+      *(int64_t *)result = 0;
+      break;
     default:
       napi_throw_type_error(env, nullptr, "Expected a number or bigint");
       break;
@@ -1090,6 +1098,8 @@ public:
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     Class cls = *((Class *)value);
 
+    NSLog(@"class toJS: %@", cls);
+
     if (cls == nullptr) {
       return nullptr;
     }
@@ -1138,14 +1148,30 @@ public:
 
     SEL *res = (SEL *)result;
 
-    NAPI_GUARD(
-        napi_get_value_string_utf8(env, value, selector_name_buf, 256, NULL)) {
-      NAPI_THROW_LAST_ERROR
+    napi_valuetype type;
+    napi_typeof(env, value, &type);
+
+    switch (type) {
+    case napi_string:
+      NAPI_GUARD(napi_get_value_string_utf8(env, value, selector_name_buf, 256,
+                                            NULL)) {
+        NAPI_THROW_LAST_ERROR
+        *res = NULL;
+        return;
+      }
+      *res = sel_registerName(selector_name_buf);
+      break;
+
+    case napi_undefined:
+    case napi_null:
+      *res = NULL;
+      return;
+
+    default:
+      napi_throw_error(env, nullptr, "Invalid selector type");
       *res = NULL;
       return;
     }
-
-    *res = sel_registerName(selector_name_buf);
   }
 
   void encode(std::string *encoding) override { *encoding += ":"; }
@@ -1217,7 +1243,19 @@ public:
     napi_valuetype type;
     napi_typeof(env, value, &type);
 
-    if (type != napi_object) {
+    if (type == napi_null || type == napi_undefined) {
+      auto info = getInfo(env);
+
+      if (info == nullptr) {
+        napi_throw_type_error(env, "TypeError",
+                              "Invalid struct type, must be Struct Object, "
+                              "Struct Object Descriptor or TypedArray");
+        return;
+      }
+
+      memset(result, 0, info->size);
+      return;
+    } else if (type != napi_object) {
       napi_throw_type_error(env, "TypeError",
                             "Invalid struct type, must be Struct Object, "
                             "Struct Object Descriptor or TypedArray");
@@ -1266,6 +1304,8 @@ public:
                 bool *shouldFreeAny) override {
     // TODO?
     NAPI_PREAMBLE
+
+    NSLog(@"ArrayTypeConv toNative: TODO");
 
     void *data;
     size_t length = 0;
@@ -1581,7 +1621,8 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
   }
 
   case mdTypeVector: {
-    return pointerTypeConv;
+    // TODO
+    return std::make_shared<VectorTypeConv>();
   }
 
   case mdTypeBlock: {
@@ -1602,12 +1643,12 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
 
   case mdTypeExtVector: {
     // TODO
-    return pointerTypeConv;
+    return std::make_shared<VectorTypeConv>();
   }
 
   case mdTypeComplex: {
     // TODO
-    return pointerTypeConv;
+    return std::make_shared<VectorTypeConv>();
   }
 
   default:

@@ -1,16 +1,16 @@
 export {};
 
 declare global {
-  function CGMakePoint(x: number, y: number): { x: number; y: number };
-  let NSMakePoint: typeof CGMakePoint;
+  function CGPointMake(x: number, y: number): { x: number; y: number };
+  let NSMakePoint: typeof CGPointMake;
 
-  function CGMakeSize(
+  function CGSizeMake(
     width: number,
     height: number,
   ): { width: number; height: number };
-  let NSMakeSize: typeof CGMakeSize;
+  let NSMakeSize: typeof CGSizeMake;
 
-  function CGMakeRect(
+  function CGRectMake(
     x: number,
     y: number,
     width: number,
@@ -19,7 +19,7 @@ declare global {
     origin: { x: number; y: number };
     size: { width: number; height: number };
   };
-  let NSMakeRect: typeof CGMakeRect;
+  let NSMakeRect: typeof CGRectMake;
 
   function UIMakeEdgeInsets(
     top: number,

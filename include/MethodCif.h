@@ -16,6 +16,7 @@ public:
   unsigned int argc;
   size_t frameLength;
   size_t rvalueLength;
+  bool isVariadic = false;
 
   void *rvalue;
   void **avalues;

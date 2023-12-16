@@ -8,7 +8,7 @@ project(ObjCBridge)
 set(NAME ObjCBridge)
 set(VERSION 0.1.0)
 
-set(CMAKE_C_FLAGS "-fobjective-c")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fobjective-c")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-shorten-64-to-32")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")

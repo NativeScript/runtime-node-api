@@ -49,16 +49,14 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
 
   napi_value argv[cif->nargs - 2];
   for (int i = 2; i < cif->nargs; i++) {
-    argv[i - 2] = closure->argTypes[i]->toJS(env, args[i], kBlockParam);
+    argv[i - 2] = closure->argTypes[i]->toJS(env, args[i], 0);
   }
 
   // Clear any pending exceptions before calling the function.
   napi_get_and_clear_last_exception(env, &result);
 
-  auto pool = objc_autoreleasePoolPush();
   napi_status status =
       napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
-  objc_autoreleasePoolPop(pool);
 
   bool shouldFree;
   closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
@@ -100,16 +98,14 @@ void callJSBlockFromMainThread(napi_env env, napi_value js_cb, void *context,
 
   napi_value argv[ctx->cif->nargs - 1];
   for (int i = 0; i < ctx->cif->nargs - 1; i++) {
-    argv[i] = closure->argTypes[i]->toJS(env, ctx->args[i + 1], kBlockParam);
+    argv[i] = closure->argTypes[i]->toJS(env, ctx->args[i + 1], 0);
   }
 
   // Clear any pending exceptions before calling the function.
   napi_get_and_clear_last_exception(env, &result);
 
-  auto pool = objc_autoreleasePoolPush();
   napi_status status = napi_call_function(env, thisArg, func,
                                           ctx->cif->nargs - 1, argv, &result);
-  objc_autoreleasePoolPop(pool);
 
   bool shouldFree;
   closure->returnType->toNative(env, result, ctx->ret, &shouldFree,

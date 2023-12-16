@@ -1,4 +1,5 @@
 #include "ObjCBridge.h"
+#include "node_api_util.h"
 
 #import <Foundation/Foundation.h>
 
@@ -180,7 +181,13 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
       return value;
     }
 
+    // It was collected, but not unregistered yet.
     unregisterObject(obj);
+  }
+
+  auto findClass = classesByPointer.find(obj);
+  if (findClass != classesByPointer.end()) {
+    return get_ref_value(env, findClass->second->constructor);
   }
 
   auto cls = object_getClass(obj);
@@ -188,6 +195,13 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
   auto mdFindByPointer = mdClassesByPointer.find(cls);
   if (mdFindByPointer != mdClassesByPointer.end()) {
     classOffset = mdFindByPointer->second;
+  }
+
+  auto findByPointer = classesByPointer.find(cls);
+  if (findByPointer != classesByPointer.end()) {
+    return getObject(env, obj,
+                     get_ref_value(env, findByPointer->second->constructor),
+                     ownership);
   }
 
   napi_value constructor = nullptr;
@@ -205,7 +219,7 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
     if (proto == nullptr) {
       return nullptr;
     }
-
+    
     constructor = get_ref_value(env, proto->constructor);
   } else {
     constructor = findConstructorForObject(env, this, obj, cls);
