@@ -89,7 +89,7 @@ set(LIB_SOURCE_FILES
   src/Block.mm
   src/Class.mm
   src/Closure.mm
-  src/NativeCall.mm
+  src/ClassMember.mm
   src/MethodCif.mm
   src/TypeConv.mm
   src/Util.mm

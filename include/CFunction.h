@@ -10,6 +10,8 @@ typedef struct CFunction {
   MethodCif *cif;
 } CFunction;
 
+napi_value JS_CFunction(napi_env env, napi_callback_info cbinfo);
+
 } // namespace objc_bridge
 
 #endif /* C_FUNCTION_H */

@@ -1,8 +1,8 @@
 #ifndef BRIDGED_CLASS_H
 #define BRIDGED_CLASS_H
 
+#include "ClassMember.h"
 #include "MetadataReader.h"
-#include "NativeCall.h"
 #include "node_api_util.h"
 #include "objc/message.h"
 #include "objc/runtime.h"

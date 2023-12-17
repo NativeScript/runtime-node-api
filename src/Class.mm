@@ -1,7 +1,7 @@
 #include "Class.h"
+#include "ClassMember.h"
 #include "Metadata.h"
 #include "MetadataReader.h"
-#include "NativeCall.h"
 #include "ObjCBridge.h"
 #include "Protocol.h"
 #include "Util.h"

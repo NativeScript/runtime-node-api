@@ -1,4 +1,4 @@
-#include "NativeCall.h"
+#include "ClassMember.h"
 #include "MetadataReader.h"
 #include "ObjCBridge.h"
 #include "TypeConv.h"
@@ -11,48 +11,6 @@
 #include <objc/runtime.h>
 
 namespace objc_bridge {
-
-NAPI_FUNCTION(CFunction) {
-  void *_offset;
-
-  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &_offset);
-
-  auto bridgeState = ObjCBridgeState::InstanceData(env);
-  MDSectionOffset offset = (MDSectionOffset)((size_t)_offset);
-
-  auto func = bridgeState->getCFunction(env, offset);
-  auto cif = func->cif;
-
-  size_t argc = cif->argc;
-  napi_get_cb_info(env, cbinfo, &argc, cif->argv, nullptr, nullptr);
-
-  void *avalues[cif->argc];
-  void *rvalue = cif->rvalue;
-
-  bool shouldFreeAny = false;
-  bool shouldFree[cif->argc];
-
-  if (cif->argc > 0) {
-    for (unsigned int i = 0; i < cif->argc; i++) {
-      shouldFree[i] = false;
-      avalues[i] = cif->avalues[i];
-      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i], &shouldFree[i],
-                                 &shouldFreeAny);
-    }
-  }
-
-  cif->call(func->fnptr, rvalue, avalues);
-
-  if (shouldFreeAny) {
-    for (unsigned int i = 0; i < cif->argc; i++) {
-      if (shouldFree[i]) {
-        cif->argTypes[i]->free(env, *((void **)avalues[i]));
-      }
-    }
-  }
-
-  return cif->returnType->toJS(env, rvalue);
-}
 
 inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
                            id self, void **avalues, void *rvalue) {

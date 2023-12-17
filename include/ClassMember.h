@@ -6,7 +6,6 @@
 
 namespace objc_bridge {
 
-napi_value JS_CFunction(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedMethod(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedGetter(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedSetter(napi_env env, napi_callback_info cbinfo);
