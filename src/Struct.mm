@@ -11,7 +11,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerStructGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerStructGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->structsOffset;
   while (offset < metadata->unionsOffset) {
     // Sometimes there is padding after file ends.
@@ -53,7 +53,7 @@ void ObjCBridgeData::registerStructGlobals(napi_env env, napi_value global) {
   }
 }
 
-void ObjCBridgeData::registerUnionGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerUnionGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->unionsOffset;
   while (offset < metadata->size) {
     // Sometimes there is padding after file ends.
@@ -99,8 +99,8 @@ NAPI_FUNCTION(structGetter) {
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
-  auto structInfo = bridgeData->getStructInfo(env, offset);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  auto structInfo = bridgeState->getStructInfo(env, offset);
   return StructObject::getJSClass(env, structInfo);
 }
 
@@ -111,8 +111,8 @@ NAPI_FUNCTION(unionGetter) {
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
-  auto structInfo = bridgeData->getUnionInfo(env, offset);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  auto structInfo = bridgeState->getUnionInfo(env, offset);
   return StructObject::getJSClass(env, structInfo);
 }
 

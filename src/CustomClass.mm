@@ -57,12 +57,12 @@ public:
 
 typedef std::unordered_map<std::string, MethodDescriptor *> MethodMap;
 
-void addOverriableMethods(ObjCBridgeData *bridgeData, MDSectionOffset offset,
+void addOverriableMethods(ObjCBridgeState *bridgeState, MDSectionOffset offset,
                           MethodMap &methodMap) {
   bool next = true;
 
   while (next) {
-    auto flags = bridgeData->metadata->getMemberFlag(offset);
+    auto flags = bridgeState->metadata->getMemberFlag(offset);
     next = (flags & mdMemberNext) != 0;
     offset += sizeof(flags);
 
@@ -80,9 +80,9 @@ void addOverriableMethods(ObjCBridgeData *bridgeData, MDSectionOffset offset,
         offset += sizeof(MDSectionOffset); // setterSignature
       }
     } else {
-      auto selector = bridgeData->metadata->getString(offset);
+      auto selector = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // selector
-      auto signature = bridgeData->metadata->getOffset(offset);
+      auto signature = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset); // signature
       auto jsName = jsifySelector(selector);
       methodMap[jsName] =
@@ -91,17 +91,17 @@ void addOverriableMethods(ObjCBridgeData *bridgeData, MDSectionOffset offset,
   }
 }
 
-void addProtocol(napi_env env, ObjCBridgeData *bridgeData, Class cls,
+void addProtocol(napi_env env, ObjCBridgeState *bridgeState, Class cls,
                  MDSectionOffset offset, MethodMap &methodMap) {
   if (offset == 0)
     return;
 
-  auto nameOffset = bridgeData->metadata->getOffset(offset);
+  auto nameOffset = bridgeState->metadata->getOffset(offset);
   offset += sizeof(MDSectionOffset);
   bool next = (nameOffset & mdSectionOffsetNext) != 0;
   nameOffset &= ~mdSectionOffsetNext;
 
-  auto name = bridgeData->metadata->resolveString(nameOffset);
+  auto name = bridgeState->metadata->resolveString(nameOffset);
 
   auto proto = objc_getProtocol(name);
   if (proto != nullptr) {
@@ -109,22 +109,22 @@ void addProtocol(napi_env env, ObjCBridgeData *bridgeData, Class cls,
   }
 
   while (next) {
-    auto protocolImpl = bridgeData->metadata->getOffset(offset);
+    auto protocolImpl = bridgeState->metadata->getOffset(offset);
     offset += sizeof(MDSectionOffset);
     next = (protocolImpl & mdSectionOffsetNext) != 0;
     protocolImpl &= ~mdSectionOffsetNext;
     if (protocolImpl != MD_SECTION_OFFSET_NULL) {
-      protocolImpl += bridgeData->metadata->protocolsOffset;
-      addProtocol(env, bridgeData, cls, protocolImpl, methodMap);
+      protocolImpl += bridgeState->metadata->protocolsOffset;
+      addProtocol(env, bridgeState, cls, protocolImpl, methodMap);
     }
   }
 
-  addOverriableMethods(bridgeData, offset, methodMap);
+  addOverriableMethods(bridgeState, offset, methodMap);
 }
 
 extern char name_buf[512];
 
-void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
+void ObjCBridgeState::registerClass(napi_env env, napi_value constructor) {
   napi_value prototype;
   napi_get_named_property(env, constructor, "prototype", &prototype);
 
@@ -139,7 +139,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     superClassNative = [NSObject class];
   }
 
-  BridgedClass *bridgedSuperClass = classesByPointer[superClassNative];
+  ObjCClass *bridgedSuperClass = classesByPointer[superClassNative];
 
   napi_value className;
   napi_get_named_property(env, constructor, "name", &className);
@@ -219,7 +219,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     }
   }
 
-  BridgedClass *currentClass = bridgedSuperClass;
+  ObjCClass *currentClass = bridgedSuperClass;
 
   while (currentClass != nullptr) {
     auto offset = currentClass->metadataOffset;
@@ -267,7 +267,7 @@ void ObjCBridgeData::registerClass(napi_env env, napi_value constructor) {
     }
   }
 
-  BridgedClass *bridgedClass = new BridgedClass();
+  ObjCClass *bridgedClass = new ObjCClass();
   bridgedClass->name = name;
   bridgedClass->metadataOffset = bridgedSuperClass->metadataOffset;
   bridgedClass->superclass = bridgedSuperClass;

@@ -29,8 +29,8 @@ embedded_metadata[EMBED_METADATA_SIZE] = "NSMDSectionHeader";
 namespace objc_bridge {
 
 void finalize_bridge_data(napi_env env, void *data, void *hint) {
-  auto bridgeData = (ObjCBridgeData *)data;
-  delete bridgeData;
+  auto bridgeState = (ObjCBridgeState *)data;
+  delete bridgeState;
 }
 
 MDMetadataReader *loadMetadataFromFile(const char *metadata_path) {
@@ -53,7 +53,7 @@ MDMetadataReader *loadMetadataFromFile(const char *metadata_path) {
   return new MDMetadataReader(buffer, size);
 }
 
-ObjCBridgeData::ObjCBridgeData(napi_env env, const char *metadata_path) {
+ObjCBridgeState::ObjCBridgeState(napi_env env, const char *metadata_path) {
   napi_set_instance_data(env, this, finalize_bridge_data, nil);
 
   self_dl = dlopen(nullptr, RTLD_NOW);
@@ -80,7 +80,7 @@ ObjCBridgeData::ObjCBridgeData(napi_env env, const char *metadata_path) {
   objc_autoreleasePool = objc_autoreleasePoolPush();
 }
 
-ObjCBridgeData::~ObjCBridgeData() {
+ObjCBridgeState::~ObjCBridgeState() {
   objc_autoreleasePoolPop(objc_autoreleasePool);
   delete metadata;
   dlclose(self_dl);
@@ -127,7 +127,7 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 }
 
 NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
-  auto bridgeData = new ObjCBridgeData(env, metadata_path);
+  ObjCBridgeState *bridgeState = new ObjCBridgeState(env, metadata_path);
 
   napi_value objc;
   napi_create_object(env, &objc);
@@ -177,11 +177,11 @@ NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
   registerInterop(env, global);
   registerInlineFunctions(env);
 
-  bridgeData->registerVarGlobals(env, global);
-  bridgeData->registerEnumGlobals(env, global);
-  bridgeData->registerStructGlobals(env, global);
-  bridgeData->registerUnionGlobals(env, global);
-  bridgeData->registerFunctionGlobals(env, global);
-  bridgeData->registerClassGlobals(env, global);
-  bridgeData->registerProtocolGlobals(env, global);
+  bridgeState->registerVarGlobals(env, global);
+  bridgeState->registerEnumGlobals(env, global);
+  bridgeState->registerStructGlobals(env, global);
+  bridgeState->registerUnionGlobals(env, global);
+  bridgeState->registerFunctionGlobals(env, global);
+  bridgeState->registerClassGlobals(env, global);
+  bridgeState->registerProtocolGlobals(env, global);
 }

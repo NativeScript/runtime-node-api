@@ -7,19 +7,19 @@ namespace objc_bridge {
 
 void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   id object = static_cast<id>(data);
-  ObjCBridgeData *bridgeData = static_cast<ObjCBridgeData *>(hint);
-  bridgeData->unregisterObject(object);
+  ObjCBridgeState *bridgeState = static_cast<ObjCBridgeState *>(hint);
+  bridgeState->unregisterObject(object);
 }
 
 void finalize_objc_object_borrowed(napi_env, void *data, void *hint) {
   id object = static_cast<id>(data);
-  ObjCBridgeData *bridgeData = static_cast<ObjCBridgeData *>(hint);
-  bridgeData->objectRefs.erase(object);
+  ObjCBridgeState *bridgeState = static_cast<ObjCBridgeState *>(hint);
+  bridgeState->objectRefs.erase(object);
 }
 
-napi_value ObjCBridgeData::getObject(napi_env env, id obj,
-                                     napi_value constructor,
-                                     ObjectOwnership ownership) {
+napi_value ObjCBridgeState::getObject(napi_env env, id obj,
+                                      napi_value constructor,
+                                      ObjectOwnership ownership) {
   if (obj == nil) {
     return nullptr;
   }
@@ -84,7 +84,7 @@ napi_value ObjCBridgeData::getObject(napi_env env, id obj,
   return result;
 }
 
-napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
+napi_value findConstructorForObject(napi_env env, ObjCBridgeState *bridgeState,
                                     id object, Class cls = nil) {
   if (cls == nil) {
     cls = object_getClass(object);
@@ -92,25 +92,25 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
 
   // Look up if there is a custom class for it already
   {
-    auto find = bridgeData->classesByPointer.find(cls);
-    if (find != bridgeData->classesByPointer.end()) {
+    auto find = bridgeState->classesByPointer.find(cls);
+    if (find != bridgeState->classesByPointer.end()) {
       return get_ref_value(env, find->second->constructor);
     }
   }
 
   // Look up if there is a custom constructor for it already
   {
-    auto find = bridgeData->constructorsByPointer.find(cls);
-    if (find != bridgeData->constructorsByPointer.end()) {
+    auto find = bridgeState->constructorsByPointer.find(cls);
+    if (find != bridgeState->constructorsByPointer.end()) {
       return get_ref_value(env, find->second);
     }
   }
 
   // Look up if there is a metadata-defined class
   {
-    auto find = bridgeData->mdClassesByPointer.find(cls);
-    if (find != bridgeData->mdClassesByPointer.end()) {
-      auto cls = bridgeData->getClass(env, find->second);
+    auto find = bridgeState->mdClassesByPointer.find(cls);
+    if (find != bridgeState->mdClassesByPointer.end()) {
+      auto cls = bridgeState->getClass(env, find->second);
       return get_ref_value(env, cls->constructor);
     }
   }
@@ -126,9 +126,9 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
         [&](Protocol **list, unsigned int count) {
           for (unsigned int i = 0; i < count; i++) {
             auto protocol = list[i];
-            auto find = bridgeData->mdProtocolsByPointer.find(protocol);
-            if (find != bridgeData->mdProtocolsByPointer.end()) {
-              impls.insert(bridgeData->getProtocol(env, find->second));
+            auto find = bridgeState->mdProtocolsByPointer.find(protocol);
+            if (find != bridgeState->mdProtocolsByPointer.end()) {
+              impls.insert(bridgeState->getProtocol(env, find->second));
             }
             list = protocol_copyProtocolList(protocol, &count);
             processProtocolList(list, count);
@@ -146,7 +146,7 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
         defineProtocolMembers(env, impl->membersOffset, constructor);
       }
 
-      bridgeData->constructorsByPointer[cls] = make_ref(env, constructor);
+      bridgeState->constructorsByPointer[cls] = make_ref(env, constructor);
 
       return constructor;
     }
@@ -154,7 +154,7 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
 
   Class superclass = class_getSuperclass(cls);
   if (superclass != nullptr) {
-    return findConstructorForObject(env, bridgeData, object, superclass);
+    return findConstructorForObject(env, bridgeState, object, superclass);
   }
 
   return nullptr;
@@ -165,9 +165,9 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeData *bridgeData,
 // JS object, this makes sure that we only ever finalize it once.
 // Might want to consider using associated objects instead of a hashtable.
 napi_value
-ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
-                          MDSectionOffset classOffset,
-                          std::vector<MDSectionOffset> *protocolOffsets) {
+ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
+                           MDSectionOffset classOffset,
+                           std::vector<MDSectionOffset> *protocolOffsets) {
   NAPI_PREAMBLE
 
   if (obj == nullptr) {
@@ -219,7 +219,7 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
     if (proto == nullptr) {
       return nullptr;
     }
-    
+
     constructor = get_ref_value(env, proto->constructor);
   } else {
     constructor = findConstructorForObject(env, this, obj, cls);
@@ -232,7 +232,7 @@ ObjCBridgeData::getObject(napi_env env, id obj, ObjectOwnership ownership,
   return getObject(env, obj, constructor, ownership);
 }
 
-void ObjCBridgeData::unregisterObject(id object) noexcept {
+void ObjCBridgeState::unregisterObject(id object) noexcept {
   if (objectRefs.contains(object)) {
     objectRefs.erase(object);
     [object release];

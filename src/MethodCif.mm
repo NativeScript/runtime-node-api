@@ -12,7 +12,7 @@ namespace objc_bridge {
 // Essentially, we cache libffi structures per unique method signature,
 // this helps us avoid the overhead of creating them on the fly for each
 // invocation.
-MethodCif *ObjCBridgeData::getMethodCif(napi_env env, Method method) {
+MethodCif *ObjCBridgeState::getMethodCif(napi_env env, Method method) {
   auto encoding = std::string(method_getTypeEncoding(method));
   auto find = this->methodCifs[encoding];
   if (find != nullptr) {
@@ -25,7 +25,7 @@ MethodCif *ObjCBridgeData::getMethodCif(napi_env env, Method method) {
   return methodCif;
 }
 
-MethodCif *ObjCBridgeData::getMethodCif(napi_env env, MDSectionOffset offset) {
+MethodCif *ObjCBridgeState::getMethodCif(napi_env env, MDSectionOffset offset) {
   auto find = this->mdMethodSignatureCache[offset];
   if (find != nullptr) {
     return find;

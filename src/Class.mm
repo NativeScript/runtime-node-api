@@ -14,7 +14,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerClassGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerClassGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->classesOffset;
   while (offset < metadata->structsOffset) {
     MDSectionOffset originalOffset = offset;
@@ -89,22 +89,22 @@ NAPI_FUNCTION(registerClass) {
     return func;
   }
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
-  bridgeData->registerClass(env, argv[0]);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  bridgeState->registerClass(env, argv[0]);
   return nullptr;
 }
 
 char class_name[256];
 
 // Get a Bridged Class by metadata offset, creating it if it doesn't exist.
-// This is used to cache BridgedClass instances.
-BridgedClass *ObjCBridgeData::getClass(napi_env env, MDSectionOffset offset) {
+// This is used to cache ObjCClass instances.
+ObjCClass *ObjCBridgeState::getClass(napi_env env, MDSectionOffset offset) {
   auto find = this->classes[offset];
   if (find != nullptr) {
     return find;
   }
 
-  auto bridgedClass = new BridgedClass(env, offset);
+  auto bridgedClass = new ObjCClass(env, offset);
   this->classes[offset] = bridgedClass;
 
   return bridgedClass;
@@ -146,18 +146,18 @@ NAPI_FUNCTION(classGetter) {
   void *data;
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-  auto cached = bridgeData->mdValueCache[offset];
+  auto cached = bridgeState->mdValueCache[offset];
   if (cached != nullptr) {
     return get_ref_value(env, cached);
   }
 
-  // std::string name = bridgeData->metadata->getString(offset);
-  auto cls = bridgeData->getClass(env, offset);
+  // std::string name = bridgeState->metadata->getString(offset);
+  auto cls = bridgeState->getClass(env, offset);
 
   if (cls != nullptr) {
-    bridgeData->mdValueCache[offset] = cls->constructor;
+    bridgeState->mdValueCache[offset] = cls->constructor;
   } else {
     return nullptr;
   }
@@ -204,8 +204,8 @@ NAPI_FUNCTION(releaseObject) {
   napi_get_cb_info(env, cbinfo, nil, nil, &jsThis, &data);
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
-  bridgeData->unregisterObject(self);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  bridgeState->unregisterObject(self);
   return nullptr;
 }
 
@@ -220,14 +220,14 @@ std::string NativeObjectName = "NativeObject";
 // extended by a JS class.
 // Every Bridged Class extends the NativeObject class.
 
-BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
+ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
   NAPI_PREAMBLE
 
   this->env = env;
 
   metadataOffset = offset;
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
   bool isNativeObject = offset == MD_SECTION_OFFSET_NULL;
 
@@ -239,20 +239,20 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
     name = NativeObjectName;
     nativeClass = nil;
   } else {
-    auto nameOffset = bridgeData->metadata->getOffset(offset);
+    auto nameOffset = bridgeState->metadata->getOffset(offset);
     offset += sizeof(MDSectionOffset);
     bool hasProtocols = (nameOffset & mdSectionOffsetNext) != 0;
     nameOffset &= ~mdSectionOffsetNext;
-    name = bridgeData->metadata->resolveString(nameOffset);
+    name = bridgeState->metadata->resolveString(nameOffset);
     while (hasProtocols) {
-      auto protocolOffset = bridgeData->metadata->getOffset(offset);
+      auto protocolOffset = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset);
       hasProtocols = (protocolOffset & mdSectionOffsetNext) != 0;
       protocolOffset &= ~mdSectionOffsetNext;
       if (protocolOffset != MD_SECTION_OFFSET_NULL)
         protocolOffsets.push_back(protocolOffset);
     }
-    superClassOffset = bridgeData->metadata->getOffset(offset);
+    superClassOffset = bridgeState->metadata->getOffset(offset);
     hasMembers = (superClassOffset & mdSectionOffsetNext) != 0;
     superClassOffset &= ~mdSectionOffsetNext;
     offset += sizeof(MDSectionOffset);
@@ -277,20 +277,20 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
   // exists.
   if (!isNativeObject) {
     for (auto protocolOffset : protocolOffsets) {
-      auto protocol = bridgeData->getProtocol(
-          env, protocolOffset + bridgeData->metadata->protocolsOffset);
+      auto protocol = bridgeState->getProtocol(
+          env, protocolOffset + bridgeState->metadata->protocolsOffset);
       if (protocol == nil)
         continue;
       defineProtocolMembers(env, protocol->membersOffset, constructor);
     }
 
     if (superClassOffset != MD_SECTION_OFFSET_NULL) {
-      superClassOffset += bridgeData->metadata->classesOffset;
+      superClassOffset += bridgeState->metadata->classesOffset;
     }
 
     // If class offset is 0, it means that the class doesn't have a super class.
     // But we just inherit NativeObject class in that case.
-    superclass = bridgeData->getClass(env, superClassOffset);
+    superclass = bridgeState->getClass(env, superClassOffset);
     if (superclass != nil) {
       superConstructor = get_ref_value(env, superclass->constructor);
       superPrototype = get_ref_value(env, superclass->prototype);
@@ -334,14 +334,14 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
     return;
   }
 
-  bridgeData->classesByPointer[nativeClass] = this;
+  bridgeState->classesByPointer[nativeClass] = this;
 
   if (!hasMembers)
     return;
 
   bool next = true;
   while (next) {
-    auto flags = bridgeData->metadata->getMemberFlag(offset);
+    auto flags = bridgeState->metadata->getMemberFlag(offset);
     next = (flags & mdMemberNext) != 0;
     offset += sizeof(flags);
 
@@ -354,38 +354,39 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
 
     if ((flags & mdMemberProperty) != 0) {
       bool readonly = (flags & mdMemberReadonly) != 0;
-      auto name = bridgeData->metadata->getString(offset);
+      auto name = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // name
 
       MDSectionOffset getterSignature, setterSignature;
 
-      auto getterSelector = bridgeData->metadata->getString(offset);
+      auto getterSelector = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // getterSelector
 
-      getterSignature = bridgeData->metadata->getOffset(offset);
+      getterSignature = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset); // getterSignature
 
       const char *setterSelector = nullptr;
       if (!readonly) {
-        setterSelector = bridgeData->metadata->getString(offset);
+        setterSelector = bridgeState->metadata->getString(offset);
         offset += sizeof(MDSectionOffset); // setterSelector
 
-        setterSignature = bridgeData->metadata->getOffset(offset);
+        setterSignature = bridgeState->metadata->getOffset(offset);
         offset += sizeof(MDSectionOffset); // setterSignature
       }
 
-      auto prop = new BridgedMethod();
-      prop->bridgeData = bridgeData;
+      std::shared_ptr<ObjCClassMember> prop =
+          std::make_shared<ObjCClassMember>();
+      prop->bridgeState = bridgeState;
       prop->classMethod = (flags & mdMemberStatic) != 0;
       prop->selector = sel_registerName(getterSelector);
       prop->setterSelector =
           setterSelector == nullptr ? nil : sel_registerName(setterSelector);
       prop->signature =
-          getterSignature + bridgeData->metadata->signaturesOffset;
+          getterSignature + bridgeState->metadata->signaturesOffset;
       prop->setterSignature =
           setterSelector == nullptr
               ? 0
-              : setterSignature + bridgeData->metadata->signaturesOffset;
+              : setterSignature + bridgeState->metadata->signaturesOffset;
 
       napi_property_descriptor property = {
           .utf8name = name,
@@ -396,14 +397,14 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
           .value = nil,
           .attributes =
               (napi_property_attributes)(napi_configurable | napi_enumerable),
-          .data = prop,
+          .data = members.emplace_back(prop).get(),
       };
 
       napi_define_properties(env, jsObject, 1, &property);
     } else {
-      auto selector = bridgeData->metadata->getString(offset);
+      auto selector = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // selector
-      auto signature = bridgeData->metadata->getOffset(offset);
+      auto signature = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset); // signature
 
       auto name = jsifySelector(selector);
@@ -414,11 +415,12 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
         continue;
       }
 
-      auto method = new BridgedMethod();
-      method->bridgeData = bridgeData;
+      std::shared_ptr<ObjCClassMember> method =
+          std::make_shared<ObjCClassMember>();
+      method->bridgeState = bridgeState;
       method->classMethod = (flags & mdMemberStatic) != 0;
       method->selector = sel_registerName(selector);
-      method->signature = signature + bridgeData->metadata->signaturesOffset;
+      method->signature = signature + bridgeState->metadata->signaturesOffset;
       method->returnOwned = (flags & mdMemberReturnOwned) != 0;
 
       napi_property_descriptor property = {
@@ -431,7 +433,7 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
           .attributes =
               (napi_property_attributes)(napi_configurable | napi_writable |
                                          napi_enumerable),
-          .data = method,
+          .data = members.emplace_back(method).get(),
       };
 
       napi_define_properties(env, jsObject, 1, &property);
@@ -439,7 +441,7 @@ BridgedClass::BridgedClass(napi_env env, MDSectionOffset offset) {
   }
 }
 
-BridgedClass::~BridgedClass() {
+ObjCClass::~ObjCClass() {
   napi_delete_reference(env, constructor);
   napi_delete_reference(env, prototype);
 }

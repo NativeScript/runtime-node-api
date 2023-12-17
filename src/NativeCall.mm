@@ -17,10 +17,10 @@ NAPI_FUNCTION(CFunction) {
 
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &_offset);
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
   MDSectionOffset offset = (MDSectionOffset)((size_t)_offset);
 
-  auto func = bridgeData->getCFunction(env, offset);
+  auto func = bridgeState->getCFunction(env, offset);
   auto cif = func->cif;
 
   size_t argc = cif->argc;
@@ -94,7 +94,7 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
 
 NAPI_FUNCTION(BridgedMethod) {
   napi_value jsThis;
-  BridgedMethod *method;
+  ObjCClassMember *method;
 
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
 
@@ -108,7 +108,7 @@ NAPI_FUNCTION(BridgedMethod) {
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
     cif = method->methodCif =
-        method->bridgeData->getMethodCif(env, method->signature);
+        method->bridgeState->getMethodCif(env, method->signature);
   }
 
   size_t argc = cif->argc;
@@ -147,9 +147,9 @@ NAPI_FUNCTION(BridgedMethod) {
     if (!method->classMethod)
       napi_get_named_property(env, jsThis, "constructor", &constructor);
     id obj = *((id *)rvalue);
-    return method->bridgeData->getObject(env, obj, constructor,
-                                         method->returnOwned ? kOwnedObject
-                                                             : kUnownedObject);
+    return method->bridgeState->getObject(env, obj, constructor,
+                                          method->returnOwned ? kOwnedObject
+                                                              : kUnownedObject);
   }
 
   return cif->returnType->toJS(env, rvalue,
@@ -158,7 +158,7 @@ NAPI_FUNCTION(BridgedMethod) {
 
 NAPI_FUNCTION(BridgedGetter) {
   napi_value jsThis;
-  BridgedMethod *method;
+  ObjCClassMember *method;
 
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
 
@@ -168,7 +168,7 @@ NAPI_FUNCTION(BridgedGetter) {
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
     cif = method->methodCif =
-        method->bridgeData->getMethodCif(env, method->signature);
+        method->bridgeState->getMethodCif(env, method->signature);
   }
 
   void *avalues[2] = {&self, &method->selector};
@@ -182,9 +182,9 @@ NAPI_FUNCTION(BridgedGetter) {
       napi_get_named_property(env, jsThis, "constructor", &constructor);
     }
 
-    return method->bridgeData->getObject(env, *((id *)rvalue), constructor,
-                                         method->returnOwned ? kOwnedObject
-                                                             : kUnownedObject);
+    return method->bridgeState->getObject(env, *((id *)rvalue), constructor,
+                                          method->returnOwned ? kOwnedObject
+                                                              : kUnownedObject);
   }
 
   return cif->returnType->toJS(env, rvalue, 0);
@@ -193,7 +193,7 @@ NAPI_FUNCTION(BridgedGetter) {
 NAPI_FUNCTION(BridgedSetter) {
   napi_value jsThis, argv;
   size_t argc = 1;
-  BridgedMethod *method;
+  ObjCClassMember *method;
 
   napi_get_cb_info(env, cbinfo, &argc, &argv, &jsThis, (void **)&method);
 
@@ -203,7 +203,7 @@ NAPI_FUNCTION(BridgedSetter) {
   MethodCif *cif = method->setterMethodCif;
   if (cif == nullptr) {
     cif = method->setterMethodCif =
-        method->bridgeData->getMethodCif(env, method->setterSignature);
+        method->bridgeState->getMethodCif(env, method->setterSignature);
   }
 
   void *avalues[3] = {&self, &method->setterSelector, cif->avalues[2]};

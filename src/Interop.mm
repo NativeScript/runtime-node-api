@@ -16,7 +16,7 @@ inline napi_value createJSNumber(napi_env env, int32_t ival) {
 }
 
 void registerInterop(napi_env env, napi_value global) {
-  ObjCBridgeData *bridgeData = ObjCBridgeData::InstanceData(env);
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
 
   napi_value interop;
   napi_create_object(env, &interop);
@@ -58,10 +58,10 @@ void registerInterop(napi_env env, napi_value global) {
                           createJSNumber(env, mdTypeSelector));
 
   napi_value Pointer = Pointer::defineJSClass(env);
-  bridgeData->pointerClass = make_ref(env, Pointer);
+  bridgeState->pointerClass = make_ref(env, Pointer);
 
   napi_value Reference = Reference::defineJSClass(env);
-  bridgeData->referenceClass = make_ref(env, Reference);
+  bridgeState->referenceClass = make_ref(env, Reference);
 
   const napi_property_descriptor properties[] = {
       {
@@ -161,8 +161,8 @@ napi_value interop_adopt(napi_env env, napi_callback_info info) {
   napi_unwrap(env, arg, (void **)&ptr);
 
   napi_value adopted;
-  ObjCBridgeData *bridgeData = ObjCBridgeData::InstanceData(env);
-  napi_new_instance(env, get_ref_value(env, bridgeData->pointerClass), 1, &arg,
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+  napi_new_instance(env, get_ref_value(env, bridgeState->pointerClass), 1, &arg,
                     &adopted);
   Pointer *adoptedPtr;
   napi_unwrap(env, adopted, (void **)&adoptedPtr);
@@ -205,7 +205,7 @@ napi_value interop_alloc(napi_env env, napi_callback_info info) {
   void *data = malloc(size);
 
   napi_value PointerClass =
-      get_ref_value(env, ObjCBridgeData::InstanceData(env)->pointerClass);
+      get_ref_value(env, ObjCBridgeState::InstanceData(env)->pointerClass);
   napi_value result;
   napi_new_instance(env, PointerClass, 0, nullptr, &result);
 
@@ -297,17 +297,17 @@ napi_value Pointer::defineJSClass(napi_env env) {
 }
 
 bool Pointer::isInstance(napi_env env, napi_value value) {
-  ObjCBridgeData *bridgeData = ObjCBridgeData::InstanceData(env);
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
   bool isInstance = false;
-  napi_value Pointer = get_ref_value(env, bridgeData->pointerClass);
+  napi_value Pointer = get_ref_value(env, bridgeState->pointerClass);
   napi_instanceof(env, value, Pointer, &isInstance);
   return isInstance;
 }
 
 napi_value Pointer::create(napi_env env, void *data) {
-  ObjCBridgeData *bridgeData = ObjCBridgeData::InstanceData(env);
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
   bool isInstance = false;
-  napi_value JSPointer = get_ref_value(env, bridgeData->pointerClass);
+  napi_value JSPointer = get_ref_value(env, bridgeState->pointerClass);
   napi_value result;
   napi_new_instance(env, JSPointer, 0, nullptr, &result);
   Pointer *ptr = Pointer::unwrap(env, result);
@@ -381,7 +381,7 @@ napi_value Pointer::add(napi_env env, napi_callback_info info) {
   napi_get_value_int64(env, arg, &ival);
 
   napi_value PointerClass =
-      get_ref_value(env, ObjCBridgeData::InstanceData(env)->pointerClass);
+      get_ref_value(env, ObjCBridgeState::InstanceData(env)->pointerClass);
   napi_value result;
   napi_new_instance(env, PointerClass, 0, nullptr, &result);
 
@@ -402,7 +402,7 @@ napi_value Pointer::subtract(napi_env env, napi_callback_info info) {
   napi_get_value_int64(env, arg, &ival);
 
   napi_value PointerClass =
-      get_ref_value(env, ObjCBridgeData::InstanceData(env)->pointerClass);
+      get_ref_value(env, ObjCBridgeState::InstanceData(env)->pointerClass);
   napi_value result;
   napi_new_instance(env, PointerClass, 0, nullptr, &result);
 
@@ -484,9 +484,9 @@ napi_value Reference::defineJSClass(napi_env env) {
 }
 
 bool Reference::isInstance(napi_env env, napi_value value) {
-  ObjCBridgeData *bridgeData = ObjCBridgeData::InstanceData(env);
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
   bool isInstance = false;
-  napi_value Reference = get_ref_value(env, bridgeData->referenceClass);
+  napi_value Reference = get_ref_value(env, bridgeState->referenceClass);
   napi_instanceof(env, value, Reference, &isInstance);
   return isInstance;
 }

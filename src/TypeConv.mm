@@ -689,8 +689,8 @@ public:
         return;
       }
 
-      auto bridgeData = ObjCBridgeData::InstanceData(env);
-      auto closure = new Closure(bridgeData->metadata, signatureOffset, true);
+      auto bridgeState = ObjCBridgeState::InstanceData(env);
+      auto closure = new Closure(bridgeState->metadata, signatureOffset, true);
       closure->env = env;
       closure->func = make_ref(env, value);
       id block = registerBlock(env, closure, value);
@@ -782,8 +782,8 @@ public:
         return;
       }
 
-      auto bridgeData = ObjCBridgeData::InstanceData(env);
-      auto closure = new Closure(bridgeData->metadata, signatureOffset, true);
+      auto bridgeState = ObjCBridgeState::InstanceData(env);
+      auto closure = new Closure(bridgeState->metadata, signatureOffset, true);
       closure->env = env;
       closure->func = make_ref(env, value);
       napi_remove_wrap(env, value, nullptr);
@@ -876,7 +876,7 @@ public:
       return null;
     }
 
-    auto bridgeData = ObjCBridgeData::InstanceData(env);
+    auto bridgeState = ObjCBridgeState::InstanceData(env);
 
     ObjectOwnership ownership;
     if ((flags & kReturnOwned) != 0) {
@@ -887,8 +887,8 @@ public:
       ownership = kUnownedObject;
     }
 
-    auto object = bridgeData->getObject(env, obj, ownership, classOffset,
-                                        &protocolOffsets);
+    auto object = bridgeState->getObject(env, obj, ownership, classOffset,
+                                         &protocolOffsets);
     if (object == nullptr) {
       napi_value null;
       napi_get_null(env, &null);
@@ -1004,7 +1004,7 @@ public:
           napi_strict_equals(env, jsObject, valueConstructor, &isEqual);
 
           if (!isEqual) {
-            auto bridgeData = ObjCBridgeData::InstanceData(env);
+            auto bridgeState = ObjCBridgeState::InstanceData(env);
             *res = jsObjectToId(env, value);
             return;
           }
@@ -1045,8 +1045,8 @@ public:
 
   void free(napi_env env, void *value) override {
     id obj = *((id *)value);
-    auto bridgeData = ObjCBridgeData::InstanceData(env);
-    bridgeData->unregisterObject(obj);
+    auto bridgeState = ObjCBridgeState::InstanceData(env);
+    bridgeState->unregisterObject(obj);
   }
 
   void encode(std::string *encoding) override { *encoding += "@"; }
@@ -1107,9 +1107,9 @@ public:
       return nullptr;
     }
 
-    auto bridgeData = ObjCBridgeData::InstanceData(env);
+    auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-    BridgedClass *bridgedCls = bridgeData->classesByPointer[cls];
+    ObjCClass *bridgedCls = bridgeState->classesByPointer[cls];
 
     if (bridgedCls == nullptr) {
       return nullptr;
@@ -1198,8 +1198,8 @@ public:
 
   inline StructInfo *getInfo(napi_env env) {
     if (!structInfoSearched) {
-      auto bridgeData = ObjCBridgeData::InstanceData(env);
-      info = bridgeData->getStructInfo(env, structOffset);
+      auto bridgeState = ObjCBridgeState::InstanceData(env);
+      info = bridgeState->getStructInfo(env, structOffset);
       structInfoSearched = true;
     }
 
@@ -1432,10 +1432,10 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, const char **encoding) {
       structname += *c;
       c++;
     }
-    auto bridgeData = ObjCBridgeData::InstanceData(env);
+    auto bridgeState = ObjCBridgeState::InstanceData(env);
     // NSLog(@"struct: %s, %d", structname.c_str(),
-    //       bridgeData->structOffsets[structname]);
-    auto structOffset = bridgeData->structOffsets[structname];
+    //       bridgeState->structOffsets[structname]);
+    auto structOffset = bridgeState->structOffsets[structname];
     auto type = typeFromStruct(env, encoding);
     return std::make_shared<StructTypeConv>(StructTypeConv(structOffset, type));
   }
@@ -1606,7 +1606,7 @@ std::shared_ptr<TypeConv> TypeConv::Make(napi_env env, MDMetadataReader *reader,
     }
     structOffset += isUnion ? reader->unionsOffset : reader->structsOffset;
     auto structName = reader->getString(structOffset);
-    auto bridgeData = ObjCBridgeData::InstanceData(env);
+    auto bridgeState = ObjCBridgeState::InstanceData(env);
     auto type = opaquePointers == 2
                     ? nullptr
                     : typeFromStruct(env, reader, structOffset, isUnion);

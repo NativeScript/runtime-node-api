@@ -22,12 +22,12 @@ namespace objc_bridge {
 void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   Closure *closure = (Closure *)data;
   napi_env env = closure->env;
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
   napi_value constructor = get_ref_value(env, closure->thisConstructor);
 
   id self = *(id *)args[0];
-  napi_value thisArg = bridgeData->getObject(env, self, constructor);
+  napi_value thisArg = bridgeState->getObject(env, self, constructor);
   if (thisArg == nil) {
     NSLog(@"ObjC->JS: thisArg is nil, the JS object was probably garbage "
           @"collected");

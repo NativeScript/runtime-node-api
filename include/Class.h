@@ -2,11 +2,12 @@
 #define BRIDGED_CLASS_H
 
 #include "MetadataReader.h"
+#include "NativeCall.h"
 #include "node_api_util.h"
 #include "objc/message.h"
 #include "objc/runtime.h"
-#include <set>
 #include <string>
+#include <unordered_set>
 
 using namespace metagen;
 
@@ -16,21 +17,22 @@ NAPI_FUNCTION(registerClass);
 NAPI_FUNCTION(import);
 NAPI_FUNCTION(classGetter);
 
-class BridgedClass {
+class ObjCClass {
 public:
   MDSectionOffset metadataOffset;
   std::string name;
   Class nativeClass;
 
-  BridgedClass *superclass;
+  ObjCClass *superclass;
+  std::vector<std::shared_ptr<ObjCClassMember>> members;
 
   napi_env env;
   napi_ref constructor;
   napi_ref prototype;
 
-  BridgedClass() {}
-  BridgedClass(napi_env env, MDSectionOffset offset);
-  ~BridgedClass();
+  ObjCClass() {}
+  ObjCClass(napi_env env, MDSectionOffset offset);
+  ~ObjCClass();
 };
 
 } // namespace objc_bridge

@@ -5,7 +5,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerVarGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerVarGlobals(napi_env env, napi_value global) {
   auto offset = metadata->constantsOffset;
   while (offset < metadata->enumsOffset) {
     MDSectionOffset originalOffset = offset;
@@ -55,45 +55,45 @@ NAPI_FUNCTION(variableGetter) {
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
   MDSectionOffset originalOffset = offset;
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-  auto cached = bridgeData->mdValueCache[offset];
+  auto cached = bridgeState->mdValueCache[offset];
   if (cached != nullptr) {
     return get_ref_value(env, cached);
   }
 
   // Name
-  auto name = bridgeData->metadata->getString(offset);
+  auto name = bridgeState->metadata->getString(offset);
   offset += sizeof(MDSectionOffset);
 
   // Eval kind
-  auto evalKind = bridgeData->metadata->getVariableEvalKind(offset);
+  auto evalKind = bridgeState->metadata->getVariableEvalKind(offset);
   offset += sizeof(MDVariableEvalKind);
 
   napi_value result = nullptr;
 
   switch (evalKind) {
   case mdEvalDouble: {
-    auto value = bridgeData->metadata->getDouble(offset);
+    auto value = bridgeState->metadata->getDouble(offset);
     napi_create_double(env, value, &result);
     break;
   }
 
   case mdEvalInt64: {
-    auto value = bridgeData->metadata->getInt64(offset);
+    auto value = bridgeState->metadata->getInt64(offset);
     napi_create_int64(env, value, &result);
     break;
   }
 
   case mdEvalString: {
-    auto value = bridgeData->metadata->getString(offset);
+    auto value = bridgeState->metadata->getString(offset);
     napi_create_string_utf8(env, value, NAPI_AUTO_LENGTH, &result);
     break;
   }
 
   default: {
-    auto type = TypeConv::Make(env, bridgeData->metadata, &offset);
-    auto value = dlsym(bridgeData->self_dl, name);
+    auto type = TypeConv::Make(env, bridgeState->metadata, &offset);
+    auto value = dlsym(bridgeState->self_dl, name);
     if (value == nullptr) {
       napi_get_null(env, &result);
     } else {
@@ -104,7 +104,7 @@ NAPI_FUNCTION(variableGetter) {
   }
 
   if (result != nullptr) {
-    bridgeData->mdValueCache[originalOffset] = make_ref(env, result);
+    bridgeState->mdValueCache[originalOffset] = make_ref(env, result);
   }
 
   return result;

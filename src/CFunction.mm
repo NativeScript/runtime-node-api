@@ -4,7 +4,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerFunctionGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerFunctionGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->functionsOffset;
   while (offset < metadata->protocolsOffset) {
     MDSectionOffset originalOffset = offset;
@@ -28,7 +28,7 @@ void ObjCBridgeData::registerFunctionGlobals(napi_env env, napi_value global) {
   }
 }
 
-CFunction *ObjCBridgeData::getCFunction(napi_env env, MDSectionOffset offset) {
+CFunction *ObjCBridgeState::getCFunction(napi_env env, MDSectionOffset offset) {
   auto cached = cFunctionCache.find(offset);
   if (cached != cFunctionCache.end()) {
     return cached->second;

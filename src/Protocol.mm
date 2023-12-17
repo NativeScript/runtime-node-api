@@ -9,7 +9,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerProtocolGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerProtocolGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->protocolsOffset;
   while (offset < metadata->classesOffset) {
     MDSectionOffset originalOffset = offset;
@@ -72,8 +72,8 @@ void ObjCBridgeData::registerProtocolGlobals(napi_env env, napi_value global) {
   }
 }
 
-BridgedProtocol *ObjCBridgeData::getProtocol(napi_env env,
-                                             MDSectionOffset offset) {
+BridgedProtocol *ObjCBridgeState::getProtocol(napi_env env,
+                                              MDSectionOffset offset) {
   auto find = this->protocols[offset];
   if (find != nullptr) {
     return find;
@@ -89,17 +89,17 @@ NAPI_FUNCTION(protocolGetter) {
   void *data;
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-  auto cached = bridgeData->mdValueCache[offset];
+  auto cached = bridgeState->mdValueCache[offset];
   if (cached != nullptr) {
     return get_ref_value(env, cached);
   }
 
-  auto cls = bridgeData->getProtocol(env, offset);
+  auto cls = bridgeState->getProtocol(env, offset);
 
   if (cls != nullptr) {
-    bridgeData->mdValueCache[offset] = cls->constructor;
+    bridgeState->mdValueCache[offset] = cls->constructor;
   } else {
     return nullptr;
   }
@@ -114,7 +114,7 @@ NAPI_FUNCTION(ProtocolConstructor) {
 
 void defineProtocolMembers(napi_env env, MDSectionOffset offset,
                            napi_value constructor) {
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
   napi_value prototype;
   napi_get_named_property(env, constructor, "prototype", &prototype);
@@ -122,7 +122,7 @@ void defineProtocolMembers(napi_env env, MDSectionOffset offset,
   bool next = true;
 
   while (next) {
-    auto flags = bridgeData->metadata->getMemberFlag(offset);
+    auto flags = bridgeState->metadata->getMemberFlag(offset);
     next = (flags & mdMemberNext) != 0;
     offset += sizeof(flags);
 
@@ -138,38 +138,38 @@ void defineProtocolMembers(napi_env env, MDSectionOffset offset,
 
     if ((flags & mdMemberProperty) != 0) {
       bool readonly = (flags & mdMemberReadonly) != 0;
-      auto name = bridgeData->metadata->getString(offset);
+      auto name = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // name
 
       MDSectionOffset getterSignature, setterSignature;
 
-      auto getterSelector = bridgeData->metadata->getString(offset);
+      auto getterSelector = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // getterSelector
 
-      getterSignature = bridgeData->metadata->getOffset(offset);
+      getterSignature = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset); // getterSignature
 
       const char *setterSelector = nullptr;
       if (!readonly) {
-        setterSelector = bridgeData->metadata->getString(offset);
+        setterSelector = bridgeState->metadata->getString(offset);
         offset += sizeof(MDSectionOffset); // setterSelector
 
-        setterSignature = bridgeData->metadata->getOffset(offset);
+        setterSignature = bridgeState->metadata->getOffset(offset);
         offset += sizeof(MDSectionOffset); // setterSignature
       }
 
-      auto prop = new BridgedMethod();
-      prop->bridgeData = bridgeData;
+      auto prop = new ObjCClassMember();
+      prop->bridgeState = bridgeState;
       prop->classMethod = (flags & mdMemberStatic) != 0;
       prop->selector = sel_registerName(getterSelector);
       prop->setterSelector =
           setterSelector == nullptr ? nil : sel_registerName(setterSelector);
       prop->signature =
-          getterSignature + bridgeData->metadata->signaturesOffset;
+          getterSignature + bridgeState->metadata->signaturesOffset;
       prop->setterSignature =
           setterSelector == nullptr
               ? 0
-              : setterSignature + bridgeData->metadata->signaturesOffset;
+              : setterSignature + bridgeState->metadata->signaturesOffset;
 
       napi_property_descriptor property = {
           .utf8name = name,
@@ -185,9 +185,9 @@ void defineProtocolMembers(napi_env env, MDSectionOffset offset,
 
       napi_define_properties(env, jsObject, 1, &property);
     } else {
-      auto selector = bridgeData->metadata->getString(offset);
+      auto selector = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // selector
-      auto signature = bridgeData->metadata->getOffset(offset);
+      auto signature = bridgeState->metadata->getOffset(offset);
       offset += sizeof(MDSectionOffset); // signature
 
       auto name = jsifySelector(selector);
@@ -198,11 +198,11 @@ void defineProtocolMembers(napi_env env, MDSectionOffset offset,
         continue;
       }
 
-      auto method = new BridgedMethod();
-      method->bridgeData = bridgeData;
+      auto method = new ObjCClassMember();
+      method->bridgeState = bridgeState;
       method->classMethod = (flags & mdMemberStatic) != 0;
       method->selector = sel_registerName(selector);
-      method->signature = signature + bridgeData->metadata->signaturesOffset;
+      method->signature = signature + bridgeState->metadata->signaturesOffset;
       method->returnOwned = (flags & mdMemberReturnOwned) != 0;
 
       napi_property_descriptor property = {
@@ -225,14 +225,14 @@ void defineProtocolMembers(napi_env env, MDSectionOffset offset,
 
 BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
   this->metadataOffset = offset;
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-  auto nameOffset = bridgeData->metadata->getOffset(offset);
+  auto nameOffset = bridgeState->metadata->getOffset(offset);
   offset += sizeof(MDSectionOffset);
   bool next = (nameOffset & mdSectionOffsetNext) != 0;
   nameOffset &= ~mdSectionOffsetNext;
 
-  name = bridgeData->metadata->resolveString(nameOffset);
+  name = bridgeState->metadata->resolveString(nameOffset);
 
   napi_value constructor;
   napi_define_class(env, name.c_str(), NAPI_AUTO_LENGTH, JS_ProtocolConstructor,
@@ -242,16 +242,16 @@ BridgedProtocol::BridgedProtocol(napi_env env, MDSectionOffset offset) {
   this->constructor = make_ref(env, constructor);
 
   // Get the NativeObject class and inherit from it
-  auto cls = bridgeData->getClass(env, MD_SECTION_OFFSET_NULL);
+  auto cls = bridgeState->getClass(env, MD_SECTION_OFFSET_NULL);
   napi_inherits(env, constructor, get_ref_value(env, cls->constructor));
 
   while (next) {
-    auto protocolImpl = bridgeData->metadata->getOffset(offset);
+    auto protocolImpl = bridgeState->metadata->getOffset(offset);
     offset += sizeof(MDSectionOffset);
     next = (protocolImpl & mdSectionOffsetNext) != 0;
     protocolImpl &= ~mdSectionOffsetNext;
-    auto proto = bridgeData->getProtocol(
-        env, protocolImpl + bridgeData->metadata->protocolsOffset);
+    auto proto = bridgeState->getProtocol(
+        env, protocolImpl + bridgeState->metadata->protocolsOffset);
     defineProtocolMembers(env, proto->membersOffset, constructor);
   }
 

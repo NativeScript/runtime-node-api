@@ -4,7 +4,7 @@
 
 namespace objc_bridge {
 
-void ObjCBridgeData::registerEnumGlobals(napi_env env, napi_value global) {
+void ObjCBridgeState::registerEnumGlobals(napi_env env, napi_value global) {
   MDSectionOffset offset = metadata->enumsOffset;
   while (offset < metadata->signaturesOffset) {
     MDSectionOffset originalOffset = offset;
@@ -38,9 +38,9 @@ NAPI_FUNCTION(enumGetter) {
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &data);
   MDSectionOffset offset = (MDSectionOffset)((size_t)data);
   MDSectionOffset originalOffset = offset;
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
 
-  auto cached = bridgeData->mdValueCache[offset];
+  auto cached = bridgeState->mdValueCache[offset];
   if (cached != nullptr) {
     return get_ref_value(env, cached);
   }
@@ -53,12 +53,12 @@ NAPI_FUNCTION(enumGetter) {
 
   bool next = true;
   while (next) {
-    auto nameOffset = bridgeData->metadata->getOffset(offset);
+    auto nameOffset = bridgeState->metadata->getOffset(offset);
     next = (nameOffset & mdSectionOffsetNext) != 0;
     nameOffset &= ~mdSectionOffsetNext;
-    auto name = bridgeData->metadata->resolveString(nameOffset);
+    auto name = bridgeState->metadata->resolveString(nameOffset);
     offset += sizeof(MDSectionOffset);
-    int64_t value = bridgeData->metadata->getEnumValue(offset);
+    int64_t value = bridgeState->metadata->getEnumValue(offset);
     offset += sizeof(int64_t);
 
     napi_value member;
@@ -77,7 +77,7 @@ NAPI_FUNCTION(enumGetter) {
     napi_define_properties(env, result, 1, &prop);
   }
 
-  bridgeData->mdValueCache[originalOffset] = make_ref(env, result);
+  bridgeState->mdValueCache[originalOffset] = make_ref(env, result);
 
   return result;
 }

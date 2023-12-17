@@ -1,7 +1,7 @@
 #ifndef BRIDGED_METHOD_H
 #define BRIDGED_METHOD_H
 
-#include "ObjCBridge.h"
+#include "MethodCif.h"
 #include "objc/runtime.h"
 
 namespace objc_bridge {
@@ -11,9 +11,11 @@ napi_value JS_BridgedMethod(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedGetter(napi_env env, napi_callback_info cbinfo);
 napi_value JS_BridgedSetter(napi_env env, napi_callback_info cbinfo);
 
-class BridgedMethod {
+class ObjCBridgeState;
+
+class ObjCClassMember {
 public:
-  ObjCBridgeData *bridgeData;
+  ObjCBridgeState *bridgeState;
   // Can be either method selector or property getter selector
   SEL selector;
   SEL setterSelector;

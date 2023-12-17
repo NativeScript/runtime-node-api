@@ -64,8 +64,8 @@ id registerBlock(napi_env env, Closure *closure, napi_value callback) {
   }
   closure->func = ref;
 
-  auto bridgeData = ObjCBridgeData::InstanceData(env);
-  if (napiSupportsThreadsafeFunctions(bridgeData->self_dl)) {
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  if (napiSupportsThreadsafeFunctions(bridgeState->self_dl)) {
     napi_value workName;
     napi_create_string_utf8(env, "Block", NAPI_AUTO_LENGTH, &workName);
     napi_create_threadsafe_function(env, callback, nullptr, workName, 0, 1,

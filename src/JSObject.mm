@@ -12,7 +12,7 @@ void JSObject_finalize(napi_env, void *data, void *) {
 @interface JSObject : NSObject {
   napi_env env;
   napi_ref ref;
-  objc_bridge::ObjCBridgeData *bridgeData;
+  objc_bridge::ObjCBridgeState *bridgeState;
 }
 
 - (instancetype)initWithEnv:(napi_env)env value:(napi_value)value;
@@ -29,8 +29,8 @@ void JSObject_finalize(napi_env, void *data, void *) {
   uint32_t result;
   napi_reference_ref(env, ref, &result);
   napi_wrap(env, value, self, nullptr, nullptr, nullptr);
-  bridgeData = objc_bridge::ObjCBridgeData::InstanceData(env);
-  bridgeData->objectRefs[self] = ref;
+  bridgeState = objc_bridge::ObjCBridgeState::InstanceData(env);
+  bridgeState->objectRefs[self] = ref;
   return self;
 }
 
@@ -42,7 +42,7 @@ void JSObject_finalize(napi_env, void *data, void *) {
 
 - (void)dealloc {
   napi_delete_reference(env, ref);
-  bridgeData->objectRefs.erase(self);
+  bridgeState->objectRefs.erase(self);
   [super dealloc];
 }
 

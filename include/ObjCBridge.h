@@ -42,18 +42,18 @@ typedef enum ObjectOwnership {
   kBorrowedObject,
 } ObjectOwnership;
 
-class ObjCBridgeData {
+class ObjCBridgeState {
 public:
-  ObjCBridgeData(napi_env env, const char *metadata_path = nullptr);
-  ~ObjCBridgeData();
+  ObjCBridgeState(napi_env env, const char *metadata_path = nullptr);
+  ~ObjCBridgeState();
 
-  static inline ObjCBridgeData *InstanceData(napi_env env) {
-    ObjCBridgeData *bridgeData;
-    napi_status status = napi_get_instance_data(env, (void **)&bridgeData);
+  static inline ObjCBridgeState *InstanceData(napi_env env) {
+    ObjCBridgeState *bridgeState;
+    napi_status status = napi_get_instance_data(env, (void **)&bridgeState);
     if (status != napi_ok) {
       return nullptr;
     }
-    return bridgeData;
+    return bridgeState;
   }
 
   void registerVarGlobals(napi_env env, napi_value global);
@@ -64,7 +64,7 @@ public:
   void registerClassGlobals(napi_env env, napi_value global);
   void registerProtocolGlobals(napi_env env, napi_value global);
 
-  BridgedClass *getClass(napi_env env, MDSectionOffset offset);
+  ObjCClass *getClass(napi_env env, MDSectionOffset offset);
 
   BridgedProtocol *getProtocol(napi_env env, MDSectionOffset offset);
 
@@ -114,9 +114,9 @@ public:
   napi_ref pointerClass;
   napi_ref referenceClass;
 
-  std::unordered_map<MDSectionOffset, BridgedClass *> classes;
+  std::unordered_map<MDSectionOffset, ObjCClass *> classes;
   std::unordered_map<MDSectionOffset, BridgedProtocol *> protocols;
-  std::unordered_map<Class, BridgedClass *> classesByPointer;
+  std::unordered_map<Class, ObjCClass *> classesByPointer;
   std::unordered_map<Class, MDSectionOffset> mdClassesByPointer;
   std::unordered_map<Protocol *, MDSectionOffset> mdProtocolsByPointer;
   std::unordered_map<Class, napi_ref> constructorsByPointer;
