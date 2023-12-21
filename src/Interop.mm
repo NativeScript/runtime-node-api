@@ -1,4 +1,5 @@
 #include "Interop.h"
+#include "Metadata.h"
 #include "ObjCBridge.h"
 #include "Util.h"
 #include "js_native_api.h"
@@ -6,6 +7,7 @@
 #include "node_api_util.h"
 
 #import <Foundation/Foundation.h>
+#include <memory>
 
 namespace objc_bridge {
 
@@ -63,6 +65,8 @@ void registerInterop(napi_env env, napi_value global) {
   napi_value Reference = Reference::defineJSClass(env);
   bridgeState->referenceClass = make_ref(env, Reference);
 
+  napi_value FunctionReference = FunctionReference::defineJSClass(env);
+
   const napi_property_descriptor properties[] = {
       {
           .utf8name = "Pointer",
@@ -79,6 +83,15 @@ void registerInterop(napi_env env, napi_value global) {
           .getter = nullptr,
           .setter = nullptr,
           .value = Reference,
+          .data = nullptr,
+          .method = nullptr,
+      },
+      {
+          .utf8name = "FunctionReference",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .value = FunctionReference,
           .data = nullptr,
           .method = nullptr,
       },
@@ -598,6 +611,54 @@ Reference::~Reference() {
   if (data != nullptr) {
     free(data);
   }
+}
+
+napi_value FunctionReference::defineJSClass(napi_env env) {
+  napi_value constructor;
+  napi_define_class(env, "FunctionReference", NAPI_AUTO_LENGTH,
+                    FunctionReference::constructor, nullptr, 0, nullptr,
+                    &constructor);
+
+  return constructor;
+}
+
+FunctionReference *FunctionReference::unwrap(napi_env env, napi_value value) {
+  FunctionReference *ref = nullptr;
+  napi_unwrap(env, value, (void **)&ref);
+  return ref;
+}
+
+void FunctionReference::finalize(napi_env env, void *data, void *hint) {
+  FunctionReference *ref = (FunctionReference *)data;
+  delete ref;
+}
+
+napi_value FunctionReference::constructor(napi_env env,
+                                          napi_callback_info info) {
+  napi_value jsThis;
+  size_t argc = 1;
+  napi_value arg;
+  napi_get_cb_info(env, info, &argc, &arg, &jsThis, nullptr);
+
+  FunctionReference *reference = new FunctionReference(env, make_ref(env, arg));
+
+  napi_ref ref;
+  napi_wrap(env, jsThis, reference, FunctionReference::finalize, nullptr, &ref);
+
+  return jsThis;
+}
+
+FunctionReference::~FunctionReference() { napi_delete_reference(env, ref); }
+
+void *FunctionReference::getFunctionPointer(MDSectionOffset offset) {
+  if (closure == nullptr) {
+    closure = std::make_shared<Closure>(
+        ObjCBridgeState::InstanceData(env)->metadata, offset, true);
+    closure->env = env;
+    closure->func = ref;
+  }
+
+  return closure->fnptr;
 }
 
 } // namespace objc_bridge

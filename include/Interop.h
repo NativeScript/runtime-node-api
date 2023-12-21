@@ -1,6 +1,7 @@
 #ifndef INTEROP_H
 #define INTEROP_H
 
+#include "Closure.h"
 #include "TypeConv.h"
 #include "js_native_api.h"
 
@@ -59,6 +60,26 @@ public:
   void *data = nullptr;
   std::shared_ptr<TypeConv> type = nullptr;
   napi_ref initValue = nullptr;
+};
+
+class FunctionReference {
+public:
+  static napi_value defineJSClass(napi_env env);
+
+  static FunctionReference *unwrap(napi_env env, napi_value value);
+
+  static napi_value constructor(napi_env env, napi_callback_info info);
+
+  static void finalize(napi_env env, void *data, void *hint);
+
+  FunctionReference(napi_env env, napi_ref ref) : env(env), ref(ref){};
+  ~FunctionReference();
+
+  void *getFunctionPointer(MDSectionOffset offset);
+
+  napi_env env;
+  napi_ref ref;
+  std::shared_ptr<Closure> closure = nullptr;
 };
 
 } // namespace objc_bridge

@@ -767,11 +767,8 @@ public:
     }
 
     case napi_object: {
-      NAPI_GUARD(napi_unwrap(env, value, res)) {
-        NAPI_THROW_LAST_ERROR
-        *res = nullptr;
-        return;
-      }
+      FunctionReference *ref = FunctionReference::unwrap(env, value);
+      *res = ref->getFunctionPointer(signatureOffset);
     }
 
     case napi_function: {
