@@ -1,4 +1,5 @@
 #include "Class.h"
+#include "ClassBuilder.h"
 #include "ClassMember.h"
 #include "Metadata.h"
 #include "MetadataReader.h"
@@ -90,7 +91,13 @@ NAPI_FUNCTION(registerClass) {
   }
 
   auto bridgeState = ObjCBridgeState::InstanceData(env);
-  bridgeState->registerClass(env, argv[0]);
+  // bridgeState->registerClass(env, argv[0]);
+
+  ClassBuilder *builder = new ClassBuilder(env, argv[0]);
+  // It gets lazily built when a static method is called.
+  // builder->build();
+  bridgeState->classesByPointer[builder->nativeClass] = builder;
+
   return nullptr;
 }
 
@@ -104,10 +111,10 @@ ObjCClass *ObjCBridgeState::getClass(napi_env env, MDSectionOffset offset) {
     return find;
   }
 
-  auto bridgedClass = new ObjCClass(env, offset);
-  this->classes[offset] = bridgedClass;
+  auto cls = new ObjCClass(env, offset);
+  this->classes[offset] = cls;
 
-  return bridgedClass;
+  return cls;
 }
 
 NAPI_FUNCTION(import) {
@@ -227,7 +234,7 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
 
   metadataOffset = offset;
 
-  auto bridgeState = ObjCBridgeState::InstanceData(env);
+  bridgeState = ObjCBridgeState::InstanceData(env);
 
   bool isNativeObject = offset == MD_SECTION_OFFSET_NULL;
 
@@ -281,7 +288,8 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
           env, protocolOffset + bridgeState->metadata->protocolsOffset);
       if (protocol == nil)
         continue;
-      defineProtocolMembers(env, protocol->membersOffset, constructor);
+      ObjCClassMember::defineMembers(env, members, protocol->membersOffset,
+                                     constructor);
     }
 
     if (superClassOffset != MD_SECTION_OFFSET_NULL) {
@@ -339,106 +347,7 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
   if (!hasMembers)
     return;
 
-  bool next = true;
-  while (next) {
-    auto flags = bridgeState->metadata->getMemberFlag(offset);
-    next = (flags & mdMemberNext) != 0;
-    offset += sizeof(flags);
-
-    napi_value jsObject;
-    if ((flags & mdMemberStatic) != 0) {
-      jsObject = constructor;
-    } else {
-      jsObject = prototype;
-    }
-
-    if ((flags & mdMemberProperty) != 0) {
-      bool readonly = (flags & mdMemberReadonly) != 0;
-      auto name = bridgeState->metadata->getString(offset);
-      offset += sizeof(MDSectionOffset); // name
-
-      MDSectionOffset getterSignature, setterSignature;
-
-      auto getterSelector = bridgeState->metadata->getString(offset);
-      offset += sizeof(MDSectionOffset); // getterSelector
-
-      getterSignature = bridgeState->metadata->getOffset(offset);
-      offset += sizeof(MDSectionOffset); // getterSignature
-
-      const char *setterSelector = nullptr;
-      if (!readonly) {
-        setterSelector = bridgeState->metadata->getString(offset);
-        offset += sizeof(MDSectionOffset); // setterSelector
-
-        setterSignature = bridgeState->metadata->getOffset(offset);
-        offset += sizeof(MDSectionOffset); // setterSignature
-      }
-
-      std::shared_ptr<ObjCClassMember> prop =
-          std::make_shared<ObjCClassMember>();
-      prop->bridgeState = bridgeState;
-      prop->classMethod = (flags & mdMemberStatic) != 0;
-      prop->selector = sel_registerName(getterSelector);
-      prop->setterSelector =
-          setterSelector == nullptr ? nil : sel_registerName(setterSelector);
-      prop->signature =
-          getterSignature + bridgeState->metadata->signaturesOffset;
-      prop->setterSignature =
-          setterSelector == nullptr
-              ? 0
-              : setterSignature + bridgeState->metadata->signaturesOffset;
-
-      napi_property_descriptor property = {
-          .utf8name = name,
-          .name = nil,
-          .method = nil,
-          .getter = JS_BridgedGetter,
-          .setter = readonly ? nil : JS_BridgedSetter,
-          .value = nil,
-          .attributes =
-              (napi_property_attributes)(napi_configurable | napi_enumerable),
-          .data = members.emplace_back(prop).get(),
-      };
-
-      napi_define_properties(env, jsObject, 1, &property);
-    } else {
-      auto selector = bridgeState->metadata->getString(offset);
-      offset += sizeof(MDSectionOffset); // selector
-      auto signature = bridgeState->metadata->getOffset(offset);
-      offset += sizeof(MDSectionOffset); // signature
-
-      auto name = jsifySelector(selector);
-
-      bool hasProperty = false;
-      napi_has_named_property(env, jsObject, name.c_str(), &hasProperty);
-      if (hasProperty) {
-        continue;
-      }
-
-      std::shared_ptr<ObjCClassMember> method =
-          std::make_shared<ObjCClassMember>();
-      method->bridgeState = bridgeState;
-      method->classMethod = (flags & mdMemberStatic) != 0;
-      method->selector = sel_registerName(selector);
-      method->signature = signature + bridgeState->metadata->signaturesOffset;
-      method->returnOwned = (flags & mdMemberReturnOwned) != 0;
-
-      napi_property_descriptor property = {
-          .utf8name = name.c_str(),
-          .name = nil,
-          .method = JS_BridgedMethod,
-          .getter = nil,
-          .setter = nil,
-          .value = nil,
-          .attributes =
-              (napi_property_attributes)(napi_configurable | napi_writable |
-                                         napi_enumerable),
-          .data = members.emplace_back(method).get(),
-      };
-
-      napi_define_properties(env, jsObject, 1, &property);
-    }
-  }
+  ObjCClassMember::defineMembers(env, members, offset, constructor);
 }
 
 ObjCClass::~ObjCClass() {

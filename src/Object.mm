@@ -120,7 +120,7 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeState *bridgeState,
   {
     unsigned int count;
     auto protocols = class_copyProtocolList(cls, &count);
-    std::unordered_set<BridgedProtocol *> impls;
+    std::unordered_set<ObjCProtocol *> impls;
 
     std::function<void(Protocol **, unsigned int)> processProtocolList =
         [&](Protocol **list, unsigned int count) {
@@ -140,10 +140,11 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeState *bridgeState,
     if (!impls.empty()) {
       napi_value constructor;
       napi_define_class(env, class_getName(cls), NAPI_AUTO_LENGTH,
-                        JS_ProtocolConstructor, nullptr, 0, nullptr,
+                        ObjCProtocol::JSConstructor, nullptr, 0, nullptr,
                         &constructor);
       for (auto impl : impls) {
-        defineProtocolMembers(env, impl->membersOffset, constructor);
+        ObjCClassMember::defineMembers(env, impl->members, impl->membersOffset,
+                                       constructor);
       }
 
       bridgeState->constructorsByPointer[cls] = make_ref(env, constructor);

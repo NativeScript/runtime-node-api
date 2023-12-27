@@ -1,7 +1,9 @@
 #include "ClassMember.h"
+#include "ClassBuilder.h"
 #include "MetadataReader.h"
 #include "ObjCBridge.h"
 #include "TypeConv.h"
+#include "Util.h"
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
@@ -12,11 +14,132 @@
 
 namespace objc_bridge {
 
+void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
+                                    MDSectionOffset offset,
+                                    napi_value constructor) {
+  auto bridgeState = ObjCBridgeState::InstanceData(env);
+
+  napi_value prototype;
+  napi_get_named_property(env, constructor, "prototype", &prototype);
+
+  bool next = true;
+
+  while (next) {
+    auto flags = bridgeState->metadata->getMemberFlag(offset);
+    next = (flags & mdMemberNext) != 0;
+    offset += sizeof(flags);
+
+    napi_value jsObject;
+    if ((flags & mdMemberStatic) != 0) {
+      jsObject = constructor;
+    } else {
+      jsObject = prototype;
+    }
+
+    if ((flags & mdMemberProperty) != 0) {
+      bool readonly = (flags & mdMemberReadonly) != 0;
+      auto name = bridgeState->metadata->getString(offset);
+      offset += sizeof(MDSectionOffset); // name
+
+      MDSectionOffset getterSignature, setterSignature;
+
+      const char *getterSelector = bridgeState->metadata->getString(offset);
+      offset += sizeof(MDSectionOffset); // getterSelector
+
+      getterSignature = bridgeState->metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset); // getterSignature
+
+      const char *setterSelector = nullptr;
+      if (!readonly) {
+        setterSelector = bridgeState->metadata->getString(offset);
+        offset += sizeof(MDSectionOffset); // setterSelector
+
+        setterSignature = bridgeState->metadata->getOffset(offset);
+        offset += sizeof(MDSectionOffset); // setterSignature
+      }
+
+      if (memberMap.contains(name)) {
+        memberMap.erase(name);
+      }
+
+      const auto &kv = memberMap.emplace(
+          name, ObjCClassMember(
+                    bridgeState, sel_registerName(getterSelector),
+                    !readonly ? sel_registerName(setterSelector) : nullptr,
+                    getterSignature + bridgeState->metadata->signaturesOffset,
+                    !readonly ? setterSignature +
+                                    bridgeState->metadata->signaturesOffset
+                              : 0,
+                    flags));
+
+      napi_property_descriptor property = {
+          .utf8name = name,
+          .name = nil,
+          .method = nil,
+          .getter = ObjCClassMember::JSGetter,
+          .setter = readonly ? nil : ObjCClassMember::JSSetter,
+          .value = nil,
+          .attributes =
+              (napi_property_attributes)(napi_configurable | napi_enumerable),
+          .data = &kv.first->second,
+      };
+
+      napi_define_properties(env, jsObject, 1, &property);
+    } else {
+      auto selector = bridgeState->metadata->getString(offset);
+      offset += sizeof(MDSectionOffset); // selector
+      auto signature = bridgeState->metadata->getOffset(offset);
+      offset += sizeof(MDSectionOffset); // signature
+
+      auto name = jsifySelector(selector);
+
+      bool hasProperty = false;
+      napi_has_named_property(env, jsObject, name.c_str(), &hasProperty);
+      if (hasProperty) {
+        continue;
+      }
+
+      const auto &kv = memberMap.emplace(
+          name,
+          ObjCClassMember(bridgeState, sel_registerName(selector),
+                          signature + bridgeState->metadata->signaturesOffset,
+                          flags));
+
+      napi_property_descriptor property = {
+          .utf8name = name.c_str(),
+          .name = nil,
+          .method = ObjCClassMember::JSCall,
+          .getter = nil,
+          .setter = nil,
+          .value = nil,
+          .attributes =
+              (napi_property_attributes)(napi_configurable | napi_writable |
+                                         napi_enumerable),
+          .data = &kv.first->second,
+      };
+
+      napi_define_properties(env, jsObject, 1, &property);
+    }
+  }
+}
+
 inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
-                           id self, void **avalues, void *rvalue) {
+                           id self, void **avalues, void *rvalue,
+                           bool classMethod) {
   // TODO: This seems bad for performance. Is there a better way?
-  bool supercall = false;
-  napi_has_named_property(env, jsThis, "__objc_msgSendSuper__", &supercall);
+  bool supercall =
+      classMethod
+          ? class_conformsToProtocol(self,
+                                     @protocol(ObjCBridgeClassBuilderProtocol))
+          : class_conformsToProtocol(object_getClass(self),
+                                     @protocol(ObjCBridgeClassBuilderProtocol));
+
+  if (supercall && classMethod) {
+    ObjCBridgeState *state = ObjCBridgeState::InstanceData(env);
+    ClassBuilder *builder = (ClassBuilder *)state->classesByPointer[self];
+    if (!builder->isFinal)
+      builder->build();
+  }
 
 #if defined(__x86_64__)
   bool isStret = cif->returnType->type->size > 16 &&
@@ -50,7 +173,7 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
   }
 }
 
-NAPI_FUNCTION(BridgedMethod) {
+napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis;
   ObjCClassMember *method;
 
@@ -65,8 +188,8 @@ NAPI_FUNCTION(BridgedMethod) {
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
-    cif = method->methodCif =
-        method->bridgeState->getMethodCif(env, method->signature);
+    cif = method->methodCif = method->bridgeState->getMethodCif(
+        env, method->methodOrGetter.signatureOffset);
   }
 
   size_t argc = cif->argc;
@@ -76,7 +199,7 @@ NAPI_FUNCTION(BridgedMethod) {
   void *rvalue = cif->rvalue;
 
   avalues[0] = (void *)&self;
-  avalues[1] = (void *)&method->selector;
+  avalues[1] = (void *)&method->methodOrGetter.selector;
 
   bool shouldFreeAny = false;
   bool shouldFree[cif->argc];
@@ -90,9 +213,7 @@ NAPI_FUNCTION(BridgedMethod) {
     }
   }
 
-  // NSLog(@"[call] %s", sel_getName(method->selector));
-
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
@@ -114,7 +235,7 @@ NAPI_FUNCTION(BridgedMethod) {
                                method->returnOwned ? kReturnOwned : 0);
 }
 
-NAPI_FUNCTION(BridgedGetter) {
+napi_value ObjCClassMember::JSGetter(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis;
   ObjCClassMember *method;
 
@@ -125,14 +246,14 @@ NAPI_FUNCTION(BridgedGetter) {
 
   MethodCif *cif = method->methodCif;
   if (cif == nullptr) {
-    cif = method->methodCif =
-        method->bridgeState->getMethodCif(env, method->signature);
+    cif = method->methodCif = method->bridgeState->getMethodCif(
+        env, method->methodOrGetter.signatureOffset);
   }
 
-  void *avalues[2] = {&self, &method->selector};
+  void *avalues[2] = {&self, &method->methodOrGetter.selector};
   void *rvalue = cif->rvalue;
 
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
 
   if (cif->returnType->kind == mdTypeInstanceObject) {
     napi_value constructor = jsThis;
@@ -148,7 +269,7 @@ NAPI_FUNCTION(BridgedGetter) {
   return cif->returnType->toJS(env, rvalue, 0);
 }
 
-NAPI_FUNCTION(BridgedSetter) {
+napi_value ObjCClassMember::JSSetter(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis, argv;
   size_t argc = 1;
   ObjCClassMember *method;
@@ -161,16 +282,16 @@ NAPI_FUNCTION(BridgedSetter) {
   MethodCif *cif = method->setterMethodCif;
   if (cif == nullptr) {
     cif = method->setterMethodCif =
-        method->bridgeState->getMethodCif(env, method->setterSignature);
+        method->bridgeState->getMethodCif(env, method->setter.signatureOffset);
   }
 
-  void *avalues[3] = {&self, &method->setterSelector, cif->avalues[2]};
+  void *avalues[3] = {&self, &method->setter.selector, cif->avalues[2]};
   void *rvalue = nullptr;
 
   bool shouldFree = false;
   cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
 
   if (shouldFree) {
     cif->argTypes[0]->free(env, *((void **)avalues[2]));

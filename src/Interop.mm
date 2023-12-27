@@ -1,4 +1,5 @@
 #include "Interop.h"
+#include "ClassBuilder.h"
 #include "Metadata.h"
 #include "ObjCBridge.h"
 #include "Util.h"
@@ -17,8 +18,66 @@ inline napi_value createJSNumber(napi_env env, int32_t ival) {
   return value;
 }
 
+napi_value __extends(napi_env env, napi_callback_info info) {
+  napi_value argv[2];
+  size_t argc = 2;
+  napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
+
+  napi_value constructor = argv[0];
+  napi_value superConstructor = argv[1];
+
+  napi_inherits(env, constructor, superConstructor);
+
+  Class superClassNative = nullptr;
+  napi_unwrap(env, superConstructor, (void **)&superClassNative);
+  if (superClassNative != nullptr) {
+    ClassBuilder *builder = new ClassBuilder(env, constructor);
+    ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+    bridgeState->classesByPointer[builder->nativeClass] = builder;
+  }
+
+  return nullptr;
+}
+
+const char *jsHelpersSource = R"(
+  if (typeof globalThis.__decorate !== "function") {
+    globalThis.__decorate = function(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+  }
+
+  globalThis.ObjCClass = function ObjCClass(...protocols) {
+    return function(constructor) {
+      constructor.ObjCProtocols = protocols;
+    };
+  };
+
+  WeakRef.prototype.get = function() {
+    return this.deref();
+  };
+)";
+
 void registerInterop(napi_env env, napi_value global) {
   ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+
+  const napi_property_descriptor __extendsProperty = {
+      .utf8name = "__extends",
+      .attributes = napi_enumerable,
+      .getter = nullptr,
+      .setter = nullptr,
+      .value = nullptr,
+      .data = nullptr,
+      .method = __extends,
+  };
+
+  napi_define_properties(env, global, 1, &__extendsProperty);
+
+  napi_value jsHelpers;
+  napi_create_string_utf8(env, jsHelpersSource, NAPI_AUTO_LENGTH, &jsHelpers);
+  napi_run_script(env, jsHelpers, nullptr);
 
   napi_value interop;
   napi_create_object(env, &interop);

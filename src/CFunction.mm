@@ -21,7 +21,7 @@ void ObjCBridgeState::registerFunctionGlobals(napi_env env, napi_value global) {
         .setter = nullptr,
         .value = nullptr,
         .data = (void *)((size_t)originalOffset),
-        .method = JS_CFunction,
+        .method = CFunction::JSCall,
     };
 
     napi_define_properties(env, global, 1, &prop);
@@ -38,9 +38,7 @@ CFunction *ObjCBridgeState::getCFunction(napi_env env, MDSectionOffset offset) {
                    metadata->getOffset(offset + sizeof(MDSectionOffset));
   auto cachedCif = mdFunctionSignatureCache.find(sigOffset);
 
-  auto cFunction = new CFunction();
-  cFunction->fnptr = dlsym(self_dl, metadata->getString(offset));
-  cFunction->cif = nullptr;
+  auto cFunction = new CFunction(dlsym(self_dl, metadata->getString(offset)));
   cFunctionCache[offset] = cFunction;
 
   if (cachedCif != mdFunctionSignatureCache.end()) {
@@ -54,7 +52,7 @@ CFunction *ObjCBridgeState::getCFunction(napi_env env, MDSectionOffset offset) {
   return cFunction;
 }
 
-NAPI_FUNCTION(CFunction) {
+napi_value CFunction::JSCall(napi_env env, napi_callback_info cbinfo) {
   void *_offset;
 
   napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, &_offset);
@@ -94,6 +92,12 @@ NAPI_FUNCTION(CFunction) {
   }
 
   return cif->returnType->toJS(env, rvalue);
+}
+
+CFunction::~CFunction() {
+  if (cif != nullptr) {
+    delete cif;
+  }
 }
 
 } // namespace objc_bridge

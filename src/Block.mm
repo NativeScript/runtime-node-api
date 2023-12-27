@@ -68,9 +68,9 @@ id registerBlock(napi_env env, Closure *closure, napi_value callback) {
   if (napiSupportsThreadsafeFunctions(bridgeState->self_dl)) {
     napi_value workName;
     napi_create_string_utf8(env, "Block", NAPI_AUTO_LENGTH, &workName);
-    napi_create_threadsafe_function(env, callback, nullptr, workName, 0, 1,
-                                    nullptr, nullptr, closure,
-                                    callJSBlockFromMainThread, &closure->tsfn);
+    napi_create_threadsafe_function(
+        env, callback, nullptr, workName, 0, 1, nullptr, nullptr, closure,
+        Closure::callBlockFromMainThread, &closure->tsfn);
     if (closure->tsfn)
       napi_unref_threadsafe_function(env, closure->tsfn);
   }

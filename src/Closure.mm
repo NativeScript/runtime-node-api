@@ -84,8 +84,8 @@ struct JSBlockCallContext {
   bool done;
 };
 
-void callJSBlockFromMainThread(napi_env env, napi_value js_cb, void *context,
-                               void *data) {
+void Closure::callBlockFromMainThread(napi_env env, napi_value js_cb,
+                                      void *context, void *data) {
   auto closure = (Closure *)context;
   auto ctx = (JSBlockCallContext *)data;
 
@@ -141,8 +141,8 @@ void JSBlockIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   ctx.done = false;
 
   if (currentThreadId == closure->jsThreadId) {
-    callJSBlockFromMainThread(env, get_ref_value(env, closure->func), closure,
-                              &ctx);
+    Closure::callBlockFromMainThread(env, get_ref_value(env, closure->func),
+                                     closure, &ctx);
   } else {
     if (!closure->tsfn) {
       assert(false && "Threadsafe functions are not supported");
@@ -252,6 +252,16 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
 
   ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
                        fnptr);
+}
+
+Closure::~Closure() {
+  if (func != nullptr) {
+    napi_delete_reference(env, func);
+  }
+  if (tsfn != nullptr) {
+    napi_release_threadsafe_function(tsfn, napi_tsfn_abort);
+  }
+  ffi_closure_free(closure);
 }
 
 } // namespace objc_bridge

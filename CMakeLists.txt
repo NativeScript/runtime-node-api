@@ -99,10 +99,10 @@ set(LIB_SOURCE_FILES
   src/Enum.mm
   src/Variable.mm
   src/Object.mm
-  src/CustomClass.mm
   src/CFunction.mm
   src/Interop.mm
   src/InlineFunctions.mm
+  src/ClassBuilder.mm
 )
 
 add_library(

@@ -5,12 +5,16 @@
 
 namespace objc_bridge {
 
-typedef struct CFunction {
-  void *fnptr;
-  MethodCif *cif;
-} CFunction;
+class CFunction {
+public:
+  static napi_value JSCall(napi_env env, napi_callback_info cbinfo);
 
-napi_value JS_CFunction(napi_env env, napi_callback_info cbinfo);
+  CFunction(void *fnptr) : fnptr(fnptr) {}
+  ~CFunction();
+
+  void *fnptr;
+  MethodCif *cif = nullptr;
+};
 
 } // namespace objc_bridge
 

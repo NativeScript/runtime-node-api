@@ -17,22 +17,23 @@ NAPI_FUNCTION(registerClass);
 NAPI_FUNCTION(import);
 NAPI_FUNCTION(classGetter);
 
+class ObjCBridgeState;
+
 class ObjCClass {
 public:
-  MDSectionOffset metadataOffset;
-  std::string name;
-  Class nativeClass;
-
-  ObjCClass *superclass;
-  std::vector<std::shared_ptr<ObjCClassMember>> members;
-
-  napi_env env;
-  napi_ref constructor;
-  napi_ref prototype;
-
   ObjCClass() {}
   ObjCClass(napi_env env, MDSectionOffset offset);
   ~ObjCClass();
+
+  ObjCBridgeState *bridgeState;
+  napi_env env;
+  napi_ref constructor;
+  napi_ref prototype;
+  MDSectionOffset metadataOffset;
+  std::string name;
+  Class nativeClass;
+  ObjCClass *superclass;
+  ObjCClassMemberMap members;
 };
 
 } // namespace objc_bridge

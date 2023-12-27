@@ -66,7 +66,7 @@ public:
 
   ObjCClass *getClass(napi_env env, MDSectionOffset offset);
 
-  BridgedProtocol *getProtocol(napi_env env, MDSectionOffset offset);
+  ObjCProtocol *getProtocol(napi_env env, MDSectionOffset offset);
 
   MethodCif *getMethodCif(napi_env env, Method method);
   MethodCif *getMethodCif(napi_env env, MDSectionOffset offset);
@@ -77,8 +77,6 @@ public:
                        ObjectOwnership ownership = kUnownedObject,
                        MDSectionOffset classOffset = 0,
                        std::vector<MDSectionOffset> *protocolOffsets = nullptr);
-
-  void registerClass(napi_env env, napi_value constructor);
 
   void unregisterObject(id object) noexcept;
 
@@ -115,7 +113,7 @@ public:
   napi_ref referenceClass;
 
   std::unordered_map<MDSectionOffset, ObjCClass *> classes;
-  std::unordered_map<MDSectionOffset, BridgedProtocol *> protocols;
+  std::unordered_map<MDSectionOffset, ObjCProtocol *> protocols;
   std::unordered_map<Class, ObjCClass *> classesByPointer;
   std::unordered_map<Class, MDSectionOffset> mdClassesByPointer;
   std::unordered_map<Protocol *, MDSectionOffset> mdProtocolsByPointer;

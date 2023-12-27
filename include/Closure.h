@@ -11,11 +11,18 @@
 
 namespace objc_bridge {
 
-void callJSBlockFromMainThread(napi_env env, napi_value js_cb, void *context,
-                               void *data);
-
 class Closure {
 public:
+  static void callBlockFromMainThread(napi_env env, napi_value js_cb,
+                                      void *context, void *data);
+
+  Closure(std::string typeEncoding, bool isBlock);
+  Closure(MDMetadataReader *reader, MDSectionOffset offset,
+          bool isBlock = false, std::string *encoding = nullptr,
+          bool isMethod = false);
+
+  ~Closure();
+
   napi_env env;
   napi_ref thisConstructor;
   napi_ref func = nullptr;
@@ -30,21 +37,6 @@ public:
 
   std::shared_ptr<TypeConv> returnType;
   std::vector<std::shared_ptr<TypeConv>> argTypes;
-
-  Closure(std::string typeEncoding, bool isBlock);
-  Closure(MDMetadataReader *reader, MDSectionOffset offset,
-          bool isBlock = false, std::string *encoding = nullptr,
-          bool isMethod = false);
-
-  ~Closure() {
-    if (func != nullptr) {
-      napi_delete_reference(env, func);
-    }
-    if (tsfn != nullptr) {
-      napi_release_threadsafe_function(tsfn, napi_tsfn_abort);
-    }
-    ffi_closure_free(closure);
-  }
 };
 
 } // namespace objc_bridge
