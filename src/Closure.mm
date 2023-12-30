@@ -34,7 +34,11 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
   }
 
   napi_value func;
-  napi_get_named_property(env, thisArg, closure->propertyName.c_str(), &func);
+  if (closure->func != nullptr) {
+    func = get_ref_value(env, closure->func);
+  } else {
+    napi_get_named_property(env, thisArg, closure->propertyName.c_str(), &func);
+  }
 
   napi_valuetype funcType;
   napi_typeof(env, func, &funcType);

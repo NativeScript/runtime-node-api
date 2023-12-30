@@ -93,6 +93,16 @@ declare global {
 
     export type Enum<_T extends Record<string, number>> = number;
 
+    export function addMethod<
+      T extends abstract new (...args: unknown[]) => unknown,
+    >(
+      constructor: T,
+      method: (this: InstanceType<T>, ...args: unknown[]) => unknown,
+    ): void;
+    export function addProtocol(
+      constructor: unknown,
+      protocol: PointerObject,
+    ): void;
     export function adopt(ptr: Pointer): Pointer;
     export function free(ptr: Pointer): void;
     export function sizeof(obj: unknown): number;

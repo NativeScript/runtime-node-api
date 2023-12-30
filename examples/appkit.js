@@ -13,40 +13,10 @@ export class ApplicationDelegate extends NSObject {
   }
 
   running = true;
-
   /**
-   * @param {NSNotification} _notification
+   * @type {Window | null}
    */
-  applicationDidFinishLaunching(_notification) {
-    this.window = Window.new();
-
-    NSApp.activateIgnoringOtherApps(false);
-
-    NSApp.stop(this);
-
-    const loop = () => {
-      const event = NSApp.nextEventMatchingMaskUntilDateInModeDequeue(
-        NSEventMask.Any,
-        null,
-        "kCFRunLoopDefaultMode",
-        true,
-      );
-
-      if (event != null) {
-        NSApp.sendEvent(event);
-      }
-
-      if (this.running) {
-        setTimeout(loop, 10);
-      }
-    };
-
-    setTimeout(loop, 0);
-
-    setTimeout(() => {
-      console.log("[setTimeout] after 2 seconds");
-    }, 2000);
-  }
+  window = null;
 
   /**
    * @param {NSNotification} _notification
@@ -167,5 +137,46 @@ export class Window extends NSWindow {
 const NSApp = NSApplication.sharedApplication;
 
 NSApp.setActivationPolicy(NSApplicationActivationPolicy.Regular);
-NSApp.delegate = ApplicationDelegate.new();
+
+// Class is lazily initialized when first used
+const delegate = ApplicationDelegate.new();
+
+// Add a method to the delegate class after it has been registered with the runtime,
+// dynamically.
+interop.addMethod(
+  ApplicationDelegate,
+  function applicationDidFinishLaunching(_notification) {
+    this.window = Window.new();
+
+    NSApp.activateIgnoringOtherApps(false);
+
+    NSApp.stop(this);
+
+    const loop = () => {
+      const event = NSApp.nextEventMatchingMaskUntilDateInModeDequeue(
+        NSEventMask.Any,
+        null,
+        "kCFRunLoopDefaultMode",
+        true,
+      );
+
+      if (event != null) {
+        NSApp.sendEvent(event);
+      }
+
+      if (this.running) {
+        setTimeout(loop, 10);
+      }
+    };
+
+    setTimeout(loop, 0);
+
+    setTimeout(() => {
+      console.log("[setTimeout] after 2 seconds");
+    }, 2000);
+  },
+);
+
+NSApp.delegate = delegate;
+
 NSApp.run();

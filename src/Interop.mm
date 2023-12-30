@@ -253,22 +253,29 @@ napi_value interop_addMethod(napi_env env, napi_callback_info info) {
     napi_throw_error(env, nullptr, "Invalid class");
     return nullptr;
   }
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+  builder = (ClassBuilder *)bridgeState->classesByPointer[(id)builder];
 
   napi_value name;
   napi_get_named_property(env, argv[1], "name", &name);
 
-  static char funcNameBuf[512];
-  napi_get_value_string_utf8(env, name, funcNameBuf, 512, nullptr);
-  std::string funcName = funcNameBuf;
+  if (builder->isFinal) {
+    static char funcNameBuf[512];
+    napi_get_value_string_utf8(env, name, funcNameBuf, 512, nullptr);
+    std::string funcName = funcNameBuf;
 
-  MethodDescriptor *desc = builder->lookupMethodDescriptor(funcName);
-  if (desc == nullptr) {
-    napi_throw_error(env, nullptr, "Invalid method, descriptor not found");
-    return nullptr;
+    MethodDescriptor *desc = builder->lookupMethodDescriptor(funcName);
+    if (desc == nullptr) {
+      napi_throw_error(env, nullptr, "Invalid method, descriptor not found");
+      return nullptr;
+    }
+
+    builder->addMethod(funcName, desc, name, argv[1]);
+  } else {
+    napi_set_property(env, get_ref_value(env, builder->prototype), name,
+                      argv[1]);
   }
-
-  builder->addMethod(funcName, desc, name, argv[1]);
-
+  
   return nullptr;
 }
 
@@ -283,6 +290,8 @@ napi_value interop_addProtocol(napi_env env, napi_callback_info info) {
     napi_throw_error(env, nullptr, "Invalid class");
     return nullptr;
   }
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+  builder = (ClassBuilder *)bridgeState->classesByPointer[(id)builder];
 
   ObjCProtocol *proto = nullptr;
   napi_unwrap(env, argv[1], (void **)&proto);

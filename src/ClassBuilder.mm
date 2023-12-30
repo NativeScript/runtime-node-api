@@ -109,7 +109,7 @@ MethodDescriptor *ClassBuilder::lookupMethodDescriptor(std::string &name) {
           !findMethod->second.classMethod) {
         return &findMethod->second.methodOrGetter;
       }
-      // return processProtocols(protocol->protocols);
+      return processProtocols(protocol->protocols);
     }
     return (MethodDescriptor *)nullptr;
   };
