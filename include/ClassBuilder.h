@@ -20,7 +20,8 @@ public:
 
   void addProtocol(ObjCProtocol *protocol);
   MethodDescriptor *lookupMethodDescriptor(std::string &name);
-  void addMethod(std::string &name, MethodDescriptor *desc, napi_value key);
+  void addMethod(std::string &name, MethodDescriptor *desc, napi_value key,
+                 napi_value func = nullptr);
 
   void build();
 

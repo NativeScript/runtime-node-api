@@ -173,6 +173,24 @@ void registerInterop(napi_env env, napi_value global) {
           .method = interop_adopt,
       },
       {
+          .utf8name = "addMethod",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .value = nullptr,
+          .data = nullptr,
+          .method = interop_addMethod,
+      },
+      {
+          .utf8name = "addProtocol",
+          .attributes = napi_enumerable,
+          .getter = nullptr,
+          .setter = nullptr,
+          .value = nullptr,
+          .data = nullptr,
+          .method = interop_addProtocol,
+      },
+      {
           .utf8name = "free",
           .attributes = napi_enumerable,
           .getter = nullptr,
@@ -219,9 +237,63 @@ void registerInterop(napi_env env, napi_value global) {
       },
   };
 
-  napi_define_properties(env, interop, 9, properties);
+  napi_define_properties(env, interop, 11, properties);
 
   napi_set_named_property(env, global, "interop", interop);
+}
+
+napi_value interop_addMethod(napi_env env, napi_callback_info info) {
+  napi_value argv[2];
+  size_t argc = 2;
+  napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
+
+  ClassBuilder *builder = nullptr;
+  napi_unwrap(env, argv[0], (void **)&builder);
+  if (builder == nullptr) {
+    napi_throw_error(env, nullptr, "Invalid class");
+    return nullptr;
+  }
+
+  napi_value name;
+  napi_get_named_property(env, argv[1], "name", &name);
+
+  static char funcNameBuf[512];
+  napi_get_value_string_utf8(env, name, funcNameBuf, 512, nullptr);
+  std::string funcName = funcNameBuf;
+
+  MethodDescriptor *desc = builder->lookupMethodDescriptor(funcName);
+  if (desc == nullptr) {
+    napi_throw_error(env, nullptr, "Invalid method, descriptor not found");
+    return nullptr;
+  }
+
+  builder->addMethod(funcName, desc, name, argv[1]);
+
+  return nullptr;
+}
+
+napi_value interop_addProtocol(napi_env env, napi_callback_info info) {
+  napi_value argv[2];
+  size_t argc = 2;
+  napi_get_cb_info(env, info, &argc, argv, nullptr, nullptr);
+
+  ClassBuilder *builder = nullptr;
+  napi_unwrap(env, argv[0], (void **)&builder);
+  if (builder == nullptr) {
+    napi_throw_error(env, nullptr, "Invalid class");
+    return nullptr;
+  }
+
+  ObjCProtocol *proto = nullptr;
+  napi_unwrap(env, argv[1], (void **)&proto);
+  if (proto == nullptr) {
+    napi_throw_error(env, nullptr, "Invalid protocol");
+    return nullptr;
+  }
+
+  builder->addProtocol(proto);
+
+  return nullptr;
 }
 
 napi_value interop_adopt(napi_env env, napi_callback_info info) {

@@ -118,13 +118,16 @@ MethodDescriptor *ClassBuilder::lookupMethodDescriptor(std::string &name) {
 }
 
 void ClassBuilder::addMethod(std::string &name, MethodDescriptor *desc,
-                             napi_value key) {
+                             napi_value key, napi_value func) {
   switch (desc->kind) {
   case kMethodDescEncoding: {
     const char *encoding = desc->encoding.c_str();
     auto closure = new Closure(encoding, false);
     closure->env = env;
-    closure->propertyName = name;
+    if (func != nullptr)
+      closure->func = make_ref(env, func);
+    else
+      closure->propertyName = name;
     closure->thisConstructor = constructor;
     class_replaceMethod(nativeClass, desc->selector, (IMP)closure->fnptr,
                         encoding);
@@ -136,7 +139,10 @@ void ClassBuilder::addMethod(std::string &name, MethodDescriptor *desc,
     auto closure = new Closure(bridgeState->metadata, desc->signatureOffset,
                                false, &encoding, true);
     closure->env = env;
-    closure->propertyName = name;
+    if (func != nullptr)
+      closure->func = make_ref(env, func);
+    else
+      closure->propertyName = name;
     closure->thisConstructor = constructor;
     class_replaceMethod(nativeClass, desc->selector, (IMP)closure->fnptr,
                         encoding.c_str());

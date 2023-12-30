@@ -9,6 +9,8 @@ namespace objc_bridge {
 
 void registerInterop(napi_env env, napi_value global);
 
+napi_value interop_addMethod(napi_env env, napi_callback_info info);
+napi_value interop_addProtocol(napi_env env, napi_callback_info info);
 napi_value interop_adopt(napi_env env, napi_callback_info info);
 napi_value interop_free(napi_env env, napi_callback_info info);
 napi_value interop_sizeof(napi_env env, napi_callback_info info);
