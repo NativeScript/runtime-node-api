@@ -71,6 +71,9 @@ public:
   MethodCif *getMethodCif(napi_env env, Method method);
   MethodCif *getMethodCif(napi_env env, MDSectionOffset offset);
 
+  napi_value proxyNativeObject(napi_env env, napi_value object,
+                               bool isArray = false);
+
   napi_value getObject(napi_env env, id object, napi_value constructor,
                        ObjectOwnership ownership = kUnownedObject);
   napi_value getObject(napi_env env, id object,
@@ -111,6 +114,7 @@ public:
 
   napi_ref pointerClass;
   napi_ref referenceClass;
+  napi_ref createNativeProxy;
 
   std::unordered_map<MDSectionOffset, ObjCClass *> classes;
   std::unordered_map<MDSectionOffset, ObjCProtocol *> protocols;

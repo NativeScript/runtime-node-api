@@ -1,84 +1,5 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const os_clockid_t: {
-  OS_CLOCK_MACH_ABSOLUTE_TIME: 32,
-};
-
-declare class __sFILEX {
-  constructor(init?: __sFILEX);
-}
-
-declare class simd_quatf {
-  constructor(init?: simd_quatf);
-  vector: unknown /* ext vector */;
-}
-
-declare class simd_float2x2 {
-  constructor(init?: simd_float2x2);
-  columns: unknown /* const array */;
-}
-
-declare class simd_float4x4 {
-  constructor(init?: simd_float4x4);
-  columns: unknown /* const array */;
-}
-
-declare class os_workgroup_attr_opaque_s {
-  constructor(init?: os_workgroup_attr_opaque_s);
-  sig: number;
-  opaque: unknown /* const array */;
-}
-
-declare class simd_float4x3 {
-  constructor(init?: simd_float4x3);
-  columns: unknown /* const array */;
-}
-
-declare class simd_quatd {
-  constructor(init?: simd_quatd);
-  vector: unknown /* ext vector */;
-}
-
-declare class __sbuf {
-  constructor(init?: __sbuf);
-  _base: interop.Pointer;
-  _size: number;
-}
-
-declare class simd_double4x4 {
-  constructor(init?: simd_double4x4);
-  columns: unknown /* const array */;
-}
-
-declare class simd_float3x3 {
-  constructor(init?: simd_float3x3);
-  columns: unknown /* const array */;
-}
-
-declare class __sFILE {
-  constructor(init?: __sFILE);
-  _p: interop.Pointer;
-  _r: number;
-  _w: number;
-  _flags: number;
-  _file: number;
-  _bf: __sbuf;
-  _lbfsize: number;
-  _cookie: interop.Pointer;
-  _close: (p1: interop.PointerConvertible) => number | null;
-  _read: (p1: interop.PointerConvertible, p2: string, p3: number) => number | null;
-  _seek: (p1: interop.PointerConvertible, p2: number, p3: number) => number | null;
-  _write: (p1: interop.PointerConvertible, p2: string, p3: number) => number | null;
-  _ub: __sbuf;
-  _extra: interop.Pointer;
-  _ur: number;
-  _ubuf: unknown /* const array */;
-  _nbuf: unknown /* const array */;
-  _lb: __sbuf;
-  _blksize: number;
-  _offset: number;
-}
-
 declare class _acl {
   constructor(init?: _acl);
 }
@@ -118,7 +39,7 @@ declare interface NSObjectProtocol {
 
   retainCount(): number;
 
-  readonly zone: interop.Pointer;
+  zone(): interop.Pointer;
 
   readonly description: string;
 
@@ -133,6 +54,26 @@ declare interface NativeScriptEmbedderDelegate {
 }
 
 declare class NativeScriptEmbedderDelegate extends NativeObject implements NativeScriptEmbedderDelegate {
+}
+
+declare class NativeScriptUtils extends NSObject {
+  static getSystemFontWeightItalicSymbolicTraits(size: number, weight: number, italic: boolean, symbolicTraits: interop.Enum<typeof UIFontDescriptorSymbolicTraits>): UIFont;
+
+  static createUIFont(font: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): UIFont;
+
+  static createMutableStringWithDetails(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSMutableAttributedString;
+
+  static createMutableStringForSpanFontColorBackgroundColorTextDecorationBaselineOffset(text: string, font: UIFont, color: UIColor, backgroundColor: UIColor, textDecoration: string, baselineOffset: number): NSMutableAttributedString;
+
+  static scaleImageWidthHeightScaleFactor(image: UIImage, width: number, height: number, scaleFactor: number): UIImage;
+
+  static getImageDataFormatQuality(image: UIImage, format: string, quality: number): NSData;
+}
+
+declare class NativeScriptEmbedder extends NSObject {
+  readonly delegate: NativeScriptEmbedderDelegate;
+
+  static sharedInstance(): NativeScriptEmbedder;
 }
 
 declare class NSObject extends NativeObject implements NSObjectProtocol {
@@ -322,8 +263,6 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   performSelectorOnThreadWithObjectWaitUntilDone(aSelector: string, thr: NSThread, arg: interop.Object | null, wait: boolean): void;
 
   performSelectorInBackgroundWithObject(aSelector: string, arg: interop.Object | null): void;
-
-  provideImageDataBytesPerRowOriginSizeUserInfo(data: interop.PointerConvertible, rowbytes: number, x: number, y: number, width: number, height: number, info: interop.Object | null): void;
 
   accessibilityElementCount(): number;
 
@@ -521,38 +460,10 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   retainCount(): number;
 
-  readonly zone: interop.Pointer;
+  zone(): interop.Pointer;
 
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class NativeScriptEmbedder extends NSObject {
-  readonly delegate: NativeScriptEmbedderDelegate;
-
-  static sharedInstance(): NativeScriptEmbedder;
-}
-
-declare class OS_os_workgroup extends OS_object {
-  init(): this;
-}
-
-declare class NativeScriptUtils extends NSObject {
-  static getSystemFontWeightItalicSymbolicTraits(size: number, weight: number, italic: boolean, symbolicTraits: interop.Enum<typeof UIFontDescriptorSymbolicTraits>): UIFont;
-
-  static createUIFont(font: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): UIFont;
-
-  static createMutableStringWithDetails(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSMutableAttributedString;
-
-  static createMutableStringForSpanFontColorBackgroundColorTextDecorationBaselineOffset(text: string, font: UIFont, color: UIColor, backgroundColor: UIColor, textDecoration: string, baselineOffset: number): NSMutableAttributedString;
-
-  static scaleImageWidthHeightScaleFactor(image: UIImage, width: number, height: number, scaleFactor: number): UIImage;
-
-  static getImageDataFormatQuality(image: UIImage, format: string, quality: number): NSData;
-}
-
-declare class OS_object extends NSObject {
-  init(): this;
 }
 

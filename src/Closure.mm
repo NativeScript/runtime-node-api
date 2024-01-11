@@ -201,7 +201,11 @@ Closure::Closure(std::string encoding, bool isBlock) {
 }
 
 Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
-                 std::string *encoding, bool isMethod) {
+                 std::string *encoding, bool isMethod, bool isGetter,
+                 bool isSetter) {
+  this->isGetter = isGetter;
+  this->isSetter = isSetter;
+
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
 

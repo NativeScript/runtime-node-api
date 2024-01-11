@@ -1,9 +1,9 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./UIKit.d.ts" />
 
-declare const TNSWidgetsVersionNumber: number;
-
 declare const TNSWidgetsVersionString: interop.Pointer;
+
+declare const TNSWidgetsVersionNumber: number;
 
 declare function __tns_uptime(): number;
 

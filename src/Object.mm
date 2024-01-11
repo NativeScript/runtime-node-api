@@ -1,9 +1,62 @@
+#include "Object.h"
 #include "ObjCBridge.h"
+#include "js_native_api.h"
 #include "node_api_util.h"
 
 #import <Foundation/Foundation.h>
 
 namespace objc_bridge {
+
+const char *nativeObjectProxySource = R"(
+  (function (object, isArray) {
+    return new Proxy(object, {
+      get (target, name) {
+        if (name in target) {
+          return target[name];
+        }
+
+        if (isArray) {
+          const index = Number(name);
+          if (!isNaN(index)) {
+            return target.objectAtIndex(index);
+          }
+        }
+
+        return target.__customProps__?.[name];
+      },
+
+      set (target, name, value) {
+        if (name in target) {
+          target[name] = value;
+          return true;
+        }
+
+        // if (isArray) {
+        //   const index = Number(name);
+        //   if (!isNaN(index)) {
+        //     target.setObjectAtIndexedSubscript(value, index);
+        //     return true;
+        //   }
+        // }
+
+        if (!target.__customProps__) {
+          target.__customProps__ = {};
+        }
+
+        target.__customProps__[name] = value;
+        return true;
+      },
+    });
+  })
+)";
+
+void initProxyFactory(napi_env env, ObjCBridgeState *state) {
+  napi_value script, result;
+  napi_create_string_utf8(env, nativeObjectProxySource, NAPI_AUTO_LENGTH,
+                          &script);
+  napi_run_script(env, script, &result);
+  state->createNativeProxy = make_ref(env, result);
+}
 
 void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   id object = static_cast<id>(data);
@@ -63,6 +116,35 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
+
+    // napi_value orig = result;
+
+    // result =
+    //     proxyNativeObject(env, result, [obj isKindOfClass:[NSArray class]]);
+
+    // We need to wrap the proxied object separately
+    // NAPI_GUARD(napi_wrap(env, result, obj, nullptr, nullptr, nullptr)) {
+    //   NAPI_THROW_LAST_ERROR
+    //   return nullptr;
+    // }
+
+    // void *check = nullptr;
+    // NAPI_GUARD(napi_unwrap(env, orig, &check)) {
+    //   NAPI_THROW_LAST_ERROR
+    //   return nullptr;
+    // }
+    // if (check != obj) {
+    //   NSLog(@"wrap failed on orig: %p, %p", check, obj);
+    // }
+
+    // check = nullptr;
+    // NAPI_GUARD(napi_unwrap(env, result, &check)) {
+    //   NAPI_THROW_LAST_ERROR
+    //   return nullptr;
+    // }
+    // if (check != obj) {
+    //   NSLog(@"wrap failed on result: %p, %p", check, obj);
+    // }
 
     napi_ref ref = nullptr;
     NAPI_GUARD(napi_add_finalizer(env, result, obj,
@@ -236,6 +318,7 @@ ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
 void ObjCBridgeState::unregisterObject(id object) noexcept {
   if (objectRefs.contains(object)) {
     objectRefs.erase(object);
+    // NSLog(@"release object: %@", object);
     [object release];
   }
 }

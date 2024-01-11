@@ -1,5 +1,6 @@
 #include "Runtime.h"
 #include "Console.h"
+#include "Performance.h"
 #include <iostream>
 
 namespace charon {
@@ -23,6 +24,7 @@ Runtime::Runtime() {
   runtime->createNapiEnv(&env);
 
   Console::init(env);
+  Performance::init(env);
 
   const char *metadata_path = std::getenv("METADATA_PATH");
   objc_bridge_init(env, metadata_path);

@@ -8,6 +8,7 @@
 #include "Interop.h"
 #include "Metadata.h"
 #include "MetadataReader.h"
+#include "Object.h"
 #include "ObjectRef.h"
 #include "Struct.h"
 #include "TypeConv.h"
@@ -174,6 +175,8 @@ NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
 
   napi_define_properties(env, global, 3, globalProperties);
 
+  initProxyFactory(env, bridgeState);
+
   registerInterop(env, global);
   registerInlineFunctions(env);
 
@@ -184,4 +187,15 @@ NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
   bridgeState->registerFunctionGlobals(env, global);
   bridgeState->registerClassGlobals(env, global);
   bridgeState->registerProtocolGlobals(env, global);
+}
+
+napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
+                                              bool isArray) {
+  napi_value factory = get_ref_value(env, createNativeProxy);
+  napi_value result, global;
+  napi_value args[2] = {object};
+  napi_get_boolean(env, isArray, &args[1]);
+  napi_get_global(env, &global);
+  napi_call_function(env, global, factory, 2, args, &result);
+  return result;
 }

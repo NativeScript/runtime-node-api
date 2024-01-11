@@ -22,6 +22,7 @@ public:
 
   MDSectionOffset signatureOffset;
   std::string encoding;
+  bool isProperty = false;
 
   MethodDescriptor() {}
 
@@ -67,7 +68,10 @@ public:
         methodOrGetter(MethodDescriptor(getterSelector, getterOffset)),
         setter(MethodDescriptor(setterSelector, setterOffset)),
         returnOwned((flags & metagen::mdMemberReturnOwned) != 0),
-        classMethod((flags & metagen::mdMemberStatic) != 0) {}
+        classMethod((flags & metagen::mdMemberStatic) != 0) {
+    methodOrGetter.isProperty = true;
+    setter.isProperty = true;
+  }
 
   ObjCBridgeState *bridgeState;
   MethodDescriptor methodOrGetter;

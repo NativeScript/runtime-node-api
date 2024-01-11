@@ -19,13 +19,15 @@ public:
   Closure(std::string typeEncoding, bool isBlock);
   Closure(MDMetadataReader *reader, MDSectionOffset offset,
           bool isBlock = false, std::string *encoding = nullptr,
-          bool isMethod = false);
+          bool isMethod = false, bool isGetter = false, bool isSetter = false);
 
   ~Closure();
 
   napi_env env;
   napi_ref thisConstructor;
   napi_ref func = nullptr;
+  bool isGetter = false;
+  bool isSetter = false;
   std::string propertyName;
   napi_threadsafe_function tsfn;
 

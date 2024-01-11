@@ -91,7 +91,8 @@ MethodDescriptor *ClassBuilder::lookupMethodDescriptor(std::string &name) {
   while (currentClass != nullptr) {
     auto findMethod = currentClass->members.find(name);
     if (findMethod != currentClass->members.end() &&
-        !findMethod->second.classMethod) {
+        !findMethod->second.classMethod &&
+        !findMethod->second.methodOrGetter.isProperty) {
       return &findMethod->second.methodOrGetter;
     }
     currentClass = currentClass->superclass;
@@ -106,7 +107,8 @@ MethodDescriptor *ClassBuilder::lookupMethodDescriptor(std::string &name) {
     for (auto protocol : protocols) {
       auto findMethod = protocol->members.find(name);
       if (findMethod != protocol->members.end() &&
-          !findMethod->second.classMethod) {
+          !findMethod->second.classMethod &&
+          !findMethod->second.methodOrGetter.isProperty) {
         return &findMethod->second.methodOrGetter;
       }
       return processProtocols(protocol->protocols);
@@ -137,7 +139,7 @@ void ClassBuilder::addMethod(std::string &name, MethodDescriptor *desc,
   case kMethodDescSignatureOffset: {
     std::string encoding;
     auto closure = new Closure(bridgeState->metadata, desc->signatureOffset,
-                               false, &encoding, true);
+                               false, &encoding, true, desc->isProperty);
     closure->env = env;
     if (func != nullptr)
       closure->func = make_ref(env, func);
