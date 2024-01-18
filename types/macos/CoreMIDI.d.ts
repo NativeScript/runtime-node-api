@@ -1,155 +1,155 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const MIDIChannelsWholePort: number;
-
 declare const MIDINetworkNotificationSessionDidChange: string;
-
-declare const kMIDI1UPMaxSysexSize: number;
-
-declare const kMIDIDriverPropertyUsesSerial: interop.Pointer;
-
-declare const kMIDIPropertyUMPCanTransmitGroupless: interop.Pointer;
 
 declare const kMIDIPropertyProtocolID: interop.Pointer;
 
-declare const kMIDIPropertyDisplayName: interop.Pointer;
-
-declare const kMIDIPropertyIsDrumMachine: interop.Pointer;
-
-declare const kMIDIPropertyPanDisruptsStereo: interop.Pointer;
-
-declare const kMIDIPropertyTransmitsBankSelectMSB: interop.Pointer;
-
-declare const kMIDIPropertyTransmitsNotes: interop.Pointer;
-
-declare const kMIDIPropertyReceivesBankSelectLSB: interop.Pointer;
-
-declare const kMIDIPropertyCanRoute: interop.Pointer;
-
-declare const kMIDIPropertyUserPatchNameFile: interop.Pointer;
-
-declare const kMIDIPropertyFactoryPatchNameFile: interop.Pointer;
-
-declare const kMIDIPropertyDriverOwner: interop.Pointer;
-
-declare const kMIDIPropertyPrivate: interop.Pointer;
-
-declare const kMIDIPropertyOffline: interop.Pointer;
-
-declare const kMIDIPropertySingleRealtimeEntity: interop.Pointer;
-
-declare const kMIDIPropertyAdvanceScheduleTimeMuSec: interop.Pointer;
-
-declare const kMIDIPropertyTransmitChannels: interop.Pointer;
-
-declare const kMIDIPropertyReceiveChannels: interop.Pointer;
-
-declare const kMIDIPropertyDeviceID: interop.Pointer;
-
-declare const kMIDIPropertyUniqueID: interop.Pointer;
-
-declare const kMIDIInvalidUniqueID: number;
-
-declare const kMIDIUnknownError: number;
-
-declare const kMIDISetupFormatErr: number;
-
-declare const kMIDIMessageSendErr: number;
-
-declare const kMIDIUnknownProperty: number;
-
-declare const kMIDINoConnection: number;
-
-declare const kMIDIWrongEndpointType: number;
-
-declare const kMIDIPropertyIsEffectUnit: interop.Pointer;
-
-declare const kMIDIPropertyIsBroadcast: interop.Pointer;
-
-declare const kMIDIPropertyConnectionUniqueID: interop.Pointer;
-
-declare const kMIDIPropertyTransmitsClock: interop.Pointer;
-
-declare const kMIDIPropertyReceivesBankSelectMSB: interop.Pointer;
-
-declare const kMIDIServerStartErr: number;
-
-declare const kMIDIPropertyIsSampler: interop.Pointer;
-
-declare const kMIDIPropertyReceivesMTC: interop.Pointer;
-
-declare const kMIDIThruConnection_MaxEndpoints: number;
-
-declare const kMIDIPropertyTransmitsMTC: interop.Pointer;
-
-declare const kMIDIPropertyManufacturer: interop.Pointer;
-
-declare const MIDINetworkBonjourServiceType: string;
-
-declare const kMIDIPropertyReceivesProgramChanges: interop.Pointer;
-
-declare const kMIDIPropertyTransmitsBankSelectLSB: interop.Pointer;
-
-declare const kMIDIInvalidPort: number;
-
-declare const kMIDINotPermitted: number;
-
-declare const kMIDIPropertyMaxReceiveChannels: interop.Pointer;
-
-declare const kMIDIPropertyReceivesClock: interop.Pointer;
-
-declare const kMIDIPropertyNameConfigurationDictionary: interop.Pointer;
-
-declare const kMIDIPropertyReceivesNotes: interop.Pointer;
-
-declare const kMIDIUnknownEndpoint: number;
-
-declare const kMIDIObjectType_ExternalMask: interop.Enum<typeof MIDIObjectType>;
-
-declare const kMIDIPropertyName: interop.Pointer;
-
-declare const kMIDIPropertyDriverVersion: interop.Pointer;
-
-declare const kMIDIPropertyMaxSysExSpeed: interop.Pointer;
-
-declare const kMIDIPropertyIsMixer: interop.Pointer;
-
-declare const kMIDIIDNotUnique: number;
-
-declare const kMIDIPropertyIsEmbeddedEntity: interop.Pointer;
-
-declare const kMIDIWrongThread: number;
-
-declare const kMIDINoCurrentSetup: number;
-
-declare const kMIDIWrongPropertyType: number;
+declare const kMIDIPropertyDriverDeviceEditorApp: interop.Pointer;
 
 declare const kMIDIPropertyMaxTransmitChannels: interop.Pointer;
 
-declare const kMIDIPropertyImage: interop.Pointer;
+declare const kMIDIPropertyMaxReceiveChannels: interop.Pointer;
 
-declare const MIDINetworkNotificationContactsDidChange: string;
+declare const kMIDIPropertyIsMixer: interop.Pointer;
 
-declare const kMIDIObjectNotFound: number;
+declare const kMIDIPropertyIsDrumMachine: interop.Pointer;
 
-declare const kMIDIPropertySupportsMMC: interop.Pointer;
+declare const kMIDIPropertyTransmitsBankSelectLSB: interop.Pointer;
 
-declare const kMIDIPropertyNameConfiguration: interop.Pointer;
-
-declare const kMIDIPropertySupportsShowControl: interop.Pointer;
-
-declare const kMIDIInvalidClient: number;
+declare const kMIDIPropertyTransmitsBankSelectMSB: interop.Pointer;
 
 declare const kMIDIPropertyTransmitsProgramChanges: interop.Pointer;
 
-declare const kMIDIPropertyDriverDeviceEditorApp: interop.Pointer;
+declare const kMIDIPropertyTransmitsNotes: interop.Pointer;
+
+declare const kMIDIPropertyTransmitsMTC: interop.Pointer;
+
+declare const kMIDIPropertyReceivesBankSelectLSB: interop.Pointer;
+
+declare const kMIDIPropertyReceivesProgramChanges: interop.Pointer;
+
+declare const kMIDIPropertyReceivesNotes: interop.Pointer;
+
+declare const kMIDIPropertyReceivesMTC: interop.Pointer;
+
+declare const kMIDIPropertyReceivesClock: interop.Pointer;
+
+declare const kMIDIPropertySupportsMMC: interop.Pointer;
 
 declare const kMIDIPropertySupportsGeneralMIDI: interop.Pointer;
 
+declare const kMIDIPropertyDriverVersion: interop.Pointer;
+
+declare const kMIDIPropertyImage: interop.Pointer;
+
+declare const kMIDIPropertyNameConfiguration: interop.Pointer;
+
+declare const kMIDIPropertyPrivate: interop.Pointer;
+
+declare const kMIDIPropertySingleRealtimeEntity: interop.Pointer;
+
+declare const kMIDIPropertyIsBroadcast: interop.Pointer;
+
+declare const kMIDIPropertyIsEmbeddedEntity: interop.Pointer;
+
+declare const kMIDIPropertyMaxSysExSpeed: interop.Pointer;
+
+declare const kMIDIPropertyTransmitChannels: interop.Pointer;
+
 declare const kMIDIPropertyModel: interop.Pointer;
 
+declare const kMIDIPropertyName: interop.Pointer;
+
+declare const kMIDIInvalidUniqueID: number;
+
+declare const kMIDIObjectType_ExternalMask: interop.Enum<typeof MIDIObjectType>;
+
+declare const kMIDIUnknownError: number;
+
+declare const kMIDIObjectNotFound: number;
+
+declare const kMIDIServerStartErr: number;
+
+declare const kMIDINoCurrentSetup: number;
+
+declare const kMIDIUnknownEndpoint: number;
+
+declare const kMIDIInvalidClient: number;
+
+declare const kMIDI1UPMaxSysexSize: number;
+
 declare const kMIDIPropertyUMPActiveGroupBitmap: interop.Pointer;
+
+declare const kMIDIPropertyUniqueID: interop.Pointer;
+
+declare const kMIDIPropertyDeviceID: interop.Pointer;
+
+declare const kMIDIPropertyDriverOwner: interop.Pointer;
+
+declare const kMIDIPropertyUserPatchNameFile: interop.Pointer;
+
+declare const kMIDIPropertyTransmitsClock: interop.Pointer;
+
+declare const kMIDIPropertyAdvanceScheduleTimeMuSec: interop.Pointer;
+
+declare const MIDIChannelsWholePort: number;
+
+declare const kMIDIInvalidPort: number;
+
+declare const kMIDIPropertyReceivesBankSelectMSB: interop.Pointer;
+
+declare const kMIDIPropertyUMPCanTransmitGroupless: interop.Pointer;
+
+declare const kMIDISetupFormatErr: number;
+
+declare const kMIDIPropertyManufacturer: interop.Pointer;
+
+declare const kMIDIUnknownProperty: number;
+
+declare const kMIDIPropertyPanDisruptsStereo: interop.Pointer;
+
+declare const kMIDIPropertyIsSampler: interop.Pointer;
+
+declare const kMIDIDriverPropertyUsesSerial: interop.Pointer;
+
+declare const kMIDIPropertyNameConfigurationDictionary: interop.Pointer;
+
+declare const kMIDIMessageSendErr: number;
+
+declare const kMIDIPropertyCanRoute: interop.Pointer;
+
+declare const kMIDIPropertyFactoryPatchNameFile: interop.Pointer;
+
+declare const kMIDIWrongPropertyType: number;
+
+declare const kMIDIPropertyConnectionUniqueID: interop.Pointer;
+
+declare const kMIDIPropertyOffline: interop.Pointer;
+
+declare const kMIDIIDNotUnique: number;
+
+declare const MIDINetworkNotificationContactsDidChange: string;
+
+declare const MIDINetworkBonjourServiceType: string;
+
+declare const kMIDIPropertyDisplayName: interop.Pointer;
+
+declare const kMIDIWrongEndpointType: number;
+
+declare const kMIDIWrongThread: number;
+
+declare const kMIDIPropertyReceiveChannels: interop.Pointer;
+
+declare const kMIDINotPermitted: number;
+
+declare const kMIDIPropertyIsEffectUnit: interop.Pointer;
+
+declare const kMIDIPropertySupportsShowControl: interop.Pointer;
+
+declare const kMIDINoConnection: number;
+
+declare const kMIDIThruConnection_MaxEndpoints: number;
 
 declare const MIDINetworkConnectionPolicy: {
   NoOne: 0,
@@ -157,23 +157,28 @@ declare const MIDINetworkConnectionPolicy: {
   Anyone: 2,
 };
 
-declare const MIDIObjectType: {
-  Other: -1,
-  Device: 0,
-  Entity: 1,
-  Source: 2,
-  Destination: 3,
-  ExternalDevice: 16,
-  ExternalEntity: 17,
-  ExternalSource: 18,
-  ExternalDestination: 19,
+declare const MIDIPerNoteManagementOptions: {
+  Reset: 1,
+  Detach: 2,
 };
 
-declare const MIDINoteAttribute: {
-  None: 0,
-  ManufacturerSpecific: 1,
-  ProfileSpecific: 2,
-  Pitch: 3,
+declare const MIDIProgramChangeOptions: {
+  kMIDIProgramChangeBankValid: 1,
+};
+
+declare const MIDIUtilityStatus: {
+  NOOP: 0,
+  JitterReductionClock: 1,
+  JitterReductionTimestamp: 2,
+};
+
+declare const MIDISysExStatus: {
+  Complete: 0,
+  Start: 1,
+  Continue: 2,
+  End: 3,
+  MixedDataSetHeader: 8,
+  MixedDataSetPayload: 9,
 };
 
 declare const MIDICVStatus: {
@@ -194,14 +199,23 @@ declare const MIDICVStatus: {
   PerNoteMgmt: 15,
 };
 
-declare const MIDIMessageType: {
-  Utility: 0,
-  System: 1,
-  ChannelVoice1: 2,
-  SysEx: 3,
-  ChannelVoice2: 4,
-  Data128: 5,
-  UnknownF: 15,
+declare const MIDITransformControlType: {
+  Type_7Bit: 0,
+  Type_14Bit: 1,
+  Type_7BitRPN: 2,
+  Type_14BitRPN: 3,
+  Type_7BitNRPN: 4,
+  Type_14BitNRPN: 5,
+};
+
+declare const MIDINotificationMessageID: {
+  SetupChanged: 1,
+  ObjectAdded: 2,
+  ObjectRemoved: 3,
+  PropertyChanged: 4,
+  ThruConnectionsChanged: 5,
+  SerialPortOwnerChanged: 6,
+  IOError: 7,
 };
 
 declare const MIDITransformType: {
@@ -215,34 +229,14 @@ declare const MIDITransformType: {
   MapValue: 12,
 };
 
-declare const MIDIProtocolID: {
-  Protocol_1_0: 1,
-  Protocol_2_0: 2,
-};
-
-declare const MIDINotificationMessageID: {
-  SetupChanged: 1,
-  ObjectAdded: 2,
-  ObjectRemoved: 3,
-  PropertyChanged: 4,
-  ThruConnectionsChanged: 5,
-  SerialPortOwnerChanged: 6,
-  IOError: 7,
-};
-
-declare const MIDIUtilityStatus: {
-  NOOP: 0,
-  JitterReductionClock: 1,
-  JitterReductionTimestamp: 2,
-};
-
-declare const MIDITransformControlType: {
-  Type_7Bit: 0,
-  Type_14Bit: 1,
-  Type_7BitRPN: 2,
-  Type_14BitRPN: 3,
-  Type_7BitNRPN: 4,
-  Type_14BitNRPN: 5,
+declare const MIDIMessageType: {
+  Utility: 0,
+  System: 1,
+  ChannelVoice1: 2,
+  SysEx: 3,
+  ChannelVoice2: 4,
+  Data128: 5,
+  UnknownF: 15,
 };
 
 declare const MIDISystemStatus: {
@@ -261,38 +255,29 @@ declare const MIDISystemStatus: {
   SystemReset: 255,
 };
 
-declare const MIDIPerNoteManagementOptions: {
-  Reset: 1,
-  Detach: 2,
+declare const MIDIObjectType: {
+  Other: -1,
+  Device: 0,
+  Entity: 1,
+  Source: 2,
+  Destination: 3,
+  ExternalDevice: 16,
+  ExternalEntity: 17,
+  ExternalSource: 18,
+  ExternalDestination: 19,
 };
 
-declare const MIDISysExStatus: {
-  Complete: 0,
-  Start: 1,
-  Continue: 2,
-  End: 3,
-  MixedDataSetHeader: 8,
-  MixedDataSetPayload: 9,
+declare const MIDIProtocolID: {
+  Protocol_1_0: 1,
+  Protocol_2_0: 2,
 };
 
-declare const MIDIProgramChangeOptions: {
-  kMIDIProgramChangeBankValid: 1,
+declare const MIDINoteAttribute: {
+  None: 0,
+  ManufacturerSpecific: 1,
+  ProfileSpecific: 2,
+  Pitch: 3,
 };
-
-declare class unnamed_13159909140468535313 {
-  constructor(init?: unnamed_13159909140468535313);
-  index: number;
-  reserved: number;
-  data: number;
-}
-
-declare class unnamed_8432691317143512352 {
-  constructor(init?: unnamed_8432691317143512352);
-  status: interop.Enum<typeof MIDISysExStatus>;
-  channel: number;
-  data: unknown /* const array */;
-  reserved: number;
-}
 
 declare class MIDICIDeviceIdentification {
   constructor(init?: MIDICIDeviceIdentification);
@@ -325,13 +310,6 @@ declare class unnamed_1328742274150891140 {
   bend: number;
 }
 
-declare class unnamed_12169064530629003102 {
-  constructor(init?: unnamed_12169064530629003102);
-  noteNumber: number;
-  index: number;
-  data: number;
-}
-
 declare class unnamed_17785823612730154719 {
   constructor(init?: unnamed_17785823612730154719);
   data: number;
@@ -351,6 +329,14 @@ declare class unnamed_3074618091859805475 {
   status: interop.Enum<typeof MIDICVStatus>;
   channel: number;
   reserved: unknown /* const array */;
+}
+
+declare class unnamed_8432691317143512352 {
+  constructor(init?: unnamed_8432691317143512352);
+  status: interop.Enum<typeof MIDISysExStatus>;
+  channel: number;
+  data: unknown /* const array */;
+  reserved: number;
 }
 
 declare class unnamed_17615608139582111408 {
@@ -462,6 +448,20 @@ declare class MIDIPacket {
   data: unknown /* const array */;
 }
 
+declare class unnamed_12169064530629003102 {
+  constructor(init?: unnamed_12169064530629003102);
+  noteNumber: number;
+  index: number;
+  data: number;
+}
+
+declare class unnamed_13159909140468535313 {
+  constructor(init?: unnamed_13159909140468535313);
+  index: number;
+  reserved: number;
+  data: number;
+}
+
 declare class unnamed_14553942404858959717 {
   constructor(init?: unnamed_14553942404858959717);
   number: number;
@@ -558,14 +558,6 @@ declare class MIDIControlTransform {
   param: number;
 }
 
-declare class MIDIIOErrorNotification {
-  constructor(init?: MIDIIOErrorNotification);
-  messageID: interop.Enum<typeof MIDINotificationMessageID>;
-  messageSize: number;
-  driverDevice: number;
-  errorCode: number;
-}
-
 declare class unnamed_18010096183987042258 {
   constructor(init?: unnamed_18010096183987042258);
   data: number;
@@ -606,6 +598,14 @@ declare class MIDITransform {
   constructor(init?: MIDITransform);
   transform: interop.Enum<typeof MIDITransformType>;
   param: number;
+}
+
+declare class MIDIIOErrorNotification {
+  constructor(init?: MIDIIOErrorNotification);
+  messageID: interop.Enum<typeof MIDINotificationMessageID>;
+  messageSize: number;
+  driverDevice: number;
+  errorCode: number;
 }
 
 declare class unnamed_15721807378610160491 {
@@ -914,14 +914,134 @@ declare interface MIDICIProfileResponderDelegate extends NSObjectProtocol {
 declare class MIDICIProfileResponderDelegate extends NativeObject implements MIDICIProfileResponderDelegate {
 }
 
-declare class MIDICIProfile extends NSObject implements NSSecureCoding {
+declare class MIDICIResponder extends NSObject {
+  readonly initiators: NSArray;
+
+  readonly profileDelegate: MIDICIProfileResponderDelegate;
+
+  readonly deviceInfo: MIDICIDeviceInfo;
+
+  initWithDeviceInfoProfileDelegateProfileStatesSupportProperties(deviceInfo: MIDICIDeviceInfo, delegate: MIDICIProfileResponderDelegate, profileList: NSArray<interop.Object> | Array<interop.Object>, propertiesSupported: boolean): this;
+
+  notifyProfileOnChannelIsEnabled(aProfile: MIDICIProfile, channel: number, enabledState: boolean): boolean;
+
+  sendProfileOnChannelProfileData(aProfile: MIDICIProfile, channel: number, profileSpecificData: NSData): boolean;
+
+  start(): boolean;
+
+  stop(): void;
+}
+
+declare class MIDICIDiscoveryManager extends NSObject {
+  static sharedInstance(): MIDICIDiscoveryManager;
+
+  discoverWithHandler(completedHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+}
+
+declare class MIDICIDiscoveredNode extends NSObject implements NSSecureCoding {
+  readonly destination: number;
+
+  readonly deviceInfo: MIDICIDeviceInfo;
+
+  readonly supportsProfiles: boolean;
+
+  readonly supportsProperties: boolean;
+
+  readonly maximumSysExSize: NSNumber;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MIDICIDeviceInfo extends NSObject implements NSSecureCoding {
+  readonly manufacturerID: NSData;
+
+  readonly family: NSData;
+
+  readonly modelNumber: NSData;
+
+  readonly revisionLevel: NSData;
+
+  readonly midiDestination: number;
+
+  initWithDestinationManufacturerFamilyModelRevision(midiDestination: number, manufacturer: NSData, family: NSData, modelNumber: NSData, revisionLevel: NSData): this;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MIDINetworkSession extends NSObject {
+  static defaultSession(): MIDINetworkSession;
+
+  isEnabled: boolean;
+
+  readonly networkPort: number;
+
+  readonly networkName: string;
+
+  readonly localName: string;
+
+  connectionPolicy: interop.Enum<typeof MIDINetworkConnectionPolicy>;
+
+  contacts(): NSSet;
+
+  addContact(contact: MIDINetworkHost): boolean;
+
+  removeContact(contact: MIDINetworkHost): boolean;
+
+  connections(): NSSet;
+
+  addConnection(connection: MIDINetworkConnection): boolean;
+
+  removeConnection(connection: MIDINetworkConnection): boolean;
+
+  sourceEndpoint(): number;
+
+  destinationEndpoint(): number;
+}
+
+declare class MIDINetworkConnection extends NSObject {
+  static connectionWithHost<This extends abstract new (...args: any) => any>(this: This, host: MIDINetworkHost): InstanceType<This>;
+
+  readonly host: MIDINetworkHost;
+}
+
+declare class MIDINetworkHost extends NSObject {
+  static hostWithNameAddressPort<This extends abstract new (...args: any) => any>(this: This, name: string, address: string, port: number): InstanceType<This>;
+
+  static hostWithNameNetService<This extends abstract new (...args: any) => any>(this: This, name: string, netService: NSNetService): InstanceType<This>;
+
+  static hostWithNameNetServiceNameNetServiceDomain<This extends abstract new (...args: any) => any>(this: This, name: string, netServiceName: string, netServiceDomain: string): InstanceType<This>;
+
+  hasSameAddressAs(other: MIDINetworkHost): boolean;
+
   readonly name: string;
 
-  readonly profileID: NSData;
+  readonly address: string;
 
-  initWithData(data: NSData): this;
+  readonly port: number;
 
-  initWithDataName(data: NSData, inName: string): this;
+  readonly netServiceName: string;
+
+  readonly netServiceDomain: string;
+}
+
+declare class MIDICIProfileState extends NSObject implements NSSecureCoding {
+  readonly midiChannel: number;
+
+  readonly enabledProfiles: NSArray;
+
+  readonly disabledProfiles: NSArray;
+
+  initWithChannelEnabledProfilesDisabledProfiles(midiChannelNum: number, enabled: NSArray<interop.Object> | Array<interop.Object>, disabled: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  initWithEnabledProfilesDisabledProfiles(enabled: NSArray<interop.Object> | Array<interop.Object>, disabled: NSArray<interop.Object> | Array<interop.Object>): this;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -958,139 +1078,19 @@ declare class MIDICISession extends NSObject {
   profileSpecificDataHandler: (p1: MIDICISession, p2: number, p3: MIDICIProfile, p4: NSData) => void;
 }
 
-declare class MIDICIDiscoveryManager extends NSObject {
-  static sharedInstance(): MIDICIDiscoveryManager;
-
-  discoverWithHandler(completedHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
-}
-
-declare class MIDICIDiscoveredNode extends NSObject implements NSSecureCoding {
-  readonly destination: number;
-
-  readonly deviceInfo: MIDICIDeviceInfo;
-
-  readonly supportsProfiles: boolean;
-
-  readonly supportsProperties: boolean;
-
-  readonly maximumSysExSize: NSNumber;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MIDICIProfileState extends NSObject implements NSSecureCoding {
-  readonly midiChannel: number;
-
-  readonly enabledProfiles: NSArray;
-
-  readonly disabledProfiles: NSArray;
-
-  initWithChannelEnabledProfilesDisabledProfiles(midiChannelNum: number, enabled: NSArray<interop.Object> | Array<interop.Object>, disabled: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  initWithEnabledProfilesDisabledProfiles(enabled: NSArray<interop.Object> | Array<interop.Object>, disabled: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MIDICIDeviceInfo extends NSObject implements NSSecureCoding {
-  readonly manufacturerID: NSData;
-
-  readonly family: NSData;
-
-  readonly modelNumber: NSData;
-
-  readonly revisionLevel: NSData;
-
-  readonly midiDestination: number;
-
-  initWithDestinationManufacturerFamilyModelRevision(midiDestination: number, manufacturer: NSData, family: NSData, modelNumber: NSData, revisionLevel: NSData): this;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MIDINetworkConnection extends NSObject {
-  static connectionWithHost<This extends abstract new (...args: any) => any>(this: This, host: MIDINetworkHost): InstanceType<This>;
-
-  readonly host: MIDINetworkHost;
-}
-
-declare class MIDICIResponder extends NSObject {
-  readonly initiators: NSArray;
-
-  readonly profileDelegate: MIDICIProfileResponderDelegate;
-
-  readonly deviceInfo: MIDICIDeviceInfo;
-
-  initWithDeviceInfoProfileDelegateProfileStatesSupportProperties(deviceInfo: MIDICIDeviceInfo, delegate: MIDICIProfileResponderDelegate, profileList: NSArray<interop.Object> | Array<interop.Object>, propertiesSupported: boolean): this;
-
-  notifyProfileOnChannelIsEnabled(aProfile: MIDICIProfile, channel: number, enabledState: boolean): boolean;
-
-  sendProfileOnChannelProfileData(aProfile: MIDICIProfile, channel: number, profileSpecificData: NSData): boolean;
-
-  start(): boolean;
-
-  stop(): void;
-}
-
-declare class MIDINetworkHost extends NSObject {
-  static hostWithNameAddressPort<This extends abstract new (...args: any) => any>(this: This, name: string, address: string, port: number): InstanceType<This>;
-
-  static hostWithNameNetService<This extends abstract new (...args: any) => any>(this: This, name: string, netService: NSNetService): InstanceType<This>;
-
-  static hostWithNameNetServiceNameNetServiceDomain<This extends abstract new (...args: any) => any>(this: This, name: string, netServiceName: string, netServiceDomain: string): InstanceType<This>;
-
-  hasSameAddressAs(other: MIDINetworkHost): boolean;
-
+declare class MIDICIProfile extends NSObject implements NSSecureCoding {
   readonly name: string;
 
-  readonly address: string;
+  readonly profileID: NSData;
 
-  readonly port: number;
+  initWithData(data: NSData): this;
 
-  readonly netServiceName: string;
+  initWithDataName(data: NSData, inName: string): this;
 
-  readonly netServiceDomain: string;
-}
+  static readonly supportsSecureCoding: boolean;
 
-declare class MIDINetworkSession extends NSObject {
-  static defaultSession(): MIDINetworkSession;
+  encodeWithCoder(coder: NSCoder): void;
 
-  isEnabled: boolean;
-
-  readonly networkPort: number;
-
-  readonly networkName: string;
-
-  readonly localName: string;
-
-  connectionPolicy: interop.Enum<typeof MIDINetworkConnectionPolicy>;
-
-  contacts(): NSSet;
-
-  addContact(contact: MIDINetworkHost): boolean;
-
-  removeContact(contact: MIDINetworkHost): boolean;
-
-  connections(): NSSet;
-
-  addConnection(connection: MIDINetworkConnection): boolean;
-
-  removeConnection(connection: MIDINetworkConnection): boolean;
-
-  sourceEndpoint(): number;
-
-  destinationEndpoint(): number;
+  initWithCoder(coder: NSCoder): this;
 }
 

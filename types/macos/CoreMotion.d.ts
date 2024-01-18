@@ -3,28 +3,10 @@
 
 declare const CMErrorDomain: string;
 
-declare const CMAuthorizationStatus: {
-  NotDetermined: 0,
-  Restricted: 1,
-  Denied: 2,
-  Authorized: 3,
-};
-
-declare const CMOdometerOriginDevice: {
+declare const CMWaterSubmersionState: {
   Unknown: 0,
-  Local: 1,
-  Remote: 2,
-};
-
-declare const CMPedometerEventType: {
-  Pause: 0,
-  Resume: 1,
-};
-
-declare const CMDeviceMotionSensorLocation: {
-  Default: 0,
-  HeadphoneLeft: 1,
-  HeadphoneRight: 2,
+  NotSubmerged: 1,
+  Submerged: 2,
 };
 
 declare const CMMotionActivityConfidence: {
@@ -38,20 +20,6 @@ declare const CMFallDetectionEventUserResolution: {
   Dismissed: 1,
   Rejected: 2,
   Unresponsive: 3,
-};
-
-declare const CMMagneticFieldCalibrationAccuracy: {
-  Uncalibrated: -1,
-  Low: 0,
-  Medium: 1,
-  High: 2,
-};
-
-declare const CMAttitudeReferenceFrame: {
-  Arbitrary: 1,
-  ArbitraryCorrected: 2,
-  MagneticNorth: 4,
-  TrueNorth: 8,
 };
 
 declare const CMError: {
@@ -71,6 +39,39 @@ declare const CMError: {
   Size: 113,
 };
 
+declare const CMMagneticFieldCalibrationAccuracy: {
+  Uncalibrated: -1,
+  Low: 0,
+  Medium: 1,
+  High: 2,
+};
+
+declare const CMDeviceMotionSensorLocation: {
+  Default: 0,
+  HeadphoneLeft: 1,
+  HeadphoneRight: 2,
+};
+
+declare const CMAuthorizationStatus: {
+  NotDetermined: 0,
+  Restricted: 1,
+  Denied: 2,
+  Authorized: 3,
+};
+
+declare const CMOdometerOriginDevice: {
+  Unknown: 0,
+  Local: 1,
+  Remote: 2,
+};
+
+declare const CMAttitudeReferenceFrame: {
+  Arbitrary: 1,
+  ArbitraryCorrected: 2,
+  MagneticNorth: 4,
+  TrueNorth: 8,
+};
+
 declare const CMWaterSubmersionDepthState: {
   Unknown: 0,
   NotSubmerged: 100,
@@ -81,17 +82,10 @@ declare const CMWaterSubmersionDepthState: {
   SensorDepthError: 600,
 };
 
-declare const CMWaterSubmersionState: {
-  Unknown: 0,
-  NotSubmerged: 1,
-  Submerged: 2,
+declare const CMPedometerEventType: {
+  Pause: 0,
+  Resume: 1,
 };
-
-declare class CMCalibratedMagneticField {
-  constructor(init?: CMCalibratedMagneticField);
-  field: CMMagneticField;
-  accuracy: interop.Enum<typeof CMMagneticFieldCalibrationAccuracy>;
-}
 
 declare class CMQuaternion {
   constructor(init?: CMQuaternion);
@@ -113,6 +107,12 @@ declare class CMAcceleration {
   x: number;
   y: number;
   z: number;
+}
+
+declare class CMCalibratedMagneticField {
+  constructor(init?: CMCalibratedMagneticField);
+  field: CMMagneticField;
+  accuracy: interop.Enum<typeof CMMagneticFieldCalibrationAccuracy>;
 }
 
 declare class CMRotationMatrix {
@@ -144,10 +144,124 @@ declare interface CMHeadphoneMotionManagerDelegate extends NSObjectProtocol {
 declare class CMHeadphoneMotionManagerDelegate extends NativeObject implements CMHeadphoneMotionManagerDelegate {
 }
 
+declare class CMRotationRateData extends CMLogItem {
+  readonly rotationRate: CMRotationRate;
+}
+
+declare class CMPedometerEvent extends NSObject implements NSSecureCoding, NSCopying {
+  readonly date: NSDate;
+
+  readonly type: interop.Enum<typeof CMPedometerEventType>;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMGyroData extends CMLogItem {
+  readonly rotationRate: CMRotationRate;
+}
+
+declare class CMAttitude extends NSObject implements NSCopying, NSSecureCoding {
+  readonly roll: number;
+
+  readonly pitch: number;
+
+  readonly yaw: number;
+
+  readonly rotationMatrix: CMRotationMatrix;
+
+  readonly quaternion: CMQuaternion;
+
+  multiplyByInverseOfAttitude(attitude: CMAttitude): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class CMRecordedRotationRateData extends CMRotationRateData {
+  readonly startDate: NSDate;
+}
+
 declare class CMAmbientPressureData extends CMLogItem {
   readonly pressure: NSMeasurement;
 
   readonly temperature: NSMeasurement;
+}
+
+declare class CMHeadphoneMotionManager extends NSObject {
+  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
+
+  delegate: CMHeadphoneMotionManagerDelegate;
+
+  readonly isDeviceMotionAvailable: boolean;
+
+  readonly isDeviceMotionActive: boolean;
+
+  readonly deviceMotion: CMDeviceMotion;
+
+  startDeviceMotionUpdates(): void;
+
+  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
+
+  stopDeviceMotionUpdates(): void;
+}
+
+declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
+  readonly timestamp: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMMagnetometerData extends CMLogItem {
+  readonly magneticField: CMMagneticField;
+}
+
+declare class CMDeviceMotion extends CMLogItem {
+  readonly attitude: CMAttitude;
+
+  readonly rotationRate: CMRotationRate;
+
+  readonly gravity: CMAcceleration;
+
+  readonly userAcceleration: CMAcceleration;
+
+  readonly magneticField: CMCalibratedMagneticField;
+
+  readonly heading: number;
+
+  readonly sensorLocation: interop.Enum<typeof CMDeviceMotionSensorLocation>;
+}
+
+declare class CMPedometer extends NSObject {
+  static isStepCountingAvailable(): boolean;
+
+  static isDistanceAvailable(): boolean;
+
+  static isFloorCountingAvailable(): boolean;
+
+  static isPaceAvailable(): boolean;
+
+  queryPedometerDataFromDateToDateWithHandler(start: NSDate, end: NSDate, handler: (p1: CMPedometerData, p2: NSError) => void): void;
+
+  startPedometerUpdatesFromDateWithHandler(start: NSDate, handler: (p1: CMPedometerData, p2: NSError) => void): void;
+
+  stopPedometerUpdates(): void;
 }
 
 declare class CMOdometerData extends NSObject implements NSSecureCoding, NSCopying {
@@ -184,78 +298,6 @@ declare class CMOdometerData extends NSObject implements NSSecureCoding, NSCopyi
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class CMHeadphoneMotionManager extends NSObject {
-  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
-
-  delegate: CMHeadphoneMotionManagerDelegate;
-
-  readonly isDeviceMotionAvailable: boolean;
-
-  readonly isDeviceMotionActive: boolean;
-
-  readonly deviceMotion: CMDeviceMotion;
-
-  startDeviceMotionUpdates(): void;
-
-  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
-
-  stopDeviceMotionUpdates(): void;
-}
-
-declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
-  readonly timestamp: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CMPedometer extends NSObject {
-  static isStepCountingAvailable(): boolean;
-
-  static isDistanceAvailable(): boolean;
-
-  static isFloorCountingAvailable(): boolean;
-
-  static isPaceAvailable(): boolean;
-
-  queryPedometerDataFromDateToDateWithHandler(start: NSDate, end: NSDate, handler: (p1: CMPedometerData, p2: NSError) => void): void;
-
-  startPedometerUpdatesFromDateWithHandler(start: NSDate, handler: (p1: CMPedometerData, p2: NSError) => void): void;
-
-  stopPedometerUpdates(): void;
-}
-
-declare class CMMagnetometerData extends CMLogItem {
-  readonly magneticField: CMMagneticField;
-}
-
-declare class CMAttitude extends NSObject implements NSCopying, NSSecureCoding {
-  readonly roll: number;
-
-  readonly pitch: number;
-
-  readonly yaw: number;
-
-  readonly rotationMatrix: CMRotationMatrix;
-
-  readonly quaternion: CMQuaternion;
-
-  multiplyByInverseOfAttitude(attitude: CMAttitude): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class CMAccelerometerData extends CMLogItem {
   readonly acceleration: CMAcceleration;
 }
@@ -286,47 +328,5 @@ declare class CMPedometerData extends NSObject implements NSSecureCoding, NSCopy
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CMGyroData extends CMLogItem {
-  readonly rotationRate: CMRotationRate;
-}
-
-declare class CMDeviceMotion extends CMLogItem {
-  readonly attitude: CMAttitude;
-
-  readonly rotationRate: CMRotationRate;
-
-  readonly gravity: CMAcceleration;
-
-  readonly userAcceleration: CMAcceleration;
-
-  readonly magneticField: CMCalibratedMagneticField;
-
-  readonly heading: number;
-
-  readonly sensorLocation: interop.Enum<typeof CMDeviceMotionSensorLocation>;
-}
-
-declare class CMPedometerEvent extends NSObject implements NSSecureCoding, NSCopying {
-  readonly date: NSDate;
-
-  readonly type: interop.Enum<typeof CMPedometerEventType>;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CMRecordedRotationRateData extends CMRotationRateData {
-  readonly startDate: NSDate;
-}
-
-declare class CMRotationRateData extends CMLogItem {
-  readonly rotationRate: CMRotationRate;
 }
 

@@ -1,6 +1,70 @@
 /// <reference path="../../lib/types.d.ts" />
 
+declare const CGRectZero: CGRect;
+
+declare const kCGPDFContextSubject: interop.Pointer;
+
+declare const kCGPDFContextAllowsPrinting: interop.Pointer;
+
+declare const kCGColorSpaceGenericGray: interop.Pointer;
+
+declare const kCGColorSpaceGenericRGB: interop.Pointer;
+
+declare const kCGPDFXRegistryName: interop.Pointer;
+
+declare const kCGFontIndexInvalid: number;
+
+declare const kCGPDFContextAuthor: interop.Pointer;
+
+declare const kCGColorSpaceGenericRGBLinear: interop.Pointer;
+
+declare const kCGGlyphMax: number;
+
+declare const kCGPDFContextUserPassword: interop.Pointer;
+
+declare const kCGColorSpaceITUR_709_HLG: interop.Pointer;
+
+declare const kCGPDFXOutputConditionIdentifier: interop.Pointer;
+
+declare const CGRectNull: CGRect;
+
+declare const kCGPDFContextOutputIntent: interop.Pointer;
+
+declare const kCGColorSpaceExtendedDisplayP3: interop.Pointer;
+
+declare const kCGColorSpaceACESCGLinear: interop.Pointer;
+
+declare const kCGPDFContextCreateLinearizedPDF: interop.Pointer;
+
+declare const kCGPDFTagPropertyAlternativeText: interop.Pointer;
+
+declare const kCGColorSpaceDisplayP3_HLG: interop.Pointer;
+
+declare const CGRectInfinite: CGRect;
+
+declare const kCGPDFContextAllowsCopying: interop.Pointer;
+
+declare const kCGPDFXOutputCondition: interop.Pointer;
+
+declare const kCGColorSpaceITUR_2020_HLG: interop.Pointer;
+
+declare const kCGPDFOutlineDestination: interop.Pointer;
+
+declare const kCGColorSpaceITUR_2100_HLG: interop.Pointer;
+
+declare const kCGPDFContextMediaBox: interop.Pointer;
+
+declare const kCGColorSpaceLinearSRGB: interop.Pointer;
+
+declare const kCGColorSpaceExtendedLinearDisplayP3: interop.Pointer;
+
 declare const kCGColorConversionTRCSize: interop.Pointer;
+
+declare const kCGFontVariationAxisMaxValue: interop.Pointer;
+
+declare const kCGPDFOutlineDestinationRect: interop.Pointer;
+
+declare const kCGPDFXOutputIntentSubtype: interop.Pointer;
 
 declare const kCGColorSpaceExtendedRange: interop.Pointer;
 
@@ -10,31 +74,17 @@ declare const kCGPDFXDestinationOutputProfile: interop.Pointer;
 
 declare const kCGPDFTagPropertyTitleText: interop.Pointer;
 
-declare const kCGPDFContextCreateLinearizedPDF: interop.Pointer;
+declare const kCGColorClear: interop.Pointer;
 
 declare const kCGPDFContextAccessPermissions: interop.Pointer;
 
 declare const kCGPDFXInfo: interop.Pointer;
 
-declare const kCGPDFXRegistryName: interop.Pointer;
-
-declare const kCGPDFXOutputConditionIdentifier: interop.Pointer;
-
-declare const kCGPDFContextOutputIntent: interop.Pointer;
-
-declare const kCGPDFContextAllowsPrinting: interop.Pointer;
-
 declare const kCGPDFContextEncryptionKeyLength: interop.Pointer;
-
-declare const kCGPDFContextUserPassword: interop.Pointer;
 
 declare const kCGPDFContextOwnerPassword: interop.Pointer;
 
 declare const kCGPDFContextKeywords: interop.Pointer;
-
-declare const kCGPDFContextSubject: interop.Pointer;
-
-declare const kCGPDFContextAuthor: interop.Pointer;
 
 declare const kCGPDFContextTitle: interop.Pointer;
 
@@ -43,10 +93,6 @@ declare const kCGPDFContextArtBox: interop.Pointer;
 declare const kCGPDFContextTrimBox: interop.Pointer;
 
 declare const kCGColorConversionBlackPointCompensation: interop.Pointer;
-
-declare const kCGPDFOutlineDestinationRect: interop.Pointer;
-
-declare const kCGPDFOutlineDestination: interop.Pointer;
 
 declare const kCGPDFOutlineTitle: interop.Pointer;
 
@@ -57,8 +103,6 @@ declare const kCGPDFTagPropertyActualText: interop.Pointer;
 declare const kCGFontVariationAxisDefaultValue: interop.Pointer;
 
 declare const kCGColorSpaceLinearGray: interop.Pointer;
-
-declare const kCGColorSpaceLinearSRGB: interop.Pointer;
 
 declare const kCGPDFContextCropBox: interop.Pointer;
 
@@ -78,11 +122,7 @@ declare const kCGColorSpaceLinearITUR_2020: interop.Pointer;
 
 declare const kCGColorSpaceITUR_2020_sRGBGamma: interop.Pointer;
 
-declare const kCGColorSpaceITUR_709_HLG: interop.Pointer;
-
 declare const kCGColorSpaceITUR_709_PQ: interop.Pointer;
-
-declare const kCGColorSpaceACESCGLinear: interop.Pointer;
 
 declare const kCGColorSpaceGenericLab: interop.Pointer;
 
@@ -94,45 +134,35 @@ declare const kCGColorSpaceSRGB: interop.Pointer;
 
 declare const kCGColorSpaceGenericCMYK: interop.Pointer;
 
-declare const kCGColorSpaceGenericRGB: interop.Pointer;
-
-declare const kCGColorSpaceGenericGray: interop.Pointer;
-
 declare const CGAffineTransformIdentity: CGAffineTransform;
-
-declare const CGRectZero: CGRect;
 
 declare const CGPointZero: CGPoint;
 
-declare const kCGColorSpaceITUR_2020_HLG: interop.Pointer;
-
-declare const kCGPDFContextOutputIntents: interop.Pointer;
+declare const kCGColorSpaceITUR_2020_PQ: interop.Pointer;
 
 declare const kCGColorBlack: interop.Pointer;
 
-declare const kCGColorSpaceExtendedDisplayP3: interop.Pointer;
+declare const kCGFontIndexMax: number;
+
+declare const kCGPDFContextOutputIntents: interop.Pointer;
 
 declare const kCGFontVariationAxisMinValue: interop.Pointer;
+
+declare const kCGPDFContextBleedBox: interop.Pointer;
+
+declare const kCGPDFTagPropertyLanguageText: interop.Pointer;
 
 declare const kCGColorSpaceDCIP3: interop.Pointer;
 
 declare const kCGColorWhite: interop.Pointer;
 
-declare const kCGColorSpaceITUR_2020_PQ: interop.Pointer;
-
 declare const kCGColorSpaceExtendedITUR_2020: interop.Pointer;
 
 declare const kCGPDFContextCreator: interop.Pointer;
 
-declare const kCGPDFXOutputIntentSubtype: interop.Pointer;
-
-declare const kCGColorSpaceGenericRGBLinear: interop.Pointer;
-
 declare const kCGColorSpaceExtendedLinearSRGB: interop.Pointer;
 
 declare const kCGFontVariationAxisName: interop.Pointer;
-
-declare const kCGPDFContextBleedBox: interop.Pointer;
 
 declare const kCGColorSpaceExtendedLinearGray: interop.Pointer;
 
@@ -140,68 +170,32 @@ declare const CGSizeZero: CGSize;
 
 declare const kCGColorSpaceITUR_709: interop.Pointer;
 
-declare const kCGColorSpaceDisplayP3_HLG: interop.Pointer;
-
-declare const CGRectNull: CGRect;
-
-declare const kCGColorClear: interop.Pointer;
+declare const kCGColorSpaceExtendedLinearITUR_2020: interop.Pointer;
 
 declare const kCGPDFOutlineChildren: interop.Pointer;
 
-declare const kCGPDFContextAllowsCopying: interop.Pointer;
-
-declare const kCGPDFTagPropertyLanguageText: interop.Pointer;
-
 declare const kCGColorSpaceROMMRGB: interop.Pointer;
-
-declare const kCGFontIndexInvalid: number;
-
-declare const kCGGlyphMax: number;
 
 declare const kCGColorSpaceExtendedGray: interop.Pointer;
 
-declare const CGRectInfinite: CGRect;
-
-declare const kCGPDFTagPropertyAlternativeText: interop.Pointer;
-
-declare const kCGPDFXOutputCondition: interop.Pointer;
-
-declare const kCGColorSpaceExtendedLinearDisplayP3: interop.Pointer;
-
-declare const kCGFontVariationAxisMaxValue: interop.Pointer;
-
-declare const kCGPDFContextMediaBox: interop.Pointer;
-
-declare const kCGColorSpaceITUR_2100_HLG: interop.Pointer;
-
 declare const kCGPDFContextCreatePDFA: interop.Pointer;
-
-declare const kCGColorSpaceITUR_2020_PQ_EOTF: interop.Pointer;
 
 declare const kCGBitmapByteOrder16Host: interop.Enum<typeof CGBitmapInfo>;
 
-declare const kCGFontIndexMax: number;
+declare const kCGColorSpaceITUR_2020_PQ_EOTF: interop.Pointer;
 
 declare const kCGColorSpaceDisplayP3: interop.Pointer;
 
-declare const kCGColorSpaceExtendedLinearITUR_2020: interop.Pointer;
+declare const CGPDFDataFormat: {
+  Raw: 0,
+  JPEGEncoded: 1,
+  JPEG2000: 2,
+};
 
 declare const CGLineJoin: {
   Miter: 0,
   Round: 1,
   Bevel: 2,
-};
-
-declare const CGPDFObjectType: {
-  Null: 1,
-  Boolean: 2,
-  Integer: 3,
-  Real: 4,
-  Name: 5,
-  String: 6,
-  Array: 7,
-  Dictionary: 8,
-  Stream: 9,
 };
 
 declare const CGTextEncoding: {
@@ -217,6 +211,17 @@ declare const CGPathDrawingMode: {
   EOFillStroke: 4,
 };
 
+declare const CGPDFAccessPermissions: {
+  LowQualityPrinting: 1,
+  HighQualityPrinting: 2,
+  DocumentChanges: 4,
+  DocumentAssembly: 8,
+  ContentCopying: 16,
+  ContentAccessibility: 32,
+  Commenting: 64,
+  FormFieldEntry: 128,
+};
+
 declare const CGError: {
   Success: 0,
   Failure: 1000,
@@ -229,6 +234,48 @@ declare const CGError: {
   TypeCheck: 1008,
   InvalidOperation: 1010,
   NoneAvailable: 1011,
+};
+
+declare const CGImageAlphaInfo: {
+  None: 0,
+  PremultipliedLast: 1,
+  PremultipliedFirst: 2,
+  Last: 3,
+  First: 4,
+  NoneSkipLast: 5,
+  NoneSkipFirst: 6,
+  Only: 7,
+};
+
+declare const CGBlendMode: {
+  Normal: 0,
+  Multiply: 1,
+  Screen: 2,
+  Overlay: 3,
+  Darken: 4,
+  Lighten: 5,
+  ColorDodge: 6,
+  ColorBurn: 7,
+  SoftLight: 8,
+  HardLight: 9,
+  Difference: 10,
+  Exclusion: 11,
+  Hue: 12,
+  Saturation: 13,
+  Color: 14,
+  Luminosity: 15,
+  Clear: 16,
+  Copy: 17,
+  SourceIn: 18,
+  SourceOut: 19,
+  SourceAtop: 20,
+  DestinationOver: 21,
+  DestinationIn: 22,
+  DestinationOut: 23,
+  DestinationAtop: 24,
+  XOR: 25,
+  PlusDarker: 26,
+  PlusLighter: 27,
 };
 
 declare const CGPDFTagType: {
@@ -283,37 +330,6 @@ declare const CGPDFTagType: {
   Form: 702,
 };
 
-declare const CGBlendMode: {
-  Normal: 0,
-  Multiply: 1,
-  Screen: 2,
-  Overlay: 3,
-  Darken: 4,
-  Lighten: 5,
-  ColorDodge: 6,
-  ColorBurn: 7,
-  SoftLight: 8,
-  HardLight: 9,
-  Difference: 10,
-  Exclusion: 11,
-  Hue: 12,
-  Saturation: 13,
-  Color: 14,
-  Luminosity: 15,
-  Clear: 16,
-  Copy: 17,
-  SourceIn: 18,
-  SourceOut: 19,
-  SourceAtop: 20,
-  DestinationOver: 21,
-  DestinationIn: 22,
-  DestinationOut: 23,
-  DestinationAtop: 24,
-  XOR: 25,
-  PlusDarker: 26,
-  PlusLighter: 27,
-};
-
 declare const CGInterpolationQuality: {
   Default: 0,
   None: 1,
@@ -330,29 +346,12 @@ declare const CGPathElementType: {
   CloseSubpath: 4,
 };
 
-declare const CGPDFAccessPermissions: {
-  LowQualityPrinting: 1,
-  HighQualityPrinting: 2,
-  DocumentChanges: 4,
-  DocumentAssembly: 8,
-  ContentCopying: 16,
-  ContentAccessibility: 32,
-  Commenting: 64,
-  FormFieldEntry: 128,
-};
-
 declare const CGPDFBox: {
   Media: 0,
   Crop: 1,
   Bleed: 2,
   Trim: 3,
   Art: 4,
-};
-
-declare const CGPDFDataFormat: {
-  Raw: 0,
-  JPEGEncoded: 1,
-  JPEG2000: 2,
 };
 
 declare const CGLineCap: {
@@ -392,17 +391,6 @@ declare const CGTextDrawingMode: {
   StrokeClip: 5,
   FillStrokeClip: 6,
   Clip: 7,
-};
-
-declare const CGImageAlphaInfo: {
-  None: 0,
-  PremultipliedLast: 1,
-  PremultipliedFirst: 2,
-  Last: 3,
-  First: 4,
-  NoneSkipLast: 5,
-  NoneSkipFirst: 6,
-  Only: 7,
 };
 
 declare const CGPatternTiling: {
@@ -461,6 +449,50 @@ declare const CGGradientDrawingOptions: {
   AfterEnd: 2,
 };
 
+declare const CGPDFObjectType: {
+  Null: 1,
+  Boolean: 2,
+  Integer: 3,
+  Real: 4,
+  Name: 5,
+  String: 6,
+  Array: 7,
+  Dictionary: 8,
+  Stream: 9,
+};
+
+declare class CGPath {
+  constructor(init?: CGPath);
+}
+
+declare class CGPDFStream {
+  constructor(init?: CGPDFStream);
+}
+
+declare class CGFont {
+  constructor(init?: CGFont);
+}
+
+declare class CGDataConsumer {
+  constructor(init?: CGDataConsumer);
+}
+
+declare class CGGradient {
+  constructor(init?: CGGradient);
+}
+
+declare class CGShading {
+  constructor(init?: CGShading);
+}
+
+declare class CGColorSpace {
+  constructor(init?: CGColorSpace);
+}
+
+declare class CGPDFObject {
+  constructor(init?: CGPDFObject);
+}
+
 declare class CGDataProviderSequentialCallbacks {
   constructor(init?: CGDataProviderSequentialCallbacks);
   version: number;
@@ -478,8 +510,8 @@ declare class CGPDFDictionary {
   constructor(init?: CGPDFDictionary);
 }
 
-declare class CGPDFStream {
-  constructor(init?: CGPDFStream);
+declare class ColorSyncProfile {
+  constructor(init?: ColorSyncProfile);
 }
 
 declare class CGPDFPage {
@@ -515,28 +547,12 @@ declare class CGColorDataFormat {
   decode: interop.Pointer;
 }
 
-declare class CGShading {
-  constructor(init?: CGShading);
-}
-
 declare class CGPDFString {
   constructor(init?: CGPDFString);
 }
 
-declare class CGColorSpace {
-  constructor(init?: CGColorSpace);
-}
-
-declare class CGPDFObject {
-  constructor(init?: CGPDFObject);
-}
-
 declare class CGPDFDocument {
   constructor(init?: CGPDFDocument);
-}
-
-declare class CGPath {
-  constructor(init?: CGPath);
 }
 
 declare class CGImage {
@@ -590,16 +606,8 @@ declare class CGPDFArray {
   constructor(init?: CGPDFArray);
 }
 
-declare class ColorSyncProfile {
-  constructor(init?: ColorSyncProfile);
-}
-
-declare class CGDataConsumer {
-  constructor(init?: CGDataConsumer);
-}
-
-declare class CGGradient {
-  constructor(init?: CGGradient);
+declare class CGPDFContentStream {
+  constructor(init?: CGPDFContentStream);
 }
 
 declare class CGPathElement {
@@ -608,16 +616,8 @@ declare class CGPathElement {
   points: interop.Pointer;
 }
 
-declare class CGFont {
-  constructor(init?: CGFont);
-}
-
 declare class CGPattern {
   constructor(init?: CGPattern);
-}
-
-declare class CGPDFContentStream {
-  constructor(init?: CGPDFContentStream);
 }
 
 declare function CGRectGetMinX(rect: CGRect): number;

@@ -1,66 +1,68 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kAudioStreamTerminalTypeDisplayPort: number;
-
-declare const kAudioDevicePropertyDeviceManufacturerCFString: number;
-
-declare const kAudioDeviceTransportTypeBluetooth: number;
-
-declare const kAudioDevicePropertyAvailableNominalSampleRates: number;
-
-declare const kAudioStreamPropertyPhysicalFormatMatch: number;
-
-declare const kAudioStreamPropertyIsActive: number;
-
-declare const kAudioHardwarePropertyProcessIsMain: number;
-
-declare const kAudioObjectPropertyScopeGlobal: number;
-
-declare const kAudioDevicePropertyPlayThruVolumeDecibels: number;
-
-declare const kAudioClockDevicePropertyControlList: number;
-
-declare const kAudioPlugInClassID: number;
-
-declare const kAudioControlPropertyVariant: number;
-
-declare const kAudioStreamPropertyPhysicalFormatSupported: number;
+declare const kAudioClockSourceControlPropertyItemKind: number;
 
 declare const kAudioStreamPropertyPhysicalFormats: number;
-
-declare const kAudioStreamPropertyOwningDevice: number;
 
 declare const kAudioStreamUnknown: number;
 
 declare const kAudioDevicePropertyHighPassFilterSettingNameForID: number;
 
+declare const kAudioDevicePropertyChannelNominalLineLevelNameForID: number;
+
+declare const kAudioDevicePropertyClockSourceNameForID: number;
+
+declare const kAudioDevicePropertyDataSourceNameForID: number;
+
+declare const kAudioDevicePropertyStreamFormatMatch: number;
+
+declare const kAudioDevicePropertyStreamFormatSupported: number;
+
+declare const kAudioDevicePropertyStreamFormats: number;
+
 declare const kAudioDevicePropertyStreamFormat: number;
 
-declare const kAudioDevicePropertyChannelNumberNameCFString: number;
+declare const kAudioDevicePropertyChannelCategoryNameCFString: number;
 
-declare const kAudioDevicePropertyBufferSizeRange: number;
+declare const kAudioDevicePropertyChannelCategoryName: number;
 
-declare const kAudioDevicePropertyBufferSize: number;
+declare const kAudioDevicePropertyChannelNameCFString: number;
+
+declare const kAudioDevicePropertyRegisterBufferList: number;
+
+declare const kAudioDevicePropertyDeviceManufacturerCFString: number;
 
 declare const kAudioDevicePropertyDeviceManufacturer: number;
 
-declare const kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction: number;
+declare const kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction: number;
+
+declare const kAudioDeviceTransportTypeAutoAggregate: number;
 
 declare const kAudioDeviceUnknown: number;
+
+declare const kAudioHardwarePropertyBootChimeVolumeDecibelsToScalarTransferFunction: number;
 
 declare const kAudioHardwarePropertyBootChimeVolumeScalarToDecibels: number;
 
 declare const kAudioHardwarePropertyBootChimeVolumeRangeDecibels: number;
 
-declare const kAudioHardwarePropertyProcessIsMaster: number;
+declare const kAudioHardwarePropertyBootChimeVolumeDecibels: number;
 
-declare const kAudioHardwarePropertyDeviceForUID: number;
+declare const kAudioHardwarePropertyBootChimeVolumeScalar: number;
 
-declare const kAudioHardwarePropertyRunLoop: number;
+declare const kAudioHardwarePropertyPlugInForBundleID: number;
 
 declare const kAudioLevelControlPropertyDecibelsToScalarTransferFunction: number;
 
-declare const kAudioPropertyWildcardPropertyID: number;
+declare const kAudioISubOwnerControlClassID: number;
+
+declare const kAudioPropertyWildcardChannel: number;
+
+declare const kAudioPropertyWildcardSection: number;
+
+declare const kAudioDevicePropertyScopePlayThrough: number;
+
+declare const kAudioDevicePropertyScopeOutput: number;
 
 declare const kAudioDevicePropertyScopeInput: number;
 
@@ -68,35 +70,55 @@ declare const kAudioSubDevicePropertyDriftCompensation: number;
 
 declare const kAudioSubDevicePropertyExtraLatency: number;
 
+declare const kAudioSubDeviceDriftCompensationMaxQuality: number;
+
+declare const kAudioSubDeviceDriftCompensationHighQuality: number;
+
 declare const kAudioSubDeviceDriftCompensationMediumQuality: number;
+
+declare const kAudioSubDeviceDriftCompensationLowQuality: number;
 
 declare const kAudioSubDeviceDriftCompensationMinQuality: number;
 
-declare const kAudioAggregateDriftCompensationMaxQuality: number;
+declare const kAudioSubDeviceClassID: number;
 
-declare const kAudioAggregateDriftCompensationHighQuality: number;
+declare const kAudioAggregateDriftCompensationMaxQuality: number;
 
 declare const kAudioAggregateDriftCompensationMediumQuality: number;
 
-declare const kAudioAggregateDriftCompensationMinQuality: number;
+declare const kAudioAggregateDriftCompensationLowQuality: number;
 
 declare const kAudioAggregateDevicePropertyClockDevice: number;
 
 declare const kAudioAggregateDevicePropertyMainSubDevice: number;
 
-declare const kAudioAggregateDevicePropertyActiveSubDeviceList: number;
+declare const kAudioAggregateDevicePropertyComposition: number;
 
-declare const kAudioDevicePropertyVoiceActivityDetectionState: number;
+declare const kAudioDevicePropertyVoiceActivityDetectionEnable: number;
 
-declare const kAudioDevicePropertySubMute: number;
+declare const kAudioDevicePropertySubVolumeRangeDecibels: number;
 
-declare const kAudioDevicePropertySubVolumeScalarToDecibels: number;
+declare const kAudioDevicePropertySubVolumeDecibels: number;
+
+declare const kAudioDevicePropertySubVolumeScalar: number;
+
+declare const kAudioDevicePropertyHighPassFilterSettings: number;
 
 declare const kAudioDevicePropertyHighPassFilterSetting: number;
 
+declare const kAudioDevicePropertyChannelNominalLineLevels: number;
+
+declare const kAudioDevicePropertyPlayThruDestinationNameForIDCFString: number;
+
+declare const kAudioDevicePropertyPlayThruDestination: number;
+
+declare const kAudioDevicePropertyPlayThruStereoPanChannels: number;
+
 declare const kAudioDevicePropertyPlayThruVolumeDecibelsToScalar: number;
 
-declare const kAudioDevicePropertyPlayThru: number;
+declare const kAudioDevicePropertyPlayThruVolumeScalar: number;
+
+declare const kAudioDevicePropertyPlayThruSolo: number;
 
 declare const kAudioDevicePropertyClockSourceKindForID: number;
 
@@ -104,59 +126,89 @@ declare const kAudioDevicePropertyClockSourceNameForIDCFString: number;
 
 declare const kAudioDevicePropertyClockSources: number;
 
+declare const kAudioDevicePropertyDataSourceKindForID: number;
+
 declare const kAudioDevicePropertyDataSources: number;
 
-declare const kAudioDevicePropertyPhantomPower: number;
+declare const kAudioDevicePropertyDataSource: number;
+
+declare const kAudioDevicePropertyListenback: number;
+
+declare const kAudioDevicePropertyTalkback: number;
+
+declare const kAudioDevicePropertyClipLight: number;
+
+declare const kAudioDevicePropertyPhaseInvert: number;
 
 declare const kAudioDevicePropertySolo: number;
 
-declare const kAudioDevicePropertyMute: number;
-
-declare const kAudioDevicePropertyStereoPanChannels: number;
+declare const kAudioDevicePropertyStereoPan: number;
 
 declare const kAudioDevicePropertyVolumeDecibelsToScalar: number;
 
-declare const kAudioDevicePropertyVolumeScalarToDecibels: number;
+declare const kAudioDevicePropertyVolumeDecibels: number;
 
-declare const kAudioDevicePropertyVolumeRangeDecibels: number;
+declare const kAudioDevicePropertyActualSampleRate: number;
 
-declare const kAudioDevicePropertyIOThreadOSWorkgroup: number;
+declare const kAudioDevicePropertyIOProcStreamUsage: number;
 
 declare const kAudioDevicePropertyStreamConfiguration: number;
 
-declare const kAudioDevicePropertyUsesVariableBufferFrameSizes: number;
-
-declare const kAudioDevicePropertyBufferFrameSizeRange: number;
+declare const kAudioDevicePropertyIOCycleUsage: number;
 
 declare const kAudioDevicePropertyBufferFrameSize: number;
 
+declare const kAudioDevicePropertyHogMode: number;
+
+declare const kAudioDevicePropertyIOStoppedAbnormally: number;
+
+declare const kAudioDeviceProcessorOverload: number;
+
 declare const kAudioDevicePropertyDeviceIsRunningSomewhere: number;
+
+declare const kAudioDevicePropertyDeviceHasChanged: number;
 
 declare const kAudioDevicePropertyPlugIn: number;
 
-declare const kAudioDeviceStartTimeDontConsultHALFlag: number;
-
 declare const kAudioDeviceStartTimeDontConsultDeviceFlag: number;
+
+declare const kAudioDeviceStartTimeIsInputFlag: number;
 
 declare const kAudioHardwarePropertyPowerHint: number;
 
-declare const kAudioHardwarePropertyProcessInputMute: number;
+declare const kAudioHardwarePropertyHogModeIsAllowed: number;
+
+declare const kAudioHardwarePropertySleepingIsAllowed: number;
+
+declare const kAudioHardwarePropertyProcessIsAudible: number;
+
+declare const kAudioHardwarePropertyIsInitingOrExiting: number;
 
 declare const kAudioHardwarePropertyTranslateUIDToClockDevice: number;
 
-declare const kAudioHardwarePropertyTranslateUIDToBox: number;
+declare const kAudioHardwarePropertyClockDeviceList: number;
+
+declare const kAudioHardwarePropertyBoxList: number;
+
+declare const kAudioHardwarePropertyTranslateBundleIDToTransportManager: number;
 
 declare const kAudioHardwarePropertyTranslateBundleIDToPlugIn: number;
 
 declare const kAudioHardwarePropertyPlugInList: number;
 
+declare const kAudioHardwarePropertyMixStereoToMono: number;
+
+declare const kAudioHardwarePropertyTranslateUIDToDevice: number;
+
+declare const kAudioHardwarePropertyDefaultInputDevice: number;
+
 declare const kAudioSystemObjectClassID: number;
 
 declare const kAudioObjectPropertyListenerRemoved: number;
 
-declare const kAudioStreamPropertyAvailableVirtualFormats: number;
+declare const kAudioObjectPropertyListenerAdded: number;
 
-declare const kAudioStereoPanControlPropertyPanningChannels: number;
+declare const kAudioObjectSystemObject: number;
 
 declare const kAudioStereoPanControlPropertyValue: number;
 
@@ -168,35 +220,53 @@ declare const kAudioSelectorControlItemKindSpacer: number;
 
 declare const kAudioSelectorControlPropertyItemKind: number;
 
-declare const kAudioSubDeviceDriftCompensationMaxQuality: number;
-
 declare const kAudioSelectorControlPropertyItemName: number;
 
+declare const kAudioSelectorControlPropertyAvailableItems: number;
+
 declare const kAudioHighPassFilterControlClassID: number;
+
+declare const kAudioLineLevelControlClassID: number;
 
 declare const kAudioClockSourceControlClassID: number;
 
 declare const kAudioDataDestinationControlClassID: number;
 
-declare const kAudioDataSourceControlClassID: number;
+declare const kAudioBooleanControlPropertyValue: number;
 
-declare const kAudioSelectorControlClassID: number;
+declare const kAudioTalkbackControlClassID: number;
 
-declare const kAudioListenbackControlClassID: number;
+declare const kAudioPhantomPowerControlClassID: number;
+
+declare const kAudioLFEMuteControlClassID: number;
+
+declare const kAudioMuteControlClassID: number;
 
 declare const kAudioLevelControlPropertyConvertDecibelsToScalar: number;
 
-declare const kAudioLevelControlPropertyDecibelValue: number;
+declare const kAudioLevelControlPropertyConvertScalarToDecibels: number;
 
-declare const kAudioLevelControlPropertyScalarValue: number;
+declare const kAudioLevelControlPropertyDecibelRange: number;
 
 declare const kAudioLFEVolumeControlClassID: number;
 
+declare const kAudioVolumeControlClassID: number;
+
 declare const kAudioSliderControlPropertyRange: number;
+
+declare const kAudioSliderControlPropertyValue: number;
 
 declare const kAudioControlPropertyElement: number;
 
-declare const kAudioDevicePropertyHogMode: number;
+declare const kAudioControlPropertyScope: number;
+
+declare const kAudioStreamPropertyAvailablePhysicalFormats: number;
+
+declare const kAudioStreamPropertyPhysicalFormat: number;
+
+declare const kAudioStreamPropertyVirtualFormat: number;
+
+declare const kAudioStreamPropertyLatency: number;
 
 declare const kAudioStreamPropertyStartingChannel: number;
 
@@ -204,67 +274,73 @@ declare const kAudioStreamPropertyTerminalType: number;
 
 declare const kAudioStreamTerminalTypeHDMI: number;
 
-declare const kAudioStreamTerminalTypeTTY: number;
-
 declare const kAudioStreamTerminalTypeReceiverMicrophone: number;
 
-declare const kAudioStreamTerminalTypeMicrophone: number;
+declare const kAudioStreamTerminalTypeHeadsetMicrophone: number;
 
-declare const kAudioDevicePropertyStreamFormatMatch: number;
+declare const kAudioStreamTerminalTypeReceiverSpeaker: number;
 
 declare const kAudioStreamTerminalTypeLFESpeaker: number;
 
-declare const kAudioStreamTerminalTypeDigitalAudioInterface: number;
+declare const kAudioStreamTerminalTypeSpeaker: number;
 
-declare const kAudioStreamTerminalTypeUnknown: number;
+declare const kAudioStreamTerminalTypeLine: number;
+
+declare const kAudioStreamClassID: number;
 
 declare const kAudioEndPointDevicePropertyIsPrivate: number;
 
-declare const kAudioEndPointDevicePropertyEndPointList: number;
+declare const kAudioClockDevicePropertyClockDomain: number;
 
-declare const kAudioClockDevicePropertyLatency: number;
+declare const kAudioClockDevicePropertyDeviceUID: number;
 
-declare const kAudioClockDevicePropertyDeviceIsRunning: number;
+declare const kAudioDevicePropertyPreferredChannelsForStereo: number;
 
-declare const kAudioClockDevicePropertyTransportType: number;
-
-declare const kAudioClockDeviceClassID: number;
-
-declare const kAudioDeviceTransportTypeUnknown: number;
-
-declare const kAudioEndPointClassID: number;
-
-declare const kAudioDevicePropertyPreferredChannelLayout: number;
-
-declare const kAudioDevicePropertyIcon: number;
+declare const kAudioDevicePropertyAvailableNominalSampleRates: number;
 
 declare const kAudioDevicePropertySafetyOffset: number;
 
 declare const kAudioObjectPropertyControlList: number;
 
-declare const kAudioDevicePropertyDeviceCanBeDefaultSystemDevice: number;
+declare const kAudioDevicePropertyStreams: number;
 
-declare const kAudioDevicePropertyClockDomain: number;
+declare const kAudioDevicePropertyLatency: number;
+
+declare const kAudioDevicePropertyDeviceIsRunning: number;
+
+declare const kAudioDevicePropertyDeviceIsAlive: number;
 
 declare const kAudioDevicePropertyTransportType: number;
 
 declare const kAudioDevicePropertyDeviceUID: number;
 
-declare const kAudioDeviceTransportTypeContinuityCaptureWireless: number;
+declare const kAudioDeviceTransportTypeContinuityCaptureWired: number;
 
 declare const kAudioDeviceTransportTypeThunderbolt: number;
 
-declare const kAudioDeviceTransportTypeAVB: number;
-
 declare const kAudioDeviceTransportTypeAirPlay: number;
+
+declare const kAudioDeviceTransportTypeDisplayPort: number;
+
+declare const kAudioDeviceTransportTypeBluetooth: number;
+
+declare const kAudioDeviceTransportTypeFireWire: number;
+
+declare const kAudioDeviceTransportTypeUSB: number;
 
 declare const kAudioDeviceTransportTypePCI: number;
 
 declare const kAudioDeviceTransportTypeVirtual: number;
 
-declare const kAudioDeviceTransportTypeBuiltIn: number;
+declare const kAudioDeviceTransportTypeAggregate: number;
 
-declare const kAudioBoxPropertyAcquisitionFailed: number;
+declare const kAudioEndPointClassID: number;
+
+declare const kAudioDeviceTransportTypeUnknown: number;
+
+declare const kAudioDeviceClassID: number;
+
+declare const kAudioBoxPropertyClockDeviceList: number;
 
 declare const kAudioBoxPropertyAcquired: number;
 
@@ -272,189 +348,185 @@ declare const kAudioBoxPropertyIsProtected: number;
 
 declare const kAudioBoxPropertyHasMIDI: number;
 
+declare const kAudioBoxPropertyHasAudio: number;
+
 declare const kAudioBoxPropertyTransportType: number;
 
+declare const kAudioBoxPropertyBoxUID: number;
+
+declare const kAudioTransportManagerPropertyTranslateUIDToEndPoint: number;
+
 declare const kAudioTransportManagerPropertyEndPointList: number;
+
+declare const kAudioTransportManagerClassID: number;
 
 declare const kAudioPlugInPropertyTranslateUIDToClockDevice: number;
 
 declare const kAudioPlugInPropertyTranslateUIDToBox: number;
 
+declare const kAudioPlugInPropertyDeviceList: number;
+
 declare const kAudioObjectPropertyFirmwareVersion: number;
 
 declare const kAudioObjectPropertySerialNumber: number;
 
-declare const kAudioObjectPropertyElementNumberName: number;
+declare const kAudioObjectPropertyManufacturer: number;
 
-declare const kAudioObjectPropertyElementCategoryName: number;
-
-declare const kAudioObjectPropertyElementName: number;
+declare const kAudioObjectPropertyModelName: number;
 
 declare const kAudioObjectPropertyName: number;
 
-declare const kAudioObjectPropertyClass: number;
+declare const kAudioObjectPropertyBaseClass: number;
 
-declare const kAudioObjectClassID: number;
+declare const kAudioObjectClassIDWildcard: number;
 
 declare const kAudioObjectPropertyScopeWildcard: number;
 
 declare const kAudioObjectPropertySelectorWildcard: number;
 
-declare const kAudioObjectPropertyElementMaster: number;
-
 declare const kAudioObjectPropertyElementMain: number;
 
-declare const kAudioObjectPropertyScopeOutput: number;
+declare const kAudioObjectPropertyScopePlayThrough: number;
+
+declare const kAudioObjectPropertyScopeInput: number;
 
 declare const kAudioObjectUnknown: number;
 
-declare const kAudioDevicePermissionsError: number;
+declare const kAudioDeviceUnsupportedFormatError: number;
 
 declare const kAudioHardwareUnsupportedOperationError: number;
 
+declare const kAudioHardwareBadStreamError: number;
+
 declare const kAudioHardwareBadDeviceError: number;
 
-declare const kAudioHardwareBadObjectError: number;
+declare const kAudioHardwareUnspecifiedError: number;
 
-declare const kAudioHardwareIllegalOperationError: number;
+declare const kAudioHardwareNoError: number;
 
-declare const kAudioHardwareUnknownPropertyError: number;
+declare const kAudioAggregateDriftCompensationMinQuality: number;
 
-declare const kAudioHardwareNotRunningError: number;
-
-declare const kAudioDevicePropertyScopeOutput: number;
-
-declare const kAudioDevicePropertyIsHidden: number;
-
-declare const kAudioHardwarePropertyUnloadingIsAllowed: number;
+declare const kAudioObjectPropertyElementMaster: number;
 
 declare const kAudioDevicePropertyChannelName: number;
 
+declare const kAudioEndPointDeviceClassID: number;
+
 declare const kAudioObjectPropertyOwnedObjects: number;
 
-declare const kAudioAggregateDeviceClassID: number;
+declare const kAudioStreamTerminalTypeMicrophone: number;
 
-declare const kAudioLevelControlPropertyDecibelRange: number;
+declare const kAudioDevicePropertyUsesVariableBufferFrameSizes: number;
 
-declare const kAudioPhaseInvertControlClassID: number;
+declare const kAudioDeviceTransportTypeHDMI: number;
 
-declare const kAudioBooleanControlClassID: number;
+declare const kAudioDevicePropertyPlayThru: number;
 
-declare const kAudioStreamTerminalTypeLine: number;
+declare const kAudioStreamPropertyPhysicalFormatMatch: number;
 
-declare const kAudioHardwarePropertyHogModeIsAllowed: number;
+declare const kAudioHardwarePropertyProcessIsMain: number;
 
-declare const kAudioDevicePropertyPreferredChannelsForStereo: number;
+declare const kAudioObjectPropertyScopeGlobal: number;
+
+declare const kAudioPlugInPropertyBoxList: number;
+
+declare const kAudioDevicePropertyDeviceCanBeDefaultSystemDevice: number;
+
+declare const kAudioHardwarePropertyProcessInputMute: number;
+
+declare const kAudioEndPointDevicePropertyComposition: number;
+
+declare const kAudioDevicePropertyModelUID: number;
+
+declare const kAudioDevicePropertyBufferFrameSizeRange: number;
+
+declare const kAudioBoxPropertyHasVideo: number;
+
+declare const kAudioPlugInPropertyBundleID: number;
+
+declare const kAudioDevicePropertyProcessMute: number;
+
+declare const kAudioStreamPropertyPhysicalFormatSupported: number;
+
+declare const kAudioDeviceTransportTypeBuiltIn: number;
+
+declare const kAudioClockDevicePropertyControlList: number;
+
+declare const kAudioPlugInClassID: number;
 
 declare const kAudioTransportManagerDestroyEndPointDevice: number;
 
-declare const kAudioSubDevicePropertyDriftCompensationQuality: number;
-
-declare const kAudioDeviceTransportTypeDisplayPort: number;
-
 declare const kAudioDevicePropertySubVolumeDecibelsToScalar: number;
-
-declare const kAudioHardwarePropertySleepingIsAllowed: number;
-
-declare const kAudioDevicePropertyHighPassFilterSettingNameForIDCFString: number;
-
-declare const kAudioClockDevicePropertyClockDomain: number;
 
 declare const kAudioDevicePropertyClockSource: number;
 
 declare const kAudioControlClassID: number;
 
-declare const kAudioClockDevicePropertyAvailableNominalSampleRates: number;
+declare const kAudioHardwareNotReadyError: number;
 
-declare const kAudioPlugInPropertyBundleID: number;
+declare const kAudioDeviceTransportTypeContinuityCaptureWireless: number;
 
 declare const kAudioObjectPropertyOwner: number;
 
-declare const kAudioPropertyWildcardChannel: number;
+declare const kAudioDevicePropertyPreferredChannelLayout: number;
+
+declare const kAudioDeviceTransportTypeAVB: number;
+
+declare const kAudioSubDevicePropertyDriftCompensationQuality: number;
 
 declare const kAudioSoloControlClassID: number;
 
-declare const kAudioDeviceTransportTypeBluetoothLE: number;
+declare const kAudioAggregateDriftCompensationHighQuality: number;
+
+declare const kAudioAggregateDevicePropertyActiveSubDeviceList: number;
 
 declare const kAudioDeviceTransportTypeContinuityCapture: number;
 
 declare const kAudioHardwarePropertyDevices: number;
 
-declare const kAudioObjectPropertyManufacturer: number;
+declare const kAudioPropertyWildcardPropertyID: number;
 
-declare const kAudioHardwarePropertyIsInitingOrExiting: number;
-
-declare const kAudioObjectPropertyBaseClass: number;
-
-declare const kAudioDevicePropertyPlayThruDestinationNameForIDCFString: number;
-
-declare const kAudioDevicePropertyRegisterBufferList: number;
-
-declare const kAudioBoxPropertyClockDeviceList: number;
+declare const kAudioDevicePropertyIcon: number;
 
 declare const kAudioHardwarePropertyServiceRestarted: number;
 
 declare const kAudioObjectPropertyCreator: number;
 
-declare const kAudioHardwarePropertyBootChimeVolumeDecibelsToScalar: number;
+declare const kAudioListenbackControlClassID: number;
 
 declare const kAudioClockDevicePropertyDeviceIsAlive: number;
 
-declare const kAudioTransportManagerPropertyTransportType: number;
+declare const kAudioHardwarePropertyBootChimeVolumeDecibelsToScalar: number;
 
-declare const kAudioBoxPropertyHasVideo: number;
+declare const kAudioDeviceTransportTypeBluetoothLE: number;
 
-declare const kAudioDeviceClassID: number;
+declare const kAudioObjectPropertyElementNumberName: number;
 
-declare const kAudioJackControlClassID: number;
+declare const kAudioDataSourceControlClassID: number;
 
-declare const kAudioObjectPropertyModelName: number;
+declare const kAudioStreamTerminalTypeHeadphones: number;
 
-declare const kAudioDevicePropertyPlayThruDestinations: number;
+declare const kAudioEndPointDevicePropertyEndPointList: number;
 
-declare const kAudioSelectorControlPropertyAvailableItems: number;
+declare const kAudioDevicePropertyPhantomPower: number;
 
-declare const kAudioHardwarePropertyProcessIsAudible: number;
+declare const kAudioObjectPropertyElementCategoryName: number;
 
-declare const kAudioObjectClassIDWildcard: number;
-
-declare const kAudioLFEMuteControlClassID: number;
-
-declare const kAudioLineLevelControlClassID: number;
-
-declare const kAudioDevicePropertyProcessMute: number;
-
-declare const kAudioDevicePropertyHighPassFilterSettings: number;
-
-declare const kAudioDevicePropertyDataSourceKindForID: number;
-
-declare const kAudioPlugInPropertyDeviceList: number;
-
-declare const kAudioDevicePropertyStereoPan: number;
-
-declare const kAudioDevicePropertyPhaseInvert: number;
+declare const kAudioDevicePropertyJackIsConnected: number;
 
 declare const kAudioDevicePropertyPlayThruVolumeRangeDecibels: number;
 
-declare const kAudioMuteControlClassID: number;
+declare const kAudioBoxPropertyAcquisitionFailed: number;
 
-declare const kAudioStreamPropertyVirtualFormat: number;
+declare const kAudioAggregateDeviceClassID: number;
 
-declare const kAudioDeviceTransportTypeContinuityCaptureWired: number;
+declare const kAudioDevicePropertyMute: number;
 
-declare const kAudioDevicePropertyChannelNominalLineLevelNameForID: number;
+declare const kAudioStreamTerminalTypeTTY: number;
 
-declare const kAudioDevicePropertyIOProcStreamUsage: number;
+declare const kAudioStreamTerminalTypeDisplayPort: number;
 
-declare const kAudioHardwareNoError: number;
-
-declare const kAudioStreamTerminalTypeReceiverSpeaker: number;
-
-declare const kAudioDevicePropertyScopePlayThrough: number;
-
-declare const kAudioObjectPropertyScopePlayThrough: number;
-
-declare const kAudioPlugInCreateAggregateDevice: number;
+declare const kAudioStreamTerminalTypeUnknown: number;
 
 declare const kAudioDevicePropertyDeviceName: number;
 
@@ -462,47 +534,17 @@ declare const kAudioDevicePropertyDataSourceNameForIDCFString: number;
 
 declare const kAudioDevicePropertyChannelNominalLineLevelNameForIDCFString: number;
 
-declare const kAudioDeviceTransportTypeUSB: number;
-
-declare const kAudioVolumeControlClassID: number;
-
-declare const kAudioLevelControlClassID: number;
-
-declare const kAudioDevicePropertyActualSampleRate: number;
+declare const kAudioHardwareIllegalOperationError: number;
 
 declare const kAudioDevicePropertyRelatedDevices: number;
 
-declare const kAudioDevicePropertySubVolumeScalar: number;
+declare const kAudioDevicePropertyNominalSampleRate: number;
 
-declare const kAudioStreamTerminalTypeHeadsetMicrophone: number;
-
-declare const kAudioDevicePropertySubVolumeRangeDecibels: number;
-
-declare const kAudioDevicePropertyVoiceActivityDetectionEnable: number;
-
-declare const kAudioAggregateDriftCompensationLowQuality: number;
-
-declare const kAudioBoxPropertyDeviceList: number;
-
-declare const kAudioDevicePropertyIOStoppedAbnormally: number;
+declare const kAudioHardwarePropertyUserSessionIsActiveOrHeadless: number;
 
 declare const kAudioPlugInPropertyTranslateUIDToDevice: number;
 
-declare const kAudioClockSourceControlPropertyItemKind: number;
-
-declare const kAudioDevicePropertyVolumeDecibels: number;
-
-declare const kAudioBoxPropertyBoxUID: number;
-
-declare const kAudioDevicePropertyDriverShouldOwniSub: number;
-
-declare const kAudioHardwarePropertyClockDeviceList: number;
-
-declare const kAudioDevicePropertyIOCycleUsage: number;
-
-declare const kAudioDevicePropertyChannelCategoryName: number;
-
-declare const kAudioDevicePropertyPlayThruVolumeScalarToDecibels: number;
+declare const kAudioHardwareBadObjectError: number;
 
 declare const kAudioHardwareBadPropertySizeError: number;
 
@@ -514,201 +556,159 @@ declare const kAudioDevicePropertyVolumeScalar: number;
 
 declare const kAudioAggregateDevicePropertyFullSubDeviceList: number;
 
-declare const kAudioDeviceTransportTypeFireWire: number;
+declare const kAudioHardwarePropertyDeviceForUID: number;
 
-declare const kAudioHardwarePropertyTransportManagerList: number;
-
-declare const kAudioHardwarePropertyTranslateBundleIDToTransportManager: number;
-
-declare const kAudioAggregateDevicePropertyComposition: number;
+declare const kAudioHardwareUnknownPropertyError: number;
 
 declare const kAudioDevicePropertyConfigurationApplication: number;
 
-declare const kAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction: number;
+declare const kAudioDevicePropertyVoiceActivityDetectionState: number;
 
-declare const kAudioDevicePropertyClockDevice: number;
+declare const kAudioDevicePropertyChannelNumberNameCFString: number;
 
-declare const kAudioObjectPropertyScopeInput: number;
+declare const kAudioDevicePropertyVolumeScalarToDecibels: number;
 
-declare const kAudioDevicePropertySupportsMixing: number;
+declare const kAudioHardwarePropertyUnloadingIsAllowed: number;
 
-declare const kAudioDeviceUnsupportedFormatError: number;
+declare const kAudioDevicePropertyHighPassFilterSettingNameForIDCFString: number;
 
-declare const kAudioHardwarePropertyDefaultInputDevice: number;
-
-declare const kAudioClockDevicePropertyDeviceUID: number;
-
-declare const kAudioPlugInPropertyBoxList: number;
-
-declare const kAudioStreamPropertyPhysicalFormat: number;
-
-declare const kAudioDevicePropertyStreams: number;
-
-declare const kAudioHardwareNotReadyError: number;
+declare const kAudioHardwarePropertyTransportManagerList: number;
 
 declare const kAudioDevicePropertyPlayThruDestinationNameForID: number;
 
-declare const kAudioBooleanControlPropertyValue: number;
+declare const kAudioObjectPropertyElementName: number;
 
 declare const kAudioSliderControlClassID: number;
 
-declare const kAudioTransportManagerPropertyTranslateUIDToEndPoint: number;
+declare const kAudioDevicePropertyDriverShouldOwniSub: number;
 
-declare const kAudioControlPropertyScope: number;
+declare const kAudioSelectorControlClassID: number;
 
-declare const kAudioHardwareBadStreamError: number;
+declare const kAudioClockDevicePropertyAvailableNominalSampleRates: number;
 
-declare const kAudioDevicePropertyClockSourceNameForID: number;
+declare const kAudioDevicePropertySubVolumeScalarToDecibels: number;
+
+declare const kAudioDevicePropertyVolumeRangeDecibels: number;
 
 declare const kAudioHardwarePropertyUserIDChanged: number;
 
-declare const kAudioPropertyWildcardSection: number;
-
-declare const kAudioTransportManagerCreateEndPointDevice: number;
-
-declare const kAudioDevicePropertyDeviceIsAlive: number;
-
-declare const kAudioDeviceTransportTypeAutoAggregate: number;
-
-declare const kAudioHardwarePropertyBootChimeVolumeScalar: number;
-
-declare const kAudioEndPointDeviceClassID: number;
-
-declare const kAudioDevicePropertyTalkback: number;
+declare const kAudioDevicePropertyClockDomain: number;
 
 declare const kAudioStreamPropertyDirection: number;
 
-declare const kAudioDevicePropertyDeviceIsRunning: number;
+declare const kAudioLevelControlPropertyDecibelValue: number;
 
-declare const kAudioSubDeviceClassID: number;
+declare const kAudioObjectClassID: number;
 
-declare const kAudioDevicePropertyLatency: number;
+declare const kAudioDevicePermissionsError: number;
 
-declare const kAudioStreamPropertyAvailablePhysicalFormats: number;
+declare const kAudioDevicePropertySupportsMixing: number;
 
-declare const kAudioDevicePropertyNominalSampleRate: number;
-
-declare const kAudioSliderControlPropertyValue: number;
-
-declare const kAudioDevicePropertyPlayThruDestination: number;
-
-declare const kAudioDevicePropertyDataSourceNameForID: number;
+declare const kAudioDevicePropertyClockDevice: number;
 
 declare const kAudioAggregateDevicePropertyMasterSubDevice: number;
 
-declare const kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction: number;
+declare const kAudioStereoPanControlPropertyPanningChannels: number;
 
-declare const kAudioDevicePropertyPlayThruStereoPanChannels: number;
+declare const kAudioStreamPropertyAvailableVirtualFormats: number;
+
+declare const kAudioDevicePropertyPlayThruVolumeScalarToDecibels: number;
 
 declare const kAudioPlugInPropertyClockDeviceList: number;
 
-declare const kAudioDevicePropertyStreamFormatSupported: number;
+declare const kAudioHardwarePropertyProcessIsMaster: number;
 
 declare const kAudioDevicePropertyChannelNumberName: number;
 
-declare const kAudioHardwarePropertyTranslateUIDToDevice: number;
+declare const kAudioPhaseInvertControlClassID: number;
 
-declare const kAudioStreamTerminalTypeHeadphones: number;
+declare const kAudioHardwarePropertyRunLoop: number;
+
+declare const kAudioControlPropertyVariant: number;
 
 declare const kAudioSelectorControlPropertyCurrentItem: number;
-
-declare const kAudioDevicePropertyDataSource: number;
 
 declare const kAudioHardwarePropertyDefaultOutputDevice: number;
 
 declare const kAudioHardwarePropertyDefaultSystemOutputDevice: number;
 
-declare const kAudioHardwareUnspecifiedError: number;
+declare const kAudioStreamPropertyOwningDevice: number;
+
+declare const kAudioDevicePropertyPlayThruVolumeDecibels: number;
+
+declare const kAudioBooleanControlClassID: number;
 
 declare const kAudioObjectPropertyElementWildcard: number;
 
 declare const kAudioObjectPropertyIdentify: number;
 
-declare const kAudioStreamClassID: number;
+declare const kAudioObjectPropertyClass: number;
 
-declare const kAudioHardwarePropertyMixStereoToMono: number;
+declare const kAudioStreamTerminalTypeDigitalAudioInterface: number;
 
 declare const kAudioPlugInDestroyAggregateDevice: number;
 
-declare const kAudioTransportManagerClassID: number;
+declare const kAudioDevicePropertyBufferSizeRange: number;
 
-declare const kAudioDeviceTransportTypeAggregate: number;
+declare const kAudioClockDeviceClassID: number;
 
-declare const kAudioDevicePropertyPlayThruVolumeScalar: number;
+declare const kAudioDevicePropertyIOThreadOSWorkgroup: number;
 
-declare const kAudioDevicePropertyStreamFormats: number;
+declare const kAudioObjectPropertyScopeOutput: number;
 
-declare const kAudioStreamTerminalTypeSpeaker: number;
+declare const kAudioDevicePropertyBufferSize: number;
+
+declare const kAudioClockDevicePropertyLatency: number;
 
 declare const kAudioDevicePropertyPlayThruStereoPan: number;
 
-declare const kAudioObjectPropertyListenerAdded: number;
+declare const kAudioJackControlClassID: number;
 
-declare const kAudioBootChimeVolumeControlClassID: number;
+declare const kAudioDeviceStartTimeDontConsultHALFlag: number;
 
-declare const kAudioDevicePropertyChannelNameCFString: number;
+declare const kAudioStreamPropertyIsActive: number;
 
-declare const kAudioStreamPropertyLatency: number;
+declare const kAudioLevelControlClassID: number;
 
-declare const kAudioHardwarePropertyBootChimeVolumeDecibels: number;
-
-declare const kAudioClipLightControlClassID: number;
-
-declare const kAudioLevelControlPropertyConvertScalarToDecibels: number;
+declare const kAudioDevicePropertyPlayThruDestinations: number;
 
 declare const kAudioDevicePropertyDeviceCanBeDefaultDevice: number;
 
-declare const kAudioDeviceStartTimeIsInputFlag: number;
+declare const kAudioLevelControlPropertyScalarValue: number;
 
-declare const kAudioDevicePropertyChannelCategoryNameCFString: number;
+declare const kAudioDevicePropertySubMute: number;
 
-declare const kAudioDevicePropertyListenback: number;
+declare const kAudioClockDevicePropertyDeviceIsRunning: number;
 
-declare const kAudioHardwarePropertyBootChimeVolumeDecibelsToScalarTransferFunction: number;
+declare const kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction: number;
 
-declare const kAudioTalkbackControlClassID: number;
+declare const kAudioPlugInCreateAggregateDevice: number;
 
-declare const kAudioDevicePropertySubVolumeDecibels: number;
+declare const kAudioClipLightControlClassID: number;
 
-declare const kAudioHardwarePropertyBoxList: number;
+declare const kAudioDevicePropertyStereoPanChannels: number;
 
-declare const kAudioDevicePropertyDeviceHasChanged: number;
+declare const kAudioHardwareNotRunningError: number;
 
-declare const kAudioSubDeviceDriftCompensationHighQuality: number;
+declare const kAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction: number;
 
-declare const kAudioDevicePropertyChannelNominalLineLevels: number;
+declare const kAudioBootChimeVolumeControlClassID: number;
 
-declare const kAudioDevicePropertyClipLight: number;
-
-declare const kAudioDevicePropertyPlayThruSolo: number;
-
-declare const kAudioObjectSystemObject: number;
-
-declare const kAudioDevicePropertyJackIsConnected: number;
-
-declare const kAudioDevicePropertyDeviceNameCFString: number;
-
-declare const kAudioHardwarePropertyUserSessionIsActiveOrHeadless: number;
+declare const kAudioBoxPropertyDeviceList: number;
 
 declare const kAudioClockDevicePropertyNominalSampleRate: number;
 
-declare const kAudioDeviceTransportTypeHDMI: number;
+declare const kAudioClockDevicePropertyTransportType: number;
 
-declare const kAudioSubDeviceDriftCompensationLowQuality: number;
+declare const kAudioTransportManagerCreateEndPointDevice: number;
 
-declare const kAudioPhantomPowerControlClassID: number;
+declare const kAudioHardwarePropertyTranslateUIDToBox: number;
 
-declare const kAudioDeviceProcessorOverload: number;
+declare const kAudioDevicePropertyIsHidden: number;
 
-declare const kAudioEndPointDevicePropertyComposition: number;
+declare const kAudioDevicePropertyDeviceNameCFString: number;
 
-declare const kAudioHardwarePropertyPlugInForBundleID: number;
-
-declare const kAudioDevicePropertyModelUID: number;
-
-declare const kAudioBoxPropertyHasAudio: number;
-
-declare const kAudioISubOwnerControlClassID: number;
+declare const kAudioTransportManagerPropertyTransportType: number;
 
 declare const AudioHardwarePowerHint: {
   None: 0,

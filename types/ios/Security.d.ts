@@ -25,11 +25,11 @@ declare const tls_protocol_version_t: {
   DTLSv12: -259,
 };
 
-declare class __SecIdentity {
-  constructor(init?: __SecIdentity);
-}
-
 declare class __SecTrust {
   constructor(init?: __SecTrust);
+}
+
+declare class __SecIdentity {
+  constructor(init?: __SecIdentity);
 }
 

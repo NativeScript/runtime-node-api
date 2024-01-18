@@ -10,11 +10,13 @@ declare const CNErrorUserInfoAffectedRecordsKey: string;
 
 declare const CNPostalAddressLocalizedPropertyNameAttribute: string;
 
-declare const CNContactPropertyAttribute: string;
+declare const CNContainerTypeKey: string;
 
 declare const CNContainerNameKey: string;
 
 declare const CNContainerIdentifierKey: string;
+
+declare const CNGroupIdentifierKey: string;
 
 declare const CNContactStoreDidChangeNotification: string;
 
@@ -33,6 +35,8 @@ declare const CNContactTypeKey: string;
 declare const CNContactImageDataAvailableKey: string;
 
 declare const CNContactImageDataKey: string;
+
+declare const CNContactNonGregorianBirthdayKey: string;
 
 declare const CNContactPhoneticFamilyNameKey: string;
 
@@ -64,9 +68,13 @@ declare const CNInstantMessageServiceICQ: string;
 
 declare const CNInstantMessageServiceGoogleTalk: string;
 
+declare const CNInstantMessageServiceFacebook: string;
+
 declare const CNInstantMessageServiceAIM: string;
 
 declare const CNInstantMessageAddressServiceKey: string;
+
+declare const CNSocialProfileServiceGameCenter: string;
 
 declare const CNSocialProfileServiceYelp: string;
 
@@ -86,7 +94,13 @@ declare const CNSocialProfileUsernameKey: string;
 
 declare const CNSocialProfileURLStringKey: string;
 
+declare const CNLabelContactRelationDaughterInLawOrSisterInLaw: string;
+
+declare const CNLabelContactRelationGrandsonOrNephew: string;
+
 declare const CNLabelContactRelationNephewOrCousin: string;
+
+declare const CNLabelContactRelationCousinOrSiblingsChild: string;
 
 declare const CNLabelContactRelationSonInLawOrStepson: string;
 
@@ -100,11 +114,15 @@ declare const CNLabelContactRelationStepparent: string;
 
 declare const CNLabelContactRelationGrandnephewBrothersGrandson: string;
 
+declare const CNLabelContactRelationGrandnephewSistersGrandson: string;
+
 declare const CNLabelContactRelationGrandnieceBrothersGranddaughter: string;
 
 declare const CNLabelContactRelationGrandniece: string;
 
 declare const CNLabelContactRelationNephewSistersSonOrWifesSiblingsSon: string;
+
+declare const CNLabelContactRelationNephewBrothersSon: string;
 
 declare const CNLabelContactRelationNephewSistersSon: string;
 
@@ -115,6 +133,8 @@ declare const CNLabelContactRelationNieceBrothersDaughterOrHusbandsSiblingsDaugh
 declare const CNLabelContactRelationNieceSistersDaughter: string;
 
 declare const CNLabelContactRelationSiblingsChild: string;
+
+declare const CNLabelContactRelationUncleFathersYoungerSistersHusband: string;
 
 declare const CNLabelContactRelationUncleFathersSistersHusband: string;
 
@@ -144,6 +164,8 @@ declare const CNLabelContactRelationAuntFathersSister: string;
 
 declare const CNLabelContactRelationAuntParentsElderSister: string;
 
+declare const CNLabelContactRelationAuntParentsYoungerSister: string;
+
 declare const CNLabelContactRelationAuntParentsSister: string;
 
 declare const CNLabelContactRelationAunt: string;
@@ -151,6 +173,8 @@ declare const CNLabelContactRelationAunt: string;
 declare const CNLabelContactRelationParentsSiblingFathersElderSibling: string;
 
 declare const CNLabelContactRelationParentsSiblingFathersSibling: string;
+
+declare const CNLabelContactRelationParentsSiblingMothersElderSibling: string;
 
 declare const CNLabelContactRelationParentsSiblingMothersSibling: string;
 
@@ -163,6 +187,8 @@ declare const CNLabelContactRelationElderCousinMothersSiblingsSonOrFathersSister
 declare const CNLabelContactRelationYoungerCousinMothersSiblingsSonOrFathersSistersSon: string;
 
 declare const CNLabelContactRelationCousinGrandparentsSiblingsSon: string;
+
+declare const CNLabelContactRelationCousinGrandparentsSiblingsDaughter: string;
 
 declare const CNLabelContactRelationYoungerCousinFathersBrothersSon: string;
 
@@ -182,6 +208,8 @@ declare const CNLabelContactRelationElderCousinMothersBrothersDaughter: string;
 
 declare const CNLabelContactRelationYoungerCousinMothersBrothersDaughter: string;
 
+declare const CNLabelContactRelationCousinMothersBrothersDaughter: string;
+
 declare const CNLabelContactRelationYoungerCousinMothersSistersDaughter: string;
 
 declare const CNLabelContactRelationCousinMothersSistersDaughter: string;
@@ -194,6 +222,8 @@ declare const CNLabelContactRelationYoungerCousinParentsSiblingsSon: string;
 
 declare const CNLabelContactRelationFemaleCousin: string;
 
+declare const CNLabelContactRelationMaleCousin: string;
+
 declare const CNLabelContactRelationElderCousin: string;
 
 declare const CNLabelContactRelationCousin: string;
@@ -203,6 +233,8 @@ declare const CNLabelContactRelationSonInLaw: string;
 declare const CNLabelContactRelationChildInLaw: string;
 
 declare const CNLabelContactRelationCoBrotherInLaw: string;
+
+declare const CNLabelContactRelationBrotherInLawWifesSistersHusband: string;
 
 declare const CNLabelContactRelationSisterInLawHusbandsBrothersWife: string;
 
@@ -215,6 +247,8 @@ declare const CNLabelContactRelationBrotherInLaw: string;
 declare const CNLabelContactRelationSisterInLawElderBrothersWife: string;
 
 declare const CNLabelContactRelationSisterInLawYoungerBrothersWife: string;
+
+declare const CNLabelContactRelationSisterInLawBrothersWife: string;
 
 declare const CNLabelContactRelationSisterInLawWifesSister: string;
 
@@ -246,6 +280,8 @@ declare const CNLabelContactRelationGrandsonSonsSon: string;
 
 declare const CNLabelContactRelationGrandsonDaughtersSon: string;
 
+declare const CNLabelContactRelationGrandson: string;
+
 declare const CNLabelContactRelationGranddaughterSonsDaughter: string;
 
 declare const CNLabelContactRelationGranddaughterDaughtersDaughter: string;
@@ -253,6 +289,8 @@ declare const CNLabelContactRelationGranddaughterDaughtersDaughter: string;
 declare const CNLabelContactRelationGrandchild: string;
 
 declare const CNLabelContactRelationGreatGrandparent: string;
+
+declare const CNLabelContactRelationGrandfatherMothersFather: string;
 
 declare const CNLabelContactRelationGrandfather: string;
 
@@ -264,8 +302,6 @@ declare const CNLabelContactRelationGrandmother: string;
 
 declare const CNLabelContactRelationGrandparent: string;
 
-declare const CNLabelContactRelationDaughter: string;
-
 declare const CNLabelContactRelationFather: string;
 
 declare const CNLabelContactRelationParent: string;
@@ -274,7 +310,7 @@ declare const CNLabelContactRelationGirlfriend: string;
 
 declare const CNLabelContactRelationMalePartner: string;
 
-declare const CNLabelContactRelationWife: string;
+declare const CNLabelContactRelationMaleFriend: string;
 
 declare const CNLabelContactRelationElderBrother: string;
 
@@ -289,6 +325,8 @@ declare const CNLabelContactRelationElderSister: string;
 declare const CNLabelContactRelationYoungestSister: string;
 
 declare const CNLabelContactRelationElderSibling: string;
+
+declare const CNLabelContactRelationYoungerSibling: string;
 
 declare const CNLabelContactRelationTeacher: string;
 
@@ -314,8 +352,6 @@ declare const CNLabelPhoneNumberWorkFax: string;
 
 declare const CNLabelPhoneNumberMain: string;
 
-declare const CNLabelPhoneNumberAppleWatch: string;
-
 declare const CNLabelPhoneNumberiPhone: string;
 
 declare const CNLabelDateAnniversary: string;
@@ -332,6 +368,8 @@ declare const CNLabelWork: string;
 
 declare const CNLabelHome: string;
 
+declare const CNLabelContactRelationGranddaughter: string;
+
 declare const CNLabelContactRelationGreatGrandmother: string;
 
 declare const CNLabelContactRelationGranduncle: string;
@@ -340,17 +378,27 @@ declare const CNLabelContactRelationCousinFathersSistersDaughter: string;
 
 declare const CNLabelContactRelationElderCousinMothersSistersDaughter: string;
 
-declare const CNLabelContactRelationNephewBrothersSonOrHusbandsSiblingsSon: string;
+declare const CNLabelContactRelationSpouse: string;
 
-declare const CNLabelContactRelationHusband: string;
+declare const CNContactInstantMessageAddressesKey: string;
 
-declare const CNLabelContactRelationBrotherInLawElderSistersHusband: string;
+declare const CNContactPreviousFamilyNameKey: string;
 
-declare const CNLabelContactRelationStepson: string;
+declare const CNLabelContactRelationUncleMothersBrother: string;
 
-declare const CNLabelContactRelationSibling: string;
+declare const CNLabelContactRelationDaughter: string;
 
-declare const CNLabelContactRelationSister: string;
+declare const CNLabelContactRelationWife: string;
+
+declare const CNContactPropertyAttribute: string;
+
+declare const CNLabelPhoneNumberAppleWatch: string;
+
+declare const CNLabelContactRelationBrotherInLawWifesBrother: string;
+
+declare const CNLabelContactRelationCoSisterInLaw: string;
+
+declare const CNLabelContactRelationAuntMothersSister: string;
 
 declare const CNLabelContactRelationSonInLawOrBrotherInLaw: string;
 
@@ -360,71 +408,9 @@ declare const CNContactUrlAddressesKey: string;
 
 declare const CNLabelContactRelationGrandfatherFathersFather: string;
 
-declare const CNLabelContactRelationNieceOrCousin: string;
-
-declare const CNSocialProfileServiceTencentWeibo: string;
-
-declare const CNLabelContactRelationUncleFathersElderSistersHusband: string;
-
 declare const CNLabelContactRelationStepdaughter: string;
 
 declare const CNLabelContactRelationCousinMothersBrothersSon: string;
-
-declare const CNContactPhoneticOrganizationNameKey: string;
-
-declare const CNLabelContactRelationYoungerSibling: string;
-
-declare const CNLabelContactRelationNephewBrothersSon: string;
-
-declare const CNLabelContactRelationUncleMothersBrother: string;
-
-declare const CNLabelContactRelationParentsSibling: string;
-
-declare const CNLabelContactRelationElderCousinFathersSistersSon: string;
-
-declare const CNLabelContactRelationCousinMothersBrothersDaughter: string;
-
-declare const CNLabelContactRelationUncleFathersYoungerSistersHusband: string;
-
-declare const CNLabelContactRelationMother: string;
-
-declare const CNGroupIdentifierKey: string;
-
-declare const CNContainerTypeKey: string;
-
-declare const CNLabelContactRelationGrandson: string;
-
-declare const CNLabelContactRelationGrandnephewSistersGrandson: string;
-
-declare const CNLabelContactRelationAuntParentsYoungerSister: string;
-
-declare const CNLabelContactRelationBrotherInLawWifesSistersHusband: string;
-
-declare const CNLabelContactRelationGranddaughter: string;
-
-declare const CNInstantMessageServiceFacebook: string;
-
-declare const CNLabelContactRelationFemalePartner: string;
-
-declare const CNContactDepartmentNameKey: string;
-
-declare const CNLabelContactRelationParentsSiblingMothersElderSibling: string;
-
-declare const CNContactInstantMessageAddressesKey: string;
-
-declare const CNLabelContactRelationNieceSistersDaughterOrWifesSiblingsDaughter: string;
-
-declare const CNLabelContactRelationMaleCousin: string;
-
-declare const CNLabelContactRelationGrandnieceSistersGranddaughter: string;
-
-declare const CNLabelContactRelationGirlfriendOrBoyfriend: string;
-
-declare const CNLabelContactRelationCousinGrandparentsSiblingsDaughter: string;
-
-declare const CNLabelContactRelationGrandfatherMothersFather: string;
-
-declare const CNLabelContactRelationMaleFriend: string;
 
 declare const CNInstantMessageServiceYahoo: string;
 
@@ -440,13 +426,11 @@ declare const CNLabelContactRelationBrotherInLawYoungerSistersHusband: string;
 
 declare const CNLabelContactRelationCousinMothersSistersSon: string;
 
-declare const CNLabelContactRelationCousinOrSiblingsChild: string;
-
 declare const CNLabelContactRelationElderBrotherInLaw: string;
 
 declare const CNSocialProfileServiceMySpace: string;
 
-declare const CNContactPreviousFamilyNameKey: string;
+declare const CNLabelContactRelationGrandnieceSistersGranddaughter: string;
 
 declare const CNSocialProfileServiceSinaWeibo: string;
 
@@ -456,11 +440,17 @@ declare const CNLabelContactRelationStepsister: string;
 
 declare const CNLabelContactRelationYoungerCousin: string;
 
+declare const CNLabelContactRelationGrandnephew: string;
+
 declare const CNLabelContactRelationUncleMothersSistersHusband: string;
 
 declare const CNLabelContactRelationBrotherInLawHusbandsSistersHusband: string;
 
 declare const CNLabelContactRelationCoParentInLaw: string;
+
+declare const CNLabelContactRelationSibling: string;
+
+declare const CNLabelContactRelationHusband: string;
 
 declare const CNLabelContactRelationFriend: string;
 
@@ -469,6 +459,8 @@ declare const CNLabelPhoneNumberOtherFax: string;
 declare const CNLabelContactRelationGrandchildOrSiblingsChild: string;
 
 declare const CNLabelContactRelationChild: string;
+
+declare const CNLabelContactRelationUncleFathersElderSistersHusband: string;
 
 declare const CNPostalAddressPropertyAttribute: string;
 
@@ -500,13 +492,9 @@ declare const CNLabelContactRelationCousinParentsSiblingsSon: string;
 
 declare const CNLabelContactRelationAuntFathersBrothersWife: string;
 
+declare const CNLabelContactRelationMother: string;
+
 declare const CNLabelContactRelationGreatGrandchildOrSiblingsGrandchild: string;
-
-declare const CNLabelContactRelationGrandnephew: string;
-
-declare const CNLabelContactRelationSpouse: string;
-
-declare const CNLabelContactRelationCoSisterInLaw: string;
 
 declare const CNLabelContactRelationBrotherInLawHusbandsBrother: string;
 
@@ -514,11 +502,11 @@ declare const CNLabelContactRelationYoungestBrother: string;
 
 declare const CNInstantMessageServiceGaduGadu: string;
 
-declare const CNContactNonGregorianBirthdayKey: string;
-
 declare const CNLabelContactRelationCousinParentsSiblingsChild: string;
 
 declare const CNLabelContactRelationGranddaughterOrNiece: string;
+
+declare const CNContactDepartmentNameKey: string;
 
 declare const CNContactBirthdayKey: string;
 
@@ -526,21 +514,27 @@ declare const CNLabelContactRelationNiece: string;
 
 declare const CNLabelContactRelationElderCousinFathersBrothersDaughter: string;
 
-declare const CNLabelContactRelationAuntMothersSister: string;
-
 declare const CNLabelContactRelationElderCousinMothersBrothersSon: string;
 
 declare const CNLabelContactRelationSisterInLaw: string;
 
 declare const CNLabelContactRelationCousinGrandparentsSiblingsChild: string;
 
+declare const CNLabelContactRelationSister: string;
+
+declare const CNLabelContactRelationFemalePartner: string;
+
 declare const CNLabelContactRelationElderCousinMothersSiblingsDaughterOrFathersSistersDaughter: string;
 
 declare const CNLabelContactRelationElderCousinFathersBrothersSon: string;
 
+declare const CNLabelContactRelationNieceOrCousin: string;
+
 declare const CNLabelContactRelationCousinFathersBrothersDaughter: string;
 
 declare const CNContactSocialProfilesKey: string;
+
+declare const CNLabelContactRelationBrotherInLawElderSistersHusband: string;
 
 declare const CNLabelContactRelationSisterInLawWifesBrothersWife: string;
 
@@ -554,6 +548,10 @@ declare const CNLabelContactRelationFatherInLawWifesFather: string;
 
 declare const CNLabelContactRelationParentsSiblingFathersYoungerSibling: string;
 
+declare const CNLabelContactRelationStepson: string;
+
+declare const CNContactPhoneticOrganizationNameKey: string;
+
 declare const CNLabelContactRelationUncleFathersBrother: string;
 
 declare const CNLabelContactRelationGreatGrandfather: string;
@@ -561,6 +559,8 @@ declare const CNLabelContactRelationGreatGrandfather: string;
 declare const CNContactPhoneticGivenNameKey: string;
 
 declare const CNLabelContactRelationUncleFathersYoungerBrother: string;
+
+declare const CNLabelContactRelationNieceSistersDaughterOrWifesSiblingsDaughter: string;
 
 declare const CNLabelContactRelationSiblingInLaw: string;
 
@@ -574,7 +574,11 @@ declare const CNLabelPhoneNumberHomeFax: string;
 
 declare const CNLabelPhoneNumberMobile: string;
 
+declare const CNLabelContactRelationGirlfriendOrBoyfriend: string;
+
 declare const CNLabelContactRelationElderSiblingInLaw: string;
+
+declare const CNLabelContactRelationNephewBrothersSonOrHusbandsSiblingsSon: string;
 
 declare const CNInstantMessageServiceMSN: string;
 
@@ -586,33 +590,29 @@ declare const CNErrorDomain: string;
 
 declare const CNLabelContactRelationDaughterInLawOrStepdaughter: string;
 
+declare const CNLabelContactRelationParentsSibling: string;
+
+declare const CNLabelContactRelationElderCousinFathersSistersSon: string;
+
 declare const CNLabelContactRelationNieceBrothersDaughter: string;
 
 declare const CNLabelContactRelationYoungerCousinMothersSistersSon: string;
-
-declare const CNLabelContactRelationBrotherInLawWifesBrother: string;
-
-declare const CNSocialProfileServiceGameCenter: string;
 
 declare const CNLabelContactRelationCoSiblingInLaw: string;
 
 declare const CNLabelContactRelationElderCousinParentsSiblingsDaughter: string;
 
+declare const CNSocialProfileServiceTencentWeibo: string;
+
 declare const CNGroupNameKey: string;
 
 declare const CNContactThumbnailImageDataKey: string;
-
-declare const CNLabelContactRelationGrandsonOrNephew: string;
 
 declare const CNInstantMessageAddressUsernameKey: string;
 
 declare const CNLabelContactRelationSon: string;
 
-declare const CNLabelContactRelationSisterInLawBrothersWife: string;
-
 declare const CNLabelContactRelationEldestBrother: string;
-
-declare const CNLabelContactRelationDaughterInLawOrSisterInLaw: string;
 
 declare const CNLabelContactRelationFatherInLawHusbandsFather: string;
 
@@ -757,18 +757,6 @@ declare class CNContactsUserDefaults extends NSObject {
   readonly countryCode: string;
 }
 
-declare class CNPostalAddressFormatter extends NSFormatter {
-  static stringFromPostalAddressStyle(postalAddress: CNPostalAddress, style: interop.Enum<typeof CNPostalAddressFormatterStyle>): string;
-
-  static attributedStringFromPostalAddressStyleWithDefaultAttributes(postalAddress: CNPostalAddress, style: interop.Enum<typeof CNPostalAddressFormatterStyle>, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
-
-  style: interop.Enum<typeof CNPostalAddressFormatterStyle>;
-
-  stringFromPostalAddress(postalAddress: CNPostalAddress): string;
-
-  attributedStringFromPostalAddressWithDefaultAttributes(postalAddress: CNPostalAddress, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
-}
-
 declare class CNContactFormatter extends NSFormatter implements NSSecureCoding {
   static descriptorForRequiredKeysForStyle(style: interop.Enum<typeof CNContactFormatterStyle>): CNKeyDescriptor;
 
@@ -858,12 +846,6 @@ declare class CNChangeHistoryRemoveSubgroupFromGroupEvent extends CNChangeHistor
   readonly group: CNGroup;
 }
 
-declare class CNChangeHistoryRemoveMemberFromGroupEvent extends CNChangeHistoryEvent {
-  readonly member: CNContact;
-
-  readonly group: CNGroup;
-}
-
 declare class CNChangeHistoryDeleteGroupEvent extends CNChangeHistoryEvent {
   readonly groupIdentifier: string;
 }
@@ -913,6 +895,12 @@ declare class CNChangeHistoryFetchRequest extends CNFetchRequest implements NSSe
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class CNFetchResult<ValueType = interop.Object> extends NSObject {
+  readonly value: ValueType;
+
+  readonly currentHistoryToken: NSData;
 }
 
 declare class CNContactFetchRequest extends CNFetchRequest implements NSSecureCoding {
@@ -1129,84 +1117,6 @@ declare class CNLabeledValue<ValueType = interop.Object> extends NSObject implem
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class CNGroup extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
-  readonly identifier: string;
-
-  readonly name: string;
-
-  static predicateForGroupsWithIdentifiers(identifiers: NSArray<interop.Object> | Array<interop.Object>): NSPredicate;
-
-  static predicateForSubgroupsInGroupWithIdentifier(parentGroupIdentifier: string): NSPredicate;
-
-  static predicateForGroupsInContainerWithIdentifier(containerIdentifier: string): NSPredicate;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCoding {
-  static phoneNumberWithStringValue<This extends abstract new (...args: any) => any>(this: This, stringValue: string): InstanceType<This>;
-
-  initWithStringValue(string: string): this;
-
-  init(): this;
-
-  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  readonly stringValue: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class CNChangeHistoryAddGroupEvent extends CNChangeHistoryEvent {
-  readonly group: CNGroup;
-
-  readonly containerIdentifier: string;
-}
-
-declare class CNChangeHistoryUpdateGroupEvent extends CNChangeHistoryEvent {
-  readonly group: CNGroup;
-}
-
-declare class CNChangeHistoryAddMemberToGroupEvent extends CNChangeHistoryEvent {
-  readonly member: CNContact;
-
-  readonly group: CNGroup;
-}
-
-declare class CNChangeHistoryAddSubgroupToGroupEvent extends CNChangeHistoryEvent {
-  readonly subgroup: CNGroup;
-
-  readonly group: CNGroup;
-}
-
-declare class CNContactVCardSerialization extends NSObject {
-  static descriptorForRequiredKeys(): CNKeyDescriptor;
-
-  static dataWithContactsError(contacts: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSData;
-
-  static contactsWithDataError(data: NSData, error: interop.PointerConvertible): NSArray;
-}
-
-declare class CNFetchResult<ValueType = interop.Object> extends NSObject {
-  readonly value: ValueType;
-
-  readonly currentHistoryToken: NSData;
-}
-
 // @ts-ignore
 declare class CNMutableContact extends CNContact {
   // @ts-ignore
@@ -1307,50 +1217,38 @@ declare class CNMutableContact extends CNContact {
   set dates(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-declare class CNChangeHistoryDeleteContactEvent extends CNChangeHistoryEvent {
-  readonly contactIdentifier: string;
+declare class CNGroup extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
+  readonly identifier: string;
+
+  readonly name: string;
+
+  static predicateForGroupsWithIdentifiers(identifiers: NSArray<interop.Object> | Array<interop.Object>): NSPredicate;
+
+  static predicateForSubgroupsInGroupWithIdentifier(parentGroupIdentifier: string): NSPredicate;
+
+  static predicateForGroupsInContainerWithIdentifier(containerIdentifier: string): NSPredicate;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
-declare class CNSaveRequest extends NSObject {
-  addContactToContainerWithIdentifier(contact: CNMutableContact, identifier: string | null): void;
+declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCoding {
+  static phoneNumberWithStringValue<This extends abstract new (...args: any) => any>(this: This, stringValue: string): InstanceType<This>;
 
-  updateContact(contact: CNMutableContact): void;
+  initWithStringValue(string: string): this;
 
-  deleteContact(contact: CNMutableContact): void;
+  init(): this;
 
-  addGroupToContainerWithIdentifier(group: CNMutableGroup, identifier: string | null): void;
+  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  updateGroup(group: CNMutableGroup): void;
-
-  deleteGroup(group: CNMutableGroup): void;
-
-  addSubgroupToGroup(subgroup: CNGroup, group: CNGroup): void;
-
-  removeSubgroupFromGroup(subgroup: CNGroup, group: CNGroup): void;
-
-  addMemberToGroup(contact: CNContact, group: CNGroup): void;
-
-  removeMemberFromGroup(contact: CNContact, group: CNGroup): void;
-
-  transactionAuthor: string;
-
-  shouldRefetchContacts: boolean;
-}
-
-declare class CNSocialProfile extends NSObject implements NSCopying, NSSecureCoding {
-  readonly urlString: string;
-
-  readonly username: string;
-
-  readonly userIdentifier: string;
-
-  readonly service: string;
-
-  initWithUrlStringUsernameUserIdentifierService(urlString: string | null, username: string | null, userIdentifier: string | null, service: string | null): this;
-
-  static localizedStringForKey(key: string): string;
-
-  static localizedStringForService(service: string): string;
+  readonly stringValue: string;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -1387,5 +1285,107 @@ declare class CNContactStore extends NSObject {
   readonly currentHistoryToken: NSData;
 
   defaultContainerIdentifier(): string;
+}
+
+declare class CNChangeHistoryAddGroupEvent extends CNChangeHistoryEvent {
+  readonly group: CNGroup;
+
+  readonly containerIdentifier: string;
+}
+
+declare class CNChangeHistoryUpdateGroupEvent extends CNChangeHistoryEvent {
+  readonly group: CNGroup;
+}
+
+declare class CNSaveRequest extends NSObject {
+  addContactToContainerWithIdentifier(contact: CNMutableContact, identifier: string | null): void;
+
+  updateContact(contact: CNMutableContact): void;
+
+  deleteContact(contact: CNMutableContact): void;
+
+  addGroupToContainerWithIdentifier(group: CNMutableGroup, identifier: string | null): void;
+
+  updateGroup(group: CNMutableGroup): void;
+
+  deleteGroup(group: CNMutableGroup): void;
+
+  addSubgroupToGroup(subgroup: CNGroup, group: CNGroup): void;
+
+  removeSubgroupFromGroup(subgroup: CNGroup, group: CNGroup): void;
+
+  addMemberToGroup(contact: CNContact, group: CNGroup): void;
+
+  removeMemberFromGroup(contact: CNContact, group: CNGroup): void;
+
+  transactionAuthor: string;
+
+  shouldRefetchContacts: boolean;
+}
+
+declare class CNChangeHistoryRemoveMemberFromGroupEvent extends CNChangeHistoryEvent {
+  readonly member: CNContact;
+
+  readonly group: CNGroup;
+}
+
+declare class CNChangeHistoryAddMemberToGroupEvent extends CNChangeHistoryEvent {
+  readonly member: CNContact;
+
+  readonly group: CNGroup;
+}
+
+declare class CNPostalAddressFormatter extends NSFormatter {
+  static stringFromPostalAddressStyle(postalAddress: CNPostalAddress, style: interop.Enum<typeof CNPostalAddressFormatterStyle>): string;
+
+  static attributedStringFromPostalAddressStyleWithDefaultAttributes(postalAddress: CNPostalAddress, style: interop.Enum<typeof CNPostalAddressFormatterStyle>, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
+
+  style: interop.Enum<typeof CNPostalAddressFormatterStyle>;
+
+  stringFromPostalAddress(postalAddress: CNPostalAddress): string;
+
+  attributedStringFromPostalAddressWithDefaultAttributes(postalAddress: CNPostalAddress, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
+}
+
+declare class CNChangeHistoryDeleteContactEvent extends CNChangeHistoryEvent {
+  readonly contactIdentifier: string;
+}
+
+declare class CNChangeHistoryAddSubgroupToGroupEvent extends CNChangeHistoryEvent {
+  readonly subgroup: CNGroup;
+
+  readonly group: CNGroup;
+}
+
+declare class CNSocialProfile extends NSObject implements NSCopying, NSSecureCoding {
+  readonly urlString: string;
+
+  readonly username: string;
+
+  readonly userIdentifier: string;
+
+  readonly service: string;
+
+  initWithUrlStringUsernameUserIdentifierService(urlString: string | null, username: string | null, userIdentifier: string | null, service: string | null): this;
+
+  static localizedStringForKey(key: string): string;
+
+  static localizedStringForService(service: string): string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class CNContactVCardSerialization extends NSObject {
+  static descriptorForRequiredKeys(): CNKeyDescriptor;
+
+  static dataWithContactsError(contacts: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSData;
+
+  static contactsWithDataError(data: NSData, error: interop.PointerConvertible): NSArray;
 }
 

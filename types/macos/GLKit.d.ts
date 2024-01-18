@@ -1,5 +1,13 @@
 /// <reference path="../../lib/types.d.ts" />
 
+type _GLKMatrix3Descriptor = 
+  | { m: unknown /* const array */ };
+
+declare class _GLKMatrix3 {
+  constructor(init?: _GLKMatrix3Descriptor);
+  m: unknown /* const array */;
+}
+
 type _GLKMatrix2Descriptor = 
   | { m2: unknown /* const array */ }
   | { m: unknown /* const array */ };
@@ -16,14 +24,6 @@ type _GLKVector3Descriptor =
 declare class _GLKVector3 {
   constructor(init?: _GLKVector3Descriptor);
   v: unknown /* const array */;
-}
-
-type _GLKMatrix3Descriptor = 
-  | { m: unknown /* const array */ };
-
-declare class _GLKMatrix3 {
-  constructor(init?: _GLKMatrix3Descriptor);
-  m: unknown /* const array */;
 }
 
 type _GLKMatrix4Descriptor = 

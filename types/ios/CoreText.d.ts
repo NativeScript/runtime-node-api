@@ -1,40 +1,508 @@
 /// <reference path="../../lib/types.d.ts" />
 
+declare const kFontTatarLanguage: number;
+
+declare const kNoCJKSymbolAlternativesSelector: number;
+
+declare const kCTBaselineClassHanging: interop.Pointer;
+
+declare const kCTFontTableCFF2: number;
+
+declare const kHistoricalLigaturesOnSelector: number;
+
+declare const kCTFontDescriptorMatchingError: interop.Pointer;
+
+declare const kStylisticAltFourteenOnSelector: number;
+
+declare const kFontOriyaLanguage: number;
+
+declare const kProportionalNumbersSelector: number;
+
+declare const kFontIrishLanguage: number;
+
+declare const kPROPNumDirectionClasses: number;
+
+declare const kCTFontTableOpbd: number;
+
+declare const kFontReservedPlatform: number;
+
+declare const kStylisticAltSixteenOffSelector: number;
+
+declare const kCTFontVersionNameKey: interop.Pointer;
+
+declare const kFontMoldavianLanguage: number;
+
+declare const kFontLaoLanguage: number;
+
+declare const kCTFontTableJust: number;
+
+declare const kCJKItalicRomanOnSelector: number;
+
+declare const kPROPENDirectionClass: number;
+
+declare const kFontBasqueLanguage: number;
+
+declare const kCTFontTableFmtx: number;
+
+declare const kMORTraCDxBA: number;
+
+declare const kJIS2004CharactersSelector: number;
+
+declare const kPROPDirectionMask: number;
+
+declare const kBSLNDistanceFormatNoMap: number;
+
+declare const kCTFontOpenTypeFeatureValue: interop.Pointer;
+
+declare const kHalfWidthCJKRomanSelector: number;
+
+declare const kKERXUnusedFlags: number;
+
+declare const kMORTraxA: number;
+
+declare const kCTFontDownloadedAttribute: interop.Pointer;
+
+declare const kCTFontTableAcnt: number;
+
+declare const kStylisticAltFiveOnSelector: number;
+
+declare const kFontIndonesianLanguage: number;
+
+declare const kCTWritingDirectionAttributeName: interop.Pointer;
+
+declare const kFontRussian: number;
+
+declare const kMORTraCDxAB: number;
+
+declare const kCTFontTableBsln: number;
+
+declare const kUpperCasePetiteCapsSelector: number;
+
+declare const kMORTCurrInsertKashidaLike: number;
+
+declare const kCTFontTableProp: number;
+
+declare const kMORTCurrJustTableCountShift: number;
+
+declare const kJUSTKashidaPriority: number;
+
+declare const kFontKashmiriLanguage: number;
+
+declare const kBSLNIdeographicCenterBaseline: number;
+
+declare const kHyphensToEmDashOnSelector: number;
+
+declare const kAlternateHorizKanaOffSelector: number;
+
+declare const kCaseSensitiveSpacingOffSelector: number;
+
+declare const kSwashAlternatesOnSelector: number;
+
+declare const kFontTibetanScript: number;
+
+declare const kCTFontSampleTextNameKey: interop.Pointer;
+
+declare const kCTFontTableMort: number;
+
+declare const kStylisticAltSixteenOnSelector: number;
+
+declare const kFontMicrosoftStandardScript: number;
+
+declare const kCTFontDescriptorMatchingCurrentAssetSize: interop.Pointer;
+
+declare const kKERXVariation: number;
+
+declare const kMORTraDx: number;
+
+declare const kCTBaselineClassIdeographicCentered: interop.Pointer;
+
+declare const kPeriodAnnotationSelector: number;
+
+declare const kCTFontTableLoca: number;
+
+declare const kAllTypeFeaturesOffSelector: number;
+
+declare const kCTFontURLAttribute: interop.Pointer;
+
+declare const kSmartQuotesOnSelector: number;
+
+declare const kNonFinalSwashesOnSelector: number;
+
+declare const kCTFontPriorityNetwork: number;
+
+declare const kBSLNControlPointFormatNoMap: number;
+
+declare const kLowerCaseType: number;
+
+declare const kFontPashtoLanguage: number;
+
+declare const kCTFontTableEBLC: number;
+
+declare const kFontMalayRomanLanguage: number;
+
+declare const kCTFontTableSTAT: number;
+
+declare const kFormInterrobangOnSelector: number;
+
+declare const kFontTurkmenLanguage: number;
+
+declare const kStylisticAltFiveOffSelector: number;
+
+declare const kStylisticAltThreeOnSelector: number;
+
+declare const kCTFontPrioritySystem: number;
+
+declare const kStylisticAltFourOnSelector: number;
+
+declare const kTRAKUniformFormat: number;
+
+declare const kPeriodsToEllipsisOffSelector: number;
+
+declare const kSubstituteVerticalFormsOffSelector: number;
+
+declare const kFontHebrewScript: number;
+
+declare const kMORTraNoAction: number;
+
+declare const kCTFontMatrixAttribute: interop.Pointer;
+
+declare const kCTFontTableGPOS: number;
+
+declare const kCTFontStyleNameKey: interop.Pointer;
+
+declare const kJUSTpcUnconditionalAddAction: number;
+
+declare const kPROPONDirectionClass: number;
+
+declare const kFontLicenseInfoURLName: number;
+
+declare const kMORTCoverIgnoreVertical: number;
+
+declare const kCTFontTableCvar: number;
+
+declare const kAsteriskToMultiplyOnSelector: number;
+
+declare const kUpperCaseSmallCapsSelector: number;
+
+declare const kFontTajikiLanguage: number;
+
+declare const kCTBaselineClassIdeographicHigh: interop.Pointer;
+
+declare const kFontUkrainianLanguage: number;
+
+declare const kBSLNTag: number;
+
+declare const kStylisticAltEighteenOnSelector: number;
+
+declare const kCTFontFeatureTypeSelectorsKey: interop.Pointer;
+
+declare const kWordInitialSwashesOffSelector: number;
+
+declare const kCTFontTableCmap: number;
+
+declare const kCTFontTableLTSH: number;
+
+declare const kKERXUnusedBits: number;
+
+declare const kStylisticAltTwentyOnSelector: number;
+
+declare const kLastFeatureType: number;
+
+declare const kNonFinalSwashesOffSelector: number;
+
+declare const kMORTInsertionType: number;
+
+declare const kLinguisticRearrangementOnSelector: number;
+
+declare const kKERXActionTypeAnchorPoints: number;
+
+declare const kFontSerbianLanguage: number;
+
+declare const kOPBDDistanceFormat: number;
+
+declare const kCaseSensitiveSpacingOnSelector: number;
+
+declare const kStylisticAltFourOffSelector: number;
+
+declare const kFontTigrinyaLanguage: number;
+
+declare const kMathSymbolsSelector: number;
+
+declare const kKERNIndexArray: number;
+
+declare const kDesignLevel5Selector: number;
+
+declare const kJUSTOverrideLimits: number;
+
+declare const kMORTSwashType: number;
+
+declare const nameFontTableTag: number;
+
+declare const kSTNoAdvance: number;
+
+declare const kKERXLineEndKerning: number;
+
+declare const kFontCustom8BitScript: number;
+
+declare const kTranscodingCompositionOnSelector: number;
+
+declare const kCTFontPriorityAttribute: interop.Pointer;
+
+declare const kCharacterShapeType: number;
+
+declare const kJIS1978CharactersSelector: number;
+
+declare const kCTFontFeatureSelectorDefaultKey: interop.Pointer;
+
+declare const kPROPWSDirectionClass: number;
+
+declare const kFontGallaLanguage: number;
+
+declare const kCTFontWeightTrait: interop.Pointer;
+
+declare const kAbbrevSquaredLigaturesOffSelector: number;
+
+declare const kCTFontTableFond: number;
+
+declare const kCTFontFeatureSelectorSettingKey: interop.Pointer;
+
+declare const kCTTrackingAttributeName: interop.Pointer;
+
+declare const kKERXNotesRequested: number;
+
+declare const kCTFontTableGvar: number;
+
+declare const kCircleAnnotationSelector: number;
+
+declare const kStylisticAltEightOnSelector: number;
+
+declare const kDecomposeDiacriticsSelector: number;
+
+declare const kExponentsOnSelector: number;
+
+declare const kFontCopyrightName: number;
+
+declare const kSlashToDivideOffSelector: number;
+
+declare const kFontAzerbaijanArLanguage: number;
+
+declare const kCanonicalCompositionOnSelector: number;
+
+declare const kNumberSpacingType: number;
+
+declare const kFontCroatianLanguage: number;
+
+declare const kFontTamilScript: number;
+
+declare const kFontISO10646_1993Semantics: number;
+
+declare const kCTFontVariationAxisNameKey: interop.Pointer;
+
+declare const kCTFontTableGasp: number;
+
+declare const kHanjaToHangulAltTwoSelector: number;
+
+declare const kKERXTag: number;
+
+declare const kAsteriskToMultiplyOffSelector: number;
+
+declare const kIdeographicAltThreeSelector: number;
+
+declare const kCTFramePathWidthAttributeName: interop.Pointer;
+
+declare const kCTBaselineOffsetAttributeName: interop.Pointer;
+
+declare const kCTFontOpenTypeFeatureTag: interop.Pointer;
+
+declare const kFontGurmukhiScript: number;
+
+declare const kHanjaToHangulAltOneSelector: number;
+
+declare const kStylisticAltEightOffSelector: number;
+
+declare const kCTFontBaselineAdjustAttribute: interop.Pointer;
+
+declare const kCTFontTableHhea: number;
+
+declare const kCTFontTableEBSC: number;
+
+declare const kUpperAndLowerCaseSelector: number;
+
+declare const kLowerCaseNumbersSelector: number;
+
+declare const kStylisticAltTwelveOffSelector: number;
+
+declare const kFontOromoLanguage: number;
+
+declare const kCTFontDescriptionNameKey: interop.Pointer;
+
+declare const kIdeographicAlternativesType: number;
+
+declare const kContextualAlternatesOnSelector: number;
+
+declare const kMORXCoverVertical: number;
+
+declare const kCTFontTableEBDT: number;
+
+declare const kFontUighurLanguage: number;
+
+declare const kFontLappishLanguage: number;
+
+declare const kCTFontFamilyNameKey: interop.Pointer;
+
+declare const kDisplayTextSelector: number;
+
+declare const kCTKernAttributeName: interop.Pointer;
+
+declare const nonGlyphID: number;
+
+declare const kScientificInferiorsSelector: number;
+
+declare const kCTFontTableVORG: number;
+
+declare const kNoFractionsSelector: number;
+
+declare const kFontGujaratiLanguage: number;
+
+declare const kFontDescriptionName: number;
+
+declare const kKERXControlPoint: number;
+
+declare const kKERXValuesAreLong: number;
+
+declare const kQuarterWidthNumbersSelector: number;
+
+declare const kCTFontTableZapf: number;
+
+declare const kAlternateKanaType: number;
+
+declare const kCTFontTableBloc: number;
+
+declare const kMORTRearrangementType: number;
+
+declare const kDiacriticsType: number;
+
+declare const kAllLowerCaseSelector: number;
+
+declare const kStylisticAltSevenOffSelector: number;
+
+declare const kCTFontVariationAxisMaximumValueKey: interop.Pointer;
+
+declare const kRebusPicturesOffSelector: number;
+
+declare const kAltProportionalTextSelector: number;
+
+declare const kCTFontLicenseNameKey: interop.Pointer;
+
+declare const kCTFontTableFeat: number;
+
+declare const kFontArmenianScript: number;
+
+declare const kKERXActionTypeCoordinates: number;
+
+declare const kCTFontSizeAttribute: interop.Pointer;
+
+declare const kCTFontTableJSTF: number;
+
+declare const kRubyKanaType: number;
+
+declare const kFontChewaLanguage: number;
+
+declare const kCTFontOrientationAttribute: interop.Pointer;
+
+declare const kFontPreferredSubfamilyName: number;
+
+declare const kCTFontTableCvt: number;
+
+declare const kSwashAlternatesOffSelector: number;
+
+declare const kFontFamilyName: number;
+
+declare const kVerticalSubstitutionType: number;
+
+declare const kCTFontPostScriptCIDNameKey: interop.Pointer;
+
+declare const kCommonLigaturesOffSelector: number;
+
+declare const kNoStylisticAlternatesSelector: number;
+
+declare const kInitialCapsSelector: number;
+
+declare const kKERNFormatMask: number;
+
+declare const kTraditionalAltFourSelector: number;
+
+declare const kInvertedBoxAnnotationSelector: number;
+
+declare const kFontEnglishLanguage: number;
+
+declare const sizeof_sfntCMapSubHeader: number;
+
+declare const kCTFontLanguagesAttribute: interop.Pointer;
+
+declare const kKERXLineStart: number;
+
+declare const kJUSTpcGlyphStretchAction: number;
+
+declare const kTraditionalCharactersSelector: number;
+
+declare const kCTFontTableGlyf: number;
+
+declare const kFontMacCompatibleFullName: number;
+
+declare const kCTFontFeatureTypeNameKey: interop.Pointer;
+
+declare const kMORTLigFormOffsetShift: number;
+
+declare const kDingbatsSelector: number;
+
+declare const kCTFontFeatureTypeExclusiveKey: interop.Pointer;
+
+declare const kInequalityLigaturesOffSelector: number;
+
+declare const kFontDutchLanguage: number;
+
+declare const kPROPLREDirectionClass: number;
+
+declare const kJIS1983CharactersSelector: number;
+
+declare const sizeof_sfntVariationAxis: number;
+
+declare const kFontPolishLanguage: number;
+
+declare const kOrdinalsSelector: number;
+
+declare const kKERXSimpleArray: number;
+
+declare const kFontLatinLanguage: number;
+
+declare const kFontSlovenianLanguage: number;
+
+declare const kFontRundiLanguage: number;
+
+declare const kFontHindiLanguage: number;
+
 declare const sizeof_sfntDescriptorHeader: number;
 
 declare const sizeof_sfntInstance: number;
 
-declare const sizeof_sfntVariationAxis: number;
+declare const kFontMalteseLanguage: number;
 
 declare const sizeof_sfntNameHeader: number;
 
 declare const sizeof_sfntNameRecord: number;
 
-declare const kFontPreferredSubfamilyName: number;
-
 declare const kFontLicenseDescriptionName: number;
 
 declare const kFontVendorURLName: number;
 
-declare const kFontDescriptionName: number;
-
-declare const kFontCopyrightName: number;
-
-declare const nameFontTableTag: number;
-
 declare const sizeof_sfntCMapEncoding: number;
-
-declare const sizeof_sfntCMapSubHeader: number;
 
 declare const kFontNoLanguageCode: number;
 
 declare const kFontNoScriptCode: number;
 
 declare const kFontJavaneseRomLanguage: number;
-
-declare const kFontUighurLanguage: number;
-
-declare const kFontTatarLanguage: number;
 
 declare const kFontAymaraLanguage: number;
 
@@ -44,29 +512,29 @@ declare const kFontQuechuaLanguage: number;
 
 declare const kFontPreferredFamilyName: number;
 
-declare const kFontLatinLanguage: number;
+declare const kTranscodingCompositionOffSelector: number;
+
+declare const kFontFullName: number;
 
 declare const kFontWelshLanguage: number;
 
 declare const kFontEsperantoLanguage: number;
 
+declare const kFontTamilLanguage: number;
+
 declare const kFontMalagasyLanguage: number;
-
-declare const kFontRundiLanguage: number;
-
-declare const kFontOromoLanguage: number;
 
 declare const kFontAmharicLanguage: number;
 
 declare const kFontMalayArabicLanguage: number;
 
-declare const kFontMalayRomanLanguage: number;
-
-declare const kFontIndonesianLanguage: number;
+declare const kFontSlovakLanguage: number;
 
 declare const kFontKhmerLanguage: number;
 
 declare const kFontBurmeseLanguage: number;
+
+declare const kSTLigActionMask: number;
 
 declare const kFontTeluguLanguage: number;
 
@@ -74,33 +542,27 @@ declare const kFontKannadaLanguage: number;
 
 declare const kFontMalayalamLanguage: number;
 
-declare const kFontOriyaLanguage: number;
+declare const kCTSuperscriptAttributeName: interop.Pointer;
 
 declare const kFontPunjabiLanguage: number;
 
 declare const kFontSindhiLanguage: number;
 
-declare const kFontKashmiriLanguage: number;
-
 declare const kFontKurdishLanguage: number;
-
-declare const kFontPashtoLanguage: number;
 
 declare const kFontMongolianCyrLanguage: number;
 
 declare const kFontMongolianLanguage: number;
 
-declare const kFontTajikiLanguage: number;
-
-declare const kFontMoldavianLanguage: number;
+declare const kFontMicrosoftUCS4Script: number;
 
 declare const kFontGeorgianLanguage: number;
-
-declare const kFontAzerbaijanArLanguage: number;
 
 declare const kFontAzerbaijaniLanguage: number;
 
 declare const kFontKazakhLanguage: number;
+
+declare const kDesignLevel3Selector: number;
 
 declare const kFontSundaneseRomLanguage: number;
 
@@ -108,11 +570,7 @@ declare const kFontUzbekLanguage: number;
 
 declare const kFontByelorussianLanguage: number;
 
-declare const kFontSerbianLanguage: number;
-
 declare const kFontCzechLanguage: number;
-
-declare const kFontIrishLanguage: number;
 
 declare const kFontFlemishLanguage: number;
 
@@ -120,17 +578,21 @@ declare const kFontRussianLanguage: number;
 
 declare const kFontPersianLanguage: number;
 
+declare const kCJKSymbolAltOneSelector: number;
+
+declare const kPeriodsToEllipsisOnSelector: number;
+
 declare const kFontFarsiLanguage: number;
 
 declare const kFontFaeroeseLanguage: number;
 
 declare const kFontCatalanLanguage: number;
 
-declare const kFontLappishLanguage: number;
-
 declare const kFontSaamiskLanguage: number;
 
 declare const kFontLatvianLanguage: number;
+
+declare const kFontUrduLanguage: number;
 
 declare const kFontLettishLanguage: number;
 
@@ -144,15 +606,15 @@ declare const kFontFinnishLanguage: number;
 
 declare const kFontNorwegianLanguage: number;
 
-declare const kFontSpanishLanguage: number;
+declare const kCTFontManagerErrorDomain: interop.Pointer;
 
-declare const kFontDutchLanguage: number;
+declare const kFontSpanishLanguage: number;
 
 declare const kFontItalianLanguage: number;
 
 declare const kFontCustom16BitScript: number;
 
-declare const kFontMicrosoftUCS4Script: number;
+declare const kHyphenToEnDashOffSelector: number;
 
 declare const kFontUninterpretedScript: number;
 
@@ -160,9 +622,13 @@ declare const kFontSindhiScript: number;
 
 declare const kFontExtendedArabicScript: number;
 
+declare const kFontYiddishLanguage: number;
+
 declare const kFontVietnameseScript: number;
 
 declare const kFontEastEuropeanRomanScript: number;
+
+declare const kCTLanguageAttributeName: interop.Pointer;
 
 declare const kFontSlavicScript: number;
 
@@ -170,11 +636,7 @@ declare const kFontAmharicScript: number;
 
 declare const kFontMongolianScript: number;
 
-declare const kFontTibetanScript: number;
-
 declare const kFontSimpleChineseScript: number;
-
-declare const kFontArmenianScript: number;
 
 declare const kFontThaiScript: number;
 
@@ -182,17 +644,21 @@ declare const kFontKannadaScript: number;
 
 declare const kFontTeluguScript: number;
 
-declare const kFontGujaratiScript: number;
+declare const kSquaredLigaturesOnSelector: number;
 
-declare const kFontGurmukhiScript: number;
+declare const kFontGujaratiScript: number;
 
 declare const kFontDevanagariScript: number;
 
+declare const kCJKItalicRomanSelector: number;
+
+declare const kJIS1990CharactersSelector: number;
+
 declare const kFontRSymbolScript: number;
 
-declare const kFontRussian: number;
-
 declare const kFontCyrillicScript: number;
+
+declare const kIlluminatedCapsSelector: number;
 
 declare const kFontGreekScript: number;
 
@@ -210,11 +676,11 @@ declare const kFontCustomPlatform: number;
 
 declare const kFontMicrosoftPlatform: number;
 
-declare const kFontReservedPlatform: number;
-
 declare const kFontMacintoshPlatform: number;
 
 declare const cmapFontTableTag: number;
+
+declare const kCTFontPriorityDynamic: number;
 
 declare const kLTAGCurrentVersion: number;
 
@@ -224,37 +690,33 @@ declare const kBSLNLastBaseline: number;
 
 declare const kBSLNIdeographicLowBaseline: number;
 
-declare const kBSLNIdeographicCenterBaseline: number;
-
 declare const kBSLNRomanBaseline: number;
-
-declare const kBSLNControlPointFormatNoMap: number;
 
 declare const kBSLNDistanceFormatWithMap: number;
 
 declare const kBSLNCurrentVersion: number;
 
-declare const kKERXValuesAreLong: number;
-
 declare const kKERXActionOffsetMask: number;
+
+declare const kLogosOnSelector: number;
 
 declare const kKERXActionTypeControlPoints: number;
 
 declare const kKERXCrossStreamResetNote: number;
 
-declare const kKERXNotesRequested: number;
-
-declare const kKERXLineEndKerning: number;
+declare const kStylisticAltSixOffSelector: number;
 
 declare const kKERXIndexArray: number;
 
 declare const kKERXOrderedList: number;
 
+declare const kCTFontTableMaxp: number;
+
+declare const kHideDiacriticsSelector: number;
+
 declare const kKERXCrossStream: number;
 
 declare const kKERXVertical: number;
-
-declare const kKERXTag: number;
 
 declare const kKERNCrossStreamResetNote: number;
 
@@ -262,7 +724,13 @@ declare const kKERNNoCrossKerning: number;
 
 declare const kKERNOrderedList: number;
 
+declare const kCTFontTableHVAR: number;
+
+declare const kCTFontTableVmtx: number;
+
 declare const kKERNVariation: number;
+
+declare const kPROPRLEDirectionClass: number;
 
 declare const kKERNCrossStream: number;
 
@@ -274,11 +742,11 @@ declare const kKERNTag: number;
 
 declare const kTRAKCurrentVersion: number;
 
-declare const nonGlyphID: number;
+declare const kRubyKanaSelector: number;
 
 declare const kTRAKTag: number;
 
-declare const kPROPNumDirectionClasses: number;
+declare const kStylisticAltTwelveOnSelector: number;
 
 declare const kPROPBNDirectionClass: number;
 
@@ -286,27 +754,29 @@ declare const kPROPNSMDirectionClass: number;
 
 declare const kPROPRLODirectionClass: number;
 
-declare const kFontLicenseInfoURLName: number;
-
-declare const kPROPRLEDirectionClass: number;
-
 declare const kPROPLRODirectionClass: number;
 
-declare const kPROPWSDirectionClass: number;
+declare const kAllTypographicFeaturesType: number;
 
 declare const kPROPSDirectionClass: number;
 
 declare const kPROPPSDirectionClass: number;
 
+declare const kCTFontCopyrightNameKey: interop.Pointer;
+
+declare const kCTFontFeatureTooltipTextKey: interop.Pointer;
+
 declare const kPROPANDirectionClass: number;
+
+declare const kCTWritingDirectionOverride: number;
+
+declare const kSubstituteVerticalFormsOnSelector: number;
 
 declare const kPROPETDirectionClass: number;
 
-declare const kPROPDirectionMask: number;
+declare const kCTFontTableTrak: number;
 
 declare const kPROPZeroReserved: number;
-
-declare const kFontUrduLanguage: number;
 
 declare const kPROPRightConnectMask: number;
 
@@ -316,6 +786,8 @@ declare const kPROPPairOffsetMask: number;
 
 declare const kPROPCanHangRBMask: number;
 
+declare const kStylisticAltThreeOffSelector: number;
+
 declare const kPROPCanHangLTMask: number;
 
 declare const kPROPIsFloaterMask: number;
@@ -324,9 +796,9 @@ declare const kMORXCoverLogicalOrder: number;
 
 declare const kMORXCoverIgnoreVertical: number;
 
-declare const kMORXCoverDescending: number;
+declare const kCTFontSymbolicTrait: interop.Pointer;
 
-declare const kMORXCoverVertical: number;
+declare const kMORXCoverDescending: number;
 
 declare const kMORXCurrentVersion: number;
 
@@ -334,7 +806,11 @@ declare const kMORXTag: number;
 
 declare const kMORTMarkInsertCountShift: number;
 
+declare const kSmartSwashType: number;
+
 declare const kBSLNNumBaselineClasses: number;
+
+declare const kFontGermanLanguage: number;
 
 declare const kMORTCurrInsertCountShift: number;
 
@@ -350,43 +826,33 @@ declare const kMORTCurrInsertBefore: number;
 
 declare const kMORTMarkInsertKashidaLike: number;
 
-declare const kMORTCurrInsertKashidaLike: number;
-
 declare const kMORTInsertionsCountMask: number;
-
-declare const kMORTraCDxAB: number;
 
 declare const kMORTraDxBA: number;
 
+declare const kCJKVerticalRomanCenteredSelector: number;
+
 declare const kMORTraDxAB: number;
+
+declare const sizeof_sfntCMapHeader: number;
 
 declare const kMORTraDCxA: number;
 
 declare const kMORTraxBA: number;
 
-declare const kFontMacCompatibleFullName: number;
-
 declare const kMORTraxAB: number;
 
-declare const kMORTraxA: number;
-
-declare const kMORTraNoAction: number;
-
-declare const kMORTLigFormOffsetShift: number;
+declare const kCTFontManagerErrorFontDescriptorsKey: interop.Pointer;
 
 declare const kMORTLigStoreLigature: number;
 
-declare const kMORTInsertionType: number;
-
-declare const kMORTSwashType: number;
+declare const kNoStyleOptionsSelector: number;
 
 declare const kMORTLigatureType: number;
 
 declare const kMORTContextualType: number;
 
 declare const kFontBengaliScript: number;
-
-declare const kMORTCoverIgnoreVertical: number;
 
 declare const kMORTCoverDescending: number;
 
@@ -396,17 +862,15 @@ declare const kMORTCurrentVersion: number;
 
 declare const kOPBDControlPointFormat: number;
 
-declare const kOPBDDistanceFormat: number;
-
 declare const kJUSTOverridePriority: number;
-
-declare const kFontLaoLanguage: number;
 
 declare const kJUSTPriorityCount: number;
 
+declare const kInvertedRoundedBoxAnnotationSelector: number;
+
 declare const kJUSTLetterPriority: number;
 
-declare const kJUSTKashidaPriority: number;
+declare const kCTFontTableLcar: number;
 
 declare const kJUSTpcDuctilityAction: number;
 
@@ -414,7 +878,7 @@ declare const kJUSTpcConditionalAddAction: number;
 
 declare const kMORTraDCx: number;
 
-declare const kJUSTpcUnconditionalAddAction: number;
+declare const kCTFontPostScriptNameKey: interop.Pointer;
 
 declare const kJUSTpcDecompositionAction: number;
 
@@ -423,6 +887,8 @@ declare const kJUSTStandardFormat: number;
 declare const kJUSTCurrentVersion: number;
 
 declare const kLCARCtlPointFormat: number;
+
+declare const kSuperiorsSelector: number;
 
 declare const kLCARLinearFormat: number;
 
@@ -434,9 +900,7 @@ declare const kFontCustom816BitScript: number;
 
 declare const kSTMarkEnd: number;
 
-declare const kKERXLineStart: number;
-
-declare const kSTNoAdvance: number;
+declare const kFontKhmerScript: number;
 
 declare const kSTSetMark: number;
 
@@ -450,11 +914,11 @@ declare const kSFNTLookupSingleTable: number;
 
 declare const kProportionalCJKRomanSelector: number;
 
-declare const kHalfWidthCJKRomanSelector: number;
-
 declare const kDefaultUpperCaseSelector: number;
 
 declare const kLowerCasePetiteCapsSelector: number;
+
+declare const kStylisticAltTwentyOffSelector: number;
 
 declare const kFontBengaliLanguage: number;
 
@@ -462,15 +926,9 @@ declare const kDefaultLowerCaseSelector: number;
 
 declare const kContextualSwashAlternatesOnSelector: number;
 
-declare const kSwashAlternatesOffSelector: number;
-
-declare const kContextualAlternatesOnSelector: number;
-
 declare const kFontLithuanianLanguage: number;
 
-declare const kStylisticAltTwentyOffSelector: number;
-
-declare const kStylisticAltTwentyOnSelector: number;
+declare const kFullWidthIdeographsSelector: number;
 
 declare const kStylisticAltNineteenOnSelector: number;
 
@@ -480,65 +938,41 @@ declare const kStylisticAltEighteenOffSelector: number;
 
 declare const kStylisticAltSeventeenOffSelector: number;
 
-declare const kStylisticAltSixteenOffSelector: number;
-
-declare const kMORTCurrJustTableCountShift: number;
-
-declare const kStylisticAltSixteenOnSelector: number;
-
-declare const kStylisticAltFourteenOnSelector: number;
-
 declare const kStylisticAltThirteenOnSelector: number;
-
-declare const kStylisticAltTwelveOnSelector: number;
 
 declare const kStylisticAltTenOnSelector: number;
 
 declare const kStylisticAltNineOffSelector: number;
 
-declare const kStylisticAltEightOffSelector: number;
-
-declare const kStylisticAltEightOnSelector: number;
-
-declare const kStylisticAltSevenOffSelector: number;
-
 declare const kStylisticAltSevenOnSelector: number;
 
-declare const kStylisticAltSixOffSelector: number;
-
 declare const kStylisticAltSixOnSelector: number;
-
-declare const kStylisticAltFiveOffSelector: number;
-
-declare const kStylisticAltFiveOnSelector: number;
-
-declare const kStylisticAltFourOnSelector: number;
-
-declare const kStylisticAltThreeOnSelector: number;
 
 declare const kStylisticAltTwoOffSelector: number;
 
 declare const kStylisticAltOneOnSelector: number;
 
-declare const kAlternateVertKanaOffSelector: number;
+declare const kCTFontManagerErrorFontURLsKey: interop.Pointer;
 
-declare const kAlternateHorizKanaOffSelector: number;
+declare const kAlternateVertKanaOffSelector: number;
 
 declare const kAlternateHorizKanaOnSelector: number;
 
+declare const kNoRubyKanaSelector: number;
+
 declare const kPROPPairOffsetShift: number;
 
-declare const kCaseSensitiveSpacingOnSelector: number;
-
 declare const kCaseSensitiveLayoutOffSelector: number;
+
+declare const kFontSampleTextName: number;
 
 declare const kCaseSensitiveLayoutOnSelector: number;
 
 declare const kNoCJKItalicRomanSelector: number;
 
-declare const kKERXSimpleArray: number;
+declare const kFullWidthKanaSelector: number;
 
-declare const kIdeographicAltThreeSelector: number;
+declare const kFontVersionName: number;
 
 declare const kIdeographicAltOneSelector: number;
 
@@ -547,8 +981,6 @@ declare const kFontAssameseLanguage: number;
 declare const kNoIdeographicAlternativesSelector: number;
 
 declare const kCJKSymbolAltFourSelector: number;
-
-declare const kMORTraDx: number;
 
 declare const kCJKSymbolAltThreeSelector: number;
 
@@ -560,29 +992,19 @@ declare const kFontTurkishLanguage: number;
 
 declare const kRubyKanaOnSelector: number;
 
-declare const kNoRubyKanaSelector: number;
-
-declare const kTranscodingCompositionOffSelector: number;
-
-declare const kTranscodingCompositionOnSelector: number;
-
 declare const kCanonicalCompositionOffSelector: number;
 
-declare const kCanonicalCompositionOnSelector: number;
+declare const kLineInitialSwashesOnSelector: number;
 
 declare const kHalfWidthIdeographsSelector: number;
 
+declare const kKERXStateTable: number;
+
 declare const kKERNStateTable: number;
-
-declare const kFullWidthIdeographsSelector: number;
-
-declare const kFullWidthKanaSelector: number;
 
 declare const kParenthesisAnnotationSelector: number;
 
 declare const kInvertedCircleAnnotationSelector: number;
-
-declare const kCircleAnnotationSelector: number;
 
 declare const kMORTDoInsertionsBefore: number;
 
@@ -590,25 +1012,17 @@ declare const kBoxAnnotationSelector: number;
 
 declare const kHanjaToHangulAltThreeSelector: number;
 
-declare const kHanjaToHangulAltTwoSelector: number;
-
-declare const kHanjaToHangulAltOneSelector: number;
-
-declare const sizeof_sfntCMapHeader: number;
-
 declare const kRomanizationToKatakanaSelector: number;
 
 declare const kRomanizationToHiraganaSelector: number;
+
+declare const kStylisticAltElevenOffSelector: number;
 
 declare const kKanaToRomanizationSelector: number;
 
 declare const kKatakanaToHiraganaSelector: number;
 
 declare const kHiraganaToKatakanaSelector: number;
-
-declare const kStylisticAltEighteenOnSelector: number;
-
-declare const kAltProportionalTextSelector: number;
 
 declare const kMonospacedTextSelector: number;
 
@@ -622,37 +1036,23 @@ declare const kHojoCharactersSelector: number;
 
 declare const kTraditionalAltFiveSelector: number;
 
-declare const kTraditionalAltFourSelector: number;
-
 declare const kTraditionalAltTwoSelector: number;
 
 declare const kTraditionalAltOneSelector: number;
 
-declare const kJIS1978CharactersSelector: number;
-
-declare const kTraditionalCharactersSelector: number;
+declare const kCTFontTableHdmx: number;
 
 declare const kTallCapsSelector: number;
 
-declare const kFontTurkmenLanguage: number;
-
 declare const kTitlingCapsSelector: number;
 
-declare const kIlluminatedCapsSelector: number;
-
 declare const kEngravedTextSelector: number;
-
-declare const kDisplayTextSelector: number;
 
 declare const kDesignLevel4Selector: number;
 
 declare const kPROPPDFDirectionClass: number;
 
 declare const kPROPTag: number;
-
-declare const kRubyKanaSelector: number;
-
-declare const kDesignLevel3Selector: number;
 
 declare const kDesignLevel2Selector: number;
 
@@ -664,31 +1064,21 @@ declare const kStylisticAltFourteenOffSelector: number;
 
 declare const kPiCharactersSelector: number;
 
-declare const kDingbatsSelector: number;
-
-declare const kCJKItalicRomanSelector: number;
-
 declare const kMathematicalGreekOnSelector: number;
 
 declare const kCTFontTableKerx: number;
 
 declare const kExponentsOffSelector: number;
 
-declare const kExponentsOnSelector: number;
-
-declare const kAsteriskToMultiplyOffSelector: number;
-
-declare const kAsteriskToMultiplyOnSelector: number;
-
-declare const kPeriodsToEllipsisOffSelector: number;
+declare const kPreventOverlapOnSelector: number;
 
 declare const descriptorFontTableTag: number;
-
-declare const kPeriodsToEllipsisOnSelector: number;
 
 declare const kSmartQuotesOffSelector: number;
 
 declare const kFormInterrobangOffSelector: number;
+
+declare const kMonospacedNumbersSelector: number;
 
 declare const kKERNNotApplied: number;
 
@@ -696,33 +1086,19 @@ declare const kSlashedZeroOnSelector: number;
 
 declare const kCTFontTableFdsc: number;
 
-declare const kHyphenToEnDashOffSelector: number;
-
-declare const kPreventOverlapOnSelector: number;
-
 declare const sizeof_sfntDirectory: number;
 
 declare const kNoAlternatesSelector: number;
 
-declare const kNoFractionsSelector: number;
-
-declare const kDecomposeDiacriticsSelector: number;
-
-declare const kHideDiacriticsSelector: number;
-
 declare const kShowDiacriticsSelector: number;
-
-declare const kBSLNTag: number;
 
 declare const kLineFinalSwashesOffSelector: number;
 
-declare const kLineInitialSwashesOnSelector: number;
-
 declare const kWordFinalSwashesOffSelector: number;
 
-declare const kWordFinalSwashesOnSelector: number;
+declare const kOPBDTag: number;
 
-declare const kWordInitialSwashesOffSelector: number;
+declare const kWordFinalSwashesOnSelector: number;
 
 declare const kWordInitialSwashesOnSelector: number;
 
@@ -732,13 +1108,11 @@ declare const kLinguisticRearrangementOffSelector: number;
 
 declare const sizeof_sfntVariationHeader: number;
 
-declare const kLinguisticRearrangementOnSelector: number;
-
-declare const kSubstituteVerticalFormsOnSelector: number;
+declare const kCTFontRegistrationScopeAttribute: interop.Pointer;
 
 declare const kInitialCapsAndSmallCapsSelector: number;
 
-declare const kAllLowerCaseSelector: number;
+declare const kSymbolLigaturesOffSelector: number;
 
 declare const kFontMalayalamScript: number;
 
@@ -746,41 +1120,23 @@ declare const kCursiveSelector: number;
 
 declare const kPartiallyConnectedSelector: number;
 
+declare const kCTFontFormatAttribute: interop.Pointer;
+
 declare const kUnconnectedSelector: number;
-
-declare const kKERXControlPoint: number;
-
-declare const kLogosOnSelector: number;
 
 declare const kHistoricalLigaturesOffSelector: number;
 
 declare const kSquaredLigaturesOffSelector: number;
 
-declare const kSquaredLigaturesOnSelector: number;
-
-declare const kRebusPicturesOffSelector: number;
-
-declare const kLowerCaseType: number;
-
-declare const kCommonLigaturesOffSelector: number;
-
-declare const kCTFontTableCvt: number;
+declare const kCTFontTableGSUB: number;
 
 declare const kRequiredLigaturesOnSelector: number;
-
-declare const kCharacterShapeType: number;
 
 declare const kAllTypeFeaturesOnSelector: number;
 
 declare const kLanguageTagType: number;
 
-declare const kNoCJKSymbolAlternativesSelector: number;
-
-declare const kAlternateKanaType: number;
-
 declare const kCaseSensitiveLayoutType: number;
-
-declare const kIdeographicAlternativesType: number;
 
 declare const kUnicodeDecompositionType: number;
 
@@ -812,17 +1168,11 @@ declare const kCTRunDelegateAttributeName: interop.Pointer;
 
 declare const kCTCharacterShapeAttributeName: interop.Pointer;
 
-declare const kFontYiddishLanguage: number;
-
-declare const kMORTraCDxBA: number;
-
 declare const kCTGlyphInfoAttributeName: interop.Pointer;
 
 declare const kCTFontTableCBDT: number;
 
 declare const kCTUnderlineColorAttributeName: interop.Pointer;
-
-declare const kCTSuperscriptAttributeName: interop.Pointer;
 
 declare const kFontMicrosoftSymbolScript: number;
 
@@ -832,9 +1182,9 @@ declare const kCTStrokeColorAttributeName: interop.Pointer;
 
 declare const kCTForegroundColorAttributeName: interop.Pointer;
 
-declare const kCTLigatureAttributeName: interop.Pointer;
+declare const kMORTCoverTypeMask: number;
 
-declare const kCTTrackingAttributeName: interop.Pointer;
+declare const kCTLigatureAttributeName: interop.Pointer;
 
 declare const kCTForegroundColorFromContextAttributeName: interop.Pointer;
 
@@ -842,21 +1192,23 @@ declare const kCTRubyAnnotationScaleToFitAttributeName: interop.Pointer;
 
 declare const kCTRubyAnnotationSizeFactorAttributeName: interop.Pointer;
 
-declare const kCTFontBaselineAdjustAttribute: interop.Pointer;
-
 declare const kCTTypesetterOptionForcedEmbeddingLevel: interop.Pointer;
+
+declare const kStylisticAltFifteenOffSelector: number;
 
 declare const kCTFramePathFillRuleAttributeName: interop.Pointer;
 
+declare const kSmallCapsSelector: number;
+
 declare const kCTFontManagerRegisteredFontsChangedNotification: interop.Pointer;
 
-declare const kCTFontManagerErrorFontURLsKey: interop.Pointer;
-
-declare const kCTFontManagerErrorDomain: interop.Pointer;
+declare const kCTBaselineClassIdeographicLow: interop.Pointer;
 
 declare const kCTFontCollectionRemoveDuplicatesOption: interop.Pointer;
 
 declare const kRequiredLigaturesOffSelector: number;
+
+declare const kCTBaselineClassMath: interop.Pointer;
 
 declare const kCTBaselineOriginalFont: interop.Pointer;
 
@@ -864,29 +1216,17 @@ declare const kCTBaselineReferenceFont: interop.Pointer;
 
 declare const kStyleOptionsType: number;
 
-declare const kCTBaselineClassIdeographicLow: interop.Pointer;
-
 declare const kCTRunDelegateCurrentVersion: number;
 
 declare const featureFontTableTag: number;
 
-declare const kCTBaselineClassIdeographicCentered: interop.Pointer;
-
 declare const kSFNTLookupSimpleArray: number;
-
-declare const kCTFontTableGasp: number;
 
 declare const kCTFontTableXref: number;
 
-declare const kCTFontTableVmtx: number;
-
-declare const kCTBaselineClassIdeographicHigh: interop.Pointer;
-
-declare const kCTFontTableProp: number;
-
-declare const kInequalityLigaturesOffSelector: number;
-
 declare const kCTFontTableName: number;
+
+declare const kSlashToDivideOnSelector: number;
 
 declare const kCTFontTableMorx: number;
 
@@ -894,25 +1234,17 @@ declare const kCTFontTableMeta: number;
 
 declare const kCTFontTableLtag: number;
 
-declare const kCTFontTableLoca: number;
-
 declare const kCTFontTableKern: number;
+
+declare const kCTFontTableVVAR: number;
 
 declare const kPROPALDirectionClass: number;
 
-declare const kCTFontTableHhea: number;
-
-declare const kSwashAlternatesOnSelector: number;
+declare const kStylisticAltNineteenOffSelector: number;
 
 declare const kCTFontTableHead: number;
 
 declare const kCTFontTableSbix: number;
-
-declare const kCTFontTableFond: number;
-
-declare const kCTBaselineOffsetAttributeName: interop.Pointer;
-
-declare const kCTFontTableCvar: number;
 
 declare const kTransliterationType: number;
 
@@ -922,37 +1254,23 @@ declare const kFontBurmeseScript: number;
 
 declare const kCTFontTableBhed: number;
 
-declare const kCTFontTableSTAT: number;
-
 declare const kCTFontTablePCLT: number;
-
-declare const kNoStylisticAlternatesSelector: number;
 
 declare const kCTFontTableMATH: number;
 
-declare const kCTFontTableGPOS: number;
-
-declare const kCTFontTableEBSC: number;
-
 declare const kCTFontTableDSIG: number;
+
+declare const kFontVietnameseLanguage: number;
 
 declare const kSFNTLookupSegmentArray: number;
 
-declare const kCTFontFeatureTooltipTextKey: interop.Pointer;
-
-declare const kCTFontFeatureSelectorSettingKey: interop.Pointer;
-
-declare const kCTFontFeatureSelectorDefaultKey: interop.Pointer;
-
 declare const kCTFontFeatureSelectorNameKey: interop.Pointer;
+
+declare const kFontArmenianLanguage: number;
 
 declare const kCTFontFeatureSelectorIdentifierKey: interop.Pointer;
 
-declare const kCTFontFeatureTypeExclusiveKey: interop.Pointer;
-
-declare const kCTFontFeatureTypeNameKey: interop.Pointer;
-
-declare const kCTFontOpenTypeFeatureValue: interop.Pointer;
+declare const kFontHebrewLanguage: number;
 
 declare const kCTFontVariationAxisHiddenKey: interop.Pointer;
 
@@ -960,11 +1278,7 @@ declare const kCTFontVariationAxisDefaultValueKey: interop.Pointer;
 
 declare const kCTFontTableCFF: number;
 
-declare const kCTFontVariationAxisMaximumValueKey: interop.Pointer;
-
 declare const kFontUnicodeDefaultSemantics: number;
-
-declare const kCTLanguageAttributeName: interop.Pointer;
 
 declare const kFontBulgarianLanguage: number;
 
@@ -976,19 +1290,11 @@ declare const kFontMarathiLanguage: number;
 
 declare const kCTFontLicenseURLNameKey: interop.Pointer;
 
-declare const kCTFontLicenseNameKey: interop.Pointer;
-
 declare const kCTFontDesignerURLNameKey: interop.Pointer;
 
 declare const kCTFontTrademarkNameKey: interop.Pointer;
 
-declare const kCTFontPostScriptNameKey: interop.Pointer;
-
 declare const kCTFontUniqueNameKey: interop.Pointer;
-
-declare const kSmartSwashType: number;
-
-declare const kCTFontFamilyNameKey: interop.Pointer;
 
 declare const kCTFontDescriptorMatchingSourceDescriptor: interop.Pointer;
 
@@ -996,29 +1302,25 @@ declare const kCTFontOpticalSizeAttribute: interop.Pointer;
 
 declare const kCTFontEnabledAttribute: interop.Pointer;
 
-declare const kCTFontPriorityProcess: number;
+declare const kKERNNotesRequested: number;
 
-declare const kCTFontPriorityNetwork: number;
+declare const kCTFontTableGDEF: number;
+
+declare const kCTFontPriorityProcess: number;
 
 declare const kFontEthiopicScript: number;
 
-declare const kCTFontRegistrationScopeAttribute: interop.Pointer;
-
-declare const kCTFontFormatAttribute: interop.Pointer;
+declare const sizeof_sfntCMapExtendedSubHeader: number;
 
 declare const kCTFontFeatureSettingsAttribute: interop.Pointer;
 
 declare const kCTFontFeaturesAttribute: interop.Pointer;
 
-declare const kCTFontPostScriptCIDNameKey: interop.Pointer;
-
 declare const kCTFontMacintoshEncodingsAttribute: interop.Pointer;
 
-declare const kCTFontLanguagesAttribute: interop.Pointer;
+declare const kFontDesignerURLName: number;
 
 declare const kCTFontCascadeListAttribute: interop.Pointer;
-
-declare const kCTFontMatrixAttribute: interop.Pointer;
 
 declare const kCTFontTraitsAttribute: interop.Pointer;
 
@@ -1026,13 +1328,9 @@ declare const kCTFontFamilyNameAttribute: interop.Pointer;
 
 declare const kCTFontDisplayNameAttribute: interop.Pointer;
 
-declare const kJIS2004CharactersSelector: number;
-
-declare const kOrdinalsSelector: number;
-
 declare const kCTFontNameAttribute: interop.Pointer;
 
-declare const kCTFontURLAttribute: interop.Pointer;
+declare const kCTFontDescriptorMatchingPercentage: interop.Pointer;
 
 declare const kMORTraCDx: number;
 
@@ -1040,55 +1338,43 @@ declare const kCTFontClassMaskShift: number;
 
 declare const kCTFontSlantTrait: interop.Pointer;
 
-declare const kCTFontOrientationAttribute: interop.Pointer;
-
 declare const kCTFontTableCOLR: number;
-
-declare const kCTFontTableHVAR: number;
 
 declare const kCTFontDescriptorMatchingResult: interop.Pointer;
 
-declare const kAbbrevSquaredLigaturesOffSelector: number;
-
 declare const kFontTrademarkName: number;
 
-declare const kCTFontTableLTSH: number;
+declare const kMathematicalGreekOffSelector: number;
 
 declare const kHalfWidthTextSelector: number;
 
-declare const kProportionalIdeographsSelector: number;
+declare const kCTParagraphStyleAttributeName: interop.Pointer;
 
-declare const kScientificInferiorsSelector: number;
+declare const kProportionalIdeographsSelector: number;
 
 declare const kItalicCJKRomanType: number;
 
-declare const kFontArmenianLanguage: number;
-
 declare const kMORTraCDxA: number;
 
-declare const kRubyKanaType: number;
+declare const kANKRCurrentVersion: number;
 
 declare const kFontRuandaLanguage: number;
 
-declare const kLowerCaseNumbersSelector: number;
+declare const kRoundedBoxAnnotationSelector: number;
 
 declare const kNormalPositionSelector: number;
 
 declare const kCTFontTablePrep: number;
 
-declare const kSmartQuotesOnSelector: number;
-
-declare const kCTFontTableVORG: number;
+declare const kContextualLigaturesOffSelector: number;
 
 declare const kCompatibilityCompositionOffSelector: number;
 
-declare const kFontMicrosoftStandardScript: number;
-
 declare const kLogosOffSelector: number;
 
-declare const kFontSwedishLanguage: number;
+declare const kJUSTpcGlyphRepeatAddAction: number;
 
-declare const kCTFontPriorityDynamic: number;
+declare const kFontSwedishLanguage: number;
 
 declare const kSimplifiedCharactersSelector: number;
 
@@ -1096,33 +1382,47 @@ declare const kPROPCurrentVersion: number;
 
 declare const kFontTagalogLanguage: number;
 
-declare const kStylisticAltElevenOffSelector: number;
-
 declare const kCTFontTableVhea: number;
 
-declare const kKERNNotesRequested: number;
+declare const kCTFontTableOS2: number;
 
 declare const kSymbolLigaturesOnSelector: number;
 
 declare const kCTFontDescriptorMatchingTotalDownloadedSize: interop.Pointer;
 
+declare const kFontIcelandicLanguage: number;
+
+declare const kSFNTLookupVector: number;
+
 declare const kThirdWidthNumbersSelector: number;
+
+declare const kStylisticAltSeventeenOnSelector: number;
 
 declare const kNoOrnamentsSelector: number;
 
-declare const kCTFontTableMaxp: number;
+declare const kCTFontTableMVAR: number;
 
 declare const kCTFontTableCBLC: number;
 
 declare const kFontDesignerName: number;
 
+declare const kMORTLigFormOffsetMask: number;
+
 declare const os2FontTableTag: number;
+
+declare const kSTClassOutOfBounds: number;
+
+declare const kFontUnicodeV4_0VariationSequenceSemantics: number;
+
+declare const kThirdWidthTextSelector: number;
+
+declare const kFontNoPlatformCode: number;
 
 declare const kFontArabicLanguage: number;
 
 declare const kCTFrameProgressionAttributeName: interop.Pointer;
 
-declare const kFontUnicodeV4_0VariationSequenceSemantics: number;
+declare const kTextSpacingType: number;
 
 declare const kDiamondAnnotationSelector: number;
 
@@ -1132,67 +1432,49 @@ declare const kCJKVerticalRomanHBaselineSelector: number;
 
 declare const kCTRubyAnnotationAttributeName: interop.Pointer;
 
-declare const kFontDesignerURLName: number;
-
 declare const kUpperCaseType: number;
 
 declare const kIdeographicAltFiveSelector: number;
 
 declare const kCTBaselineReferenceInfoAttributeName: interop.Pointer;
 
-declare const kProportionalNumbersSelector: number;
+declare const kCTFontTableBdat: number;
 
 declare const kKERNLineEndKerning: number;
 
 declare const kHyphenToMinusOnSelector: number;
 
-declare const kCTFontDescriptorMatchingCurrentAssetSize: interop.Pointer;
-
-declare const kFontTigrinyaLanguage: number;
+declare const kStylisticAltTwoOnSelector: number;
 
 declare const kBSLNMathBaseline: number;
 
 declare const kCTFontManagerErrorFontAssetNameKey: interop.Pointer;
 
-declare const kCTFontTableJSTF: number;
-
 declare const kStylisticAlternativesType: number;
 
+declare const kFontMacedonianLanguage: number;
+
 declare const kMORTMarkInsertCountMask: number;
-
-declare const kFontGallaLanguage: number;
-
-declare const kCTFontTableMVAR: number;
 
 declare const kPROPPairOffsetSign: number;
 
 declare const kMORXCoverTypeMask: number;
 
-declare const kCTFontTableCmap: number;
-
-declare const kLastFeatureType: number;
-
 declare const kCTFontFeatureTypeIdentifierKey: interop.Pointer;
 
-declare const kCTFontOpenTypeFeatureTag: interop.Pointer;
-
-declare const kNoStyleOptionsSelector: number;
+declare const kProportionalKanaSelector: number;
 
 declare const kSTClassEndOfText: number;
 
 declare const kHyphenToMinusOffSelector: number;
 
-declare const kSTLigActionMask: number;
-
-declare const kCJKItalicRomanOnSelector: number;
-
 declare const kIdeographicAltTwoSelector: number;
-
-declare const kKERXVariation: number;
 
 declare const kCTFontTableMERG: number;
 
 declare const kCTFontVendorURLNameKey: interop.Pointer;
+
+declare const kKERXActionTypeMask: number;
 
 declare const kCTHorizontalInVerticalFormsAttributeName: interop.Pointer;
 
@@ -1200,81 +1482,55 @@ declare const kFontKoreanScript: number;
 
 declare const kCTFontTableSbit: number;
 
-declare const kCTFontDownloadedAttribute: interop.Pointer;
-
-declare const kKERNFormatMask: number;
-
 declare const kContextualLigaturesOnSelector: number;
 
-declare const kSlashToDivideOffSelector: number;
-
 declare const kFullWidthCJKRomanSelector: number;
-
-declare const kFontBasqueLanguage: number;
 
 declare const kKERXResetCrossStream: number;
 
 declare const kCTFontWidthTrait: interop.Pointer;
 
-declare const kFontFullName: number;
-
 declare const kCJKRomanSpacingType: number;
 
-declare const kAllTypeFeaturesOffSelector: number;
-
-declare const kFormInterrobangOnSelector: number;
-
 declare const kJUSTnoGlyphcode: number;
+
+declare const kNoTransliterationSelector: number;
 
 declare const kFontSinhaleseScript: number;
 
 declare const kCJKVerticalRomanPlacementType: number;
 
-declare const kCTFontTableBloc: number;
+declare const kStylisticAltTenOffSelector: number;
 
-declare const kCTFontDescriptorMatchingPercentage: interop.Pointer;
+declare const kDefaultCJKRomanSelector: number;
 
 declare const kCTFontTableCPAL: number;
 
 declare const kKERXNotApplied: number;
 
+declare const kKanaSpacingType: number;
+
 declare const kFontGeezScript: number;
 
-declare const kCTFontTableLcar: number;
-
-declare const kVerticalSubstitutionType: number;
-
-declare const kAllTypographicFeaturesType: number;
-
-declare const kMathematicalGreekOffSelector: number;
+declare const kCTTypesetterOptionDisableBidiProcessing: interop.Pointer;
 
 declare const kCTFontRegistrationUserInfoAttribute: interop.Pointer;
 
 declare const kFontOriyaScript: number;
 
-declare const kStylisticAltTwelveOffSelector: number;
-
-declare const kCTFontTableGlyf: number;
-
-declare const kCTFontTableBsln: number;
-
 declare const kPreventOverlapOffSelector: number;
-
-declare const kFontGujaratiLanguage: number;
 
 declare const kBSLNIdeographicHighBaseline: number;
 
-declare const kCTFontDescriptorMatchingError: interop.Pointer;
+declare const kUpperCaseNumbersSelector: number;
 
-declare const kDiacriticsType: number;
-
-declare const kCTFontPrioritySystem: number;
+declare const kCTFontDescriptorMatchingTotalAssetSize: interop.Pointer;
 
 declare const kJUSTNullPriority: number;
 
 declare const kCTFontVariationAxesAttribute: interop.Pointer;
 
-declare const kFontEnglishLanguage: number;
+declare const kKERNVertical: number;
 
 declare const kRareLigaturesOnSelector: number;
 
@@ -1282,61 +1538,47 @@ declare const kRebusPicturesOnSelector: number;
 
 declare const kKERXCurrentVersion: number;
 
+declare const kFontThaiLanguage: number;
+
 declare const kKERXNoCrossKerning: number;
 
 declare const kCTFontFullNameKey: interop.Pointer;
+
+declare const kPROPESDirectionClass: number;
+
+declare const kCTFontFeatureSampleTextKey: interop.Pointer;
 
 declare const kAltHalfWidthTextSelector: number;
 
 declare const kSTKCrossStreamReset: number;
 
-declare const kCTFontTableEBLC: number;
-
-declare const kMathSymbolsSelector: number;
-
 declare const kContextualAlternatesType: number;
 
 declare const variationFontTableTag: number;
 
-declare const kCJKVerticalRomanCenteredSelector: number;
-
-declare const kNumberSpacingType: number;
-
 declare const kCompatibilityCompositionOnSelector: number;
 
-declare const kSFNTLookupSegmentSingle: number;
+declare const kMORTTag: number;
 
-declare const kStylisticAltFourOffSelector: number;
+declare const kSFNTLookupSegmentSingle: number;
 
 declare const kVerticalPositionType: number;
 
 declare const kStylisticAltElevenOnSelector: number;
 
-declare const kOPBDTag: number;
-
-declare const kQuarterWidthNumbersSelector: number;
-
 declare const kCTFontTableFvar: number;
 
 declare const kCJKSymbolAltFiveSelector: number;
+
+declare const kKERNNoStakeNote: number;
 
 declare const kCommonLigaturesOnSelector: number;
 
 declare const kNLCCharactersSelector: number;
 
-declare const kUpperCaseSmallCapsSelector: number;
-
-declare const kCTParagraphStyleAttributeName: interop.Pointer;
-
-declare const kDesignLevel5Selector: number;
-
 declare const kStylisticAltFifteenOnSelector: number;
 
-declare const kSymbolLigaturesOffSelector: number;
-
-declare const kSlashToDivideOnSelector: number;
-
-declare const kKERNVertical: number;
+declare const kFontKirghizLanguage: number;
 
 declare const kCTFontTableAnkr: number;
 
@@ -1348,21 +1590,7 @@ declare const kFontTradChineseLanguage: number;
 
 declare const kMORTraDxA: number;
 
-declare const kFontUkrainianLanguage: number;
-
-declare const kDefaultCJKRomanSelector: number;
-
-declare const kTRAKUniformFormat: number;
-
-declare const kCaseSensitiveSpacingOffSelector: number;
-
 declare const kFontPostScriptCIDName: number;
-
-declare const kThirdWidthTextSelector: number;
-
-declare const kCTFontTableZapf: number;
-
-declare const kKERXUnusedFlags: number;
 
 declare const kKERNLineStart: number;
 
@@ -1370,101 +1598,49 @@ declare const kCTFontTableFpgm: number;
 
 declare const kTraditionalAltThreeSelector: number;
 
-declare const kFontSlovakLanguage: number;
-
-declare const kFontGermanLanguage: number;
+declare const kSTRearrVerbMask: number;
 
 declare const kFleuronsSelector: number;
 
-declare const kCTFramePathWidthAttributeName: interop.Pointer;
-
 declare const kCTFontCharacterSetAttribute: interop.Pointer;
-
-declare const kCTFontPriorityAttribute: interop.Pointer;
-
-declare const kProportionalKanaSelector: number;
 
 declare const kFontTibetanLanguage: number;
 
-declare const kKERXStateTable: number;
-
-declare const kSuperiorsSelector: number;
-
-declare const kCTFontCopyrightNameKey: interop.Pointer;
-
-declare const kFontTamilScript: number;
-
-declare const kFontTamilLanguage: number;
-
-declare const kStylisticAltSeventeenOnSelector: number;
+declare const kAlternateVertKanaOnSelector: number;
 
 declare const kKERXFormatMask: number;
 
-declare const kCTFontManagerErrorFontDescriptorsKey: interop.Pointer;
-
-declare const kSmallCapsSelector: number;
-
-declare const kCTBaselineClassHanging: interop.Pointer;
+declare const kFontLastReservedName: number;
 
 declare const kCTFramePathClippingPathAttributeName: interop.Pointer;
 
 declare const kMORTCurrJustTableCountMask: number;
 
+declare const kStylisticAltOneOffSelector: number;
+
 declare const kStylisticAltThirteenOffSelector: number;
 
 declare const kCTFontDesignerNameKey: interop.Pointer;
 
-declare const kStylisticAltTenOffSelector: number;
-
-declare const kKERNNoStakeNote: number;
-
-declare const kInvertedBoxAnnotationSelector: number;
-
-declare const kCTFontTableBASE: number;
-
-declare const kCTFontDescriptorMatchingTotalAssetSize: interop.Pointer;
-
-declare const kCTFontTableHdmx: number;
-
-declare const kRoundedBoxAnnotationSelector: number;
-
-declare const kCJKSymbolAltOneSelector: number;
-
-declare const kFontLastReservedName: number;
-
-declare const kFontCroatianLanguage: number;
-
-declare const kBSLNNoBaseline: number;
-
-declare const kContextualLigaturesOffSelector: number;
-
-declare const kMORTraDCxAB: number;
-
-declare const kCTFontTableBdat: number;
-
-declare const kStylisticAltFifteenOffSelector: number;
-
-declare const kCTFontTableFeat: number;
-
-declare const kJUSTPriorityMask: number;
-
-declare const kCTFontFeatureSampleTextKey: interop.Pointer;
-
-declare const kJUSTOverrideLimits: number;
-
-declare const kKERNSimpleArray: number;
-
-declare const kMORTRearrangementType: number;
-
-declare const kCTFontVariationAxisNameKey: interop.Pointer;
-
-declare const kFontHindiLanguage: number;
-
-declare const kMORTIsSplitVowelPiece: number;
+declare const kCTBaselineClassRoman: interop.Pointer;
 
 declare const kCTFontStyleNameAttribute: interop.Pointer;
 
-declare const kKERXActionTypeCoordinates: number;
+declare const kCTFontTableBASE: number;
+
+declare const kBSLNNoBaseline: number;
+
+declare const kPROPLDirectionClass: number;
+
+declare const kRomanNumeralAnnotationSelector: number;
+
+declare const kMORTraDCxAB: number;
+
+declare const kJUSTPriorityMask: number;
+
+declare const kKERNSimpleArray: number;
+
+declare const kMORTIsSplitVowelPiece: number;
 
 declare const kIdeographicAltFourSelector: number;
 
@@ -1472,55 +1648,29 @@ declare const kCTFontFixedAdvanceAttribute: interop.Pointer;
 
 declare const kDiphthongLigaturesOffSelector: number;
 
-declare const kFontSampleTextName: number;
-
-declare const kCTFontTableVVAR: number;
-
 declare const kFontManufacturerName: number;
 
 declare const kExpertCharactersSelector: number;
 
-declare const kNonFinalSwashesOffSelector: number;
-
-declare const kFontIcelandicLanguage: number;
-
-declare const kCTFontWeightTrait: interop.Pointer;
+declare const kMORTLigLastAction: number;
 
 declare const kFontRomanScript: number;
 
-declare const kCTFontTableGDEF: number;
-
 declare const kCTFontTableVDMX: number;
-
-declare const kStylisticAltNineteenOffSelector: number;
-
-declare const kPROPONDirectionClass: number;
 
 declare const kSTXHasLigAction: number;
 
-declare const kCTBaselineClassMath: interop.Pointer;
-
-declare const kCTFontSampleTextNameKey: interop.Pointer;
-
-declare const kMORTLigFormOffsetMask: number;
-
-declare const kCTFontTableGSUB: number;
-
 declare const kCTFontSubFamilyNameKey: interop.Pointer;
-
-declare const kJIS1990CharactersSelector: number;
-
-declare const kCTFontTableJust: number;
 
 declare const kCTFontDownloadableAttribute: interop.Pointer;
 
+declare const kCTFrameClippingPathsAttributeName: interop.Pointer;
+
 declare const kCTFontVariationAttribute: interop.Pointer;
 
-declare const kTextSpacingType: number;
+declare const kFontSanskritLanguage: number;
 
 declare const kFontDzongkhaLanguage: number;
-
-declare const kMonospacedNumbersSelector: number;
 
 declare const kCTFontDescriptorMatchingDescriptors: interop.Pointer;
 
@@ -1530,41 +1680,21 @@ declare const kQuarterWidthTextSelector: number;
 
 declare const kFontStyleName: number;
 
-declare const kInitialCapsSelector: number;
-
 declare const kFontUnicodePlatform: number;
-
-declare const kPROPLREDirectionClass: number;
 
 declare const kAbbrevSquaredLigaturesOnSelector: number;
 
-declare const kFontFamilyName: number;
-
-declare const kFontHebrewLanguage: number;
-
 declare const kFontFrenchLanguage: number;
-
-declare const kCTWritingDirectionAttributeName: interop.Pointer;
-
-declare const kAlternateVertKanaOnSelector: number;
 
 declare const kKERXDescending: number;
 
-declare const kCTFontDescriptionNameKey: interop.Pointer;
+declare const kBSLNControlPointFormatWithMap: number;
 
 declare const kPROPUseRLPairMask: number;
-
-declare const kFontVersionName: number;
 
 declare const kFontLaotianScript: number;
 
 declare const kFontNepaliLanguage: number;
-
-declare const kCTFontTableOS2: number;
-
-declare const kStylisticAltOneOffSelector: number;
-
-declare const kCTFontSymbolicTrait: interop.Pointer;
 
 declare const kFontSinhaleseLanguage: number;
 
@@ -1572,23 +1702,13 @@ declare const kCTTypesetterOptionAllowUnboundedLayout: interop.Pointer;
 
 declare const kCharacterAlternativesType: number;
 
-declare const kJIS1983CharactersSelector: number;
-
 declare const kLinguisticRearrangementType: number;
 
 declare const kCTFontPriorityUser: number;
 
 declare const kCTFontTableAvar: number;
 
-declare const kMORTLigLastAction: number;
-
-declare const kPeriodAnnotationSelector: number;
-
 declare const kFontUniqueName: number;
-
-declare const kHistoricalLigaturesOnSelector: number;
-
-declare const kMORTCoverTypeMask: number;
 
 declare const kContextualSwashAlternatesOffSelector: number;
 
@@ -1596,49 +1716,23 @@ declare const kFontJapaneseScript: number;
 
 declare const kJUSTTag: number;
 
-declare const kCTFontTableTrak: number;
-
-declare const kJUSTpcGlyphRepeatAddAction: number;
-
-declare const kCTFontTableCFF2: number;
-
-declare const sizeof_sfntCMapExtendedSubHeader: number;
-
-declare const kFontISO10646_1993Semantics: number;
+declare const kCTFontTableHsty: number;
 
 declare const kPROPRDirectionClass: number;
 
 declare const kBSLNHangingBaseline: number;
 
-declare const kCTFontTableMort: number;
-
 declare const kJUSTUnlimited: number;
-
-declare const kCTFontTableOpbd: number;
-
-declare const kPROPLDirectionClass: number;
 
 declare const kCTFontTableHmtx: number;
 
 declare const kFontHungarianLanguage: number;
 
-declare const kFontPolishLanguage: number;
-
-declare const kFontSlovenianLanguage: number;
-
-declare const kKanaSpacingType: number;
-
 declare const kFontNoNameCode: number;
 
 declare const kFontSimpChineseLanguage: number;
 
-declare const kFontThaiLanguage: number;
-
 declare const kCTFontTablePost: number;
-
-declare const kCTFontTableEBDT: number;
-
-declare const kCTWritingDirectionOverride: number;
 
 declare const kFontPortugueseLanguage: number;
 
@@ -1646,77 +1740,35 @@ declare const kCTBaselineClassAttributeName: interop.Pointer;
 
 declare const kFontSwahiliLanguage: number;
 
-declare const kFontHebrewScript: number;
-
 declare const kDiphthongLigaturesOnSelector: number;
 
-declare const kFontKhmerScript: number;
-
-declare const kSFNTLookupVector: number;
-
 declare const kMathematicalExtrasType: number;
+
+declare const kFontGeorgianScript: number;
+
+declare const kFontDanishLanguage: number;
 
 declare const kCJKItalicRomanOffSelector: number;
 
 declare const kOrnamentSetsType: number;
 
-declare const kCTFontTableHsty: number;
-
 declare const kVerticalFractionsSelector: number;
-
-declare const kCTFontFeatureTypeSelectorsKey: interop.Pointer;
-
-declare const kKERXActionTypeMask: number;
-
-declare const kInvertedRoundedBoxAnnotationSelector: number;
 
 declare const kAnnotationType: number;
 
 declare const kDesignLevel1Selector: number;
 
-declare const kKERNIndexArray: number;
-
-declare const kCTFontVersionNameKey: interop.Pointer;
-
-declare const kCTFrameClippingPathsAttributeName: interop.Pointer;
-
 declare const kRareLigaturesOffSelector: number;
 
 declare const kIdeographicSpacingType: number;
 
-declare const kSubstituteVerticalFormsOffSelector: number;
-
-declare const kFontCustom8BitScript: number;
-
 declare const kNoAnnotationSelector: number;
-
-declare const kPROPESDirectionClass: number;
 
 declare const kHanjaToHangulSelector: number;
 
-declare const kCTTypesetterOptionDisableBidiProcessing: interop.Pointer;
-
 declare const kStylisticAltNineOnSelector: number;
 
-declare const kSTClassOutOfBounds: number;
-
-declare const kCTFontTableAcnt: number;
-
 declare const kCTStrokeWidthAttributeName: interop.Pointer;
-
-declare const kANKRCurrentVersion: number;
-
-declare const kFontVietnameseLanguage: number;
-
-declare const kHyphensToEmDashOnSelector: number;
-
-declare const kNoTransliterationSelector: number;
-
-declare const kKERXUnusedBits: number;
-
-declare const kCTBaselineClassRoman: interop.Pointer;
-
-declare const kUpperCasePetiteCapsSelector: number;
 
 declare const kLigaturesType: number;
 
@@ -1734,77 +1786,29 @@ declare const kCJKSymbolAlternativesType: number;
 
 declare const kDiagonalFractionsSelector: number;
 
-declare const kFontNoPlatformCode: number;
-
 declare const kCTRunDelegateVersion1: number;
 
 declare const kKERXNoStakeNote: number;
 
-declare const kRomanNumeralAnnotationSelector: number;
-
 declare const kHyphenToEnDashOnSelector: number;
-
-declare const kCTKernAttributeName: interop.Pointer;
-
-declare const kStylisticAltThreeOffSelector: number;
-
-declare const kBSLNControlPointFormatWithMap: number;
-
-declare const kStylisticAltTwoOnSelector: number;
 
 declare const kCTFontAttributeName: interop.Pointer;
 
 declare const kLineInitialSwashesOffSelector: number;
 
-declare const kKERXActionTypeAnchorPoints: number;
-
-declare const kUpperCaseNumbersSelector: number;
-
-declare const kSTRearrVerbMask: number;
-
 declare const kFontPostscriptName: number;
 
-declare const kPROPENDirectionClass: number;
-
-declare const kCTFontSizeAttribute: interop.Pointer;
-
 declare const kAllCapsSelector: number;
-
-declare const kCTFontTableFmtx: number;
-
-declare const kFontMalteseLanguage: number;
 
 declare const kFontAlbanianLanguage: number;
 
 declare const kCTFontTableSVG: number;
 
-declare const kBSLNDistanceFormatNoMap: number;
-
-declare const kFontMacedonianLanguage: number;
-
 declare const kCTWritingDirectionEmbedding: number;
-
-declare const kFontGeorgianScript: number;
 
 declare const kCTFontPriorityComputer: number;
 
-declare const kCTFontTableGvar: number;
-
-declare const kFontKirghizLanguage: number;
-
 declare const kContextualAlternatesOffSelector: number;
-
-declare const kCTFontStyleNameKey: interop.Pointer;
-
-declare const kJUSTpcGlyphStretchAction: number;
-
-declare const kNonFinalSwashesOnSelector: number;
-
-declare const kUpperAndLowerCaseSelector: number;
-
-declare const kMORTTag: number;
-
-declare const kFontDanishLanguage: number;
 
 declare const kLowerCaseSmallCapsSelector: number;
 
@@ -1812,13 +1816,63 @@ declare const kKERNUnusedBits: number;
 
 declare const kPROPCSDirectionClass: number;
 
-declare const kFontSanskritLanguage: number;
-
 declare const kHyphensToEmDashOffSelector: number;
 
-declare const kFontChewaLanguage: number;
-
 declare const kFontRomanianLanguage: number;
+
+declare const CTLineBreakMode: {
+  WordWrapping: 0,
+  CharWrapping: 1,
+  Clipping: 2,
+  TruncatingHead: 3,
+  TruncatingTail: 4,
+  TruncatingMiddle: 5,
+};
+
+declare const CTRubyOverhang: {
+  Invalid: -1,
+  Auto: 0,
+  Start: 1,
+  End: 2,
+  None: 3,
+};
+
+declare const CTLineBoundsOptions: {
+  ExcludeTypographicLeading: 1,
+  ExcludeTypographicShifts: 2,
+  UseHangingPunctuation: 4,
+  UseGlyphPathBounds: 8,
+  UseOpticalBounds: 16,
+  IncludeLanguageExtents: 32,
+};
+
+declare const CTLineTruncationType: {
+  Start: 0,
+  End: 1,
+  Middle: 2,
+};
+
+declare const CTParagraphStyleSpecifier: {
+  Alignment: 0,
+  FirstLineHeadIndent: 1,
+  HeadIndent: 2,
+  TailIndent: 3,
+  TabStops: 4,
+  DefaultTabInterval: 5,
+  LineBreakMode: 6,
+  LineHeightMultiple: 7,
+  MaximumLineHeight: 8,
+  MinimumLineHeight: 9,
+  LineSpacing: 10,
+  ParagraphSpacing: 11,
+  ParagraphSpacingBefore: 12,
+  BaseWritingDirection: 13,
+  MaximumLineSpacing: 14,
+  MinimumLineSpacing: 15,
+  LineSpacingAdjustment: 16,
+  LineBoundsOptions: 17,
+  Count: 18,
+};
 
 declare const CTFontManagerAutoActivationSetting: {
   Default: 0,
@@ -1833,15 +1887,6 @@ declare const CTFontOptions: {
   PreferSystemFont: 4,
 };
 
-declare const CTLineBreakMode: {
-  WordWrapping: 0,
-  CharWrapping: 1,
-  Clipping: 2,
-  TruncatingHead: 3,
-  TruncatingTail: 4,
-  TruncatingMiddle: 5,
-};
-
 declare const CTRunStatus: {
   NoStatus: 0,
   RightToLeft: 1,
@@ -1849,17 +1894,10 @@ declare const CTRunStatus: {
   HasNonIdentityMatrix: 4,
 };
 
-declare const CTTextAlignment: {
-  TextAlignmentLeft: 0,
-  TextAlignmentRight: 1,
-  TextAlignmentCenter: 2,
-  TextAlignmentJustified: 3,
-  TextAlignmentNatural: 4,
-  LeftTextAlignment: 0,
-  RightTextAlignment: 1,
-  CenterTextAlignment: 2,
-  JustifiedTextAlignment: 3,
-  NaturalTextAlignment: 4,
+declare const CTFrameProgression: {
+  TopToBottom: 0,
+  RightToLeft: 1,
+  LeftToRight: 2,
 };
 
 declare const CTRubyPosition: {
@@ -1895,6 +1933,19 @@ declare const CTFontStylisticClass: {
   SymbolicClass: -1073741824,
 };
 
+declare const CTTextAlignment: {
+  TextAlignmentLeft: 0,
+  TextAlignmentRight: 1,
+  TextAlignmentCenter: 2,
+  TextAlignmentJustified: 3,
+  TextAlignmentNatural: 4,
+  LeftTextAlignment: 0,
+  RightTextAlignment: 1,
+  CenterTextAlignment: 2,
+  JustifiedTextAlignment: 3,
+  NaturalTextAlignment: 4,
+};
+
 declare const CTUnderlineStyleModifiers: {
   Solid: 0,
   Dot: 256,
@@ -1910,14 +1961,6 @@ declare const CTUnderlineStyle: {
   Double: 9,
 };
 
-declare const CTRubyOverhang: {
-  Invalid: -1,
-  Auto: 0,
-  Start: 1,
-  End: 2,
-  None: 3,
-};
-
 declare const CTWritingDirection: {
   Natural: -1,
   LeftToRight: 0,
@@ -1927,12 +1970,6 @@ declare const CTWritingDirection: {
 declare const CTFramePathFillRule: {
   EvenOdd: 0,
   WindingNumber: 1,
-};
-
-declare const CTFrameProgression: {
-  TopToBottom: 0,
-  RightToLeft: 1,
-  LeftToRight: 2,
 };
 
 declare const CTFontManagerScope: {
@@ -2016,6 +2053,11 @@ declare const CTFontUIFontType: {
   ControlContentFontType: 26,
 };
 
+declare const CTFontTableOptions: {
+  NoOptions: 0,
+  ExcludeSynthetic: 1,
+};
+
 declare const CTRubyAlignment: {
   Invalid: -1,
   Auto: 0,
@@ -2025,15 +2067,6 @@ declare const CTRubyAlignment: {
   DistributeLetter: 4,
   DistributeSpace: 5,
   LineEdge: 6,
-};
-
-declare const CTLineBoundsOptions: {
-  ExcludeTypographicLeading: 1,
-  ExcludeTypographicShifts: 2,
-  UseHangingPunctuation: 4,
-  UseGlyphPathBounds: 8,
-  UseOpticalBounds: 16,
-  IncludeLanguageExtents: 32,
 };
 
 declare const CTFontFormat: {
@@ -2072,28 +2105,6 @@ declare const CTFontDescriptorMatchingState: {
   DidFailWithError: 8,
 };
 
-declare const CTParagraphStyleSpecifier: {
-  Alignment: 0,
-  FirstLineHeadIndent: 1,
-  HeadIndent: 2,
-  TailIndent: 3,
-  TabStops: 4,
-  DefaultTabInterval: 5,
-  LineBreakMode: 6,
-  LineHeightMultiple: 7,
-  MaximumLineHeight: 8,
-  MinimumLineHeight: 9,
-  LineSpacing: 10,
-  ParagraphSpacing: 11,
-  ParagraphSpacingBefore: 12,
-  BaseWritingDirection: 13,
-  MaximumLineSpacing: 14,
-  MinimumLineSpacing: 15,
-  LineSpacingAdjustment: 16,
-  LineBoundsOptions: 17,
-  Count: 18,
-};
-
 declare const CTFontSymbolicTraits: {
   TraitItalic: 1,
   TraitBold: 2,
@@ -2117,17 +2128,6 @@ declare const CTFontSymbolicTraits: {
   ClassMaskTrait: -268435456,
 };
 
-declare const CTLineTruncationType: {
-  Start: 0,
-  End: 1,
-  Middle: 2,
-};
-
-declare const CTFontTableOptions: {
-  NoOptions: 0,
-  ExcludeSynthetic: 1,
-};
-
 declare const CTFontManagerError: {
   FileNotFound: 101,
   InsufficientPermissions: 102,
@@ -2147,6 +2147,153 @@ declare const CTFontManagerError: {
   InvalidFilePath: 306,
   UnsupportedScope: 307,
 };
+
+declare class STXEntryTwo {
+  constructor(init?: STXEntryTwo);
+  newState: number;
+  flags: number;
+  index1: number;
+  index2: number;
+}
+
+declare class KernSubtableHeader {
+  constructor(init?: KernSubtableHeader);
+  length: number;
+  stInfo: number;
+  tupleIndex: number;
+  fsHeader: KernFormatSpecificHeader;
+}
+
+declare class ROTAHeader {
+  constructor(init?: ROTAHeader);
+  Version: number;
+  Flags: number;
+  NMasters: number;
+  FirstGlyph: number;
+  LastGlyph: number;
+  lookup: SFNTLookupTable;
+}
+
+declare class MorxContextualSubtable {
+  constructor(init?: MorxContextualSubtable);
+  header: STXHeader;
+  substitutionTableOffset: number;
+}
+
+declare class STEntryOne {
+  constructor(init?: STEntryOne);
+  newState: number;
+  flags: number;
+  offset1: number;
+}
+
+declare class sfntFeatureName {
+  constructor(init?: sfntFeatureName);
+  featureType: number;
+  settingCount: number;
+  offsetToSettings: number;
+  featureFlags: number;
+  nameID: number;
+}
+
+declare class sfntNameHeader {
+  constructor(init?: sfntNameHeader);
+  format: number;
+  count: number;
+  stringOffset: number;
+  rec: unknown /* const array */;
+}
+
+declare class SFNTLookupSegmentHeader {
+  constructor(init?: SFNTLookupSegmentHeader);
+  binSearch: SFNTLookupBinarySearchHeader;
+  segments: unknown /* const array */;
+}
+
+declare class JustPCConditionalAddAction {
+  constructor(init?: JustPCConditionalAddAction);
+  substThreshold: number;
+  addGlyph: number;
+  substGlyph: number;
+}
+
+declare class KernSimpleArrayHeader {
+  constructor(init?: KernSimpleArrayHeader);
+  rowWidth: number;
+  leftOffsetTable: number;
+  rightOffsetTable: number;
+  theArray: number;
+  firstTable: unknown /* const array */;
+}
+
+declare class SFNTLookupSingle {
+  constructor(init?: SFNTLookupSingle);
+  glyph: number;
+  value: unknown /* const array */;
+}
+
+declare class STXHeader {
+  constructor(init?: STXHeader);
+  nClasses: number;
+  classTableOffset: number;
+  stateArrayOffset: number;
+  entryTableOffset: number;
+}
+
+declare class KerxSubtableHeader {
+  constructor(init?: KerxSubtableHeader);
+  length: number;
+  stInfo: number;
+  tupleCount: number;
+  fsHeader: KerxFormatSpecificHeader;
+}
+
+declare class SFNTLookupSingleHeader {
+  constructor(init?: SFNTLookupSingleHeader);
+  binSearch: SFNTLookupBinarySearchHeader;
+  entries: unknown /* const array */;
+}
+
+declare class JustWidthDeltaEntry {
+  constructor(init?: JustWidthDeltaEntry);
+  justClass: number;
+  beforeGrowLimit: number;
+  beforeShrinkLimit: number;
+  afterGrowLimit: number;
+  afterShrinkLimit: number;
+  growFlags: number;
+  shrinkFlags: number;
+}
+
+declare class sfntVariationAxis {
+  constructor(init?: sfntVariationAxis);
+  axisTag: number;
+  minValue: number;
+  defaultValue: number;
+  maxValue: number;
+  flags: number;
+  nameID: number;
+}
+
+declare class LtagTable {
+  constructor(init?: LtagTable);
+  version: number;
+  flags: number;
+  numTags: number;
+  tagRange: unknown /* const array */;
+}
+
+declare class __CTLine {
+  constructor(init?: __CTLine);
+}
+
+declare class JustPCDuctilityAction {
+  constructor(init?: JustPCDuctilityAction);
+  ductilityAxis: number;
+  minimumLimit: number;
+  noStretchValue: number;
+  maximumLimit: number;
+}
 
 declare class FontVariation {
   constructor(init?: FontVariation);
@@ -2171,11 +2318,19 @@ declare class sfntFontFeatureSetting {
   nameID: number;
 }
 
+declare class __CTFont {
+  constructor(init?: __CTFont);
+}
+
 declare class sfntDescriptorHeader {
   constructor(init?: sfntDescriptorHeader);
   version: number;
   descriptorCount: number;
   descriptor: unknown /* const array */;
+}
+
+declare class __CTParagraphStyle {
+  constructor(init?: __CTParagraphStyle);
 }
 
 declare class sfntFontDescriptor {
@@ -2214,6 +2369,11 @@ declare class sfntCMapExtendedSubHeader {
   reserved: number;
   length: number;
   language: number;
+}
+
+declare class MortSwashSubtable {
+  constructor(init?: MortSwashSubtable);
+  lookup: SFNTLookupTable;
 }
 
 declare class sfntDirectory {
@@ -2261,6 +2421,13 @@ declare class ALMXHeader {
   lookup: SFNTLookupTable;
 }
 
+declare class KerxControlPointEntry {
+  constructor(init?: KerxControlPointEntry);
+  newState: number;
+  flags: number;
+  actionIndex: number;
+}
+
 declare class BslnTable {
   constructor(init?: BslnTable);
   version: number;
@@ -2274,6 +2441,12 @@ declare class BslnFormat3Part {
   stdGlyph: number;
   ctlPoints: unknown /* const array */;
   mappingData: SFNTLookupTable;
+}
+
+declare class KernKerningPair {
+  constructor(init?: KernKerningPair);
+  left: number;
+  right: number;
 }
 
 declare class sfntFontRunFeature {
@@ -2304,13 +2477,6 @@ declare class KerxIndexArrayHeader {
   kerningVectorOffset: number;
 }
 
-declare class KerxControlPointEntry {
-  constructor(init?: KerxControlPointEntry);
-  newState: number;
-  flags: number;
-  actionIndex: number;
-}
-
 declare class KerxControlPointHeader {
   constructor(init?: KerxControlPointHeader);
   header: STXHeader;
@@ -2338,14 +2504,6 @@ declare class sfntInstance {
   coord: unknown /* const array */;
 }
 
-declare class KernSubtableHeader {
-  constructor(init?: KernSubtableHeader);
-  length: number;
-  stInfo: number;
-  tupleIndex: number;
-  fsHeader: KernFormatSpecificHeader;
-}
-
 declare class KernVersion0SubtableHeader {
   constructor(init?: KernVersion0SubtableHeader);
   version: number;
@@ -2354,13 +2512,12 @@ declare class KernVersion0SubtableHeader {
   fsHeader: KernFormatSpecificHeader;
 }
 
-declare class KernSimpleArrayHeader {
-  constructor(init?: KernSimpleArrayHeader);
-  rowWidth: number;
-  leftOffsetTable: number;
-  rightOffsetTable: number;
-  theArray: number;
-  firstTable: unknown /* const array */;
+declare class STEntryTwo {
+  constructor(init?: STEntryTwo);
+  newState: number;
+  flags: number;
+  offset1: number;
+  offset2: number;
 }
 
 declare class STHeader {
@@ -2406,20 +2563,17 @@ declare class PropLookupSingle {
   props: number;
 }
 
-declare class LtagTable {
-  constructor(init?: LtagTable);
-  version: number;
-  flags: number;
-  numTags: number;
-  tagRange: unknown /* const array */;
-}
-
 declare class PropTable {
   constructor(init?: PropTable);
   version: number;
   format: number;
   defaultProps: number;
   lookup: SFNTLookupTable;
+}
+
+declare class MortInsertionSubtable {
+  constructor(init?: MortInsertionSubtable);
+  header: STHeader;
 }
 
 declare class MorxChain {
@@ -2431,6 +2585,12 @@ declare class MorxChain {
   featureEntries: unknown /* const array */;
 }
 
+declare class KerxControlPointAction {
+  constructor(init?: KerxControlPointAction);
+  markControlPoint: number;
+  currControlPoint: number;
+}
+
 declare class MorxSubtable {
   constructor(init?: MorxSubtable);
   length: number;
@@ -2439,10 +2599,13 @@ declare class MorxSubtable {
   u: MorxSpecificSubtable;
 }
 
-declare class MorxContextualSubtable {
-  constructor(init?: MorxContextualSubtable);
-  header: STXHeader;
-  substitutionTableOffset: number;
+declare class KerxSimpleArrayHeader {
+  constructor(init?: KerxSimpleArrayHeader);
+  rowWidth: number;
+  leftOffsetTable: number;
+  rightOffsetTable: number;
+  theArray: number;
+  firstTable: unknown /* const array */;
 }
 
 declare class MortFeatureEntry {
@@ -2451,6 +2614,13 @@ declare class MortFeatureEntry {
   featureSelector: number;
   enableFlags: number;
   disableFlags: number;
+}
+
+declare class SFNTLookupTrimmedArrayHeader {
+  constructor(init?: SFNTLookupTrimmedArrayHeader);
+  firstGlyph: number;
+  count: number;
+  valueArray: unknown /* const array */;
 }
 
 declare class BslnFormat2Part {
@@ -2475,17 +2645,6 @@ declare class MortChain {
   featureEntries: unknown /* const array */;
 }
 
-declare class MortInsertionSubtable {
-  constructor(init?: MortInsertionSubtable);
-  header: STHeader;
-}
-
-declare class KerxControlPointAction {
-  constructor(init?: KerxControlPointAction);
-  markControlPoint: number;
-  currControlPoint: number;
-}
-
 declare class MortLigatureSubtable {
   constructor(init?: MortLigatureSubtable);
   header: STHeader;
@@ -2494,16 +2653,16 @@ declare class MortLigatureSubtable {
   ligatureTableOffset: number;
 }
 
-declare class KernKerningPair {
-  constructor(init?: KernKerningPair);
-  left: number;
-  right: number;
-}
-
 declare class MortContextualSubtable {
   constructor(init?: MortContextualSubtable);
   header: STHeader;
   substitutionTableOffset: number;
+}
+
+declare class LtagStringRange {
+  constructor(init?: LtagStringRange);
+  offset: number;
+  length: number;
 }
 
 declare class JustTable {
@@ -2522,21 +2681,15 @@ declare class JustDirectionTable {
   lookup: SFNTLookupTable;
 }
 
-declare class JustWidthDeltaEntry {
-  constructor(init?: JustWidthDeltaEntry);
-  justClass: number;
-  beforeGrowLimit: number;
-  beforeShrinkLimit: number;
-  afterGrowLimit: number;
-  afterShrinkLimit: number;
-  growFlags: number;
-  shrinkFlags: number;
-}
-
 declare class MorxInsertionSubtable {
   constructor(init?: MorxInsertionSubtable);
   header: STXHeader;
   insertionGlyphTableOffset: number;
+}
+
+declare class MorxRearrangementSubtable {
+  constructor(init?: MorxRearrangementSubtable);
+  header: STXHeader;
 }
 
 declare class JustPCAction {
@@ -2566,21 +2719,6 @@ declare class JustPCGlyphRepeatAddAction {
   glyph: number;
 }
 
-declare class JustPCDuctilityAction {
-  constructor(init?: JustPCDuctilityAction);
-  ductilityAxis: number;
-  minimumLimit: number;
-  noStretchValue: number;
-  maximumLimit: number;
-}
-
-declare class JustPCConditionalAddAction {
-  constructor(init?: JustPCConditionalAddAction);
-  substThreshold: number;
-  addGlyph: number;
-  substGlyph: number;
-}
-
 declare class LcarCaretTable {
   constructor(init?: LcarCaretTable);
   version: number;
@@ -2588,26 +2726,10 @@ declare class LcarCaretTable {
   lookup: SFNTLookupTable;
 }
 
-declare class sfntNameHeader {
-  constructor(init?: sfntNameHeader);
-  format: number;
-  count: number;
-  stringOffset: number;
-  rec: unknown /* const array */;
-}
-
 declare class LcarCaretClassEntry {
   constructor(init?: LcarCaretClassEntry);
   count: number;
   partials: unknown /* const array */;
-}
-
-declare class STXEntryTwo {
-  constructor(init?: STXEntryTwo);
-  newState: number;
-  flags: number;
-  index1: number;
-  index2: number;
 }
 
 declare class STXEntryOne {
@@ -2617,38 +2739,11 @@ declare class STXEntryOne {
   index1: number;
 }
 
-declare class STEntryTwo {
-  constructor(init?: STEntryTwo);
-  newState: number;
-  flags: number;
-  offset1: number;
-  offset2: number;
-}
-
-declare class STEntryOne {
-  constructor(init?: STEntryOne);
-  newState: number;
-  flags: number;
-  offset1: number;
-}
-
-declare class SFNTLookupSingleHeader {
-  constructor(init?: SFNTLookupSingleHeader);
-  binSearch: SFNTLookupBinarySearchHeader;
-  entries: unknown /* const array */;
-}
-
 declare class KernOffsetTable {
   constructor(init?: KernOffsetTable);
   firstGlyph: number;
   nGlyphs: number;
   offsetTable: unknown /* const array */;
-}
-
-declare class SFNTLookupSingle {
-  constructor(init?: SFNTLookupSingle);
-  glyph: number;
-  value: unknown /* const array */;
 }
 
 declare class KerxKerningPair {
@@ -2711,8 +2806,11 @@ declare class KernVersion0Header {
   firstSubtable: unknown /* const array */;
 }
 
-declare class __CTParagraphStyle {
-  constructor(init?: __CTParagraphStyle);
+declare class MortTable {
+  constructor(init?: MortTable);
+  version: number;
+  nChains: number;
+  chains: unknown /* const array */;
 }
 
 declare class __CTGlyphInfo {
@@ -2723,51 +2821,12 @@ declare class __CTTypesetter {
   constructor(init?: __CTTypesetter);
 }
 
-declare class __CTLine {
-  constructor(init?: __CTLine);
-}
-
-declare class MortTable {
-  constructor(init?: MortTable);
-  version: number;
-  nChains: number;
-  chains: unknown /* const array */;
-}
-
 declare class __CTFrame {
   constructor(init?: __CTFrame);
 }
 
-declare class STXHeader {
-  constructor(init?: STXHeader);
-  nClasses: number;
-  classTableOffset: number;
-  stateArrayOffset: number;
-  entryTableOffset: number;
-}
-
 declare class __CTFontCollection {
   constructor(init?: __CTFontCollection);
-}
-
-declare class __CTFont {
-  constructor(init?: __CTFont);
-}
-
-declare class KerxSimpleArrayHeader {
-  constructor(init?: KerxSimpleArrayHeader);
-  rowWidth: number;
-  leftOffsetTable: number;
-  rightOffsetTable: number;
-  theArray: number;
-  firstTable: unknown /* const array */;
-}
-
-declare class SFNTLookupTrimmedArrayHeader {
-  constructor(init?: SFNTLookupTrimmedArrayHeader);
-  firstGlyph: number;
-  count: number;
-  valueArray: unknown /* const array */;
 }
 
 declare class TrakTableEntry {
@@ -2796,6 +2855,19 @@ declare class SFNTLookupArrayHeader {
   lookupValues: unknown /* const array */;
 }
 
+declare class KerxStateEntry {
+  constructor(init?: KerxStateEntry);
+  newState: number;
+  flags: number;
+  valueIndex: number;
+}
+
+declare class JustWidthDeltaGroup {
+  constructor(init?: JustWidthDeltaGroup);
+  count: number;
+  entries: unknown /* const array */;
+}
+
 declare class OpbdSideValues {
   constructor(init?: OpbdSideValues);
   leftSideShift: number;
@@ -2808,6 +2880,17 @@ declare class KerxAnchorPointAction {
   constructor(init?: KerxAnchorPointAction);
   markAnchorPoint: number;
   currAnchorPoint: number;
+}
+
+declare class __CTFramesetter {
+  constructor(init?: __CTFramesetter);
+}
+
+declare class sfntCMapSubHeader {
+  constructor(init?: sfntCMapSubHeader);
+  format: number;
+  length: number;
+  languageID: number;
 }
 
 declare class SFNTLookupTable {
@@ -2824,41 +2907,12 @@ declare class __CTTextTab {
   constructor(init?: __CTTextTab);
 }
 
-declare class MortSwashSubtable {
-  constructor(init?: MortSwashSubtable);
-  lookup: SFNTLookupTable;
-}
-
-declare class sfntFeatureName {
-  constructor(init?: sfntFeatureName);
-  featureType: number;
-  settingCount: number;
-  offsetToSettings: number;
-  featureFlags: number;
-  nameID: number;
-}
-
 declare class MortSubtable {
   constructor(init?: MortSubtable);
   length: number;
   coverage: number;
   flags: number;
   u: MortSpecificSubtable;
-}
-
-declare class sfntVariationAxis {
-  constructor(init?: sfntVariationAxis);
-  axisTag: number;
-  minValue: number;
-  defaultValue: number;
-  maxValue: number;
-  flags: number;
-  nameID: number;
-}
-
-declare class MorxRearrangementSubtable {
-  constructor(init?: MorxRearrangementSubtable);
-  header: STXHeader;
 }
 
 declare class MortRearrangementSubtable {
@@ -2892,23 +2946,10 @@ declare class STClassTable {
   classes: unknown /* const array */;
 }
 
-declare class JustWidthDeltaGroup {
-  constructor(init?: JustWidthDeltaGroup);
-  count: number;
-  entries: unknown /* const array */;
-}
-
-declare class KerxStateEntry {
-  constructor(init?: KerxStateEntry);
+declare class STEntryZero {
+  constructor(init?: STEntryZero);
   newState: number;
   flags: number;
-  valueIndex: number;
-}
-
-declare class SFNTLookupSegmentHeader {
-  constructor(init?: SFNTLookupSegmentHeader);
-  binSearch: SFNTLookupBinarySearchHeader;
-  segments: unknown /* const array */;
 }
 
 declare class KernOrderedListEntry {
@@ -2922,12 +2963,6 @@ declare class KerxTableHeader {
   version: number;
   nTables: number;
   firstSubtable: unknown /* const array */;
-}
-
-declare class LtagStringRange {
-  constructor(init?: LtagStringRange);
-  offset: number;
-  length: number;
 }
 
 declare class KernOrderedListHeader {
@@ -2947,18 +2982,6 @@ declare class SFNTLookupVectorHeader {
   values: unknown /* const array */;
 }
 
-declare class KerxSubtableHeader {
-  constructor(init?: KerxSubtableHeader);
-  length: number;
-  stInfo: number;
-  tupleCount: number;
-  fsHeader: KerxFormatSpecificHeader;
-}
-
-declare class __CTFramesetter {
-  constructor(init?: __CTFramesetter);
-}
-
 declare class MorxLigatureSubtable {
   constructor(init?: MorxLigatureSubtable);
   header: STXHeader;
@@ -2973,29 +2996,12 @@ declare class AnchorPoint {
   y: number;
 }
 
-declare class ROTAHeader {
-  constructor(init?: ROTAHeader);
-  Version: number;
-  Flags: number;
-  NMasters: number;
-  FirstGlyph: number;
-  LastGlyph: number;
-  lookup: SFNTLookupTable;
-}
-
 declare class KerxCoordinateAction {
   constructor(init?: KerxCoordinateAction);
   markX: number;
   markY: number;
   currX: number;
   currY: number;
-}
-
-declare class sfntCMapSubHeader {
-  constructor(init?: sfntCMapSubHeader);
-  format: number;
-  length: number;
-  languageID: number;
 }
 
 declare class CTParagraphStyleSetting {
@@ -3023,12 +3029,6 @@ declare class ROTAGlyphEntry {
   GlyphIndexOffset: number;
   HBaselineOffset: number;
   VBaselineOffset: number;
-}
-
-declare class STEntryZero {
-  constructor(init?: STEntryZero);
-  newState: number;
-  flags: number;
 }
 
 declare class SFNTLookupSegment {

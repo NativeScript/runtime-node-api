@@ -1,240 +1,264 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35: number;
-
-declare const kCMTimeCodeFlag_DropFrame: number;
-
-declare const kCMSampleBufferLensStabilizationInfo_Off: interop.Pointer;
-
-declare const kCMBufferQueueTrigger_WhenEndOfDataReached: number;
-
-declare const kCMTextJustification_centered: number;
-
-declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
-
-declare const kCMMetadataFormatType_Boxed: number;
-
-declare const kCMTimebaseError_TimerIntervalTooShort: number;
-
-declare const kCMTimebaseError_ReadOnly: number;
-
-declare const kCMFormatDescriptionFieldDetail_TemporalBottomFirst: interop.Pointer;
-
-declare const kCMTextDisplayFlag_scrollOut: number;
-
-declare const kCMSubtitleFormatType_3GText: number;
-
-declare const kCMFormatDescriptionChromaLocation_Bottom: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_Monospace: interop.Pointer;
-
-declare const kCMFormatDescriptionKey_CleanApertureHeightRational: interop.Pointer;
-
-declare const kCMMuxedStreamType_MPEG1System: number;
-
 declare const kCMMetadataDataType_QuickTimeMetadataDirection: interop.Pointer;
-
-declare const kCMMetadataDataType_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_JSON: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
-
 declare const kCMMetadataBaseDataType_PolygonF32: interop.Pointer;
 
-declare const kCMAudioFormatDescriptionMask_StreamBasicDescription: number;
-
-declare const kCMMetadataBaseDataType_AffineTransformF64: interop.Pointer;
+declare const kCMMetadataBaseDataType_RectF32: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_DimensionsF32: interop.Pointer;
 
+declare const kCMMetadataBaseDataType_PointF32: interop.Pointer;
+
 declare const kCMMetadataBaseDataType_UInt64: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UInt32: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_UInt16: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_SInt32: interop.Pointer;
+declare const kCMMetadataBaseDataType_SInt64: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_Float64: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_Float32: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_BMP: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_UTF16: interop.Pointer;
+declare const kCMMetadataBaseDataType_PNG: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_UTF8: interop.Pointer;
+declare const kCMMetadataBaseDataType_JPEG: interop.Pointer;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataPreferredAffineTransform: interop.Pointer;
+declare const kCMMetadataBaseDataType_GIF: interop.Pointer;
 
-declare const kCMMetadataKeySpace_Icy: interop.Pointer;
+declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
+
+declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
 
 declare const kCMMetadataKeySpace_QuickTimeMetadata: interop.Pointer;
 
-declare const kCMMetadataDataTypeRegistryError_BadDataTypeIdentifier: number;
+declare const kCMMetadataKeySpace_ISOUserData: interop.Pointer;
 
-declare const kCMMetadataIdentifierError_BadKeySpace: number;
+declare const kCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes: number;
 
-declare const kCMMetadataIdentifierError_BadKey: number;
+declare const kCMMetadataDataTypeRegistryError_RequiresConformingBaseType: number;
+
+declare const kCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: number;
+
+declare const kCMMetadataDataTypeRegistryError_RequiredParameterMissing: number;
+
+declare const kCMMetadataDataTypeRegistryError_AllocationFailed: number;
+
+declare const kCMMetadataIdentifierError_NoKeyValueAvailable: number;
+
+declare const kCMMetadataIdentifierError_BadKeyType: number;
+
+declare const kCMMetadataIdentifierError_BadKeyLength: number;
+
+declare const kCMMetadataIdentifierError_RequiredParameterMissing: number;
+
+declare const kCMMetadataIdentifierError_AllocationFailed: number;
 
 declare const kCMTextMarkupCharacterEdgeStyle_DropShadow: interop.Pointer;
 
-declare const kCMTextMarkupCharacterEdgeStyle_None: interop.Pointer;
+declare const kCMTextMarkupCharacterEdgeStyle_Uniform: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_WritingDirectionSizePercentage: interop.Pointer;
+declare const kCMTextMarkupCharacterEdgeStyle_Raised: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_CharacterEdgeStyle: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_OrthogonalLinePositionPercentageRelativeToWritingDirection: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_TextPositionPercentageRelativeToWritingDirection: interop.Pointer;
+
+declare const kCMTextMarkupAlignmentType_Right: interop.Pointer;
 
 declare const kCMTextMarkupAlignmentType_Left: interop.Pointer;
 
 declare const kCMTextMarkupAlignmentType_End: interop.Pointer;
 
+declare const kCMTextMarkupAlignmentType_Middle: interop.Pointer;
+
+declare const kCMTextMarkupAlignmentType_Start: interop.Pointer;
+
 declare const kCMTextMarkupAttribute_Alignment: interop.Pointer;
 
-declare const kCMTextVerticalLayout_LeftToRight: interop.Pointer;
-
 declare const kCMTextMarkupAttribute_RelativeFontSize: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_BaseFontSizePercentageRelativeToVideoHeight: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_SmallCapital: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_Casual: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_MonospaceSansSerif: interop.Pointer;
 
+declare const kCMTextMarkupGenericFontName_MonospaceSerif: interop.Pointer;
+
 declare const kCMTextMarkupGenericFontName_ProportionalSansSerif: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_ProportionalSerif: interop.Pointer;
 
-declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
+declare const kCMTextMarkupGenericFontName_Monospace: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_FontFamilyName: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_UnderlineStyle: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_CharacterBackgroundColorARGB: interop.Pointer;
+declare const kCMTextMarkupAttribute_ForegroundColorARGB: interop.Pointer;
 
-declare const kCMTimebaseNotificationKey_EventTime: interop.Pointer;
-
-declare const kCMTimebaseNotification_TimeJumped: interop.Pointer;
+declare const kCMTimebaseNotification_EffectiveRateChanged: interop.Pointer;
 
 declare const kCMSyncError_InvalidParameter: number;
 
-declare const kCMTimebaseError_AllocationFailed: number;
+declare const kCMSyncError_MissingRequiredParameter: number;
 
-declare const kCMTimebaseError_MissingRequiredParameter: number;
+declare const kCMTimebaseError_ReadOnly: number;
+
+declare const kCMTimebaseError_TimerIntervalTooShort: number;
+
+declare const kCMTimebaseError_AllocationFailed: number;
 
 declare const kCMClockError_UnsupportedOperation: number;
 
-declare const kCMClockError_MissingRequiredParameter: number;
+declare const kCMClockError_AllocationFailed: number;
+
+declare const kCMClockError_InvalidParameter: number;
+
+declare const kCMMemoryPoolOption_AgeOutPeriod: interop.Pointer;
 
 declare const kCMMemoryPoolError_InvalidParameter: number;
 
-declare const kCMSimpleQueueError_AllocationFailed: number;
-
-declare const kCMTagDataTypeKey: interop.Pointer;
-
-declare const kCMTagPackingTypeOverUnder: CMTag;
-
-declare const kCMTagPackingTypeSideBySide: CMTag;
-
-declare const kCMTagPackingTypeNone: CMTag;
-
-declare const kCMTagProjectionTypeRectangular: CMTag;
-
-declare const kCMTagStereoInterpretationOrderReversed: CMTag;
-
-declare const kCMTagStereoNone: CMTag;
-
-declare const kCMTagStereoRightEye: CMTag;
-
-declare const kCMTagStereoLeftEye: CMTag;
-
-declare const kCMTagMediaTypeAudio: CMTag;
-
-declare const kCMFormatDescriptionExtension_AuxiliaryTypeInfo: interop.Pointer;
-
-declare const kCMTagMediaTypeVideo: CMTag;
-
-declare const kCMTagInvalid: CMTag;
+declare const kCMSimpleQueueError_RequiredParameterMissing: number;
 
 declare const kCMTagCategoryKey: interop.Pointer;
 
-declare const kCMSampleAttachmentKey_HDR10PlusPerFrameData: interop.Pointer;
+declare const kCMTagValueKey: interop.Pointer;
+
+declare const kCMTagPackingTypeSideBySide: CMTag;
+
+declare const kCMTagProjectionTypeFisheye: CMTag;
+
+declare const kCMTagProjectionTypeEquirectangular: CMTag;
+
+declare const kCMTagStereoInterpretationOrderReversed: CMTag;
+
+declare const kCMTagStereoLeftAndRightEye: CMTag;
+
+declare const kCMTagStereoRightEye: CMTag;
+
+declare const kCMTagMediaTypeMetadata: CMTag;
+
+declare const kCMTagMediaSubTypeMebx: CMTag;
+
+declare const kCMTagInvalid: CMTag;
+
+declare const kCMSampleAttachmentKey_CryptorSubsampleAuxiliaryData: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_ForceKeyFrame: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_StillImageLensStabilizationInfo: interop.Pointer;
+declare const kCMSampleBufferLensStabilizationInfo_Unavailable: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_DroppedFrameReasonInfo: interop.Pointer;
+declare const kCMSampleBufferLensStabilizationInfo_OutOfRange: interop.Pointer;
 
-declare const kCMSampleBufferDroppedFrameReason_OutOfBuffers: interop.Pointer;
+declare const kCMSimpleQueueError_QueueIsFull: number;
 
-declare const kCMSampleBufferAttachmentKey_DroppedFrameReason: interop.Pointer;
+declare const kCMSampleBufferLensStabilizationInfo_Active: interop.Pointer;
+
+declare const kCMSampleBufferDroppedFrameReasonInfo_CameraModeSwitch: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_GradualDecoderRefresh: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_SampleReferenceByteOffset: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_SampleReferenceURL: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_EndsPreviousSampleDuration: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_PermanentEmptyMedia: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_DisplayEmptyMediaImmediately: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_EmptyMedia: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_FillDiscontinuitiesWithSilence: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_Reverse: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_SpeedMultiplier: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_TrimDurationAtStart: interop.Pointer;
+declare const kCMSampleAttachmentKey_HEVCSyncSampleNALUnitType: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_TransitionID: interop.Pointer;
+declare const kCMSampleAttachmentKey_HEVCStepwiseTemporalSubLayerAccess: interop.Pointer;
+
+declare const kCMSampleAttachmentKey_HEVCTemporalSubLayerAccess: interop.Pointer;
+
+declare const kCMHEVCTemporalLevelInfoKey_LevelIndex: interop.Pointer;
 
 declare const kCMHEVCTemporalLevelInfoKey_ProfileCompatibilityFlags: interop.Pointer;
 
+declare const kCMHEVCTemporalLevelInfoKey_ProfileIndex: interop.Pointer;
+
+declare const kCMHEVCTemporalLevelInfoKey_TierFlag: interop.Pointer;
+
 declare const kCMHEVCTemporalLevelInfoKey_ProfileSpace: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_PostNotificationWhenConsumed: interop.Pointer;
-
-declare const kCMSampleBufferAttachmentKey_DrainAfterDecoding: interop.Pointer;
-
-declare const kCMSampleBufferAttachmentKey_ResetDecoderBeforeDecoding: interop.Pointer;
-
-declare const kCMSampleAttachmentKey_DoNotDisplay: interop.Pointer;
+declare const kCMHEVCTemporalLevelInfoKey_TemporalLevel: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_DisplayImmediately: interop.Pointer;
 
-declare const kCMSampleAttachmentKey_DependsOnOthers: interop.Pointer;
-
 declare const kCMSampleAttachmentKey_PartialSync: interop.Pointer;
 
-declare const kCMSampleBufferConduitNotification_UpcomingOutputPTSRangeChanged: interop.Pointer;
+declare const kCMSampleAttachmentKey_NotSync: interop.Pointer;
 
-declare const kCMSampleBufferConduitNotification_ResetOutput: interop.Pointer;
+declare const kCMSampleBufferConduitNotificationParameter_MaxUpcomingOutputPTS: interop.Pointer;
+
+declare const kCMSampleBufferConduitNotificationParameter_MinUpcomingOutputPTS: interop.Pointer;
+
+declare const kCMSampleBufferConduitNotificationParameter_UpcomingOutputPTSRangeMayOverlapQueuedOutputPTSRange: interop.Pointer;
 
 declare const kCMSampleBufferConduitNotificationParameter_ResumeTag: interop.Pointer;
 
-declare const kCMSampleBufferNotification_DataFailed: interop.Pointer;
+declare const kCMSampleBufferNotificationParameter_OSStatus: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_UInt8: interop.Pointer;
+declare const kCMSampleBufferNotification_DataBecameReady: interop.Pointer;
 
-declare const kCMTimingInfoInvalid: CMSampleTimingInfo;
+declare const kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment: number;
 
-declare const kCMSampleBufferError_DataFailed: number;
+declare const kCMSampleBufferError_DataCanceled: number;
+
+declare const kCMSampleBufferError_Invalidated: number;
 
 declare const kCMSampleBufferError_InvalidMediaFormat: number;
 
 declare const kCMSampleBufferError_InvalidMediaTypeForOperation: number;
 
-declare const kCMSampleBufferError_ArrayTooSmall: number;
-
-declare const kCMSampleBufferError_SampleIndexOutOfRange: number;
+declare const kCMSampleBufferError_BufferHasNoSampleTimingInfo: number;
 
 declare const kCMSampleBufferError_BufferNotReady: number;
+
+declare const kCMSampleBufferError_AlreadyHasDataBuffer: number;
+
+declare const kCMSampleBufferError_RequiredParameterMissing: number;
+
+declare const kCMSampleBufferError_AllocationFailed: number;
 
 declare const kCMBufferQueueTrigger_WhenBufferCountBecomesLessThan: number;
 
 declare const kCMBufferQueueTrigger_WhenReset: number;
 
+declare const kCMBufferQueueTrigger_WhenEndOfDataReached: number;
+
 declare const kCMBufferQueueTrigger_WhenDataBecomesReady: number;
+
+declare const kCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges: number;
+
+declare const kCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: number;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: number;
 
-declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
+declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
 
 declare const kCMBufferQueueError_InvalidBuffer: number;
-
-declare const kCMBufferQueueError_InvalidTriggerToken: number;
 
 declare const kCMBufferQueueError_InvalidTriggerCondition: number;
 
@@ -242,9 +266,19 @@ declare const kCMBufferQueueError_CannotModifyQueueFromTriggerCallback: number;
 
 declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
 
+declare const kCMBufferQueueError_RequiredParameterMissing: number;
+
+declare const kCMBufferQueueError_AllocationFailed: number;
+
+declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
+
+declare const kCMImageDescriptionFlavor_QuickTimeMovie: interop.Pointer;
+
+declare const kCMFormatDescriptionBridgeError_InvalidSlice: number;
+
 declare const kCMFormatDescriptionBridgeError_IncompatibleFormatDescription: number;
 
-declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
+declare const kCMFormatDescriptionBridgeError_InvalidFormatDescription: number;
 
 declare const kCMFormatDescriptionBridgeError_AllocationFailed: number;
 
@@ -252,13 +286,17 @@ declare const kCMFormatDescriptionBridgeError_InvalidParameter: number;
 
 declare const kCMBlockBufferCustomBlockSourceVersion: number;
 
+declare const kCMBlockBufferPermitEmptyReferenceFlag: number;
+
 declare const kCMBlockBufferDontOptimizeDepthFlag: number;
+
+declare const kCMBlockBufferAlwaysCopyDataFlag: number;
 
 declare const kCMBlockBufferEmptyBBufErr: number;
 
-declare const kCMBlockBufferBadLengthParameterErr: number;
+declare const kCMBlockBufferBadPointerParameterErr: number;
 
-declare const kCMBlockBufferBadOffsetParameterErr: number;
+declare const kCMBlockBufferBadLengthParameterErr: number;
 
 declare const kCMBlockBufferBadCustomBlockSourceErr: number;
 
@@ -270,23 +308,27 @@ declare const kCMBlockBufferStructureAllocationFailedErr: number;
 
 declare const kCMBlockBufferNoErr: number;
 
-declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_SetupData: interop.Pointer;
+declare const kCMAttachmentMode_ShouldPropagate: number;
 
-declare const kCMMetadataFormatDescription_StructuralDependencyKey_DependencyIsInvalidFlag: interop.Pointer;
+declare const kCMAttachmentMode_ShouldNotPropagate: number;
+
+declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_StructuralDependency: interop.Pointer;
+
+declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_ExtendedLanguageTag: interop.Pointer;
+
+declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType: interop.Pointer;
+
+declare const kCMMetadataFormatDescriptionKey_SetupData: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_StructuralDependency: interop.Pointer;
 
-declare const kCMSimpleQueueError_QueueIsFull: number;
-
-declare const kCMSampleBufferLensStabilizationInfo_Active: interop.Pointer;
-
-declare const kCMMetadataFormatDescriptionKey_DataType: interop.Pointer;
+declare const kCMMetadataFormatDescriptionKey_ConformingDataTypes: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionKey_LocalID: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_FontFamilyNameList: interop.Pointer;
+declare const kCMMetadataFormatDescriptionKey_Value: interop.Pointer;
 
-declare const kCMMetadataFormatDescriptionKey_Namespace: interop.Pointer;
+declare const kCMMetadataFormatType_Boxed: number;
 
 declare const kCMMetadataFormatType_ID3: number;
 
@@ -294,55 +336,69 @@ declare const kCMMetadataFormatType_ICY: number;
 
 declare const kCMTimeCodeFormatDescriptionKey_LangCode: interop.Pointer;
 
+declare const kCMTimeCodeFormatDescriptionKey_Value: interop.Pointer;
+
+declare const kCMTimeCodeFlag_NegTimesOK: number;
+
 declare const kCMTimeCodeFlag_24HourMax: number;
 
-declare const kCMTimeCodeFormatType_Counter32: number;
+declare const kCMTimeCodeFlag_DropFrame: number;
 
-declare const kCMTimeCodeFormatType_TimeCode64: number;
-
-declare const kCMTimeCodeFormatType_TimeCode32: number;
+declare const kCMTimeCodeFormatType_Counter64: number;
 
 declare const kCMSampleAttachmentKey_HasRedundantCoding: interop.Pointer;
 
 declare const kCMSubtitleFormatType_WebVTT: number;
 
-declare const kCMFormatDescriptionExtension_AmbientViewingEnvironment: interop.Pointer;
-
-declare const kCMSampleBufferDroppedFrameReason_Discontinuity: interop.Pointer;
-
-declare const kCMTextFormatDescriptionExtension_DefaultFontName: interop.Pointer;
+declare const kCMTextFormatDescriptionStyle_Height: interop.Pointer;
 
 declare const kCMTextFormatDescriptionExtension_TextJustification: interop.Pointer;
 
+declare const kCMTextFormatDescriptionExtension_FontTable: interop.Pointer;
+
+declare const kCMTextFormatDescriptionStyle_EndChar: interop.Pointer;
+
 declare const kCMTextFormatDescriptionExtension_HorizontalJustification: interop.Pointer;
 
-declare const kCMTextFormatDescriptionStyle_FontSize: interop.Pointer;
+declare const kCMTextFormatDescriptionStyle_Font: interop.Pointer;
 
-declare const kCMTextFormatDescriptionStyle_ForegroundColor: interop.Pointer;
-
-declare const kCMTextFormatDescriptionStyle_FontFace: interop.Pointer;
+declare const kCMTextFormatDescriptionStyle_StartChar: interop.Pointer;
 
 declare const kCMTextFormatDescriptionExtension_DefaultStyle: interop.Pointer;
+
+declare const kCMTextFormatDescriptionRect_Right: interop.Pointer;
 
 declare const kCMTextFormatDescriptionRect_Bottom: interop.Pointer;
 
 declare const kCMTextFormatDescriptionRect_Left: interop.Pointer;
 
-declare const kCMTextFormatDescriptionColor_Green: interop.Pointer;
+declare const kCMTextFormatDescriptionRect_Top: interop.Pointer;
 
-declare const kCMTextJustification_left_top: number;
+declare const kCMTextFormatDescriptionExtension_DefaultTextBox: interop.Pointer;
 
-declare const kCMTextDisplayFlag_fillTextRegion: number;
+declare const kCMTextFormatDescriptionColor_Alpha: interop.Pointer;
 
-declare const kCMTextDisplayFlag_scrollDirection_leftToRight: number;
+declare const kCMTextFormatDescriptionExtension_DisplayFlags: interop.Pointer;
 
-declare const kCMClosedCaptionFormatType_ATSC: number;
+declare const kCMTextDisplayFlag_obeySubtitleFormatting: number;
 
-declare const kCMClosedCaptionFormatType_CEA608: number;
+declare const kCMTextDisplayFlag_scrollDirection_topToBottom: number;
+
+declare const kCMTextDisplayFlag_scrollIn: number;
+
+declare const kCMTextFormatType_3GText: number;
+
+declare const kCMMuxedStreamType_MPEG2Program: number;
+
+declare const kCMMuxedStreamType_MPEG1System: number;
 
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
 
-declare const kCMFormatDescriptionExtension_HorizontalDisparityAdjustment: interop.Pointer;
+declare const kCMFormatDescriptionExtension_StereoCameraBaseline: interop.Pointer;
+
+declare const kCMFormatDescriptionHeroEye_Right: interop.Pointer;
+
+declare const kCMFormatDescriptionHeroEye_Left: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_HorizontalFieldOfView: interop.Pointer;
 
@@ -350,43 +406,63 @@ declare const kCMFormatDescriptionExtension_BitsPerComponent: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_AlphaChannelMode: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_ContentLightLevelInfo: interop.Pointer;
+declare const kCMFormatDescriptionExtension_MasteringDisplayColorVolume: interop.Pointer;
 
 declare const kCMFormatDescriptionVendor_Apple: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_Vendor: interop.Pointer;
+declare const kCMFormatDescriptionExtension_RevisionLevel: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_Version: interop.Pointer;
-
-declare const kCMFormatDescriptionExtension_VerbatimImageDescription: interop.Pointer;
+declare const kCMFormatDescriptionExtension_SpatialQuality: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_TemporalQuality: interop.Pointer;
+
+declare const kCMMPEG2VideoProfile_XF: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_540p: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD_540p: number;
 
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50: number;
+
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50: number;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35: number;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35: number;
 
-declare const kCMMPEG2VideoProfile_HDV_720p50: number;
+declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35: number;
+
+declare const kCMMPEG2VideoProfile_HDV_1080p30: number;
 
 declare const kCMMPEG2VideoProfile_HDV_1080p25: number;
 
-declare const kCMMPEG2VideoProfile_HDV_720p24: number;
+declare const kCMMPEG2VideoProfile_HDV_1080i60: number;
 
-declare const kCMMetadataDataTypeRegistryError_RequiresConformingBaseType: number;
+declare const kCMFormatDescriptionExtension_ProtectedContentOriginalFormat: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_HDV_1080i50: number;
+declare const kCMFormatDescriptionChromaLocation_DV420: interop.Pointer;
+
+declare const kCMFormatDescriptionChromaLocation_Top: interop.Pointer;
 
 declare const kCMFormatDescriptionChromaLocation_Left: interop.Pointer;
 
@@ -396,47 +472,59 @@ declare const kCMFormatDescriptionExtension_FullRangeVideo: interop.Pointer;
 
 declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_2020: interop.Pointer;
 
-declare const kCMFormatDescriptionYCbCrMatrix_SMPTE_240M_1995: interop.Pointer;
+declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_601_4: interop.Pointer;
 
 declare const kCMFormatDescriptionTransferFunction_sRGB: interop.Pointer;
 
-declare const kCMFormatDescriptionTransferFunction_SMPTE_ST_2084_PQ: interop.Pointer;
+declare const kCMFormatDescriptionTransferFunction_Linear: interop.Pointer;
 
 declare const kCMFormatDescriptionTransferFunction_SMPTE_ST_428_1: interop.Pointer;
+
+declare const kCMFormatDescriptionTransferFunction_ITU_R_2020: interop.Pointer;
+
+declare const kCMFormatDescriptionTransferFunction_UseGamma: interop.Pointer;
 
 declare const kCMFormatDescriptionTransferFunction_SMPTE_240M_1995: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_TransferFunction: interop.Pointer;
 
-declare const kCMFormatDescriptionColorPrimaries_ITU_R_2020: interop.Pointer;
-
-declare const kCMFormatDescriptionColorPrimaries_DCI_P3: interop.Pointer;
-
 declare const kCMFormatDescriptionColorPrimaries_SMPTE_C: interop.Pointer;
 
-declare const kCMFormatDescriptionKey_CleanApertureVerticalOffsetRational: interop.Pointer;
+declare const kCMFormatDescriptionColorPrimaries_EBU_3213: interop.Pointer;
+
+declare const kCMFormatDescriptionFieldDetail_TemporalTopFirst: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_FieldDetail: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_CleanApertureHorizontalOffsetRational: interop.Pointer;
 
+declare const kCMFormatDescriptionKey_CleanApertureHeightRational: interop.Pointer;
+
 declare const kCMFormatDescriptionKey_CleanApertureWidthRational: interop.Pointer;
 
-declare const kCMFormatDescriptionKey_CleanApertureVerticalOffset: interop.Pointer;
+declare const kCMFormatDescriptionKey_CleanApertureHorizontalOffset: interop.Pointer;
 
-declare const kCMFormatDescriptionKey_CleanApertureWidth: interop.Pointer;
+declare const kCMFormatDescriptionKey_CleanApertureHeight: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_FormatName: interop.Pointer;
+declare const kCMFormatDescriptionExtension_CleanAperture: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_Depth: interop.Pointer;
+
+declare const kCMVideoCodecType_AV1: number;
 
 declare const kCMVideoCodecType_AppleProResRAWHQ: number;
 
-declare const kCMVideoCodecType_AppleProRes422Proxy: number;
+declare const kCMVideoCodecType_AppleProResRAW: number;
 
-declare const kCMVideoCodecType_AppleProRes422: number;
+declare const kCMVideoCodecType_AppleProRes422HQ: number;
+
+declare const kCMVideoCodecType_AppleProRes4444XQ: number;
 
 declare const kCMVideoCodecType_DVCPROHD1080p25: number;
 
-declare const kCMVideoCodecType_DVCPROHD1080i50: number;
+declare const kCMVideoCodecType_DVCPROHD1080p30: number;
 
-declare const kCMMPEG2VideoProfile_HDV_720p60: number;
+declare const kCMVideoCodecType_DVCPROHD1080i50: number;
 
 declare const kCMVideoCodecType_DVCPROHD1080i60: number;
 
@@ -444,153 +532,215 @@ declare const kCMVideoCodecType_DVCPROHD720p50: number;
 
 declare const kCMVideoCodecType_DVCPROHD720p60: number;
 
-declare const kCMVideoCodecType_DVCPro50PAL: number;
+declare const kCMVideoCodecType_DVCProPAL: number;
 
-declare const kCMVideoCodecType_SorensonVideo: number;
+declare const kCMVideoCodecType_DVCPAL: number;
 
-declare const kCMVideoCodecType_JPEG_OpenDML: number;
+declare const kCMVideoCodecType_DVCNTSC: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50: number;
+declare const kCMVideoCodecType_MPEG1Video: number;
 
-declare const kCMVideoCodecType_JPEG: number;
+declare const kCMVideoCodecType_MPEG2Video: number;
+
+declare const kCMVideoCodecType_HEVCWithAlpha: number;
+
+declare const kCMVideoCodecType_HEVC: number;
+
+declare const kCMVideoCodecType_Cinepak: number;
+
+declare const kCMVideoCodecType_Animation: number;
 
 declare const kCMPixelFormat_444YpCbCr10: number;
 
-declare const kCMPixelFormat_16LE5551: number;
+declare const kCMPixelFormat_422YpCbCr16: number;
+
+declare const kCMPixelFormat_4444YpCbCrA8: number;
+
+declare const kCMPixelFormat_444YpCbCr8: number;
+
+declare const kCMPixelFormat_422YpCbCr8_yuvs: number;
+
+declare const kCMPixelFormat_422YpCbCr8: number;
+
+declare const kCMPixelFormat_16LE565: number;
 
 declare const kCMPixelFormat_16LE555: number;
 
 declare const kCMPixelFormat_16BE565: number;
 
-declare const kCMPixelFormat_16BE555: number;
-
 declare const kCMPixelFormat_24RGB: number;
 
-declare const kCMAudioFormatDescriptionMask_Extensions: number;
+declare const kCMPixelFormat_32BGRA: number;
+
+declare const kCMAudioFormatDescriptionMask_All: number;
+
+declare const kCMAudioFormatDescriptionMask_ChannelLayout: number;
+
+declare const kCMAudioFormatDescriptionMask_MagicCookie: number;
+
+declare const kCMMetadataBaseDataType_AffineTransformF64: interop.Pointer;
+
+declare const kCMAudioFormatDescriptionMask_StreamBasicDescription: number;
 
 declare const kCMAudioCodecType_AAC_AudibleProtected: number;
 
 declare const kCMAudioCodecType_AAC_LCProtected: number;
 
-declare const kCMFormatDescriptionExtension_VerbatimSampleDescription: interop.Pointer;
-
 declare const kCMFormatDescriptionExtension_SampleDescriptionExtensionAtoms: interop.Pointer;
 
 declare const kCMMediaType_TaggedBufferGroup: number;
 
+declare const kCMMediaType_Metadata: number;
+
 declare const kCMMediaType_Subtitle: number;
-
-declare const kCMMediaType_Muxed: number;
-
-declare const kCMFormatDescriptionError_ValueNotAvailable: number;
-
-declare const kCMFormatDescriptionError_InvalidParameter: number;
-
-declare const kCMFormatDescriptionColorPrimaries_P3_D65: interop.Pointer;
 
 declare const kCMMediaType_ClosedCaption: number;
 
-declare const kCMFormatDescriptionKey_PixelAspectRatioVerticalSpacing: interop.Pointer;
+declare const kCMMediaType_Text: number;
 
-declare const kCMTextFormatDescriptionExtension_FontTable: interop.Pointer;
+declare const kCMMediaType_Muxed: number;
 
-declare const kCMTextFormatDescriptionRect_Right: interop.Pointer;
+declare const kCMMediaType_Audio: number;
 
-declare const kCMFormatDescriptionExtension_FieldCount: interop.Pointer;
+declare const kCMMediaType_Video: number;
 
-declare const kCMMetadataFormatDescriptionKey_Value: interop.Pointer;
+declare const kCMFormatDescriptionError_ValueNotAvailable: number;
 
-declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
+declare const kCMFormatDescriptionError_AllocationFailed: number;
 
-declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
-
-declare const kCMMetadataIdentifierError_BadNumberKey: number;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
+declare const kCMFormatDescriptionError_InvalidParameter: number;
 
 declare const kCMTimeMappingTargetKey: interop.Pointer;
 
-declare const kCMTimeRangeZero: CMTimeRange;
+declare const kCMTimeMappingInvalid: CMTimeMapping;
+
+declare const kCMTimeRangeDurationKey: interop.Pointer;
+
+declare const kCMTimeRangeStartKey: interop.Pointer;
+
+declare const kCMTimeRangeInvalid: CMTimeRange;
 
 declare const kCMTimeFlagsKey: interop.Pointer;
 
-declare const kCMTimeValueKey: interop.Pointer;
+declare const kCMTimeScaleKey: interop.Pointer;
 
 declare const kCMTimeZero: CMTime;
 
-declare const kCMTimePositiveInfinity: CMTime;
+declare const kCMTimeIndefinite: CMTime;
 
 declare const kCMTimeInvalid: CMTime;
 
 declare const kCMPersistentTrackID_Invalid: number;
 
-declare const kCMMPEG2VideoProfile_HDV_720p25: number;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35: number;
 
 declare const kCMMetadataIdentifierError_BadIdentifier: number;
 
-declare const kCMPixelFormat_16LE565: number;
+declare const kCMMuxedStreamType_MPEG2Transport: number;
 
-declare const kCMFormatDescriptionExtension_PixelAspectRatio: interop.Pointer;
+declare const kCMVideoCodecType_AppleProRes422LT: number;
 
-declare const kCMMPEG2VideoProfile_XF: number;
+declare const kCMBlockBufferBadOffsetParameterErr: number;
+
+declare const kCMSubtitleFormatType_3GText: number;
+
+declare const kCMMPEG2VideoProfile_HDV_720p60: number;
+
+declare const kCMFormatDescriptionConformsToMPEG2VideoProfile: interop.Pointer;
+
+declare const kCMMetadataDataTypeRegistryError_BadDataTypeIdentifier: number;
+
+declare const kCMMetadataFormatDescriptionKey_LanguageTag: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UTF8: interop.Pointer;
+
+declare const kCMTextFormatDescriptionColor_Red: interop.Pointer;
+
+declare const kCMVideoCodecType_422YpCbCr8: number;
+
+declare const kCMImageDescriptionFlavor_ISOFamily: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_VerbatimISOSampleEntry: interop.Pointer;
+
+declare const kCMTimebaseError_MissingRequiredParameter: number;
+
+declare const kCMSampleBufferError_DataFailed: number;
+
+declare const kCMFormatDescriptionFieldDetail_TemporalBottomFirst: interop.Pointer;
+
+declare const kCMTextJustification_centered: number;
+
+declare const kCMTagPackingTypeNone: CMTag;
+
+declare const kCMClosedCaptionFormatType_ATSC: number;
+
+declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
+
+declare const kCMVideoCodecType_SorensonVideo3: number;
+
+declare const kCMMPEG2VideoProfile_HDV_720p24: number;
+
+declare const kCMMetadataDataType_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
+
+declare const kCMSampleBufferError_BufferHasNoSampleSizes: number;
+
+declare const kCMTimePositiveInfinity: CMTime;
+
+declare const kCMMPEG2VideoProfile_HDV_720p50: number;
+
+declare const kCMTextFormatDescriptionExtension_DefaultFontName: interop.Pointer;
+
+declare const kCMMetadataKeySpace_QuickTimeUserData: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_UInt8: interop.Pointer;
+
+declare const kCMSampleAttachmentKey_DependsOnOthers: interop.Pointer;
+
+declare const kCMTimebaseError_InvalidParameter: number;
+
+declare const kCMTextMarkupAttribute_CharacterBackgroundColorARGB: interop.Pointer;
+
+declare const kCMSampleBufferConduitNotification_InhibitOutputUntil: interop.Pointer;
+
+declare const kCMFormatDescriptionChromaLocation_Bottom: interop.Pointer;
+
+declare const kCMFormatDescriptionKey_CleanApertureVerticalOffset: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_ContentLightLevelInfo: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_FieldCount: interop.Pointer;
+
+declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35: number;
 
 declare const kCMMetadataBaseDataType_SInt8: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_VerbatimISOSampleEntry: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_OrthogonalLinePositionPercentageRelativeToWritingDirection: interop.Pointer;
-
 declare const kCMMPEG2VideoProfile_HDV_720p30: number;
 
 declare const kCMTextMarkupCharacterEdgeStyle_Depressed: interop.Pointer;
 
-declare const kCMMetadataIdentifierError_BadKeyType: number;
-
-declare const kCMSampleAttachmentKey_HEVCSyncSampleNALUnitType: interop.Pointer;
+declare const kCMTextDisplayFlag_scrollOut: number;
 
 declare const kCMPixelFormat_32ARGB: number;
 
-declare const kCMFormatDescriptionAlphaChannelMode_StraightAlpha: interop.Pointer;
-
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35: number;
-
-declare const kCMFormatDescriptionExtension_GammaLevel: interop.Pointer;
 
 declare const kCMVideoCodecType_DisparityHEVC: number;
 
+declare const kCMSampleBufferDroppedFrameReason_Discontinuity: interop.Pointer;
+
 declare const kCMVideoCodecType_AppleProRes4444: number;
 
-declare const kCMMetadataBaseDataType_SInt64: interop.Pointer;
+declare const kCMMetadataFormatDescription_StructuralDependencyKey_DependencyIsInvalidFlag: interop.Pointer;
 
-declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
-
-declare const kCMVideoCodecType_AppleProRes422LT: number;
-
-declare const kCMTextMarkupCharacterEdgeStyle_Uniform: interop.Pointer;
-
-declare const kCMFormatDescriptionConformsToMPEG2VideoProfile: interop.Pointer;
-
-declare const kCMMetadataIdentifierError_NoKeyValueAvailable: number;
-
-declare const kCMTimeRangeInvalid: CMTimeRange;
-
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: number;
-
-declare const kCMFormatDescriptionExtension_ContentColorVolume: interop.Pointer;
+declare const kCMMetadataIdentifierError_BadKey: number;
 
 declare const kCMPixelFormat_422YpCbCr10: number;
 
-declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
-
-declare const kCMMetadataKeySpace_QuickTimeUserData: interop.Pointer;
-
-declare const kCMTextMarkupAlignmentType_Middle: interop.Pointer;
-
-declare const kCMSampleAttachmentKey_HEVCTemporalLevelInfo: interop.Pointer;
-
-declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_709_2: interop.Pointer;
+declare const kCMFormatDescriptionExtension_Vendor: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_ICCProfile: interop.Pointer;
 
@@ -598,553 +748,449 @@ declare const kCMSampleBufferAttachmentKey_ResumeOutput: interop.Pointer;
 
 declare const kCMTextDisplayFlag_allSubtitlesForced: number;
 
-declare const kCMTextDisplayFlag_forcedSubtitlesPresent: number;
+declare const kCMTagDataTypeKey: interop.Pointer;
 
-declare const kCMTimeNegativeInfinity: CMTime;
+declare const kCMSampleBufferAttachmentKey_DroppedFrameReasonInfo: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_TrimDurationAtEnd: interop.Pointer;
+declare const kCMFormatDescriptionExtension_HorizontalDisparityAdjustment: interop.Pointer;
 
-declare const kCMTextFormatDescriptionExtension_VerticalJustification: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_ResetDecoderBeforeDecoding: interop.Pointer;
 
-declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_TrimDurationAtStart: interop.Pointer;
 
-declare const kCMVideoCodecType_DVCProPAL: number;
+declare const kCMVideoCodecType_DepthHEVC: number;
+
+declare const kCMVideoCodecType_DolbyVisionHEVC: number;
+
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50: number;
 
 declare const kCMMetadataKeySpace_ID3: interop.Pointer;
 
-declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_StructuralDependency: interop.Pointer;
-
-declare const kCMVideoCodecType_HEVCWithAlpha: number;
+declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_HDV_1080p24: number;
 
-declare const kCMMetadataBaseDataType_RectF32: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_StillImageLensStabilizationInfo: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35: number;
+declare const kCMSimpleQueueError_AllocationFailed: number;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransform: interop.Pointer;
 
-declare const kCMTagProjectionTypeFisheye: CMTag;
+declare const kCMAudioFormatDescriptionMask_Extensions: number;
 
-declare const kCMSampleAttachmentKey_EarlierDisplayTimesAllowed: interop.Pointer;
+declare const kCMTimeNegativeInfinity: CMTime;
 
-declare const kCMFormatDescriptionError_AllocationFailed: number;
-
-declare const kCMTimeRangeDurationKey: interop.Pointer;
-
-declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
-
-declare const kCMTextDisplayFlag_continuousKaraoke: number;
-
-declare const kCMFormatDescriptionChromaLocation_TopLeft: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_EmptyMedia: interop.Pointer;
 
 declare const kCMBlockBufferInsufficientSpaceErr: number;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo: number;
 
-declare const kCMTextFormatDescriptionColor_Alpha: interop.Pointer;
-
-declare const kCMMemoryPoolError_AllocationFailed: number;
-
 declare const kCMFormatDescriptionColorPrimaries_ITU_R_709_2: interop.Pointer;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50: number;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50: number;
-
-declare const kCMVideoCodecType_AppleProRes422HQ: number;
 
 declare const kCMFormatDescriptionTransferFunction_ITU_R_2100_HLG: interop.Pointer;
 
-declare const kCMSampleBufferError_RequiredParameterMissing: number;
+declare const kCMFormatDescriptionKey_CleanApertureWidth: interop.Pointer;
 
-declare const kCMTextFormatType_3GText: number;
+declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
 
-declare const kCMMetadataDataTypeRegistryError_AllocationFailed: number;
-
-declare const kCMAttachmentMode_ShouldPropagate: number;
-
-declare const kCMHEVCTemporalLevelInfoKey_TemporalLevel: interop.Pointer;
+declare const kCMTextFormatDescriptionStyle_FontSize: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_HeroEye: interop.Pointer;
 
+declare const kCMTimingInfoInvalid: CMSampleTimingInfo;
+
 declare const kCMFormatDescriptionColorPrimaries_P22: interop.Pointer;
 
-declare const kCMFormatDescriptionChromaLocation_BottomLeft: interop.Pointer;
+declare const kCMFormatDescriptionExtension_AlternativeTransferCharacteristics: interop.Pointer;
 
-declare const kCMTextDisplayFlag_writeTextVertically: number;
-
-declare const kCMFormatDescriptionExtension_BytesPerRow: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_SmallCapital: interop.Pointer;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50: number;
-
-declare const kCMTextMarkupAttribute_GenericFontFamilyName: interop.Pointer;
-
-declare const kCMMuxedStreamType_DV: number;
-
-declare const kCMSimpleQueueError_RequiredParameterMissing: number;
-
-declare const kCMTextDisplayFlag_scrollDirection_rightToLeft: number;
+declare const kCMMetadataKeySpace_iTunes: interop.Pointer;
 
 declare const kCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan: number;
 
-declare const kCMSampleBufferError_CannotSubdivide: number;
+declare const kCMSampleAttachmentKey_HDR10PlusPerFrameData: interop.Pointer;
 
-declare const kCMBlockBufferBadPointerParameterErr: number;
-
-declare const kCMSampleAttachmentKey_NotSync: interop.Pointer;
-
-declare const kCMClockError_InvalidParameter: number;
-
-declare const kCMTextFormatDescriptionStyle_EndChar: interop.Pointer;
-
-declare const kCMBlockBufferUnallocatedBlockErr: number;
-
-declare const kCMTextDisplayFlag_scrollIn: number;
+declare const kCMTextDisplayFlag_fillTextRegion: number;
 
 declare const kCMFormatDescriptionExtension_ContainsAlphaChannel: interop.Pointer;
 
-declare const kCMImageDescriptionFlavor_ISOFamily: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_Serif: interop.Pointer;
-
-declare const kCMSampleBufferError_SampleTimingInfoInvalid: number;
-
 declare const kCMPixelFormat_8IndexedGray_WhiteIsZero: number;
-
-declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35: number;
-
-declare const kCMVideoCodecType_Animation: number;
 
 declare const kCMMediaType_TimeCode: number;
 
-declare const kCMTextFormatDescriptionExtension_DefaultTextBox: interop.Pointer;
-
-declare const kCMSampleAttachmentKey_HEVCStepwiseTemporalSubLayerAccess: interop.Pointer;
-
-declare const kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix: interop.Pointer;
+declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
 
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
-declare const kCMBlockBufferPermitEmptyReferenceFlag: number;
-
-declare const kCMMediaType_Text: number;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50: number;
-
-declare const kCMVideoCodecType_MPEG4Video: number;
+declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
 
 declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
 
-declare const kCMMetadataFormatDescriptionKey_DataTypeNamespace: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix: interop.Pointer;
 
-declare const kCMTextMarkupGenericFontName_MonospaceSerif: interop.Pointer;
+declare const kCMVideoCodecType_SorensonVideo: number;
 
-declare const kCMHEVCTemporalLevelInfoKey_ProfileIndex: interop.Pointer;
+declare const kCMVideoCodecType_JPEG: number;
 
-declare const kCMTextFormatDescriptionExtension_DisplayFlags: interop.Pointer;
+declare const kCMFormatDescriptionColorPrimaries_P3_D65: interop.Pointer;
 
-declare const kCMTextDisplayFlag_scrollDirection_bottomToTop: number;
+declare const kCMVideoCodecType_AppleProRes422: number;
 
-declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35: number;
+declare const kCMTextDisplayFlag_forcedSubtitlesPresent: number;
 
-declare const kCMFormatDescriptionExtension_ProtectedContentOriginalFormat: interop.Pointer;
+declare const kCMFormatDescriptionAlphaChannelMode_StraightAlpha: interop.Pointer;
 
-declare const kCMFormatDescriptionChromaLocation_Center: interop.Pointer;
+declare const kCMFormatDescriptionExtension_BytesPerRow: interop.Pointer;
 
-declare const kCMPixelFormat_422YpCbCr16: number;
+declare const kCMFormatDescriptionChromaLocation_BottomLeft: interop.Pointer;
+
+declare const kCMTimeRangeZero: CMTimeRange;
 
 declare const kCMFormatDescriptionKey_PixelAspectRatioHorizontalSpacing: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35: number;
+declare const kCMSampleBufferLensStabilizationInfo_Off: interop.Pointer;
 
-declare const kCMVideoCodecType_DVCPAL: number;
+declare const kCMTimebaseNotification_TimeJumped: interop.Pointer;
 
-declare const kCMTextMarkupAttribute_BaseFontSizePercentageRelativeToVideoHeight: interop.Pointer;
+declare const kCMFormatDescriptionExtension_Version: interop.Pointer;
 
-declare const kCMTimebaseError_InvalidParameter: number;
-
-declare const kCMTextMarkupGenericFontName_SansSerif: interop.Pointer;
-
-declare const kCMMPEG2VideoProfile_HDV_1080p30: number;
-
-declare const kCMFormatDescriptionAlphaChannelMode_PremultipliedAlpha: interop.Pointer;
-
-declare const kCMVideoCodecType_Cinepak: number;
-
-declare const kCMSampleBufferError_AllocationFailed: number;
+declare const kCMTimeCodeFormatType_TimeCode32: number;
 
 declare const kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions: interop.Pointer;
 
-declare const kCMSampleBufferError_BufferHasNoSampleSizes: number;
+declare const kCMTimebaseNotificationKey_EventTime: interop.Pointer;
 
-declare const kCMMetadataDataTypeRegistryError_RequiredParameterMissing: number;
+declare const kCMSampleAttachmentKey_EarlierDisplayTimesAllowed: interop.Pointer;
 
-declare const kCMFormatDescriptionExtension_CleanAperture: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_TransitionID: interop.Pointer;
+
+declare const kCMTextDisplayFlag_writeTextVertically: number;
 
 declare const kCMMetadataBaseDataType_PerspectiveTransformF64: interop.Pointer;
 
-declare const kCMTextFormatDescriptionColor_Red: interop.Pointer;
-
-declare const kCMTextDisplayFlag_scrollDirection_topToBottom: number;
+declare const kCMTagMediaTypeAudio: CMTag;
 
 declare const kCMSyncError_RateMustBeNonZero: number;
 
-declare const kCMTextMarkupAttribute_BoldStyle: interop.Pointer;
+declare const kCMMemoryPoolError_AllocationFailed: number;
+
+declare const kCMSampleAttachmentKey_HEVCTemporalLevelInfo: interop.Pointer;
 
 declare const kCMVideoCodecType_H263: number;
 
-declare const kCMMetadataBaseDataType_Float64: interop.Pointer;
+declare const kCMFormatDescriptionKey_CleanApertureVerticalOffsetRational: interop.Pointer;
 
-declare const kCMSampleBufferDroppedFrameReason_FrameWasLate: interop.Pointer;
+declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_709_2: interop.Pointer;
 
-declare const kCMHEVCTemporalLevelInfoKey_LevelIndex: interop.Pointer;
-
-declare const kCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: number;
-
-declare const kCMSampleBufferNotificationParameter_OSStatus: interop.Pointer;
-
-declare const kCMSoundDescriptionFlavor_ISOFamily: interop.Pointer;
-
-declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
+declare const kCMVideoCodecType_DVCPro50PAL: number;
 
 declare const kCMFormatDescriptionExtension_OriginalCompressionSettings: interop.Pointer;
 
-declare const kCMTimeEpochKey: interop.Pointer;
+declare const kCMTextDisplayFlag_scrollDirection_leftToRight: number;
 
-declare const kCMAudioFormatDescriptionMask_MagicCookie: number;
-
-declare const kCMPixelFormat_422YpCbCr8: number;
-
-declare const kCMTextFormatDescriptionStyle_StartChar: interop.Pointer;
-
-declare const kCMSampleBufferAttachmentKey_FillDiscontinuitiesWithSilence: interop.Pointer;
-
-declare const kCMFormatDescriptionExtension_ChromaLocationBottomField: interop.Pointer;
+declare const kCMMetadataKeySpace_Icy: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_VerticalLayout: interop.Pointer;
 
-declare const kCMPixelFormat_422YpCbCr8_yuvs: number;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35: number;
 
-declare const kCMMetadataKeySpace_ISOUserData: interop.Pointer;
+declare const kCMTimeValueKey: interop.Pointer;
 
-declare const kCMMuxedStreamType_EmbeddedDeviceScreenRecording: number;
-
-declare const kCMVideoCodecType_422YpCbCr8: number;
-
-declare const kCMTagMediaTypeMetadata: CMTag;
-
-declare const kCMSyncError_MissingRequiredParameter: number;
+declare const kCMFormatDescriptionExtension_FormatName: interop.Pointer;
 
 declare const kCMTimeMappingSourceKey: interop.Pointer;
 
-declare const kCMTimeScaleKey: interop.Pointer;
+declare const kCMFormatDescriptionExtension_ChromaLocationBottomField: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_YCbCrMatrix: interop.Pointer;
 
+declare const kCMTextFormatDescriptionColor_Green: interop.Pointer;
+
 declare const kCMFormatDescriptionExtension_ColorPrimaries: interop.Pointer;
 
-declare const kCMFormatDescriptionExtensionKey_MetadataKeyTable: interop.Pointer;
+declare const kCMVideoCodecType_JPEG_OpenDML: number;
+
+declare const kCMSampleBufferConduitNotification_UpcomingOutputPTSRangeChanged: interop.Pointer;
+
+declare const kCMSampleBufferDroppedFrameReason_FrameWasLate: interop.Pointer;
 
 declare const kCMMetadataFormatType_EMSG: number;
 
-declare const kCMVideoCodecType_VP9: number;
+declare const kCMFormatDescriptionColorPrimaries_DCI_P3: interop.Pointer;
 
-declare const kCMVideoCodecType_DolbyVisionHEVC: number;
+declare const kCMBlockBufferUnallocatedBlockErr: number;
 
-declare const kCMSampleBufferError_DataCanceled: number;
+declare const kCMSampleBufferAttachmentKey_PermanentEmptyMedia: interop.Pointer;
 
-declare const kCMSampleBufferAttachmentKey_DisplayEmptyMediaImmediately: interop.Pointer;
+declare const kCMPixelFormat_16BE555: number;
 
-declare const kCMVideoCodecType_MPEG2Video: number;
+declare const kCMTextFormatDescriptionStyle_ForegroundColor: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_UInt32: interop.Pointer;
+declare const kCMClosedCaptionFormatType_CEA608: number;
 
-declare const kCMVideoCodecType_AppleProResRAW: number;
-
-declare const kCMAudioFormatDescriptionMask_All: number;
+declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_SetupData: interop.Pointer;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan: number;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataDirection_Facing: interop.Pointer;
+declare const kCMSoundDescriptionFlavor_ISOFamily: interop.Pointer;
 
-declare const kCMVideoCodecType_H264: number;
+declare const kCMTagStereoNone: CMTag;
 
-declare const kCMSampleBufferError_BufferHasNoSampleTimingInfo: number;
+declare const kCMSampleBufferError_InvalidEntryCount: number;
 
-declare const kCMBufferQueueError_RequiredParameterMissing: number;
-
-declare const kCMTextFormatDescriptionStyle_Height: interop.Pointer;
-
-declare const kCMSampleAttachmentKey_AudioIndependentSampleDecoderRefreshCount: interop.Pointer;
-
-declare const kCMTextMarkupAttribute_TextPositionPercentageRelativeToWritingDirection: interop.Pointer;
-
-declare const kCMTagProjectionTypeEquirectangular: CMTag;
-
-declare const kCMTextMarkupAlignmentType_Right: interop.Pointer;
-
-declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_ExtendedLanguageTag: interop.Pointer;
+declare const kCMFormatDescriptionExtension_ContentColorVolume: interop.Pointer;
 
 declare const kCMTextFormatType_QTText: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35: number;
 
-declare const kCMMemoryPoolOption_AgeOutPeriod: interop.Pointer;
-
-declare const kCMSampleAttachmentKey_CryptorSubsampleAuxiliaryData: interop.Pointer;
-
-declare const kCMMetadataFormatDescriptionKey_SetupData: interop.Pointer;
-
-declare const kCMVideoCodecType_AppleProRes4444XQ: number;
+declare const kCMSampleBufferAttachmentKey_DrainAfterDecoding: interop.Pointer;
 
 declare const kCMTextFormatDescriptionColor_Blue: interop.Pointer;
 
+declare const kCMSampleAttachmentKey_DoNotDisplay: interop.Pointer;
+
 declare const kCMTextDisplayFlag_scrollDirectionMask: number;
 
-declare const kCMMetadataKeySpace_iTunes: interop.Pointer;
+declare const kCMMetadataFormatDescriptionKey_DataTypeNamespace: interop.Pointer;
 
-declare const kCMFormatDescriptionHeroEye_Left: interop.Pointer;
-
-declare const kCMFormatDescriptionFieldDetail_TemporalTopFirst: interop.Pointer;
+declare const kCMPixelFormat_16LE5551: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35: number;
 
-declare const kCMBufferQueueError_BadTriggerDuration: number;
+declare const kCMFormatDescriptionExtension_VerbatimSampleDescription: interop.Pointer;
 
-declare const kCMFormatDescriptionChromaLocation_DV420: interop.Pointer;
+declare const kCMTextDisplayFlag_scrollDirection_rightToLeft: number;
 
-declare const kCMSampleBufferError_AlreadyHasDataBuffer: number;
+declare const kCMFormatDescriptionTransferFunction_SMPTE_ST_2084_PQ: interop.Pointer;
 
-declare const kCMTextMarkupAlignmentType_Start: interop.Pointer;
+declare const kCMTimeCodeFormatType_TimeCode64: number;
 
-declare const kCMMetadataFormatDescriptionKey_LanguageTag: interop.Pointer;
+declare const kCMFormatDescriptionAlphaChannelMode_PremultipliedAlpha: interop.Pointer;
 
-declare const kCMPixelFormat_32BGRA: number;
+declare const kCMSampleBufferDroppedFrameReason_OutOfBuffers: interop.Pointer;
 
-declare const kCMTimeRangeStartKey: interop.Pointer;
+declare const kCMFormatDescriptionChromaLocation_Center: interop.Pointer;
 
-declare const kCMFormatDescriptionChromaLocation_Top: interop.Pointer;
-
-declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType: interop.Pointer;
-
-declare const kCMClockError_AllocationFailed: number;
-
-declare const kCMFormatDescriptionYCbCrMatrix_ITU_R_601_4: interop.Pointer;
-
-declare const kCMSampleBufferConduitNotificationParameter_MaxUpcomingOutputPTS: interop.Pointer;
-
-declare const kCMVideoCodecType_DepthHEVC: number;
+declare const kCMSampleBufferError_SampleIndexOutOfRange: number;
 
 declare const kCMMetadataBaseDataType_RawData: interop.Pointer;
 
-declare const kCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges: number;
+declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
 
-declare const kCMTimeCodeFormatDescriptionKey_Value: interop.Pointer;
+declare const kCMTagPackingTypeOverUnder: CMTag;
 
-declare const kCMFormatDescriptionBridgeError_InvalidSlice: number;
+declare const kCMTextVerticalLayout_LeftToRight: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_WritingDirectionSizePercentage: interop.Pointer;
+
+declare const kCMTextMarkupAttribute_FontFamilyNameList: interop.Pointer;
+
+declare const kCMFormatDescriptionYCbCrMatrix_SMPTE_240M_1995: interop.Pointer;
 
 declare const kCMBufferQueueError_QueueIsFull: number;
 
-declare const kCMTextMarkupAttribute_ForegroundColorARGB: interop.Pointer;
+declare const kCMMetadataIdentifierError_BadNumberKey: number;
 
-declare const kCMTimebaseNotification_EffectiveRateChanged: interop.Pointer;
+declare const kCMMetadataFormatDescriptionKey_DataType: interop.Pointer;
 
 declare const kCMTextJustification_bottom_right: number;
 
 declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineEarly: interop.Pointer;
 
-declare const kCMSampleBufferError_InvalidEntryCount: number;
+declare const kCMFormatDescriptionExtension_GammaLevel: interop.Pointer;
 
-declare const kCMSampleBufferConduitNotificationParameter_UpcomingOutputPTSRangeMayOverlapQueuedOutputPTSRange: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_SampleReferenceByteOffset: interop.Pointer;
 
-declare const kCMClosedCaptionFormatType_CEA708: number;
+declare const kCMMetadataIdentifier_QuickTimeMetadataPreferredAffineTransform: interop.Pointer;
 
-declare const kCMVideoCodecType_DVCPro50NTSC: number;
+declare const kCMTextMarkupAttribute_BoldStyle: interop.Pointer;
 
 declare const kCMBlockBufferAssureMemoryNowFlag: number;
 
-declare const kCMMuxedStreamType_MPEG2Program: number;
-
-declare const kCMTextMarkupGenericFontName_Cursive: interop.Pointer;
+declare const kCMFormatDescriptionExtensionKey_MetadataKeyTable: interop.Pointer;
 
 declare const kCMSampleBufferError_InvalidSampleData: number;
 
-declare const kCMVideoCodecType_MPEG1Video: number;
+declare const kCMSampleBufferNotification_DataFailed: interop.Pointer;
 
-declare const kCMMediaType_Audio: number;
+declare const kCMTextDisplayFlag_continuousKaraoke: number;
 
-declare const kCMFormatDescriptionExtension_MasteringDisplayColorVolume: interop.Pointer;
+declare const kCMFormatDescriptionChromaLocation_TopLeft: interop.Pointer;
 
-declare const kCMFormatDescriptionHeroEye_Right: interop.Pointer;
+declare const kCMTextMarkupAttribute_GenericFontFamilyName: interop.Pointer;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
-
-declare const kCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor: number;
-
-declare const kCMSampleBufferLensStabilizationInfo_Unavailable: interop.Pointer;
-
-declare const kCMTimeIndefinite: CMTime;
-
-declare const kCMHEVCTemporalLevelInfoKey_ConstraintIndicatorFlags: interop.Pointer;
-
-declare const kCMSampleBufferError_Invalidated: number;
-
-declare const kCMFormatDescriptionExtension_RevisionLevel: interop.Pointer;
-
-declare const kCMMetadataIdentifierError_RequiredParameterMissing: number;
-
-declare const kCMFormatDescriptionKey_CleanApertureHeight: interop.Pointer;
-
-declare const kCMTimeCodeFormatType_Counter64: number;
-
-declare const kCMFormatDescriptionExtension_SpatialQuality: interop.Pointer;
-
-declare const kCMMPEG2VideoProfile_HDV_1080i60: number;
-
-declare const kCMPixelFormat_444YpCbCr8: number;
-
-declare const kCMTextFormatDescriptionExtension_BackgroundColor: interop.Pointer;
-
-declare const kCMMetadataIdentifierError_BadKeyLength: number;
-
-declare const kCMSampleBufferConsumerNotification_BufferConsumed: interop.Pointer;
-
-declare const kCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes: number;
-
-declare const kCMMetadataBaseDataType_PNG: interop.Pointer;
-
-declare const kCMVideoCodecType_DVCPROHD1080p30: number;
-
-declare const kCMFormatDescriptionTransferFunction_ITU_R_709_2: interop.Pointer;
-
-declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineLate: interop.Pointer;
-
-declare const kCMFormatDescriptionTransferFunction_UseGamma: interop.Pointer;
-
-declare const kCMSampleBufferConduitNotification_InhibitOutputUntil: interop.Pointer;
-
-declare const kCMMetadataIdentifierError_AllocationFailed: number;
-
-declare const kCMImageDescriptionFlavor_QuickTimeMovie: interop.Pointer;
-
-declare const kCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: number;
-
-declare const kCMMediaType_Metadata: number;
-
-declare const kCMSyncError_AllocationFailed: number;
-
-declare const kCMTextMarkupAttribute_CharacterEdgeStyle: interop.Pointer;
-
-declare const kCMSampleBufferLensStabilizationInfo_OutOfRange: interop.Pointer;
-
-declare const kCMFormatDescriptionKey_CleanApertureHorizontalOffset: interop.Pointer;
-
-declare const kCMSampleBufferAttachmentKey_SampleReferenceURL: interop.Pointer;
-
-declare const kCMSampleBufferDroppedFrameReasonInfo_CameraModeSwitch: interop.Pointer;
-
-declare const kCMVideoCodecType_AV1: number;
-
-declare const kCMAudioFormatDescriptionMask_ChannelLayout: number;
-
-declare const kCMSampleAttachmentKey_HEVCTemporalSubLayerAccess: interop.Pointer;
-
-declare const kCMSampleBufferConduitNotificationParameter_MinUpcomingOutputPTS: interop.Pointer;
-
-declare const kCMTextMarkupCharacterEdgeStyle_Raised: interop.Pointer;
-
-declare const kCMFormatDescriptionColorPrimaries_EBU_3213: interop.Pointer;
-
-declare const kCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment: number;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50: number;
-
-declare const kCMSampleBufferNotification_DataBecameReady: interop.Pointer;
-
-declare const kCMTagValueKey: interop.Pointer;
-
-declare const kCMMuxedStreamType_MPEG2Transport: number;
-
-declare const kCMMetadataBaseDataType_GIF: interop.Pointer;
-
-declare const kCMFormatDescriptionExtension_StereoCameraBaseline: interop.Pointer;
-
-declare const kCMTimeMappingInvalid: CMTimeMapping;
-
-declare const kCMTimeCodeFormatDescriptionExtension_SourceReferenceName: interop.Pointer;
-
-declare const kCMBlockBufferAlwaysCopyDataFlag: number;
-
-declare const kCMTextFormatDescriptionStyle_Ascent: interop.Pointer;
-
-declare const kCMAttachmentMode_ShouldNotPropagate: number;
-
-declare const kCMFormatDescriptionExtension_Depth: interop.Pointer;
-
-declare const kCMTextDisplayFlag_obeySubtitleFormatting: number;
+declare const kCMTextFormatDescriptionExtension_VerticalJustification: interop.Pointer;
 
 declare const kCMSimpleQueueError_ParameterOutOfRange: number;
 
-declare const kCMFormatDescriptionExtension_FieldDetail: interop.Pointer;
+declare const kCMTextMarkupGenericFontName_Cursive: interop.Pointer;
 
-declare const kCMHEVCTemporalLevelInfoKey_TierFlag: interop.Pointer;
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50: number;
 
-declare const kCMMediaType_Video: number;
+declare const kCMMetadataFormatDescriptionKey_Namespace: interop.Pointer;
 
-declare const kCMFormatDescriptionTransferFunction_ITU_R_2020: interop.Pointer;
+declare const kCMSampleBufferConduitNotification_ResetOutput: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35: number;
+declare const kCMTextJustification_left_top: number;
 
-declare const kCMFormatDescriptionExtension_AlternativeTransferCharacteristics: interop.Pointer;
+declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50: number;
+
+declare const kCMTextFormatDescriptionExtension_BackgroundColor: interop.Pointer;
+
+declare const kCMTimeEpochKey: interop.Pointer;
+
+declare const kCMMetadataBaseDataType_SInt32: interop.Pointer;
+
+declare const kCMSampleBufferAttachmentKey_DroppedFrameReason: interop.Pointer;
+
+declare const kCMVideoCodecType_VP9: number;
+
+declare const kCMVideoCodecType_AppleProRes422Proxy: number;
+
+declare const kCMFormatDescriptionExtension_VerbatimImageDescription: interop.Pointer;
+
+declare const kCMSyncError_AllocationFailed: number;
+
+declare const kCMTextDisplayFlag_scrollDirection_bottomToTop: number;
+
+declare const kCMTimeCodeFormatType_Counter32: number;
+
+declare const kCMVideoCodecType_MPEG4Video: number;
+
+declare const kCMBufferQueueError_InvalidTriggerToken: number;
+
+declare const kCMSampleBufferError_ArrayTooSmall: number;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataDirection_Facing: interop.Pointer;
+
+declare const kCMTagProjectionTypeRectangular: CMTag;
+
+declare const kCMMPEG2VideoProfile_HDV_720p25: number;
+
+declare const kCMMPEG2VideoProfile_HDV_1080i50: number;
+
+declare const kCMFormatDescriptionTransferFunction_ITU_R_709_2: interop.Pointer;
+
+declare const kCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor: number;
+
+declare const kCMClosedCaptionFormatType_CEA708: number;
+
+declare const kCMSampleBufferConsumerNotification_BufferConsumed: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_SansSerif: interop.Pointer;
+
+declare const kCMTimeCodeFormatDescriptionExtension_SourceReferenceName: interop.Pointer;
+
+declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
+
+declare const kCMHEVCTemporalLevelInfoKey_ConstraintIndicatorFlags: interop.Pointer;
+
+declare const kCMMuxedStreamType_DV: number;
+
+declare const kCMBufferQueueError_BadTriggerDuration: number;
+
+declare const kCMTagStereoLeftEye: CMTag;
+
+declare const kCMFormatDescriptionExtension_AmbientViewingEnvironment: interop.Pointer;
+
+declare const kCMTextMarkupGenericFontName_Serif: interop.Pointer;
+
+declare const kCMFormatDescriptionKey_PixelAspectRatioVerticalSpacing: interop.Pointer;
+
+declare const kCMTextFormatDescriptionStyle_FontFace: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_BackgroundColorARGB: interop.Pointer;
 
-declare const kCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35: number;
+declare const kCMVideoCodecType_H264: number;
 
-declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
+declare const kCMMetadataBaseDataType_UTF16: interop.Pointer;
 
-declare const kCMMetadataBaseDataType_JPEG: interop.Pointer;
+declare const kCMSampleBufferError_CannotSubdivide: number;
 
-declare const kCMMetadataBaseDataType_PointF32: interop.Pointer;
+declare const kCMSampleBufferError_SampleTimingInfoInvalid: number;
 
-declare const kCMVideoCodecType_SorensonVideo3: number;
-
-declare const kCMMetadataBaseDataType_Float32: interop.Pointer;
-
-declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35: number;
+declare const kCMTextFormatDescriptionStyle_Ascent: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_ItalicStyle: interop.Pointer;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
+declare const kCMMetadataIdentifierError_BadKeySpace: number;
 
-declare const kCMMetadataFormatDescriptionKey_ConformingDataTypes: interop.Pointer;
+declare const kCMTagMediaTypeVideo: CMTag;
 
-declare const kCMTagStereoLeftAndRightEye: CMTag;
+declare const kCMFormatDescriptionExtension_AuxiliaryTypeInfo: interop.Pointer;
 
-declare const kCMVideoCodecType_HEVC: number;
+declare const kCMSampleBufferAttachmentKey_PostNotificationWhenConsumed: interop.Pointer;
 
-declare const kCMFormatDescriptionTransferFunction_Linear: interop.Pointer;
+declare const kCMVideoCodecType_DVCPro50NTSC: number;
 
-declare const kCMVideoCodecType_DVCNTSC: number;
+declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineLate: interop.Pointer;
 
-declare const kCMTimeCodeFlag_NegTimesOK: number;
+declare const kCMClockError_MissingRequiredParameter: number;
 
-declare const kCMPixelFormat_4444YpCbCrA8: number;
+declare const kCMFormatDescriptionExtension_PixelAspectRatio: interop.Pointer;
 
-declare const kCMTagMediaSubTypeMebx: CMTag;
+declare const kCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: number;
 
-declare const kCMFormatDescriptionBridgeError_InvalidFormatDescription: number;
+declare const kCMMuxedStreamType_EmbeddedDeviceScreenRecording: number;
 
-declare const kCMTextFormatDescriptionRect_Top: interop.Pointer;
+declare const kCMSampleBufferAttachmentKey_TrimDurationAtEnd: interop.Pointer;
 
-declare const kCMTextFormatDescriptionStyle_Font: interop.Pointer;
+declare const kCMSampleAttachmentKey_AudioIndependentSampleDecoderRefreshCount: interop.Pointer;
 
-declare const kCMBufferQueueError_AllocationFailed: number;
+declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
+
+declare const kCMFormatDescriptionColorPrimaries_ITU_R_2020: interop.Pointer;
+
+declare const kCMTextMarkupCharacterEdgeStyle_None: interop.Pointer;
+
+declare const CMTaggedBufferGroupError: {
+  ParamErr: -15780,
+  AllocationFailed: -15781,
+  InternalError: -15782,
+};
+
+declare const CMProjectionType: {
+  Rectangular: 1919247220,
+  Equirectangular: 1701934441,
+  HalfEquirectangular: 1751478645,
+  Fisheye: 1718186856,
+};
+
+declare const CMStereoViewInterpretationOptions: {
+  Default: 0,
+  StereoOrderReversed: 1,
+  AdditionalViews: 2,
+};
+
+declare const CMStereoViewComponents: {
+  None: 0,
+  LeftEye: 1,
+  RightEye: 2,
+};
+
+declare const CMTagError: {
+  ParamErr: -15730,
+  AllocationFailed: -15731,
+};
+
+declare const CMTimeRoundingMethod: {
+  RoundHalfAwayFromZero: 1,
+  RoundTowardZero: 2,
+  RoundAwayFromZero: 3,
+  QuickTime: 4,
+  RoundTowardPositiveInfinity: 5,
+  RoundTowardNegativeInfinity: 6,
+  Default: 1,
+};
+
+declare const CMPackingType: {
+  None: 1852796517,
+  SideBySide: 1936286821,
+  OverUnder: 1870030194,
+};
 
 declare const CMTagDataType: {
   Invalid: 0,
@@ -1168,24 +1214,6 @@ declare const CMTagCategory: {
   StereoViewInterpretation: 1702455664,
 };
 
-declare const CMPackingType: {
-  None: 1852796517,
-  SideBySide: 1936286821,
-  OverUnder: 1870030194,
-};
-
-declare const CMProjectionType: {
-  Rectangular: 1919247220,
-  Equirectangular: 1701934441,
-  HalfEquirectangular: 1751478645,
-  Fisheye: 1718186856,
-};
-
-declare const CMTagError: {
-  ParamErr: -15730,
-  AllocationFailed: -15731,
-};
-
 declare const CMTagCollectionError: {
   ParamErr: -15740,
   AllocationFailed: -15741,
@@ -1199,16 +1227,6 @@ declare const CMTagCollectionError: {
   NotYetImplemented: -15749,
 };
 
-declare const CMTimeRoundingMethod: {
-  RoundHalfAwayFromZero: 1,
-  RoundTowardZero: 2,
-  RoundAwayFromZero: 3,
-  QuickTime: 4,
-  RoundTowardPositiveInfinity: 5,
-  RoundTowardNegativeInfinity: 6,
-  Default: 1,
-};
-
 declare const CMTimeFlags: {
   Valid: 1,
   HasBeenRounded: 2,
@@ -1217,32 +1235,6 @@ declare const CMTimeFlags: {
   Indefinite: 16,
   ImpliedValueFlagsMask: 28,
 };
-
-declare const CMStereoViewInterpretationOptions: {
-  Default: 0,
-  StereoOrderReversed: 1,
-  AdditionalViews: 2,
-};
-
-declare const CMStereoViewComponents: {
-  None: 0,
-  LeftEye: 1,
-  RightEye: 2,
-};
-
-declare const CMTaggedBufferGroupError: {
-  ParamErr: -15780,
-  AllocationFailed: -15781,
-  InternalError: -15782,
-};
-
-declare class CMBlockBufferCustomBlockSource {
-  constructor(init?: CMBlockBufferCustomBlockSource);
-  version: number;
-  AllocateBlock: (p1: interop.PointerConvertible, p2: number) => interop.Pointer | null;
-  FreeBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number) => void | null;
-  refCon: interop.Pointer;
-}
 
 declare class CMTimeMapping {
   constructor(init?: CMTimeMapping);
@@ -1264,10 +1256,6 @@ declare class CMBufferHandlers {
 
 declare class OpaqueCMMemoryPool {
   constructor(init?: OpaqueCMMemoryPool);
-}
-
-declare class opaqueCMSimpleQueue {
-  constructor(init?: opaqueCMSimpleQueue);
 }
 
 declare class CMTag {
@@ -1300,6 +1288,10 @@ declare class CMVideoDimensions {
   height: number;
 }
 
+declare class opaqueCMSimpleQueue {
+  constructor(init?: opaqueCMSimpleQueue);
+}
+
 declare class OpaqueCMTaggedBufferGroup {
   constructor(init?: OpaqueCMTaggedBufferGroup);
 }
@@ -1317,6 +1309,14 @@ declare class opaqueCMFormatDescription {
 
 declare class opaqueCMBufferQueue {
   constructor(init?: opaqueCMBufferQueue);
+}
+
+declare class CMBlockBufferCustomBlockSource {
+  constructor(init?: CMBlockBufferCustomBlockSource);
+  version: number;
+  AllocateBlock: (p1: interop.PointerConvertible, p2: number) => interop.Pointer | null;
+  FreeBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number) => void | null;
+  refCon: interop.Pointer;
 }
 
 declare class CMTime {

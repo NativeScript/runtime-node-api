@@ -47,6 +47,8 @@ declare const kABInstantMessageServiceICQ: string;
 
 declare const kABInstantMessageServiceGaduGadu: string;
 
+declare const kABInstantMessageServiceAIM: string;
+
 declare const kABInstantMessageServiceKey: string;
 
 declare const kABInstantMessageProperty: string;
@@ -78,6 +80,8 @@ declare const kABPhoneHomeLabel: string;
 declare const kABPhoneProperty: string;
 
 declare const kABPersonFlags: string;
+
+declare const kABDepartmentProperty: string;
 
 declare const kABSpouseLabel: string;
 
@@ -131,31 +135,29 @@ declare const kABModificationDateProperty: string;
 
 declare const kABCreationDateProperty: string;
 
+declare const kABPhonePagerLabel: string;
+
 declare const kABSocialProfileUserIdentifierKey: string;
 
 declare const ABAddressBookErrorDomain: string;
 
+declare const kABICQHomeLabel: string;
+
 declare const kABMaidenNameProperty: string;
+
+declare const kABSocialProfileServiceSinaWeibo: string;
 
 declare const kABPhoneMainLabel: string;
 
 declare const kABJabberHomeLabel: string;
 
-declare const kABSocialProfileUsernameKey: string;
-
-declare const kABLastNamePhoneticProperty: string;
+declare const kABFatherLabel: string;
 
 declare const kABManagerLabel: string;
 
-declare const kABPhonePagerLabel: string;
+declare const kABAddressCountryKey: string;
 
-declare const kABInstantMessageServiceAIM: string;
-
-declare const kABDepartmentProperty: string;
-
-declare const kABPhoneWorkLabel: string;
-
-declare const kABFatherLabel: string;
+declare const kABInstantMessageServiceMSN: string;
 
 declare const kABFirstNameProperty: string;
 
@@ -165,13 +167,13 @@ declare const kABInstantMessageServiceGoogleTalk: string;
 
 declare const kABSocialProfileServiceTwitter: string;
 
+declare const kABPhoneWorkLabel: string;
+
 declare const kABICQWorkLabel: string;
 
 declare const kABAIMInstantProperty: string;
 
 declare const kABURLsProperty: string;
-
-declare const kABAddressCountryKey: string;
 
 declare const kABBrotherLabel: string;
 
@@ -187,13 +189,11 @@ declare const kABOrganizationPhoneticProperty: string;
 
 declare const kABJabberWorkLabel: string;
 
-declare const kABInstantMessageServiceMSN: string;
+declare const kABLastNamePhoneticProperty: string;
 
 declare const kABSocialProfileServiceFacebook: string;
 
 declare const kABGroupNameProperty: string;
-
-declare const kABICQHomeLabel: string;
 
 declare const kABInstantMessageServiceFacebook: string;
 
@@ -225,11 +225,11 @@ declare const kABPhoneMobileLabel: string;
 
 declare const kABUIDProperty: string;
 
+declare const kABMiddleNamePhoneticProperty: string;
+
 declare const kABAddressCountryCodeKey: string;
 
 declare const kABInstantMessageServiceJabber: string;
-
-declare const kABMiddleNamePhoneticProperty: string;
 
 declare const kABUpdatedRecords: string;
 
@@ -237,38 +237,13 @@ declare const kABInstantMessageServiceQQ: string;
 
 declare const kABPhoneWorkFAXLabel: string;
 
+declare const kABSocialProfileUsernameKey: string;
+
 declare const kABYahooWorkLabel: string;
 
 declare const kABMSNInstantProperty: string;
 
-declare const kABSocialProfileServiceSinaWeibo: string;
-
 declare const kABPartnerLabel: string;
-
-declare const _ABSearchConjunction: {
-  And: 0,
-  Or: 1,
-};
-
-declare const _ABPropertyType: {
-  ErrorIn: 0,
-  String: 1,
-  Integer: 2,
-  Real: 3,
-  Date: 4,
-  Array: 5,
-  Dictionary: 6,
-  Data: 7,
-  DateComponents: 8,
-  MultiString: 257,
-  MultiInteger: 258,
-  MultiReal: 259,
-  MultiDate: 260,
-  MultiArray: 261,
-  MultiDictionary: 262,
-  MultiData: 263,
-  MultiDateComponents: 264,
-};
 
 declare const _ABSearchComparison: {
   Equal: 0,
@@ -296,6 +271,31 @@ declare const _ABSearchComparison: {
   WithinIntervalFromTodayYearless: 22,
   NotWithinIntervalFromToday: 23,
   NotWithinIntervalFromTodayYearless: 24,
+};
+
+declare const _ABPropertyType: {
+  ErrorIn: 0,
+  String: 1,
+  Integer: 2,
+  Real: 3,
+  Date: 4,
+  Array: 5,
+  Dictionary: 6,
+  Data: 7,
+  DateComponents: 8,
+  MultiString: 257,
+  MultiInteger: 258,
+  MultiReal: 259,
+  MultiDate: 260,
+  MultiArray: 261,
+  MultiDictionary: 262,
+  MultiData: 263,
+  MultiDateComponents: 264,
+};
+
+declare const _ABSearchConjunction: {
+  And: 0,
+  Or: 1,
 };
 
 declare function ABLocalizedPropertyOrLabel(propertyOrLabel: string): string;
@@ -357,6 +357,34 @@ declare class ABGroup extends ABRecord {
   static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
 }
 
+declare class ABPerson extends ABRecord {
+  parentGroups(): NSArray;
+
+  linkedPeople(): NSArray;
+
+  static addPropertiesAndTypes(properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+
+  static removeProperties(properties: NSArray<interop.Object> | Array<interop.Object>): number;
+
+  static properties(): NSArray;
+
+  static typeOfProperty(property: string): number;
+
+  static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
+
+  initWithVCardRepresentation(vCardData: NSData): interop.Object;
+
+  vCardRepresentation(): NSData;
+
+  setImageData(data: NSData): boolean;
+
+  imageData(): NSData;
+
+  beginLoadingImageDataForClient(client: ABImageClient): number;
+
+  static cancelLoadingImageDataForTag(tag: number): void;
+}
+
 declare class ABAddressBook extends NSObject {
   static sharedAddressBook(): ABAddressBook;
 
@@ -395,34 +423,6 @@ declare class ABAddressBook extends NSObject {
   defaultCountryCode(): string;
 
   defaultNameOrdering(): number;
-}
-
-declare class ABPerson extends ABRecord {
-  parentGroups(): NSArray;
-
-  linkedPeople(): NSArray;
-
-  static addPropertiesAndTypes(properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
-
-  static removeProperties(properties: NSArray<interop.Object> | Array<interop.Object>): number;
-
-  static properties(): NSArray;
-
-  static typeOfProperty(property: string): number;
-
-  static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
-
-  initWithVCardRepresentation(vCardData: NSData): interop.Object;
-
-  vCardRepresentation(): NSData;
-
-  setImageData(data: NSData): boolean;
-
-  imageData(): NSData;
-
-  beginLoadingImageDataForClient(client: ABImageClient): number;
-
-  static cancelLoadingImageDataForTag(tag: number): void;
 }
 
 declare class ABMultiValue extends NSObject implements NSCopying, NSMutableCopying, NSFastEnumeration {

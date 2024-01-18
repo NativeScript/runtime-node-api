@@ -25,9 +25,15 @@ declare const CHHapticEventTypeHapticTransient: string;
 
 declare const CHHapticDynamicParameterIDAudioPitchControl: string;
 
+declare const CHHapticDynamicParameterIDAudioBrightnessControl: string;
+
+declare const CHHapticDynamicParameterIDAudioPanControl: string;
+
 declare const CHHapticDynamicParameterIDAudioVolumeControl: string;
 
 declare const CHHapticDynamicParameterIDHapticReleaseTimeControl: string;
+
+declare const CHHapticDynamicParameterIDHapticDecayTimeControl: string;
 
 declare const CHHapticDynamicParameterIDHapticAttackTimeControl: string;
 
@@ -45,6 +51,8 @@ declare const CHHapticEventParameterIDDecayTime: string;
 
 declare const CHHapticEventParameterIDHapticIntensity: string;
 
+declare const CHHapticEventParameterIDHapticSharpness: string;
+
 declare const CHHapticPatternKeyEventWaveformLoopEnabled: string;
 
 declare const CHHapticPatternKeyParameterValue: string;
@@ -53,23 +61,15 @@ declare const CHHapticPatternKeyEventDuration: string;
 
 declare const CHHapticPatternKeyParameter: string;
 
-declare const CHHapticDynamicParameterIDAudioBrightnessControl: string;
-
-declare const CHHapticDynamicParameterIDAudioPanControl: string;
-
-declare const CHHapticEventParameterIDHapticSharpness: string;
-
-declare const CHHapticDynamicParameterIDHapticDecayTimeControl: string;
+declare const CHHapticEventTypeHapticContinuous: string;
 
 declare const CHHapticDynamicParameterIDAudioDecayTimeControl: string;
+
+declare const CHHapticEventTypeAudioContinuous: string;
 
 declare const CHHapticPatternKeyEventType: string;
 
 declare const CHHapticEventParameterIDAttackTime: string;
-
-declare const CHHapticEventTypeAudioContinuous: string;
-
-declare const CHHapticEventTypeHapticContinuous: string;
 
 declare const CHHapticDynamicParameterIDAudioAttackTimeControl: string;
 

@@ -19,14 +19,14 @@ declare class simd_quatd {
   vector: unknown /* ext vector */;
 }
 
-declare class simd_quatf {
-  constructor(init?: simd_quatf);
-  vector: unknown /* ext vector */;
-}
-
 declare class simd_double4x4 {
   constructor(init?: simd_double4x4);
   columns: unknown /* const array */;
+}
+
+declare class simd_quatf {
+  constructor(init?: simd_quatf);
+  vector: unknown /* ext vector */;
 }
 
 declare class ProcessSerialNumber {
@@ -104,6 +104,16 @@ declare class Point {
   h: number;
 }
 
+declare class os_workgroup_attr_opaque_s {
+  constructor(init?: os_workgroup_attr_opaque_s);
+  sig: number;
+  opaque: unknown /* const array */;
+}
+
+declare class _xpc_type_s {
+  constructor(init?: _xpc_type_s);
+}
+
 declare class simd_float2x2 {
   constructor(init?: simd_float2x2);
   columns: unknown /* const array */;
@@ -118,16 +128,6 @@ declare class wide {
 declare class simd_float4x4 {
   constructor(init?: simd_float4x4);
   columns: unknown /* const array */;
-}
-
-declare class os_workgroup_attr_opaque_s {
-  constructor(init?: os_workgroup_attr_opaque_s);
-  sig: number;
-  opaque: unknown /* const array */;
-}
-
-declare class _xpc_type_s {
-  constructor(init?: _xpc_type_s);
 }
 
 declare class simd_float3x3 {
@@ -478,6 +478,34 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   provideImageDataBytesPerRowOriginSizeUserInfo(data: interop.PointerConvertible, rowbytes: number, x: number, y: number, width: number, height: number, info: interop.Object | null): void;
 
+  pasteboardProvideDataForType(sender: NSPasteboard, type: string): void;
+
+  pasteboardChangedOwner(sender: NSPasteboard): void;
+
+  namesOfPromisedFilesDroppedAtDestination(dropDestination: NSURL): NSArray;
+
+  draggingSourceOperationMaskForLocal(flag: boolean): interop.Enum<typeof NSDragOperation>;
+
+  draggedImageBeganAt(image: NSImage, screenPoint: CGPoint): void;
+
+  draggedImageEndedAtOperation(image: NSImage, screenPoint: CGPoint, operation: interop.Enum<typeof NSDragOperation>): void;
+
+  draggedImageMovedTo(image: NSImage, screenPoint: CGPoint): void;
+
+  ignoreModifierKeysWhileDragging(): boolean;
+
+  draggedImageEndedAtDeposited(image: NSImage, screenPoint: CGPoint, flag: boolean): void;
+
+  layerShouldInheritContentsScaleFromWindow(layer: CALayer, newScale: number, window: NSWindow): boolean;
+
+  viewStringForToolTipPointUserData(view: NSView, tag: number, point: CGPoint, data: interop.PointerConvertible): string;
+
+  validateMenuItem(menuItem: NSMenuItem): boolean;
+
+  fontManagerWillIncludeFont(sender: interop.Object, fontName: string): boolean;
+
+  changeFont(sender: interop.Object | null): void;
+
   accessibilityAttributeNames(): NSArray;
 
   accessibilityAttributeValue(attribute: string): interop.Object;
@@ -511,30 +539,6 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   readonly accessibilityNotifiesWhenDestroyed: boolean;
 
   accessibilitySetOverrideValueForAttribute(value: interop.Object | null, attribute: string): boolean;
-
-  pasteboardProvideDataForType(sender: NSPasteboard, type: string): void;
-
-  pasteboardChangedOwner(sender: NSPasteboard): void;
-
-  namesOfPromisedFilesDroppedAtDestination(dropDestination: NSURL): NSArray;
-
-  draggingSourceOperationMaskForLocal(flag: boolean): interop.Enum<typeof NSDragOperation>;
-
-  draggedImageBeganAt(image: NSImage, screenPoint: CGPoint): void;
-
-  draggedImageEndedAtOperation(image: NSImage, screenPoint: CGPoint, operation: interop.Enum<typeof NSDragOperation>): void;
-
-  draggedImageMovedTo(image: NSImage, screenPoint: CGPoint): void;
-
-  ignoreModifierKeysWhileDragging(): boolean;
-
-  draggedImageEndedAtDeposited(image: NSImage, screenPoint: CGPoint, flag: boolean): void;
-
-  layerShouldInheritContentsScaleFromWindow(layer: CALayer, newScale: number, window: NSWindow): boolean;
-
-  viewStringForToolTipPointUserData(view: NSView, tag: number, point: CGPoint, data: interop.PointerConvertible): string;
-
-  validateMenuItem(menuItem: NSMenuItem): boolean;
 
   static exposeBinding(binding: string): void;
 
@@ -571,10 +575,6 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   controlTextDidEndEditing(obj: NSNotification): void;
 
   controlTextDidChange(obj: NSNotification): void;
-
-  fontManagerWillIncludeFont(sender: interop.Object, fontName: string): boolean;
-
-  changeFont(sender: interop.Object | null): void;
 
   validModesForFontPanel(fontPanel: NSFontPanel): interop.Enum<typeof NSFontPanelModeMask>;
 
@@ -691,14 +691,6 @@ declare class NativeScriptEmbedder extends NSObject {
   static sharedInstance(): NativeScriptEmbedder;
 }
 
-declare class OS_os_workgroup extends OS_object {
-  init(): this;
-}
-
-declare class OS_object extends NSObject {
-  init(): this;
-}
-
 declare class NativeScriptUtils extends NSObject {
   static getSystemFontWeightItalicSymbolicTraits(size: number, weight: interop.Object, italic: boolean, symbolicTraits: interop.Object): interop.Object;
 
@@ -711,5 +703,13 @@ declare class NativeScriptUtils extends NSObject {
   static scaleImageWidthHeightScaleFactor(image: interop.Object, width: number, height: number, scaleFactor: number): interop.Object;
 
   static getImageDataFormatQuality(image: interop.Object, format: string, quality: number): NSData;
+}
+
+declare class OS_os_workgroup extends OS_object {
+  init(): this;
+}
+
+declare class OS_object extends NSObject {
+  init(): this;
 }
 

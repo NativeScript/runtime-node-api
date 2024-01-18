@@ -1,6 +1,6 @@
 /// <reference path="../../lib/types.d.ts" />
-/// <reference path="./Runtime.d.ts" />
 /// <reference path="./AppKit.d.ts" />
+/// <reference path="./Runtime.d.ts" />
 /// <reference path="./Foundation.d.ts" />
 
 declare const WebViewDidChangeSelectionNotification: string;
@@ -11,7 +11,11 @@ declare const WebViewDidEndEditingNotification: string;
 
 declare const WebViewDidBeginEditingNotification: string;
 
+declare const WebViewProgressFinishedNotification: string;
+
 declare const WebViewProgressEstimateChangedNotification: string;
+
+declare const WebViewProgressStartedNotification: string;
 
 declare const WebElementLinkTargetFrameKey: string;
 
@@ -20,6 +24,8 @@ declare const WebElementIsSelectedKey: string;
 declare const WebElementImageRectKey: string;
 
 declare const WebElementImageKey: string;
+
+declare const WebElementDOMNodeKey: string;
 
 declare const WebMenuItemPDFPreviousPage: number;
 
@@ -33,9 +39,15 @@ declare const WebMenuItemPDFAutoSize: number;
 
 declare const WebMenuItemPDFZoomOut: number;
 
+declare const WebMenuItemPDFZoomIn: number;
+
 declare const WebMenuItemPDFActualSize: number;
 
+declare const WebMenuItemTagOpenWithDefaultApplication: number;
+
 declare const WebMenuItemTagLookUpInDictionary: number;
+
+declare const WebMenuItemTagSearchInSpotlight: number;
 
 declare const WebMenuItemTagIgnoreSpelling: number;
 
@@ -67,6 +79,8 @@ declare const WebPlugInShouldLoadMainResourceKey: string;
 
 declare const WebPlugInContainingElementKey: string;
 
+declare const WebPlugInBaseURLKey: string;
+
 declare const WebKitErrorBlockedPlugInVersion: number;
 
 declare const WebKitErrorCannotLoadPlugIn: number;
@@ -85,6 +99,10 @@ declare const DOM_FIRST_ORDERED_NODE_TYPE: number;
 
 declare const DOM_ANY_UNORDERED_NODE_TYPE: number;
 
+declare const DOM_ORDERED_NODE_SNAPSHOT_TYPE: number;
+
+declare const DOM_UNORDERED_NODE_SNAPSHOT_TYPE: number;
+
 declare const DOM_ORDERED_NODE_ITERATOR_TYPE: number;
 
 declare const DOM_UNORDERED_NODE_ITERATOR_TYPE: number;
@@ -99,6 +117,8 @@ declare const DOM_SHOW_DOCUMENT_TYPE: number;
 
 declare const DOM_SHOW_DOCUMENT: number;
 
+declare const DOM_SHOW_COMMENT: number;
+
 declare const DOM_SHOW_ENTITY: number;
 
 declare const DOM_SHOW_ENTITY_REFERENCE: number;
@@ -108,6 +128,8 @@ declare const DOM_SHOW_CDATA_SECTION: number;
 declare const DOM_SHOW_ALL: number;
 
 declare const DOM_FILTER_SKIP: number;
+
+declare const DOM_FILTER_REJECT: number;
 
 declare const DOM_DOM_DELTA_PAGE: number;
 
@@ -129,7 +151,13 @@ declare const DOM_NODE_BEFORE_AND_AFTER: number;
 
 declare const DOM_NODE_AFTER: number;
 
+declare const DOM_END_TO_END: number;
+
+declare const DOM_START_TO_END: number;
+
 declare const DOM_CSS_VMAX: number;
+
+declare const DOM_CSS_VW: number;
 
 declare const DOM_CSS_RGBCOLOR: number;
 
@@ -163,6 +191,8 @@ declare const DOM_CSS_VALUE_LIST: number;
 
 declare const DOM_CSS_INHERIT: number;
 
+declare const DOM_WEBKIT_KEYFRAME_RULE: number;
+
 declare const DOM_SUPPORTS_RULE: number;
 
 declare const DOM_NAMESPACE_RULE: number;
@@ -171,11 +201,15 @@ declare const DOM_PAGE_RULE: number;
 
 declare const DOM_MEDIA_RULE: number;
 
+declare const DOM_IMPORT_RULE: number;
+
 declare const DOM_CHARSET_RULE: number;
 
 declare const DOM_UNKNOWN_RULE: number;
 
 declare const DOM_ALLOW_KEYBOARD_INPUT: number;
+
+declare const DOM_DOCUMENT_POSITION_DISCONNECTED: number;
 
 declare const DOM_DOCUMENT_TYPE_NODE: number;
 
@@ -191,6 +225,8 @@ declare const DOM_ENTITY_REFERENCE_NODE: number;
 
 declare const DOM_CDATA_SECTION_NODE: number;
 
+declare const DOM_TEXT_NODE: number;
+
 declare const WKWebsiteDataTypeMediaKeys: string;
 
 declare const WKWebsiteDataTypeWebSQLDatabases: string;
@@ -203,21 +239,11 @@ declare const WKWebsiteDataTypeSessionStorage: string;
 
 declare const WKWebsiteDataTypeCookies: string;
 
-declare const WKWebsiteDataTypeFetchCache: string;
-
-declare const WKErrorDomain: string;
-
-declare const DOM_START_TO_END: number;
-
-declare const DOM_SHOW_COMMENT: number;
-
-declare const DOM_FILTER_REJECT: number;
-
 declare const WKWebsiteDataTypeMemoryCache: string;
 
-declare const DOM_WEBKIT_KEYFRAME_RULE: number;
+declare const WKWebsiteDataTypeFetchCache: string;
 
-declare const DOM_DOCUMENT_POSITION_CONTAINS: number;
+declare const WebMenuItemTagStop: number;
 
 declare const DOM_NOTATION_NODE: number;
 
@@ -225,61 +251,33 @@ declare const DOM_KEY_LOCATION_RIGHT: number;
 
 declare const DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: number;
 
-declare const DOM_SHOW_NOTATION: number;
-
 declare const WebActionOriginalURLKey: string;
-
-declare const WebHistoryItemChangedNotification: string;
-
-declare const DOM_CSS_PT: number;
-
-declare const DOM_CSS_COUNTER: number;
-
-declare const WebMenuItemTagLearnSpelling: number;
-
-declare const DOM_MODIFICATION: number;
-
-declare const WebElementDOMNodeKey: string;
-
-declare const WebMenuItemTagOpenWithDefaultApplication: number;
-
-declare const WebMenuItemTagDownloadLinkToDisk: number;
-
-declare const DOM_CSS_PRIMITIVE_VALUE: number;
-
-declare const WebViewProgressStartedNotification: string;
-
-declare const DOM_UNORDERED_NODE_SNAPSHOT_TYPE: number;
-
-declare const DOM_IMPORT_RULE: number;
-
-declare const WebPlugInBaseURLKey: string;
-
-declare const WebViewProgressFinishedNotification: string;
-
-declare const DOM_CSS_VW: number;
-
-declare const DOM_ORDERED_NODE_SNAPSHOT_TYPE: number;
-
-declare const DOM_DOCUMENT_POSITION_FOLLOWING: number;
-
-declare const DOM_DOM_DELTA_LINE: number;
-
-declare const WebKitErrorCannotShowMIMEType: number;
 
 declare const DOMEventException: string;
 
-declare const DOM_TEXT_NODE: number;
+declare const WebMenuItemTagDownloadLinkToDisk: number;
 
-declare const DOM_END_TO_END: number;
+declare const WebMenuItemTagLearnSpelling: number;
 
-declare const WebMenuItemTagSearchInSpotlight: number;
+declare const DOM_CSS_COUNTER: number;
+
+declare const DOM_CSS_PT: number;
+
+declare const WebHistoryItemChangedNotification: string;
+
+declare const WebElementImageURLKey: string;
+
+declare const DOM_CSS_PRIMITIVE_VALUE: number;
+
+declare const DOM_CSS_PC: number;
+
+declare const WebKitErrorCannotShowMIMEType: number;
 
 declare const WebKitErrorFrameLoadInterruptedByPolicyChange: number;
 
-declare const DOM_CSS_HZ: number;
+declare const DOM_DOCUMENT_POSITION_CONTAINS: number;
 
-declare const WKWebsiteDataTypeOfflineWebApplicationCache: string;
+declare const DOM_CSS_HZ: number;
 
 declare const DOM_ADDITION: number;
 
@@ -309,15 +307,17 @@ declare const DOMRangeException: string;
 
 declare const WebHistoryAllItemsRemovedNotification: string;
 
+declare const DOM_DOCUMENT_POSITION_FOLLOWING: number;
+
 declare const WebKitErrorCannotShowURL: number;
 
 declare const DOM_WEBKIT_REGION_RULE: number;
 
 declare const DOM_DOM_DELTA_PIXEL: number;
 
-declare const DOM_CSS_PC: number;
-
 declare const WebMenuItemTagNoGuessesFound: number;
+
+declare const DOM_CSS_PX: number;
 
 declare const DOM_STYLE_RULE: number;
 
@@ -325,13 +325,13 @@ declare const DOM_FONT_FACE_RULE: number;
 
 declare const DOM_NODE_INSIDE: number;
 
-declare const WebMenuItemPDFZoomIn: number;
-
 declare const DOM_DOCUMENT_POSITION_PRECEDING: number;
 
 declare const DOM_CSS_STRING: number;
 
 declare const WebMenuItemTagCopy: number;
+
+declare const WKWebsiteDataTypeOfflineWebApplicationCache: string;
 
 declare const WebPreferencesChangedNotification: string;
 
@@ -347,8 +347,6 @@ declare const DOM_ATTRIBUTE_NODE: number;
 
 declare const DOM_SHOW_TEXT: number;
 
-declare const DOM_DOCUMENT_POSITION_DISCONNECTED: number;
-
 declare const WKWebsiteDataTypeSearchFieldRecentSearches: string;
 
 declare const WebHistoryItemsAddedNotification: string;
@@ -359,15 +357,13 @@ declare const DOM_KEYFRAMES_RULE: number;
 
 declare const DOM_CSS_RECT: number;
 
-declare const DOM_DOCUMENT_POSITION_CONTAINED_BY: number;
+declare const NSReadAccessURLDocumentOption: string;
 
-declare const DOM_KEY_LOCATION_NUMPAD: number;
+declare const DOM_DOCUMENT_POSITION_CONTAINED_BY: number;
 
 declare const WebElementFrameKey: string;
 
 declare const WebMenuItemTagOther: number;
-
-declare const WebElementImageURLKey: string;
 
 declare const DOM_DOCUMENT_FRAGMENT_NODE: number;
 
@@ -383,9 +379,9 @@ declare const WebElementLinkLabelKey: string;
 
 declare const DOM_ANY_TYPE: number;
 
-declare const WebMenuItemTagCopyLinkToClipboard: number;
-
 declare const WebElementImageAltStringKey: string;
+
+declare const DOM_KEY_LOCATION_NUMPAD: number;
 
 declare const DOM_HORIZONTAL: number;
 
@@ -395,19 +391,17 @@ declare const WKWebsiteDataTypeServiceWorkerRegistrations: string;
 
 declare const WebKitErrorJavaUnavailable: number;
 
-declare const NSReadAccessURLDocumentOption: string;
-
 declare const DOM_NODE_BEFORE: number;
 
 declare const WebMenuItemTagSpellingGuess: number;
 
 declare const DOM_CSS_NUMBER: number;
 
+declare const DOM_MODIFICATION: number;
+
 declare const DOM_NUMBER_TYPE: number;
 
 declare const WebMenuItemPDFFacingPages: number;
-
-declare const WebElementLinkTitleKey: string;
 
 declare const DOMXPathException: string;
 
@@ -419,9 +413,9 @@ declare const DOM_CSS_VH: number;
 
 declare const WKWebsiteDataTypeFileSystem: string;
 
-declare const WebMenuItemTagStop: number;
-
 declare const DOM_CSS_EMS: number;
+
+declare const WebMenuItemTagCopyLinkToClipboard: number;
 
 declare const DOM_CSS_IN: number;
 
@@ -431,69 +425,47 @@ declare const WebArchivePboardType: string;
 
 declare const WebMenuItemTagDownloadImageToDisk: number;
 
+declare const DOM_SHOW_NOTATION: number;
+
 declare const DOM_SHOW_PROCESSING_INSTRUCTION: number;
 
-declare const DOM_CSS_PX: number;
+declare const WKErrorDomain: string;
 
 declare const WKWebsiteDataTypeIndexedDBDatabases: string;
 
 declare const DOM_SHOW_ELEMENT: number;
 
+declare const DOM_DOM_DELTA_LINE: number;
+
+declare const WebElementLinkTitleKey: string;
+
 declare const WebKitErrorPlugInNameKey: string;
 
-declare const DOMXPathExceptionCode: {
-  INVALID_EXPRESSION_: 51,
-  TYPE_: 52,
+declare const DOMEventExceptionCode: {
+  DOM_UNSPECIFIED_EVENT_TYPE_ERR: 0,
 };
 
-declare const WKUserInterfaceDirectionPolicy: {
-  Content: 0,
-  System: 1,
+declare const WebDragDestinationAction: {
+  None: 0,
+  DHTML: 1,
+  Edit: 2,
+  Load: 4,
+  Any: 4294967295,
 };
 
-declare const WKUserScriptInjectionTime: {
-  Start: 0,
-  End: 1,
+declare const WebCacheModel: {
+  DocumentViewer: 0,
+  DocumentBrowser: 1,
+  PrimaryWebBrowser: 2,
 };
 
-declare const WKDialogResult: {
-  ShowDefault: 1,
-  AskAgain: 2,
-  Handled: 3,
-};
-
-declare const WKMediaCaptureType: {
-  Camera: 0,
-  Microphone: 1,
-  CameraAndMicrophone: 2,
-};
-
-declare const WKInactiveSchedulingPolicy: {
-  Suspend: 0,
-  Throttle: 1,
-  None: 2,
-};
-
-declare const WKNavigationResponsePolicy: {
-  Cancel: 0,
-  Allow: 1,
-  Download: 2,
-};
-
-declare const WKNavigationType: {
-  LinkActivated: 0,
+declare const WebNavigationType: {
+  LinkClicked: 0,
   FormSubmitted: 1,
   BackForward: 2,
   Reload: 3,
   FormResubmitted: 4,
-  Other: -1,
-};
-
-declare const WKMediaPlaybackState: {
-  None: 0,
-  Playing: 1,
-  Paused: 2,
-  Suspended: 3,
+  Other: 5,
 };
 
 declare const WebViewInsertAction: {
@@ -502,33 +474,14 @@ declare const WebViewInsertAction: {
   Dropped: 2,
 };
 
-declare const WKNavigationActionPolicy: {
-  Cancel: 0,
-  Allow: 1,
-  Download: 2,
-};
-
-declare const WKCookiePolicy: {
-  Allow: 0,
-  Disallow: 1,
-};
-
-declare const WKPermissionDecision: {
-  Prompt: 0,
-  Grant: 1,
-  Deny: 2,
+declare const DOMXPathExceptionCode: {
+  INVALID_EXPRESSION_: 51,
+  TYPE_: 52,
 };
 
 declare const DOMRangeExceptionCode: {
   BAD_BOUNDARYPOINTS_: 1,
   INVALID_NODE_TYPE_: 2,
-};
-
-declare const WKAudiovisualMediaTypes: {
-  None: 0,
-  Audio: 1,
-  Video: 2,
-  All: -1,
 };
 
 declare const DOMExceptionCode: {
@@ -549,31 +502,51 @@ declare const DOMExceptionCode: {
   INVALID_ACCESS_: 15,
 };
 
-declare const WebNavigationType: {
-  LinkClicked: 0,
-  FormSubmitted: 1,
-  BackForward: 2,
-  Reload: 3,
-  FormResubmitted: 4,
-  Other: 5,
-};
-
-declare const DOMEventExceptionCode: {
-  DOM_UNSPECIFIED_EVENT_TYPE_ERR: 0,
-};
-
-declare const WebDragDestinationAction: {
+declare const WKAudiovisualMediaTypes: {
   None: 0,
-  DHTML: 1,
-  Edit: 2,
-  Load: 4,
-  Any: 4294967295,
+  Audio: 1,
+  Video: 2,
+  All: -1,
 };
 
-declare const WKContentMode: {
-  Recommended: 0,
-  Mobile: 1,
-  Desktop: 2,
+declare const WKUserInterfaceDirectionPolicy: {
+  Content: 0,
+  System: 1,
+};
+
+declare const WKDialogResult: {
+  ShowDefault: 1,
+  AskAgain: 2,
+  Handled: 3,
+};
+
+declare const WKPermissionDecision: {
+  Prompt: 0,
+  Grant: 1,
+  Deny: 2,
+};
+
+declare const WKInactiveSchedulingPolicy: {
+  Suspend: 0,
+  Throttle: 1,
+  None: 2,
+};
+
+declare const WKNavigationResponsePolicy: {
+  Cancel: 0,
+  Allow: 1,
+  Download: 2,
+};
+
+declare const WKNavigationActionPolicy: {
+  Cancel: 0,
+  Allow: 1,
+  Download: 2,
+};
+
+declare const WKUserScriptInjectionTime: {
+  Start: 0,
+  End: 1,
 };
 
 declare const WKFullscreenState: {
@@ -583,19 +556,20 @@ declare const WKFullscreenState: {
   Exiting: 3,
 };
 
-declare const WebCacheModel: {
-  DocumentViewer: 0,
-  DocumentBrowser: 1,
-  PrimaryWebBrowser: 2,
+declare const WKCookiePolicy: {
+  Allow: 0,
+  Disallow: 1,
 };
 
-declare const WebDragSourceAction: {
-  None: 0,
-  DHTML: 1,
-  Image: 2,
-  Link: 4,
-  Selection: 8,
-  Any: 4294967295,
+declare const WKContentMode: {
+  Recommended: 0,
+  Mobile: 1,
+  Desktop: 2,
+};
+
+declare const WKDownloadRedirectPolicy: {
+  Cancel: 0,
+  Allow: 1,
 };
 
 declare const WKErrorCode: {
@@ -618,9 +592,29 @@ declare const WKErrorCode: {
   CredentialNotFound: 17,
 };
 
-declare const WKDownloadRedirectPolicy: {
-  Cancel: 0,
-  Allow: 1,
+declare const WebDragSourceAction: {
+  None: 0,
+  DHTML: 1,
+  Image: 2,
+  Link: 4,
+  Selection: 8,
+  Any: 4294967295,
+};
+
+declare const WKMediaPlaybackState: {
+  None: 0,
+  Playing: 1,
+  Paused: 2,
+  Suspended: 3,
+};
+
+declare const WKNavigationType: {
+  LinkActivated: 0,
+  FormSubmitted: 1,
+  BackForward: 2,
+  Reload: 3,
+  FormResubmitted: 4,
+  Other: -1,
 };
 
 declare const WKMediaCaptureState: {
@@ -629,66 +623,175 @@ declare const WKMediaCaptureState: {
   Muted: 2,
 };
 
-declare class WebPreferencesPrivate {
-  constructor(init?: WebPreferencesPrivate);
-}
+declare const WKMediaCaptureType: {
+  Camera: 0,
+  Microphone: 1,
+  CameraAndMicrophone: 2,
+};
 
 declare class DOMObjectInternal {
   constructor(init?: DOMObjectInternal);
 }
 
-declare interface WebOpenPanelResultListener extends NSObjectProtocol {
-  chooseFilename(fileName: string): void;
-
-  chooseFilenames(fileNames: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  cancel(): void;
+declare class WebPreferencesPrivate {
+  constructor(init?: WebPreferencesPrivate);
 }
 
-declare class WebOpenPanelResultListener extends NativeObject implements WebOpenPanelResultListener {
+declare interface WebDocumentRepresentation extends NSObjectProtocol {
+  setDataSource(dataSource: WebDataSource): void;
+
+  receivedDataWithDataSource(data: NSData, dataSource: WebDataSource): void;
+
+  receivedErrorWithDataSource(error: NSError, dataSource: WebDataSource): void;
+
+  finishedLoadingWithDataSource(dataSource: WebDataSource): void;
+
+  canProvideDocumentSource(): boolean;
+
+  documentSource(): string;
+
+  title(): string;
 }
 
-declare interface WebResourceLoadDelegate extends NSObjectProtocol {
-  webViewIdentifierForInitialRequestFromDataSource?(sender: WebView, request: NSURLRequest, dataSource: WebDataSource): interop.Object;
-
-  webViewResourceWillSendRequestRedirectResponseFromDataSource?(sender: WebView, identifier: interop.Object, request: NSURLRequest, redirectResponse: NSURLResponse, dataSource: WebDataSource): NSURLRequest;
-
-  webViewResourceDidReceiveAuthenticationChallengeFromDataSource?(sender: WebView, identifier: interop.Object, challenge: NSURLAuthenticationChallenge, dataSource: WebDataSource): void;
-
-  webViewResourceDidCancelAuthenticationChallengeFromDataSource?(sender: WebView, identifier: interop.Object, challenge: NSURLAuthenticationChallenge, dataSource: WebDataSource): void;
-
-  webViewResourceDidReceiveResponseFromDataSource?(sender: WebView, identifier: interop.Object, response: NSURLResponse, dataSource: WebDataSource): void;
-
-  webViewResourceDidReceiveContentLengthFromDataSource?(sender: WebView, identifier: interop.Object, length: number, dataSource: WebDataSource): void;
-
-  webViewResourceDidFinishLoadingFromDataSource?(sender: WebView, identifier: interop.Object, dataSource: WebDataSource): void;
-
-  webViewResourceDidFailLoadingWithErrorFromDataSource?(sender: WebView, identifier: interop.Object, error: NSError, dataSource: WebDataSource): void;
-
-  webViewPlugInFailedWithErrorDataSource?(sender: WebView, error: NSError, dataSource: WebDataSource): void;
+declare class WebDocumentRepresentation extends NativeObject implements WebDocumentRepresentation {
 }
 
-declare class WebResourceLoadDelegate extends NativeObject implements WebResourceLoadDelegate {
+declare interface WebPlugInViewFactory extends NSObjectProtocol {
 }
 
-declare interface WebPolicyDelegate extends NSObjectProtocol {
-  webViewDecidePolicyForNavigationActionRequestFrameDecisionListener?(webView: WebView, actionInformation: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, request: NSURLRequest, frame: WebFrame, listener: WebPolicyDecisionListener): void;
-
-  webViewDecidePolicyForNewWindowActionRequestNewFrameNameDecisionListener?(webView: WebView, actionInformation: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, request: NSURLRequest, frameName: string, listener: WebPolicyDecisionListener): void;
-
-  webViewDecidePolicyForMIMETypeRequestFrameDecisionListener?(webView: WebView, type: string, request: NSURLRequest, frame: WebFrame, listener: WebPolicyDecisionListener): void;
-
-  webViewUnableToImplementPolicyWithErrorFrame?(webView: WebView, error: NSError, frame: WebFrame): void;
+declare class WebPlugInViewFactory extends NativeObject implements WebPlugInViewFactory {
+  static plugInViewWithArguments(arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSView;
 }
 
-declare class WebPolicyDelegate extends NativeObject implements WebPolicyDelegate {
+declare interface WebDownloadDelegate extends NSURLDownloadDelegate {
+  downloadWindowForAuthenticationSheet?(download: WebDownload): NSWindow;
 }
 
-declare interface WebDocumentSearching extends NSObjectProtocol {
-  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
+declare class WebDownloadDelegate extends NativeObject implements WebDownloadDelegate {
 }
 
-declare class WebDocumentSearching extends NativeObject implements WebDocumentSearching {
+declare interface WKScriptMessageHandler extends NSObjectProtocol {
+  userContentControllerDidReceiveScriptMessage(userContentController: WKUserContentController, message: WKScriptMessage): void;
+}
+
+declare class WKScriptMessageHandler extends NativeObject implements WKScriptMessageHandler {
+}
+
+declare interface WebEditingDelegate extends NSObjectProtocol {
+  webViewShouldBeginEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
+
+  webViewShouldEndEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
+
+  webViewShouldInsertNodeReplacingDOMRangeGivenAction?(webView: WebView, node: DOMNode, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
+
+  webViewShouldInsertTextReplacingDOMRangeGivenAction?(webView: WebView, text: string, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
+
+  webViewShouldDeleteDOMRange?(webView: WebView, range: DOMRange): boolean;
+
+  webViewShouldChangeSelectedDOMRangeToDOMRangeAffinityStillSelecting?(webView: WebView, currentRange: DOMRange, proposedRange: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>, flag: boolean): boolean;
+
+  webViewShouldApplyStyleToElementsInDOMRange?(webView: WebView, style: DOMCSSStyleDeclaration, range: DOMRange): boolean;
+
+  webViewShouldChangeTypingStyleToStyle?(webView: WebView, currentStyle: DOMCSSStyleDeclaration, proposedStyle: DOMCSSStyleDeclaration): boolean;
+
+  webViewDoCommandBySelector?(webView: WebView, selector: string): boolean;
+
+  webViewDidBeginEditing?(notification: NSNotification): void;
+
+  webViewDidChange?(notification: NSNotification): void;
+
+  webViewDidEndEditing?(notification: NSNotification): void;
+
+  webViewDidChangeTypingStyle?(notification: NSNotification): void;
+
+  webViewDidChangeSelection?(notification: NSNotification): void;
+
+  undoManagerForWebView?(webView: WebView): NSUndoManager;
+}
+
+declare class WebEditingDelegate extends NativeObject implements WebEditingDelegate {
+}
+
+declare interface WebPolicyDecisionListener extends NSObjectProtocol {
+  use(): void;
+
+  download(): void;
+
+  ignore(): void;
+}
+
+declare class WebPolicyDecisionListener extends NativeObject implements WebPolicyDecisionListener {
+}
+
+declare interface WebFrameLoadDelegate extends NSObjectProtocol {
+  webViewDidStartProvisionalLoadForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewDidReceiveServerRedirectForProvisionalLoadForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewDidFailProvisionalLoadWithErrorForFrame?(sender: WebView, error: NSError, frame: WebFrame): void;
+
+  webViewDidCommitLoadForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewDidReceiveTitleForFrame?(sender: WebView, title: string, frame: WebFrame): void;
+
+  webViewDidReceiveIconForFrame?(sender: WebView, image: NSImage, frame: WebFrame): void;
+
+  webViewDidFinishLoadForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewDidFailLoadWithErrorForFrame?(sender: WebView, error: NSError, frame: WebFrame): void;
+
+  webViewDidChangeLocationWithinPageForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewWillPerformClientRedirectToURLDelayFireDateForFrame?(sender: WebView, URL: NSURL, seconds: number, date: NSDate, frame: WebFrame): void;
+
+  webViewDidCancelClientRedirectForFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewWillCloseFrame?(sender: WebView, frame: WebFrame): void;
+
+  webViewDidClearWindowObjectForFrame?(webView: WebView, windowObject: WebScriptObject, frame: WebFrame): void;
+
+  webViewWindowScriptObjectAvailable?(webView: WebView, windowScriptObject: WebScriptObject): void;
+
+  webViewDidCreateJavaScriptContextForFrame?(webView: WebView, context: JSContext, frame: WebFrame): void;
+}
+
+declare class WebFrameLoadDelegate extends NativeObject implements WebFrameLoadDelegate {
+}
+
+declare interface WebDocumentText extends NSObjectProtocol {
+  supportsTextEncoding(): boolean;
+
+  string(): string;
+
+  attributedString(): NSAttributedString;
+
+  selectedString(): string;
+
+  selectedAttributedString(): NSAttributedString;
+
+  selectAll(): void;
+
+  deselectAll(): void;
+}
+
+declare class WebDocumentText extends NativeObject implements WebDocumentText {
+}
+
+declare interface WebDocumentView extends NSObjectProtocol {
+  setDataSource(dataSource: WebDataSource): void;
+
+  dataSourceUpdated(dataSource: WebDataSource): void;
+
+  setNeedsLayout(flag: boolean): void;
+
+  layout(): void;
+
+  viewWillMoveToHostWindow(hostWindow: NSWindow): void;
+
+  viewDidMoveToHostWindow(): void;
+}
+
+declare class WebDocumentView extends NativeObject implements WebDocumentView {
 }
 
 declare interface DOMXPathNSResolver extends NSObjectProtocol {
@@ -696,13 +799,6 @@ declare interface DOMXPathNSResolver extends NSObjectProtocol {
 }
 
 declare class DOMXPathNSResolver extends NativeObject implements DOMXPathNSResolver {
-}
-
-declare interface DOMNodeFilter extends NSObjectProtocol {
-  acceptNode(n: DOMNode): number;
-}
-
-declare class DOMNodeFilter extends NativeObject implements DOMNodeFilter {
 }
 
 declare interface DOMEventListener extends NSObjectProtocol {
@@ -808,187 +904,6 @@ declare interface WKHTTPCookieStoreObserver extends NSObjectProtocol {
 declare class WKHTTPCookieStoreObserver extends NativeObject implements WKHTTPCookieStoreObserver {
 }
 
-declare interface WKDownloadDelegate extends NSObjectProtocol {
-  downloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler(download: WKDownload, response: NSURLResponse, suggestedFilename: string, completionHandler: (p1: NSURL) => void | null): void;
-
-  downloadWillPerformHTTPRedirectionNewRequestDecisionHandler?(download: WKDownload, response: NSHTTPURLResponse, request: NSURLRequest, decisionHandler: (p1: interop.Enum<typeof WKDownloadRedirectPolicy>) => void): void;
-
-  downloadDidReceiveAuthenticationChallengeCompletionHandler?(download: WKDownload, challenge: NSURLAuthenticationChallenge, completionHandler: (p1: interop.Enum<typeof NSURLSessionAuthChallengeDisposition>, p2: NSURLCredential) => void | null): void;
-
-  downloadDidFinish?(download: WKDownload): void;
-
-  downloadDidFailWithErrorResumeData?(download: WKDownload, error: NSError, resumeData: NSData | null): void;
-}
-
-declare class WKDownloadDelegate extends NativeObject implements WKDownloadDelegate {
-}
-
-declare interface WebDocumentRepresentation extends NSObjectProtocol {
-  setDataSource(dataSource: WebDataSource): void;
-
-  receivedDataWithDataSource(data: NSData, dataSource: WebDataSource): void;
-
-  receivedErrorWithDataSource(error: NSError, dataSource: WebDataSource): void;
-
-  finishedLoadingWithDataSource(dataSource: WebDataSource): void;
-
-  canProvideDocumentSource(): boolean;
-
-  documentSource(): string;
-
-  title(): string;
-}
-
-declare class WebDocumentRepresentation extends NativeObject implements WebDocumentRepresentation {
-}
-
-declare interface WebPolicyDecisionListener extends NSObjectProtocol {
-  use(): void;
-
-  download(): void;
-
-  ignore(): void;
-}
-
-declare class WebPolicyDecisionListener extends NativeObject implements WebPolicyDecisionListener {
-}
-
-declare interface WebDocumentText extends NSObjectProtocol {
-  supportsTextEncoding(): boolean;
-
-  string(): string;
-
-  attributedString(): NSAttributedString;
-
-  selectedString(): string;
-
-  selectedAttributedString(): NSAttributedString;
-
-  selectAll(): void;
-
-  deselectAll(): void;
-}
-
-declare class WebDocumentText extends NativeObject implements WebDocumentText {
-}
-
-declare interface WebFrameLoadDelegate extends NSObjectProtocol {
-  webViewDidStartProvisionalLoadForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewDidReceiveServerRedirectForProvisionalLoadForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewDidFailProvisionalLoadWithErrorForFrame?(sender: WebView, error: NSError, frame: WebFrame): void;
-
-  webViewDidCommitLoadForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewDidReceiveTitleForFrame?(sender: WebView, title: string, frame: WebFrame): void;
-
-  webViewDidReceiveIconForFrame?(sender: WebView, image: NSImage, frame: WebFrame): void;
-
-  webViewDidFinishLoadForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewDidFailLoadWithErrorForFrame?(sender: WebView, error: NSError, frame: WebFrame): void;
-
-  webViewDidChangeLocationWithinPageForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewWillPerformClientRedirectToURLDelayFireDateForFrame?(sender: WebView, URL: NSURL, seconds: number, date: NSDate, frame: WebFrame): void;
-
-  webViewDidCancelClientRedirectForFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewWillCloseFrame?(sender: WebView, frame: WebFrame): void;
-
-  webViewDidClearWindowObjectForFrame?(webView: WebView, windowObject: WebScriptObject, frame: WebFrame): void;
-
-  webViewWindowScriptObjectAvailable?(webView: WebView, windowScriptObject: WebScriptObject): void;
-
-  webViewDidCreateJavaScriptContextForFrame?(webView: WebView, context: JSContext, frame: WebFrame): void;
-}
-
-declare class WebFrameLoadDelegate extends NativeObject implements WebFrameLoadDelegate {
-}
-
-declare interface WKScriptMessageHandler extends NSObjectProtocol {
-  userContentControllerDidReceiveScriptMessage(userContentController: WKUserContentController, message: WKScriptMessage): void;
-}
-
-declare class WKScriptMessageHandler extends NativeObject implements WKScriptMessageHandler {
-}
-
-declare interface WebDownloadDelegate extends NSURLDownloadDelegate {
-  downloadWindowForAuthenticationSheet?(download: WebDownload): NSWindow;
-}
-
-declare class WebDownloadDelegate extends NativeObject implements WebDownloadDelegate {
-}
-
-declare interface WebEditingDelegate extends NSObjectProtocol {
-  webViewShouldBeginEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
-
-  webViewShouldEndEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
-
-  webViewShouldInsertNodeReplacingDOMRangeGivenAction?(webView: WebView, node: DOMNode, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
-
-  webViewShouldInsertTextReplacingDOMRangeGivenAction?(webView: WebView, text: string, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
-
-  webViewShouldDeleteDOMRange?(webView: WebView, range: DOMRange): boolean;
-
-  webViewShouldChangeSelectedDOMRangeToDOMRangeAffinityStillSelecting?(webView: WebView, currentRange: DOMRange, proposedRange: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>, flag: boolean): boolean;
-
-  webViewShouldApplyStyleToElementsInDOMRange?(webView: WebView, style: DOMCSSStyleDeclaration, range: DOMRange): boolean;
-
-  webViewShouldChangeTypingStyleToStyle?(webView: WebView, currentStyle: DOMCSSStyleDeclaration, proposedStyle: DOMCSSStyleDeclaration): boolean;
-
-  webViewDoCommandBySelector?(webView: WebView, selector: string): boolean;
-
-  webViewDidBeginEditing?(notification: NSNotification): void;
-
-  webViewDidChange?(notification: NSNotification): void;
-
-  webViewDidEndEditing?(notification: NSNotification): void;
-
-  webViewDidChangeTypingStyle?(notification: NSNotification): void;
-
-  webViewDidChangeSelection?(notification: NSNotification): void;
-
-  undoManagerForWebView?(webView: WebView): NSUndoManager;
-}
-
-declare class WebEditingDelegate extends NativeObject implements WebEditingDelegate {
-}
-
-declare interface WKURLSchemeHandler extends NSObjectProtocol {
-  webViewStartURLSchemeTask(webView: WKWebView, urlSchemeTask: WKURLSchemeTask): void;
-
-  webViewStopURLSchemeTask(webView: WKWebView, urlSchemeTask: WKURLSchemeTask): void;
-}
-
-declare class WKURLSchemeHandler extends NativeObject implements WKURLSchemeHandler {
-}
-
-declare interface WebPlugInViewFactory extends NSObjectProtocol {
-}
-
-declare class WebPlugInViewFactory extends NativeObject implements WebPlugInViewFactory {
-  static plugInViewWithArguments(arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSView;
-}
-
-declare interface WebDocumentView extends NSObjectProtocol {
-  setDataSource(dataSource: WebDataSource): void;
-
-  dataSourceUpdated(dataSource: WebDataSource): void;
-
-  setNeedsLayout(flag: boolean): void;
-
-  layout(): void;
-
-  viewWillMoveToHostWindow(hostWindow: NSWindow): void;
-
-  viewDidMoveToHostWindow(): void;
-}
-
-declare class WebDocumentView extends NativeObject implements WebDocumentView {
-}
-
 declare interface WebUIDelegate extends NSObjectProtocol {
   webViewCreateWebViewWithRequest?(sender: WebView, request: NSURLRequest): WebView;
 
@@ -1080,18 +995,769 @@ declare interface WebUIDelegate extends NSObjectProtocol {
 declare class WebUIDelegate extends NativeObject implements WebUIDelegate {
 }
 
-declare class WebResource extends NSObject implements NSCoding, NSCopying {
-  initWithDataURLMIMETypeTextEncodingNameFrameName(data: NSData, URL: NSURL, MIMEType: string, textEncodingName: string, frameName: string): this;
+declare interface WKDownloadDelegate extends NSObjectProtocol {
+  downloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler(download: WKDownload, response: NSURLResponse, suggestedFilename: string, completionHandler: (p1: NSURL) => void | null): void;
+
+  downloadWillPerformHTTPRedirectionNewRequestDecisionHandler?(download: WKDownload, response: NSHTTPURLResponse, request: NSURLRequest, decisionHandler: (p1: interop.Enum<typeof WKDownloadRedirectPolicy>) => void): void;
+
+  downloadDidReceiveAuthenticationChallengeCompletionHandler?(download: WKDownload, challenge: NSURLAuthenticationChallenge, completionHandler: (p1: interop.Enum<typeof NSURLSessionAuthChallengeDisposition>, p2: NSURLCredential) => void | null): void;
+
+  downloadDidFinish?(download: WKDownload): void;
+
+  downloadDidFailWithErrorResumeData?(download: WKDownload, error: NSError, resumeData: NSData | null): void;
+}
+
+declare class WKDownloadDelegate extends NativeObject implements WKDownloadDelegate {
+}
+
+declare interface WKURLSchemeHandler extends NSObjectProtocol {
+  webViewStartURLSchemeTask(webView: WKWebView, urlSchemeTask: WKURLSchemeTask): void;
+
+  webViewStopURLSchemeTask(webView: WKWebView, urlSchemeTask: WKURLSchemeTask): void;
+}
+
+declare class WKURLSchemeHandler extends NativeObject implements WKURLSchemeHandler {
+}
+
+declare interface DOMNodeFilter extends NSObjectProtocol {
+  acceptNode(n: DOMNode): number;
+}
+
+declare class DOMNodeFilter extends NativeObject implements DOMNodeFilter {
+}
+
+declare interface WebPolicyDelegate extends NSObjectProtocol {
+  webViewDecidePolicyForNavigationActionRequestFrameDecisionListener?(webView: WebView, actionInformation: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, request: NSURLRequest, frame: WebFrame, listener: WebPolicyDecisionListener): void;
+
+  webViewDecidePolicyForNewWindowActionRequestNewFrameNameDecisionListener?(webView: WebView, actionInformation: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, request: NSURLRequest, frameName: string, listener: WebPolicyDecisionListener): void;
+
+  webViewDecidePolicyForMIMETypeRequestFrameDecisionListener?(webView: WebView, type: string, request: NSURLRequest, frame: WebFrame, listener: WebPolicyDecisionListener): void;
+
+  webViewUnableToImplementPolicyWithErrorFrame?(webView: WebView, error: NSError, frame: WebFrame): void;
+}
+
+declare class WebPolicyDelegate extends NativeObject implements WebPolicyDelegate {
+}
+
+declare interface WebOpenPanelResultListener extends NSObjectProtocol {
+  chooseFilename(fileName: string): void;
+
+  chooseFilenames(fileNames: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  cancel(): void;
+}
+
+declare class WebOpenPanelResultListener extends NativeObject implements WebOpenPanelResultListener {
+}
+
+declare interface WebResourceLoadDelegate extends NSObjectProtocol {
+  webViewIdentifierForInitialRequestFromDataSource?(sender: WebView, request: NSURLRequest, dataSource: WebDataSource): interop.Object;
+
+  webViewResourceWillSendRequestRedirectResponseFromDataSource?(sender: WebView, identifier: interop.Object, request: NSURLRequest, redirectResponse: NSURLResponse, dataSource: WebDataSource): NSURLRequest;
+
+  webViewResourceDidReceiveAuthenticationChallengeFromDataSource?(sender: WebView, identifier: interop.Object, challenge: NSURLAuthenticationChallenge, dataSource: WebDataSource): void;
+
+  webViewResourceDidCancelAuthenticationChallengeFromDataSource?(sender: WebView, identifier: interop.Object, challenge: NSURLAuthenticationChallenge, dataSource: WebDataSource): void;
+
+  webViewResourceDidReceiveResponseFromDataSource?(sender: WebView, identifier: interop.Object, response: NSURLResponse, dataSource: WebDataSource): void;
+
+  webViewResourceDidReceiveContentLengthFromDataSource?(sender: WebView, identifier: interop.Object, length: number, dataSource: WebDataSource): void;
+
+  webViewResourceDidFinishLoadingFromDataSource?(sender: WebView, identifier: interop.Object, dataSource: WebDataSource): void;
+
+  webViewResourceDidFailLoadingWithErrorFromDataSource?(sender: WebView, identifier: interop.Object, error: NSError, dataSource: WebDataSource): void;
+
+  webViewPlugInFailedWithErrorDataSource?(sender: WebView, error: NSError, dataSource: WebDataSource): void;
+}
+
+declare class WebResourceLoadDelegate extends NativeObject implements WebResourceLoadDelegate {
+}
+
+declare interface WebDocumentSearching extends NSObjectProtocol {
+  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
+}
+
+declare class WebDocumentSearching extends NativeObject implements WebDocumentSearching {
+}
+
+declare class DOMMutationEvent extends DOMEvent {
+  readonly relatedNode: DOMNode;
+
+  readonly prevValue: string;
+
+  readonly newValue: string;
+
+  readonly attrName: string;
+
+  readonly attrChange: number;
+
+  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
+
+  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
+}
+
+// @ts-ignore
+declare class WebView extends NSView {
+  static canShowMIMEType(MIMEType: string): boolean;
+
+  static canShowMIMETypeAsHTML(MIMEType: string): boolean;
+
+  static MIMETypesShownAsHTML(): NSArray;
+
+  static setMIMETypesShownAsHTML(MIMETypes: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  static URLFromPasteboard(pasteboard: NSPasteboard): NSURL;
+
+  static URLTitleFromPasteboard(pasteboard: NSPasteboard): string;
+
+  static registerURLSchemeAsLocal(scheme: string): void;
+
+  initWithFrameFrameNameGroupName(frame: CGRect, frameName: string, groupName: string): this;
+
+  close(): void;
+
+  shouldCloseWithWindow: boolean;
+
+  UIDelegate: WebUIDelegate;
+
+  resourceLoadDelegate: WebResourceLoadDelegate;
+
+  downloadDelegate: WebDownloadDelegate;
+
+  frameLoadDelegate: WebFrameLoadDelegate;
+
+  policyDelegate: WebPolicyDelegate;
+
+  readonly mainFrame: WebFrame;
+
+  readonly selectedFrame: WebFrame;
+
+  readonly backForwardList: WebBackForwardList;
+
+  setMaintainsBackForwardList(flag: boolean): void;
+
+  goBack(): boolean;
+
+  goForward(): boolean;
+
+  goToBackForwardItem(item: WebHistoryItem): boolean;
+
+  textSizeMultiplier: number;
+
+  applicationNameForUserAgent: string;
+
+  customUserAgent: string;
+
+  userAgentForURL(URL: NSURL): string;
+
+  readonly supportsTextEncoding: boolean;
+
+  customTextEncodingName: string;
+
+  mediaStyle: string;
+
+  stringByEvaluatingJavaScriptFromString(script: string): string;
+
+  readonly windowScriptObject: WebScriptObject;
+
+  preferences: WebPreferences;
+
+  preferencesIdentifier: string;
+
+  hostWindow: NSWindow;
+
+  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
+
+  static registerViewClassRepresentationClassForMIMEType(viewClass: interop.Object, representationClass: interop.Object, MIMEType: string): void;
+
+  groupName: string;
+
+  readonly estimatedProgress: number;
+
+  readonly isLoading: boolean;
+
+  elementAtPoint(point: CGPoint): NSDictionary;
+
+  readonly pasteboardTypesForSelection: NSArray;
+
+  writeSelectionWithPasteboardTypesToPasteboard(types: NSArray<interop.Object> | Array<interop.Object>, pasteboard: NSPasteboard): void;
+
+  pasteboardTypesForElement(element: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSArray;
+
+  writeElementWithPasteboardTypesToPasteboard(element: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, types: NSArray<interop.Object> | Array<interop.Object>, pasteboard: NSPasteboard): void;
+
+  moveDragCaretToPoint(point: CGPoint): void;
+
+  removeDragCaret(): void;
+
+  drawsBackground: boolean;
+
+  shouldUpdateWhileOffscreen: boolean;
+
+  mainFrameURL: string;
+
+  readonly mainFrameDocument: DOMDocument;
+
+  readonly mainFrameTitle: string;
+
+  readonly mainFrameIcon: NSImage;
+
+  takeStringURLFrom(sender: interop.Object): void;
+
+  stopLoading(sender: interop.Object): void;
+
+  reload(sender: interop.Object): void;
+
+  reloadFromOrigin(sender: interop.Object): void;
+
+  readonly canGoBack: boolean;
+
+  readonly canGoForward: boolean;
+
+  readonly canMakeTextLarger: boolean;
+
+  makeTextLarger(sender: interop.Object): void;
+
+  readonly canMakeTextSmaller: boolean;
+
+  makeTextSmaller(sender: interop.Object): void;
+
+  readonly canMakeTextStandardSize: boolean;
+
+  makeTextStandardSize(sender: interop.Object): void;
+
+  toggleContinuousSpellChecking(sender: interop.Object): void;
+
+  toggleSmartInsertDelete(sender: interop.Object): void;
+
+  computedStyleForElementPseudoElement(element: DOMElement, pseudoElement: string): DOMCSSStyleDeclaration;
+
+  editableDOMRangeForPoint(point: CGPoint): DOMRange;
+
+  setSelectedDOMRangeAffinity(range: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>): void;
+
+  readonly selectedDOMRange: DOMRange;
+
+  readonly selectionAffinity: interop.Enum<typeof NSSelectionAffinity>;
+
+  readonly maintainsInactiveSelection: boolean;
+
+  isEditable: boolean;
+
+  typingStyle: DOMCSSStyleDeclaration;
+
+  smartInsertDeleteEnabled: boolean;
+
+  isContinuousSpellCheckingEnabled: boolean;
+
+  readonly spellCheckerDocumentTag: number;
+
+  readonly undoManager: NSUndoManager;
+
+  editingDelegate: WebEditingDelegate;
+
+  styleDeclarationWithText(text: string): DOMCSSStyleDeclaration;
+
+  replaceSelectionWithNode(node: DOMNode): void;
+
+  replaceSelectionWithText(text: string): void;
+
+  replaceSelectionWithMarkupString(markupString: string): void;
+
+  replaceSelectionWithArchive(archive: WebArchive): void;
+
+  deleteSelection(): void;
+
+  applyStyle(style: DOMCSSStyleDeclaration): void;
+
+  // @ts-ignore
+  copy(sender: interop.Object): void;
+
+  cut(sender: interop.Object): void;
+
+  paste(sender: interop.Object): void;
+
+  copyFont(sender: interop.Object): void;
+
+  pasteFont(sender: interop.Object): void;
+
+  delete(sender: interop.Object): void;
+
+  pasteAsPlainText(sender: interop.Object): void;
+
+  pasteAsRichText(sender: interop.Object): void;
+
+  // @ts-ignore
+  changeFont(sender: interop.Object): void;
+
+  changeAttributes(sender: interop.Object): void;
+
+  changeDocumentBackgroundColor(sender: interop.Object): void;
+
+  // @ts-ignore
+  changeColor(sender: interop.Object): void;
+
+  alignCenter(sender: interop.Object): void;
+
+  alignJustified(sender: interop.Object): void;
+
+  alignLeft(sender: interop.Object): void;
+
+  alignRight(sender: interop.Object): void;
+
+  checkSpelling(sender: interop.Object): void;
+
+  showGuessPanel(sender: interop.Object): void;
+
+  performFindPanelAction(sender: interop.Object): void;
+
+  startSpeaking(sender: interop.Object): void;
+
+  stopSpeaking(sender: interop.Object): void;
+
+  moveToBeginningOfSentence(sender: interop.Object): void;
+
+  moveToBeginningOfSentenceAndModifySelection(sender: interop.Object): void;
+
+  moveToEndOfSentence(sender: interop.Object): void;
+
+  moveToEndOfSentenceAndModifySelection(sender: interop.Object): void;
+
+  selectSentence(sender: interop.Object): void;
+
+  overWrite(sender: interop.Object): void;
+}
+
+declare class DOMHTMLSelectElement extends DOMHTMLElement {
+  autofocus: boolean;
+
+  disabled: boolean;
+
+  readonly form: DOMHTMLFormElement;
+
+  multiple: boolean;
+
+  name: string;
+
+  size: number;
+
+  readonly type: string;
+
+  readonly options: DOMHTMLOptionsCollection;
+
+  readonly length: number;
+
+  selectedIndex: number;
+
+  value: string;
+
+  readonly willValidate: boolean;
+
+  item(index: number): DOMNode;
+
+  namedItem(name: string): DOMNode;
+
+  addBefore(element: DOMHTMLElement, before: DOMHTMLElement): void;
+
+  remove(index: number): void;
+
+  add(element: DOMHTMLElement, before: DOMHTMLElement): void;
+}
+
+declare class DOMMediaList extends DOMObject {
+  mediaText: string;
+
+  readonly length: number;
+
+  item(index: number): string;
+
+  deleteMedium(oldMedium: string): void;
+
+  appendMedium(newMedium: string): void;
+}
+
+declare class DOMStyleSheetList extends DOMObject {
+  readonly length: number;
+
+  item(index: number): DOMStyleSheet;
+}
+
+declare class WKProcessPool extends NSObject implements NSSecureCoding {
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class WKFindResult extends NSObject implements NSCopying {
+  readonly matchFound: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMHTMLFieldSetElement extends DOMHTMLElement {
+  readonly form: DOMHTMLFormElement;
+}
+
+declare class DOMHTMLHtmlElement extends DOMHTMLElement {
+  version: string;
+}
+
+declare class DOMHTMLAnchorElement extends DOMHTMLElement {
+  charset: string;
+
+  coords: string;
+
+  hreflang: string;
+
+  name: string;
+
+  rel: string;
+
+  rev: string;
+
+  shape: string;
+
+  target: string;
+
+  type: string;
+
+  accessKey: string;
+
+  readonly text: string;
+
+  readonly absoluteLinkURL: NSURL;
+
+  href: string;
+
+  readonly protocol: string;
+
+  readonly host: string;
+
+  readonly hostname: string;
+
+  readonly port: string;
+
+  readonly pathname: string;
+
+  readonly search: string;
+
+  readonly hashName: string;
+}
+
+declare class WKNavigationAction extends NSObject {
+  readonly sourceFrame: WKFrameInfo;
+
+  readonly targetFrame: WKFrameInfo;
+
+  readonly navigationType: interop.Enum<typeof WKNavigationType>;
+
+  readonly request: NSURLRequest;
+
+  readonly shouldPerformDownload: boolean;
+
+  readonly modifierFlags: interop.Enum<typeof NSEventModifierFlags>;
+
+  readonly buttonNumber: number;
+}
+
+declare class WebDataSource extends NSObject {
+  initWithRequest(request: NSURLRequest): this;
 
   readonly data: NSData;
 
-  readonly URL: NSURL;
+  readonly representation: WebDocumentRepresentation;
 
-  readonly MIMEType: string;
+  readonly webFrame: WebFrame;
+
+  readonly initialRequest: NSURLRequest;
+
+  readonly request: NSMutableURLRequest;
+
+  readonly response: NSURLResponse;
 
   readonly textEncodingName: string;
 
-  readonly frameName: string;
+  readonly isLoading: boolean;
+
+  readonly pageTitle: string;
+
+  readonly unreachableURL: NSURL;
+
+  readonly webArchive: WebArchive;
+
+  readonly mainResource: WebResource;
+
+  readonly subresources: NSArray;
+
+  subresourceForURL(URL: NSURL): WebResource;
+
+  addSubresource(subresource: WebResource): void;
+}
+
+declare class DOMProgressEvent extends DOMEvent {
+  readonly lengthComputable: boolean;
+
+  readonly loaded: number;
+
+  readonly total: number;
+}
+
+declare class WKDownload extends NSObject implements NSProgressReporting {
+  readonly originalRequest: NSURLRequest;
+
+  readonly webView: WKWebView | null;
+
+  delegate: WKDownloadDelegate | null;
+
+  cancel(completionHandler: (p1: NSData) => void | null): void;
+
+  readonly progress: NSProgress;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class WebHistory extends NSObject {
+  static optionalSharedHistory(): WebHistory;
+
+  static setOptionalSharedHistory(history: WebHistory): void;
+
+  loadFromURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
+
+  saveToURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
+
+  addItems(newItems: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  removeItems(items: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  removeAllItems(): void;
+
+  readonly orderedLastVisitedDays: NSArray;
+
+  orderedItemsLastVisitedOnDay(calendarDate: NSCalendarDate): NSArray;
+
+  itemForURL(URL: NSURL): WebHistoryItem;
+
+  historyItemLimit: number;
+
+  historyAgeInDaysLimit: number;
+}
+
+declare class DOMHTMLParamElement extends DOMHTMLElement {
+  name: string;
+
+  type: string;
+
+  value: string;
+
+  valueType: string;
+}
+
+// @ts-ignore
+declare class DOMElement extends DOMNode {
+  readonly tagName: string;
+
+  readonly style: DOMCSSStyleDeclaration;
+
+  readonly offsetLeft: number;
+
+  readonly offsetTop: number;
+
+  readonly offsetWidth: number;
+
+  readonly offsetHeight: number;
+
+  readonly clientLeft: number;
+
+  readonly clientTop: number;
+
+  readonly clientWidth: number;
+
+  readonly clientHeight: number;
+
+  scrollLeft: number;
+
+  scrollTop: number;
+
+  readonly scrollWidth: number;
+
+  readonly scrollHeight: number;
+
+  readonly offsetParent: DOMElement;
+
+  innerHTML: string;
+
+  outerHTML: string;
+
+  // @ts-ignore
+  className: string;
+
+  readonly innerText: string;
+
+  readonly previousElementSibling: DOMElement;
+
+  readonly nextElementSibling: DOMElement;
+
+  readonly firstElementChild: DOMElement;
+
+  readonly lastElementChild: DOMElement;
+
+  readonly childElementCount: number;
+
+  getAttribute(name: string): string;
+
+  setAttributeValue(name: string, value: string): void;
+
+  removeAttribute(name: string): void;
+
+  getAttributeNode(name: string): DOMAttr;
+
+  setAttributeNode(newAttr: DOMAttr): DOMAttr;
+
+  removeAttributeNode(oldAttr: DOMAttr): DOMAttr;
+
+  getElementsByTagName(name: string): DOMNodeList;
+
+  getAttributeNSLocalName(namespaceURI: string, localName: string): string;
+
+  setAttributeNSQualifiedNameValue(namespaceURI: string, qualifiedName: string, value: string): void;
+
+  removeAttributeNSLocalName(namespaceURI: string, localName: string): void;
+
+  getElementsByTagNameNSLocalName(namespaceURI: string, localName: string): DOMNodeList;
+
+  getAttributeNodeNSLocalName(namespaceURI: string, localName: string): DOMAttr;
+
+  setAttributeNodeNS(newAttr: DOMAttr): DOMAttr;
+
+  hasAttribute(name: string): boolean;
+
+  hasAttributeNSLocalName(namespaceURI: string, localName: string): boolean;
+
+  focus(): void;
+
+  blur(): void;
+
+  scrollIntoView(alignWithTop: boolean): void;
+
+  scrollIntoViewIfNeeded(centerIfNeeded: boolean): void;
+
+  scrollByLines(lines: number): void;
+
+  scrollByPages(pages: number): void;
+
+  getElementsByClassName(name: string): DOMNodeList;
+
+  webkitRequestFullScreen(flags: number): void;
+
+  querySelector(selectors: string): DOMElement;
+
+  querySelectorAll(selectors: string): DOMNodeList;
+
+  setAttribute(name: string, value: string): void;
+
+  getAttributeNS(namespaceURI: string, localName: string): string;
+
+  setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
+
+  removeAttributeNS(namespaceURI: string, localName: string): void;
+
+  getElementsByTagNameNS(namespaceURI: string, localName: string): DOMNodeList;
+
+  getAttributeNodeNS(namespaceURI: string, localName: string): DOMAttr;
+
+  hasAttributeNS(namespaceURI: string, localName: string): boolean;
+
+  image(): NSImage;
+}
+
+declare class DOMCSSRule extends DOMObject {
+  readonly type: number;
+
+  cssText: string;
+
+  readonly parentStyleSheet: DOMCSSStyleSheet;
+
+  readonly parentRule: DOMCSSRule;
+}
+
+declare class DOMHTMLOptGroupElement extends DOMHTMLElement {
+  disabled: boolean;
+
+  label: string;
+}
+
+declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding, NSCopying {
+  processPool: WKProcessPool;
+
+  preferences: WKPreferences;
+
+  userContentController: WKUserContentController;
+
+  websiteDataStore: WKWebsiteDataStore;
+
+  suppressesIncrementalRendering: boolean;
+
+  applicationNameForUserAgent: string;
+
+  allowsAirPlayForMediaPlayback: boolean;
+
+  upgradeKnownHostsToHTTPS: boolean;
+
+  mediaTypesRequiringUserActionForPlayback: interop.Enum<typeof WKAudiovisualMediaTypes>;
+
+  defaultWebpagePreferences: WKWebpagePreferences;
+
+  limitsNavigationsToAppBoundDomains: boolean;
+
+  allowsInlinePredictions: boolean;
+
+  userInterfaceDirectionPolicy: interop.Enum<typeof WKUserInterfaceDirectionPolicy>;
+
+  setURLSchemeHandlerForURLScheme(urlSchemeHandler: WKURLSchemeHandler | null, urlScheme: string): void;
+
+  urlSchemeHandlerForURLScheme(urlScheme: string): WKURLSchemeHandler;
+
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1100,20 +1766,8 @@ declare class WebResource extends NSObject implements NSCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class WebHistoryItem extends NSObject implements NSCopying {
-  initWithURLStringTitleLastVisitedTimeInterval(URLString: string, title: string, time: number): this;
-
-  readonly originalURLString: string;
-
-  readonly URLString: string;
-
-  readonly title: string;
-
-  readonly lastVisitedTimeInterval: number;
-
-  alternateTitle: string;
-
-  readonly icon: NSImage;
+declare class DOMObject extends WebScriptObject implements NSCopying {
+  readonly sheet: DOMStyleSheet;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1134,41 +1788,53 @@ declare class WebFrameView extends NSView {
   printDocumentView(): void;
 }
 
-declare class WebDownload extends NSURLDownload {
+declare class WebFrame extends NSObject {
+  initWithNameWebFrameViewWebView(name: string, view: WebFrameView, webView: WebView): this;
+
+  readonly name: string;
+
+  readonly webView: WebView;
+
+  readonly frameView: WebFrameView;
+
+  readonly DOMDocument: DOMDocument;
+
+  readonly frameElement: DOMHTMLElement;
+
+  loadRequest(request: NSURLRequest): void;
+
+  loadDataMIMETypeTextEncodingNameBaseURL(data: NSData, MIMEType: string, encodingName: string, URL: NSURL): void;
+
+  loadHTMLStringBaseURL(string: string, URL: NSURL): void;
+
+  loadAlternateHTMLStringBaseURLForUnreachableURL(string: string, baseURL: NSURL, unreachableURL: NSURL): void;
+
+  loadArchive(archive: WebArchive): void;
+
+  readonly dataSource: WebDataSource;
+
+  readonly provisionalDataSource: WebDataSource;
+
+  stopLoading(): void;
+
+  reload(): void;
+
+  reloadFromOrigin(): void;
+
+  findFrameNamed(name: string): WebFrame;
+
+  readonly parentFrame: WebFrame;
+
+  readonly childFrames: NSArray;
+
+  readonly windowObject: WebScriptObject;
+
+  readonly globalContext: interop.Pointer;
+
+  readonly javaScriptContext: JSContext;
 }
 
-declare class WebBackForwardList extends NSObject {
-  addItem(item: WebHistoryItem): void;
-
-  goBack(): void;
-
-  goForward(): void;
-
-  goToItem(item: WebHistoryItem): void;
-
-  readonly backItem: WebHistoryItem;
-
-  readonly currentItem: WebHistoryItem;
-
-  readonly forwardItem: WebHistoryItem;
-
-  backListWithLimit(limit: number): NSArray;
-
-  forwardListWithLimit(limit: number): NSArray;
-
-  capacity: number;
-
-  readonly backListCount: number;
-
-  readonly forwardListCount: number;
-
-  containsItem(item: WebHistoryItem): boolean;
-
-  itemAtIndex(index: number): WebHistoryItem;
-
-  setPageCacheSize(size: number): void;
-
-  pageCacheSize(): number;
+declare class WebDownload extends NSURLDownload {
 }
 
 declare class DOMXPathResult extends DOMObject {
@@ -1191,96 +1857,42 @@ declare class DOMXPathResult extends DOMObject {
   snapshotItem(index: number): DOMNode;
 }
 
-declare class DOMNodeIterator extends DOMObject {
-  readonly root: DOMNode;
+declare class DOMHTMLTableCellElement extends DOMHTMLElement {
+  readonly cellIndex: number;
 
-  readonly whatToShow: number;
+  align: string;
 
-  readonly filter: DOMNodeFilter;
+  axis: string;
 
-  readonly expandEntityReferences: boolean;
+  bgColor: string;
 
-  readonly referenceNode: DOMNode;
+  ch: string;
 
-  readonly pointerBeforeReferenceNode: boolean;
+  chOff: string;
 
-  nextNode(): DOMNode;
+  colSpan: number;
 
-  previousNode(): DOMNode;
+  rowSpan: number;
 
-  detach(): void;
+  headers: string;
+
+  height: string;
+
+  noWrap: boolean;
+
+  vAlign: string;
+
+  width: string;
+
+  abbr: string;
+
+  scope: string;
 }
 
-declare class DOMOverflowEvent extends DOMEvent {
-  readonly orient: number;
+declare class DOMXPathExpression extends DOMObject {
+  evaluateTypeInResult(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
 
-  readonly horizontalOverflow: boolean;
-
-  readonly verticalOverflow: boolean;
-
-  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): void;
-}
-
-declare class DOMUIEvent extends DOMEvent {
-  readonly view: DOMAbstractView;
-
-  readonly detail: number;
-
-  readonly keyCode: number;
-
-  readonly charCode: number;
-
-  readonly layerX: number;
-
-  readonly layerY: number;
-
-  readonly pageX: number;
-
-  readonly pageY: number;
-
-  readonly which: number;
-
-  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
-
-  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
-}
-
-declare class DOMEvent extends DOMObject {
-  readonly type: string;
-
-  readonly target: DOMEventTarget;
-
-  readonly currentTarget: DOMEventTarget;
-
-  readonly eventPhase: number;
-
-  readonly bubbles: boolean;
-
-  readonly cancelable: boolean;
-
-  readonly timeStamp: number;
-
-  readonly srcElement: DOMEventTarget;
-
-  returnValue: boolean;
-
-  cancelBubble: boolean;
-
-  stopPropagation(): void;
-
-  preventDefault(): void;
-
-  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
-
-  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
-}
-
-declare class DOMAbstractView extends DOMObject {
-  readonly document: DOMDocument;
-}
-
-declare class DOMHTMLTitleElement extends DOMHTMLElement {
-  text: string;
+  evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
 }
 
 declare class DOMHTMLTextAreaElement extends DOMHTMLElement {
@@ -1315,6 +1927,22 @@ declare class DOMHTMLTextAreaElement extends DOMHTMLElement {
   select(): void;
 
   setSelectionRangeEnd(start: number, end: number): void;
+}
+
+declare class DOMHTMLTableSectionElement extends DOMHTMLElement {
+  align: string;
+
+  ch: string;
+
+  chOff: string;
+
+  vAlign: string;
+
+  readonly rows: DOMHTMLCollection;
+
+  insertRow(index: number): DOMHTMLElement;
+
+  deleteRow(index: number): void;
 }
 
 declare class DOMHTMLTableRowElement extends DOMHTMLElement {
@@ -1385,136 +2013,18 @@ declare class DOMHTMLTableElement extends DOMHTMLElement {
   deleteRow(index: number): void;
 }
 
-declare class DOMHTMLTableCellElement extends DOMHTMLElement {
-  readonly cellIndex: number;
+declare class DOMHTMLStyleElement extends DOMHTMLElement {
+  disabled: boolean;
 
-  align: string;
-
-  axis: string;
-
-  bgColor: string;
-
-  ch: string;
-
-  chOff: string;
-
-  colSpan: number;
-
-  rowSpan: number;
-
-  headers: string;
-
-  height: string;
-
-  noWrap: boolean;
-
-  vAlign: string;
-
-  width: string;
-
-  abbr: string;
-
-  scope: string;
-}
-
-declare class DOMHTMLScriptElement extends DOMHTMLElement {
-  text: string;
-
-  htmlFor: string;
-
-  event: string;
-
-  charset: string;
-
-  defer: boolean;
-
-  src: string;
+  media: string;
 
   type: string;
+
+  readonly sheet: DOMStyleSheet;
 }
 
 declare class DOMHTMLQuoteElement extends DOMHTMLElement {
   cite: string;
-}
-
-declare class DOMHTMLPreElement extends DOMHTMLElement {
-  width: number;
-
-  wrap: boolean;
-}
-
-declare class DOMHTMLOptionsCollection extends DOMObject {
-  selectedIndex: number;
-
-  length: number;
-
-  namedItem(name: string): DOMNode;
-
-  addIndex(option: DOMHTMLOptionElement, index: number): void;
-
-  remove(index: number): void;
-
-  item(index: number): DOMNode;
-}
-
-declare class DOMHTMLOptionElement extends DOMHTMLElement {
-  disabled: boolean;
-
-  readonly form: DOMHTMLFormElement;
-
-  label: string;
-
-  defaultSelected: boolean;
-
-  selected: boolean;
-
-  value: string;
-
-  readonly text: string;
-
-  readonly index: number;
-}
-
-declare class DOMHTMLObjectElement extends DOMHTMLElement {
-  readonly form: DOMHTMLFormElement;
-
-  code: string;
-
-  align: string;
-
-  archive: string;
-
-  border: string;
-
-  codeBase: string;
-
-  codeType: string;
-
-  data: string;
-
-  declare: boolean;
-
-  height: string;
-
-  hspace: number;
-
-  name: string;
-
-  standby: string;
-
-  type: string;
-
-  useMap: string;
-
-  vspace: number;
-
-  width: string;
-
-  readonly contentDocument: DOMDocument;
-
-  readonly absoluteImageURL: NSURL;
-
-  readonly contentFrame: WebFrame;
 }
 
 declare class DOMHTMLOListElement extends DOMHTMLElement {
@@ -1545,10 +2055,34 @@ declare class DOMHTMLMenuElement extends DOMHTMLElement {
   compact: boolean;
 }
 
-declare class DOMHTMLMarqueeElement extends DOMHTMLElement {
-  start(): void;
+declare class DOMHTMLMapElement extends DOMHTMLElement {
+  readonly areas: DOMHTMLCollection;
 
-  stop(): void;
+  name: string;
+}
+
+declare class DOMHTMLLinkElement extends DOMHTMLElement {
+  disabled: boolean;
+
+  charset: string;
+
+  href: string;
+
+  hreflang: string;
+
+  media: string;
+
+  rel: string;
+
+  rev: string;
+
+  target: string;
+
+  type: string;
+
+  readonly sheet: DOMStyleSheet;
+
+  readonly absoluteLinkURL: NSURL;
 }
 
 declare class DOMHTMLLegendElement extends DOMHTMLElement {
@@ -1559,80 +2093,200 @@ declare class DOMHTMLLegendElement extends DOMHTMLElement {
   accessKey: string;
 }
 
+declare class WKContentRuleList extends NSObject {
+  readonly identifier: string;
+}
+
 declare class DOMHTMLLIElement extends DOMHTMLElement {
   type: string;
 
   value: number;
 }
 
-declare class DOMHTMLInputElement extends DOMHTMLElement {
-  accept: string;
-
-  alt: string;
-
-  autofocus: boolean;
-
-  defaultChecked: boolean;
-
-  checked: boolean;
-
-  disabled: boolean;
-
-  readonly form: DOMHTMLFormElement;
-
-  files: DOMFileList;
-
-  indeterminate: boolean;
-
-  maxLength: number;
-
-  multiple: boolean;
-
+declare class DOMHTMLImageElement extends DOMHTMLElement {
   name: string;
-
-  readOnly: boolean;
-
-  size: string;
-
-  src: string;
-
-  type: string;
-
-  defaultValue: string;
-
-  value: string;
-
-  readonly willValidate: boolean;
-
-  selectionStart: number;
-
-  selectionEnd: number;
 
   align: string;
 
+  alt: string;
+
+  border: string;
+
+  height: number;
+
+  hspace: number;
+
+  isMap: boolean;
+
+  longDesc: string;
+
+  src: string;
+
   useMap: string;
 
-  accessKey: string;
+  vspace: number;
+
+  width: number;
+
+  readonly complete: boolean;
+
+  lowsrc: string;
+
+  readonly naturalHeight: number;
+
+  readonly naturalWidth: number;
+
+  readonly x: number;
+
+  readonly y: number;
 
   readonly altDisplayString: string;
 
   readonly absoluteImageURL: NSURL;
-
-  select(): void;
-
-  setSelectionRangeEnd(start: number, end: number): void;
-
-  click(): void;
 }
 
-declare class DOMHTMLHeadingElement extends DOMHTMLElement {
+declare class DOMHTMLIFrameElement extends DOMHTMLElement {
   align: string;
+
+  frameBorder: string;
+
+  height: string;
+
+  longDesc: string;
+
+  marginHeight: string;
+
+  marginWidth: string;
+
+  name: string;
+
+  scrolling: string;
+
+  src: string;
+
+  width: string;
+
+  readonly contentDocument: DOMDocument;
+
+  readonly contentWindow: DOMAbstractView;
+
+  readonly contentFrame: WebFrame;
 }
 
-declare class DOMHTMLFrameSetElement extends DOMHTMLElement {
-  cols: string;
+declare class DOMHTMLHeadElement extends DOMHTMLElement {
+  profile: string;
+}
 
-  rows: string;
+declare class DOMTreeWalker extends DOMObject {
+  readonly root: DOMNode;
+
+  readonly whatToShow: number;
+
+  readonly filter: DOMNodeFilter;
+
+  readonly expandEntityReferences: boolean;
+
+  currentNode: DOMNode;
+
+  parentNode(): DOMNode;
+
+  firstChild(): DOMNode;
+
+  lastChild(): DOMNode;
+
+  previousSibling(): DOMNode;
+
+  nextSibling(): DOMNode;
+
+  previousNode(): DOMNode;
+
+  nextNode(): DOMNode;
+}
+
+declare class WKPDFConfiguration extends NSObject implements NSCopying {
+  rect: CGRect;
+
+  allowTransparentBackground: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMHTMLHRElement extends DOMHTMLElement {
+  align: string;
+
+  noShade: boolean;
+
+  size: string;
+
+  width: string;
+}
+
+declare class DOMRange extends DOMObject {
+  readonly startContainer: DOMNode;
+
+  readonly startOffset: number;
+
+  readonly endContainer: DOMNode;
+
+  readonly endOffset: number;
+
+  readonly collapsed: boolean;
+
+  readonly commonAncestorContainer: DOMNode;
+
+  readonly text: string;
+
+  setStartBefore(refNode: DOMNode): void;
+
+  setStartAfter(refNode: DOMNode): void;
+
+  setEndBefore(refNode: DOMNode): void;
+
+  setEndAfter(refNode: DOMNode): void;
+
+  collapse(toStart: boolean): void;
+
+  selectNode(refNode: DOMNode): void;
+
+  selectNodeContents(refNode: DOMNode): void;
+
+  compareBoundaryPointsSourceRange(how: number, sourceRange: DOMRange): number;
+
+  deleteContents(): void;
+
+  extractContents(): DOMDocumentFragment;
+
+  cloneContents(): DOMDocumentFragment;
+
+  insertNode(newNode: DOMNode): void;
+
+  surroundContents(newParent: DOMNode): void;
+
+  cloneRange(): DOMRange;
+
+  toString(): string;
+
+  detach(): void;
+
+  createContextualFragment(html: string): DOMDocumentFragment;
+
+  compareNode(refNode: DOMNode): number;
+
+  intersectsNode(refNode: DOMNode): boolean;
+
+  comparePointOffset(refNode: DOMNode, offset: number): number;
+
+  isPointInRangeOffset(refNode: DOMNode, offset: number): boolean;
+
+  setStart(refNode: DOMNode, offset: number): void;
+
+  setEnd(refNode: DOMNode, offset: number): void;
+
+  compareBoundaryPoints(how: number, sourceRange: DOMRange): number;
+
+  readonly webArchive: WebArchive;
+
+  readonly markupString: string;
 }
 
 declare class DOMHTMLFrameElement extends DOMHTMLElement {
@@ -1665,38 +2319,6 @@ declare class DOMHTMLFrameElement extends DOMHTMLElement {
   readonly contentFrame: WebFrame;
 }
 
-declare class DOMHTMLFormElement extends DOMHTMLElement {
-  acceptCharset: string;
-
-  action: string;
-
-  enctype: string;
-
-  encoding: string;
-
-  method: string;
-
-  name: string;
-
-  target: string;
-
-  readonly elements: DOMHTMLCollection;
-
-  readonly length: number;
-
-  submit(): void;
-
-  reset(): void;
-}
-
-declare class DOMHTMLFontElement extends DOMHTMLElement {
-  color: string;
-
-  face: string;
-
-  size: string;
-}
-
 declare class DOMHTMLEmbedElement extends DOMHTMLElement {
   align: string;
 
@@ -1711,74 +2333,52 @@ declare class DOMHTMLEmbedElement extends DOMHTMLElement {
   width: number;
 }
 
-declare class DOMHTMLDocument extends DOMDocument {
-  readonly embeds: DOMHTMLCollection;
-
-  readonly plugins: DOMHTMLCollection;
-
-  readonly scripts: DOMHTMLCollection;
-
-  readonly width: number;
-
-  readonly height: number;
-
-  dir: string;
-
-  designMode: string;
-
-  readonly compatMode: string;
-
-  bgColor: string;
-
-  fgColor: string;
-
-  alinkColor: string;
-
-  linkColor: string;
-
-  vlinkColor: string;
-
-  open(): void;
-
-  close(): void;
-
-  write(text: string): void;
-
-  writeln(text: string): void;
-
-  clear(): void;
-
-  captureEvents(): void;
-
-  releaseEvents(): void;
-
-  createDocumentFragmentWithMarkupStringBaseURL(markupString: string, baseURL: NSURL): DOMDocumentFragment;
-
-  createDocumentFragmentWithText(text: string): DOMDocumentFragment;
-}
-
-declare class DOMHTMLDirectoryElement extends DOMHTMLElement {
-  compact: boolean;
+declare class DOMHTMLDivElement extends DOMHTMLElement {
+  align: string;
 }
 
 declare class DOMHTMLDListElement extends DOMHTMLElement {
   compact: boolean;
 }
 
-declare class DOMHTMLCollection extends DOMObject {
-  readonly length: number;
+declare class DOMHTMLBodyElement extends DOMHTMLElement {
+  aLink: string;
 
-  item(index: number): DOMNode;
+  background: string;
 
-  namedItem(name: string): DOMNode;
+  bgColor: string;
 
-  tags(name: string): DOMNodeList;
+  link: string;
+
+  text: string;
+
+  vLink: string;
 }
 
-declare class DOMHTMLBaseElement extends DOMHTMLElement {
-  href: string;
+declare class DOMHTMLBaseFontElement extends DOMHTMLElement {
+  color: string;
 
-  target: string;
+  face: string;
+
+  size: string;
+}
+
+declare class DOMDocumentType extends DOMNode {
+  readonly name: string;
+
+  readonly entities: DOMNamedNodeMap;
+
+  readonly notations: DOMNamedNodeMap;
+
+  readonly publicId: string;
+
+  readonly systemId: string;
+
+  readonly internalSubset: string;
+}
+
+declare class DOMHTMLBRElement extends DOMHTMLElement {
+  clear: string;
 }
 
 declare class DOMHTMLAreaElement extends DOMHTMLElement {
@@ -1813,88 +2413,8 @@ declare class DOMHTMLAreaElement extends DOMHTMLElement {
   readonly hashName: string;
 }
 
-declare class DOMHTMLAppletElement extends DOMHTMLElement {
-  align: string;
-
-  alt: string;
-
-  archive: string;
-
-  code: string;
-
-  codeBase: string;
-
-  height: string;
-
-  hspace: number;
-
-  name: string;
-
-  object: string;
-
-  vspace: number;
-
-  width: string;
-}
-
-// @ts-ignore
-declare class DOMHTMLElement extends DOMElement {
-  title: string;
-
-  lang: string;
-
-  dir: string;
-
-  tabIndex: number;
-
-  accessKey: string;
-
-  // @ts-ignore
-  innerText: string;
-
-  outerText: string;
-
-  contentEditable: string;
-
-  readonly isContentEditable: boolean;
-
-  idName: string;
-
-  readonly children: DOMHTMLCollection;
-
-  readonly titleDisplayString: string;
-
-  click(): void;
-}
-
-declare class DOMFile extends DOMBlob {
-  readonly name: string;
-}
-
-declare class DOMBlob extends DOMObject {
-  readonly size: number;
-}
-
-declare class DOMRect extends DOMObject {
-  readonly top: DOMCSSPrimitiveValue;
-
-  readonly right: DOMCSSPrimitiveValue;
-
-  readonly bottom: DOMCSSPrimitiveValue;
-
-  readonly left: DOMCSSPrimitiveValue;
-}
-
-declare class DOMRGBColor extends DOMObject {
-  readonly red: DOMCSSPrimitiveValue;
-
-  readonly green: DOMCSSPrimitiveValue;
-
-  readonly blue: DOMCSSPrimitiveValue;
-
-  readonly alpha: DOMCSSPrimitiveValue;
-
-  readonly color: NSColor;
+declare class DOMHTMLDirectoryElement extends DOMHTMLElement {
+  compact: boolean;
 }
 
 declare class DOMCounter extends DOMObject {
@@ -1903,33 +2423,6 @@ declare class DOMCounter extends DOMObject {
   readonly listStyle: string;
 
   readonly separator: string;
-}
-
-declare class DOMCSSValueList extends DOMCSSValue {
-  readonly length: number;
-
-  item(index: number): DOMCSSValue;
-}
-
-declare class DOMCSSUnknownRule extends DOMCSSRule {
-}
-
-declare class DOMCSSStyleSheet extends DOMStyleSheet {
-  readonly ownerRule: DOMCSSRule;
-
-  readonly cssRules: DOMCSSRuleList;
-
-  readonly rules: DOMCSSRuleList;
-
-  insertRuleIndex(rule: string, index: number): number;
-
-  deleteRule(index: number): void;
-
-  addRuleStyleIndex(selector: string, style: string, index: number): number;
-
-  removeRule(index: number): void;
-
-  insertRule(rule: string, index: number): number;
 }
 
 declare class DOMCSSStyleRule extends DOMCSSRule {
@@ -2452,10 +2945,38 @@ declare class DOMCSSStyleDeclaration extends DOMObject {
   setZIndex(zIndex: string): void;
 }
 
+declare class DOMCSSFontFaceRule extends DOMCSSRule {
+  readonly style: DOMCSSStyleDeclaration;
+}
+
 declare class DOMCSSRuleList extends DOMObject {
   readonly length: number;
 
   item(index: number): DOMCSSRule;
+}
+
+declare class DOMCSSValue extends DOMObject {
+  cssText: string;
+
+  readonly cssValueType: number;
+}
+
+declare class DOMCSSPageRule extends DOMCSSRule {
+  selectorText: string;
+
+  readonly style: DOMCSSStyleDeclaration;
+}
+
+declare class DOMRGBColor extends DOMObject {
+  readonly red: DOMCSSPrimitiveValue;
+
+  readonly green: DOMCSSPrimitiveValue;
+
+  readonly blue: DOMCSSPrimitiveValue;
+
+  readonly alpha: DOMCSSPrimitiveValue;
+
+  readonly color: NSColor;
 }
 
 declare class DOMCSSMediaRule extends DOMCSSRule {
@@ -2470,16 +2991,753 @@ declare class DOMCSSMediaRule extends DOMCSSRule {
   insertRule(rule: string, index: number): number;
 }
 
-declare class DOMCSSImportRule extends DOMCSSRule {
-  readonly href: string;
+declare class DOMHTMLObjectElement extends DOMHTMLElement {
+  readonly form: DOMHTMLFormElement;
 
-  readonly media: DOMMediaList;
+  code: string;
 
-  readonly styleSheet: DOMCSSStyleSheet;
+  align: string;
+
+  archive: string;
+
+  border: string;
+
+  codeBase: string;
+
+  codeType: string;
+
+  data: string;
+
+  declare: boolean;
+
+  height: string;
+
+  hspace: number;
+
+  name: string;
+
+  standby: string;
+
+  type: string;
+
+  useMap: string;
+
+  vspace: number;
+
+  width: string;
+
+  readonly contentDocument: DOMDocument;
+
+  readonly absoluteImageURL: NSURL;
+
+  readonly contentFrame: WebFrame;
 }
 
-declare class DOMCSSFontFaceRule extends DOMCSSRule {
-  readonly style: DOMCSSStyleDeclaration;
+declare class DOMNamedNodeMap extends DOMObject {
+  readonly length: number;
+
+  getNamedItem(name: string): DOMNode;
+
+  setNamedItem(node: DOMNode): DOMNode;
+
+  removeNamedItem(name: string): DOMNode;
+
+  item(index: number): DOMNode;
+
+  getNamedItemNSLocalName(namespaceURI: string, localName: string): DOMNode;
+
+  setNamedItemNS(node: DOMNode): DOMNode;
+
+  removeNamedItemNSLocalName(namespaceURI: string, localName: string): DOMNode;
+
+  getNamedItemNS(namespaceURI: string, localName: string): DOMNode;
+
+  removeNamedItemNS(namespaceURI: string, localName: string): DOMNode;
+}
+
+declare class DOMEntityReference extends DOMNode {
+}
+
+declare class DOMCDATASection extends DOMText {
+}
+
+declare class WebUndefined extends NSObject implements NSCoding, NSCopying {
+  static undefined(): WebUndefined;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMFileList extends DOMObject {
+  readonly length: number;
+
+  item(index: number): DOMFile;
+}
+
+declare class WebScriptObject extends NSObject {
+  static throwException(exceptionMessage: string): boolean;
+
+  JSObject(): interop.Pointer;
+
+  callWebScriptMethodWithArguments(name: string, arguments$: NSArray<interop.Object> | Array<interop.Object>): interop.Object;
+
+  evaluateWebScript(script: string): interop.Object;
+
+  removeWebScriptKey(name: string): void;
+
+  stringRepresentation(): string;
+
+  webScriptValueAtIndex(index: number): interop.Object;
+
+  setWebScriptValueAtIndexValue(index: number, value: interop.Object): void;
+
+  setException(description: string): void;
+
+  JSValue(): JSValue;
+}
+
+declare class DOMHTMLAppletElement extends DOMHTMLElement {
+  align: string;
+
+  alt: string;
+
+  archive: string;
+
+  code: string;
+
+  codeBase: string;
+
+  height: string;
+
+  hspace: number;
+
+  name: string;
+
+  object: string;
+
+  vspace: number;
+
+  width: string;
+}
+
+declare class WKWindowFeatures extends NSObject {
+  readonly menuBarVisibility: NSNumber;
+
+  readonly statusBarVisibility: NSNumber;
+
+  readonly toolbarsVisibility: NSNumber;
+
+  readonly allowsResizing: NSNumber;
+
+  readonly x: NSNumber;
+
+  readonly y: NSNumber;
+
+  readonly width: NSNumber;
+
+  readonly height: NSNumber;
+}
+
+declare class WKUserScript extends NSObject implements NSCopying {
+  readonly source: string;
+
+  readonly injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>;
+
+  readonly isForMainFrameOnly: boolean;
+
+  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean): this;
+
+  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean, contentWorld: WKContentWorld): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKUserContentController extends NSObject implements NSSecureCoding {
+  readonly userScripts: NSArray;
+
+  addUserScript(userScript: WKUserScript): void;
+
+  removeAllUserScripts(): void;
+
+  addScriptMessageHandlerContentWorldName(scriptMessageHandler: WKScriptMessageHandler, world: WKContentWorld, name: string): void;
+
+  addScriptMessageHandlerWithReplyContentWorldName(scriptMessageHandlerWithReply: WKScriptMessageHandlerWithReply, contentWorld: WKContentWorld, name: string): void;
+
+  addScriptMessageHandlerName(scriptMessageHandler: WKScriptMessageHandler, name: string): void;
+
+  removeScriptMessageHandlerForNameContentWorld(name: string, contentWorld: WKContentWorld): void;
+
+  removeScriptMessageHandlerForName(name: string): void;
+
+  removeAllScriptMessageHandlersFromContentWorld(contentWorld: WKContentWorld): void;
+
+  removeAllScriptMessageHandlers(): void;
+
+  addContentRuleList(contentRuleList: WKContentRuleList): void;
+
+  removeContentRuleList(contentRuleList: WKContentRuleList): void;
+
+  removeAllContentRuleLists(): void;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class WKSnapshotConfiguration extends NSObject implements NSCopying {
+  rect: CGRect;
+
+  snapshotWidth: NSNumber;
+
+  afterScreenUpdates: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMHTMLDocument extends DOMDocument {
+  readonly embeds: DOMHTMLCollection;
+
+  readonly plugins: DOMHTMLCollection;
+
+  readonly scripts: DOMHTMLCollection;
+
+  readonly width: number;
+
+  readonly height: number;
+
+  dir: string;
+
+  designMode: string;
+
+  readonly compatMode: string;
+
+  bgColor: string;
+
+  fgColor: string;
+
+  alinkColor: string;
+
+  linkColor: string;
+
+  vlinkColor: string;
+
+  open(): void;
+
+  close(): void;
+
+  write(text: string): void;
+
+  writeln(text: string): void;
+
+  clear(): void;
+
+  captureEvents(): void;
+
+  releaseEvents(): void;
+
+  createDocumentFragmentWithMarkupStringBaseURL(markupString: string, baseURL: NSURL): DOMDocumentFragment;
+
+  createDocumentFragmentWithText(text: string): DOMDocumentFragment;
+}
+
+declare class DOMRect extends DOMObject {
+  readonly top: DOMCSSPrimitiveValue;
+
+  readonly right: DOMCSSPrimitiveValue;
+
+  readonly bottom: DOMCSSPrimitiveValue;
+
+  readonly left: DOMCSSPrimitiveValue;
+}
+
+declare class WKPreferences extends NSObject implements NSSecureCoding {
+  minimumFontSize: number;
+
+  javaScriptCanOpenWindowsAutomatically: boolean;
+
+  isFraudulentWebsiteWarningEnabled: boolean;
+
+  shouldPrintBackgrounds: boolean;
+
+  tabFocusesLinks: boolean;
+
+  isTextInteractionEnabled: boolean;
+
+  isSiteSpecificQuirksModeEnabled: boolean;
+
+  isElementFullscreenEnabled: boolean;
+
+  inactiveSchedulingPolicy: interop.Enum<typeof WKInactiveSchedulingPolicy>;
+
+  javaEnabled: boolean;
+
+  plugInsEnabled: boolean;
+
+  javaScriptEnabled: boolean;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class DOMHTMLParagraphElement extends DOMHTMLElement {
+  align: string;
+}
+
+declare class WKOpenPanelParameters extends NSObject {
+  readonly allowsMultipleSelection: boolean;
+
+  readonly allowsDirectories: boolean;
+}
+
+declare class WKNavigation extends NSObject {
+  readonly effectiveContentMode: interop.Enum<typeof WKContentMode>;
+}
+
+declare class WKWebpagePreferences extends NSObject {
+  preferredContentMode: interop.Enum<typeof WKContentMode>;
+
+  allowsContentJavaScript: boolean;
+
+  isLockdownModeEnabled: boolean;
+}
+
+declare class WebArchive extends NSObject implements NSCoding, NSCopying {
+  initWithMainResourceSubresourcesSubframeArchives(mainResource: WebResource, subresources: NSArray<interop.Object> | Array<interop.Object>, subframeArchives: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  initWithData(data: NSData): this;
+
+  readonly mainResource: WebResource;
+
+  readonly subresources: NSArray;
+
+  readonly subframeArchives: NSArray;
+
+  readonly data: NSData;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMNode extends DOMObject implements DOMEventTarget {
+  readonly nodeName: string;
+
+  nodeValue: string;
+
+  readonly nodeType: number;
+
+  readonly parentNode: DOMNode;
+
+  readonly childNodes: DOMNodeList;
+
+  readonly firstChild: DOMNode;
+
+  readonly lastChild: DOMNode;
+
+  readonly previousSibling: DOMNode;
+
+  readonly nextSibling: DOMNode;
+
+  readonly ownerDocument: DOMDocument;
+
+  readonly namespaceURI: string;
+
+  prefix: string;
+
+  readonly localName: string;
+
+  readonly attributes: DOMNamedNodeMap;
+
+  readonly baseURI: string;
+
+  textContent: string;
+
+  readonly parentElement: DOMElement;
+
+  readonly isContentEditable: boolean;
+
+  insertBeforeRefChild(newChild: DOMNode, refChild: DOMNode): DOMNode;
+
+  replaceChildOldChild(newChild: DOMNode, oldChild: DOMNode): DOMNode;
+
+  removeChild(oldChild: DOMNode): DOMNode;
+
+  appendChild(newChild: DOMNode): DOMNode;
+
+  hasChildNodes(): boolean;
+
+  cloneNode(deep: boolean): DOMNode;
+
+  normalize(): void;
+
+  isSupportedVersion(feature: string, version: string): boolean;
+
+  hasAttributes(): boolean;
+
+  isSameNode(other: DOMNode): boolean;
+
+  isEqualNode(other: DOMNode): boolean;
+
+  lookupPrefix(namespaceURI: string): string;
+
+  lookupNamespaceURI(prefix: string): string;
+
+  isDefaultNamespace(namespaceURI: string): boolean;
+
+  compareDocumentPosition(other: DOMNode): number;
+
+  contains(other: DOMNode): boolean;
+
+  insertBefore(newChild: DOMNode, refChild: DOMNode): DOMNode;
+
+  replaceChild(newChild: DOMNode, oldChild: DOMNode): DOMNode;
+
+  isSupported(feature: string, version: string): boolean;
+
+  boundingBox(): CGRect;
+
+  lineBoxRects(): NSArray;
+
+  readonly webArchive: WebArchive;
+
+  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+
+  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+
+  dispatchEvent(event: DOMEvent): boolean;
+
+  addEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+
+  removeEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKWebsiteDataStore extends NSObject implements NSSecureCoding {
+  static defaultDataStore(): WKWebsiteDataStore;
+
+  static nonPersistentDataStore(): WKWebsiteDataStore;
+
+  readonly isPersistent: boolean;
+
+  static allWebsiteDataTypes(): NSSet;
+
+  fetchDataRecordsOfTypesCompletionHandler(dataTypes: NSSet, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  removeDataOfTypesForDataRecordsCompletionHandler(dataTypes: NSSet, dataRecords: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
+
+  removeDataOfTypesModifiedSinceCompletionHandler(dataTypes: NSSet, date: NSDate, completionHandler: () => void): void;
+
+  readonly httpCookieStore: WKHTTPCookieStore;
+
+  readonly identifier: NSUUID;
+
+  static dataStoreForIdentifier(identifier: NSUUID): WKWebsiteDataStore;
+
+  static removeDataStoreForIdentifierCompletionHandler(identifier: NSUUID, completionHandler: (p1: NSError) => void | null): void;
+
+  static fetchAllDataStoreIdentifiers(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  get proxyConfigurations(): NSArray;
+  set proxyConfigurations(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class WKScriptMessage extends NSObject {
+  readonly body: interop.Object;
+
+  readonly webView: WKWebView;
+
+  readonly frameInfo: WKFrameInfo;
+
+  readonly name: string;
+
+  readonly world: WKContentWorld;
+}
+
+declare class DOMHTMLUListElement extends DOMHTMLElement {
+  compact: boolean;
+
+  type: string;
+}
+
+declare class WKWebsiteDataRecord extends NSObject {
+  readonly displayName: string;
+
+  readonly dataTypes: NSSet;
+}
+
+declare class WKFrameInfo extends NSObject implements NSCopying {
+  readonly isMainFrame: boolean;
+
+  readonly request: NSURLRequest;
+
+  readonly securityOrigin: WKSecurityOrigin;
+
+  readonly webView: WKWebView | null;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMKeyboardEvent extends DOMUIEvent {
+  readonly keyIdentifier: string;
+
+  readonly location: number;
+
+  readonly keyLocation: number;
+
+  readonly ctrlKey: boolean;
+
+  readonly shiftKey: boolean;
+
+  readonly altKey: boolean;
+
+  readonly metaKey: boolean;
+
+  readonly altGraphKey: boolean;
+
+  readonly keyCode: number;
+
+  readonly charCode: number;
+
+  getModifierState(keyIdentifierArg: string): boolean;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+}
+
+declare class DOMHTMLButtonElement extends DOMHTMLElement {
+  autofocus: boolean;
+
+  disabled: boolean;
+
+  readonly form: DOMHTMLFormElement;
+
+  type: string;
+
+  name: string;
+
+  value: string;
+
+  readonly willValidate: boolean;
+
+  accessKey: string;
+
+  click(): void;
+}
+
+declare class DOMNodeList extends DOMObject {
+  readonly length: number;
+
+  item(index: number): DOMNode;
+}
+
+declare class DOMUIEvent extends DOMEvent {
+  readonly view: DOMAbstractView;
+
+  readonly detail: number;
+
+  readonly keyCode: number;
+
+  readonly charCode: number;
+
+  readonly layerX: number;
+
+  readonly layerY: number;
+
+  readonly pageX: number;
+
+  readonly pageY: number;
+
+  readonly which: number;
+
+  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
+
+  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
+}
+
+declare class WebResource extends NSObject implements NSCoding, NSCopying {
+  initWithDataURLMIMETypeTextEncodingNameFrameName(data: NSData, URL: NSURL, MIMEType: string, textEncodingName: string, frameName: string): this;
+
+  readonly data: NSData;
+
+  readonly URL: NSURL;
+
+  readonly MIMEType: string;
+
+  readonly textEncodingName: string;
+
+  readonly frameName: string;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKHTTPCookieStore extends NSObject {
+  getAllCookies(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  setCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+
+  deleteCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+
+  addObserver(observer: WKHTTPCookieStoreObserver): void;
+
+  removeObserver(observer: WKHTTPCookieStoreObserver): void;
+
+  setCookiePolicyCompletionHandler(policy: interop.Enum<typeof WKCookiePolicy>, completionHandler: () => void | null): void;
+
+  getCookiePolicy(completionHandler: (p1: interop.Enum<typeof WKCookiePolicy>) => void): void;
+}
+
+declare class DOMOverflowEvent extends DOMEvent {
+  readonly orient: number;
+
+  readonly horizontalOverflow: boolean;
+
+  readonly verticalOverflow: boolean;
+
+  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): void;
+}
+
+declare class DOMHTMLCollection extends DOMObject {
+  readonly length: number;
+
+  item(index: number): DOMNode;
+
+  namedItem(name: string): DOMNode;
+
+  tags(name: string): DOMNodeList;
+}
+
+declare class WebBackForwardList extends NSObject {
+  addItem(item: WebHistoryItem): void;
+
+  goBack(): void;
+
+  goForward(): void;
+
+  goToItem(item: WebHistoryItem): void;
+
+  readonly backItem: WebHistoryItem;
+
+  readonly currentItem: WebHistoryItem;
+
+  readonly forwardItem: WebHistoryItem;
+
+  backListWithLimit(limit: number): NSArray;
+
+  forwardListWithLimit(limit: number): NSArray;
+
+  capacity: number;
+
+  readonly backListCount: number;
+
+  readonly forwardListCount: number;
+
+  containsItem(item: WebHistoryItem): boolean;
+
+  itemAtIndex(index: number): WebHistoryItem;
+
+  setPageCacheSize(size: number): void;
+
+  pageCacheSize(): number;
+}
+
+declare class DOMWheelEvent extends DOMMouseEvent {
+  readonly wheelDeltaX: number;
+
+  readonly wheelDeltaY: number;
+
+  readonly wheelDelta: number;
+
+  readonly isHorizontal: boolean;
+
+  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+}
+
+declare class DOMCSSPrimitiveValue extends DOMCSSValue {
+  readonly primitiveType: number;
+
+  setFloatValueFloatValue(unitType: number, floatValue: number): void;
+
+  getFloatValue(unitType: number): number;
+
+  setStringValueStringValue(stringType: number, stringValue: string): void;
+
+  getStringValue(): string;
+
+  getCounterValue(): DOMCounter;
+
+  getRectValue(): DOMRect;
+
+  getRGBColorValue(): DOMRGBColor;
+
+  setFloatValue(unitType: number, floatValue: number): void;
+
+  setStringValue(stringType: number, stringValue: string): void;
 }
 
 declare class DOMStyleSheet extends DOMObject {
@@ -2496,35 +3754,6 @@ declare class DOMStyleSheet extends DOMObject {
   readonly title: string;
 
   readonly media: DOMMediaList;
-}
-
-declare class DOMNodeList extends DOMObject {
-  readonly length: number;
-
-  item(index: number): DOMNode;
-}
-
-declare class DOMImplementation extends DOMObject {
-  hasFeatureVersion(feature: string, version: string): boolean;
-
-  createDocumentTypePublicIdSystemId(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
-
-  createDocumentQualifiedNameDoctype(namespaceURI: string, qualifiedName: string, doctype: DOMDocumentType): DOMDocument;
-
-  createCSSStyleSheetMedia(title: string, media: string): DOMCSSStyleSheet;
-
-  createHTMLDocument(title: string): DOMHTMLDocument;
-
-  hasFeature(feature: string, version: string): boolean;
-
-  createDocumentType(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
-
-  createDocument(namespaceURI: string, qualifiedName: string, doctype: DOMDocumentType): DOMDocument;
-
-  createCSSStyleSheet(title: string, media: string): DOMCSSStyleSheet;
-}
-
-declare class DOMEntityReference extends DOMNode {
 }
 
 declare class DOMDocument extends DOMNode {
@@ -2697,399 +3926,282 @@ declare class DOMDocument extends DOMNode {
   URLWithAttributeString(string: string): NSURL;
 }
 
-declare class DOMComment extends DOMCharacterData {
+declare class DOMHTMLTableCaptionElement extends DOMHTMLElement {
+  align: string;
 }
 
-declare class DOMCDATASection extends DOMText {
+declare class DOMMouseEvent extends DOMUIEvent {
+  readonly screenX: number;
+
+  readonly screenY: number;
+
+  readonly clientX: number;
+
+  readonly clientY: number;
+
+  readonly ctrlKey: boolean;
+
+  readonly shiftKey: boolean;
+
+  readonly altKey: boolean;
+
+  readonly metaKey: boolean;
+
+  readonly button: number;
+
+  readonly relatedTarget: DOMEventTarget;
+
+  readonly offsetX: number;
+
+  readonly offsetY: number;
+
+  readonly x: number;
+
+  readonly y: number;
+
+  readonly fromElement: DOMNode;
+
+  readonly toElement: DOMNode;
+
+  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
+
+  initMouseEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
 }
 
-declare class DOMText extends DOMCharacterData {
-  readonly wholeText: string;
+declare class WebPreferences extends NSObject implements NSCoding {
+  static standardPreferences(): WebPreferences;
 
-  splitText(offset: number): DOMText;
+  initWithIdentifier(anIdentifier: string): this;
 
-  replaceWholeText(content: string): DOMText;
-}
+  readonly identifier: string;
 
-declare class DOMAttr extends DOMNode {
-  readonly name: string;
+  standardFontFamily: string;
 
-  readonly specified: boolean;
+  fixedFontFamily: string;
 
-  value: string;
+  serifFontFamily: string;
 
-  readonly ownerElement: DOMElement;
+  sansSerifFontFamily: string;
 
-  readonly style: DOMCSSStyleDeclaration;
-}
+  cursiveFontFamily: string;
 
-declare class DOMNode extends DOMObject implements DOMEventTarget {
-  readonly nodeName: string;
+  fantasyFontFamily: string;
 
-  nodeValue: string;
+  defaultFontSize: number;
 
-  readonly nodeType: number;
+  defaultFixedFontSize: number;
 
-  readonly parentNode: DOMNode;
-
-  readonly childNodes: DOMNodeList;
-
-  readonly firstChild: DOMNode;
-
-  readonly lastChild: DOMNode;
-
-  readonly previousSibling: DOMNode;
-
-  readonly nextSibling: DOMNode;
-
-  readonly ownerDocument: DOMDocument;
-
-  readonly namespaceURI: string;
-
-  prefix: string;
-
-  readonly localName: string;
-
-  readonly attributes: DOMNamedNodeMap;
-
-  readonly baseURI: string;
-
-  textContent: string;
-
-  readonly parentElement: DOMElement;
-
-  readonly isContentEditable: boolean;
-
-  insertBeforeRefChild(newChild: DOMNode, refChild: DOMNode): DOMNode;
-
-  replaceChildOldChild(newChild: DOMNode, oldChild: DOMNode): DOMNode;
-
-  removeChild(oldChild: DOMNode): DOMNode;
-
-  appendChild(newChild: DOMNode): DOMNode;
-
-  hasChildNodes(): boolean;
-
-  cloneNode(deep: boolean): DOMNode;
-
-  normalize(): void;
-
-  isSupportedVersion(feature: string, version: string): boolean;
-
-  hasAttributes(): boolean;
-
-  isSameNode(other: DOMNode): boolean;
-
-  isEqualNode(other: DOMNode): boolean;
-
-  lookupPrefix(namespaceURI: string): string;
-
-  lookupNamespaceURI(prefix: string): string;
-
-  isDefaultNamespace(namespaceURI: string): boolean;
-
-  compareDocumentPosition(other: DOMNode): number;
-
-  contains(other: DOMNode): boolean;
-
-  insertBefore(newChild: DOMNode, refChild: DOMNode): DOMNode;
-
-  replaceChild(newChild: DOMNode, oldChild: DOMNode): DOMNode;
-
-  isSupported(feature: string, version: string): boolean;
-
-  boundingBox(): CGRect;
-
-  lineBoxRects(): NSArray;
-
-  readonly webArchive: WebArchive;
-
-  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
-
-  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
-
-  dispatchEvent(event: DOMEvent): boolean;
-
-  addEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
-
-  removeEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WebUndefined extends NSObject implements NSCoding, NSCopying {
-  static undefined(): WebUndefined;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WebScriptObject extends NSObject {
-  static throwException(exceptionMessage: string): boolean;
-
-  JSObject(): interop.Pointer;
-
-  callWebScriptMethodWithArguments(name: string, arguments$: NSArray<interop.Object> | Array<interop.Object>): interop.Object;
-
-  evaluateWebScript(script: string): interop.Object;
-
-  removeWebScriptKey(name: string): void;
-
-  stringRepresentation(): string;
-
-  webScriptValueAtIndex(index: number): interop.Object;
-
-  setWebScriptValueAtIndexValue(index: number, value: interop.Object): void;
-
-  setException(description: string): void;
-
-  JSValue(): JSValue;
-}
-
-declare class WKWebsiteDataStore extends NSObject implements NSSecureCoding {
-  static defaultDataStore(): WKWebsiteDataStore;
-
-  static nonPersistentDataStore(): WKWebsiteDataStore;
-
-  readonly isPersistent: boolean;
-
-  static allWebsiteDataTypes(): NSSet;
-
-  fetchDataRecordsOfTypesCompletionHandler(dataTypes: NSSet, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
-
-  removeDataOfTypesForDataRecordsCompletionHandler(dataTypes: NSSet, dataRecords: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
-
-  removeDataOfTypesModifiedSinceCompletionHandler(dataTypes: NSSet, date: NSDate, completionHandler: () => void): void;
-
-  readonly httpCookieStore: WKHTTPCookieStore;
-
-  readonly identifier: NSUUID;
-
-  static dataStoreForIdentifier(identifier: NSUUID): WKWebsiteDataStore;
-
-  static removeDataStoreForIdentifierCompletionHandler(identifier: NSUUID, completionHandler: (p1: NSError) => void | null): void;
-
-  static fetchAllDataStoreIdentifiers(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
-
-  get proxyConfigurations(): NSArray;
-  set proxyConfigurations(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding, NSCopying {
-  processPool: WKProcessPool;
-
-  preferences: WKPreferences;
-
-  userContentController: WKUserContentController;
-
-  websiteDataStore: WKWebsiteDataStore;
-
-  suppressesIncrementalRendering: boolean;
-
-  applicationNameForUserAgent: string;
-
-  allowsAirPlayForMediaPlayback: boolean;
-
-  upgradeKnownHostsToHTTPS: boolean;
-
-  mediaTypesRequiringUserActionForPlayback: interop.Enum<typeof WKAudiovisualMediaTypes>;
-
-  defaultWebpagePreferences: WKWebpagePreferences;
-
-  limitsNavigationsToAppBoundDomains: boolean;
-
-  allowsInlinePredictions: boolean;
-
-  userInterfaceDirectionPolicy: interop.Enum<typeof WKUserInterfaceDirectionPolicy>;
-
-  setURLSchemeHandlerForURLScheme(urlSchemeHandler: WKURLSchemeHandler | null, urlScheme: string): void;
-
-  urlSchemeHandlerForURLScheme(urlScheme: string): WKURLSchemeHandler;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKUserScript extends NSObject implements NSCopying {
-  readonly source: string;
-
-  readonly injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>;
-
-  readonly isForMainFrameOnly: boolean;
-
-  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean): this;
-
-  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean, contentWorld: WKContentWorld): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKUserContentController extends NSObject implements NSSecureCoding {
-  readonly userScripts: NSArray;
-
-  addUserScript(userScript: WKUserScript): void;
-
-  removeAllUserScripts(): void;
-
-  addScriptMessageHandlerContentWorldName(scriptMessageHandler: WKScriptMessageHandler, world: WKContentWorld, name: string): void;
-
-  addScriptMessageHandlerWithReplyContentWorldName(scriptMessageHandlerWithReply: WKScriptMessageHandlerWithReply, contentWorld: WKContentWorld, name: string): void;
-
-  addScriptMessageHandlerName(scriptMessageHandler: WKScriptMessageHandler, name: string): void;
-
-  removeScriptMessageHandlerForNameContentWorld(name: string, contentWorld: WKContentWorld): void;
-
-  removeScriptMessageHandlerForName(name: string): void;
-
-  removeAllScriptMessageHandlersFromContentWorld(contentWorld: WKContentWorld): void;
-
-  removeAllScriptMessageHandlers(): void;
-
-  addContentRuleList(contentRuleList: WKContentRuleList): void;
-
-  removeContentRuleList(contentRuleList: WKContentRuleList): void;
-
-  removeAllContentRuleLists(): void;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class WKSnapshotConfiguration extends NSObject implements NSCopying {
-  rect: CGRect;
-
-  snapshotWidth: NSNumber;
-
-  afterScreenUpdates: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKPreferences extends NSObject implements NSSecureCoding {
   minimumFontSize: number;
+
+  minimumLogicalFontSize: number;
+
+  defaultTextEncodingName: string;
+
+  userStyleSheetEnabled: boolean;
+
+  userStyleSheetLocation: NSURL;
+
+  isJavaEnabled: boolean;
+
+  isJavaScriptEnabled: boolean;
 
   javaScriptCanOpenWindowsAutomatically: boolean;
 
-  isFraudulentWebsiteWarningEnabled: boolean;
+  arePlugInsEnabled: boolean;
+
+  allowsAnimatedImages: boolean;
+
+  allowsAnimatedImageLooping: boolean;
+
+  loadsImagesAutomatically: boolean;
+
+  autosaves: boolean;
 
   shouldPrintBackgrounds: boolean;
 
-  tabFocusesLinks: boolean;
+  privateBrowsingEnabled: boolean;
 
-  isTextInteractionEnabled: boolean;
+  tabsToLinks: boolean;
 
-  isSiteSpecificQuirksModeEnabled: boolean;
+  usesPageCache: boolean;
 
-  isElementFullscreenEnabled: boolean;
+  cacheModel: interop.Enum<typeof WebCacheModel>;
 
-  inactiveSchedulingPolicy: interop.Enum<typeof WKInactiveSchedulingPolicy>;
+  suppressesIncrementalRendering: boolean;
 
-  javaEnabled: boolean;
-
-  plugInsEnabled: boolean;
-
-  javaScriptEnabled: boolean;
-
-  static readonly supportsSecureCoding: boolean;
+  allowsAirPlayForMediaPlayback: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class WKPDFConfiguration extends NSObject implements NSCopying {
-  rect: CGRect;
+declare class DOMHTMLFrameSetElement extends DOMHTMLElement {
+  cols: string;
 
-  allowTransparentBackground: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  rows: string;
 }
 
-declare class WKOpenPanelParameters extends NSObject {
-  readonly allowsMultipleSelection: boolean;
+declare class DOMHTMLPreElement extends DOMHTMLElement {
+  width: number;
 
-  readonly allowsDirectories: boolean;
+  wrap: boolean;
 }
 
-declare class WKNavigationResponse extends NSObject {
-  readonly isForMainFrame: boolean;
+declare class DOMCharacterData extends DOMNode {
+  data: string;
 
-  readonly response: NSURLResponse;
+  readonly length: number;
 
-  readonly canShowMIMEType: boolean;
+  substringDataLength(offset: number, length: number): string;
+
+  appendData(data: string): void;
+
+  insertDataData(offset: number, data: string): void;
+
+  deleteDataLength(offset: number, length: number): void;
+
+  replaceDataLengthData(offset: number, length: number, data: string): void;
+
+  substringData(offset: number, length: number): string;
+
+  insertData(offset: number, data: string): void;
+
+  deleteData(offset: number, length: number): void;
+
+  replaceData(offset: number, length: number, data: string): void;
 }
 
-declare class WKHTTPCookieStore extends NSObject {
-  getAllCookies(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+declare class DOMHTMLScriptElement extends DOMHTMLElement {
+  text: string;
 
-  setCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+  htmlFor: string;
 
-  deleteCookieCompletionHandler(cookie: NSHTTPCookie, completionHandler: () => void | null): void;
+  event: string;
 
-  addObserver(observer: WKHTTPCookieStoreObserver): void;
+  charset: string;
 
-  removeObserver(observer: WKHTTPCookieStoreObserver): void;
+  defer: boolean;
 
-  setCookiePolicyCompletionHandler(policy: interop.Enum<typeof WKCookiePolicy>, completionHandler: () => void | null): void;
+  src: string;
 
-  getCookiePolicy(completionHandler: (p1: interop.Enum<typeof WKCookiePolicy>) => void): void;
+  type: string;
+}
+
+declare class DOMHTMLLabelElement extends DOMHTMLElement {
+  readonly form: DOMHTMLFormElement;
+
+  htmlFor: string;
+
+  accessKey: string;
+}
+
+declare class DOMProcessingInstruction extends DOMCharacterData {
+  readonly target: string;
+
+  readonly sheet: DOMStyleSheet;
+}
+
+declare class DOMHTMLInputElement extends DOMHTMLElement {
+  accept: string;
+
+  alt: string;
+
+  autofocus: boolean;
+
+  defaultChecked: boolean;
+
+  checked: boolean;
+
+  disabled: boolean;
+
+  readonly form: DOMHTMLFormElement;
+
+  files: DOMFileList;
+
+  indeterminate: boolean;
+
+  maxLength: number;
+
+  multiple: boolean;
+
+  name: string;
+
+  readOnly: boolean;
+
+  size: string;
+
+  src: string;
+
+  type: string;
+
+  defaultValue: string;
+
+  value: string;
+
+  readonly willValidate: boolean;
+
+  selectionStart: number;
+
+  selectionEnd: number;
+
+  align: string;
+
+  useMap: string;
+
+  accessKey: string;
+
+  readonly altDisplayString: string;
+
+  readonly absoluteImageURL: NSURL;
+
+  select(): void;
+
+  setSelectionRangeEnd(start: number, end: number): void;
+
+  click(): void;
+}
+
+declare class DOMHTMLFormElement extends DOMHTMLElement {
+  acceptCharset: string;
+
+  action: string;
+
+  enctype: string;
+
+  encoding: string;
+
+  method: string;
+
+  name: string;
+
+  target: string;
+
+  readonly elements: DOMHTMLCollection;
+
+  readonly length: number;
+
+  submit(): void;
+
+  reset(): void;
+}
+
+declare class DOMHTMLOptionElement extends DOMHTMLElement {
+  disabled: boolean;
+
+  readonly form: DOMHTMLFormElement;
+
+  label: string;
+
+  defaultSelected: boolean;
+
+  selected: boolean;
+
+  value: string;
+
+  readonly text: string;
+
+  readonly index: number;
 }
 
 declare class WKWebView extends NSView {
@@ -3234,12 +4346,36 @@ declare class WKWebView extends NSView {
   readonly certificateChain: NSArray;
 }
 
+declare class DOMHTMLTableColElement extends DOMHTMLElement {
+  align: string;
+
+  ch: string;
+
+  chOff: string;
+
+  span: number;
+
+  vAlign: string;
+
+  width: string;
+}
+
 declare class WKSecurityOrigin extends NSObject {
   readonly protocol: string;
 
   readonly host: string;
 
   readonly port: number;
+}
+
+declare class WKFindConfiguration extends NSObject implements NSCopying {
+  backwards: boolean;
+
+  caseSensitive: boolean;
+
+  wraps: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class WKContentRuleListStore extends NSObject {
@@ -3256,6 +4392,273 @@ declare class WKContentRuleListStore extends NSObject {
   getAvailableContentRuleListIdentifiers(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
 }
 
+declare class DOMFile extends DOMBlob {
+  readonly name: string;
+}
+
+declare class DOMHTMLBaseElement extends DOMHTMLElement {
+  href: string;
+
+  target: string;
+}
+
+declare class DOMDocumentFragment extends DOMNode {
+}
+
+declare class DOMHTMLOptionsCollection extends DOMObject {
+  selectedIndex: number;
+
+  length: number;
+
+  namedItem(name: string): DOMNode;
+
+  addIndex(option: DOMHTMLOptionElement, index: number): void;
+
+  remove(index: number): void;
+
+  item(index: number): DOMNode;
+}
+
+declare class DOMImplementation extends DOMObject {
+  hasFeatureVersion(feature: string, version: string): boolean;
+
+  createDocumentTypePublicIdSystemId(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
+
+  createDocumentQualifiedNameDoctype(namespaceURI: string, qualifiedName: string, doctype: DOMDocumentType): DOMDocument;
+
+  createCSSStyleSheetMedia(title: string, media: string): DOMCSSStyleSheet;
+
+  createHTMLDocument(title: string): DOMHTMLDocument;
+
+  hasFeature(feature: string, version: string): boolean;
+
+  createDocumentType(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
+
+  createDocument(namespaceURI: string, qualifiedName: string, doctype: DOMDocumentType): DOMDocument;
+
+  createCSSStyleSheet(title: string, media: string): DOMCSSStyleSheet;
+}
+
+declare class DOMComment extends DOMCharacterData {
+}
+
+declare class WKBackForwardListItem extends NSObject {
+  readonly URL: NSURL;
+
+  readonly title: string;
+
+  readonly initialURL: NSURL;
+}
+
+declare class WKContentWorld extends NSObject {
+  static readonly pageWorld: WKContentWorld;
+
+  static readonly defaultClientWorld: WKContentWorld;
+
+  static worldWithName(name: string): WKContentWorld;
+
+  readonly name: string;
+}
+
+declare class DOMBlob extends DOMObject {
+  readonly size: number;
+}
+
+declare class DOMAbstractView extends DOMObject {
+  readonly document: DOMDocument;
+}
+
+declare class DOMHTMLFontElement extends DOMHTMLElement {
+  color: string;
+
+  face: string;
+
+  size: string;
+}
+
+declare class DOMAttr extends DOMNode {
+  readonly name: string;
+
+  readonly specified: boolean;
+
+  value: string;
+
+  readonly ownerElement: DOMElement;
+
+  readonly style: DOMCSSStyleDeclaration;
+}
+
+declare class DOMCSSStyleSheet extends DOMStyleSheet {
+  readonly ownerRule: DOMCSSRule;
+
+  readonly cssRules: DOMCSSRuleList;
+
+  readonly rules: DOMCSSRuleList;
+
+  insertRuleIndex(rule: string, index: number): number;
+
+  deleteRule(index: number): void;
+
+  addRuleStyleIndex(selector: string, style: string, index: number): number;
+
+  removeRule(index: number): void;
+
+  insertRule(rule: string, index: number): number;
+}
+
+// @ts-ignore
+declare class DOMHTMLElement extends DOMElement {
+  title: string;
+
+  lang: string;
+
+  dir: string;
+
+  tabIndex: number;
+
+  accessKey: string;
+
+  // @ts-ignore
+  innerText: string;
+
+  outerText: string;
+
+  contentEditable: string;
+
+  readonly isContentEditable: boolean;
+
+  idName: string;
+
+  readonly children: DOMHTMLCollection;
+
+  readonly titleDisplayString: string;
+
+  click(): void;
+}
+
+declare class DOMCSSValueList extends DOMCSSValue {
+  readonly length: number;
+
+  item(index: number): DOMCSSValue;
+}
+
+declare class DOMCSSCharsetRule extends DOMCSSRule {
+  readonly encoding: string;
+}
+
+declare class DOMCSSImportRule extends DOMCSSRule {
+  readonly href: string;
+
+  readonly media: DOMMediaList;
+
+  readonly styleSheet: DOMCSSStyleSheet;
+}
+
+declare class WKNavigationResponse extends NSObject {
+  readonly isForMainFrame: boolean;
+
+  readonly response: NSURLResponse;
+
+  readonly canShowMIMEType: boolean;
+}
+
+declare class DOMCSSUnknownRule extends DOMCSSRule {
+}
+
+declare class WebHistoryItem extends NSObject implements NSCopying {
+  initWithURLStringTitleLastVisitedTimeInterval(URLString: string, title: string, time: number): this;
+
+  readonly originalURLString: string;
+
+  readonly URLString: string;
+
+  readonly title: string;
+
+  readonly lastVisitedTimeInterval: number;
+
+  alternateTitle: string;
+
+  readonly icon: NSImage;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMHTMLHeadingElement extends DOMHTMLElement {
+  align: string;
+}
+
+declare class DOMNodeIterator extends DOMObject {
+  readonly root: DOMNode;
+
+  readonly whatToShow: number;
+
+  readonly filter: DOMNodeFilter;
+
+  readonly expandEntityReferences: boolean;
+
+  readonly referenceNode: DOMNode;
+
+  readonly pointerBeforeReferenceNode: boolean;
+
+  nextNode(): DOMNode;
+
+  previousNode(): DOMNode;
+
+  detach(): void;
+}
+
+declare class DOMText extends DOMCharacterData {
+  readonly wholeText: string;
+
+  splitText(offset: number): DOMText;
+
+  replaceWholeText(content: string): DOMText;
+}
+
+declare class DOMEvent extends DOMObject {
+  readonly type: string;
+
+  readonly target: DOMEventTarget;
+
+  readonly currentTarget: DOMEventTarget;
+
+  readonly eventPhase: number;
+
+  readonly bubbles: boolean;
+
+  readonly cancelable: boolean;
+
+  readonly timeStamp: number;
+
+  readonly srcElement: DOMEventTarget;
+
+  returnValue: boolean;
+
+  cancelBubble: boolean;
+
+  stopPropagation(): void;
+
+  preventDefault(): void;
+
+  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+
+  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+}
+
+declare class DOMHTMLMarqueeElement extends DOMHTMLElement {
+  start(): void;
+
+  stop(): void;
+}
+
+declare class DOMEntity extends DOMNode {
+  readonly publicId: string;
+
+  readonly systemId: string;
+
+  readonly notationName: string;
+}
+
 declare class WKBackForwardList extends NSObject {
   readonly currentItem: WKBackForwardListItem;
 
@@ -3270,1410 +4673,7 @@ declare class WKBackForwardList extends NSObject {
   readonly forwardList: NSArray;
 }
 
-declare class WKBackForwardListItem extends NSObject {
-  readonly URL: NSURL;
-
-  readonly title: string;
-
-  readonly initialURL: NSURL;
-}
-
-declare class WKWebsiteDataRecord extends NSObject {
-  readonly displayName: string;
-
-  readonly dataTypes: NSSet;
-}
-
-declare class WebArchive extends NSObject implements NSCoding, NSCopying {
-  initWithMainResourceSubresourcesSubframeArchives(mainResource: WebResource, subresources: NSArray<interop.Object> | Array<interop.Object>, subframeArchives: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  initWithData(data: NSData): this;
-
-  readonly mainResource: WebResource;
-
-  readonly subresources: NSArray;
-
-  readonly subframeArchives: NSArray;
-
-  readonly data: NSData;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class DOMHTMLDivElement extends DOMHTMLElement {
-  align: string;
-}
-
-declare class DOMHTMLLabelElement extends DOMHTMLElement {
-  readonly form: DOMHTMLFormElement;
-
-  htmlFor: string;
-
-  accessKey: string;
-}
-
-declare class DOMHTMLFieldSetElement extends DOMHTMLElement {
-  readonly form: DOMHTMLFormElement;
-}
-
-// @ts-ignore
-declare class WebView extends NSView {
-  static canShowMIMEType(MIMEType: string): boolean;
-
-  static canShowMIMETypeAsHTML(MIMEType: string): boolean;
-
-  static MIMETypesShownAsHTML(): NSArray;
-
-  static setMIMETypesShownAsHTML(MIMETypes: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  static URLFromPasteboard(pasteboard: NSPasteboard): NSURL;
-
-  static URLTitleFromPasteboard(pasteboard: NSPasteboard): string;
-
-  static registerURLSchemeAsLocal(scheme: string): void;
-
-  initWithFrameFrameNameGroupName(frame: CGRect, frameName: string, groupName: string): this;
-
-  close(): void;
-
-  shouldCloseWithWindow: boolean;
-
-  UIDelegate: WebUIDelegate;
-
-  resourceLoadDelegate: WebResourceLoadDelegate;
-
-  downloadDelegate: WebDownloadDelegate;
-
-  frameLoadDelegate: WebFrameLoadDelegate;
-
-  policyDelegate: WebPolicyDelegate;
-
-  readonly mainFrame: WebFrame;
-
-  readonly selectedFrame: WebFrame;
-
-  readonly backForwardList: WebBackForwardList;
-
-  setMaintainsBackForwardList(flag: boolean): void;
-
-  goBack(): boolean;
-
-  goForward(): boolean;
-
-  goToBackForwardItem(item: WebHistoryItem): boolean;
-
-  textSizeMultiplier: number;
-
-  applicationNameForUserAgent: string;
-
-  customUserAgent: string;
-
-  userAgentForURL(URL: NSURL): string;
-
-  readonly supportsTextEncoding: boolean;
-
-  customTextEncodingName: string;
-
-  mediaStyle: string;
-
-  stringByEvaluatingJavaScriptFromString(script: string): string;
-
-  readonly windowScriptObject: WebScriptObject;
-
-  preferences: WebPreferences;
-
-  preferencesIdentifier: string;
-
-  hostWindow: NSWindow;
-
-  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
-
-  static registerViewClassRepresentationClassForMIMEType(viewClass: interop.Object, representationClass: interop.Object, MIMEType: string): void;
-
-  groupName: string;
-
-  readonly estimatedProgress: number;
-
-  readonly isLoading: boolean;
-
-  elementAtPoint(point: CGPoint): NSDictionary;
-
-  readonly pasteboardTypesForSelection: NSArray;
-
-  writeSelectionWithPasteboardTypesToPasteboard(types: NSArray<interop.Object> | Array<interop.Object>, pasteboard: NSPasteboard): void;
-
-  pasteboardTypesForElement(element: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSArray;
-
-  writeElementWithPasteboardTypesToPasteboard(element: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, types: NSArray<interop.Object> | Array<interop.Object>, pasteboard: NSPasteboard): void;
-
-  moveDragCaretToPoint(point: CGPoint): void;
-
-  removeDragCaret(): void;
-
-  drawsBackground: boolean;
-
-  shouldUpdateWhileOffscreen: boolean;
-
-  mainFrameURL: string;
-
-  readonly mainFrameDocument: DOMDocument;
-
-  readonly mainFrameTitle: string;
-
-  readonly mainFrameIcon: NSImage;
-
-  takeStringURLFrom(sender: interop.Object): void;
-
-  stopLoading(sender: interop.Object): void;
-
-  reload(sender: interop.Object): void;
-
-  reloadFromOrigin(sender: interop.Object): void;
-
-  readonly canGoBack: boolean;
-
-  readonly canGoForward: boolean;
-
-  readonly canMakeTextLarger: boolean;
-
-  makeTextLarger(sender: interop.Object): void;
-
-  readonly canMakeTextSmaller: boolean;
-
-  makeTextSmaller(sender: interop.Object): void;
-
-  readonly canMakeTextStandardSize: boolean;
-
-  makeTextStandardSize(sender: interop.Object): void;
-
-  toggleContinuousSpellChecking(sender: interop.Object): void;
-
-  toggleSmartInsertDelete(sender: interop.Object): void;
-
-  computedStyleForElementPseudoElement(element: DOMElement, pseudoElement: string): DOMCSSStyleDeclaration;
-
-  editableDOMRangeForPoint(point: CGPoint): DOMRange;
-
-  setSelectedDOMRangeAffinity(range: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>): void;
-
-  readonly selectedDOMRange: DOMRange;
-
-  readonly selectionAffinity: interop.Enum<typeof NSSelectionAffinity>;
-
-  readonly maintainsInactiveSelection: boolean;
-
-  isEditable: boolean;
-
-  typingStyle: DOMCSSStyleDeclaration;
-
-  smartInsertDeleteEnabled: boolean;
-
-  isContinuousSpellCheckingEnabled: boolean;
-
-  readonly spellCheckerDocumentTag: number;
-
-  readonly undoManager: NSUndoManager;
-
-  editingDelegate: WebEditingDelegate;
-
-  styleDeclarationWithText(text: string): DOMCSSStyleDeclaration;
-
-  replaceSelectionWithNode(node: DOMNode): void;
-
-  replaceSelectionWithText(text: string): void;
-
-  replaceSelectionWithMarkupString(markupString: string): void;
-
-  replaceSelectionWithArchive(archive: WebArchive): void;
-
-  deleteSelection(): void;
-
-  applyStyle(style: DOMCSSStyleDeclaration): void;
-
-  // @ts-ignore
-  copy(sender: interop.Object): void;
-
-  cut(sender: interop.Object): void;
-
-  paste(sender: interop.Object): void;
-
-  copyFont(sender: interop.Object): void;
-
-  pasteFont(sender: interop.Object): void;
-
-  delete(sender: interop.Object): void;
-
-  pasteAsPlainText(sender: interop.Object): void;
-
-  pasteAsRichText(sender: interop.Object): void;
-
-  // @ts-ignore
-  changeFont(sender: interop.Object): void;
-
-  changeAttributes(sender: interop.Object): void;
-
-  changeDocumentBackgroundColor(sender: interop.Object): void;
-
-  // @ts-ignore
-  changeColor(sender: interop.Object): void;
-
-  alignCenter(sender: interop.Object): void;
-
-  alignJustified(sender: interop.Object): void;
-
-  alignLeft(sender: interop.Object): void;
-
-  alignRight(sender: interop.Object): void;
-
-  checkSpelling(sender: interop.Object): void;
-
-  showGuessPanel(sender: interop.Object): void;
-
-  performFindPanelAction(sender: interop.Object): void;
-
-  startSpeaking(sender: interop.Object): void;
-
-  stopSpeaking(sender: interop.Object): void;
-
-  moveToBeginningOfSentence(sender: interop.Object): void;
-
-  moveToBeginningOfSentenceAndModifySelection(sender: interop.Object): void;
-
-  moveToEndOfSentence(sender: interop.Object): void;
-
-  moveToEndOfSentenceAndModifySelection(sender: interop.Object): void;
-
-  selectSentence(sender: interop.Object): void;
-
-  overWrite(sender: interop.Object): void;
-}
-
-declare class DOMHTMLAnchorElement extends DOMHTMLElement {
-  charset: string;
-
-  coords: string;
-
-  hreflang: string;
-
-  name: string;
-
-  rel: string;
-
-  rev: string;
-
-  shape: string;
-
-  target: string;
-
-  type: string;
-
-  accessKey: string;
-
-  readonly text: string;
-
-  readonly absoluteLinkURL: NSURL;
-
-  href: string;
-
-  readonly protocol: string;
-
-  readonly host: string;
-
-  readonly hostname: string;
-
-  readonly port: string;
-
-  readonly pathname: string;
-
-  readonly search: string;
-
-  readonly hashName: string;
-}
-
-declare class WKNavigationAction extends NSObject {
-  readonly sourceFrame: WKFrameInfo;
-
-  readonly targetFrame: WKFrameInfo;
-
-  readonly navigationType: interop.Enum<typeof WKNavigationType>;
-
-  readonly request: NSURLRequest;
-
-  readonly shouldPerformDownload: boolean;
-
-  readonly modifierFlags: interop.Enum<typeof NSEventModifierFlags>;
-
-  readonly buttonNumber: number;
-}
-
-declare class WebDataSource extends NSObject {
-  initWithRequest(request: NSURLRequest): this;
-
-  readonly data: NSData;
-
-  readonly representation: WebDocumentRepresentation;
-
-  readonly webFrame: WebFrame;
-
-  readonly initialRequest: NSURLRequest;
-
-  readonly request: NSMutableURLRequest;
-
-  readonly response: NSURLResponse;
-
-  readonly textEncodingName: string;
-
-  readonly isLoading: boolean;
-
-  readonly pageTitle: string;
-
-  readonly unreachableURL: NSURL;
-
-  readonly webArchive: WebArchive;
-
-  readonly mainResource: WebResource;
-
-  readonly subresources: NSArray;
-
-  subresourceForURL(URL: NSURL): WebResource;
-
-  addSubresource(subresource: WebResource): void;
-}
-
-declare class WKDownload extends NSObject implements NSProgressReporting {
-  readonly originalRequest: NSURLRequest;
-
-  readonly webView: WKWebView | null;
-
-  delegate: WKDownloadDelegate | null;
-
-  cancel(completionHandler: (p1: NSData) => void | null): void;
-
-  readonly progress: NSProgress;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class DOMHTMLHRElement extends DOMHTMLElement {
-  align: string;
-
-  noShade: boolean;
-
-  size: string;
-
-  width: string;
-}
-
-declare class WebHistory extends NSObject {
-  static optionalSharedHistory(): WebHistory;
-
-  static setOptionalSharedHistory(history: WebHistory): void;
-
-  loadFromURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
-
-  saveToURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
-
-  addItems(newItems: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  removeItems(items: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  removeAllItems(): void;
-
-  readonly orderedLastVisitedDays: NSArray;
-
-  orderedItemsLastVisitedOnDay(calendarDate: NSCalendarDate): NSArray;
-
-  itemForURL(URL: NSURL): WebHistoryItem;
-
-  historyItemLimit: number;
-
-  historyAgeInDaysLimit: number;
-}
-
-declare class DOMHTMLParamElement extends DOMHTMLElement {
-  name: string;
-
-  type: string;
-
-  value: string;
-
-  valueType: string;
-}
-
-// @ts-ignore
-declare class DOMElement extends DOMNode {
-  readonly tagName: string;
-
-  readonly style: DOMCSSStyleDeclaration;
-
-  readonly offsetLeft: number;
-
-  readonly offsetTop: number;
-
-  readonly offsetWidth: number;
-
-  readonly offsetHeight: number;
-
-  readonly clientLeft: number;
-
-  readonly clientTop: number;
-
-  readonly clientWidth: number;
-
-  readonly clientHeight: number;
-
-  scrollLeft: number;
-
-  scrollTop: number;
-
-  readonly scrollWidth: number;
-
-  readonly scrollHeight: number;
-
-  readonly offsetParent: DOMElement;
-
-  innerHTML: string;
-
-  outerHTML: string;
-
-  // @ts-ignore
-  className: string;
-
-  readonly innerText: string;
-
-  readonly previousElementSibling: DOMElement;
-
-  readonly nextElementSibling: DOMElement;
-
-  readonly firstElementChild: DOMElement;
-
-  readonly lastElementChild: DOMElement;
-
-  readonly childElementCount: number;
-
-  getAttribute(name: string): string;
-
-  setAttributeValue(name: string, value: string): void;
-
-  removeAttribute(name: string): void;
-
-  getAttributeNode(name: string): DOMAttr;
-
-  setAttributeNode(newAttr: DOMAttr): DOMAttr;
-
-  removeAttributeNode(oldAttr: DOMAttr): DOMAttr;
-
-  getElementsByTagName(name: string): DOMNodeList;
-
-  getAttributeNSLocalName(namespaceURI: string, localName: string): string;
-
-  setAttributeNSQualifiedNameValue(namespaceURI: string, qualifiedName: string, value: string): void;
-
-  removeAttributeNSLocalName(namespaceURI: string, localName: string): void;
-
-  getElementsByTagNameNSLocalName(namespaceURI: string, localName: string): DOMNodeList;
-
-  getAttributeNodeNSLocalName(namespaceURI: string, localName: string): DOMAttr;
-
-  setAttributeNodeNS(newAttr: DOMAttr): DOMAttr;
-
-  hasAttribute(name: string): boolean;
-
-  hasAttributeNSLocalName(namespaceURI: string, localName: string): boolean;
-
-  focus(): void;
-
-  blur(): void;
-
-  scrollIntoView(alignWithTop: boolean): void;
-
-  scrollIntoViewIfNeeded(centerIfNeeded: boolean): void;
-
-  scrollByLines(lines: number): void;
-
-  scrollByPages(pages: number): void;
-
-  getElementsByClassName(name: string): DOMNodeList;
-
-  webkitRequestFullScreen(flags: number): void;
-
-  querySelector(selectors: string): DOMElement;
-
-  querySelectorAll(selectors: string): DOMNodeList;
-
-  setAttribute(name: string, value: string): void;
-
-  getAttributeNS(namespaceURI: string, localName: string): string;
-
-  setAttributeNS(namespaceURI: string, qualifiedName: string, value: string): void;
-
-  removeAttributeNS(namespaceURI: string, localName: string): void;
-
-  getElementsByTagNameNS(namespaceURI: string, localName: string): DOMNodeList;
-
-  getAttributeNodeNS(namespaceURI: string, localName: string): DOMAttr;
-
-  hasAttributeNS(namespaceURI: string, localName: string): boolean;
-
-  image(): NSImage;
-}
-
-declare class DOMHTMLBRElement extends DOMHTMLElement {
-  clear: string;
-}
-
-declare class DOMDocumentType extends DOMNode {
-  readonly name: string;
-
-  readonly entities: DOMNamedNodeMap;
-
-  readonly notations: DOMNamedNodeMap;
-
-  readonly publicId: string;
-
-  readonly systemId: string;
-
-  readonly internalSubset: string;
-}
-
-declare class DOMCSSCharsetRule extends DOMCSSRule {
-  readonly encoding: string;
-}
-
-declare class DOMHTMLButtonElement extends DOMHTMLElement {
-  autofocus: boolean;
-
-  disabled: boolean;
-
-  readonly form: DOMHTMLFormElement;
-
-  type: string;
-
-  name: string;
-
-  value: string;
-
-  readonly willValidate: boolean;
-
-  accessKey: string;
-
-  click(): void;
-}
-
-declare class WebPreferences extends NSObject implements NSCoding {
-  static standardPreferences(): WebPreferences;
-
-  initWithIdentifier(anIdentifier: string): this;
-
-  readonly identifier: string;
-
-  standardFontFamily: string;
-
-  fixedFontFamily: string;
-
-  serifFontFamily: string;
-
-  sansSerifFontFamily: string;
-
-  cursiveFontFamily: string;
-
-  fantasyFontFamily: string;
-
-  defaultFontSize: number;
-
-  defaultFixedFontSize: number;
-
-  minimumFontSize: number;
-
-  minimumLogicalFontSize: number;
-
-  defaultTextEncodingName: string;
-
-  userStyleSheetEnabled: boolean;
-
-  userStyleSheetLocation: NSURL;
-
-  isJavaEnabled: boolean;
-
-  isJavaScriptEnabled: boolean;
-
-  javaScriptCanOpenWindowsAutomatically: boolean;
-
-  arePlugInsEnabled: boolean;
-
-  allowsAnimatedImages: boolean;
-
-  allowsAnimatedImageLooping: boolean;
-
-  loadsImagesAutomatically: boolean;
-
-  autosaves: boolean;
-
-  shouldPrintBackgrounds: boolean;
-
-  privateBrowsingEnabled: boolean;
-
-  tabsToLinks: boolean;
-
-  usesPageCache: boolean;
-
-  cacheModel: interop.Enum<typeof WebCacheModel>;
-
-  suppressesIncrementalRendering: boolean;
-
-  allowsAirPlayForMediaPlayback: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class DOMFileList extends DOMObject {
-  readonly length: number;
-
-  item(index: number): DOMFile;
-}
-
-declare class DOMProgressEvent extends DOMEvent {
-  readonly lengthComputable: boolean;
-
-  readonly loaded: number;
-
-  readonly total: number;
-}
-
-declare class WKNavigation extends NSObject {
-  readonly effectiveContentMode: interop.Enum<typeof WKContentMode>;
-}
-
-declare class DOMHTMLTableSectionElement extends DOMHTMLElement {
-  align: string;
-
-  ch: string;
-
-  chOff: string;
-
-  vAlign: string;
-
-  readonly rows: DOMHTMLCollection;
-
-  insertRow(index: number): DOMHTMLElement;
-
-  deleteRow(index: number): void;
-}
-
-declare class DOMHTMLParagraphElement extends DOMHTMLElement {
-  align: string;
-}
-
-declare class WKContentRuleList extends NSObject {
-  readonly identifier: string;
-}
-
-declare class DOMEntity extends DOMNode {
-  readonly publicId: string;
-
-  readonly systemId: string;
-
-  readonly notationName: string;
-}
-
-declare class DOMDocumentFragment extends DOMNode {
-}
-
-declare class DOMHTMLSelectElement extends DOMHTMLElement {
-  autofocus: boolean;
-
-  disabled: boolean;
-
-  readonly form: DOMHTMLFormElement;
-
-  multiple: boolean;
-
-  name: string;
-
-  size: number;
-
-  readonly type: string;
-
-  readonly options: DOMHTMLOptionsCollection;
-
-  readonly length: number;
-
-  selectedIndex: number;
-
-  value: string;
-
-  readonly willValidate: boolean;
-
-  item(index: number): DOMNode;
-
-  namedItem(name: string): DOMNode;
-
-  addBefore(element: DOMHTMLElement, before: DOMHTMLElement): void;
-
-  remove(index: number): void;
-
-  add(element: DOMHTMLElement, before: DOMHTMLElement): void;
-}
-
-declare class DOMObject extends WebScriptObject implements NSCopying {
-  readonly sheet: DOMStyleSheet;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class DOMHTMLLinkElement extends DOMHTMLElement {
-  disabled: boolean;
-
-  charset: string;
-
-  href: string;
-
-  hreflang: string;
-
-  media: string;
-
-  rel: string;
-
-  rev: string;
-
-  target: string;
-
-  type: string;
-
-  readonly sheet: DOMStyleSheet;
-
-  readonly absoluteLinkURL: NSURL;
-}
-
-declare class WKWindowFeatures extends NSObject {
-  readonly menuBarVisibility: NSNumber;
-
-  readonly statusBarVisibility: NSNumber;
-
-  readonly toolbarsVisibility: NSNumber;
-
-  readonly allowsResizing: NSNumber;
-
-  readonly x: NSNumber;
-
-  readonly y: NSNumber;
-
-  readonly width: NSNumber;
-
-  readonly height: NSNumber;
-}
-
-declare class DOMHTMLStyleElement extends DOMHTMLElement {
-  disabled: boolean;
-
-  media: string;
-
-  type: string;
-
-  readonly sheet: DOMStyleSheet;
-}
-
-declare class WKFindConfiguration extends NSObject implements NSCopying {
-  backwards: boolean;
-
-  caseSensitive: boolean;
-
-  wraps: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class DOMNamedNodeMap extends DOMObject {
-  readonly length: number;
-
-  getNamedItem(name: string): DOMNode;
-
-  setNamedItem(node: DOMNode): DOMNode;
-
-  removeNamedItem(name: string): DOMNode;
-
-  item(index: number): DOMNode;
-
-  getNamedItemNSLocalName(namespaceURI: string, localName: string): DOMNode;
-
-  setNamedItemNS(node: DOMNode): DOMNode;
-
-  removeNamedItemNSLocalName(namespaceURI: string, localName: string): DOMNode;
-
-  getNamedItemNS(namespaceURI: string, localName: string): DOMNode;
-
-  removeNamedItemNS(namespaceURI: string, localName: string): DOMNode;
-}
-
-declare class DOMCSSRule extends DOMObject {
-  readonly type: number;
-
-  cssText: string;
-
-  readonly parentStyleSheet: DOMCSSStyleSheet;
-
-  readonly parentRule: DOMCSSRule;
-}
-
-declare class WKWebpagePreferences extends NSObject {
-  preferredContentMode: interop.Enum<typeof WKContentMode>;
-
-  allowsContentJavaScript: boolean;
-
-  isLockdownModeEnabled: boolean;
-}
-
-declare class DOMHTMLHtmlElement extends DOMHTMLElement {
-  version: string;
-}
-
-declare class DOMRange extends DOMObject {
-  readonly startContainer: DOMNode;
-
-  readonly startOffset: number;
-
-  readonly endContainer: DOMNode;
-
-  readonly endOffset: number;
-
-  readonly collapsed: boolean;
-
-  readonly commonAncestorContainer: DOMNode;
-
-  readonly text: string;
-
-  setStartBefore(refNode: DOMNode): void;
-
-  setStartAfter(refNode: DOMNode): void;
-
-  setEndBefore(refNode: DOMNode): void;
-
-  setEndAfter(refNode: DOMNode): void;
-
-  collapse(toStart: boolean): void;
-
-  selectNode(refNode: DOMNode): void;
-
-  selectNodeContents(refNode: DOMNode): void;
-
-  compareBoundaryPointsSourceRange(how: number, sourceRange: DOMRange): number;
-
-  deleteContents(): void;
-
-  extractContents(): DOMDocumentFragment;
-
-  cloneContents(): DOMDocumentFragment;
-
-  insertNode(newNode: DOMNode): void;
-
-  surroundContents(newParent: DOMNode): void;
-
-  cloneRange(): DOMRange;
-
-  toString(): string;
-
-  detach(): void;
-
-  createContextualFragment(html: string): DOMDocumentFragment;
-
-  compareNode(refNode: DOMNode): number;
-
-  intersectsNode(refNode: DOMNode): boolean;
-
-  comparePointOffset(refNode: DOMNode, offset: number): number;
-
-  isPointInRangeOffset(refNode: DOMNode, offset: number): boolean;
-
-  setStart(refNode: DOMNode, offset: number): void;
-
-  setEnd(refNode: DOMNode, offset: number): void;
-
-  compareBoundaryPoints(how: number, sourceRange: DOMRange): number;
-
-  readonly webArchive: WebArchive;
-
-  readonly markupString: string;
-}
-
-declare class DOMWheelEvent extends DOMMouseEvent {
-  readonly wheelDeltaX: number;
-
-  readonly wheelDeltaY: number;
-
-  readonly wheelDelta: number;
-
-  readonly isHorizontal: boolean;
-
-  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
-}
-
-declare class DOMHTMLTableColElement extends DOMHTMLElement {
-  align: string;
-
-  ch: string;
-
-  chOff: string;
-
-  span: number;
-
-  vAlign: string;
-
-  width: string;
-}
-
-declare class DOMHTMLIFrameElement extends DOMHTMLElement {
-  align: string;
-
-  frameBorder: string;
-
-  height: string;
-
-  longDesc: string;
-
-  marginHeight: string;
-
-  marginWidth: string;
-
-  name: string;
-
-  scrolling: string;
-
-  src: string;
-
-  width: string;
-
-  readonly contentDocument: DOMDocument;
-
-  readonly contentWindow: DOMAbstractView;
-
-  readonly contentFrame: WebFrame;
-}
-
-declare class DOMCSSPageRule extends DOMCSSRule {
-  selectorText: string;
-
-  readonly style: DOMCSSStyleDeclaration;
-}
-
-declare class DOMCSSPrimitiveValue extends DOMCSSValue {
-  readonly primitiveType: number;
-
-  setFloatValueFloatValue(unitType: number, floatValue: number): void;
-
-  getFloatValue(unitType: number): number;
-
-  setStringValueStringValue(stringType: number, stringValue: string): void;
-
-  getStringValue(): string;
-
-  getCounterValue(): DOMCounter;
-
-  getRectValue(): DOMRect;
-
-  getRGBColorValue(): DOMRGBColor;
-
-  setFloatValue(unitType: number, floatValue: number): void;
-
-  setStringValue(stringType: number, stringValue: string): void;
-}
-
-declare class DOMStyleSheetList extends DOMObject {
-  readonly length: number;
-
-  item(index: number): DOMStyleSheet;
-}
-
-declare class DOMHTMLTableCaptionElement extends DOMHTMLElement {
-  align: string;
-}
-
-declare class WKFindResult extends NSObject implements NSCopying {
-  readonly matchFound: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class WKScriptMessage extends NSObject {
-  readonly body: interop.Object;
-
-  readonly webView: WKWebView;
-
-  readonly frameInfo: WKFrameInfo;
-
-  readonly name: string;
-
-  readonly world: WKContentWorld;
-}
-
-declare class DOMHTMLOptGroupElement extends DOMHTMLElement {
-  disabled: boolean;
-
-  label: string;
-}
-
-declare class DOMHTMLMapElement extends DOMHTMLElement {
-  readonly areas: DOMHTMLCollection;
-
-  name: string;
-}
-
-declare class DOMMutationEvent extends DOMEvent {
-  readonly relatedNode: DOMNode;
-
-  readonly prevValue: string;
-
-  readonly newValue: string;
-
-  readonly attrName: string;
-
-  readonly attrChange: number;
-
-  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
-
-  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
-}
-
-declare class DOMHTMLHeadElement extends DOMHTMLElement {
-  profile: string;
-}
-
-declare class WebFrame extends NSObject {
-  initWithNameWebFrameViewWebView(name: string, view: WebFrameView, webView: WebView): this;
-
-  readonly name: string;
-
-  readonly webView: WebView;
-
-  readonly frameView: WebFrameView;
-
-  readonly DOMDocument: DOMDocument;
-
-  readonly frameElement: DOMHTMLElement;
-
-  loadRequest(request: NSURLRequest): void;
-
-  loadDataMIMETypeTextEncodingNameBaseURL(data: NSData, MIMEType: string, encodingName: string, URL: NSURL): void;
-
-  loadHTMLStringBaseURL(string: string, URL: NSURL): void;
-
-  loadAlternateHTMLStringBaseURLForUnreachableURL(string: string, baseURL: NSURL, unreachableURL: NSURL): void;
-
-  loadArchive(archive: WebArchive): void;
-
-  readonly dataSource: WebDataSource;
-
-  readonly provisionalDataSource: WebDataSource;
-
-  stopLoading(): void;
-
-  reload(): void;
-
-  reloadFromOrigin(): void;
-
-  findFrameNamed(name: string): WebFrame;
-
-  readonly parentFrame: WebFrame;
-
-  readonly childFrames: NSArray;
-
-  readonly windowObject: WebScriptObject;
-
-  readonly globalContext: interop.Pointer;
-
-  readonly javaScriptContext: JSContext;
-}
-
-declare class DOMMediaList extends DOMObject {
-  mediaText: string;
-
-  readonly length: number;
-
-  item(index: number): string;
-
-  deleteMedium(oldMedium: string): void;
-
-  appendMedium(newMedium: string): void;
-}
-
-declare class WKProcessPool extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class DOMKeyboardEvent extends DOMUIEvent {
-  readonly keyIdentifier: string;
-
-  readonly location: number;
-
-  readonly keyLocation: number;
-
-  readonly ctrlKey: boolean;
-
-  readonly shiftKey: boolean;
-
-  readonly altKey: boolean;
-
-  readonly metaKey: boolean;
-
-  readonly altGraphKey: boolean;
-
-  readonly keyCode: number;
-
-  readonly charCode: number;
-
-  getModifierState(keyIdentifierArg: string): boolean;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
-}
-
-declare class DOMHTMLUListElement extends DOMHTMLElement {
-  compact: boolean;
-
-  type: string;
-}
-
-declare class DOMXPathExpression extends DOMObject {
-  evaluateTypeInResult(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
-
-  evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
-}
-
-declare class DOMHTMLImageElement extends DOMHTMLElement {
-  name: string;
-
-  align: string;
-
-  alt: string;
-
-  border: string;
-
-  height: number;
-
-  hspace: number;
-
-  isMap: boolean;
-
-  longDesc: string;
-
-  src: string;
-
-  useMap: string;
-
-  vspace: number;
-
-  width: number;
-
-  readonly complete: boolean;
-
-  lowsrc: string;
-
-  readonly naturalHeight: number;
-
-  readonly naturalWidth: number;
-
-  readonly x: number;
-
-  readonly y: number;
-
-  readonly altDisplayString: string;
-
-  readonly absoluteImageURL: NSURL;
-}
-
-declare class WKContentWorld extends NSObject {
-  static readonly pageWorld: WKContentWorld;
-
-  static readonly defaultClientWorld: WKContentWorld;
-
-  static worldWithName(name: string): WKContentWorld;
-
-  readonly name: string;
-}
-
-declare class DOMCSSValue extends DOMObject {
-  cssText: string;
-
-  readonly cssValueType: number;
-}
-
-declare class DOMProcessingInstruction extends DOMCharacterData {
-  readonly target: string;
-
-  readonly sheet: DOMStyleSheet;
-}
-
-declare class WKFrameInfo extends NSObject implements NSCopying {
-  readonly isMainFrame: boolean;
-
-  readonly request: NSURLRequest;
-
-  readonly securityOrigin: WKSecurityOrigin;
-
-  readonly webView: WKWebView | null;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class DOMMouseEvent extends DOMUIEvent {
-  readonly screenX: number;
-
-  readonly screenY: number;
-
-  readonly clientX: number;
-
-  readonly clientY: number;
-
-  readonly ctrlKey: boolean;
-
-  readonly shiftKey: boolean;
-
-  readonly altKey: boolean;
-
-  readonly metaKey: boolean;
-
-  readonly button: number;
-
-  readonly relatedTarget: DOMEventTarget;
-
-  readonly offsetX: number;
-
-  readonly offsetY: number;
-
-  readonly x: number;
-
-  readonly y: number;
-
-  readonly fromElement: DOMNode;
-
-  readonly toElement: DOMNode;
-
-  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
-
-  initMouseEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
-}
-
-declare class DOMHTMLBodyElement extends DOMHTMLElement {
-  aLink: string;
-
-  background: string;
-
-  bgColor: string;
-
-  link: string;
-
+declare class DOMHTMLTitleElement extends DOMHTMLElement {
   text: string;
-
-  vLink: string;
-}
-
-declare class DOMCharacterData extends DOMNode {
-  data: string;
-
-  readonly length: number;
-
-  substringDataLength(offset: number, length: number): string;
-
-  appendData(data: string): void;
-
-  insertDataData(offset: number, data: string): void;
-
-  deleteDataLength(offset: number, length: number): void;
-
-  replaceDataLengthData(offset: number, length: number, data: string): void;
-
-  substringData(offset: number, length: number): string;
-
-  insertData(offset: number, data: string): void;
-
-  deleteData(offset: number, length: number): void;
-
-  replaceData(offset: number, length: number, data: string): void;
-}
-
-declare class DOMTreeWalker extends DOMObject {
-  readonly root: DOMNode;
-
-  readonly whatToShow: number;
-
-  readonly filter: DOMNodeFilter;
-
-  readonly expandEntityReferences: boolean;
-
-  currentNode: DOMNode;
-
-  parentNode(): DOMNode;
-
-  firstChild(): DOMNode;
-
-  lastChild(): DOMNode;
-
-  previousSibling(): DOMNode;
-
-  nextSibling(): DOMNode;
-
-  previousNode(): DOMNode;
-
-  nextNode(): DOMNode;
-}
-
-declare class DOMHTMLBaseFontElement extends DOMHTMLElement {
-  color: string;
-
-  face: string;
-
-  size: string;
 }
 

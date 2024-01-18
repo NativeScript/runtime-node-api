@@ -101,10 +101,17 @@ declare class AudioClassDescription {
   mManufacturer: number;
 }
 
-declare class AudioFormatListItem {
-  constructor(init?: AudioFormatListItem);
-  mASBD: AudioStreamBasicDescription;
-  mChannelLayoutTag: number;
+declare class SMPTETime {
+  constructor(init?: SMPTETime);
+  mSubframes: number;
+  mSubframeDivisor: number;
+  mCounter: number;
+  mType: interop.Enum<typeof SMPTETimeType>;
+  mFlags: interop.Enum<typeof SMPTETimeFlags>;
+  mHours: number;
+  mMinutes: number;
+  mSeconds: number;
+  mFrames: number;
 }
 
 declare class AudioTimeStamp {
@@ -125,17 +132,10 @@ declare class AudioChannelDescription {
   mCoordinates: unknown /* const array */;
 }
 
-declare class SMPTETime {
-  constructor(init?: SMPTETime);
-  mSubframes: number;
-  mSubframeDivisor: number;
-  mCounter: number;
-  mType: interop.Enum<typeof SMPTETimeType>;
-  mFlags: interop.Enum<typeof SMPTETimeFlags>;
-  mHours: number;
-  mMinutes: number;
-  mSeconds: number;
-  mFrames: number;
+declare class AudioBufferList {
+  constructor(init?: AudioBufferList);
+  mNumberBuffers: number;
+  mBuffers: unknown /* const array */;
 }
 
 declare class AudioChannelLayout {
@@ -146,10 +146,10 @@ declare class AudioChannelLayout {
   mChannelDescriptions: unknown /* const array */;
 }
 
-declare class AudioBufferList {
-  constructor(init?: AudioBufferList);
-  mNumberBuffers: number;
-  mBuffers: unknown /* const array */;
+declare class AudioFormatListItem {
+  constructor(init?: AudioFormatListItem);
+  mASBD: AudioStreamBasicDescription;
+  mChannelLayoutTag: number;
 }
 
 declare class AudioStreamPacketDescription {

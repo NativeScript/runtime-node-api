@@ -1,6 +1,8 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./Runtime.d.ts" />
 
+declare const JSPropertyDescriptorSetKey: string;
+
 declare const JSPropertyDescriptorWritableKey: string;
 
 declare const kJSClassAttributeNoAutomaticPrototype: number;
@@ -13,13 +15,11 @@ declare const kJSPropertyAttributeDontEnum: number;
 
 declare const kJSPropertyAttributeNone: number;
 
-declare const JSPropertyDescriptorSetKey: string;
-
-declare const JSPropertyDescriptorGetKey: string;
-
 declare const kJSClassDefinitionEmpty: JSClassDefinition;
 
 declare const JSPropertyDescriptorConfigurableKey: string;
+
+declare const JSPropertyDescriptorGetKey: string;
 
 declare const JSPropertyDescriptorEnumerableKey: string;
 
@@ -53,6 +53,37 @@ declare const JSTypedArrayType: {
   BigUint64Array: 12,
 };
 
+declare class JSStaticFunction {
+  constructor(init?: JSStaticFunction);
+  name: string | null;
+  callAsFunction: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => interop.Pointer | null;
+  attributes: number;
+}
+
+declare class OpaqueJSString {
+  constructor(init?: OpaqueJSString);
+}
+
+declare class OpaqueJSValue {
+  constructor(init?: OpaqueJSValue);
+}
+
+declare class OpaqueJSPropertyNameAccumulator {
+  constructor(init?: OpaqueJSPropertyNameAccumulator);
+}
+
+declare class OpaqueJSPropertyNameArray {
+  constructor(init?: OpaqueJSPropertyNameArray);
+}
+
+declare class OpaqueJSClass {
+  constructor(init?: OpaqueJSClass);
+}
+
+declare class OpaqueJSContextGroup {
+  constructor(init?: OpaqueJSContextGroup);
+}
+
 declare class JSClassDefinition {
   constructor(init?: JSClassDefinition);
   version: number;
@@ -72,37 +103,6 @@ declare class JSClassDefinition {
   callAsConstructor: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: interop.PointerConvertible, p5: interop.PointerConvertible) => interop.Pointer | null;
   hasInstance: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => boolean | null;
   convertToType: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof JSType>, p4: interop.PointerConvertible) => interop.Pointer | null;
-}
-
-declare class OpaqueJSValue {
-  constructor(init?: OpaqueJSValue);
-}
-
-declare class OpaqueJSPropertyNameAccumulator {
-  constructor(init?: OpaqueJSPropertyNameAccumulator);
-}
-
-declare class OpaqueJSClass {
-  constructor(init?: OpaqueJSClass);
-}
-
-declare class OpaqueJSContextGroup {
-  constructor(init?: OpaqueJSContextGroup);
-}
-
-declare class JSStaticFunction {
-  constructor(init?: JSStaticFunction);
-  name: string | null;
-  callAsFunction: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => interop.Pointer | null;
-  attributes: number;
-}
-
-declare class OpaqueJSString {
-  constructor(init?: OpaqueJSString);
-}
-
-declare class OpaqueJSPropertyNameArray {
-  constructor(init?: OpaqueJSPropertyNameArray);
 }
 
 declare class OpaqueJSContext {
@@ -343,6 +343,54 @@ declare class JSVirtualMachine extends NSObject {
   removeManagedReferenceWithOwner(object: interop.Object, owner: interop.Object): void;
 }
 
+declare class JSManagedValue extends NSObject {
+  static managedValueWithValue(value: JSValue): JSManagedValue;
+
+  static managedValueWithValueAndOwner(value: JSValue, owner: interop.Object): JSManagedValue;
+
+  initWithValue(value: JSValue): this;
+
+  readonly value: JSValue;
+}
+
+declare class JSContext extends NSObject {
+  init(): this;
+
+  initWithVirtualMachine(virtualMachine: JSVirtualMachine): this;
+
+  evaluateScript(script: string): JSValue;
+
+  evaluateScriptWithSourceURL(script: string, sourceURL: NSURL): JSValue;
+
+  static currentContext(): JSContext;
+
+  static currentCallee(): JSValue;
+
+  static currentThis(): JSValue;
+
+  static currentArguments(): NSArray;
+
+  readonly globalObject: JSValue;
+
+  exception: JSValue;
+
+  exceptionHandler: (p1: JSContext, p2: JSValue) => void;
+
+  readonly virtualMachine: JSVirtualMachine;
+
+  name: string;
+
+  isInspectable: boolean;
+
+  objectForKeyedSubscript(key: interop.Object): JSValue;
+
+  setObjectForKeyedSubscript(object: interop.Object, key: NSObject): void;
+
+  static contextWithJSGlobalContextRef(jsGlobalContextRef: interop.PointerConvertible): JSContext;
+
+  readonly JSGlobalContextRef: interop.Pointer;
+}
+
 declare class JSValue extends NSObject {
   readonly context: JSContext;
 
@@ -469,53 +517,5 @@ declare class JSValue extends NSObject {
   static valueWithJSValueRefInContext(value: interop.PointerConvertible, context: JSContext): JSValue;
 
   readonly JSValueRef: interop.Pointer;
-}
-
-declare class JSContext extends NSObject {
-  init(): this;
-
-  initWithVirtualMachine(virtualMachine: JSVirtualMachine): this;
-
-  evaluateScript(script: string): JSValue;
-
-  evaluateScriptWithSourceURL(script: string, sourceURL: NSURL): JSValue;
-
-  static currentContext(): JSContext;
-
-  static currentCallee(): JSValue;
-
-  static currentThis(): JSValue;
-
-  static currentArguments(): NSArray;
-
-  readonly globalObject: JSValue;
-
-  exception: JSValue;
-
-  exceptionHandler: (p1: JSContext, p2: JSValue) => void;
-
-  readonly virtualMachine: JSVirtualMachine;
-
-  name: string;
-
-  isInspectable: boolean;
-
-  objectForKeyedSubscript(key: interop.Object): JSValue;
-
-  setObjectForKeyedSubscript(object: interop.Object, key: NSObject): void;
-
-  static contextWithJSGlobalContextRef(jsGlobalContextRef: interop.PointerConvertible): JSContext;
-
-  readonly JSGlobalContextRef: interop.Pointer;
-}
-
-declare class JSManagedValue extends NSObject {
-  static managedValueWithValue(value: JSValue): JSManagedValue;
-
-  static managedValueWithValueAndOwner(value: JSValue, owner: interop.Object): JSManagedValue;
-
-  initWithValue(value: JSValue): this;
-
-  readonly value: JSValue;
 }
 

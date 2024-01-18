@@ -1,16 +1,22 @@
 /// <reference path="../../lib/types.d.ts" />
 
-declare const kCVPixelFormatBlockWidth: interop.Pointer;
+declare const kCVReturnWouldExceedAllocationThreshold: number;
 
-declare const kCVOpenGLTextureCacheChromaSamplingModeAutomatic: interop.Pointer;
+declare const kCVReturnFirst: number;
+
+declare const kCVImageBufferCleanApertureKey: interop.Pointer;
+
+declare const kCVImageBufferGammaLevelKey: interop.Pointer;
+
+declare const kCVImageBufferDisplayDimensionsKey: interop.Pointer;
+
+declare const kCVPixelBufferProResRAWKey_BlackLevel: interop.Pointer;
+
+declare const kCVImageBufferCleanApertureWidthKey: interop.Pointer;
 
 declare const kCVReturnSuccess: number;
 
-declare const kCVPixelFormatBlockVerticalAlignment: interop.Pointer;
-
-declare const kCVPixelFormatType_Lossless_420YpCbCr8BiPlanarVideoRange: number;
-
-declare const kCVOpenGLBufferTarget: interop.Pointer;
+declare const kCVMetalTextureStorageMode: interop.Pointer;
 
 declare const kCVPixelFormatFillExtendedPixelsCallback: interop.Pointer;
 
@@ -38,11 +44,11 @@ declare const kCVPixelFormatContainsYCbCr: interop.Pointer;
 
 declare const kCVPixelFormatContainsAlpha: interop.Pointer;
 
-declare const kCVMetalTextureStorageMode: interop.Pointer;
-
 declare const kCVOpenGLTextureCacheChromaSamplingModeHighestQuality: interop.Pointer;
 
 declare const kCVOpenGLBufferPoolMinimumBufferCountKey: interop.Pointer;
+
+declare const kCVOpenGLBufferTarget: interop.Pointer;
 
 declare const kCVPixelBufferPoolFreeBufferNotification: interop.Pointer;
 
@@ -79,6 +85,8 @@ declare const kCVPixelFormatType_Lossy_422YpCbCr10PackedBiPlanarVideoRange: numb
 declare const kCVPixelFormatType_Lossless_422YpCbCr10PackedBiPlanarVideoRange: number;
 
 declare const kCVPixelFormatType_Lossless_420YpCbCr8BiPlanarFullRange: number;
+
+declare const kCVPixelFormatType_Lossless_420YpCbCr8BiPlanarVideoRange: number;
 
 declare const kCVPixelFormatType_444YpCbCr16BiPlanarVideoRange: number;
 
@@ -232,8 +240,6 @@ declare const kCVImageBufferCleanApertureVerticalOffsetKey: interop.Pointer;
 
 declare const kCVImageBufferCleanApertureHeightKey: interop.Pointer;
 
-declare const kCVImageBufferCleanApertureKey: interop.Pointer;
-
 declare const kCVImageBufferCGColorSpaceKey: interop.Pointer;
 
 declare const kCVBufferTimeScaleKey: interop.Pointer;
@@ -268,8 +274,6 @@ declare const kCVReturnLast: number;
 
 declare const kCVPixelFormatCodecType: interop.Pointer;
 
-declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
-
 declare const kCVPixelFormatType_TwoComponent32Float: number;
 
 declare const kCVImageBufferColorPrimaries_DCI_P3: interop.Pointer;
@@ -288,6 +292,8 @@ declare const kCVOpenGLBufferMaximumMipmapLevel: interop.Pointer;
 
 declare const kCVPixelFormatType_DepthFloat16: number;
 
+declare const kCVOpenGLTextureCacheChromaSamplingModeAutomatic: interop.Pointer;
+
 declare const kCVOpenGLBufferInternalFormat: interop.Pointer;
 
 declare const kCVPixelFormatContainsSenselArray: interop.Pointer;
@@ -300,11 +306,15 @@ declare const kCVImageBufferColorPrimaries_EBU_3213: interop.Pointer;
 
 declare const kCVImageBufferCleanApertureHorizontalOffsetKey: interop.Pointer;
 
+declare const kCVImageBufferChromaLocationTopFieldKey: interop.Pointer;
+
 declare const kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey: interop.Pointer;
 
 declare const kCVVersatileBayer_BayerPattern_BGGR: number;
 
 declare const kCVReturnInvalidArgument: number;
+
+declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
 
 declare const kCVVersatileBayer_BayerPattern_RGGB: number;
 
@@ -313,8 +323,6 @@ declare const kCVPixelBufferProResRAWKey_MetadataExtension: interop.Pointer;
 declare const kCVPixelFormatType_40ARGBLEWideGamut: number;
 
 declare const kCVMetalTextureCacheMaximumTextureAgeKey: interop.Pointer;
-
-declare const kCVReturnFirst: number;
 
 declare const kCVPixelBufferMemoryAllocatorKey: interop.Pointer;
 
@@ -352,13 +360,13 @@ declare const kCVPixelFormatType_444YpCbCr8BiPlanarFullRange: number;
 
 declare const kCVPixelFormatType_444YpCbCr10BiPlanarFullRange: number;
 
+declare const kCVPixelFormatBlockVerticalAlignment: interop.Pointer;
+
 declare const kCVZeroTime: CVTime;
 
 declare const kCVReturnInvalidPixelBufferAttributes: number;
 
 declare const kCVPixelFormatType_444YpCbCr16VideoRange_16A_TriPlanar: number;
-
-declare const kCVImageBufferChromaLocationTopFieldKey: interop.Pointer;
 
 declare const kCVPixelFormatType_Lossy_420YpCbCr10PackedBiPlanarVideoRange: number;
 
@@ -384,8 +392,6 @@ declare const kCVPixelBufferProResRAWKey_GainFactor: interop.Pointer;
 
 declare const kCVPixelFormatComponentRange_FullRange: interop.Pointer;
 
-declare const kCVReturnWouldExceedAllocationThreshold: number;
-
 declare const kCVPixelBufferVersatileBayerKey_BayerPattern: interop.Pointer;
 
 declare const kCVPixelFormatType_24RGB: number;
@@ -398,9 +404,9 @@ declare const kCVImageBufferAmbientViewingEnvironmentKey: interop.Pointer;
 
 declare const kCVPixelBufferPoolAllocationThresholdKey: interop.Pointer;
 
-declare const kCVPixelFormatType_420YpCbCr8Planar: number;
-
 declare const kCVPixelFormatType_4IndexedGray_WhiteIsZero: number;
+
+declare const kCVPixelFormatType_420YpCbCr8Planar: number;
 
 declare const kCVPixelFormatType_422YpCbCr10BiPlanarVideoRange: number;
 
@@ -438,6 +444,8 @@ declare const kCVPixelFormatType_1Monochrome: number;
 
 declare const kCVReturnDisplayLinkNotRunning: number;
 
+declare const kCVPixelFormatType_30RGB: number;
+
 declare const kCVPixelFormatType_128RGBAFloat: number;
 
 declare const kCVPixelFormatType_444YpCbCr10: number;
@@ -445,8 +453,6 @@ declare const kCVPixelFormatType_444YpCbCr10: number;
 declare const kCVPixelFormatContainsRGB: interop.Pointer;
 
 declare const kCVOpenGLBufferPoolMaximumBufferAgeKey: interop.Pointer;
-
-declare const kCVImageBufferDisplayDimensionsKey: interop.Pointer;
 
 declare const kCVPixelFormatType_16LE565: number;
 
@@ -484,15 +490,13 @@ declare const kCVImageBufferFieldDetailKey: interop.Pointer;
 
 declare const kCVPixelFormatType_Lossy_32BGRA: number;
 
-declare const kCVReturnPixelBufferNotMetalCompatible: number;
-
-declare const kCVPixelBufferProResRAWKey_BlackLevel: interop.Pointer;
-
 declare const kCVPixelFormatBlockHeight: interop.Pointer;
 
 declare const kCVPixelFormatType_16Gray: number;
 
 declare const kCVPixelFormatConstant: interop.Pointer;
+
+declare const kCVReturnPixelBufferNotMetalCompatible: number;
 
 declare const kCVOpenGLTextureCacheChromaSamplingModeKey: interop.Pointer;
 
@@ -516,15 +520,11 @@ declare const kCVImageBufferTransferFunction_SMPTE_C: interop.Pointer;
 
 declare const kCVReturnAllocationFailed: number;
 
-declare const kCVImageBufferGammaLevelKey: interop.Pointer;
-
 declare const kCVPixelBufferExtendedPixelsLeftKey: interop.Pointer;
 
 declare const kCVPixelFormatType_14Bayer_BGGR: number;
 
 declare const kCVImageBufferColorPrimaries_ITU_R_709_2: interop.Pointer;
-
-declare const kCVImageBufferCleanApertureWidthKey: interop.Pointer;
 
 declare const kCVPixelFormatType_4444AYpCbCr16: number;
 
@@ -534,24 +534,13 @@ declare const kCVPixelFormatType_8Indexed: number;
 
 declare const kCVPixelFormatType_DisparityFloat32: number;
 
-declare const kCVPixelFormatType_30RGB: number;
-
 declare const kCVPixelBufferMetalCompatibilityKey: interop.Pointer;
 
 declare const kCVImageBufferChromaSubsampling_411: interop.Pointer;
 
-declare const kCVPixelFormatHorizontalSubsampling: interop.Pointer;
+declare const kCVPixelFormatBlockWidth: interop.Pointer;
 
-declare const CVSMPTETimeType: {
-  Type24: 0,
-  Type25: 1,
-  Type30Drop: 2,
-  Type30: 3,
-  Type2997: 4,
-  Type2997Drop: 5,
-  Type60: 6,
-  Type5994: 7,
-};
+declare const kCVPixelFormatHorizontalSubsampling: interop.Pointer;
 
 declare const CVPixelBufferLockFlags: {
   kCVPixelBufferLock_ReadOnly: 1,
@@ -571,10 +560,6 @@ declare const CVPixelBufferPoolFlushFlags: {
   kCVPixelBufferPoolFlushExcessBuffers: 1,
 };
 
-declare const CVTimeFlags: {
-  kCVTimeIsIndefinite: 1,
-};
-
 declare const CVTimeStampFlags: {
   VideoTimeValid: 1,
   HostTimeValid: 2,
@@ -586,6 +571,28 @@ declare const CVTimeStampFlags: {
   VideoHostTimeValid: 3,
   IsInterlaced: 196608,
 };
+
+declare const CVSMPTETimeType: {
+  Type24: 0,
+  Type25: 1,
+  Type30Drop: 2,
+  Type30: 3,
+  Type2997: 4,
+  Type2997Drop: 5,
+  Type60: 6,
+  Type5994: 7,
+};
+
+declare const CVTimeFlags: {
+  kCVTimeIsIndefinite: 1,
+};
+
+declare class CVFillExtendedPixelsCallBackData {
+  constructor(init?: CVFillExtendedPixelsCallBackData);
+  version: number;
+  fillCallBack: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  refCon: interop.Pointer;
+}
 
 declare class CVTimeStamp {
   constructor(init?: CVTimeStamp);
@@ -600,14 +607,14 @@ declare class CVTimeStamp {
   reserved: number;
 }
 
-declare class __CVOpenGLTextureCache {
-  constructor(init?: __CVOpenGLTextureCache);
-}
-
 declare class CVPlanarComponentInfo {
   constructor(init?: CVPlanarComponentInfo);
   offset: number;
   rowBytes: number;
+}
+
+declare class __CVOpenGLTextureCache {
+  constructor(init?: __CVOpenGLTextureCache);
 }
 
 declare class CVTime {
@@ -648,13 +655,6 @@ declare class CVPlanarPixelBufferInfo_YCbCrPlanar {
 
 declare class __CVMetalTextureCache {
   constructor(init?: __CVMetalTextureCache);
-}
-
-declare class CVFillExtendedPixelsCallBackData {
-  constructor(init?: CVFillExtendedPixelsCallBackData);
-  version: number;
-  fillCallBack: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  refCon: interop.Pointer;
 }
 
 declare class __CVPixelBufferPool {
@@ -891,6 +891,14 @@ declare function CVOpenGLTextureCacheCreateTextureFromImage(allocator: interop.P
 
 declare function CVOpenGLTextureCacheFlush(textureCache: interop.PointerConvertible, options: number): void;
 
+declare function CVPixelFormatDescriptionCreateWithPixelFormatType(allocator: interop.PointerConvertible, pixelFormat: number): interop.Pointer;
+
+declare function CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator: interop.PointerConvertible): interop.Pointer;
+
+declare function CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description: interop.PointerConvertible, pixelFormat: number): void;
+
+declare function CVIsCompressedPixelFormatAvailable(pixelFormatType: number): number;
+
 declare function CVMetalTextureGetTypeID(): number;
 
 declare function CVMetalTextureGetTexture(image: interop.PointerConvertible): MTLTexture;
@@ -906,12 +914,4 @@ declare function CVMetalTextureCacheCreate(allocator: interop.PointerConvertible
 declare function CVMetalTextureCacheCreateTextureFromImage(allocator: interop.PointerConvertible, textureCache: interop.PointerConvertible, sourceImage: interop.PointerConvertible, textureAttributes: interop.PointerConvertible, pixelFormat: interop.Enum<typeof MTLPixelFormat>, width: number, height: number, planeIndex: number, textureOut: interop.PointerConvertible): number;
 
 declare function CVMetalTextureCacheFlush(textureCache: interop.PointerConvertible, options: number): void;
-
-declare function CVPixelFormatDescriptionCreateWithPixelFormatType(allocator: interop.PointerConvertible, pixelFormat: number): interop.Pointer;
-
-declare function CVPixelFormatDescriptionArrayCreateWithAllPixelFormatTypes(allocator: interop.PointerConvertible): interop.Pointer;
-
-declare function CVPixelFormatDescriptionRegisterDescriptionWithPixelFormatType(description: interop.PointerConvertible, pixelFormat: number): void;
-
-declare function CVIsCompressedPixelFormatAvailable(pixelFormatType: number): number;
 

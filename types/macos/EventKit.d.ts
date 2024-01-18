@@ -35,6 +35,19 @@ declare const EKEntityMask: {
   Reminder: 2,
 };
 
+declare const EKEntityType: {
+  Event: 0,
+  Reminder: 1,
+};
+
+declare const EKCalendarEventAvailabilityMask: {
+  None: 0,
+  Busy: 1,
+  Free: 2,
+  Tentative: 4,
+  Unavailable: 8,
+};
+
 declare const EKCalendarType: {
   Local: 0,
   CalDAV: 1,
@@ -89,12 +102,29 @@ declare const EKParticipantType: {
   Group: 4,
 };
 
-declare const EKEventAvailability: {
-  NotSupported: -1,
-  Busy: 0,
-  Free: 1,
-  Tentative: 2,
-  Unavailable: 3,
+declare const EKParticipantStatus: {
+  Unknown: 0,
+  Pending: 1,
+  Accepted: 2,
+  Declined: 3,
+  Tentative: 4,
+  Delegated: 5,
+  Completed: 6,
+  InProcess: 7,
+};
+
+declare const EKAlarmType: {
+  Display: 0,
+  Audio: 1,
+  Procedure: 2,
+  Email: 3,
+};
+
+declare const EKRecurrenceFrequency: {
+  Daily: 0,
+  Weekly: 1,
+  Monthly: 2,
+  Yearly: 3,
 };
 
 declare const EKSourceType: {
@@ -106,9 +136,12 @@ declare const EKSourceType: {
   Birthdays: 5,
 };
 
-declare const EKEntityType: {
-  Event: 0,
-  Reminder: 1,
+declare const EKParticipantRole: {
+  Unknown: 0,
+  Required: 1,
+  Optional: 2,
+  Chair: 3,
+  NonParticipant: 4,
 };
 
 declare const EKErrorCode: {
@@ -152,46 +185,61 @@ declare const EKErrorCode: {
   Last: 37,
 };
 
-declare const EKAlarmType: {
-  Display: 0,
-  Audio: 1,
-  Procedure: 2,
-  Email: 3,
+declare const EKEventAvailability: {
+  NotSupported: -1,
+  Busy: 0,
+  Free: 1,
+  Tentative: 2,
+  Unavailable: 3,
 };
 
-declare const EKParticipantStatus: {
-  Unknown: 0,
-  Pending: 1,
-  Accepted: 2,
-  Declined: 3,
-  Tentative: 4,
-  Delegated: 5,
-  Completed: 6,
-  InProcess: 7,
-};
+declare class EKVirtualConferenceProvider extends NSObject implements NSExtensionRequestHandling {
+  fetchAvailableRoomTypesWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
-declare const EKCalendarEventAvailabilityMask: {
-  None: 0,
-  Busy: 1,
-  Free: 2,
-  Tentative: 4,
-  Unavailable: 8,
-};
+  fetchVirtualConferenceForIdentifierCompletionHandler(identifier: string, completionHandler: (p1: EKVirtualConferenceDescriptor, p2: NSError) => void | null): void;
 
-declare const EKRecurrenceFrequency: {
-  Daily: 0,
-  Weekly: 1,
-  Monthly: 2,
-  Yearly: 3,
-};
+  beginRequestWithExtensionContext(context: NSExtensionContext): void;
 
-declare const EKParticipantRole: {
-  Unknown: 0,
-  Required: 1,
-  Optional: 2,
-  Chair: 3,
-  NonParticipant: 4,
-};
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
 
 declare class EKVirtualConferenceDescriptor extends NSObject {
   initWithTitleURLDescriptorsConferenceDetails(title: string | null, URLDescriptors: NSArray<interop.Object> | Array<interop.Object>, conferenceDetails: string | null): this;
@@ -417,98 +465,6 @@ declare class EKEvent extends EKCalendarItem {
   readonly birthdayPersonUniqueID: string;
 }
 
-declare class EKVirtualConferenceProvider extends NSObject implements NSExtensionRequestHandling {
-  fetchAvailableRoomTypesWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  fetchVirtualConferenceForIdentifierCompletionHandler(identifier: string, completionHandler: (p1: EKVirtualConferenceDescriptor, p2: NSError) => void | null): void;
-
-  beginRequestWithExtensionContext(context: NSExtensionContext): void;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class EKRecurrenceRule extends EKObject implements NSCopying {
-  initRecurrenceWithFrequencyIntervalEnd(type: interop.Enum<typeof EKRecurrenceFrequency>, interval: number, end: EKRecurrenceEnd | null): this;
-
-  initRecurrenceWithFrequencyIntervalDaysOfTheWeekDaysOfTheMonthMonthsOfTheYearWeeksOfTheYearDaysOfTheYearSetPositionsEnd(type: interop.Enum<typeof EKRecurrenceFrequency>, interval: number, days: NSArray<interop.Object> | Array<interop.Object> | null, monthDays: NSArray<interop.Object> | Array<interop.Object> | null, months: NSArray<interop.Object> | Array<interop.Object> | null, weeksOfTheYear: NSArray<interop.Object> | Array<interop.Object> | null, daysOfTheYear: NSArray<interop.Object> | Array<interop.Object> | null, setPositions: NSArray<interop.Object> | Array<interop.Object> | null, end: EKRecurrenceEnd | null): this;
-
-  readonly calendarIdentifier: string;
-
-  recurrenceEnd: EKRecurrenceEnd;
-
-  readonly frequency: interop.Enum<typeof EKRecurrenceFrequency>;
-
-  readonly interval: number;
-
-  readonly firstDayOfTheWeek: number;
-
-  readonly daysOfTheWeek: NSArray;
-
-  readonly daysOfTheMonth: NSArray;
-
-  readonly daysOfTheYear: NSArray;
-
-  readonly weeksOfTheYear: NSArray;
-
-  readonly monthsOfTheYear: NSArray;
-
-  readonly setPositions: NSArray;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class EKStructuredLocation extends EKObject implements NSCopying {
-  static locationWithTitle<This extends abstract new (...args: any) => any>(this: This, title: string): InstanceType<This>;
-
-  static locationWithMapItem<This extends abstract new (...args: any) => any>(this: This, mapItem: MKMapItem): InstanceType<This>;
-
-  title: string;
-
-  geoLocation: CLLocation;
-
-  radius: number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class EKCalendar extends EKObject {
   static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
 
@@ -612,5 +568,49 @@ declare class EKEventStore extends NSObject {
   reset(): void;
 
   refreshSourcesIfNecessary(): void;
+}
+
+declare class EKRecurrenceRule extends EKObject implements NSCopying {
+  initRecurrenceWithFrequencyIntervalEnd(type: interop.Enum<typeof EKRecurrenceFrequency>, interval: number, end: EKRecurrenceEnd | null): this;
+
+  initRecurrenceWithFrequencyIntervalDaysOfTheWeekDaysOfTheMonthMonthsOfTheYearWeeksOfTheYearDaysOfTheYearSetPositionsEnd(type: interop.Enum<typeof EKRecurrenceFrequency>, interval: number, days: NSArray<interop.Object> | Array<interop.Object> | null, monthDays: NSArray<interop.Object> | Array<interop.Object> | null, months: NSArray<interop.Object> | Array<interop.Object> | null, weeksOfTheYear: NSArray<interop.Object> | Array<interop.Object> | null, daysOfTheYear: NSArray<interop.Object> | Array<interop.Object> | null, setPositions: NSArray<interop.Object> | Array<interop.Object> | null, end: EKRecurrenceEnd | null): this;
+
+  readonly calendarIdentifier: string;
+
+  recurrenceEnd: EKRecurrenceEnd;
+
+  readonly frequency: interop.Enum<typeof EKRecurrenceFrequency>;
+
+  readonly interval: number;
+
+  readonly firstDayOfTheWeek: number;
+
+  readonly daysOfTheWeek: NSArray;
+
+  readonly daysOfTheMonth: NSArray;
+
+  readonly daysOfTheYear: NSArray;
+
+  readonly weeksOfTheYear: NSArray;
+
+  readonly monthsOfTheYear: NSArray;
+
+  readonly setPositions: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class EKStructuredLocation extends EKObject implements NSCopying {
+  static locationWithTitle<This extends abstract new (...args: any) => any>(this: This, title: string): InstanceType<This>;
+
+  static locationWithMapItem<This extends abstract new (...args: any) => any>(this: This, mapItem: MKMapItem): InstanceType<This>;
+
+  title: string;
+
+  geoLocation: CLLocation;
+
+  radius: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

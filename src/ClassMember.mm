@@ -126,7 +126,6 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
 inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
                            id self, void **avalues, void *rvalue,
                            bool classMethod) {
-  // TODO: This seems bad for performance. Is there a better way?
   bool supercall =
       classMethod
           ? class_conformsToProtocol(self,

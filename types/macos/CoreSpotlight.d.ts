@@ -254,6 +254,58 @@ declare class CSCustomAttributeKey extends NSObject implements NSCopying, NSSecu
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class CSImportExtension extends NSObject implements NSExtensionRequestHandling {
+  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): boolean;
+
+  beginRequestWithExtensionContext(context: NSExtensionContext): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class CSLocalizedString extends NSString {
+  initWithLocalizedStrings(localizedStrings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
+
+  localizedString(): string;
+}
+
 declare class CSPerson extends NSObject implements NSSecureCoding, NSCopying {
   initWithDisplayNameHandlesHandleIdentifier(displayName: string | null, handles: NSArray<interop.Object> | Array<interop.Object>, handleIdentifier: string): this;
 
@@ -264,6 +316,48 @@ declare class CSPerson extends NSObject implements NSSecureCoding, NSCopying {
   readonly handleIdentifier: string;
 
   contactIdentifier: string;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
+  readonly localizedAttributedSuggestion: NSAttributedString;
+
+  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
+
+  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  score(): NSNumber;
+
+  suggestionDataSources(): NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, NSCopying {
+  get fetchAttributes(): NSArray;
+  set fetchAttributes(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  get filterQueries(): NSArray;
+  set filterQueries(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  keyboardLanguage: string;
+
+  sourceOptions: interop.Enum<typeof CSSearchQuerySourceOptions>;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -700,99 +794,5 @@ declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class CSLocalizedString extends NSString {
-  initWithLocalizedStrings(localizedStrings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
-
-  localizedString(): string;
-}
-
-declare class CSImportExtension extends NSObject implements NSExtensionRequestHandling {
-  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): boolean;
-
-  beginRequestWithExtensionContext(context: NSExtensionContext): void;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, NSCopying {
-  get fetchAttributes(): NSArray;
-  set fetchAttributes(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  get filterQueries(): NSArray;
-  set filterQueries(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  keyboardLanguage: string;
-
-  sourceOptions: interop.Enum<typeof CSSearchQuerySourceOptions>;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
-  readonly localizedAttributedSuggestion: NSAttributedString;
-
-  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
-
-  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  score(): NSNumber;
-
-  suggestionDataSources(): NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

@@ -58,16 +58,6 @@ declare const AVAudioUnitEQFilterType: {
   ResonantHighShelf: 10,
 };
 
-declare const AVAudio3DMixingRenderingAlgorithm: {
-  EqualPowerPanning: 0,
-  SphericalHead: 1,
-  HRTF: 2,
-  SoundField: 3,
-  StereoPassThrough: 5,
-  HRTFHQ: 6,
-  Auto: 7,
-};
-
 declare const AVAudioCommonFormat: {
   OtherFormat: 0,
   PCMFormatFloat32: 1,
@@ -81,6 +71,16 @@ declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
   Min: 10,
   Mid: 20,
   Max: 30,
+};
+
+declare const AVAudio3DMixingRenderingAlgorithm: {
+  EqualPowerPanning: 0,
+  SphericalHead: 1,
+  HRTF: 2,
+  SoundField: 3,
+  StereoPassThrough: 5,
+  HRTFHQ: 6,
+  Auto: 7,
 };
 
 declare const AVAudioVoiceProcessingSpeechActivityEvent: {
@@ -112,16 +112,16 @@ declare class AVAudio3DAngularOrientation {
   roll: number;
 }
 
-declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
-  constructor(init?: AVAudioVoiceProcessingOtherAudioDuckingConfiguration);
-  enableAdvancedDucking: boolean;
-  duckingLevel: interop.Enum<typeof AVAudioVoiceProcessingOtherAudioDuckingLevel>;
-}
-
 declare class AVAudio3DVectorOrientation {
   constructor(init?: AVAudio3DVectorOrientation);
   forward: AVAudio3DPoint;
   up: AVAudio3DPoint;
+}
+
+declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
+  constructor(init?: AVAudioVoiceProcessingOtherAudioDuckingConfiguration);
+  enableAdvancedDucking: boolean;
+  duckingLevel: interop.Enum<typeof AVAudioVoiceProcessingOtherAudioDuckingLevel>;
 }
 
 declare interface AVAudioStereoMixing extends NSObjectProtocol {
@@ -185,16 +185,6 @@ declare class AVAudioBuffer extends NSObject implements NSCopying, NSMutableCopy
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class AVAudioEnvironmentReverbParameters extends NSObject {
-  enable: boolean;
-
-  level: number;
-
-  readonly filterParameters: AVAudioUnitEQFilterParameters;
-
-  loadFactoryReverbPreset(preset: interop.Enum<typeof AVAudioUnitReverbPreset>): void;
-}
-
 declare class AVAudioTime extends NSObject {
   initWithAudioTimeStampSampleRate(ts: interop.PointerConvertible, sampleRate: number): this;
 
@@ -229,6 +219,16 @@ declare class AVAudioTime extends NSObject {
   readonly sampleRate: number;
 
   readonly audioTimeStamp: AudioTimeStamp;
+}
+
+declare class AVAudioEnvironmentReverbParameters extends NSObject {
+  enable: boolean;
+
+  level: number;
+
+  readonly filterParameters: AVAudioUnitEQFilterParameters;
+
+  loadFactoryReverbPreset(preset: interop.Enum<typeof AVAudioUnitReverbPreset>): void;
 }
 
 declare class AVAudioPCMBuffer extends AVAudioBuffer {
@@ -637,34 +637,14 @@ declare class AVAudioEngine extends NSObject {
   disconnectMIDIOutput(node: AVAudioNode): void;
 }
 
-declare class AVAudioNode extends NSObject {
-  reset(): void;
+declare class AVAudioEnvironmentDistanceAttenuationParameters extends NSObject {
+  distanceAttenuationModel: interop.Enum<typeof AVAudioEnvironmentDistanceAttenuationModel>;
 
-  inputFormatForBus(bus: number): AVAudioFormat;
+  referenceDistance: number;
 
-  outputFormatForBus(bus: number): AVAudioFormat;
+  maximumDistance: number;
 
-  nameForInputBus(bus: number): string;
-
-  nameForOutputBus(bus: number): string;
-
-  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
-
-  removeTapOnBus(bus: number): void;
-
-  readonly engine: AVAudioEngine;
-
-  readonly numberOfInputs: number;
-
-  readonly numberOfOutputs: number;
-
-  readonly lastRenderTime: AVAudioTime;
-
-  readonly AUAudioUnit: AUAudioUnit;
-
-  readonly latency: number;
-
-  readonly outputPresentationLatency: number;
+  rolloffFactor: number;
 }
 
 declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixing {
@@ -751,13 +731,33 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
   position: AVAudio3DPoint;
 }
 
-declare class AVAudioEnvironmentDistanceAttenuationParameters extends NSObject {
-  distanceAttenuationModel: interop.Enum<typeof AVAudioEnvironmentDistanceAttenuationModel>;
+declare class AVAudioNode extends NSObject {
+  reset(): void;
 
-  referenceDistance: number;
+  inputFormatForBus(bus: number): AVAudioFormat;
 
-  maximumDistance: number;
+  outputFormatForBus(bus: number): AVAudioFormat;
 
-  rolloffFactor: number;
+  nameForInputBus(bus: number): string;
+
+  nameForOutputBus(bus: number): string;
+
+  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
+
+  removeTapOnBus(bus: number): void;
+
+  readonly engine: AVAudioEngine;
+
+  readonly numberOfInputs: number;
+
+  readonly numberOfOutputs: number;
+
+  readonly lastRenderTime: AVAudioTime;
+
+  readonly AUAudioUnit: AUAudioUnit;
+
+  readonly latency: number;
+
+  readonly outputPresentationLatency: number;
 }
 
