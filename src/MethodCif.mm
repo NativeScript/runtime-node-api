@@ -154,8 +154,4 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
   rvalueLength = cif.rtype->size;
 }
 
-void MethodCif::call(void *fnptr, void *rvalue, void **avalues) {
-  ffi_call(&cif, FFI_FN(fnptr), rvalue, avalues);
-}
-
 } // namespace objc_bridge

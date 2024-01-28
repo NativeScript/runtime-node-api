@@ -124,8 +124,9 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
 }
 
 inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
-                           id self, void **avalues, void *rvalue,
-                           bool classMethod) {
+                           id self, void **avalues, void *rvalue) {
+  bool classMethod = class_isMetaClass(object_getClass(self));
+
   bool supercall =
       classMethod
           ? class_conformsToProtocol(self,
@@ -148,12 +149,12 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
   if (!supercall) {
 #if defined(__x86_64__)
     if (isStret) {
-      cif->call((void *)objc_msgSend_stret, rvalue, avalues);
+      ffi_call(&cif->cif, FFI_FN(objc_msgSend_stret), rvalue, avalues);
     } else {
-      cif->call((void *)objc_msgSend, rvalue, avalues);
+      ffi_call(&cif->cif, FFI_FN(objc_msgSend), rvalue, avalues);
     }
 #else
-    cif->call((void *)objc_msgSend, rvalue, avalues);
+    ffi_call(&cif->cif, FFI_FN(objc_msgSend), rvalue, avalues);
 #endif
   } else {
     struct objc_super superobj = {self,
@@ -162,12 +163,12 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
     avalues[0] = (void *)&superobjPtr;
 #if defined(__x86_64__)
     if (isStret) {
-      cif->call((void *)objc_msgSendSuper_stret, rvalue, avalues);
+      ffi_call(&cif->cif, FFI_FN(objc_msgSendSuper_stret), rvalue, avalues);
     } else {
-      cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+      ffi_call(&cif->cif, FFI_FN(objc_msgSendSuper), rvalue, avalues);
     }
 #else
-    cif->call((void *)objc_msgSendSuper, rvalue, avalues);
+    ffi_call(&cif->cif, FFI_FN(objc_msgSendSuper), rvalue, avalues);
 #endif
   }
 }
@@ -212,7 +213,7 @@ napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
     }
   }
 
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   for (unsigned int i = 0; i < cif->argc; i++) {
     if (shouldFree[i]) {
@@ -252,7 +253,7 @@ napi_value ObjCClassMember::JSGetter(napi_env env, napi_callback_info cbinfo) {
   void *avalues[2] = {&self, &method->methodOrGetter.selector};
   void *rvalue = cif->rvalue;
 
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   if (cif->returnType->kind == mdTypeInstanceObject) {
     napi_value constructor = jsThis;
@@ -290,7 +291,7 @@ napi_value ObjCClassMember::JSSetter(napi_env env, napi_callback_info cbinfo) {
   bool shouldFree = false;
   cif->argTypes[0]->toNative(env, argv, avalues[2], &shouldFree, &shouldFree);
 
-  objcNativeCall(env, jsThis, cif, self, avalues, rvalue, method->classMethod);
+  objcNativeCall(env, jsThis, cif, self, avalues, rvalue);
 
   if (shouldFree) {
     cif->argTypes[0]->free(env, *((void **)avalues[2]));

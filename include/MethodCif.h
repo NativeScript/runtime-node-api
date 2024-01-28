@@ -31,8 +31,6 @@ public:
   MethodCif(napi_env env, std::string typeEncoding);
   MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset,
             bool isMethod = false);
-
-  void call(void *fnptr, void *rvalue, void **avalues);
 };
 
 } // namespace objc_bridge

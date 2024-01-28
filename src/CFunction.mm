@@ -81,7 +81,7 @@ napi_value CFunction::JSCall(napi_env env, napi_callback_info cbinfo) {
     }
   }
 
-  cif->call(func->fnptr, rvalue, avalues);
+  ffi_call(&cif->cif, FFI_FN(func->fnptr), rvalue, avalues);
 
   if (shouldFreeAny) {
     for (unsigned int i = 0; i < cif->argc; i++) {

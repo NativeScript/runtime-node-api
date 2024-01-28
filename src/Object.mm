@@ -4,6 +4,7 @@
 #include "node_api_util.h"
 
 #import <Foundation/Foundation.h>
+#include <objc/runtime.h>
 
 namespace objc_bridge {
 
@@ -70,6 +71,8 @@ void finalize_objc_object_borrowed(napi_env, void *data, void *hint) {
   bridgeState->objectRefs.erase(object);
 }
 
+Class UIPlaceholderColorClass = objc_getClass("UIPlaceholderColor");
+
 napi_value ObjCBridgeState::getObject(napi_env env, id obj,
                                       napi_value constructor,
                                       ObjectOwnership ownership) {
@@ -95,6 +98,10 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
 
   if (cls == nullptr) {
     return nullptr;
+  }
+
+  if (cls == UIPlaceholderColorClass) {
+    ownership = kBorrowedObject;
   }
 
   bool isClass = false;
