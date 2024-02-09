@@ -606,10 +606,6 @@ declare class CGPDFArray {
   constructor(init?: CGPDFArray);
 }
 
-declare class CGPDFContentStream {
-  constructor(init?: CGPDFContentStream);
-}
-
 declare class CGPathElement {
   constructor(init?: CGPathElement);
   type: interop.Enum<typeof CGPathElementType>;
@@ -618,6 +614,10 @@ declare class CGPathElement {
 
 declare class CGPattern {
   constructor(init?: CGPattern);
+}
+
+declare class CGPDFContentStream {
+  constructor(init?: CGPDFContentStream);
 }
 
 declare function CGRectGetMinX(rect: CGRect): number;

@@ -5,6 +5,8 @@ declare const kCAValueFunctionRotateY: string;
 
 declare const kCAFilterLinear: string;
 
+declare const CAFrameRateRangeDefault: CAFrameRateRange;
+
 declare const kCAGravityTop: string;
 
 declare const CATransform3DIdentity: CATransform3D;
@@ -90,8 +92,6 @@ declare const kCAAnimationCubic: string;
 declare const kCAAnimationDiscrete: string;
 
 declare const kCAAnimationLinear: string;
-
-declare const CAFrameRateRangeDefault: CAFrameRateRange;
 
 declare const kCATransition: string;
 
@@ -1096,8 +1096,6 @@ declare class CATransaction extends NSObject {
   static valueForKey(key: string): interop.Object;
 
   static setValueForKey(anObject: interop.Object | null, key: string): void;
-
-  static batch(): void;
 }
 
 declare class CAAnimation extends NSObject implements NSSecureCoding, NSCopying, CAMediaTiming, CAAction {

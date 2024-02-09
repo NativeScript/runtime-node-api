@@ -372,7 +372,7 @@ declare class ABPerson extends ABRecord {
 
   static searchElementForPropertyLabelKeyValueComparison(property: string, label: string, key: string, value: interop.Object, comparison: number): ABSearchElement;
 
-  initWithVCardRepresentation(vCardData: NSData): interop.Object;
+  initWithVCardRepresentation(vCardData: NSData): this;
 
   vCardRepresentation(): NSData;
 
@@ -454,7 +454,7 @@ declare class ABMultiValue extends NSObject implements NSCopying, NSMutableCopyi
 declare class ABRecord extends NSObject {
   init(): this;
 
-  initWithAddressBook(addressBook: ABAddressBook): interop.Object;
+  initWithAddressBook(addressBook: ABAddressBook): this;
 
   valueForProperty(property: string): interop.Object;
 

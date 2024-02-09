@@ -1,8 +1,6 @@
 /// <reference path="../../lib/types.d.ts" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const kCAEmitterLayerSphere: string;
-
 declare const kCAScrollVertically: string;
 
 declare const kCAEmitterLayerUnordered: string;
@@ -40,6 +38,8 @@ declare const kCAEmitterLayerOldestFirst: string;
 declare const kCAEmitterLayerOutline: string;
 
 declare const kCAEmitterLayerPoints: string;
+
+declare const kCAEmitterLayerSphere: string;
 
 declare const kCAEmitterLayerCuboid: string;
 
@@ -449,8 +449,6 @@ declare class CATransaction extends NSObject {
   static valueForKey(key: string): interop.Object;
 
   static setValueForKey(anObject: interop.Object | null, key: string): void;
-
-  static batch(): void;
 }
 
 declare class CAGradientLayer extends CALayer {

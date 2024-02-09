@@ -394,11 +394,17 @@ declare const kCMMuxedStreamType_MPEG1System: number;
 
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
 
+declare const kCMFormatDescriptionExtension_HasRightStereoEyeView: interop.Pointer;
+
 declare const kCMFormatDescriptionExtension_StereoCameraBaseline: interop.Pointer;
 
 declare const kCMFormatDescriptionHeroEye_Right: interop.Pointer;
 
 declare const kCMFormatDescriptionHeroEye_Left: interop.Pointer;
+
+declare const kCMFormatDescriptionLogTransferFunction_AppleLog: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_LogTransferFunction: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_HorizontalFieldOfView: interop.Pointer;
 
@@ -822,6 +828,8 @@ declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
 
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
+declare const kCMFormatDescriptionExtension_HasLeftStereoEyeView: interop.Pointer;
+
 declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
 
 declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
@@ -1096,6 +1104,8 @@ declare const kCMTagStereoLeftEye: CMTag;
 
 declare const kCMFormatDescriptionExtension_AmbientViewingEnvironment: interop.Pointer;
 
+declare const kCMFormatDescriptionExtension_HasAdditionalViews: interop.Pointer;
+
 declare const kCMTextMarkupGenericFontName_Serif: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_PixelAspectRatioVerticalSpacing: interop.Pointer;
@@ -1258,6 +1268,10 @@ declare class OpaqueCMMemoryPool {
   constructor(init?: OpaqueCMMemoryPool);
 }
 
+declare class opaqueCMSimpleQueue {
+  constructor(init?: opaqueCMSimpleQueue);
+}
+
 declare class CMTag {
   constructor(init?: CMTag);
   category: interop.Enum<typeof CMTagCategory>;
@@ -1286,10 +1300,6 @@ declare class CMVideoDimensions {
   constructor(init?: CMVideoDimensions);
   width: number;
   height: number;
-}
-
-declare class opaqueCMSimpleQueue {
-  constructor(init?: opaqueCMSimpleQueue);
 }
 
 declare class OpaqueCMTaggedBufferGroup {

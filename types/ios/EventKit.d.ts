@@ -244,7 +244,7 @@ declare class EKRecurrenceDayOfWeek extends NSObject implements NSCopying, NSSec
 
   static dayOfWeekWeekNumber<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): InstanceType<This>;
 
-  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): interop.Object;
+  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): this;
 
   readonly dayOfTheWeek: interop.Enum<typeof EKWeekday>;
 

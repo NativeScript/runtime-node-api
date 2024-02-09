@@ -71,8 +71,6 @@ void finalize_objc_object_borrowed(napi_env, void *data, void *hint) {
   bridgeState->objectRefs.erase(object);
 }
 
-Class UIPlaceholderColorClass = objc_getClass("UIPlaceholderColor");
-
 napi_value ObjCBridgeState::getObject(napi_env env, id obj,
                                       napi_value constructor,
                                       ObjectOwnership ownership) {
@@ -98,10 +96,6 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
 
   if (cls == nullptr) {
     return nullptr;
-  }
-
-  if (cls == UIPlaceholderColorClass) {
-    ownership = kBorrowedObject;
   }
 
   bool isClass = false;
@@ -305,7 +299,6 @@ ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
 void ObjCBridgeState::unregisterObject(id object) noexcept {
   if (objectRefs.contains(object)) {
     objectRefs.erase(object);
-    // NSLog(@"release object: %@", object);
     [object release];
   }
 }

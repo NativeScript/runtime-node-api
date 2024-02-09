@@ -601,6 +601,13 @@ declare class MPSOrigin {
   z: number;
 }
 
+declare class unnamed_4301261079305738917 {
+  constructor(init?: unnamed_4301261079305738917);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class MPSIntersectionDistancePrimitiveIndexInstanceIndex {
   constructor(init?: MPSIntersectionDistancePrimitiveIndexInstanceIndex);
   distance: number;
@@ -651,13 +658,6 @@ declare class MPSIntersectionDistancePrimitiveIndexBufferIndex {
   bufferIndex: number;
 }
 
-declare class unnamed_11956708817307392451 {
-  constructor(init?: unnamed_11956708817307392451);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MPSRayOriginMaskDirectionMaxDistance {
   constructor(init?: MPSRayOriginMaskDirectionMaxDistance);
   origin: _MPSPackedFloat3;
@@ -703,11 +703,11 @@ declare class MPSOffset {
   z: number;
 }
 
-type unnamed_4843475888788833882Descriptor = 
+type unnamed_6237897491231485987Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_4843475888788833882 {
-  constructor(init?: unnamed_4843475888788833882Descriptor);
+declare class unnamed_6237897491231485987 {
+  constructor(init?: unnamed_6237897491231485987Descriptor);
   elements: unknown /* const array */;
 }
 

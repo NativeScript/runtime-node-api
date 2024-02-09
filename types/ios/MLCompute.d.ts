@@ -369,30 +369,6 @@ declare class MLCLayer extends NSObject {
   readonly deviceType: interop.Enum<typeof MLCDeviceType>;
 }
 
-declare class MLCMultiheadAttentionDescriptor extends NSObject implements NSCopying {
-  readonly modelDimension: number;
-
-  readonly keyDimension: number;
-
-  readonly valueDimension: number;
-
-  readonly headCount: number;
-
-  readonly dropout: number;
-
-  readonly hasBiases: boolean;
-
-  readonly hasAttentionBiases: boolean;
-
-  readonly addsZeroAttention: boolean;
-
-  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: boolean, hasAttentionBiases: boolean, addsZeroAttention: boolean): InstanceType<This> | null;
-
-  static descriptorWithModelDimensionHeadCount<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, headCount: number): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class MLCTensorDescriptor extends NSObject implements NSCopying {
   readonly dataType: interop.Enum<typeof MLCDataType>;
 
@@ -767,6 +743,30 @@ declare class MLCActivationDescriptor extends NSObject implements NSCopying {
   static descriptorWithTypeAB<This extends abstract new (...args: any) => any>(this: This, activationType: interop.Enum<typeof MLCActivationType>, a: number, b: number): InstanceType<This> | null;
 
   static descriptorWithTypeABC<This extends abstract new (...args: any) => any>(this: This, activationType: interop.Enum<typeof MLCActivationType>, a: number, b: number, c: number): InstanceType<This> | null;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class MLCMultiheadAttentionDescriptor extends NSObject implements NSCopying {
+  readonly modelDimension: number;
+
+  readonly keyDimension: number;
+
+  readonly valueDimension: number;
+
+  readonly headCount: number;
+
+  readonly dropout: number;
+
+  readonly hasBiases: boolean;
+
+  readonly hasAttentionBiases: boolean;
+
+  readonly addsZeroAttention: boolean;
+
+  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: boolean, hasAttentionBiases: boolean, addsZeroAttention: boolean): InstanceType<This> | null;
+
+  static descriptorWithModelDimensionHeadCount<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, headCount: number): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

@@ -590,6 +590,8 @@ declare const MTLIndirectCommandType: {
   DrawIndexedPatches: 8,
   ConcurrentDispatch: 32,
   ConcurrentDispatchThreads: 64,
+  DrawMeshThreadgroups: 128,
+  DrawMeshThreads: 256,
 };
 
 declare const MTLCPUCacheMode: {
@@ -1110,9 +1112,9 @@ declare class MTLOrigin {
   z: number;
 }
 
-declare class MTLResourceID {
-  constructor(init?: MTLResourceID);
-  _impl: number;
+declare class MTLCounterResultTimestamp {
+  constructor(init?: MTLCounterResultTimestamp);
+  timestamp: number;
 }
 
 declare class MTLIndirectCommandBufferExecutionRange {
@@ -1171,13 +1173,6 @@ declare class _MTLAxisAlignedBoundingBox {
   max: _MTLPackedFloat3;
 }
 
-declare class unnamed_16783916636243138524 {
-  constructor(init?: unnamed_16783916636243138524);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MTLQuadTessellationFactorsHalf {
   constructor(init?: MTLQuadTessellationFactorsHalf);
   edgeTessellationFactor: unknown /* const array */;
@@ -1221,17 +1216,17 @@ declare class MTLCounterResultStageUtilization {
   renderTargetCycles: number;
 }
 
-declare class MTLCounterResultTimestamp {
-  constructor(init?: MTLCounterResultTimestamp);
-  timestamp: number;
-}
-
 declare class MTLTextureSwizzleChannels {
   constructor(init?: MTLTextureSwizzleChannels);
   red: interop.Enum<typeof MTLTextureSwizzle>;
   green: interop.Enum<typeof MTLTextureSwizzle>;
   blue: interop.Enum<typeof MTLTextureSwizzle>;
   alpha: interop.Enum<typeof MTLTextureSwizzle>;
+}
+
+declare class MTLResourceID {
+  constructor(init?: MTLResourceID);
+  _impl: number;
 }
 
 declare class MTLRegion {
@@ -1356,16 +1351,23 @@ declare class _MTLPackedFloat4x3 {
   columns: unknown /* const array */;
 }
 
+declare class unnamed_8524248493680478837 {
+  constructor(init?: unnamed_8524248493680478837);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class MTLDispatchThreadgroupsIndirectArguments {
   constructor(init?: MTLDispatchThreadgroupsIndirectArguments);
   threadgroupsPerGrid: unknown /* const array */;
 }
 
-type unnamed_9264046387786578300Descriptor = 
+type unnamed_17502381829809554195Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_9264046387786578300 {
-  constructor(init?: unnamed_9264046387786578300Descriptor);
+declare class unnamed_17502381829809554195 {
+  constructor(init?: unnamed_17502381829809554195Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -1507,6 +1509,20 @@ declare interface MTLIndirectRenderCommand extends NSObjectProtocol {
   drawPrimitivesVertexStartVertexCountInstanceCountBaseInstance(primitiveType: interop.Enum<typeof MTLPrimitiveType>, vertexStart: number, vertexCount: number, instanceCount: number, baseInstance: number): void;
 
   drawIndexedPrimitivesIndexCountIndexTypeIndexBufferIndexBufferOffsetInstanceCountBaseVertexBaseInstance(primitiveType: interop.Enum<typeof MTLPrimitiveType>, indexCount: number, indexType: interop.Enum<typeof MTLIndexType>, indexBuffer: MTLBuffer, indexBufferOffset: number, instanceCount: number, baseVertex: number, baseInstance: number): void;
+
+  setObjectThreadgroupMemoryLengthAtIndex(length: number, index: number): void;
+
+  setObjectBufferOffsetAtIndex(buffer: MTLBuffer, offset: number, index: number): void;
+
+  setMeshBufferOffsetAtIndex(buffer: MTLBuffer, offset: number, index: number): void;
+
+  drawMeshThreadgroupsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadgroupsPerGrid: MTLSize, threadsPerObjectThreadgroup: MTLSize, threadsPerMeshThreadgroup: MTLSize): void;
+
+  drawMeshThreadsThreadsPerObjectThreadgroupThreadsPerMeshThreadgroup(threadsPerGrid: MTLSize, threadsPerObjectThreadgroup: MTLSize, threadsPerMeshThreadgroup: MTLSize): void;
+
+  setBarrier(): void;
+
+  clearBarrier(): void;
 
   reset(): void;
 }
@@ -3657,6 +3673,8 @@ declare class MTLMeshRenderPipelineDescriptor extends NSObject implements NSCopy
 
   stencilAttachmentPixelFormat: interop.Enum<typeof MTLPixelFormat>;
 
+  supportIndirectCommandBuffers: boolean;
+
   objectLinkedFunctions: MTLLinkedFunctions;
 
   meshLinkedFunctions: MTLLinkedFunctions;
@@ -4493,6 +4511,12 @@ declare class MTLIndirectCommandBufferDescriptor extends NSObject implements NSC
   maxKernelBufferBindCount: number;
 
   maxKernelThreadgroupMemoryBindCount: number;
+
+  maxObjectBufferBindCount: number;
+
+  maxMeshBufferBindCount: number;
+
+  maxObjectThreadgroupMemoryBindCount: number;
 
   supportRayTracing: boolean;
 

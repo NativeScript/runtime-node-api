@@ -170,8 +170,6 @@ declare class CSSearchableIndex extends NSObject {
 
   initWithNameProtectionClass(name: string, protectionClass: string | null): this;
 
-  initWithNameProtectionClassBundleIdentifierOptions(name: string, protectionClass: string | null, bundleIdentifier: string, options: number): this;
-
   indexSearchableItemsCompletionHandler(items: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
 
   deleteSearchableItemsWithIdentifiersCompletionHandler(identifiers: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;

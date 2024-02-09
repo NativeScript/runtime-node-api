@@ -81,11 +81,15 @@ declare const NSOpenGLCPStateValidation: interop.Enum<typeof NSOpenGLContextPara
 
 declare const NSOpenGLCPGPUFragmentProcessing: interop.Enum<typeof NSOpenGLContextParameter>;
 
+declare const NSOpenGLCPGPUVertexProcessing: interop.Enum<typeof NSOpenGLContextParameter>;
+
+declare const NSOpenGLCPCurrentRendererID: interop.Enum<typeof NSOpenGLContextParameter>;
+
+declare const NSOpenGLCPSurfaceBackingSize: interop.Enum<typeof NSOpenGLContextParameter>;
+
 declare const NSOpenGLCPSurfaceOrder: interop.Enum<typeof NSOpenGLContextParameter>;
 
 declare const NSOpenGLCPSwapInterval: interop.Enum<typeof NSOpenGLContextParameter>;
-
-declare const NSOpenGLProfileVersion4_1Core: number;
 
 declare const NSOpenGLPFAMultiScreen: number;
 
@@ -627,6 +631,8 @@ declare const NSFontCollectionRemoveDuplicatesOption: string;
 
 declare const NSFontIdentityMatrix: interop.Pointer;
 
+declare const NSAppKitVersionNumber13_6: number;
+
 declare const NSFontColorAttribute: string;
 
 declare const NSFontVerticalTrait: number;
@@ -779,6 +785,12 @@ declare const NSApplicationDidBecomeActiveNotification: string;
 
 declare const NSUpdateWindowsRunLoopOrdering: number;
 
+declare const NSAppKitVersionNumber14_0: number;
+
+declare const NSAppKitVersionNumber13_5: number;
+
+declare const NSAppKitVersionNumber13_4: number;
+
 declare const NSAppKitVersionNumber13_0: number;
 
 declare const NSAppKitVersionNumber12_4: number;
@@ -818,8 +830,6 @@ declare const NSAccessibilityDescriptionListSubrole: string;
 declare const NSAppKitVersionNumber10_10_3: number;
 
 declare const NSAppKitVersionNumber10_7_3: number;
-
-declare const NSOpenGLCPReclaimResources: interop.Enum<typeof NSOpenGLContextParameter>;
 
 declare const NSAppKitVersionNumber10_7: number;
 
@@ -1789,6 +1799,8 @@ declare const NSSelectedTagBinding: string;
 
 declare const NSUndoFunctionKey: number;
 
+declare const NSOpenGLProfileVersion4_1Core: number;
+
 declare const NSObservedKeyPathKey: string;
 
 declare const NSAccessibilityChildrenAttribute: string;
@@ -1818,8 +1830,6 @@ declare const NSAccessibilityAttachmentTextAttribute: string;
 declare const NSOpenGLPFAColorFloat: number;
 
 declare const NSAllowsEditingMultipleValuesSelectionBindingOption: string;
-
-declare const NSOpenGLCPGPUVertexProcessing: interop.Enum<typeof NSOpenGLContextParameter>;
 
 declare const NSSharingServiceNamePostOnFacebook: string;
 
@@ -2138,6 +2148,8 @@ declare const NSFontModernSerifsClass: number;
 declare const NSImageNameRemoveTemplate: string;
 
 declare const NSRegularControlSize: interop.Enum<typeof NSControlSize>;
+
+declare const NSAppKitVersionNumber14_1: number;
 
 declare const NSPrintPanelAccessorySummaryItemDescriptionKey: string;
 
@@ -2463,8 +2475,6 @@ declare const NSRightTextMovement: number;
 
 declare const NSWorkspaceDecompressOperation: string;
 
-declare const NSOpenGLProfileVersion3_2Core: number;
-
 declare const NSAppKitVersionNumberWithCustomSheetPosition: number;
 
 declare const NSAppKitIgnoredException: string;
@@ -2666,8 +2676,6 @@ declare const NSAccessibilityCheckBoxRole: string;
 declare const NSKeywordsDocumentAttribute: string;
 
 declare const NSDeviceResolution: string;
-
-declare const NSOpenGLCPCurrentRendererID: interop.Enum<typeof NSOpenGLContextParameter>;
 
 declare const NSFullScreenWindowMask: interop.Enum<typeof NSWindowStyleMask>;
 
@@ -3019,8 +3027,6 @@ declare const NSCompositeDarken: interop.Enum<typeof NSCompositingOperation>;
 
 declare const NSImageIPTCData: string;
 
-declare const NSOpenGLCPSurfaceBackingSize: interop.Enum<typeof NSOpenGLContextParameter>;
-
 declare const NSMiterLineJoinStyle: interop.Enum<typeof NSLineJoinStyle>;
 
 declare const NSImageInterlaced: string;
@@ -3128,6 +3134,8 @@ declare const NSAboutPanelOptionVersion: string;
 declare const NSTitleBinding: string;
 
 declare const NSOpenGLPFASamples: number;
+
+declare const NSOpenGLCPReclaimResources: interop.Enum<typeof NSOpenGLContextParameter>;
 
 declare const NSAccessibilityHorizontalUnitDescriptionAttribute: string;
 
@@ -3369,6 +3377,8 @@ declare const NSImageNameSmartBadgeTemplate: string;
 
 declare const NSRoundedDisclosureBezelStyle: interop.Enum<typeof NSBezelStyle>;
 
+declare const NSAppKitVersionNumber13_3: number;
+
 declare const NSTextEffectAttributeName: string;
 
 declare const NSAccessibilityGridRole: string;
@@ -3447,6 +3457,8 @@ declare const NSSourceTextScalingDocumentAttribute: string;
 
 declare const NSContentArrayBinding: string;
 
+declare const NSAppKitVersionNumber13_2: number;
+
 declare const NSImageNameRightFacingTriangleTemplate: string;
 
 declare const NSExecuteFunctionKey: number;
@@ -3470,6 +3482,8 @@ declare const NSAccessibilityPickAction: string;
 declare const NSWorkspaceCopyOperation: string;
 
 declare const NSOpenGLPFAMultisample: number;
+
+declare const NSOpenGLProfileVersion3_2Core: number;
 
 declare const NSEventTrackingRunLoopMode: string;
 
@@ -8072,7 +8086,7 @@ declare class NSServicesMenuRequestor extends NativeObject implements NSServices
 }
 
 declare interface NSPasteboardReading extends NSObjectProtocol {
-  initWithPasteboardPropertyListOfType?(propertyList: interop.Object, type: string): interop.Object;
+  initWithPasteboardPropertyListOfType?(propertyList: interop.Object, type: string): this;
 }
 
 declare class NSPasteboardReading extends NativeObject implements NSPasteboardReading {
@@ -9485,15 +9499,15 @@ declare class NSCollectionViewLayout extends NSObject implements NSCoding {
 
   finalizeLayoutTransition(): void;
 
-  initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
 
-  initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
 
-  initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): NSCollectionViewLayoutAttributes;
 
@@ -9758,7 +9772,7 @@ declare class NSSliderAccessory extends NSObject implements NSCoding {
 declare class NSOpenGLContext extends NSObject implements NSLocking {
   initWithFormatShareContext(format: NSOpenGLPixelFormat, share: NSOpenGLContext | null): this;
 
-  initWithCGLContextObj(context: interop.PointerConvertible): NSOpenGLContext;
+  initWithCGLContextObj(context: interop.PointerConvertible): this;
 
   readonly pixelFormat: NSOpenGLPixelFormat;
 
@@ -10180,11 +10194,11 @@ declare class NSCollectionLayoutItem extends NSObject implements NSCopying {
 }
 
 declare class NSOpenGLPixelFormat extends NSObject implements NSCoding {
-  initWithCGLPixelFormatObj(format: interop.PointerConvertible): NSOpenGLPixelFormat;
+  initWithCGLPixelFormatObj(format: interop.PointerConvertible): this;
 
   initWithAttributes(attribs: interop.PointerConvertible): this;
 
-  initWithData(attribs: NSData): interop.Object;
+  initWithData(attribs: NSData): this;
 
   attributes(): NSData;
 
@@ -10978,9 +10992,9 @@ declare class NSCollectionViewUpdateItem extends NSObject {
 }
 
 declare class NSCachedImageRep extends NSImageRep {
-  initWithWindowRect(win: NSWindow, rect: CGRect): interop.Object;
+  initWithWindowRect(win: NSWindow, rect: CGRect): this;
 
-  initWithSizeDepthSeparateAlpha(size: CGSize, depth: interop.Enum<typeof NSWindowDepth>, flag: boolean, alpha: boolean): interop.Object;
+  initWithSizeDepthSeparateAlpha(size: CGSize, depth: interop.Enum<typeof NSWindowDepth>, flag: boolean, alpha: boolean): this;
 
   window(): NSWindow;
 
@@ -14061,7 +14075,7 @@ declare class NSComboBoxCell extends NSTextFieldCell {
 declare class NSOpenGLPixelBuffer extends NSObject {
   initWithTextureTargetTextureInternalFormatTextureMaxMipMapLevelPixelsWidePixelsHigh(target: number, format: number, maxLevel: number, pixelsWide: number, pixelsHigh: number): this;
 
-  initWithCGLPBufferObj(pbuffer: interop.PointerConvertible): NSOpenGLPixelBuffer;
+  initWithCGLPBufferObj(pbuffer: interop.PointerConvertible): this;
 
   readonly CGLPBufferObj: interop.Pointer;
 
@@ -15159,7 +15173,7 @@ declare class NSSound extends NSObject implements NSCopying, NSSecureCoding, NSP
 
   static readingOptionsForTypePasteboard(type: string, pasteboard: NSPasteboard): interop.Enum<typeof NSPasteboardReadingOptions>;
 
-  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): interop.Object;
+  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): this;
 
   isEqual(object: interop.Object): boolean;
 
@@ -16374,7 +16388,7 @@ declare class NSInputManager extends NSObject implements NSTextInput {
 
   static cycleToNextInputServerInLanguage(sender: interop.Object | null): void;
 
-  initWithNameHost(inputServerName: string, hostName: string): NSInputManager;
+  initWithNameHost(inputServerName: string, hostName: string): this;
 
   localizedInputManagerName(): string;
 
@@ -16588,7 +16602,7 @@ declare class NSPasteboardItem extends NSObject implements NSPasteboardWriting, 
 
   static readingOptionsForTypePasteboard(type: string, pasteboard: NSPasteboard): interop.Enum<typeof NSPasteboardReadingOptions>;
 
-  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): interop.Object;
+  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): this;
 }
 
 declare class NSGlyphGenerator extends NSObject {
@@ -18148,7 +18162,7 @@ declare class NSFilePromiseReceiver extends NSObject implements NSPasteboardRead
 
   static readingOptionsForTypePasteboard(type: string, pasteboard: NSPasteboard): interop.Enum<typeof NSPasteboardReadingOptions>;
 
-  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): interop.Object;
+  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): this;
 
   isEqual(object: interop.Object): boolean;
 
@@ -21161,7 +21175,7 @@ declare class NSNib extends NSObject implements NSCoding {
 
   instantiateWithOwnerTopLevelObjects(owner: interop.Object | null, topLevelObjects: interop.PointerConvertible): boolean;
 
-  initWithContentsOfURL(nibFileURL: NSURL): interop.Object;
+  initWithContentsOfURL(nibFileURL: NSURL): this;
 
   instantiateNibWithExternalNameTable(externalNameTable: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): boolean;
 
@@ -24043,7 +24057,7 @@ declare class NSColor extends NSObject implements NSCopying, NSSecureCoding, NSP
 
   static readingOptionsForTypePasteboard(type: string, pasteboard: NSPasteboard): interop.Enum<typeof NSPasteboardReadingOptions>;
 
-  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): interop.Object;
+  initWithPasteboardPropertyListOfType(propertyList: interop.Object, type: string): this;
 
   isEqual(object: interop.Object): boolean;
 
@@ -24985,9 +24999,9 @@ declare class NSDocument extends NSObject implements NSEditorRegistration, NSFil
 
   fileWrapperRepresentationOfType(type: string): NSFileWrapper;
 
-  initWithContentsOfFileOfType(absolutePath: string, typeName: string): interop.Object;
+  initWithContentsOfFileOfType(absolutePath: string, typeName: string): this;
 
-  initWithContentsOfURLOfType(url: NSURL, typeName: string): interop.Object;
+  initWithContentsOfURLOfType(url: NSURL, typeName: string): this;
 
   loadDataRepresentationOfType(data: NSData, type: string): boolean;
 
@@ -26548,7 +26562,7 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
 
   unregisterDraggedTypes(): void;
 
-  initWithWindowRef(windowRef: interop.PointerConvertible): NSWindow;
+  initWithWindowRef(windowRef: interop.PointerConvertible): this;
 
   readonly windowRef: interop.Pointer;
 

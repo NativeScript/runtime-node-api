@@ -280,10 +280,6 @@ declare const kCFSocketCloseOnInvalidate: number;
 
 declare const kCFDateFormatterWeekdaySymbols: interop.Pointer;
 
-declare const kCFSocketAutomaticallyReenableDataCallBack: number;
-
-declare const kCFLocaleCountryCode: interop.Pointer;
-
 declare const kCFURLVolumeAvailableCapacityForOpportunisticUsageKey: interop.Pointer;
 
 declare const kCFURLIsHiddenKey: interop.Pointer;
@@ -343,6 +339,10 @@ declare const kCFSocketRetrieveCommand: interop.Pointer;
 declare const kCFCopyStringSetCallBacks: CFSetCallBacks;
 
 declare const kCFBundleExecutableArchitectureX86_64: number;
+
+declare const kCFSocketAutomaticallyReenableDataCallBack: number;
+
+declare const kCFLocaleCountryCode: interop.Pointer;
 
 declare const kCFNumberFormatterPaddingCharacter: interop.Pointer;
 

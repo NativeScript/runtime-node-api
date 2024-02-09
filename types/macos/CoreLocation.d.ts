@@ -56,6 +56,7 @@ declare const CLMonitoringState: {
   Unknown: 0,
   Satisfied: 1,
   Unsatisfied: 2,
+  Unmonitored: 3,
 };
 
 declare const CLLiveUpdateConfiguration: {

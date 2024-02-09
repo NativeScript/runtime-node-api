@@ -92,6 +92,8 @@ declare const kBSLNIdeographicCenterBaseline: number;
 
 declare const kHyphensToEmDashOnSelector: number;
 
+declare const kMORTCurrInsertCountMask: number;
+
 declare const kAlternateHorizKanaOffSelector: number;
 
 declare const kCaseSensitiveSpacingOffSelector: number;
@@ -171,6 +173,8 @@ declare const kCTFontTableGPOS: number;
 declare const kCTFontStyleNameKey: interop.Pointer;
 
 declare const kJUSTpcUnconditionalAddAction: number;
+
+declare const kCompatibilityCompositionOnSelector: number;
 
 declare const kPROPONDirectionClass: number;
 
@@ -813,8 +817,6 @@ declare const kBSLNNumBaselineClasses: number;
 declare const kFontGermanLanguage: number;
 
 declare const kMORTCurrInsertCountShift: number;
-
-declare const kMORTCurrInsertCountMask: number;
 
 declare const kMORTMarkJustTableCountShift: number;
 
@@ -1555,8 +1557,6 @@ declare const kSTKCrossStreamReset: number;
 declare const kContextualAlternatesType: number;
 
 declare const variationFontTableTag: number;
-
-declare const kCompatibilityCompositionOnSelector: number;
 
 declare const kMORTTag: number;
 
@@ -3051,18 +3051,20 @@ declare class KernTableHeader {
   firstSubtable: unknown /* const array */;
 }
 
-type BslnFormatUnionDescriptor = 
-  | { fmt0Part: BslnFormat0Part }
-  | { fmt1Part: BslnFormat1Part }
-  | { fmt2Part: BslnFormat2Part }
-  | { fmt3Part: BslnFormat3Part };
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
 
-declare class BslnFormatUnion {
-  constructor(init?: BslnFormatUnionDescriptor);
-  fmt0Part: BslnFormat0Part;
-  fmt1Part: BslnFormat1Part;
-  fmt2Part: BslnFormat2Part;
-  fmt3Part: BslnFormat3Part;
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
 }
 
 type KerxFormatSpecificHeaderDescriptor = 
@@ -3079,6 +3081,20 @@ declare class KerxFormatSpecificHeader {
   simpleArray: KerxSimpleArrayHeader;
   indexArray: KerxIndexArrayHeader;
   controlPoint: KerxControlPointHeader;
+}
+
+type BslnFormatUnionDescriptor = 
+  | { fmt0Part: BslnFormat0Part }
+  | { fmt1Part: BslnFormat1Part }
+  | { fmt2Part: BslnFormat2Part }
+  | { fmt3Part: BslnFormat3Part };
+
+declare class BslnFormatUnion {
+  constructor(init?: BslnFormatUnionDescriptor);
+  fmt0Part: BslnFormat0Part;
+  fmt1Part: BslnFormat1Part;
+  fmt2Part: BslnFormat2Part;
+  fmt3Part: BslnFormat3Part;
 }
 
 type MorxSpecificSubtableDescriptor = 
@@ -3125,22 +3141,6 @@ declare class KernFormatSpecificHeader {
   stateTable: KernStateHeader;
   simpleArray: KernSimpleArrayHeader;
   indexArray: KernIndexArrayHeader;
-}
-
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
-
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

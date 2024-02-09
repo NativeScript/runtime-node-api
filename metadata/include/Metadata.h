@@ -93,6 +93,7 @@ enum MDMemberFlag : uint8_t {
   mdMemberStatic = 1 << 3,
   mdMemberMethod = 1 << 4,
   mdMemberReturnOwned = 1 << 5,
+  mdMemberIsInit = 1 << 6,
   mdMemberNext = 1 << 7,
 };
 

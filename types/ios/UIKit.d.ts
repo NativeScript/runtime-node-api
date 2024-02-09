@@ -2,8 +2,6 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./Foundation.d.ts" />
 
-declare const UIAccessibilityTraitTabBar: number;
-
 declare const UITableViewIndexSearch: string;
 
 declare const UIPasteboardTypeAutomatic: string;
@@ -352,6 +350,8 @@ declare const UITableViewAutomaticDimension: number;
 
 declare const UICellAccessoryStandardDimension: number;
 
+declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateNormal: number;
+
 declare const UICollectionViewFlowLayoutAutomaticSize: CGSize;
 
 declare const UICollectionElementKindSectionHeader: string;
@@ -654,8 +654,6 @@ declare const UILayoutPriorityRequired: number;
 
 declare const UITextFieldTextDidBeginEditingNotification: string;
 
-declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateNormal: number;
-
 declare const UIAccessibilityTraitNotEnabled: number;
 
 declare const UIKeyInputF4: string;
@@ -727,6 +725,8 @@ declare const UIAccessibilityAnnouncementKeyWasSuccessful: string;
 declare const UIAccessibilityAnnouncementDidFinishNotification: string;
 
 declare const UIAccessibilityPageScrolledNotification: number;
+
+declare const UIAccessibilityTraitTabBar: number;
 
 declare const UITextContentTypeNameSuffix: string;
 
@@ -7147,7 +7147,7 @@ declare interface UIViewControllerContextTransitioning extends NSObjectProtocol 
 
   readonly targetTransform: CGAffineTransform;
 
-  initialFrameForViewController(vc: UIViewController): CGRect;
+  initialFrameForViewController(vc: UIViewController): this;
 
   finalFrameForViewController(vc: UIViewController): CGRect;
 }
@@ -8744,15 +8744,15 @@ declare class UICollectionViewLayout extends NSObject implements NSCoding {
 
   finalizeLayoutTransition(): void;
 
-  initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
 
-  initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(elementKind: string, elementIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
 
-  initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
+  initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): this;
 
   finalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(elementKind: string, decorationIndexPath: NSIndexPath): UICollectionViewLayoutAttributes;
 
@@ -10287,7 +10287,7 @@ declare class UITableViewCell extends UIView implements NSCoding, UIGestureRecog
 
   userInteractionEnabledWhileDragging: boolean;
 
-  initWithFrameReuseIdentifier(frame: CGRect, reuseIdentifier: string | null): interop.Object;
+  initWithFrameReuseIdentifier(frame: CGRect, reuseIdentifier: string | null): this;
 
   text: string;
 
@@ -14400,19 +14400,19 @@ declare class UIColor extends NSObject implements NSSecureCoding, NSCopying {
 
   static colorWithCIColor(ciColor: CIColor): UIColor;
 
-  initWithWhiteAlpha(white: number, alpha: number): UIColor;
+  initWithWhiteAlpha(white: number, alpha: number): this;
 
-  initWithHueSaturationBrightnessAlpha(hue: number, saturation: number, brightness: number, alpha: number): UIColor;
+  initWithHueSaturationBrightnessAlpha(hue: number, saturation: number, brightness: number, alpha: number): this;
 
-  initWithRedGreenBlueAlpha(red: number, green: number, blue: number, alpha: number): UIColor;
+  initWithRedGreenBlueAlpha(red: number, green: number, blue: number, alpha: number): this;
 
-  initWithDisplayP3RedGreenBlueAlpha(displayP3Red: number, green: number, blue: number, alpha: number): UIColor;
+  initWithDisplayP3RedGreenBlueAlpha(displayP3Red: number, green: number, blue: number, alpha: number): this;
 
-  initWithCGColor(cgColor: interop.PointerConvertible): UIColor;
+  initWithCGColor(cgColor: interop.PointerConvertible): this;
 
-  initWithPatternImage(image: UIImage): UIColor;
+  initWithPatternImage(image: UIImage): this;
 
-  initWithCIColor(ciColor: CIColor): UIColor;
+  initWithCIColor(ciColor: CIColor): this;
 
   static readonly blackColor: UIColor;
 
@@ -14468,7 +14468,7 @@ declare class UIColor extends NSObject implements NSSecureCoding, NSCopying {
 
   static colorWithDynamicProvider(dynamicProvider: (p1: UITraitCollection) => UIColor): UIColor;
 
-  initWithDynamicProvider(dynamicProvider: (p1: UITraitCollection) => UIColor): UIColor;
+  initWithDynamicProvider(dynamicProvider: (p1: UITraitCollection) => UIColor): this;
 
   resolvedColorWithTraitCollection(traitCollection: UITraitCollection): UIColor;
 
@@ -17774,12 +17774,10 @@ declare class UITraitCollection extends NSObject implements NSCopying, NSSecureC
   encodeWithCoder(coder: NSCoder): void;
 }
 
-// @ts-ignore
 declare class UIAlertView extends UIView {
   initWithTitleMessageDelegateCancelButtonTitleOtherButtonTitles(title: string | null, message: string | null, delegate: interop.Object | null, cancelButtonTitle: string | null, otherButtonTitles: string | null): this;
 
-  // @ts-ignore
-  initWithFrame(frame: CGRect): interop.Object;
+  initWithFrame(frame: CGRect): this;
 
   initWithCoder(coder: NSCoder): this;
 

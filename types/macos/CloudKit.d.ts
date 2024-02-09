@@ -296,6 +296,7 @@ declare class CKSyncEngineWillSendChangesEvent extends CKSyncEngineEvent {
 }
 
 declare class CKSyncEngineDidFetchChangesEvent extends CKSyncEngineEvent {
+  readonly context: CKSyncEngineFetchChangesContext;
 }
 
 declare class CKSyncEngineSentRecordZoneChangesEvent extends CKSyncEngineEvent {
@@ -1217,6 +1218,7 @@ declare class CKDatabaseOperation extends CKOperation {
 }
 
 declare class CKSyncEngineWillFetchChangesEvent extends CKSyncEngineEvent {
+  readonly context: CKSyncEngineFetchChangesContext;
 }
 
 declare class CKSyncEngineFailedZoneSave extends NSObject {
@@ -1603,6 +1605,8 @@ declare class CKSyncEngineFetchChangesScope extends NSObject implements NSCopyin
   initWithZoneIDs(zoneIDs: NSSet | null): this;
 
   initWithExcludedZoneIDs(zoneIDs: NSSet): this;
+
+  containsZoneID(zoneID: CKRecordZoneID): boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

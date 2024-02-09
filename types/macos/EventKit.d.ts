@@ -298,7 +298,7 @@ declare class EKRecurrenceDayOfWeek extends NSObject implements NSCopying, NSSec
 
   static dayOfWeekWeekNumber<This extends abstract new (...args: any) => any>(this: This, dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): InstanceType<This>;
 
-  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): interop.Object;
+  initWithDayOfTheWeekWeekNumber(dayOfTheWeek: interop.Enum<typeof EKWeekday>, weekNumber: number): this;
 
   readonly dayOfTheWeek: interop.Enum<typeof EKWeekday>;
 
@@ -495,7 +495,7 @@ declare class EKCalendar extends EKObject {
 declare class EKEventStore extends NSObject {
   static authorizationStatusForEntityType(entityType: interop.Enum<typeof EKEntityType>): interop.Enum<typeof EKAuthorizationStatus>;
 
-  initWithAccessToEntityTypes(entityTypes: interop.Enum<typeof EKEntityMask>): interop.Object;
+  initWithAccessToEntityTypes(entityTypes: interop.Enum<typeof EKEntityMask>): this;
 
   init(): this;
 

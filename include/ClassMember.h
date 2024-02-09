@@ -51,6 +51,7 @@ public:
                             MDSectionOffset offset, napi_value constructor);
 
   static napi_value JSCall(napi_env env, napi_callback_info cbinfo);
+  static napi_value JSCallInit(napi_env env, napi_callback_info cbinfo);
   static napi_value JSGetter(napi_env env, napi_callback_info cbinfo);
   static napi_value JSSetter(napi_env env, napi_callback_info cbinfo);
 

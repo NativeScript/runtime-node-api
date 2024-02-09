@@ -66,6 +66,20 @@ declare const kAudioDevicePropertyScopeOutput: number;
 
 declare const kAudioDevicePropertyScopeInput: number;
 
+declare const kAudioTapPropertyDescription: number;
+
+declare const kAudioTapClassID: number;
+
+declare const kAudioProcessPropertyIsRunning: number;
+
+declare const kAudioProcessClassID: number;
+
+declare const kAudioSubTapPropertyDriftCompensationQuality: number;
+
+declare const kAudioSubTapPropertyDriftCompensation: number;
+
+declare const kAudioSubTapClassID: number;
+
 declare const kAudioSubDevicePropertyDriftCompensation: number;
 
 declare const kAudioSubDevicePropertyExtraLatency: number;
@@ -87,6 +101,8 @@ declare const kAudioAggregateDriftCompensationMaxQuality: number;
 declare const kAudioAggregateDriftCompensationMediumQuality: number;
 
 declare const kAudioAggregateDriftCompensationLowQuality: number;
+
+declare const kAudioAggregateDevicePropertySubTapList: number;
 
 declare const kAudioAggregateDevicePropertyClockDevice: number;
 
@@ -173,6 +189,12 @@ declare const kAudioDevicePropertyPlugIn: number;
 declare const kAudioDeviceStartTimeDontConsultDeviceFlag: number;
 
 declare const kAudioDeviceStartTimeIsInputFlag: number;
+
+declare const kAudioHardwarePropertyTranslateUIDToTap: number;
+
+declare const kAudioHardwarePropertyTapList: number;
+
+declare const kAudioHardwarePropertyTranslatePIDToProcessObject: number;
 
 declare const kAudioHardwarePropertyPowerHint: number;
 
@@ -416,7 +438,13 @@ declare const kAudioObjectPropertyOwnedObjects: number;
 
 declare const kAudioStreamTerminalTypeMicrophone: number;
 
+declare const kAudioTapPropertyFormat: number;
+
 declare const kAudioDevicePropertyUsesVariableBufferFrameSizes: number;
+
+declare const kAudioHardwarePropertyProcessObjectList: number;
+
+declare const kAudioTapPropertyUID: number;
 
 declare const kAudioDeviceTransportTypeHDMI: number;
 
@@ -429,6 +457,8 @@ declare const kAudioHardwarePropertyProcessIsMain: number;
 declare const kAudioObjectPropertyScopeGlobal: number;
 
 declare const kAudioPlugInPropertyBoxList: number;
+
+declare const kAudioProcessPropertyBundleID: number;
 
 declare const kAudioDevicePropertyDeviceCanBeDefaultSystemDevice: number;
 
@@ -450,9 +480,15 @@ declare const kAudioStreamPropertyPhysicalFormatSupported: number;
 
 declare const kAudioDeviceTransportTypeBuiltIn: number;
 
+declare const kAudioAggregateDevicePropertyTapList: number;
+
+declare const kAudioProcessPropertyIsRunningOutput: number;
+
 declare const kAudioClockDevicePropertyControlList: number;
 
 declare const kAudioPlugInClassID: number;
+
+declare const kAudioSubTapPropertyExtraLatency: number;
 
 declare const kAudioTransportManagerDestroyEndPointDevice: number;
 
@@ -519,6 +555,8 @@ declare const kAudioDevicePropertyPlayThruVolumeRangeDecibels: number;
 declare const kAudioBoxPropertyAcquisitionFailed: number;
 
 declare const kAudioAggregateDeviceClassID: number;
+
+declare const kAudioProcessPropertyDevices: number;
 
 declare const kAudioDevicePropertyMute: number;
 
@@ -628,6 +666,8 @@ declare const kAudioControlPropertyVariant: number;
 
 declare const kAudioSelectorControlPropertyCurrentItem: number;
 
+declare const kAudioProcessPropertyIsRunningInput: number;
+
 declare const kAudioHardwarePropertyDefaultOutputDevice: number;
 
 declare const kAudioHardwarePropertyDefaultSystemOutputDevice: number;
@@ -689,6 +729,8 @@ declare const kAudioClipLightControlClassID: number;
 declare const kAudioDevicePropertyStereoPanChannels: number;
 
 declare const kAudioHardwareNotRunningError: number;
+
+declare const kAudioProcessPropertyPID: number;
 
 declare const kAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction: number;
 

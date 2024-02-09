@@ -170,6 +170,8 @@ declare const kCVPixelFormatType_1IndexedGray_WhiteIsZero: number;
 
 declare const kCVPixelFormatType_4Indexed: number;
 
+declare const kCVImageBufferLogTransferFunction_AppleLog: interop.Pointer;
+
 declare const kCVImageBufferRegionOfInterestKey: interop.Pointer;
 
 declare const kCVImageBufferMasteringDisplayColorVolumeKey: interop.Pointer;
@@ -493,6 +495,8 @@ declare const kCVPixelFormatType_Lossy_32BGRA: number;
 declare const kCVPixelFormatBlockHeight: interop.Pointer;
 
 declare const kCVPixelFormatType_16Gray: number;
+
+declare const kCVImageBufferLogTransferFunctionKey: interop.Pointer;
 
 declare const kCVPixelFormatConstant: interop.Pointer;
 

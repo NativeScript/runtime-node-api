@@ -1284,7 +1284,7 @@ declare class MDLAnimatedScalar extends MDLAnimatedValue {
 declare class MDLAnimatedQuaternionArray extends MDLAnimatedValue {
   readonly elementCount: number;
 
-  initWithElementCount(arrayElementCount: number): interop.Object;
+  initWithElementCount(arrayElementCount: number): this;
 
   setFloatQuaternionArrayCountAtTime(array: interop.PointerConvertible, count: number, time: number): void;
 
@@ -1306,7 +1306,7 @@ declare class MDLAnimatedQuaternionArray extends MDLAnimatedValue {
 declare class MDLAnimatedVector3Array extends MDLAnimatedValue {
   readonly elementCount: number;
 
-  initWithElementCount(arrayElementCount: number): interop.Object;
+  initWithElementCount(arrayElementCount: number): this;
 
   setFloat3ArrayCountAtTime(array: interop.PointerConvertible, count: number, time: number): void;
 
@@ -1903,7 +1903,7 @@ declare class MDLMaterialPropertyGraph extends MDLMaterialPropertyNode {
 declare class MDLAnimatedScalarArray extends MDLAnimatedValue {
   readonly elementCount: number;
 
-  initWithElementCount(arrayElementCount: number): interop.Object;
+  initWithElementCount(arrayElementCount: number): this;
 
   setFloatArrayCountAtTime(array: interop.PointerConvertible, count: number, time: number): void;
 

@@ -54,6 +54,10 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
     if (isSelectorOwned(decl.methodSelector))
       member->flags = (MDMemberFlag)(member->flags | mdMemberReturnOwned);
 
+    if (decl.isInit) {
+      member->flags = (MDMemberFlag)(member->flags | mdMemberIsInit);
+    }
+
     MDSignature *mdSignature = new MDSignature();
     mdSignature->returnType = getTypeInfo(decl.returnType);
     for (auto param : decl.parameters) {

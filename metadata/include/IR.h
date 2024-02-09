@@ -215,6 +215,7 @@ public:
   std::vector<ParameterDecl> parameters;
   std::string methodSelector;
   bool isVariadic;
+  bool isInit = false;
 
   // Property
   TypeSpec propertyType;

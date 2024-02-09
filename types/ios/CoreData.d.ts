@@ -473,7 +473,7 @@ declare class NSStagedMigrationManager extends NSObject {
 }
 
 declare class NSPersistentCloudKitContainer extends NSPersistentContainer {
-  initializeCloudKitSchemaWithOptionsError(options: interop.Enum<typeof NSPersistentCloudKitContainerSchemaInitializationOptions>, error: interop.PointerConvertible): boolean;
+  initializeCloudKitSchemaWithOptionsError(options: interop.Enum<typeof NSPersistentCloudKitContainerSchemaInitializationOptions>, error: interop.PointerConvertible): this;
 
   recordForManagedObjectID(managedObjectID: NSManagedObjectID): CKRecord;
 
@@ -579,7 +579,7 @@ declare class NSMergePolicy extends NSObject {
 
   readonly mergeType: interop.Enum<typeof NSMergePolicyType>;
 
-  initWithMergeType(ty: interop.Enum<typeof NSMergePolicyType>): interop.Object;
+  initWithMergeType(ty: interop.Enum<typeof NSMergePolicyType>): this;
 
   resolveConflictsError(list: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): boolean;
 
@@ -1299,7 +1299,7 @@ declare class NSManagedObject extends NSObject {
 
   static fetchRequest(): NSFetchRequest;
 
-  initWithEntityInsertIntoManagedObjectContext(entity: NSEntityDescription, context: NSManagedObjectContext | null): NSManagedObject;
+  initWithEntityInsertIntoManagedObjectContext(entity: NSEntityDescription, context: NSManagedObjectContext | null): this;
 
   initWithContext(moc: NSManagedObjectContext): this;
 

@@ -1091,9 +1091,9 @@ declare class DOMMutationEvent extends DOMEvent {
 
   readonly attrChange: number;
 
-  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
+  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
 
-  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): void;
+  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
 }
 
 // @ts-ignore
@@ -3557,13 +3557,13 @@ declare class DOMKeyboardEvent extends DOMUIEvent {
 
   getModifierState(keyIdentifierArg: string): boolean;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): void;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
 }
 
 declare class DOMHTMLButtonElement extends DOMHTMLElement {
@@ -3611,9 +3611,9 @@ declare class DOMUIEvent extends DOMEvent {
 
   readonly which: number;
 
-  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
+  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
 
-  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): void;
+  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
 }
 
 declare class WebResource extends NSObject implements NSCoding, NSCopying {
@@ -3659,7 +3659,7 @@ declare class DOMOverflowEvent extends DOMEvent {
 
   readonly verticalOverflow: boolean;
 
-  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): void;
+  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): this;
 }
 
 declare class DOMHTMLCollection extends DOMObject {
@@ -3715,7 +3715,7 @@ declare class DOMWheelEvent extends DOMMouseEvent {
 
   readonly isHorizontal: boolean;
 
-  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): void;
+  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
 }
 
 declare class DOMCSSPrimitiveValue extends DOMCSSValue {
@@ -3963,9 +3963,9 @@ declare class DOMMouseEvent extends DOMUIEvent {
 
   readonly toElement: DOMNode;
 
-  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
+  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): this;
 
-  initMouseEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): void;
+  initMouseEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): this;
 }
 
 declare class WebPreferences extends NSObject implements NSCoding {
@@ -4640,9 +4640,9 @@ declare class DOMEvent extends DOMObject {
 
   preventDefault(): void;
 
-  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
 
-  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): void;
+  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
 }
 
 declare class DOMHTMLMarqueeElement extends DOMHTMLElement {

@@ -345,8 +345,6 @@ declare const NSLocalizedRecoveryOptionsErrorKey: string;
 
 declare const NSISOLatin1StringEncoding: number;
 
-declare const NSURLFileResourceTypeDirectory: string;
-
 declare const NSLocaleCountryCode: string;
 
 declare const NSLinguisticTagOtherWord: string;
@@ -1224,6 +1222,8 @@ declare const NSURLIsAliasFileKey: string;
 declare const NSPointerToStructHashCallBacks: NSHashTableCallBacks;
 
 declare const NSFileProtectionCompleteWhenUserInactive: string;
+
+declare const NSURLFileResourceTypeDirectory: string;
 
 declare const NSLocaleVariantCode: string;
 
@@ -3802,7 +3802,7 @@ declare class NSCalendar extends NSObject implements NSCopying, NSSecureCoding {
 
   static calendarWithIdentifier(calendarIdentifierConstant: string): NSCalendar;
 
-  initWithCalendarIdentifier(ident: string): interop.Object;
+  initWithCalendarIdentifier(ident: string): this;
 
   readonly calendarIdentifier: string;
 
@@ -4005,9 +4005,9 @@ declare class NSDictionary<KeyType = interop.Object, ObjectType = interop.Object
 
   static dictionaryWithContentsOfURL<KeyType, ObjectType>(url: NSURL): NSDictionary;
 
-  initWithContentsOfFile(path: string): NSDictionary;
+  initWithContentsOfFile(path: string): this;
 
-  initWithContentsOfURL(url: NSURL): NSDictionary;
+  initWithContentsOfURL(url: NSURL): this;
 
   writeToFileAtomically(path: string, useAuxiliaryFile: boolean): boolean;
 
@@ -4033,7 +4033,7 @@ declare class NSDictionary<KeyType = interop.Object, ObjectType = interop.Object
 
   initWithObjectsForKeys(objects: NSArray<interop.Object> | Array<interop.Object>, keys: NSArray<interop.Object> | Array<interop.Object>): this;
 
-  initWithContentsOfURLError(url: NSURL, error: interop.PointerConvertible): NSDictionary;
+  initWithContentsOfURLError(url: NSURL, error: interop.PointerConvertible): this;
 
   static dictionaryWithContentsOfURLError<KeyType, ObjectType>(url: NSURL, error: interop.PointerConvertible): NSDictionary;
 
@@ -5158,11 +5158,9 @@ declare class NSMutableArray<ObjectType = interop.Object> extends NSArray {
   // @ts-ignore
   static arrayWithContentsOfURL<ObjectType>(url: NSURL): NSMutableArray;
 
-  // @ts-ignore
-  initWithContentsOfFile(path: string): NSMutableArray;
+  initWithContentsOfFile(path: string): this;
 
-  // @ts-ignore
-  initWithContentsOfURL(url: NSURL): NSMutableArray;
+  initWithContentsOfURL(url: NSURL): this;
 
   applyDifference(difference: NSOrderedCollectionDifference): void;
 
@@ -5852,35 +5850,35 @@ declare class NSConstantString extends NSSimpleCString {
 declare class NSNumber extends NSValue {
   initWithCoder(coder: NSCoder): this;
 
-  initWithChar(value: number): NSNumber;
+  initWithChar(value: number): this;
 
-  initWithUnsignedChar(value: number): NSNumber;
+  initWithUnsignedChar(value: number): this;
 
-  initWithShort(value: number): NSNumber;
+  initWithShort(value: number): this;
 
-  initWithUnsignedShort(value: number): NSNumber;
+  initWithUnsignedShort(value: number): this;
 
-  initWithInt(value: number): NSNumber;
+  initWithInt(value: number): this;
 
-  initWithUnsignedInt(value: number): NSNumber;
+  initWithUnsignedInt(value: number): this;
 
-  initWithLong(value: number): NSNumber;
+  initWithLong(value: number): this;
 
-  initWithUnsignedLong(value: number): NSNumber;
+  initWithUnsignedLong(value: number): this;
 
-  initWithLongLong(value: number): NSNumber;
+  initWithLongLong(value: number): this;
 
-  initWithUnsignedLongLong(value: number): NSNumber;
+  initWithUnsignedLongLong(value: number): this;
 
-  initWithFloat(value: number): NSNumber;
+  initWithFloat(value: number): this;
 
-  initWithDouble(value: number): NSNumber;
+  initWithDouble(value: number): this;
 
-  initWithBool(value: boolean): NSNumber;
+  initWithBool(value: boolean): this;
 
-  initWithInteger(value: number): NSNumber;
+  initWithInteger(value: number): this;
 
-  initWithUnsignedInteger(value: number): NSNumber;
+  initWithUnsignedInteger(value: number): this;
 
   readonly charValue: number;
 
@@ -6332,11 +6330,9 @@ declare class NSMutableDictionary<KeyType = interop.Object, ObjectType = interop
   // @ts-ignore
   static dictionaryWithContentsOfURL<KeyType, ObjectType>(url: NSURL): NSMutableDictionary;
 
-  // @ts-ignore
-  initWithContentsOfFile(path: string): NSMutableDictionary;
+  initWithContentsOfFile(path: string): this;
 
-  // @ts-ignore
-  initWithContentsOfURL(url: NSURL): NSMutableDictionary;
+  initWithContentsOfURL(url: NSURL): this;
 
   static dictionaryWithSharedKeySet<KeyType, ObjectType>(keyset: interop.Object): NSMutableDictionary;
 
@@ -6787,8 +6783,6 @@ declare class NSURL extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly standardizedURL: NSURL;
 
-  checkResourceIsReachableAndReturnError(error: interop.PointerConvertible): boolean;
-
   isFileReferenceURL(): boolean;
 
   fileReferenceURL(): NSURL;
@@ -6850,6 +6844,8 @@ declare class NSURL extends NSObject implements NSSecureCoding, NSCopying {
   URLByAppendingPathExtension(pathExtension: string): NSURL;
 
   readonly URLByDeletingPathExtension: NSURL;
+
+  checkResourceIsReachableAndReturnError(error: interop.PointerConvertible): boolean;
 
   readonly URLByStandardizingPath: NSURL;
 
@@ -7071,9 +7067,9 @@ declare class NSData extends NSObject implements NSCopying, NSMutableCopying, NS
 
   static dataWithContentsOfMappedFile(path: string): interop.Object;
 
-  initWithContentsOfMappedFile(path: string): interop.Object;
+  initWithContentsOfMappedFile(path: string): this;
 
-  initWithBase64Encoding(base64String: string): interop.Object;
+  initWithBase64Encoding(base64String: string): this;
 
   base64Encoding(): string;
 
@@ -7390,7 +7386,7 @@ declare class NSMachPort extends NSPort {
 declare class NSProxy extends NativeObject implements NSObjectProtocol {
   static alloc<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  static allocWithZone(zone: interop.PointerConvertible): interop.Object;
+  static allocWithZone<This extends abstract new (...args: any) => any>(this: This, zone: interop.PointerConvertible): InstanceType<This>;
 
   static class(): interop.Object;
 
@@ -9357,7 +9353,7 @@ declare class NSUserDefaults extends NSObject {
 
   initWithSuiteName(suitename: string | null): this;
 
-  initWithUser(username: string): interop.Object;
+  initWithUser(username: string): this;
 
   objectForKey(defaultName: string): interop.Object;
 
@@ -9549,7 +9545,7 @@ declare class NSArray<ObjectType = interop.Object> extends NSObject implements N
 
   initWithArrayCopyItems(array: NSArray<interop.Object> | Array<interop.Object>, flag: boolean): this;
 
-  initWithContentsOfURLError(url: NSURL, error: interop.PointerConvertible): NSArray;
+  initWithContentsOfURLError(url: NSURL, error: interop.PointerConvertible): this;
 
   static arrayWithContentsOfURLError<ObjectType>(url: NSURL, error: interop.PointerConvertible): NSArray;
 
@@ -9567,9 +9563,9 @@ declare class NSArray<ObjectType = interop.Object> extends NSObject implements N
 
   static arrayWithContentsOfURL<ObjectType>(url: NSURL): NSArray;
 
-  initWithContentsOfFile(path: string): NSArray;
+  initWithContentsOfFile(path: string): this;
 
-  initWithContentsOfURL(url: NSURL): NSArray;
+  initWithContentsOfURL(url: NSURL): this;
 
   writeToFileAtomically(path: string, useAuxiliaryFile: boolean): boolean;
 
@@ -9659,7 +9655,7 @@ declare class NSMutableString extends NSString {
 
   applyTransformReverseRangeUpdatedRange(transform: string, reverse: boolean, range: _NSRange, resultingRange: interop.PointerConvertible): boolean;
 
-  initWithCapacity(capacity: number): NSMutableString;
+  initWithCapacity(capacity: number): this;
 
   static stringWithCapacity(capacity: number): NSMutableString;
 }
@@ -11394,19 +11390,19 @@ declare class NSString extends NSObject implements NSCopying, NSMutableCopying, 
 
   writeToURLAtomically(url: NSURL, atomically: boolean): boolean;
 
-  initWithContentsOfFile(path: string): interop.Object;
+  initWithContentsOfFile(path: string): this;
 
-  initWithContentsOfURL(url: NSURL): interop.Object;
+  initWithContentsOfURL(url: NSURL): this;
 
   static stringWithContentsOfFile(path: string): interop.Object;
 
   static stringWithContentsOfURL(url: NSURL): interop.Object;
 
-  initWithCStringNoCopyLengthFreeWhenDone(bytes: string, length: number, freeBuffer: boolean): interop.Object;
+  initWithCStringNoCopyLengthFreeWhenDone(bytes: string, length: number, freeBuffer: boolean): this;
 
-  initWithCStringLength(bytes: string, length: number): interop.Object;
+  initWithCStringLength(bytes: string, length: number): this;
 
-  initWithCString(bytes: string): interop.Object;
+  initWithCString(bytes: string): this;
 
   static stringWithCStringLength(bytes: string, length: number): interop.Object;
 

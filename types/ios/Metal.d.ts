@@ -1319,8 +1319,8 @@ declare class MTLResourceID {
   _impl: number;
 }
 
-declare class unnamed_9525557080087447827 {
-  constructor(init?: unnamed_9525557080087447827);
+declare class unnamed_16492328859432809698 {
+  constructor(init?: unnamed_16492328859432809698);
   x: number;
   y: number;
   z: number;
@@ -1353,11 +1353,11 @@ declare class MTLIndirectAccelerationStructureMotionInstanceDescriptor {
   motionEndTime: number;
 }
 
-type unnamed_10383400595083478791Descriptor = 
+type unnamed_1298364685925415443Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_10383400595083478791 {
-  constructor(init?: unnamed_10383400595083478791Descriptor);
+declare class unnamed_1298364685925415443 {
+  constructor(init?: unnamed_1298364685925415443Descriptor);
   elements: unknown /* const array */;
 }
 

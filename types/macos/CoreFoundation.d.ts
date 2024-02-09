@@ -1378,12 +1378,6 @@ declare class CFXMLParserCallBacks {
   handleError: (p1: interop.PointerConvertible, p2: interop.Enum<typeof CFXMLParserStatusCode>, p3: interop.PointerConvertible) => number | null;
 }
 
-declare class CGPoint {
-  constructor(init?: CGPoint);
-  x: number;
-  y: number;
-}
-
 declare class __CFBoolean {
   constructor(init?: __CFBoolean);
 }
@@ -1404,6 +1398,12 @@ declare class CFTreeContext {
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+}
+
+declare class CGPoint {
+  constructor(init?: CGPoint);
+  x: number;
+  y: number;
 }
 
 declare class __CFCharacterSet {
@@ -1526,6 +1526,14 @@ declare class __CFBitVector {
   constructor(init?: __CFBitVector);
 }
 
+declare class CFXMLEntityInfo {
+  constructor(init?: CFXMLEntityInfo);
+  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
+  replacementText: interop.Pointer;
+  entityID: CFXMLExternalID;
+  notationName: interop.Pointer;
+}
+
 declare class CFXMLParserContext {
   constructor(init?: CFXMLParserContext);
   version: number;
@@ -1544,25 +1552,8 @@ declare class CFArrayCallBacks {
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
 }
 
-declare class CFXMLEntityInfo {
-  constructor(init?: CFXMLEntityInfo);
-  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
-  replacementText: interop.Pointer;
-  entityID: CFXMLExternalID;
-  notationName: interop.Pointer;
-}
-
-declare class CFRunLoopSourceContext1 {
-  constructor(init?: CFRunLoopSourceContext1);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  hash: (p1: interop.PointerConvertible) => number | null;
-  getPort: (p1: interop.PointerConvertible) => number | null;
-  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
+declare class __CFUUID {
+  constructor(init?: __CFUUID);
 }
 
 declare class CFSocketSignature {
@@ -1669,10 +1660,6 @@ declare class CFSetCallBacks {
 
 declare class __CFRunLoopObserver {
   constructor(init?: __CFRunLoopObserver);
-}
-
-declare class __CFUUID {
-  constructor(init?: __CFUUID);
 }
 
 declare class __CFNull {
@@ -1916,6 +1903,19 @@ declare class CFStreamError {
   constructor(init?: CFStreamError);
   domain: number;
   error: number;
+}
+
+declare class CFRunLoopSourceContext1 {
+  constructor(init?: CFRunLoopSourceContext1);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  hash: (p1: interop.PointerConvertible) => number | null;
+  getPort: (p1: interop.PointerConvertible) => number | null;
+  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
 declare class __CFAllocator {

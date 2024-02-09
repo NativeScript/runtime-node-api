@@ -599,6 +599,8 @@ declare const AVMetadataCommonIdentifierTitle: string;
 
 declare const AVVideoApertureModeEncodedPixels: string;
 
+declare const AVVideoDecompressionPropertiesKey: string;
+
 declare const AVVideoAverageNonDroppableFrameRateKey: string;
 
 declare const AVVideoProfileLevelH264HighAutoLevel: string;
@@ -2328,6 +2330,11 @@ declare const AVPlayerItemStatus: {
   Failed: 2,
 };
 
+declare const CMTagCollectionVideoOutputPreset: {
+  Monoscopic: 0,
+  Stereoscopic: 1,
+};
+
 declare class AVCaptureWhiteBalanceGains {
   constructor(init?: AVCaptureWhiteBalanceGains);
   redGain: number;
@@ -2399,6 +2406,8 @@ declare class AVCaptureWhiteBalanceTemperatureAndTintValues {
 }
 
 declare function AVSampleBufferAttachContentKey(sbuf: interop.PointerConvertible, contentKey: AVContentKey, outError: interop.PointerConvertible): boolean;
+
+declare function CMTagCollectionCreateWithVideoOutputPreset(allocator: interop.PointerConvertible, preset: interop.Enum<typeof CMTagCollectionVideoOutputPreset>, newCollectionOut: interop.PointerConvertible): number;
 
 declare function AVMakeRectWithAspectRatioInsideRect(aspectRatio: CGSize, boundingRect: CGRect): CGRect;
 
@@ -4027,6 +4036,33 @@ declare class AVPlayerItem extends NSObject implements NSCopying {
   readonly templatePlayerItem: AVPlayerItem;
 }
 
+declare class AVPlayerVideoOutputConfiguration extends NSObject {
+  readonly sourcePlayerItem: AVPlayerItem | null;
+
+  readonly dataChannelDescriptions: NSArray;
+
+  readonly activationTime: CMTime;
+}
+
+declare class AVVideoOutputSpecification extends NSObject implements NSCopying {
+  initWithTagCollections(tagCollections: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  setOutputPixelBufferAttributesForTagCollection(pixelBufferAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, tagCollection: interop.PointerConvertible): void;
+
+  readonly preferredTagCollections: NSArray;
+
+  get defaultPixelBufferAttributes(): NSDictionary;
+  set defaultPixelBufferAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class AVPlayerVideoOutput extends NSObject {
+  initWithSpecification(specification: AVVideoOutputSpecification): this;
+
+  copyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime: CMTime, presentationTimeStampOut: interop.PointerConvertible, activeConfigurationOut: interop.PointerConvertible): interop.Pointer;
+}
+
 declare class AVDelegatingPlaybackCoordinatorSeekCommand extends AVDelegatingPlaybackCoordinatorPlaybackControlCommand {
   readonly itemTime: CMTime;
 
@@ -4093,7 +4129,7 @@ declare class AVPlaybackCoordinator extends NSObject {
 declare class AVQueuePlayer extends AVPlayer {
   static queuePlayerWithItems<This extends abstract new (...args: any) => any>(this: This, items: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
 
-  initWithItems(items: NSArray<interop.Object> | Array<interop.Object>): AVQueuePlayer;
+  initWithItems(items: NSArray<interop.Object> | Array<interop.Object>): this;
 
   items(): NSArray;
 
@@ -5874,6 +5910,14 @@ declare class AVPlayerItemErrorLog extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class AVZoomRange extends NSObject {
+  readonly minZoomFactor: number;
+
+  readonly maxZoomFactor: number;
+
+  containsZoomFactor(zoomFactor: number): boolean;
+}
+
 declare class AVContentKeyResponse extends NSObject {
   static contentKeyResponseWithFairPlayStreamingKeyResponseData<This extends abstract new (...args: any) => any>(this: This, keyResponseData: NSData): InstanceType<This>;
 
@@ -5992,6 +6036,8 @@ declare class AVPlayerItemErrorLogEvent extends NSObject implements NSCopying {
   readonly errorDomain: string;
 
   readonly errorComment: string;
+
+  readonly allHTTPResponseHeaderFields: NSDictionary;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -6336,6 +6382,8 @@ declare class AVPlayer extends NSObject {
   audiovisualBackgroundPlaybackPolicy: interop.Enum<typeof AVPlayerAudiovisualBackgroundPlaybackPolicy>;
 
   readonly playbackCoordinator: AVPlayerPlaybackCoordinator;
+
+  videoOutput: AVPlayerVideoOutput;
 
   isClosedCaptionDisplayEnabled: boolean;
 
@@ -6982,6 +7030,10 @@ declare class AVCaptureDeviceFormat extends NSObject {
   readonly videoMaxZoomFactorForDepthDataDelivery: number;
 
   readonly supportedVideoZoomFactorsForDepthDataDelivery: NSArray;
+
+  readonly supportedVideoZoomRangesForDepthDataDelivery: NSArray;
+
+  readonly zoomFactorsOutsideOfVideoZoomRangesForDepthDeliverySupported: boolean;
 
   readonly supportedDepthDataFormats: NSArray;
 

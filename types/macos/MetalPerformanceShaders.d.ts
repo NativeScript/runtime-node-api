@@ -442,19 +442,8 @@ declare class MPSImageCoordinate {
   channel: number;
 }
 
-declare class unnamed_6486681537133921041 {
-  constructor(init?: unnamed_6486681537133921041);
-  x: number;
-  y: number;
-  z: number;
-}
-
-declare class MPSScaleTransform {
-  constructor(init?: MPSScaleTransform);
-  scaleX: number;
-  scaleY: number;
-  translateX: number;
-  translateY: number;
+declare class _MPSPackedFloat3 {
+  constructor(init?: _MPSPackedFloat3);
 }
 
 declare class MPSMatrixCopyOffsets {
@@ -507,8 +496,17 @@ declare class MPSRayOriginDirection {
   direction: unknown /* ext vector */;
 }
 
-declare class _MPSPackedFloat3 {
-  constructor(init?: _MPSPackedFloat3);
+declare class _MPSAxisAlignedBoundingBox {
+  constructor(init?: _MPSAxisAlignedBoundingBox);
+  min: unknown /* ext vector */;
+  max: unknown /* ext vector */;
+}
+
+declare class unnamed_9530228347014577445 {
+  constructor(init?: unnamed_9530228347014577445);
+  x: number;
+  y: number;
+  z: number;
 }
 
 declare class MPSNDArraySizes {
@@ -572,12 +570,6 @@ declare class MPSImageKeypointRangeInfo {
   constructor(init?: MPSImageKeypointRangeInfo);
   maximumKeypoints: number;
   minimumThresholdValue: number;
-}
-
-declare class MPSImageKeypointData {
-  constructor(init?: MPSImageKeypointData);
-  keypointCoordinate: unknown /* ext vector */;
-  keypointColorValue: number;
 }
 
 declare class MPSOrigin {
@@ -644,12 +636,6 @@ declare class MPSIntersectionDistancePrimitiveIndexBufferIndexCoordinates {
   coordinates: unknown /* ext vector */;
 }
 
-declare class _MPSAxisAlignedBoundingBox {
-  constructor(init?: _MPSAxisAlignedBoundingBox);
-  min: unknown /* ext vector */;
-  max: unknown /* ext vector */;
-}
-
 declare class MPSImageHistogramInfo {
   constructor(init?: MPSImageHistogramInfo);
   numberOfHistogramEntries: number;
@@ -692,9 +678,23 @@ declare class MPSCustomKernelInfo {
   idiv: MPSIntegerDivisionParams;
 }
 
+declare class MPSScaleTransform {
+  constructor(init?: MPSScaleTransform);
+  scaleX: number;
+  scaleY: number;
+  translateX: number;
+  translateY: number;
+}
+
 declare class MPSNDArrayOffsets {
   constructor(init?: MPSNDArrayOffsets);
   dimensions: unknown /* const array */;
+}
+
+declare class MPSImageKeypointData {
+  constructor(init?: MPSImageKeypointData);
+  keypointCoordinate: unknown /* ext vector */;
+  keypointColorValue: number;
 }
 
 declare class MPSDimensionSlice {
@@ -703,11 +703,11 @@ declare class MPSDimensionSlice {
   length: number;
 }
 
-type unnamed_17959249312542781988Descriptor = 
+type unnamed_4322681435141636616Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_17959249312542781988 {
-  constructor(init?: unnamed_17959249312542781988Descriptor);
+declare class unnamed_4322681435141636616 {
+  constructor(init?: unnamed_4322681435141636616Descriptor);
   elements: unknown /* const array */;
 }
 

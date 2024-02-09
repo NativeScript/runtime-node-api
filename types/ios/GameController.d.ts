@@ -28,8 +28,6 @@ declare const GCKeyCodeKeyC: number;
 
 declare const GCKeyCodeThree: number;
 
-declare const GCKeyF6: string;
-
 declare const GCKeyCodeKeyV: number;
 
 declare const GCKeyE: string;
@@ -165,6 +163,8 @@ declare const GCKeyF14: string;
 declare const GCKeyF10: string;
 
 declare const GCKeyF9: string;
+
+declare const GCKeyF6: string;
 
 declare const GCKeyF1: string;
 

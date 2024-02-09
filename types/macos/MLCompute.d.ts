@@ -401,30 +401,6 @@ declare class MLCComparisonLayer extends MLCLayer {
   static layerWithOperation<This extends abstract new (...args: any) => any>(this: This, operation: interop.Enum<typeof MLCComparisonOperation>): InstanceType<This>;
 }
 
-declare class MLCMultiheadAttentionDescriptor extends NSObject implements NSCopying {
-  readonly modelDimension: number;
-
-  readonly keyDimension: number;
-
-  readonly valueDimension: number;
-
-  readonly headCount: number;
-
-  readonly dropout: number;
-
-  readonly hasBiases: boolean;
-
-  readonly hasAttentionBiases: boolean;
-
-  readonly addsZeroAttention: boolean;
-
-  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: boolean, hasAttentionBiases: boolean, addsZeroAttention: boolean): InstanceType<This> | null;
-
-  static descriptorWithModelDimensionHeadCount<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, headCount: number): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class MLCOptimizerDescriptor extends NSObject implements NSCopying {
   readonly learningRate: number;
 
@@ -783,6 +759,30 @@ declare class MLCTransposeLayer extends MLCLayer {
   readonly dimensions: NSArray;
 
   static layerWithDimensions<This extends abstract new (...args: any) => any>(this: This, dimensions: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This> | null;
+}
+
+declare class MLCMultiheadAttentionDescriptor extends NSObject implements NSCopying {
+  readonly modelDimension: number;
+
+  readonly keyDimension: number;
+
+  readonly valueDimension: number;
+
+  readonly headCount: number;
+
+  readonly dropout: number;
+
+  readonly hasBiases: boolean;
+
+  readonly hasAttentionBiases: boolean;
+
+  readonly addsZeroAttention: boolean;
+
+  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: boolean, hasAttentionBiases: boolean, addsZeroAttention: boolean): InstanceType<This> | null;
+
+  static descriptorWithModelDimensionHeadCount<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, headCount: number): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class MLCConcatenationLayer extends MLCLayer {

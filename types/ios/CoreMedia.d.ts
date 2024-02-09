@@ -132,15 +132,13 @@ declare const kCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: number;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: number;
 
-declare const kCMBufferQueueError_InvalidBuffer: number;
+declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
 
-declare const kCMBufferQueueError_CannotModifyQueueFromTriggerCallback: number;
+declare const kCMBufferQueueError_InvalidBuffer: number;
 
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
-declare const kCMSampleBufferError_BufferHasNoSampleTimingInfo: number;
-
-declare const kCMBufferQueueError_RequiredParameterMissing: number;
+declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
 
 declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
 
@@ -202,8 +200,6 @@ declare const kCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35: number;
 
 declare const kCMHEVCTemporalLevelInfoKey_LevelIndex: interop.Pointer;
 
-declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
-
 declare const kCMFormatDescriptionKey_PixelAspectRatioHorizontalSpacing: interop.Pointer;
 
 declare const kCMSampleBufferDroppedFrameReason_FrameWasLate: interop.Pointer;
@@ -241,8 +237,6 @@ declare const kCMSampleBufferDroppedFrameReason_Discontinuity: interop.Pointer;
 declare const kCMTextFormatDescriptionExtension_DefaultFontName: interop.Pointer;
 
 declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
-
-declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataPreferredAffineTransform: interop.Pointer;
 
@@ -332,6 +326,8 @@ declare const kCMSampleBufferAttachmentKey_PermanentEmptyMedia: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_FillDiscontinuitiesWithSilence: interop.Pointer;
 
+declare const kCMFormatDescriptionExtension_HasAdditionalViews: interop.Pointer;
+
 declare const kCMSampleBufferAttachmentKey_Reverse: interop.Pointer;
 
 declare const kCMSampleAttachmentKey_HEVCSyncSampleNALUnitType: interop.Pointer;
@@ -369,6 +365,10 @@ declare const kCMSampleBufferNotification_DataFailed: interop.Pointer;
 declare const kCMSampleBufferError_DataFailed: number;
 
 declare const kCMSampleBufferError_InvalidMediaTypeForOperation: number;
+
+declare const kCMBufferQueueError_RequiredParameterMissing: number;
+
+declare const kCMSampleBufferError_BufferHasNoSampleTimingInfo: number;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_SetupData: interop.Pointer;
 
@@ -474,9 +474,15 @@ declare const kCMMuxedStreamType_MPEG1System: number;
 
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
 
+declare const kCMFormatDescriptionExtension_HasRightStereoEyeView: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_HasLeftStereoEyeView: interop.Pointer;
+
 declare const kCMTimeMappingInvalid: CMTimeMapping;
 
 declare const kCMFormatDescriptionExtension_StereoCameraBaseline: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_LogTransferFunction: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_HorizontalFieldOfView: interop.Pointer;
 
@@ -718,6 +724,8 @@ declare const kCMSampleBufferAttachmentKey_TrimDurationAtStart: interop.Pointer;
 
 declare const kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType: interop.Pointer;
 
+declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThan: number;
+
 declare const kCMVideoCodecType_SorensonVideo: number;
 
 declare const kCMTextFormatDescriptionExtension_DefaultStyle: interop.Pointer;
@@ -786,8 +794,6 @@ declare const kCMSampleBufferError_Invalidated: number;
 
 declare const kCMSampleBufferError_InvalidSampleData: number;
 
-declare const kCMBufferQueueError_InvalidTriggerToken: number;
-
 declare const kCMTextFormatDescriptionExtension_FontTable: interop.Pointer;
 
 declare const kCMMediaType_TimeCode: number;
@@ -807,8 +813,6 @@ declare const kCMFormatDescriptionKey_CleanApertureVerticalOffset: interop.Point
 declare const kCMBufferQueueError_InvalidTriggerCondition: number;
 
 declare const kCMSampleBufferDroppedFrameReasonInfo_CameraModeSwitch: interop.Pointer;
-
-declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
 
 declare const kCMTextMarkupCharacterEdgeStyle_DropShadow: interop.Pointer;
 
@@ -840,8 +844,6 @@ declare const kCMTextDisplayFlag_scrollDirectionMask: number;
 
 declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
 
-declare const kCMBufferQueueError_BadTriggerDuration: number;
-
 declare const kCMBlockBufferBadPointerParameterErr: number;
 
 declare const kCMTextDisplayFlag_forcedSubtitlesPresent: number;
@@ -853,6 +855,8 @@ declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
 declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
 declare const kCMFormatDescriptionTransferFunction_ITU_R_2100_HLG: interop.Pointer;
+
+declare const kCMBufferQueueError_CannotModifyQueueFromTriggerCallback: number;
 
 declare const kCMMetadataIdentifierError_BadKeyLength: number;
 
@@ -946,8 +950,6 @@ declare const kCMSampleBufferError_SampleTimingInfoInvalid: number;
 
 declare const kCMTimeRangeStartKey: interop.Pointer;
 
-declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo: number;
-
 declare const kCMVideoCodecType_MPEG4Video: number;
 
 declare const kCMFormatDescriptionTransferFunction_sRGB: interop.Pointer;
@@ -974,9 +976,13 @@ declare const kCMHEVCTemporalLevelInfoKey_ProfileCompatibilityFlags: interop.Poi
 
 declare const kCMBufferQueueError_QueueIsFull: number;
 
+declare const kCMFormatDescriptionLogTransferFunction_AppleLog: interop.Pointer;
+
 declare const kCMVideoCodecType_H263: number;
 
 declare const kCMTextMarkupAttribute_VerticalLayout: interop.Pointer;
+
+declare const kCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo: number;
 
 declare const kCMTextFormatDescriptionStyle_FontSize: interop.Pointer;
 
@@ -1054,6 +1060,8 @@ declare const kCMVideoCodecType_AppleProRes422HQ: number;
 
 declare const kCMFormatDescriptionExtension_FieldDetail: interop.Pointer;
 
+declare const kCMBufferQueueError_BadTriggerDuration: number;
+
 declare const kCMTextFormatDescriptionRect_Top: interop.Pointer;
 
 declare const kCMTimebaseError_InvalidParameter: number;
@@ -1095,6 +1103,8 @@ declare const kCMFormatDescriptionExtension_FormatName: interop.Pointer;
 declare const kCMVideoCodecType_H264: number;
 
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50: number;
+
+declare const kCMBufferQueueError_InvalidTriggerToken: number;
 
 declare const kCMTimeCodeFlag_DropFrame: number;
 
@@ -1240,6 +1250,10 @@ declare class OpaqueCMMemoryPool {
   constructor(init?: OpaqueCMMemoryPool);
 }
 
+declare class opaqueCMSimpleQueue {
+  constructor(init?: opaqueCMSimpleQueue);
+}
+
 declare class opaqueCMBufferQueueTriggerToken {
   constructor(init?: opaqueCMBufferQueueTriggerToken);
 }
@@ -1316,10 +1330,6 @@ declare class CMTime {
 
 declare class OpaqueCMBlockBuffer {
   constructor(init?: OpaqueCMBlockBuffer);
-}
-
-declare class opaqueCMSimpleQueue {
-  constructor(init?: opaqueCMSimpleQueue);
 }
 
 declare class opaqueCMSampleBuffer {

@@ -474,6 +474,8 @@ declare const kCVPixelBufferMemoryAllocatorKey: interop.Pointer;
 
 declare const kCVPixelBufferIOSurfaceOpenGLESFBOCompatibilityKey: interop.Pointer;
 
+declare const kCVImageBufferLogTransferFunctionKey: interop.Pointer;
+
 declare const kCVPixelFormatType_40ARGBLEWideGamutPremultiplied: number;
 
 declare const kCVPixelBufferProResRAWKey_WhiteBalanceCCT: interop.Pointer;
@@ -519,6 +521,8 @@ declare const kCVReturnPixelBufferNotOpenGLCompatible: number;
 declare const kCVPixelFormatType_4444YpCbCrA8: number;
 
 declare const kCVPixelFormatType_OneComponent32Float: number;
+
+declare const kCVImageBufferLogTransferFunction_AppleLog: interop.Pointer;
 
 declare const kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange: number;
 

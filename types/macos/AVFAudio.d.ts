@@ -98,6 +98,12 @@ declare const AVAudioEngineManualRenderingMode: {
   Realtime: 1,
 };
 
+declare class AVAudio3DVectorOrientation {
+  constructor(init?: AVAudio3DVectorOrientation);
+  forward: AVAudio3DPoint;
+  up: AVAudio3DPoint;
+}
+
 declare class AVAudio3DPoint {
   constructor(init?: AVAudio3DPoint);
   x: number;
@@ -110,12 +116,6 @@ declare class AVAudio3DAngularOrientation {
   yaw: number;
   pitch: number;
   roll: number;
-}
-
-declare class AVAudio3DVectorOrientation {
-  constructor(init?: AVAudio3DVectorOrientation);
-  forward: AVAudio3DPoint;
-  up: AVAudio3DPoint;
 }
 
 declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {

@@ -129,8 +129,6 @@ declare const kCAF_OverviewChunkID: number;
 
 declare const kCAF_StringsChunkID: number;
 
-declare const kAudioFileStreamError_OpenUsingHint: number;
-
 declare const kCAF_EditCommentsChunkID: number;
 
 declare const kCAF_InfoStringsChunkID: number;
@@ -246,6 +244,8 @@ declare const kAudioSessionNoError: number;
 declare const kAudioQueueParam_Pan: number;
 
 declare const kAudioFileStreamProperty_MaximumPacketSize: number;
+
+declare const kDynamicRangeCompressionProfile_LateNight: number;
 
 declare const kAudioQueueParam_Volume: number;
 
@@ -464,8 +464,6 @@ declare const kAudioFileEndOfFileError: number;
 declare const kSpatialMixerParam_HeadRoll: number;
 
 declare const kAudioFileNotOpenError: number;
-
-declare const kAudioFileOpenUsingHintError: number;
 
 declare const kAudioCodecPropertyCurrentTargetBitRate: number;
 
@@ -1115,9 +1113,13 @@ declare const kAudioFileGlobalInfo_WritableTypes: number;
 
 declare const kAudioCodecQuality_Medium: number;
 
-declare const kAudioCodecPropertyDynamicRangeControlMode: number;
-
 declare const kAudioCodecPropertyProgramTargetLevel: number;
+
+declare const kAudioCodecPropertyAdjustTargetLevelConstant: number;
+
+declare const kAudioCodecPropertyAdjustCompressionProfile: number;
+
+declare const kAudioCodecPropertyDynamicRangeControlMode: number;
 
 declare const kAudioCodecPropertyAdjustLocalQuality: number;
 
@@ -1232,6 +1234,8 @@ declare const kAudioCodecPropertyAvailableOutputChannelLayoutTags: number;
 declare const kAudioCodecPropertyOutputFormatsForInputFormat: number;
 
 declare const kAudioUnitProperty_OfflineRender: number;
+
+declare const kDynamicRangeCompressionProfile_GeneralCompression: number;
 
 declare const kMusicDeviceMIDIEventSelect: number;
 
@@ -1458,6 +1462,8 @@ declare const kAudioFormatProperty_ChannelLayoutHash: number;
 declare const kAudioUnitSubType_HighPassFilter: number;
 
 declare const kAudioSessionInputRoute_BuiltInMic: interop.Pointer;
+
+declare const kAudioCodecPropertyAdjustTargetLevel: number;
 
 declare const kAudioConverterPropertyOutputCodecParameters: number;
 
@@ -1761,6 +1767,10 @@ declare const kAudioServicesBadSpecifierSizeError: number;
 
 declare const kAudioUnitSubType_MultiChannelMixer: number;
 
+declare const kCAF_AudioDataChunkID: number;
+
+declare const kDynamicRangeCompressionProfile_None: number;
+
 declare const kAudioCodecPropertyPacketSizeLimitForVBR: number;
 
 declare const kCAFMarkerType_Generic: number;
@@ -1975,6 +1985,8 @@ declare const kAudioSessionCategory_PlayAndRecord: number;
 
 declare const kAudioFormatProperty_NumberOfChannelsForLayout: number;
 
+declare const kDynamicRangeCompressionProfile_LimitedPlaybackRange: number;
+
 declare const kAudioUnitProperty_SpatialMixerSourceMode: number;
 
 declare const kTimePitchParam_Rate: number;
@@ -2055,6 +2067,8 @@ declare const kAudioQueueErr_DisposalPending: number;
 
 declare const kAudioFilePropertyPacketRangeByteCountUpperBound: number;
 
+declare const kDynamicRangeCompressionProfile_NoisyEnvironment: number;
+
 declare const kAUNBandEQFilterType_ResonantLowShelf: number;
 
 declare const kAudioUnitProperty_RemoteControlEventListener: number;
@@ -2122,8 +2136,6 @@ declare const kAudioQueueErr_InvalidBuffer: number;
 declare const kAUGraphErr_InvalidAudioUnit: number;
 
 declare const kCAFMarkerType_ReleaseLoopStart: number;
-
-declare const kCAF_AudioDataChunkID: number;
 
 declare const kAudioQueueErr_InvalidTapType: number;
 
@@ -2645,7 +2657,7 @@ declare class CAFFileHeader {
 declare class AudioUnitEvent {
   constructor(init?: AudioUnitEvent);
   mEventType: interop.Enum<typeof AudioUnitEventType>;
-  mArgument: unnamed_5896947762701920314;
+  mArgument: unnamed_10982590730890634143;
 }
 
 declare class AUListenerBase {
@@ -2946,6 +2958,12 @@ declare class AudioUnitParameter {
   mElement: number;
 }
 
+declare class unnamed_16050977560098201967 {
+  constructor(init?: unnamed_16050977560098201967);
+  bufferOffset: number;
+  value: number;
+}
+
 declare class OpaqueAudioComponentInstance {
   constructor(init?: OpaqueAudioComponentInstance);
 }
@@ -2976,12 +2994,6 @@ declare class AudioUnitProperty {
   mPropertyID: number;
   mScope: number;
   mElement: number;
-}
-
-declare class unnamed_17915857663974854311 {
-  constructor(init?: unnamed_17915857663974854311);
-  bufferOffset: number;
-  value: number;
 }
 
 declare class OpaqueAudioComponent {
@@ -3166,7 +3178,7 @@ declare class OpaqueAudioFileStreamID {
 declare class AUNodeInteraction {
   constructor(init?: AUNodeInteraction);
   nodeInteractionType: number;
-  nodeInteraction: unnamed_6954711017078859034;
+  nodeInteraction: unnamed_3959505499474775135;
 }
 
 declare class ExtendedAudioFormatInfo {
@@ -3183,7 +3195,7 @@ declare class AudioUnitParameterEvent {
   element: number;
   parameter: number;
   eventType: interop.Enum<typeof AUParameterEventType>;
-  eventValues: unnamed_5979472491940238249;
+  eventValues: unnamed_13596026601201960529;
 }
 
 declare class AudioFileRegionList {
@@ -3191,6 +3203,14 @@ declare class AudioFileRegionList {
   mSMPTE_TimeType: number;
   mNumberRegions: number;
   mRegions: unknown /* const array */;
+}
+
+declare class unnamed_4503291358150401370 {
+  constructor(init?: unnamed_4503291358150401370);
+  startBufferOffset: number;
+  durationInFrames: number;
+  startValue: number;
+  endValue: number;
 }
 
 declare class CAFDataChunk {
@@ -3204,14 +3224,6 @@ declare class MusicDeviceStdNoteParams {
   argCount: number;
   mPitch: number;
   mVelocity: number;
-}
-
-declare class unnamed_3937609704211576284 {
-  constructor(init?: unnamed_3937609704211576284);
-  startBufferOffset: number;
-  durationInFrames: number;
-  startValue: number;
-  endValue: number;
 }
 
 declare class ParameterEvent {
@@ -3344,14 +3356,34 @@ declare class CAFAudioDescription {
   mBitsPerChannel: number;
 }
 
-type unnamed_5896947762701920314Descriptor = 
+type unnamed_10982590730890634143Descriptor = 
   | { mParameter: AudioUnitParameter }
   | { mProperty: AudioUnitProperty };
 
-declare class unnamed_5896947762701920314 {
-  constructor(init?: unnamed_5896947762701920314Descriptor);
+declare class unnamed_10982590730890634143 {
+  constructor(init?: unnamed_10982590730890634143Descriptor);
   mParameter: AudioUnitParameter;
   mProperty: AudioUnitProperty;
+}
+
+type unnamed_3959505499474775135Descriptor = 
+  | { connection: AudioUnitNodeConnection }
+  | { inputCallback: AUNodeRenderCallback };
+
+declare class unnamed_3959505499474775135 {
+  constructor(init?: unnamed_3959505499474775135Descriptor);
+  connection: AudioUnitNodeConnection;
+  inputCallback: AUNodeRenderCallback;
+}
+
+type unnamed_13596026601201960529Descriptor = 
+  | { ramp: unnamed_4503291358150401370 }
+  | { immediate: unnamed_16050977560098201967 };
+
+declare class unnamed_13596026601201960529 {
+  constructor(init?: unnamed_13596026601201960529Descriptor);
+  ramp: unnamed_4503291358150401370;
+  immediate: unnamed_16050977560098201967;
 }
 
 type AURenderEventDescriptor = 
@@ -3366,26 +3398,6 @@ declare class AURenderEvent {
   parameter: AUParameterEvent;
   MIDI: AUMIDIEvent;
   MIDIEventsList: AUMIDIEventList;
-}
-
-type unnamed_5979472491940238249Descriptor = 
-  | { ramp: unnamed_3937609704211576284 }
-  | { immediate: unnamed_17915857663974854311 };
-
-declare class unnamed_5979472491940238249 {
-  constructor(init?: unnamed_5979472491940238249Descriptor);
-  ramp: unnamed_3937609704211576284;
-  immediate: unnamed_17915857663974854311;
-}
-
-type unnamed_6954711017078859034Descriptor = 
-  | { connection: AudioUnitNodeConnection }
-  | { inputCallback: AUNodeRenderCallback };
-
-declare class unnamed_6954711017078859034 {
-  constructor(init?: unnamed_6954711017078859034Descriptor);
-  connection: AudioUnitNodeConnection;
-  inputCallback: AUNodeRenderCallback;
 }
 
 declare function AudioComponentFindNext(inComponent: interop.PointerConvertible, inDesc: interop.PointerConvertible): interop.Pointer;

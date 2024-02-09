@@ -82,6 +82,8 @@ declare const MKPointOfInterestCategoryRestaurant: string;
 
 declare const MKPointsOfInterestRequestMaxRadius: number;
 
+declare const MKPointOfInterestCategoryUniversity: string;
+
 declare const MKPointOfInterestCategoryPublicTransport: string;
 
 declare const MKFeatureDisplayPriorityRequired: number;
@@ -123,8 +125,6 @@ declare const MKAnnotationCalloutInfoDidChangeNotification: string;
 declare const MKLaunchOptionsMapTypeKey: string;
 
 declare const MKPointOfInterestCategoryLaundry: string;
-
-declare const MKPointOfInterestCategoryUniversity: string;
 
 declare const MKMapRectWorld: MKMapRect;
 

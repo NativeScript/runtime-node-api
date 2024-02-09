@@ -14,6 +14,18 @@
 
 namespace objc_bridge {
 
+napi_value JS_NSObject_alloc(napi_env env, napi_callback_info cbinfo) {
+  napi_value jsThis;
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, nullptr);
+
+  id self;
+  napi_unwrap(env, jsThis, (void **)&self);
+
+  id result = [self alloc];
+  return ObjCBridgeState::InstanceData(env)->getObject(env, result, jsThis,
+                                                       kOwnedObject);
+}
+
 void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
                                     MDSectionOffset offset,
                                     napi_value constructor) {
@@ -108,7 +120,9 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
       napi_property_descriptor property = {
           .utf8name = name.c_str(),
           .name = nil,
-          .method = ObjCClassMember::JSCall,
+          .method = (flags & metagen::mdMemberIsInit) != 0
+                        ? ObjCClassMember::JSCallInit
+                        : ObjCClassMember::JSCall,
           .getter = nil,
           .setter = nil,
           .value = nil,
@@ -117,6 +131,10 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
                                          napi_enumerable),
           .data = &kv.first->second,
       };
+
+      if (name == "alloc") {
+        property.method = JS_NSObject_alloc;
+      }
 
       napi_define_properties(env, jsObject, 1, &property);
     }
@@ -171,6 +189,71 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
     ffi_call(&cif->cif, FFI_FN(objc_msgSendSuper), rvalue, avalues);
 #endif
   }
+}
+
+napi_value ObjCClassMember::JSCallInit(napi_env env,
+                                       napi_callback_info cbinfo) {
+  napi_value jsThis;
+  ObjCClassMember *method;
+
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, &jsThis, (void **)&method);
+
+  id self = nil;
+  napi_unwrap(env, jsThis, (void **)&self);
+  if (self == nil) {
+    napi_throw_error(env, nullptr, "self is nil");
+    return nullptr;
+  }
+
+  MethodCif *cif = method->methodCif;
+  if (cif == nullptr) {
+    cif = method->methodCif = method->bridgeState->getMethodCif(
+        env, method->methodOrGetter.signatureOffset);
+  }
+
+  size_t argc = cif->argc;
+  napi_get_cb_info(env, cbinfo, &argc, cif->argv, &jsThis, nullptr);
+
+  void *avalues[cif->cif.nargs];
+
+  avalues[0] = (void *)&self;
+  avalues[1] = (void *)&method->methodOrGetter.selector;
+
+  bool shouldFreeAny = false;
+  bool shouldFree[cif->argc];
+
+  if (cif->argc > 0) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      shouldFree[i] = false;
+      avalues[i + 2] = cif->avalues[i + 2];
+      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
+                                 &shouldFree[i], &shouldFreeAny);
+    }
+  }
+
+  id rvalue;
+
+  objcNativeCall(env, jsThis, cif, self, avalues, &rvalue);
+
+  for (unsigned int i = 0; i < cif->argc; i++) {
+    if (shouldFree[i]) {
+      cif->argTypes[i]->free(env, *((void **)avalues[i + 2]));
+    }
+  }
+
+  napi_value constructor = jsThis;
+  if (!method->classMethod)
+    napi_get_named_property(env, jsThis, "constructor", &constructor);
+
+  napi_value result =
+      method->bridgeState->getObject(env, rvalue, constructor, kUnownedObject);
+
+  if (rvalue != self) {
+    [self retain];
+    [rvalue release];
+  }
+
+  return result;
 }
 
 napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {

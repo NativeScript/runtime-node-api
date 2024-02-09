@@ -75,8 +75,6 @@ declare const CIDetectorImageOrientation: string;
 
 declare const kCIAttributeTypeTransform: string;
 
-declare const kCIInputColorKey: string;
-
 declare const kCIInputAllowDraftModeKey: string;
 
 declare const kCIInputMatteImageKey: string;
@@ -426,6 +424,8 @@ declare const kCIAttributeTypeOffset: string;
 declare const kCIAttributeFilterAvailable_iOS: string;
 
 declare const kCIImageRepresentationSemanticSegmentationSkyMatteImage: string;
+
+declare const kCIInputColorKey: string;
 
 declare const kCIInputNoiseReductionAmountKey: string;
 

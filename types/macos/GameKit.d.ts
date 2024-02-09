@@ -157,6 +157,8 @@ declare const GKErrorCode: {
   NotAuthorized: 32,
   ConnectionTimeout: 33,
   APIObsolete: 34,
+  ICloudUnavailable: 35,
+  LockdownMode: 36,
   FriendListDescriptionMissing: 100,
   FriendListRestricted: 101,
   FriendListDenied: 102,
@@ -274,6 +276,8 @@ declare interface GKMatchmakerViewControllerDelegate extends NSObjectProtocol {
   matchmakerViewControllerDidFindHostedPlayers?(viewController: GKMatchmakerViewController, players: NSArray<interop.Object> | Array<interop.Object>): void;
 
   matchmakerViewControllerHostedPlayerDidAccept?(viewController: GKMatchmakerViewController, player: GKPlayer): void;
+
+  matchmakerViewControllerGetMatchPropertiesForRecipientWithCompletionHandler?(viewController: GKMatchmakerViewController, recipient: GKPlayer, completionHandler: (p1: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>) => void): void;
 
   matchmakerViewControllerDidFindPlayers?(viewController: GKMatchmakerViewController, playerIDs: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -493,11 +497,11 @@ declare class GKTurnBasedMatchmakerViewController extends NSViewController imple
 
   matchmakingMode: interop.Enum<typeof GKMatchmakingMode>;
 
-  initWithMatchRequest(request: GKMatchRequest): interop.Object;
+  initWithMatchRequest(request: GKMatchRequest): this;
 }
 
 declare class GKSession extends NSObject {
-  initWithSessionIDDisplayNameSessionMode(sessionID: string, name: string, mode: interop.Enum<typeof GKSessionMode>): interop.Object;
+  initWithSessionIDDisplayNameSessionMode(sessionID: string, name: string, mode: interop.Enum<typeof GKSessionMode>): this;
 
   delegate: GKSessionDelegate;
 
@@ -553,9 +557,9 @@ declare class GKMatchmakerViewController extends NSViewController implements GKV
 
   canStartWithMinimumPlayers: boolean;
 
-  initWithMatchRequest(request: GKMatchRequest): interop.Object;
+  initWithMatchRequest(request: GKMatchRequest): this;
 
-  initWithInvite(invite: GKInvite): interop.Object;
+  initWithInvite(invite: GKInvite): this;
 
   addPlayersToMatch(match: GKMatch): void;
 
@@ -572,6 +576,10 @@ declare class GKMatch extends NSObject {
   delegate: GKMatchDelegate;
 
   readonly expectedPlayerCount: number;
+
+  readonly properties: NSDictionary;
+
+  readonly playerProperties: NSDictionary;
 
   sendDataToPlayersDataModeError(data: NSData, players: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): boolean;
 
@@ -601,6 +609,8 @@ declare class GKMatchmaker extends NSObject {
 
   findPlayersForHostedRequestWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
+  findMatchedPlayersWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: GKMatchedPlayers, p2: NSError) => void | null): void;
+
   addPlayersToMatchMatchRequestCompletionHandler(match: GKMatch, matchRequest: GKMatchRequest, completionHandler: (p1: NSError) => void | null): void;
 
   cancel(): void;
@@ -612,6 +622,8 @@ declare class GKMatchmaker extends NSObject {
   queryPlayerGroupActivityWithCompletionHandler(playerGroup: number, completionHandler: (p1: number, p2: NSError) => void | null): void;
 
   queryActivityWithCompletionHandler(completionHandler: (p1: number, p2: NSError) => void | null): void;
+
+  queryQueueActivityWithCompletionHandler(queueName: string, completionHandler: (p1: number, p2: NSError) => void | null): void;
 
   startBrowsingForNearbyPlayersWithHandler(reachableHandler: (p1: GKPlayer, p2: boolean) => void | null): void;
 
@@ -628,6 +640,14 @@ declare class GKMatchmaker extends NSObject {
   cancelInviteToPlayer(playerID: string): void;
 
   findPlayersForHostedMatchRequestWithCompletionHandler(request: GKMatchRequest, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+}
+
+declare class GKMatchedPlayers extends NSObject {
+  readonly properties: NSDictionary;
+
+  readonly players: NSArray;
+
+  readonly playerProperties: NSDictionary;
 }
 
 declare class GKTurnBasedExchangeReply extends NSObject {
@@ -968,6 +988,14 @@ declare class GKMatchRequest extends NSObject {
 
   get playersToInvite(): NSArray;
   set playersToInvite(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  queueName: string;
+
+  get properties(): NSDictionary;
+  set properties(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  get recipientProperties(): NSDictionary;
+  set recipientProperties(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 }
 
 declare class GKGameCenterViewController extends NSViewController implements GKViewController {

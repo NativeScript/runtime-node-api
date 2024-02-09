@@ -20,12 +20,6 @@ MemberDecl::MemberDecl(CXCursor cursor,
     name = jsifySelector(methodSelector);
     clang_disposeString(cxname);
 
-    if ((isStatic && (name == "alloc" || name == "new")) ||
-        (!isStatic && name == "init")) {
-      returnType.kind = kTypeInstanceObject;
-      return;
-    }
-
     auto argc = clang_Cursor_getNumArguments(cursor);
 
     for (int i = 0; i < argc; i++) {
@@ -45,6 +39,19 @@ MemberDecl::MemberDecl(CXCursor cursor,
       parameters.emplace_back(param);
     }
 
+    isVariadic = clang_Cursor_isVariadic(cursor);
+
+    if (isStatic && (name.find("alloc") == 0 || name == "new")) {
+      returnType.kind = kTypeInstanceObject;
+      return;
+    }
+
+    if (!isStatic && name.find("init") == 0) {
+      isInit = true;
+      returnType.kind = kTypeInstanceObject;
+      return;
+    }
+
     returnType =
         TypeSpec(clang_getCursorResultType(cursor), classTypeParameters);
 
@@ -55,8 +62,6 @@ MemberDecl::MemberDecl(CXCursor cursor,
     if (typeString.find("Nullable") != std::string::npos) {
       returnType.isNullable = true;
     }
-
-    isVariadic = clang_Cursor_isVariadic(cursor);
 
     break;
   }

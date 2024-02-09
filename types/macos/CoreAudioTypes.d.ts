@@ -68,11 +68,22 @@ declare const AudioChannelFlags: {
   Meters: 4,
 };
 
-declare class AudioBuffer {
-  constructor(init?: AudioBuffer);
-  mNumberChannels: number;
-  mDataByteSize: number;
-  mData: interop.Pointer;
+declare class AudioChannelDescription {
+  constructor(init?: AudioChannelDescription);
+  mChannelLabel: number;
+  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
+  mCoordinates: unknown /* const array */;
+}
+
+declare class AudioTimeStamp {
+  constructor(init?: AudioTimeStamp);
+  mSampleTime: number;
+  mHostTime: number;
+  mRateScalar: number;
+  mWordClockTime: number;
+  mSMPTETime: SMPTETime;
+  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
+  mReserved: number;
 }
 
 declare class AudioValueRange {
@@ -101,6 +112,12 @@ declare class AudioClassDescription {
   mManufacturer: number;
 }
 
+declare class AudioBufferList {
+  constructor(init?: AudioBufferList);
+  mNumberBuffers: number;
+  mBuffers: unknown /* const array */;
+}
+
 declare class SMPTETime {
   constructor(init?: SMPTETime);
   mSubframes: number;
@@ -114,36 +131,19 @@ declare class SMPTETime {
   mFrames: number;
 }
 
-declare class AudioTimeStamp {
-  constructor(init?: AudioTimeStamp);
-  mSampleTime: number;
-  mHostTime: number;
-  mRateScalar: number;
-  mWordClockTime: number;
-  mSMPTETime: SMPTETime;
-  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
-  mReserved: number;
-}
-
-declare class AudioChannelDescription {
-  constructor(init?: AudioChannelDescription);
-  mChannelLabel: number;
-  mChannelFlags: interop.Enum<typeof AudioChannelFlags>;
-  mCoordinates: unknown /* const array */;
-}
-
-declare class AudioBufferList {
-  constructor(init?: AudioBufferList);
-  mNumberBuffers: number;
-  mBuffers: unknown /* const array */;
-}
-
 declare class AudioChannelLayout {
   constructor(init?: AudioChannelLayout);
   mChannelLayoutTag: number;
   mChannelBitmap: interop.Enum<typeof AudioChannelBitmap>;
   mNumberChannelDescriptions: number;
   mChannelDescriptions: unknown /* const array */;
+}
+
+declare class AudioBuffer {
+  constructor(init?: AudioBuffer);
+  mNumberChannels: number;
+  mDataByteSize: number;
+  mData: interop.Pointer;
 }
 
 declare class AudioFormatListItem {

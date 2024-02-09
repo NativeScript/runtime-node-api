@@ -1133,7 +1133,7 @@ declare class CIFilterGenerator extends NSObject implements NSSecureCoding, NSCo
 
   static filterGeneratorWithContentsOfURL(aURL: NSURL): CIFilterGenerator;
 
-  initWithContentsOfURL(aURL: NSURL): interop.Object;
+  initWithContentsOfURL(aURL: NSURL): this;
 
   connectObjectWithKeyToObjectWithKey(sourceObject: interop.Object, sourceKey: string | null, targetObject: interop.Object, targetKey: string): void;
 

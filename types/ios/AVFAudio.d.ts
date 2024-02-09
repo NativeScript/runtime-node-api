@@ -98,6 +98,15 @@ declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
   Max: 30,
 };
 
+declare const AVAudioSessionRenderingMode: {
+  NotApplicable: 0,
+  MonoStereo: 1,
+  Surround: 2,
+  SpatialAudio: 3,
+  DolbyAudio: 4,
+  DolbyAtmos: 5,
+};
+
 declare const AVAudioSessionRecordPermission: {
   Undetermined: 1970168948,
   Denied: 1684369017,
@@ -488,6 +497,8 @@ declare class AVAudioSession extends NSObject {
   setPrefersNoInterruptionsFromSystemAlertsError(inValue: boolean, outError: interop.PointerConvertible): boolean;
 
   readonly prefersNoInterruptionsFromSystemAlerts: boolean;
+
+  readonly renderingMode: interop.Enum<typeof AVAudioSessionRenderingMode>;
 }
 
 declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing {
