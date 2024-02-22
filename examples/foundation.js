@@ -26,3 +26,13 @@ const arr = NSMutableArray.arrayWithCapacity(1);
 arr.insertObjectAtIndex(NSObject.new(), 0);
 console.log(arr[0]);
 console.log(arr);
+
+const dict = NSMutableDictionary.dictionary();
+// console.log(dict["key"]);
+dict.setObjectForKey(NSObject.new(), "key");
+dict.setObjectForKey(NSObject.new(), "key2");
+console.log(`${dict}`);
+
+for (const key of dict) {
+  console.log(key);
+}

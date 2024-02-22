@@ -216,6 +216,151 @@ NAPI_FUNCTION(releaseObject) {
   return nullptr;
 }
 
+static const char *FastEnumerationIteratorFactorySource = R"(
+  (function () {
+    return {
+      stack: new Array(16),
+      stacklen: -1,
+      stackptr: -1,
+      done: false,
+
+      next() {
+        if (this.stackptr < 0 && !this.done) {
+          this.stacklen = this._fillStack(this.stack);
+          if (this.stacklen == 0) {
+            this.done = true;
+            this.stackptr = -1;
+          } else {
+            this.stackptr = 0;
+          }
+        }
+
+        if (this.done) {
+          return { done: true };
+        }
+
+        const result = { value: this.stack[this.stackptr++], done: false };
+        if (this.stackptr >= this.stacklen) {
+          this.stackptr = -1;
+        }
+
+        return result;
+      },
+    };
+  })
+)";
+
+void initFastEnumeratorIteratorFactory(napi_env env,
+                                       ObjCBridgeState *bridgeState) {
+  napi_value result, script;
+  napi_create_string_utf8(env, FastEnumerationIteratorFactorySource,
+                          NAPI_AUTO_LENGTH, &script);
+  napi_run_script(env, script, &result);
+  bridgeState->createFastEnumeratorIterator = make_ref(env, result);
+}
+
+class FastEnumerationIterator {
+public:
+  FastEnumerationIterator(id<NSFastEnumeration> collection)
+      : collection(collection) {}
+
+  static void finalize(napi_env env, void *data, void *hint) {
+    FastEnumerationIterator *iterator = (FastEnumerationIterator *)data;
+    delete iterator;
+  }
+
+  static napi_value fillStack(napi_env env, napi_callback_info cbinfo) {
+    ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+
+    napi_value jsThis;
+    void *data;
+    size_t argc = 1;
+    napi_value stackArray;
+
+    napi_get_cb_info(env, cbinfo, &argc, &stackArray, &jsThis, &data);
+
+    FastEnumerationIterator *self = nil;
+    napi_unwrap(env, jsThis, (void **)&self);
+
+    NSUInteger count =
+        [self->collection countByEnumeratingWithState:&self->state
+                                              objects:self->stackbuf
+                                                count:16];
+
+    for (NSUInteger index = 0; index < count; index++) {
+      id obj = self->state.itemsPtr[index];
+      napi_value jsObj = bridgeState->getObject(env, obj);
+      napi_set_element(env, stackArray, index, jsObj);
+    }
+
+    napi_value result;
+    napi_create_int32(env, count, &result);
+
+    return result;
+  }
+
+  napi_value toJS(napi_env env) {
+    ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+
+    napi_value createIterator =
+        get_ref_value(env, bridgeState->createFastEnumeratorIterator);
+
+    napi_value result;
+    napi_call_function(env, createIterator, createIterator, 0, nullptr,
+                       &result);
+
+    napi_property_descriptor fillStack = {
+        .utf8name = "_fillStack",
+        .name = nil,
+        .method = FastEnumerationIterator::fillStack,
+        .getter = nil,
+        .setter = nil,
+        .value = nil,
+        .attributes = napi_enumerable,
+        .data = nil,
+    };
+
+    napi_define_properties(env, result, 1, &fillStack);
+
+    napi_ref ref;
+    napi_wrap(env, result, this, FastEnumerationIterator::finalize, nullptr,
+              &ref);
+
+    return result;
+  }
+
+  id<NSFastEnumeration> collection;
+  NSFastEnumerationState state = {0};
+  id stackbuf[16];
+  BOOL firstLoop = YES;
+  long mutationsPtrValue;
+};
+
+NAPI_FUNCTION(fastEnumeration) {
+  napi_value jsThis;
+  void *data;
+  size_t argc = 0;
+
+  napi_get_cb_info(env, cbinfo, &argc, nil, &jsThis, &data);
+
+  id self = nil;
+  napi_unwrap(env, jsThis, (void **)&self);
+
+  if (self == nil) {
+    napi_value result;
+    napi_create_string_utf8(env, "(nil)", NAPI_AUTO_LENGTH, &result);
+    return result;
+  }
+
+  if (![self conformsToProtocol:@protocol(NSFastEnumeration)]) {
+    napi_throw_error(env, nil, "Object does not conform to NSFastEnumeration");
+    return nullptr;
+  }
+
+  auto iterator = new FastEnumerationIterator((id<NSFastEnumeration>)self);
+  return iterator->toJS(env);
+}
+
 std::string NativeObjectName = "NativeObject";
 
 // Bridge an Objective-C class to JavaScript on the fly. Runtime introspection
@@ -312,31 +457,53 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
   this->prototype = make_ref(env, prototype);
 
   if (isNativeObject) {
-    napi_property_descriptor property = {
-        .utf8name = nil,
-        .name = jsSymbolFor(env, "nodejs.util.inspect.custom"),
-        .method = JS_CustomInspect,
-        .getter = nil,
-        .setter = nil,
-        .value = nil,
-        .attributes = napi_enumerable,
-        .data = nil,
-    };
-
-    napi_define_properties(env, prototype, 1, &property);
-
-    napi_value global, Symbol, SymbolDispose;
+    napi_value global, Symbol, SymbolDispose, SymbolIterator;
     napi_get_global(env, &global);
     napi_get_named_property(env, global, "Symbol", &Symbol);
+    napi_get_named_property(env, Symbol, "iterator", &SymbolIterator);
     napi_get_named_property(env, Symbol, "dispose", &SymbolDispose);
     napi_valuetype type;
     napi_typeof(env, SymbolDispose, &type);
 
-    if (type == napi_symbol) {
-      property.name = SymbolDispose;
-      property.method = JS_releaseObject;
+    napi_property_descriptor properties[] = {
+        {
+            .utf8name = nil,
+            .name = jsSymbolFor(env, "nodejs.util.inspect.custom"),
+            .method = JS_CustomInspect,
+            .getter = nil,
+            .setter = nil,
+            .value = nil,
+            .attributes = napi_enumerable,
+            .data = nil,
+        },
+        {
+            .utf8name = "toString",
+            .name = nil,
+            .method = JS_CustomInspect,
+            .getter = nil,
+            .setter = nil,
+            .value = nil,
+            .attributes = napi_enumerable,
+            .data = nil,
+        },
+        {
+            .utf8name = nil,
+            .name = SymbolIterator,
+            .method = JS_fastEnumeration,
+            .getter = nil,
+            .setter = nil,
+            .value = nil,
+            .attributes = napi_enumerable,
+            .data = nil,
+        }};
 
-      napi_define_properties(env, prototype, 1, &property);
+    napi_define_properties(env, prototype, 3, properties);
+
+    if (type == napi_symbol) {
+      properties[0].name = SymbolDispose;
+      properties[0].method = JS_releaseObject;
+
+      napi_define_properties(env, prototype, 1, properties);
     }
 
     return;

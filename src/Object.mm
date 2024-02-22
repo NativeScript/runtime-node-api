@@ -277,7 +277,7 @@ ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
     }
 
     constructor = get_ref_value(env, bridgedCls->constructor);
-  } else if (!protocolOffsets->empty()) {
+  } else if (protocolOffsets != nullptr && !protocolOffsets->empty()) {
     auto proto = getProtocol(env, protocolOffsets->front());
 
     if (proto == nullptr) {

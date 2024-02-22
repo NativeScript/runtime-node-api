@@ -176,6 +176,7 @@ NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
   napi_define_properties(env, global, 3, globalProperties);
 
   initProxyFactory(env, bridgeState);
+  initFastEnumeratorIteratorFactory(env, bridgeState);
 
   registerInterop(env, global);
   registerInlineFunctions(env);

@@ -115,6 +115,7 @@ public:
   napi_ref pointerClass;
   napi_ref referenceClass;
   napi_ref createNativeProxy;
+  napi_ref createFastEnumeratorIterator;
 
   std::unordered_map<MDSectionOffset, ObjCClass *> classes;
   std::unordered_map<MDSectionOffset, ObjCProtocol *> protocols;
