@@ -1419,6 +1419,8 @@ declare const AVMetadataIdentifierQuickTimeUserDataWarning: string;
 
 declare const AVMetadataQuickTimeMetadataKeyDirectionFacing: string;
 
+declare const AVSampleBufferDisplayLayerReadyForDisplayDidChangeNotification: string;
+
 declare const AVMetadataIdentifierQuickTimeMetadataModel: string;
 
 declare const AVMetadataID3MetadataKeyRecordingDates: string;
@@ -2374,6 +2376,12 @@ declare const AVCapturePhotoQualityPrioritization: {
   Quality: 3,
 };
 
+declare const AVExternalContentProtectionStatus: {
+  Pending: 0,
+  Sufficient: 1,
+  Insufficient: 2,
+};
+
 declare const AVAudioSpatializationFormats: {
   None: 0,
   MonoAndStereo: 3,
@@ -2413,6 +2421,12 @@ declare class AVSampleCursorChunkInfo {
   chunkHasUniformFormatDescriptions: boolean;
 }
 
+declare class AVSampleCursorStorageRange {
+  constructor(init?: AVSampleCursorStorageRange);
+  offset: number;
+  length: number;
+}
+
 declare class AVSampleCursorSyncInfo {
   constructor(init?: AVSampleCursorSyncInfo);
   sampleIsFullSync: boolean;
@@ -2430,6 +2444,12 @@ declare class AVCaptionPoint {
   constructor(init?: AVCaptionPoint);
   x: AVCaptionDimension;
   y: AVCaptionDimension;
+}
+
+declare class AVCaptionDimension {
+  constructor(init?: AVCaptionDimension);
+  value: number;
+  units: interop.Enum<typeof AVCaptionUnitsType>;
 }
 
 declare class AVCaptureWhiteBalanceTemperatureAndTintValues {
@@ -2464,18 +2484,6 @@ declare class AVPixelAspectRatio {
   constructor(init?: AVPixelAspectRatio);
   horizontalSpacing: number;
   verticalSpacing: number;
-}
-
-declare class AVSampleCursorStorageRange {
-  constructor(init?: AVSampleCursorStorageRange);
-  offset: number;
-  length: number;
-}
-
-declare class AVCaptionDimension {
-  constructor(init?: AVCaptionDimension);
-  value: number;
-  units: interop.Enum<typeof AVCaptionUnitsType>;
 }
 
 declare class AVEdgeWidths {
@@ -2641,13 +2649,6 @@ declare interface AVAsynchronousKeyValueLoading {
 declare class AVAsynchronousKeyValueLoading extends NativeObject implements AVAsynchronousKeyValueLoading {
 }
 
-declare interface AVFragmentMinding {
-  readonly isAssociatedWithFragmentMinder: boolean;
-}
-
-declare class AVFragmentMinding extends NativeObject implements AVFragmentMinding {
-}
-
 declare interface AVAssetDownloadDelegate extends NSURLSessionTaskDelegate {
   URLSessionAssetDownloadTaskDidFinishDownloadingToURL?(session: NSURLSession, assetDownloadTask: AVAssetDownloadTask, location: NSURL): void;
 
@@ -2724,6 +2725,10 @@ declare interface AVContentKeySessionDelegate extends NSObjectProtocol {
   contentKeySessionContentProtectionSessionIdentifierDidChange?(session: AVContentKeySession): void;
 
   contentKeySessionDidGenerateExpiredSessionReport?(session: AVContentKeySession): void;
+
+  contentKeySessionExternalProtectionStatusDidChangeForContentKey?(session: AVContentKeySession, contentKey: AVContentKey): void;
+
+  contentKeySessionDidProvideContentKeyRequestsForInitializationData?(session: AVContentKeySession, keyRequests: NSArray<interop.Object> | Array<interop.Object>, initializationData: NSData | null): void;
 }
 
 declare class AVContentKeySessionDelegate extends NativeObject implements AVContentKeySessionDelegate {
@@ -2734,6 +2739,13 @@ declare interface AVPlayerItemLegibleOutputPushDelegate extends AVPlayerItemOutp
 }
 
 declare class AVPlayerItemLegibleOutputPushDelegate extends NativeObject implements AVPlayerItemLegibleOutputPushDelegate {
+}
+
+declare interface AVFragmentMinding {
+  readonly isAssociatedWithFragmentMinder: boolean;
+}
+
+declare class AVFragmentMinding extends NativeObject implements AVFragmentMinding {
 }
 
 declare interface AVPlayerItemOutputPushDelegate extends NSObjectProtocol {
@@ -3251,6 +3263,8 @@ declare class AVSampleBufferDisplayLayer extends CALayer {
 
   videoGravity: string;
 
+  readonly isReadyForDisplay: boolean;
+
   readonly timebase: interop.Pointer;
 
   readonly status: interop.Enum<typeof AVQueuedSampleBufferRenderingStatus>;
@@ -3443,8 +3457,6 @@ declare class AVPlayerItemErrorLogEvent extends NSObject implements NSCopying {
 
   readonly errorComment: string;
 
-  readonly allHTTPResponseHeaderFields: NSDictionary;
-
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
@@ -3545,14 +3557,14 @@ declare class AVFragmentedMovieMinder extends AVFragmentedAssetMinder {
   removeFragmentedMovie(movie: AVFragmentedMovie): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVFragmentedMovie extends AVMovie implements AVFragmentMinding {
   readonly tracks: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVFragmentedMovieTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVFragmentedMovieTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -3572,17 +3584,17 @@ declare class AVMediaDataStorage extends NSObject {
   URL(): NSURL;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableMovieTrack extends AVMovieTrack {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   mediaDataStorage: AVMediaDataStorage;
 
   sampleReferenceBaseURL: NSURL;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   isEnabled: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   alternateGroupID: number;
 
   isModified: boolean;
@@ -3591,16 +3603,16 @@ declare class AVMutableMovieTrack extends AVMovieTrack {
 
   timescale: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   languageCode: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   extendedLanguageTag: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   naturalSize: CGSize;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredTransform: CGAffineTransform;
 
   layer: number;
@@ -3611,7 +3623,7 @@ declare class AVMutableMovieTrack extends AVMovieTrack {
 
   encodedPixelsDimensions: CGSize;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredVolume: number;
 
   preferredMediaChunkSize: number;
@@ -3628,9 +3640,9 @@ declare class AVMutableMovieTrack extends AVMovieTrack {
 
   scaleTimeRangeToDuration(timeRange: CMTimeRange, duration: CMTime): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get metadata(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set metadata(value: NSArray<interop.Object> | Array<interop.Object>);
 
   addTrackAssociationToTrackType(movieTrack: AVMovieTrack, trackAssociationType: string): void;
@@ -3738,11 +3750,11 @@ declare class AVMetadataItem extends NSObject implements AVAsynchronousKeyValueL
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableComposition extends AVComposition {
   readonly tracks: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   naturalSize: CGSize;
 
   static composition<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
@@ -3765,10 +3777,10 @@ declare class AVMutableComposition extends AVComposition {
 
   mutableTrackCompatibleWithTrack(track: AVAssetTrack): AVMutableCompositionTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVMutableCompositionTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVMutableCompositionTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -3780,7 +3792,7 @@ declare class AVMutableComposition extends AVComposition {
   loadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic: string, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVComposition extends AVAsset implements NSMutableCopying {
   readonly tracks: NSArray;
 
@@ -3788,10 +3800,10 @@ declare class AVComposition extends AVAsset implements NSMutableCopying {
 
   readonly URLAssetInitializationOptions: NSDictionary;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVCompositionTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVCompositionTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -3815,11 +3827,11 @@ declare class AVComposition extends AVAsset implements NSMutableCopying {
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVCompositionTrack extends AVAssetTrack {
   readonly segments: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   segmentForTrackTime(trackTime: CMTime): AVCompositionTrackSegment;
 
   readonly formatDescriptionReplacements: NSArray;
@@ -3906,12 +3918,12 @@ declare class AVCaptionConversionValidator extends NSObject {
   readonly warnings: NSArray;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableCaption extends AVCaption {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   text: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   timeRange: CMTimeRange;
 
   setTextColorInRange(color: interop.PointerConvertible, range: _NSRange): void;
@@ -3942,13 +3954,13 @@ declare class AVMutableCaption extends AVCaption {
 
   removeRubyInRange(range: _NSRange): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   region: AVCaptionRegion;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   textAlignment: interop.Enum<typeof AVCaptionTextAlignment>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   animation: interop.Enum<typeof AVCaptionAnimation>;
 }
 
@@ -4042,21 +4054,21 @@ declare class AVMediaSelection extends NSObject implements NSCopying, NSMutableC
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableAudioMixInputParameters extends AVAudioMixInputParameters {
   static audioMixInputParametersWithTrack<This extends abstract new (...args: any) => any>(this: This, track: AVAssetTrack | null): InstanceType<This>;
 
   static audioMixInputParameters<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackID: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   audioTimePitchAlgorithm: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get audioTapProcessor(): interop.Pointer;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set audioTapProcessor(value: interop.PointerConvertible);
 
   setVolumeRampFromStartVolumeToEndVolumeTimeRange(startVolume: number, endVolume: number, timeRange: CMTimeRange): void;
@@ -4229,13 +4241,13 @@ declare class AVVideoCompositionCoreAnimationTool extends NSObject {
   static videoCompositionCoreAnimationToolWithPostProcessingAsVideoLayersInLayer<This extends abstract new (...args: any) => any>(this: This, videoLayers: NSArray<interop.Object> | Array<interop.Object>, animationLayer: CALayer): InstanceType<This>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableVideoCompositionLayerInstruction extends AVVideoCompositionLayerInstruction {
   static videoCompositionLayerInstructionWithAssetTrack<This extends abstract new (...args: any) => any>(this: This, track: AVAssetTrack): InstanceType<This>;
 
   static videoCompositionLayerInstruction<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackID: number;
 
   setTransformRampFromStartTransformToEndTransformTimeRange(startTransform: CGAffineTransform, endTransform: CGAffineTransform, timeRange: CMTimeRange): void;
@@ -4271,29 +4283,29 @@ declare class AVVideoCompositionLayerInstruction extends NSObject implements NSS
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableVideoCompositionInstruction extends AVVideoCompositionInstruction {
   static videoCompositionInstruction<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   timeRange: CMTimeRange;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get backgroundColor(): interop.Pointer;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set backgroundColor(value: interop.PointerConvertible);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get layerInstructions(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set layerInstructions(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   enablePostProcessing: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get requiredSourceSampleDataTrackIDs(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set requiredSourceSampleDataTrackIDs(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
@@ -4365,64 +4377,64 @@ declare class AVVideoCompositionInstruction extends NSObject implements NSSecure
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableVideoComposition extends AVVideoComposition {
   static videoComposition(): AVMutableVideoComposition;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static videoCompositionWithPropertiesOfAsset(asset: AVAsset): AVMutableVideoComposition;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static videoCompositionWithPropertiesOfAssetCompletionHandler(asset: AVAsset, completionHandler: (p1: AVMutableVideoComposition, p2: NSError) => void | null): void;
 
   static videoCompositionWithPropertiesOfAssetPrototypeInstruction(asset: AVAsset, prototypeInstruction: AVVideoCompositionInstruction): AVMutableVideoComposition;
 
   static videoCompositionWithPropertiesOfAssetPrototypeInstructionCompletionHandler(asset: AVAsset, prototypeInstruction: AVVideoCompositionInstruction, completionHandler: (p1: AVMutableVideoComposition, p2: NSError) => void | null): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   customVideoCompositorClass: AVVideoCompositing;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   frameDuration: CMTime;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   sourceTrackIDForFrameTiming: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   renderSize: CGSize;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   renderScale: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get instructions(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set instructions(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   animationTool: AVVideoCompositionCoreAnimationTool;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get sourceSampleDataTrackIDs(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set sourceSampleDataTrackIDs(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   colorPrimaries: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   colorYCbCrMatrix: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   colorTransferFunction: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   perFrameHDRDisplayMetadataPolicy: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static videoCompositionWithAssetApplyingCIFiltersWithHandler(asset: AVAsset, applier: (p1: AVAsynchronousCIImageFilteringRequest) => void): AVMutableVideoComposition;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static videoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler(asset: AVAsset, applier: (p1: AVAsynchronousCIImageFilteringRequest) => void, completionHandler: (p1: AVMutableVideoComposition, p2: NSError) => void | null): void;
 }
 
@@ -4486,28 +4498,28 @@ declare class AVVideoCompositionRenderContext extends NSObject {
   newPixelBuffer(): interop.Pointer;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableDateRangeMetadataGroup extends AVDateRangeMetadataGroup {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   startDate: NSDate;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   endDate: NSDate;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get items(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set items(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableTimedMetadataGroup extends AVTimedMetadataGroup {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   timeRange: CMTimeRange;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get items(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set items(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
@@ -4812,13 +4824,13 @@ declare class AVAssetTrack extends NSObject implements NSCopying, AVAsynchronous
   loadValuesAsynchronouslyForKeysCompletionHandler(keys: NSArray<interop.Object> | Array<interop.Object>, handler: () => void | null): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableAudioMix extends AVAudioMix {
   static audioMix<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get inputParameters(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set inputParameters(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
@@ -4944,7 +4956,7 @@ declare class AVCompositionTrackSegment extends AVAssetTrackSegment {
   readonly sourceTrackID: number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMovie extends AVAsset implements NSCopying, NSMutableCopying {
   static movieTypes(): NSArray;
 
@@ -4974,10 +4986,10 @@ declare class AVMovie extends AVAsset implements NSCopying, NSMutableCopying {
 
   isCompatibleWithFileType(fileType: string): boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVMovieTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVMovieTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -5001,6 +5013,10 @@ declare class AVCaptureDeviceInputSource extends NSObject {
 
 declare class AVContentKey extends NSObject {
   readonly contentKeySpecifier: AVContentKeySpecifier;
+
+  readonly externalContentProtectionStatus: interop.Enum<typeof AVExternalContentProtectionStatus>;
+
+  revoke(): void;
 }
 
 declare class AVAssetDownloadStorageManagementPolicy extends NSObject implements NSCopying, NSMutableCopying {
@@ -5164,16 +5180,16 @@ declare class AVPlayerItemLegibleOutput extends AVPlayerItemOutput {
   textStylingResolution: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVFragmentedAsset extends AVURLAsset implements AVFragmentMinding {
   static fragmentedAssetWithURLOptions<This extends abstract new (...args: any) => any>(this: This, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
 
   readonly tracks: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVFragmentedAssetTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVFragmentedAssetTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -5187,12 +5203,12 @@ declare class AVFragmentedAsset extends AVURLAsset implements AVFragmentMinding 
   readonly isAssociatedWithFragmentMinder: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableAssetDownloadStorageManagementPolicy extends AVAssetDownloadStorageManagementPolicy {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   priority: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   expirationDate: NSDate;
 }
 
@@ -5527,7 +5543,7 @@ declare class AVMetadataHumanBodyObject extends AVMetadataBodyObject implements 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableMovie extends AVMovie {
   static movieWithURLOptionsError<This extends abstract new (...args: any) => any>(this: This, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outError: interop.PointerConvertible): InstanceType<This>;
 
@@ -5541,13 +5557,13 @@ declare class AVMutableMovie extends AVMovie {
 
   initWithSettingsFromMovieOptionsError(movie: AVMovie | null, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outError: interop.PointerConvertible): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredRate: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredVolume: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredTransform: CGAffineTransform;
 
   timescale: number;
@@ -5556,7 +5572,7 @@ declare class AVMutableMovie extends AVMovie {
 
   isModified: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   defaultMediaDataStorage: AVMediaDataStorage;
 
   interleavingPeriod: CMTime;
@@ -5577,15 +5593,15 @@ declare class AVMutableMovie extends AVMovie {
 
   removeTrack(track: AVMovieTrack): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get metadata(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set metadata(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   trackWithTrackID(trackID: number): AVMutableMovieTrack;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVMutableMovieTrack, p2: NSError) => void | null): void;
 
   tracksWithMediaType(mediaType: string): NSArray;
@@ -6053,29 +6069,29 @@ declare class AVMediaSelectionOption extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableCompositionTrack extends AVCompositionTrack {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   isEnabled: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   naturalTimeScale: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   languageCode: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   extendedLanguageTag: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredTransform: CGAffineTransform;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   preferredVolume: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get segments(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set segments(value: NSArray<interop.Object> | Array<interop.Object>);
 
   insertTimeRangeOfTrackAtTimeError(timeRange: CMTimeRange, track: AVAssetTrack, startTime: CMTime, outError: interop.PointerConvertible): boolean;
@@ -6127,6 +6143,16 @@ declare class AVSampleBufferVideoRenderer extends NSObject implements AVQueuedSa
   readonly requiresFlushToResumeDecoding: boolean;
 
   flushWithRemovalOfDisplayedImageCompletionHandler(removeDisplayedImage: boolean, handler: () => void | null): void;
+
+  copyDisplayedPixelBuffer(): interop.Pointer;
+
+  expectMinimumUpcomingSampleBufferPresentationTime(minimumUpcomingPresentationTime: CMTime): void;
+
+  expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes(): void;
+
+  resetUpcomingSampleBufferPresentationTimeExpectations(): void;
+
+  loadVideoPerformanceMetricsWithCompletionHandler(completionHandler: (p1: AVVideoPerformanceMetrics) => void | null): void;
 
   readonly timebase: interop.Pointer;
 
@@ -6191,18 +6217,30 @@ declare class AVCaptureDeviceInput extends AVCaptureInput {
   readonly device: AVCaptureDevice;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVPlayerInterstitialEventController extends AVPlayerInterstitialEventMonitor {
   static interstitialEventControllerWithPrimaryPlayer<This extends abstract new (...args: any) => any>(this: This, primaryPlayer: AVPlayer): InstanceType<This>;
 
   initWithPrimaryPlayer(primaryPlayer: AVPlayer): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get events(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set events(value: NSArray<interop.Object> | Array<interop.Object>);
 
   cancelCurrentEventWithResumptionOffset(resumptionOffset: CMTime): void;
+}
+
+declare class AVVideoPerformanceMetrics extends NSObject {
+  readonly totalNumberOfFrames: number;
+
+  readonly numberOfDroppedFrames: number;
+
+  readonly numberOfCorruptedFrames: number;
+
+  readonly numberOfFramesDisplayedUsingOptimizedCompositing: number;
+
+  readonly totalAccumulatedFrameDelay: number;
 }
 
 declare class AVAssetWriterInput extends NSObject {
@@ -6314,43 +6352,43 @@ declare class AVPlayerMediaSelectionCriteria extends NSObject {
   initWithPrincipalMediaCharacteristicsPreferredLanguagesPreferredMediaCharacteristics(principalMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null, preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableMetadataItem extends AVMetadataItem {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   identifier: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   extendedLanguageTag: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   locale: NSLocale;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   time: CMTime;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   duration: CMTime;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   dataType: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   value: NSCopying;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get extraAttributes(): NSDictionary;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set extraAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
   static metadataItem(): AVMutableMetadataItem;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   startDate: NSDate;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   keySpace: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   key: NSCopying;
 }
 
@@ -6642,25 +6680,25 @@ declare class AVPlayerItemOutput extends NSObject {
   suppressesPlayerRendering: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableCaptionRegion extends AVCaptionRegion {
   init(): this;
 
   initWithIdentifier(identifier: string): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   origin: AVCaptionPoint;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   size: AVCaptionSize;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   scroll: interop.Enum<typeof AVCaptionRegionScroll>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   displayAlignment: interop.Enum<typeof AVCaptionRegionDisplayAlignment>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   writingMode: interop.Enum<typeof AVCaptionRegionWritingMode>;
 }
 

@@ -51,7 +51,7 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
     member->flags = mdMemberMethod;
     if (decl.isStatic)
       member->flags = (MDMemberFlag)(member->flags | mdMemberStatic);
-    if (isSelectorOwned(decl.methodSelector))
+    if (isSelectorOwned(decl.methodSelector) || decl.returnOwned)
       member->flags = (MDMemberFlag)(member->flags | mdMemberReturnOwned);
 
     if (decl.isInit) {
@@ -66,6 +66,7 @@ MDMember *MDMetadataWriter::memberFromDecl(MemberDecl &decl) {
     mdSignature->isVariadic = decl.isVariadic;
     MDSignatureResolvable res{mdSignature, &member->signature};
     signatureResolvables.emplace_back(res);
+
     break;
   }
   }

@@ -533,7 +533,7 @@ declare class NSPersistentCloudKitContainerOptions extends NSObject {
   initWithContainerIdentifier(containerIdentifier: string): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSManagedObject extends NSObject {
   static readonly contextShouldIgnoreUnmodeledPropertyChanges: boolean;
 
@@ -577,10 +577,10 @@ declare class NSManagedObject extends NSObject {
 
   didChangeValueForKey(key: string): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   willChangeValueForKeyWithSetMutationUsingObjects(inKey: string, inMutationKind: interop.Enum<typeof NSKeyValueSetMutationKind>, inObjects: NSSet): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   didChangeValueForKeyWithSetMutationUsingObjects(inKey: string, inMutationKind: interop.Enum<typeof NSKeyValueSetMutationKind>, inObjects: NSSet): void;
 
   awakeFromFetch(): void;
@@ -613,7 +613,7 @@ declare class NSManagedObject extends NSObject {
 
   changedValuesForCurrentEvent(): NSDictionary;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   validateValueForKeyError(value: interop.PointerConvertible, key: string, error: interop.PointerConvertible): boolean;
 
   validateForDelete(error: interop.PointerConvertible): boolean;
@@ -956,9 +956,9 @@ declare class NSAttributeDescription extends NSPropertyDescription {
   allowsCloudEncryption: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSAtomicStore extends NSPersistentStore {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithPersistentStoreCoordinatorConfigurationNameURLOptions(coordinator: NSPersistentStoreCoordinator | null, configurationName: string | null, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
 
   load(error: interop.PointerConvertible): boolean;

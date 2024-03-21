@@ -2,6 +2,8 @@
 
 declare const kCFNumberFormatterUseSignificantDigits: interop.Pointer;
 
+declare const kCFNumberNaN: interop.Pointer;
+
 declare const kCFURLUbiquitousItemDownloadingStatusDownloaded: interop.Pointer;
 
 declare const kCFCopyStringDictionaryKeyCallBacks: CFDictionaryKeyCallBacks;
@@ -35,8 +37,6 @@ declare const kCFStreamSocketSOCKSVersion5: interop.Pointer;
 declare const kCFTimeZoneSystemTimeZoneDidChangeNotification: interop.Pointer;
 
 declare const kCFURLVolumeSupportsCasePreservedNamesKey: interop.Pointer;
-
-declare const kCFURLCreationDateKey: interop.Pointer;
 
 declare const kCFBundleExecutableArchitecturePPC: number;
 
@@ -89,6 +89,8 @@ declare const kCFURLCanonicalPathKey: interop.Pointer;
 declare const kCFNumberFormatterAlwaysShowDecimalSeparator: interop.Pointer;
 
 declare const kCFSocketAutomaticallyReenableWriteCallBack: number;
+
+declare const kCFURLDocumentIdentifierKey: interop.Pointer;
 
 declare const kCFDateFormatterIsLenient: interop.Pointer;
 
@@ -153,8 +155,6 @@ declare const kCFURLVolumeIdentifierKey: interop.Pointer;
 declare const kCFStringTransformLatinGreek: interop.Pointer;
 
 declare const kCFURLVolumeIsLocalKey: interop.Pointer;
-
-declare const kCFURLDocumentIdentifierKey: interop.Pointer;
 
 declare const kCFURLFileResourceTypeUnknown: interop.Pointer;
 
@@ -540,6 +540,8 @@ declare const kCFNumberFormatterCurrencySymbol: interop.Pointer;
 
 declare const kCFDateFormatterVeryShortStandaloneWeekdaySymbols: interop.Pointer;
 
+declare const kCFURLCreationDateKey: interop.Pointer;
+
 declare const kCFURLVolumeSupportsFileProtectionKey: interop.Pointer;
 
 declare const kCFTypeDictionaryKeyCallBacks: CFDictionaryKeyCallBacks;
@@ -597,8 +599,6 @@ declare const kCFURLPathKey: interop.Pointer;
 declare const kCFNumberNegativeInfinity: interop.Pointer;
 
 declare const kCFNotFound: number;
-
-declare const kCFNumberNaN: interop.Pointer;
 
 declare const kCFStreamPropertyDataWritten: interop.Pointer;
 

@@ -589,9 +589,9 @@ declare class SKLabelNode extends SKNode {
   blendMode: interop.Enum<typeof SKBlendMode>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class SKWarpGeometryGrid extends SKWarpGeometry implements NSSecureCoding {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   static grid<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
@@ -1351,7 +1351,7 @@ declare class SKKeyframeSequence extends NSObject implements NSSecureCoding, NSC
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class SKTileMapNode extends SKNode implements NSCopying, NSSecureCoding {
   static tileMapNodeWithTileSetColumnsRowsTileSize<This extends abstract new (...args: any) => any>(this: This, tileSet: SKTileSet, columns: number, rows: number, tileSize: CGSize): InstanceType<This>;
 
@@ -1420,7 +1420,7 @@ declare class SKTileMapNode extends SKNode implements NSCopying, NSSecureCoding 
 
   encodeWithCoder(coder: NSCoder): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(coder: NSCoder): this;
 }
 

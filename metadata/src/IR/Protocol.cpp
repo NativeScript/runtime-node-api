@@ -86,7 +86,7 @@ void ProtocolDecl::postProcessMembers() {
 
     for (ProtocolDecl *protocol : protocolRefs) {
       convertMethodToPropertyIfNeeded(
-          member, protocol->getMemberNamed(member.name), false);
+          member, protocol->getMemberNamed(member.name), true);
     }
 
     for (ProtocolDecl *protocol : derivedProtocolRefs) {

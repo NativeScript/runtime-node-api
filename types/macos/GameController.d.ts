@@ -392,13 +392,15 @@ declare const GCInputButtonShare: string;
 
 declare const GCInputButtonHome: string;
 
-declare const GCInputRightThumbstickButton: string;
-
 declare const GCInputRightTrigger: string;
 
 declare const GCInputLeftTrigger: string;
 
+declare const GCInputLeftBumper: string;
+
 declare const GCInputRightShoulder: string;
+
+declare const GCInputRightThumbstickButton: string;
 
 declare const GCInputRightThumbstick: string;
 
@@ -423,6 +425,8 @@ declare const GCProductCategoryXboxOne: string;
 declare const GCProductCategoryMFi: string;
 
 declare const GCProductCategoryDualShock4: string;
+
+declare const GCPoint2Zero: GCPoint2;
 
 declare const GCKeyKeypad1: string;
 
@@ -601,6 +605,8 @@ declare const GCInputButtonMenu: string;
 declare const GCDualSenseAdaptiveTriggerDiscretePositionCount: number;
 
 declare const GCKeyTab: string;
+
+declare const GCInputRightBumper: string;
 
 declare const GCKeyRightAlt: string;
 
@@ -849,6 +855,12 @@ declare class GCDualSenseAdaptiveTriggerPositionalAmplitudes {
   values: unknown /* const array */;
 }
 
+declare class GCPoint2 {
+  constructor(init?: GCPoint2);
+  x: number;
+  y: number;
+}
+
 declare class GCRotationRate {
   constructor(init?: GCRotationRate);
   x: number;
@@ -879,6 +891,12 @@ declare class GCGamepadSnapShotDataV100 {
   leftShoulder: number;
   rightShoulder: number;
 }
+
+declare function NSStringFromGCPoint2(point: GCPoint2): string;
+
+declare function GCInputBackLeftButton(position: number): string;
+
+declare function GCInputBackRightButton(position: number): string;
 
 declare function GCInputArcadeButtonName(row: number, column: number): string;
 
@@ -913,6 +931,25 @@ declare interface GCPhysicalInputSource extends NSObjectProtocol {
 }
 
 declare class GCPhysicalInputSource extends NativeObject implements GCPhysicalInputSource {
+}
+
+declare interface GCAxis2DInput extends NSObjectProtocol {
+  valueDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCAxis2DInput, p3: GCPoint2) => void;
+
+  readonly value: GCPoint2;
+
+  readonly isAnalog: boolean;
+
+  readonly canWrap: boolean;
+
+  readonly lastValueTimestamp: number;
+
+  readonly lastValueLatency: number;
+
+  readonly sources: NSSet;
+}
+
+declare class GCAxis2DInput extends NativeObject implements GCAxis2DInput {
 }
 
 declare interface GCPressedStateInput extends NSObjectProtocol {
@@ -1143,6 +1180,8 @@ declare class GCPhysicalInputElement extends NativeObject implements GCPhysicalI
 }
 
 declare interface GCDirectionPadElement extends GCPhysicalInputElement {
+  readonly xyAxes: GCAxis2DInput;
+
   readonly xAxis: GCAxisInput;
 
   readonly yAxis: GCAxisInput;
@@ -1257,7 +1296,7 @@ declare class GCMicroGamepad extends GCPhysicalInputProfile {
   setStateFromMicroGamepad(microGamepad: GCMicroGamepad): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class GCDualSenseGamepad extends GCExtendedGamepad {
   readonly touchpadButton: GCControllerButtonInput;
 
@@ -1265,10 +1304,10 @@ declare class GCDualSenseGamepad extends GCExtendedGamepad {
 
   readonly touchpadSecondary: GCControllerDirectionPad;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly leftTrigger: GCDualSenseAdaptiveTrigger;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly rightTrigger: GCDualSenseAdaptiveTrigger;
 }
 

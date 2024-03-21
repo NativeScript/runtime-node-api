@@ -1096,7 +1096,7 @@ declare class DOMMutationEvent extends DOMEvent {
   initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class WebView extends NSView {
   static canShowMIMEType(MIMEType: string): boolean;
 
@@ -1270,7 +1270,7 @@ declare class WebView extends NSView {
 
   applyStyle(style: DOMCSSStyleDeclaration): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   copy(sender: interop.Object): void;
 
   cut(sender: interop.Object): void;
@@ -1287,14 +1287,14 @@ declare class WebView extends NSView {
 
   pasteAsRichText(sender: interop.Object): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   changeFont(sender: interop.Object): void;
 
   changeAttributes(sender: interop.Object): void;
 
   changeDocumentBackgroundColor(sender: interop.Object): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   changeColor(sender: interop.Object): void;
 
   alignCenter(sender: interop.Object): void;
@@ -1592,7 +1592,7 @@ declare class DOMHTMLParamElement extends DOMHTMLElement {
   valueType: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class DOMElement extends DOMNode {
   readonly tagName: string;
 
@@ -1628,7 +1628,7 @@ declare class DOMElement extends DOMNode {
 
   outerHTML: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   className: string;
 
   readonly innerText: string;
@@ -4506,7 +4506,7 @@ declare class DOMCSSStyleSheet extends DOMStyleSheet {
   insertRule(rule: string, index: number): number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class DOMHTMLElement extends DOMElement {
   title: string;
 
@@ -4518,7 +4518,7 @@ declare class DOMHTMLElement extends DOMElement {
 
   accessKey: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   innerText: string;
 
   outerText: string;

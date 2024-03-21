@@ -72,7 +72,7 @@ void TSFile::write(MemberDecl &decl, bool isInterface,
       // Due to inconsistencies between Objective-C and TypeScript type
       // systems, we have to use this annotation to prevent the TypeScript
       // compiler from complaining about how one type doesn't satisfy another.
-      code.write("// @ts-ignore");
+      code.write("// @ts-ignore MemberDecl.tsIgnore");
     }
 
     code.write(line);
@@ -97,7 +97,7 @@ void TSFile::write(MemberDecl &decl, bool isInterface,
                   : getterType;
       line += ";";
       if (decl.tsIgnore) {
-        code.write("// @ts-ignore");
+        code.write("// @ts-ignore MemberDecl.tsIgnore");
       }
       code.write(line);
 
@@ -114,7 +114,7 @@ void TSFile::write(MemberDecl &decl, bool isInterface,
                   : setterType;
       line += ");";
       if (decl.tsIgnore) {
-        code.write("// @ts-ignore");
+        code.write("// @ts-ignore MemberDecl.tsIgnore");
       }
       code.write(line);
     } else {
@@ -136,7 +136,7 @@ void TSFile::write(MemberDecl &decl, bool isInterface,
       line += ";";
 
       if (decl.tsIgnore) {
-        code.write("// @ts-ignore");
+        code.write("// @ts-ignore MemberDecl.tsIgnore");
       }
 
       code.write(line);

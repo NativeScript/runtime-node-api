@@ -41,6 +41,8 @@ declare const INPersonHandleLabeliPhone: string;
 
 declare const INPersonHandleLabelHome: string;
 
+declare const INCarChargingConnectorTypeNACSAC: string;
+
 declare const INCarChargingConnectorTypeCHAdeMO: string;
 
 declare const INCarChargingConnectorTypeCCS1: string;
@@ -126,6 +128,8 @@ declare const IntentsVersionString: interop.Pointer;
 declare const INIntentErrorDomain: string;
 
 declare const INWorkoutNameIdentifierRower: string;
+
+declare const INCarChargingConnectorTypeNACSDC: string;
 
 declare const IntentsVersionNumber: number;
 
@@ -2062,27 +2066,6 @@ declare interface INSetProfileInCarIntentHandling extends NSObjectProtocol {
 declare class INSetProfileInCarIntentHandling extends NativeObject implements INSetProfileInCarIntentHandling {
 }
 
-declare interface INMessagesDomainHandling extends INSendMessageIntentHandling, INSearchForMessagesIntentHandling, INSetMessageAttributeIntentHandling {
-}
-
-declare class INMessagesDomainHandling extends NativeObject implements INMessagesDomainHandling {
-}
-
-declare interface INSetDefrosterSettingsInCarIntentHandling extends NSObjectProtocol {
-  handleSetDefrosterSettingsInCarCompletion(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSetDefrosterSettingsInCarIntentResponse) => void): void;
-
-  confirmSetDefrosterSettingsInCarCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSetDefrosterSettingsInCarIntentResponse) => void): void;
-
-  resolveEnableForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INBooleanResolutionResult) => void): void;
-
-  resolveDefrosterForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INCarDefrosterResolutionResult) => void): void;
-
-  resolveCarNameForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSpeakableStringResolutionResult) => void): void;
-}
-
-declare class INSetDefrosterSettingsInCarIntentHandling extends NativeObject implements INSetDefrosterSettingsInCarIntentHandling {
-}
-
 declare interface INSetClimateSettingsInCarIntentHandling extends NSObjectProtocol {
   handleSetClimateSettingsInCarCompletion(intent: INSetClimateSettingsInCarIntent, completion: (p1: INSetClimateSettingsInCarIntentResponse) => void): void;
 
@@ -2582,6 +2565,27 @@ declare interface INCarPlayDomainHandling extends INSetAudioSourceInCarIntentHan
 }
 
 declare class INCarPlayDomainHandling extends NativeObject implements INCarPlayDomainHandling {
+}
+
+declare interface INMessagesDomainHandling extends INSendMessageIntentHandling, INSearchForMessagesIntentHandling, INSetMessageAttributeIntentHandling {
+}
+
+declare class INMessagesDomainHandling extends NativeObject implements INMessagesDomainHandling {
+}
+
+declare interface INSetDefrosterSettingsInCarIntentHandling extends NSObjectProtocol {
+  handleSetDefrosterSettingsInCarCompletion(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSetDefrosterSettingsInCarIntentResponse) => void): void;
+
+  confirmSetDefrosterSettingsInCarCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSetDefrosterSettingsInCarIntentResponse) => void): void;
+
+  resolveEnableForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INBooleanResolutionResult) => void): void;
+
+  resolveDefrosterForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INCarDefrosterResolutionResult) => void): void;
+
+  resolveCarNameForSetDefrosterSettingsInCarWithCompletion?(intent: INSetDefrosterSettingsInCarIntent, completion: (p1: INSpeakableStringResolutionResult) => void): void;
+}
+
+declare class INSetDefrosterSettingsInCarIntentHandling extends NativeObject implements INSetDefrosterSettingsInCarIntentHandling {
 }
 
 declare interface INRidesharingDomainHandling extends INListRideOptionsIntentHandling, INRequestRideIntentHandling, INGetRideStatusIntentHandling, INCancelRideIntentHandling, INSendRideFeedbackIntentHandling {

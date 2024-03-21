@@ -32,6 +32,11 @@ declare const MLComputeUnits: {
   CPUAndNeuralEngine: 3,
 };
 
+declare const MLReshapeFrequencyHint: {
+  Frequent: 0,
+  Infrequent: 1,
+};
+
 declare const MLFeatureType: {
   Invalid: 0,
   Int64: 1,
@@ -143,6 +148,56 @@ declare interface MLCustomLayer {
 }
 
 declare class MLCustomLayer extends NativeObject implements MLCustomLayer {
+}
+
+declare class MLComputePlanCost extends NSObject {
+  readonly weight: number;
+}
+
+declare class MLComputePlan extends NSObject {
+  static loadContentsOfURLConfigurationCompletionHandler(url: NSURL, configuration: MLModelConfiguration, handler: (p1: MLComputePlan, p2: NSError) => void | null): void;
+
+  static loadModelAssetConfigurationCompletionHandler(asset: MLModelAsset, configuration: MLModelConfiguration, handler: (p1: MLComputePlan, p2: NSError) => void | null): void;
+
+  estimatedCostOfMLProgramOperation(operation: MLModelStructureProgramOperation): MLComputePlanCost;
+
+  computeDeviceUsageForNeuralNetworkLayer(layer: MLModelStructureNeuralNetworkLayer): MLComputePlanDeviceUsage;
+
+  computeDeviceUsageForMLProgramOperation(operation: MLModelStructureProgramOperation): MLComputePlanDeviceUsage;
+
+  readonly modelStructure: MLModelStructure;
+}
+
+declare class MLModelStructureProgramValueType extends NSObject {
+}
+
+declare class MLModelStructureProgramValue extends NSObject {
+}
+
+declare class MLModelStructureProgramOperation extends NSObject {
+  readonly operatorName: string;
+
+  readonly inputs: NSDictionary;
+
+  readonly outputs: NSArray;
+
+  readonly blocks: NSArray;
+}
+
+declare class MLModelStructureProgramNamedValueType extends NSObject {
+  readonly name: string;
+
+  readonly type: MLModelStructureProgramValueType;
+}
+
+declare class MLModelStructureProgram extends NSObject {
+  readonly functions: NSDictionary;
+}
+
+declare class MLModelStructurePipeline extends NSObject {
+  readonly subModelNames: NSArray;
+
+  readonly subModels: NSArray;
 }
 
 declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeDeviceProtocol {
@@ -273,6 +328,8 @@ declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecu
   modelDisplayName: string;
 
   computeUnits: interop.Enum<typeof MLComputeUnits>;
+
+  optimizationHints: MLOptimizationHints;
 
   allowLowPrecisionAccumulationOnGPU: boolean;
 
@@ -584,6 +641,18 @@ declare class MLGPUComputeDevice extends NSObject implements MLComputeDeviceProt
   readonly debugDescription: string;
 }
 
+declare class MLModelStructureProgramBlock extends NSObject {
+  readonly inputs: NSArray;
+
+  readonly outputNames: NSArray;
+
+  readonly operations: NSArray;
+}
+
+declare class MLModelStructureProgramArgument extends NSObject {
+  readonly bindings: NSArray;
+}
+
 declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
   readonly valueDescription: MLFeatureDescription;
 
@@ -594,6 +663,12 @@ declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureProgramFunction extends NSObject {
+  readonly inputs: NSArray;
+
+  readonly block: MLModelStructureProgramBlock;
 }
 
 declare class MLMultiArrayShapeConstraint extends NSObject implements NSSecureCoding {
@@ -634,11 +709,51 @@ declare class MLMultiArrayConstraint extends NSObject implements NSSecureCoding 
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class MLModelStructure extends NSObject {
+  static loadContentsOfURLCompletionHandler(url: NSURL, handler: (p1: MLModelStructure, p2: NSError) => void | null): void;
+
+  static loadModelAssetCompletionHandler(asset: MLModelAsset, handler: (p1: MLModelStructure, p2: NSError) => void | null): void;
+
+  readonly neuralNetwork: MLModelStructureNeuralNetwork;
+
+  readonly program: MLModelStructureProgram;
+
+  readonly pipeline: MLModelStructurePipeline;
+}
+
+declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecureCoding {
+  reshapeFrequency: interop.Enum<typeof MLReshapeFrequencyHint>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class MLPredictionOptions extends NSObject {
   usesCPUOnly: boolean;
 
   get outputBackings(): NSDictionary;
   set outputBackings(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+}
+
+declare class MLModelStructureProgramBinding extends NSObject {
+  readonly name: string;
+
+  readonly value: MLModelStructureProgramValue;
+}
+
+declare class MLModelStructureNeuralNetworkLayer extends NSObject {
+  readonly name: string;
+
+  readonly type: string;
+
+  readonly inputNames: NSArray;
+
+  readonly outputNames: NSArray;
 }
 
 declare class MLModelCollection extends NSObject {
@@ -751,6 +866,10 @@ declare class MLCPUComputeDevice extends NSObject implements MLComputeDeviceProt
   readonly debugDescription: string;
 }
 
+declare class MLModelStructureNeuralNetwork extends NSObject {
+  readonly layers: NSArray;
+}
+
 declare class MLParameterKey extends MLKey {
   static readonly learningRate: MLParameterKey;
 
@@ -781,5 +900,11 @@ declare class MLParameterKey extends MLKey {
   static readonly biases: MLParameterKey;
 
   scopedTo(scope: string): MLParameterKey;
+}
+
+declare class MLComputePlanDeviceUsage extends NSObject {
+  readonly supportedComputeDevices: NSArray;
+
+  readonly preferredComputeDevice: MLComputeDeviceProtocol;
 }
 

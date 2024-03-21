@@ -45,6 +45,10 @@ declare class __sbuf {
   _size: number;
 }
 
+declare class _xpc_type_s {
+  constructor(init?: _xpc_type_s);
+}
+
 declare class simd_double4x4 {
   constructor(init?: simd_double4x4);
   columns: unknown /* const array */;
@@ -81,13 +85,6 @@ declare class __sFILE {
 
 declare class _acl {
   constructor(init?: _acl);
-}
-
-declare interface NativeScriptEmbedderDelegate {
-  presentNativeScriptApp(vc: UIViewController): interop.Object;
-}
-
-declare class NativeScriptEmbedderDelegate extends NativeObject implements NativeScriptEmbedderDelegate {
 }
 
 declare interface NSObjectProtocol {
@@ -133,6 +130,13 @@ declare interface NSObjectProtocol {
 }
 
 declare class NSObjectProtocol extends NativeObject implements NSObjectProtocol {
+}
+
+declare interface NativeScriptEmbedderDelegate {
+  presentNativeScriptApp(vc: UIViewController): interop.Object;
+}
+
+declare class NativeScriptEmbedderDelegate extends NativeObject implements NativeScriptEmbedderDelegate {
 }
 
 declare class NSObject extends NativeObject implements NSObjectProtocol {

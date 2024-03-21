@@ -2657,7 +2657,7 @@ declare class CAFFileHeader {
 declare class AudioUnitEvent {
   constructor(init?: AudioUnitEvent);
   mEventType: interop.Enum<typeof AudioUnitEventType>;
-  mArgument: unnamed_10982590730890634143;
+  mArgument: unnamed_14046749830884904293;
 }
 
 declare class AUListenerBase {
@@ -2958,10 +2958,12 @@ declare class AudioUnitParameter {
   mElement: number;
 }
 
-declare class unnamed_16050977560098201967 {
-  constructor(init?: unnamed_16050977560098201967);
-  bufferOffset: number;
-  value: number;
+declare class unnamed_96652638799838460 {
+  constructor(init?: unnamed_96652638799838460);
+  startBufferOffset: number;
+  durationInFrames: number;
+  startValue: number;
+  endValue: number;
 }
 
 declare class OpaqueAudioComponentInstance {
@@ -3178,7 +3180,7 @@ declare class OpaqueAudioFileStreamID {
 declare class AUNodeInteraction {
   constructor(init?: AUNodeInteraction);
   nodeInteractionType: number;
-  nodeInteraction: unnamed_3959505499474775135;
+  nodeInteraction: unnamed_1701953957490113304;
 }
 
 declare class ExtendedAudioFormatInfo {
@@ -3195,7 +3197,7 @@ declare class AudioUnitParameterEvent {
   element: number;
   parameter: number;
   eventType: interop.Enum<typeof AUParameterEventType>;
-  eventValues: unnamed_13596026601201960529;
+  eventValues: unnamed_14965420845128474694;
 }
 
 declare class AudioFileRegionList {
@@ -3203,14 +3205,6 @@ declare class AudioFileRegionList {
   mSMPTE_TimeType: number;
   mNumberRegions: number;
   mRegions: unknown /* const array */;
-}
-
-declare class unnamed_4503291358150401370 {
-  constructor(init?: unnamed_4503291358150401370);
-  startBufferOffset: number;
-  durationInFrames: number;
-  startValue: number;
-  endValue: number;
 }
 
 declare class CAFDataChunk {
@@ -3290,6 +3284,12 @@ declare class AURecordedParameterEvent {
   value: number;
 }
 
+declare class unnamed_10521087242791348092 {
+  constructor(init?: unnamed_10521087242791348092);
+  bufferOffset: number;
+  value: number;
+}
+
 declare class OpaqueAudioFileID {
   constructor(init?: OpaqueAudioFileID);
 }
@@ -3356,34 +3356,34 @@ declare class CAFAudioDescription {
   mBitsPerChannel: number;
 }
 
-type unnamed_10982590730890634143Descriptor = 
+type unnamed_14046749830884904293Descriptor = 
   | { mParameter: AudioUnitParameter }
   | { mProperty: AudioUnitProperty };
 
-declare class unnamed_10982590730890634143 {
-  constructor(init?: unnamed_10982590730890634143Descriptor);
+declare class unnamed_14046749830884904293 {
+  constructor(init?: unnamed_14046749830884904293Descriptor);
   mParameter: AudioUnitParameter;
   mProperty: AudioUnitProperty;
 }
 
-type unnamed_3959505499474775135Descriptor = 
+type unnamed_1701953957490113304Descriptor = 
   | { connection: AudioUnitNodeConnection }
   | { inputCallback: AUNodeRenderCallback };
 
-declare class unnamed_3959505499474775135 {
-  constructor(init?: unnamed_3959505499474775135Descriptor);
+declare class unnamed_1701953957490113304 {
+  constructor(init?: unnamed_1701953957490113304Descriptor);
   connection: AudioUnitNodeConnection;
   inputCallback: AUNodeRenderCallback;
 }
 
-type unnamed_13596026601201960529Descriptor = 
-  | { ramp: unnamed_4503291358150401370 }
-  | { immediate: unnamed_16050977560098201967 };
+type unnamed_14965420845128474694Descriptor = 
+  | { ramp: unnamed_96652638799838460 }
+  | { immediate: unnamed_10521087242791348092 };
 
-declare class unnamed_13596026601201960529 {
-  constructor(init?: unnamed_13596026601201960529Descriptor);
-  ramp: unnamed_4503291358150401370;
-  immediate: unnamed_16050977560098201967;
+declare class unnamed_14965420845128474694 {
+  constructor(init?: unnamed_14965420845128474694Descriptor);
+  ramp: unnamed_96652638799838460;
+  immediate: unnamed_10521087242791348092;
 }
 
 type AURenderEventDescriptor = 

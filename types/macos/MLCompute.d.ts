@@ -957,11 +957,11 @@ declare class MLCConvolutionLayer extends MLCLayer {
   static layerWithWeightsBiasesDescriptor<This extends abstract new (...args: any) => any>(this: This, weights: MLCTensor, biases: MLCTensor | null, descriptor: MLCConvolutionDescriptor): InstanceType<This> | null;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MLCYOLOLossLayer extends MLCLossLayer {
   readonly yoloLossDescriptor: MLCYOLOLossDescriptor;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static layerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, lossDescriptor: MLCYOLOLossDescriptor): InstanceType<This>;
 }
 

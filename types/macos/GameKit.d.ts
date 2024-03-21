@@ -159,6 +159,7 @@ declare const GKErrorCode: {
   APIObsolete: 34,
   ICloudUnavailable: 35,
   LockdownMode: 36,
+  AppUnlisted: 37,
   FriendListDescriptionMissing: 100,
   FriendListRestricted: 101,
   FriendListDenied: 102,
@@ -780,6 +781,8 @@ declare class GKChallengeEventHandler extends NSObject {
 
 declare class GKScoreChallenge extends GKChallenge {
   readonly score: GKScore;
+
+  readonly leaderboardEntry: GKLeaderboardEntry;
 }
 
 declare class GKChallenge extends NSObject implements NSCoding, NSSecureCoding {

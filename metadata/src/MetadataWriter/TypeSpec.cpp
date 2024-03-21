@@ -361,7 +361,7 @@ std::string MDTypeInfoSerde::encode(MDTypeInfo *type) {
     result += "}";
     break;
   case mdTypeBlock:
-    result = "^?";
+    result = "^" + std::to_string(type->signatureOffset);
     break;
   case mdTypePointer:
     result = "^";

@@ -16,6 +16,9 @@ void TSFile::write(ProtocolDecl &decl) {
     }
   }
   line += " {";
+  if (decl.tsIgnore) {
+    code.write("// @ts-ignore ProtocolDecl.tsIgnore");
+  }
   code.write(line);
   code.enter();
   for (size_t i = 0; i < decl.members.size(); i++) {
@@ -38,7 +41,7 @@ void TSFile::write(ProtocolDecl &decl) {
 
   line += " {";
   if (decl.tsIgnore) {
-    code.write("// @ts-ignore");
+    code.write("// @ts-ignore ProtocolDecl.tsIgnore");
   }
   code.write(line);
   code.enter();

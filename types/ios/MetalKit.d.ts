@@ -287,13 +287,13 @@ declare class MTKView extends UIView implements NSCoding, CALayerDelegate {
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MTKMeshBuffer extends NSObject implements MDLMeshBuffer, MDLNamed {
   readonly length: number;
 
   readonly allocator: MTKMeshBufferAllocator;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: MDLMeshBufferZone;
 
   readonly buffer: MTLBuffer;

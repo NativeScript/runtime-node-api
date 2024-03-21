@@ -785,30 +785,6 @@ declare class MLCComparisonLayer extends MLCLayer {
   static layerWithOperation<This extends abstract new (...args: any) => any>(this: This, operation: interop.Enum<typeof MLCComparisonOperation>): InstanceType<This>;
 }
 
-declare class MLCBatchNormalizationLayer extends MLCLayer {
-  readonly featureChannelCount: number;
-
-  readonly mean: MLCTensor;
-
-  readonly variance: MLCTensor;
-
-  readonly beta: MLCTensor;
-
-  readonly gamma: MLCTensor;
-
-  readonly betaParameter: MLCTensorParameter;
-
-  readonly gammaParameter: MLCTensorParameter;
-
-  readonly varianceEpsilon: number;
-
-  readonly momentum: number;
-
-  static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilon<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number): InstanceType<This> | null;
-
-  static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilonMomentum<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number, momentum: number): InstanceType<This> | null;
-}
-
 declare class MLCOptimizerDescriptor extends NSObject implements NSCopying {
   readonly learningRate: number;
 
@@ -851,6 +827,30 @@ declare class MLCFullyConnectedLayer extends MLCLayer {
   readonly biasesParameter: MLCTensorParameter;
 
   static layerWithWeightsBiasesDescriptor<This extends abstract new (...args: any) => any>(this: This, weights: MLCTensor, biases: MLCTensor | null, descriptor: MLCConvolutionDescriptor): InstanceType<This> | null;
+}
+
+declare class MLCBatchNormalizationLayer extends MLCLayer {
+  readonly featureChannelCount: number;
+
+  readonly mean: MLCTensor;
+
+  readonly variance: MLCTensor;
+
+  readonly beta: MLCTensor;
+
+  readonly gamma: MLCTensor;
+
+  readonly betaParameter: MLCTensorParameter;
+
+  readonly gammaParameter: MLCTensorParameter;
+
+  readonly varianceEpsilon: number;
+
+  readonly momentum: number;
+
+  static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilon<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number): InstanceType<This> | null;
+
+  static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilonMomentum<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number, momentum: number): InstanceType<This> | null;
 }
 
 declare class MLCTransposeLayer extends MLCLayer {
@@ -1033,11 +1033,11 @@ declare class MLCTensorParameter extends NSObject {
   static parameterWithTensorOptimizerData<This extends abstract new (...args: any) => any>(this: This, tensor: MLCTensor, optimizerData: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MLCYOLOLossLayer extends MLCLossLayer {
   readonly yoloLossDescriptor: MLCYOLOLossDescriptor;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static layerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, lossDescriptor: MLCYOLOLossDescriptor): InstanceType<This>;
 }
 

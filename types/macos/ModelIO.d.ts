@@ -299,6 +299,7 @@ declare interface MDLJointAnimation {
 declare class MDLJointAnimation extends NativeObject implements MDLJointAnimation {
 }
 
+// @ts-ignore ProtocolDecl.tsIgnore
 declare interface MDLMeshBuffer extends NSObjectProtocol, NSCopying {
   fillDataOffset(data: NSData, offset: number): void;
 
@@ -308,11 +309,13 @@ declare interface MDLMeshBuffer extends NSObjectProtocol, NSCopying {
 
   readonly allocator: MDLMeshBufferAllocator;
 
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: MDLMeshBufferZone;
 
   readonly type: interop.Enum<typeof MDLMeshBufferType>;
 }
 
+// @ts-ignore ProtocolDecl.tsIgnore
 declare class MDLMeshBuffer extends NativeObject implements MDLMeshBuffer {
 }
 
@@ -1555,7 +1558,7 @@ declare class MDLMeshBufferDataAllocator extends NSObject implements MDLMeshBuff
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MDLMeshBufferData extends NSObject implements MDLMeshBuffer {
   initWithTypeLength(type: interop.Enum<typeof MDLMeshBufferType>, length: number): this;
 
@@ -1571,7 +1574,7 @@ declare class MDLMeshBufferData extends NSObject implements MDLMeshBuffer {
 
   readonly allocator: MDLMeshBufferAllocator;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: MDLMeshBufferZone;
 
   readonly type: interop.Enum<typeof MDLMeshBufferType>;

@@ -296,13 +296,13 @@ declare class MTKTextureLoader extends NSObject {
   newTextureWithNameScaleFactorDisplayGamutBundleOptionsError(name: string, scaleFactor: number, displayGamut: interop.Enum<typeof NSDisplayGamut>, bundle: NSBundle | null, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): MTLTexture;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MTKMeshBuffer extends NSObject implements MDLMeshBuffer, MDLNamed {
   readonly length: number;
 
   readonly allocator: MTKMeshBufferAllocator;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: MDLMeshBufferZone;
 
   readonly buffer: MTLBuffer;

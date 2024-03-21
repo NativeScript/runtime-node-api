@@ -28,10 +28,10 @@ globalThis.UIEdgeInsetsMake = function UIEdgeInsetsMake(top, left, bottom, right
 )";
 
 void registerInlineFunctions(napi_env env) {
-  napi_value script;
+  napi_value script, result;
   napi_create_string_utf8(env, inlineFunctionsSource, NAPI_AUTO_LENGTH,
                           &script);
-  napi_run_script(env, script, nullptr);
+  napi_run_script(env, script, &result);
 }
 
 } // namespace objc_bridge

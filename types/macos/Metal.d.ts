@@ -1112,11 +1112,6 @@ declare class MTLOrigin {
   z: number;
 }
 
-declare class MTLCounterResultTimestamp {
-  constructor(init?: MTLCounterResultTimestamp);
-  timestamp: number;
-}
-
 declare class MTLIndirectCommandBufferExecutionRange {
   constructor(init?: MTLIndirectCommandBufferExecutionRange);
   location: number;
@@ -1216,6 +1211,11 @@ declare class MTLCounterResultStageUtilization {
   renderTargetCycles: number;
 }
 
+declare class MTLCounterResultTimestamp {
+  constructor(init?: MTLCounterResultTimestamp);
+  timestamp: number;
+}
+
 declare class MTLTextureSwizzleChannels {
   constructor(init?: MTLTextureSwizzleChannels);
   red: interop.Enum<typeof MTLTextureSwizzle>;
@@ -1261,6 +1261,13 @@ declare class MTLTriangleTessellationFactorsHalf {
   constructor(init?: MTLTriangleTessellationFactorsHalf);
   edgeTessellationFactor: unknown /* const array */;
   insideTessellationFactor: number;
+}
+
+declare class unnamed_9350239189274986632 {
+  constructor(init?: unnamed_9350239189274986632);
+  x: number;
+  y: number;
+  z: number;
 }
 
 declare class MTLDrawIndexedPrimitivesIndirectArguments {
@@ -1351,23 +1358,16 @@ declare class _MTLPackedFloat4x3 {
   columns: unknown /* const array */;
 }
 
-declare class unnamed_8524248493680478837 {
-  constructor(init?: unnamed_8524248493680478837);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MTLDispatchThreadgroupsIndirectArguments {
   constructor(init?: MTLDispatchThreadgroupsIndirectArguments);
   threadgroupsPerGrid: unknown /* const array */;
 }
 
-type unnamed_17502381829809554195Descriptor = 
+type unnamed_1520499346944027093Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_17502381829809554195 {
-  constructor(init?: unnamed_17502381829809554195Descriptor);
+declare class unnamed_1520499346944027093 {
+  constructor(init?: unnamed_1520499346944027093Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -2697,6 +2697,8 @@ declare interface MTLResource extends NSObjectProtocol {
   makeAliasable(): void;
 
   isAliasable(): boolean;
+
+  setOwnerWithIdentity(task_id_token: number): number;
 }
 
 declare class MTLResource extends NativeObject implements MTLResource {
@@ -2706,6 +2708,8 @@ declare interface MTLSharedEvent extends MTLEvent {
   notifyListenerAtValueBlock(listener: MTLSharedEventListener, value: number, block: (p1: MTLSharedEvent, p2: number) => void): void;
 
   newSharedEventHandle(): MTLSharedEventHandle;
+
+  waitUntilSignaledValueTimeoutMS(value: number, milliseconds: number): boolean;
 
   signaledValue: number;
 }

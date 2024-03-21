@@ -3200,11 +3200,11 @@ declare class SCNHitTestResult extends NSObject {
   readonly simdModelTransform: simd_float4x4;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class SCNReferenceNode extends SCNNode {
   initWithURL(referenceURL: NSURL): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   static referenceNodeWithURL<This extends abstract new (...args: any) => any>(this: This, referenceURL: NSURL): InstanceType<This>;
@@ -3605,7 +3605,7 @@ declare class SCNPhysicsBehavior extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTechniqueSupport {
   scene: SCNScene;
 
@@ -3613,7 +3613,7 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 
   sceneTime: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: SCNSceneRendererDelegate;
 
   hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;

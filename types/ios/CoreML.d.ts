@@ -77,6 +77,11 @@ declare const MLComputeUnits: {
   CPUAndNeuralEngine: 3,
 };
 
+declare const MLReshapeFrequencyHint: {
+  Frequent: 0,
+  Infrequent: 1,
+};
+
 declare const MLMultiArrayDataType: {
   Double: 65600,
   Float64: 65600,
@@ -143,6 +148,45 @@ declare interface MLFeatureProvider {
 }
 
 declare class MLFeatureProvider extends NativeObject implements MLFeatureProvider {
+}
+
+declare class MLComputePlanCost extends NSObject {
+  readonly weight: number;
+}
+
+declare class MLModelStructureProgramValue extends NSObject {
+}
+
+declare class MLModelStructureProgramOperation extends NSObject {
+  readonly operatorName: string;
+
+  readonly inputs: NSDictionary;
+
+  readonly outputs: NSArray;
+
+  readonly blocks: NSArray;
+}
+
+declare class MLModelStructureProgramNamedValueType extends NSObject {
+  readonly name: string;
+
+  readonly type: MLModelStructureProgramValueType;
+}
+
+declare class MLModelStructureProgramBinding extends NSObject {
+  readonly name: string;
+
+  readonly value: MLModelStructureProgramValue;
+}
+
+declare class MLModelStructureProgram extends NSObject {
+  readonly functions: NSDictionary;
+}
+
+declare class MLModelStructurePipeline extends NSObject {
+  readonly subModelNames: NSArray;
+
+  readonly subModels: NSArray;
 }
 
 declare class MLModelCollectionEntry extends NSObject {
@@ -245,6 +289,8 @@ declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecu
   modelDisplayName: string;
 
   computeUnits: interop.Enum<typeof MLComputeUnits>;
+
+  optimizationHints: MLOptimizationHints;
 
   allowLowPrecisionAccumulationOnGPU: boolean;
 
@@ -428,6 +474,9 @@ declare class MLMultiArray extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class MLModelStructureProgramValueType extends NSObject {
+}
+
 declare class MLGPUComputeDevice extends NSObject implements MLComputeDeviceProtocol {
   readonly metalDevice: MTLDevice;
 
@@ -484,11 +533,31 @@ declare class MLTask extends NSObject {
   cancel(): void;
 }
 
+declare class MLModelStructureProgramBlock extends NSObject {
+  readonly inputs: NSArray;
+
+  readonly outputNames: NSArray;
+
+  readonly operations: NSArray;
+}
+
 declare class MLPredictionOptions extends NSObject {
   usesCPUOnly: boolean;
 
   get outputBackings(): NSDictionary;
   set outputBackings(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+}
+
+declare class MLModelStructure extends NSObject {
+  static loadContentsOfURLCompletionHandler(url: NSURL, handler: (p1: MLModelStructure, p2: NSError) => void | null): void;
+
+  static loadModelAssetCompletionHandler(asset: MLModelAsset, handler: (p1: MLModelStructure, p2: NSError) => void | null): void;
+
+  readonly neuralNetwork: MLModelStructureNeuralNetwork;
+
+  readonly program: MLModelStructureProgram;
+
+  readonly pipeline: MLModelStructurePipeline;
 }
 
 declare class MLMultiArrayConstraint extends NSObject implements NSSecureCoding {
@@ -503,6 +572,10 @@ declare class MLMultiArrayConstraint extends NSObject implements NSSecureCoding 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureProgramArgument extends NSObject {
+  readonly bindings: NSArray;
 }
 
 declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
@@ -575,6 +648,24 @@ declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeD
   readonly debugDescription: string;
 }
 
+declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecureCoding {
+  reshapeFrequency: interop.Enum<typeof MLReshapeFrequencyHint>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureProgramFunction extends NSObject {
+  readonly inputs: NSArray;
+
+  readonly block: MLModelStructureProgramBlock;
+}
+
 declare class MLParameterDescription extends NSObject implements NSSecureCoding {
   readonly key: MLParameterKey;
 
@@ -603,6 +694,16 @@ declare class MLImageSizeConstraint extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureNeuralNetworkLayer extends NSObject {
+  readonly name: string;
+
+  readonly type: string;
+
+  readonly inputNames: NSArray;
+
+  readonly outputNames: NSArray;
 }
 
 declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCoding {
@@ -693,6 +794,10 @@ declare class MLNumericConstraint extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class MLModelStructureNeuralNetwork extends NSObject {
+  readonly layers: NSArray;
+}
+
 declare class MLCPUComputeDevice extends NSObject implements MLComputeDeviceProtocol {
   isEqual(object: interop.Object): boolean;
 
@@ -767,6 +872,20 @@ declare class MLParameterKey extends MLKey {
   scopedTo(scope: string): MLParameterKey;
 }
 
+declare class MLComputePlan extends NSObject {
+  static loadContentsOfURLConfigurationCompletionHandler(url: NSURL, configuration: MLModelConfiguration, handler: (p1: MLComputePlan, p2: NSError) => void | null): void;
+
+  static loadModelAssetConfigurationCompletionHandler(asset: MLModelAsset, configuration: MLModelConfiguration, handler: (p1: MLComputePlan, p2: NSError) => void | null): void;
+
+  estimatedCostOfMLProgramOperation(operation: MLModelStructureProgramOperation): MLComputePlanCost;
+
+  computeDeviceUsageForNeuralNetworkLayer(layer: MLModelStructureNeuralNetworkLayer): MLComputePlanDeviceUsage;
+
+  computeDeviceUsageForMLProgramOperation(operation: MLModelStructureProgramOperation): MLComputePlanDeviceUsage;
+
+  readonly modelStructure: MLModelStructure;
+}
+
 declare class MLImageConstraint extends NSObject implements NSSecureCoding {
   readonly pixelsHigh: number;
 
@@ -781,5 +900,11 @@ declare class MLImageConstraint extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLComputePlanDeviceUsage extends NSObject {
+  readonly supportedComputeDevices: NSArray;
+
+  readonly preferredComputeDevice: MLComputeDeviceProtocol;
 }
 

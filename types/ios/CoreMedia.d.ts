@@ -140,6 +140,8 @@ declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
 declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
 
+declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
+
 declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
 
 declare const kCMImageDescriptionFlavor_QuickTimeMovie: interop.Pointer;
@@ -213,10 +215,6 @@ declare const kCMFormatDescriptionExtension_HorizontalDisparityAdjustment: inter
 declare const kCMMetadataIdentifierError_BadKey: number;
 
 declare const kCMVideoCodecType_DVCPro50PAL: number;
-
-declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
-
-declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
 
 declare const kCMFormatDescriptionHeroEye_Left: interop.Pointer;
 
@@ -443,8 +441,6 @@ declare const kCMTextJustification_bottom_right: number;
 declare const kCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: number;
 
 declare const kCMTextDisplayFlag_obeySubtitleFormatting: number;
-
-declare const kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions: interop.Pointer;
 
 declare const kCMTextDisplayFlag_continuousKaraoke: number;
 
@@ -758,6 +754,8 @@ declare const kCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor
 
 declare const kCMMuxedStreamType_MPEG2Program: number;
 
+declare const kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions: interop.Pointer;
+
 declare const kCMBlockBufferBadLengthParameterErr: number;
 
 declare const kCMSyncError_RateMustBeNonZero: number;
@@ -795,6 +793,8 @@ declare const kCMSampleBufferError_Invalidated: number;
 declare const kCMSampleBufferError_InvalidSampleData: number;
 
 declare const kCMTextFormatDescriptionExtension_FontTable: interop.Pointer;
+
+declare const kCMSampleAttachmentKey_PartialSync: interop.Pointer;
 
 declare const kCMMediaType_TimeCode: number;
 
@@ -850,7 +850,7 @@ declare const kCMTextDisplayFlag_forcedSubtitlesPresent: number;
 
 declare const kCMVideoCodecType_AppleProRes422Proxy: number;
 
-declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
+declare const kCMImageDescriptionFlavor_3GPFamily: interop.Pointer;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
@@ -1044,8 +1044,6 @@ declare const kCMTextMarkupAttribute_ForegroundColorARGB: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_XF: number;
 
-declare const kCMSampleAttachmentKey_PartialSync: interop.Pointer;
-
 declare const kCMTagMediaTypeMetadata: CMTag;
 
 declare const kCMTextFormatDescriptionRect_Bottom: interop.Pointer;
@@ -1109,6 +1107,8 @@ declare const kCMBufferQueueError_InvalidTriggerToken: number;
 declare const kCMTimeCodeFlag_DropFrame: number;
 
 declare const kCMTimePositiveInfinity: CMTime;
+
+declare const kCMSoundDescriptionFlavor_3GPFamily: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
 

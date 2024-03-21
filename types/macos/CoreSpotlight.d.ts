@@ -333,10 +333,6 @@ declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying
 
   compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
 
-  score(): NSNumber;
-
-  suggestionDataSources(): NSArray;
-
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;

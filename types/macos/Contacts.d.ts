@@ -807,36 +807,36 @@ declare class CNContainer extends NSObject implements NSCopying, NSSecureCoding 
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CNMutableGroup extends CNGroup {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   name: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CNMutablePostalAddress extends CNPostalAddress {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   street: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   subLocality: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   city: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   subAdministrativeArea: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   state: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   postalCode: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   country: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   ISOCountryCode: string;
 }
 
@@ -1117,103 +1117,103 @@ declare class CNLabeledValue<ValueType = interop.Object> extends NSObject implem
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CNMutableContact extends CNContact {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   contactType: interop.Enum<typeof CNContactType>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   namePrefix: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   givenName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   middleName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   familyName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   previousFamilyName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   nameSuffix: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   nickname: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   organizationName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   departmentName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   jobTitle: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   phoneticGivenName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   phoneticMiddleName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   phoneticFamilyName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   phoneticOrganizationName: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   note: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   imageData: NSData;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get phoneNumbers(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set phoneNumbers(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get emailAddresses(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set emailAddresses(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get postalAddresses(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set postalAddresses(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get urlAddresses(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set urlAddresses(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get contactRelations(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set contactRelations(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get socialProfiles(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set socialProfiles(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get instantMessageAddresses(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set instantMessageAddresses(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   birthday: NSDateComponents;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   nonGregorianBirthday: NSDateComponents;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get dates(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set dates(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 

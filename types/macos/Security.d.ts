@@ -33,13 +33,6 @@ declare class __SecKeychainSearch {
   constructor(init?: __SecKeychainSearch);
 }
 
-declare class SecKeychainAttribute {
-  constructor(init?: SecKeychainAttribute);
-  tag: number;
-  length: number;
-  data: interop.Pointer;
-}
-
 declare class AuthorizationOpaqueRef {
   constructor(init?: AuthorizationOpaqueRef);
 }
@@ -64,5 +57,12 @@ declare class __SecCertificate {
 
 declare class __SecKeychain {
   constructor(init?: __SecKeychain);
+}
+
+declare class SecKeychainAttribute {
+  constructor(init?: SecKeychainAttribute);
+  tag: number;
+  length: number;
+  data: interop.Pointer;
 }
 

@@ -1378,6 +1378,10 @@ declare class CFXMLParserCallBacks {
   handleError: (p1: interop.PointerConvertible, p2: interop.Enum<typeof CFXMLParserStatusCode>, p3: interop.PointerConvertible) => number | null;
 }
 
+declare class __CFBinaryHeap {
+  constructor(init?: __CFBinaryHeap);
+}
+
 declare class __CFBoolean {
   constructor(init?: __CFBoolean);
 }
@@ -1414,10 +1418,6 @@ declare class __CFArray {
   constructor(init?: __CFArray);
 }
 
-declare class __CFBinaryHeap {
-  constructor(init?: __CFBinaryHeap);
-}
-
 declare class __CFMessagePort {
   constructor(init?: __CFMessagePort);
 }
@@ -1429,6 +1429,14 @@ declare class CFMachPortContext {
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+}
+
+declare class __CFFileSecurity {
+  constructor(init?: __CFFileSecurity);
+}
+
+declare class __CFURL {
+  constructor(init?: __CFURL);
 }
 
 declare class CGAffineTransform {
@@ -1470,14 +1478,6 @@ declare class CGAffineTransformComponents {
   horizontalShear: number;
   rotation: number;
   translation: CGVector;
-}
-
-declare class __CFFileSecurity {
-  constructor(init?: __CFFileSecurity);
-}
-
-declare class __CFURL {
-  constructor(init?: __CFURL);
 }
 
 declare class __CFMachPort {
@@ -1552,8 +1552,8 @@ declare class CFArrayCallBacks {
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
 }
 
-declare class __CFUUID {
-  constructor(init?: __CFUUID);
+declare class __CFPlugInInstance {
+  constructor(init?: __CFPlugInInstance);
 }
 
 declare class CFSocketSignature {
@@ -1614,6 +1614,10 @@ declare class __CFBag {
   constructor(init?: __CFBag);
 }
 
+declare class __CFError {
+  constructor(init?: __CFError);
+}
+
 declare class CFGregorianUnits {
   constructor(init?: CFGregorianUnits);
   years: number;
@@ -1662,6 +1666,10 @@ declare class __CFRunLoopObserver {
   constructor(init?: __CFRunLoopObserver);
 }
 
+declare class __CFUUID {
+  constructor(init?: __CFUUID);
+}
+
 declare class __CFNull {
   constructor(init?: __CFNull);
 }
@@ -1706,10 +1714,6 @@ declare class CGSize {
   constructor(init?: CGSize);
   width: number;
   height: number;
-}
-
-declare class __CFPlugInInstance {
-  constructor(init?: __CFPlugInInstance);
 }
 
 declare class CFXMLEntityReferenceInfo {
@@ -1787,6 +1791,10 @@ declare class CFXMLDocumentTypeInfo {
   externalID: CFXMLExternalID;
 }
 
+declare class __CFRunLoop {
+  constructor(init?: __CFRunLoop);
+}
+
 declare class __CFNumber {
   constructor(init?: __CFNumber);
 }
@@ -1826,10 +1834,6 @@ declare class CFStreamClientContext {
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
 }
 
-declare class __CFError {
-  constructor(init?: __CFError);
-}
-
 declare class CFXMLAttributeListDeclarationInfo {
   constructor(init?: CFXMLAttributeListDeclarationInfo);
   numberOfAttributes: number;
@@ -1862,10 +1866,6 @@ declare class CFDictionaryKeyCallBacks {
 declare class CFSwappedFloat64 {
   constructor(init?: CFSwappedFloat64);
   v: number;
-}
-
-declare class __CFRunLoop {
-  constructor(init?: __CFRunLoop);
 }
 
 declare class CFRunLoopTimerContext {

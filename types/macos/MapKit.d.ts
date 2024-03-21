@@ -838,7 +838,7 @@ declare class MKMultiPolylineRenderer extends MKOverlayPathRenderer {
   readonly multiPolyline: MKMultiPolyline;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKMultiPolyline extends MKShape implements MKOverlay {
   initWithPolylines(polylines: NSArray<interop.Object> | Array<interop.Object>): this;
 
@@ -852,10 +852,10 @@ declare class MKMultiPolyline extends MKShape implements MKOverlay {
 
   canReplaceMapContent: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly subtitle: string;
 
   isEqual(object: interop.Object): boolean;
@@ -941,7 +941,7 @@ declare class MKOverlayPathRenderer extends MKOverlayRenderer {
   fillPathInContext(path: interop.PointerConvertible, context: interop.PointerConvertible): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKMultiPolygon extends MKShape implements MKOverlay {
   initWithPolygons(polygons: NSArray<interop.Object> | Array<interop.Object>): this;
 
@@ -955,10 +955,10 @@ declare class MKMultiPolygon extends MKShape implements MKOverlay {
 
   canReplaceMapContent: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly subtitle: string;
 
   isEqual(object: interop.Object): boolean;
@@ -1002,7 +1002,7 @@ declare class MKMultiPolygon extends MKShape implements MKOverlay {
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKPolygon extends MKMultiPoint implements MKOverlay {
   static polygonWithPointsCount<This extends abstract new (...args: any) => any>(this: This, points: interop.PointerConvertible, count: number): InstanceType<This>;
 
@@ -1022,10 +1022,10 @@ declare class MKPolygon extends MKMultiPoint implements MKOverlay {
 
   canReplaceMapContent: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly subtitle: string;
 
   isEqual(object: interop.Object): boolean;
@@ -1069,7 +1069,7 @@ declare class MKPolygon extends MKMultiPoint implements MKOverlay {
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKPointAnnotation extends MKShape {
   init(): this;
 
@@ -1077,7 +1077,7 @@ declare class MKPointAnnotation extends MKShape {
 
   initWithCoordinateTitleSubtitle(coordinate: CLLocationCoordinate2D, title: string | null, subtitle: string | null): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   coordinate: CLLocationCoordinate2D;
 }
 
@@ -1414,11 +1414,11 @@ declare class MKOverlayRenderer extends NSObject {
   readonly contentScaleFactor: number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKAnnotationView extends NSView {
   initWithAnnotationReuseIdentifier(annotation: MKAnnotation | null, reuseIdentifier: string | null): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly reuseIdentifier: string;
@@ -1496,6 +1496,10 @@ declare class MKMapItem extends NSObject {
   openInMapsWithLaunchOptions(launchOptions: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
   static openMapsWithItemsLaunchOptions(mapItems: NSArray<interop.Object> | Array<interop.Object>, launchOptions: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
+
+  openInMapsWithLaunchOptionsCompletionHandler(launchOptions: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completion: (p1: boolean) => void | null): void;
+
+  static openMapsWithItemsLaunchOptionsCompletionHandler(mapItems: NSArray<interop.Object> | Array<interop.Object>, launchOptions: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completion: (p1: boolean) => void | null): void;
 }
 
 declare class MKPlacemark extends CLPlacemark implements MKAnnotation {
@@ -1707,7 +1711,7 @@ declare class MKTileOverlayRenderer extends MKOverlayRenderer {
   reloadData(): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKCircle extends MKShape implements MKOverlay {
   static circleWithCenterCoordinateRadius<This extends abstract new (...args: any) => any>(this: This, coord: CLLocationCoordinate2D, radius: number): InstanceType<This>;
 
@@ -1723,10 +1727,10 @@ declare class MKCircle extends MKShape implements MKOverlay {
 
   canReplaceMapContent: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly subtitle: string;
 
   isEqual(object: interop.Object): boolean;
@@ -1770,7 +1774,7 @@ declare class MKCircle extends MKShape implements MKOverlay {
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class MKPolyline extends MKMultiPoint implements MKOverlay {
   static polylineWithPointsCount<This extends abstract new (...args: any) => any>(this: This, points: interop.PointerConvertible, count: number): InstanceType<This>;
 
@@ -1784,10 +1788,10 @@ declare class MKPolyline extends MKMultiPoint implements MKOverlay {
 
   canReplaceMapContent: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly subtitle: string;
 
   isEqual(object: interop.Object): boolean;

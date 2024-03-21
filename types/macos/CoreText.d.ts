@@ -2820,6 +2820,10 @@ declare class MortSubtable {
   u: MortSpecificSubtable;
 }
 
+declare class __CTRubyAnnotation {
+  constructor(init?: __CTRubyAnnotation);
+}
+
 declare class JustWidthDeltaEntry {
   constructor(init?: JustWidthDeltaEntry);
   justClass: number;
@@ -2846,10 +2850,6 @@ declare class KernTableHeader {
   firstSubtable: unknown /* const array */;
 }
 
-declare class __CTParagraphStyle {
-  constructor(init?: __CTParagraphStyle);
-}
-
 declare class SFNTLookupBinarySearchHeader {
   constructor(init?: SFNTLookupBinarySearchHeader);
   unitSize: number;
@@ -2867,10 +2867,6 @@ declare class sfntCMapExtendedSubHeader {
   language: number;
 }
 
-declare class __CTRubyAnnotation {
-  constructor(init?: __CTRubyAnnotation);
-}
-
 declare class JustPCActionSubrecord {
   constructor(init?: JustPCActionSubrecord);
   theClass: number;
@@ -2883,6 +2879,10 @@ declare class sfntFontDescriptor {
   constructor(init?: sfntFontDescriptor);
   name: number;
   value: number;
+}
+
+declare class __CTParagraphStyle {
+  constructor(init?: __CTParagraphStyle);
 }
 
 declare class sfntDirectory {
@@ -2902,12 +2902,6 @@ declare class MortSwashSubtable {
 
 declare class __CTFramesetter {
   constructor(init?: __CTFramesetter);
-}
-
-declare class LtagStringRange {
-  constructor(init?: LtagStringRange);
-  offset: number;
-  length: number;
 }
 
 declare class KerxKerningPair {
@@ -3037,6 +3031,12 @@ declare class STXHeader {
   entryTableOffset: number;
 }
 
+declare class LtagStringRange {
+  constructor(init?: LtagStringRange);
+  offset: number;
+  length: number;
+}
+
 declare class KernSubtableHeader {
   constructor(init?: KernSubtableHeader);
   length: number;
@@ -3067,6 +3067,22 @@ declare class BslnFormatUnion {
   fmt3Part: BslnFormat3Part;
 }
 
+type KerxFormatSpecificHeaderDescriptor = 
+  | { orderedList: KerxOrderedListHeader }
+  | { stateTable: KerxStateHeader }
+  | { simpleArray: KerxSimpleArrayHeader }
+  | { indexArray: KerxIndexArrayHeader }
+  | { controlPoint: KerxControlPointHeader };
+
+declare class KerxFormatSpecificHeader {
+  constructor(init?: KerxFormatSpecificHeaderDescriptor);
+  orderedList: KerxOrderedListHeader;
+  stateTable: KerxStateHeader;
+  simpleArray: KerxSimpleArrayHeader;
+  indexArray: KerxIndexArrayHeader;
+  controlPoint: KerxControlPointHeader;
+}
+
 type MorxSpecificSubtableDescriptor = 
   | { rearrangement: MorxRearrangementSubtable }
   | { contextual: MorxContextualSubtable }
@@ -3081,22 +3097,6 @@ declare class MorxSpecificSubtable {
   ligature: MorxLigatureSubtable;
   swash: MortSwashSubtable;
   insertion: MorxInsertionSubtable;
-}
-
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
-
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
 }
 
 type KernFormatSpecificHeaderDescriptor = 
@@ -3129,20 +3129,20 @@ declare class MortSpecificSubtable {
   insertion: MortInsertionSubtable;
 }
 
-type KerxFormatSpecificHeaderDescriptor = 
-  | { orderedList: KerxOrderedListHeader }
-  | { stateTable: KerxStateHeader }
-  | { simpleArray: KerxSimpleArrayHeader }
-  | { indexArray: KerxIndexArrayHeader }
-  | { controlPoint: KerxControlPointHeader };
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
 
-declare class KerxFormatSpecificHeader {
-  constructor(init?: KerxFormatSpecificHeaderDescriptor);
-  orderedList: KerxOrderedListHeader;
-  stateTable: KerxStateHeader;
-  simpleArray: KerxSimpleArrayHeader;
-  indexArray: KerxIndexArrayHeader;
-  controlPoint: KerxControlPointHeader;
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

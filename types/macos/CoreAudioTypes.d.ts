@@ -75,6 +75,13 @@ declare class AudioChannelDescription {
   mCoordinates: unknown /* const array */;
 }
 
+declare class AudioBuffer {
+  constructor(init?: AudioBuffer);
+  mNumberChannels: number;
+  mDataByteSize: number;
+  mData: interop.Pointer;
+}
+
 declare class AudioTimeStamp {
   constructor(init?: AudioTimeStamp);
   mSampleTime: number;
@@ -112,12 +119,6 @@ declare class AudioClassDescription {
   mManufacturer: number;
 }
 
-declare class AudioBufferList {
-  constructor(init?: AudioBufferList);
-  mNumberBuffers: number;
-  mBuffers: unknown /* const array */;
-}
-
 declare class SMPTETime {
   constructor(init?: SMPTETime);
   mSubframes: number;
@@ -131,19 +132,18 @@ declare class SMPTETime {
   mFrames: number;
 }
 
+declare class AudioBufferList {
+  constructor(init?: AudioBufferList);
+  mNumberBuffers: number;
+  mBuffers: unknown /* const array */;
+}
+
 declare class AudioChannelLayout {
   constructor(init?: AudioChannelLayout);
   mChannelLayoutTag: number;
   mChannelBitmap: interop.Enum<typeof AudioChannelBitmap>;
   mNumberChannelDescriptions: number;
   mChannelDescriptions: unknown /* const array */;
-}
-
-declare class AudioBuffer {
-  constructor(init?: AudioBuffer);
-  mNumberChannels: number;
-  mDataByteSize: number;
-  mData: interop.Pointer;
 }
 
 declare class AudioFormatListItem {

@@ -30,8 +30,6 @@ declare const kCVPixelFormatConstant: interop.Pointer;
 
 declare const kCVPixelBufferCGImageCompatibilityKey: interop.Pointer;
 
-declare const kCVImageBufferTransferFunction_SMPTE_ST_428_1: interop.Pointer;
-
 declare const kCVImageBufferMasteringDisplayColorVolumeKey: interop.Pointer;
 
 declare const kCVImageBufferTransferFunction_SMPTE_240M_1995: interop.Pointer;
@@ -249,6 +247,8 @@ declare const kCVImageBufferChromaLocation_Top: interop.Pointer;
 declare const kCVImageBufferChromaLocation_Center: interop.Pointer;
 
 declare const kCVImageBufferChromaLocationTopFieldKey: interop.Pointer;
+
+declare const kCVImageBufferTransferFunction_SMPTE_ST_428_1: interop.Pointer;
 
 declare const kCVReturnDisplayLinkCallbacksNotSet: number;
 

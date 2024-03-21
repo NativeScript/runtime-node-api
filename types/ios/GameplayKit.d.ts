@@ -242,7 +242,7 @@ declare class GKGraph extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class GKCompositeBehavior extends GKBehavior {
   readonly behaviorCount: number;
 
@@ -258,13 +258,13 @@ declare class GKCompositeBehavior extends GKBehavior {
 
   removeAllBehaviors(): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   objectAtIndexedSubscript(idx: number): GKBehavior;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   setObjectForKeyedSubscript(weight: NSNumber, behavior: GKBehavior): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   objectForKeyedSubscript(behavior: GKBehavior): NSNumber;
 }
 

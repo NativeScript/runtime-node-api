@@ -39,7 +39,7 @@ void TSFile::write(ClassDecl &decl) {
 
   line += " {";
   if (decl.tsIgnore) {
-    code.write("// @ts-ignore");
+    code.write("// @ts-ignore ClassDecl.tsIgnore");
   }
   code.write(line);
   code.enter();

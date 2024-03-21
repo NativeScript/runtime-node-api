@@ -769,7 +769,7 @@ declare class CKShareMetadata extends NSObject implements NSCopying, NSSecureCod
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
   initWithRootRecord(rootRecord: CKRecord): this;
 
@@ -777,7 +777,7 @@ declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
 
   initWithRecordZoneID(recordZoneID: CKRecordZoneID): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   publicPermission: interop.Enum<typeof CKShareParticipantPermission>;
@@ -847,25 +847,6 @@ declare class CKRecordZone extends NSObject implements NSSecureCoding, NSCopying
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
-  initWithCoder(aDecoder: NSCoder): this;
-
-  initWithRecordTypePredicate(recordType: string, predicate: NSPredicate): this;
-
-  readonly recordType: string;
-
-  readonly predicate: NSPredicate;
-
-  get sortDescriptors(): NSArray;
-  set sortDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -984,7 +965,7 @@ declare class CKNotificationInfo extends NSObject implements NSSecureCoding, NSC
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKDatabaseSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   init(): this;
 
@@ -992,7 +973,7 @@ declare class CKDatabaseSubscription extends CKSubscription implements NSSecureC
 
   initWithSubscriptionID(subscriptionID: string): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   recordType: string;
@@ -1004,13 +985,13 @@ declare class CKDatabaseSubscription extends CKSubscription implements NSSecureC
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKQuerySubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   initWithRecordTypePredicateOptions(recordType: string, predicate: NSPredicate, querySubscriptionOptions: interop.Enum<typeof CKQuerySubscriptionOptions>): this;
 
   initWithRecordTypePredicateSubscriptionIDOptions(recordType: string, predicate: NSPredicate, subscriptionID: string, querySubscriptionOptions: interop.Enum<typeof CKQuerySubscriptionOptions>): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly recordType: string;
@@ -1195,13 +1176,13 @@ declare class CKDiscoverAllUserIdentitiesOperation extends CKOperation {
   discoverAllUserIdentitiesCompletionBlock: (p1: NSError) => void | null;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKRecordZoneSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   initWithZoneID(zoneID: CKRecordZoneID): this;
 
   initWithZoneIDSubscriptionID(zoneID: CKRecordZoneID, subscriptionID: string): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly zoneID: CKRecordZoneID;
@@ -1275,6 +1256,25 @@ declare class CKSyncEngineSendChangesScope extends NSObject implements NSCopying
   containsRecordID(recordID: CKRecordID): boolean;
 
   containsPendingRecordZoneChange(pendingRecordZoneChange: CKSyncEnginePendingRecordZoneChange): boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
+  initWithCoder(aDecoder: NSCoder): this;
+
+  initWithRecordTypePredicate(recordType: string, predicate: NSPredicate): this;
+
+  readonly recordType: string;
+
+  readonly predicate: NSPredicate;
+
+  get sortDescriptors(): NSArray;
+  set sortDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1357,11 +1357,11 @@ declare class CKRecord extends NSObject implements NSSecureCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKSyncEnginePendingZoneSave extends CKSyncEnginePendingDatabaseChange {
   initWithZone(zone: CKRecordZone): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: CKRecordZone;
 }
 
@@ -1387,17 +1387,61 @@ declare class CKSyncEngineWillFetchRecordZoneChangesEvent extends CKSyncEngineEv
   readonly zoneID: CKRecordZoneID;
 }
 
+declare class CKNotification extends NSObject {
+  static notificationFromRemoteNotificationDictionary<This extends abstract new (...args: any) => any>(this: This, notificationDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  readonly notificationType: interop.Enum<typeof CKNotificationType>;
+
+  readonly notificationID: CKNotificationID;
+
+  readonly containerIdentifier: string;
+
+  readonly subscriptionOwnerUserRecordID: CKRecordID;
+
+  readonly isPruned: boolean;
+
+  readonly subscriptionID: string;
+
+  readonly alertBody: string;
+
+  readonly alertLocalizationKey: string;
+
+  readonly alertLocalizationArgs: NSArray;
+
+  readonly title: string;
+
+  readonly titleLocalizationKey: string;
+
+  readonly titleLocalizationArgs: NSArray;
+
+  readonly subtitle: string;
+
+  readonly subtitleLocalizationKey: string;
+
+  readonly subtitleLocalizationArgs: NSArray;
+
+  readonly alertActionLocalizationKey: string;
+
+  readonly alertLaunchImage: string;
+
+  readonly badge: NSNumber;
+
+  readonly soundName: string;
+
+  readonly category: string;
+}
+
 declare class CKRecordZoneNotification extends CKNotification {
   readonly recordZoneID: CKRecordZoneID;
 
   readonly databaseScope: interop.Enum<typeof CKDatabaseScope>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSecureCoding {
   initWithKeyRelativeLocation(key: string, relativeLocation: CLLocation): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly relativeLocation: CLLocation;
@@ -1566,50 +1610,6 @@ declare class CKOperationConfiguration extends NSObject {
   timeoutIntervalForRequest: number;
 
   timeoutIntervalForResource: number;
-}
-
-declare class CKNotification extends NSObject {
-  static notificationFromRemoteNotificationDictionary<This extends abstract new (...args: any) => any>(this: This, notificationDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
-
-  readonly notificationType: interop.Enum<typeof CKNotificationType>;
-
-  readonly notificationID: CKNotificationID;
-
-  readonly containerIdentifier: string;
-
-  readonly subscriptionOwnerUserRecordID: CKRecordID;
-
-  readonly isPruned: boolean;
-
-  readonly subscriptionID: string;
-
-  readonly alertBody: string;
-
-  readonly alertLocalizationKey: string;
-
-  readonly alertLocalizationArgs: NSArray;
-
-  readonly title: string;
-
-  readonly titleLocalizationKey: string;
-
-  readonly titleLocalizationArgs: NSArray;
-
-  readonly subtitle: string;
-
-  readonly subtitleLocalizationKey: string;
-
-  readonly subtitleLocalizationArgs: NSArray;
-
-  readonly alertActionLocalizationKey: string;
-
-  readonly alertLaunchImage: string;
-
-  readonly badge: NSNumber;
-
-  readonly soundName: string;
-
-  readonly category: string;
 }
 
 declare class CKRecordZoneID extends NSObject implements NSSecureCoding, NSCopying {

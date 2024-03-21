@@ -53,6 +53,10 @@ declare const JSTypedArrayType: {
   BigUint64Array: 12,
 };
 
+declare class OpaqueJSClass {
+  constructor(init?: OpaqueJSClass);
+}
+
 declare class JSStaticFunction {
   constructor(init?: JSStaticFunction);
   name: string | null;
@@ -74,10 +78,6 @@ declare class OpaqueJSPropertyNameAccumulator {
 
 declare class OpaqueJSPropertyNameArray {
   constructor(init?: OpaqueJSPropertyNameArray);
-}
-
-declare class OpaqueJSClass {
-  constructor(init?: OpaqueJSClass);
 }
 
 declare class OpaqueJSContextGroup {

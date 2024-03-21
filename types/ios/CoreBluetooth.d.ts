@@ -330,16 +330,16 @@ declare class CBCharacteristic extends CBAttribute {
   readonly isNotifying: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CBMutableService extends CBService {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get includedServices(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set includedServices(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get characteristics(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set characteristics(value: NSArray<interop.Object> | Array<interop.Object>);
 
   initWithTypePrimary(UUID: CBUUID, isPrimary: boolean): this;
@@ -493,21 +493,21 @@ declare class CBCentralManager extends CBManager {
   registerForConnectionEventsWithOptions(options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CBMutableCharacteristic extends CBCharacteristic {
   permissions: interop.Enum<typeof CBAttributePermissions>;
 
   readonly subscribedCentrals: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   properties: interop.Enum<typeof CBCharacteristicProperties>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   value: NSData;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get descriptors(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set descriptors(value: NSArray<interop.Object> | Array<interop.Object>);
 
   initWithTypePropertiesValuePermissions(UUID: CBUUID, properties: interop.Enum<typeof CBCharacteristicProperties>, value: NSData | null, permissions: interop.Enum<typeof CBAttributePermissions>): this;

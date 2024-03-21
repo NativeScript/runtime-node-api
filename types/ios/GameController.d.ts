@@ -262,8 +262,6 @@ declare const GCKeyCodeKeypadPeriod: number;
 
 declare const GCKeyCodeKeypad8: number;
 
-declare const GCKeyCodeKeypad4: number;
-
 declare const GCKeyCodeKeypad3: number;
 
 declare const GCKeyCodeKeypad2: number;
@@ -370,9 +368,13 @@ declare const GCInputButtonOptions: string;
 
 declare const GCInputButtonHome: string;
 
-declare const GCInputRightThumbstickButton: string;
-
 declare const GCInputLeftTrigger: string;
+
+declare const GCKeyCodeKeypad4: number;
+
+declare const GCInputLeftBumper: string;
+
+declare const GCInputRightThumbstickButton: string;
 
 declare const GCInputButtonB: string;
 
@@ -389,6 +391,8 @@ declare const GCProductCategoryArcadeStick: string;
 declare const GCProductCategoryMFi: string;
 
 declare const GCProductCategoryDualSense: string;
+
+declare const GCPoint2Zero: GCPoint2;
 
 declare const GCKeyF5: string;
 
@@ -487,6 +491,8 @@ declare const GCKeyCodeKeyG: number;
 declare const GCKeyCodeF7: number;
 
 declare const GCKeyCodePrintScreen: number;
+
+declare const GCInputRightBumper: string;
 
 declare const GCKeyCodeKeyR: number;
 
@@ -818,6 +824,12 @@ declare class GCDualSenseAdaptiveTriggerPositionalResistiveStrengths {
   values: unknown /* const array */;
 }
 
+declare class GCPoint2 {
+  constructor(init?: GCPoint2);
+  x: number;
+  y: number;
+}
+
 declare class GCQuaternion {
   constructor(init?: GCQuaternion);
   x: number;
@@ -862,6 +874,12 @@ declare class GCEulerAngles {
   roll: number;
 }
 
+declare function NSStringFromGCPoint2(point: GCPoint2): string;
+
+declare function GCInputBackLeftButton(position: number): string;
+
+declare function GCInputBackRightButton(position: number): string;
+
 declare function GCInputArcadeButtonName(row: number, column: number): string;
 
 declare function GCGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
@@ -883,6 +901,25 @@ declare function NSDataFromGCMicroGamepadSnapshotData(snapshotData: interop.Poin
 declare function GCMicroGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
 
 declare function NSDataFromGCMicroGamepadSnapShotDataV100(snapshotData: interop.PointerConvertible): NSData;
+
+declare interface GCAxis2DInput extends NSObjectProtocol {
+  valueDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCAxis2DInput, p3: GCPoint2) => void;
+
+  readonly value: GCPoint2;
+
+  readonly isAnalog: boolean;
+
+  readonly canWrap: boolean;
+
+  readonly lastValueTimestamp: number;
+
+  readonly lastValueLatency: number;
+
+  readonly sources: NSSet;
+}
+
+declare class GCAxis2DInput extends NativeObject implements GCAxis2DInput {
+}
 
 declare interface GCSwitchPositionInput extends NSObjectProtocol {
   positionDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCSwitchPositionInput, p3: number) => void;
@@ -1051,6 +1088,8 @@ declare class GCRelativeInput extends NativeObject implements GCRelativeInput {
 }
 
 declare interface GCDirectionPadElement extends GCPhysicalInputElement {
+  readonly xyAxes: GCAxis2DInput;
+
   readonly xAxis: GCAxisInput;
 
   readonly yAxis: GCAxisInput;
@@ -1205,7 +1244,7 @@ declare class GCMicroGamepad extends GCPhysicalInputProfile {
   setStateFromMicroGamepad(microGamepad: GCMicroGamepad): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class GCDualSenseGamepad extends GCExtendedGamepad {
   readonly touchpadButton: GCControllerButtonInput;
 
@@ -1213,10 +1252,10 @@ declare class GCDualSenseGamepad extends GCExtendedGamepad {
 
   readonly touchpadSecondary: GCControllerDirectionPad;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly leftTrigger: GCDualSenseAdaptiveTrigger;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly rightTrigger: GCDualSenseAdaptiveTrigger;
 }
 

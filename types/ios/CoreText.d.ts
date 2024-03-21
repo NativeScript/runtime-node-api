@@ -2210,6 +2210,13 @@ declare class SFNTLookupSegmentHeader {
   segments: unknown /* const array */;
 }
 
+declare class STXEntryOne {
+  constructor(init?: STXEntryOne);
+  newState: number;
+  flags: number;
+  index1: number;
+}
+
 declare class JustPCConditionalAddAction {
   constructor(init?: JustPCConditionalAddAction);
   substThreshold: number;
@@ -2732,13 +2739,6 @@ declare class LcarCaretClassEntry {
   partials: unknown /* const array */;
 }
 
-declare class STXEntryOne {
-  constructor(init?: STXEntryOne);
-  newState: number;
-  flags: number;
-  index1: number;
-}
-
 declare class KernOffsetTable {
   constructor(init?: KernOffsetTable);
   firstGlyph: number;
@@ -3051,22 +3051,6 @@ declare class KernTableHeader {
   firstSubtable: unknown /* const array */;
 }
 
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
-
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
-}
-
 type KerxFormatSpecificHeaderDescriptor = 
   | { orderedList: KerxOrderedListHeader }
   | { stateTable: KerxStateHeader }
@@ -3113,6 +3097,20 @@ declare class MorxSpecificSubtable {
   insertion: MorxInsertionSubtable;
 }
 
+type KernFormatSpecificHeaderDescriptor = 
+  | { orderedList: KernOrderedListHeader }
+  | { stateTable: KernStateHeader }
+  | { simpleArray: KernSimpleArrayHeader }
+  | { indexArray: KernIndexArrayHeader };
+
+declare class KernFormatSpecificHeader {
+  constructor(init?: KernFormatSpecificHeaderDescriptor);
+  orderedList: KernOrderedListHeader;
+  stateTable: KernStateHeader;
+  simpleArray: KernSimpleArrayHeader;
+  indexArray: KernIndexArrayHeader;
+}
+
 type MortSpecificSubtableDescriptor = 
   | { rearrangement: MortRearrangementSubtable }
   | { contextual: MortContextualSubtable }
@@ -3129,18 +3127,20 @@ declare class MortSpecificSubtable {
   insertion: MortInsertionSubtable;
 }
 
-type KernFormatSpecificHeaderDescriptor = 
-  | { orderedList: KernOrderedListHeader }
-  | { stateTable: KernStateHeader }
-  | { simpleArray: KernSimpleArrayHeader }
-  | { indexArray: KernIndexArrayHeader };
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
 
-declare class KernFormatSpecificHeader {
-  constructor(init?: KernFormatSpecificHeaderDescriptor);
-  orderedList: KernOrderedListHeader;
-  stateTable: KernStateHeader;
-  simpleArray: KernSimpleArrayHeader;
-  indexArray: KernIndexArrayHeader;
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

@@ -101,6 +101,12 @@ declare const UNNotificationCategoryOptions: {
   HiddenPreviewsShowSubtitle: 8,
 };
 
+declare interface UNNotificationContentProviding extends NSObjectProtocol {
+}
+
+declare class UNNotificationContentProviding extends NativeObject implements UNNotificationContentProviding {
+}
+
 declare interface UNUserNotificationCenterDelegate extends NSObjectProtocol {
   userNotificationCenterWillPresentNotificationWithCompletionHandler?(center: UNUserNotificationCenter, notification: UNNotification, completionHandler: (p1: interop.Enum<typeof UNNotificationPresentationOptions>) => void): void;
 
@@ -110,12 +116,6 @@ declare interface UNUserNotificationCenterDelegate extends NSObjectProtocol {
 }
 
 declare class UNUserNotificationCenterDelegate extends NativeObject implements UNUserNotificationCenterDelegate {
-}
-
-declare interface UNNotificationContentProviding extends NSObjectProtocol {
-}
-
-declare class UNNotificationContentProviding extends NativeObject implements UNNotificationContentProviding {
 }
 
 declare class UNUserNotificationCenter extends NSObject {
@@ -315,55 +315,55 @@ declare class UNTextInputNotificationResponse extends UNNotificationResponse {
   readonly userText: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UNMutableNotificationContent extends UNNotificationContent {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get attachments(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set attachments(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   badge: NSNumber;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   body: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   categoryIdentifier: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   sound: UNNotificationSound;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   subtitle: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   threadIdentifier: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get userInfo(): NSDictionary;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set userInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   summaryArgument: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   summaryArgumentCount: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   targetContentIdentifier: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   interruptionLevel: interop.Enum<typeof UNNotificationInterruptionLevel>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   relevanceScore: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   filterCriteria: string;
 }
 

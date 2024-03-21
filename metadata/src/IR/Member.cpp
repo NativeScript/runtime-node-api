@@ -1,4 +1,5 @@
 #include "IR.h"
+#include "clang-c/Index.h"
 #include <cassert>
 
 namespace metagen {
@@ -19,6 +20,23 @@ MemberDecl::MemberDecl(CXCursor cursor,
     methodSelector = clang_getCString(cxname);
     name = jsifySelector(methodSelector);
     clang_disposeString(cxname);
+
+    clang_visitChildren(
+        cursor,
+        [](CXCursor cursor, CXCursor, CXClientData clientData) {
+          if (!isAvailable(cursor)) {
+            return CXChildVisit_Continue;
+          }
+
+          auto method = (MemberDecl *)clientData;
+
+          if (cursor.kind == CXCursor_NSReturnsRetained) {
+            method->returnOwned = true;
+          }
+
+          return CXChildVisit_Continue;
+        },
+        this);
 
     auto argc = clang_Cursor_getNumArguments(cursor);
 

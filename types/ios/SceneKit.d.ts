@@ -18,8 +18,6 @@ declare const SCNConsistencyInvalidURIError: number;
 
 declare const SCNHitTestOptionIgnoreLightArea: string;
 
-declare const SCNMatrix4Identity: SCNMatrix4;
-
 declare const SCNSceneSourceAssetDirectoryURLsKey: string;
 
 declare const SCNConsistencyLineNumberErrorKey: string;
@@ -137,6 +135,8 @@ declare const SCNHitTestBoundingBoxOnlyKey: string;
 declare const SCNSceneSourceFlattenSceneKey: string;
 
 declare const SCNProgramCompilationError: number;
+
+declare const SCNMatrix4Identity: SCNMatrix4;
 
 declare const SCNVector3Zero: SCNVector3;
 
@@ -2993,11 +2993,11 @@ declare class SCNAccelerationConstraint extends SCNConstraint {
   damping: number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class SCNReferenceNode extends SCNNode {
   initWithURL(referenceURL: NSURL): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   static referenceNodeWithURL<This extends abstract new (...args: any) => any>(this: This, referenceURL: NSURL): InstanceType<This>;

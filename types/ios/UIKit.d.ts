@@ -352,6 +352,8 @@ declare const UICellAccessoryStandardDimension: number;
 
 declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateNormal: number;
 
+declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateAutomatic: number;
+
 declare const UICollectionViewFlowLayoutAutomaticSize: CGSize;
 
 declare const UICollectionElementKindSectionHeader: string;
@@ -443,6 +445,8 @@ declare const UITextInputTextColorKey: string;
 declare const UISceneDidEnterBackgroundNotification: string;
 
 declare const UITextInputTextBackgroundColorKey: string;
+
+declare const UITextContentTypeCellularIMEI: string;
 
 declare const UITextContentTypeCreditCardExpirationMonth: string;
 
@@ -1080,6 +1084,8 @@ declare const UIAccessibilityMonoAudioStatusDidChangeNotification: string;
 
 declare const UIKeyInputF12: string;
 
+declare const UITextContentTypeCellularEID: string;
+
 declare const UIFontTextStyleExtraLargeTitle2: string;
 
 declare const UIFocusMovementDidFailNotification: string;
@@ -1157,8 +1163,6 @@ declare const UIPointerLockStateSceneUserInfoKey: string;
 declare const UIActionPasteAndGo: string;
 
 declare const UIApplicationProtectedDataDidBecomeAvailable: string;
-
-declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateAutomatic: number;
 
 declare const UIActionPasteAndMatchStyle: string;
 
@@ -1323,6 +1327,7 @@ declare const UIDatePickerMode: {
   Date: 1,
   DateAndTime: 2,
   CountDownTimer: 3,
+  YearAndMonth: 4,
 };
 
 declare const UIWebViewNavigationType: {
@@ -3924,17 +3929,6 @@ declare function UISaveVideoAtPathToSavedPhotosAlbum(videoPath: string, completi
 
 declare function UIFloatRangeIsInfinite(range: UIFloatRange): boolean;
 
-declare interface UIPopoverBackgroundViewMethods {
-}
-
-declare class UIPopoverBackgroundViewMethods extends NativeObject implements UIPopoverBackgroundViewMethods {
-  static arrowBase(): number;
-
-  static contentViewInsets(): UIEdgeInsets;
-
-  static arrowHeight(): number;
-}
-
 declare interface UITextPasteItem extends NSObjectProtocol {
   readonly itemProvider: NSItemProvider;
 
@@ -3954,6 +3948,23 @@ declare interface UITextPasteItem extends NSObjectProtocol {
 }
 
 declare class UITextPasteItem extends NativeObject implements UITextPasteItem {
+}
+
+declare interface UIDragDropSession extends NSObjectProtocol {
+  readonly items: NSArray;
+
+  locationInView(view: UIView): CGPoint;
+
+  readonly allowsMoveOperation: boolean;
+
+  readonly isRestrictedToDraggingApplication: boolean;
+
+  hasItemsConformingToTypeIdentifiers(typeIdentifiers: NSArray<interop.Object> | Array<interop.Object>): boolean;
+
+  canLoadObjectsOfClass(aClass: NSItemProviderReading): boolean;
+}
+
+declare class UIDragDropSession extends NativeObject implements UIDragDropSession {
 }
 
 declare interface UIEditMenuInteractionAnimating extends NSObjectProtocol {
@@ -4011,43 +4022,6 @@ declare interface UIContextMenuInteractionDelegate extends NSObjectProtocol {
 }
 
 declare class UIContextMenuInteractionDelegate extends NativeObject implements UIContextMenuInteractionDelegate {
-}
-
-declare interface UIDragInteractionDelegate extends NSObjectProtocol {
-  dragInteractionItemsForBeginningSession(interaction: UIDragInteraction, session: UIDragSession): NSArray;
-
-  dragInteractionPreviewForLiftingItemSession?(interaction: UIDragInteraction, item: UIDragItem, session: UIDragSession): UITargetedDragPreview;
-
-  dragInteractionWillAnimateLiftWithAnimatorSession?(interaction: UIDragInteraction, animator: UIDragAnimating, session: UIDragSession): void;
-
-  dragInteractionSessionWillBegin?(interaction: UIDragInteraction, session: UIDragSession): void;
-
-  dragInteractionSessionAllowsMoveOperation?(interaction: UIDragInteraction, session: UIDragSession): boolean;
-
-  dragInteractionSessionIsRestrictedToDraggingApplication?(interaction: UIDragInteraction, session: UIDragSession): boolean;
-
-  dragInteractionPrefersFullSizePreviewsForSession?(interaction: UIDragInteraction, session: UIDragSession): boolean;
-
-  dragInteractionSessionDidMove?(interaction: UIDragInteraction, session: UIDragSession): void;
-
-  dragInteractionSessionWillEndWithOperation?(interaction: UIDragInteraction, session: UIDragSession, operation: interop.Enum<typeof UIDropOperation>): void;
-
-  dragInteractionSessionDidEndWithOperation?(interaction: UIDragInteraction, session: UIDragSession, operation: interop.Enum<typeof UIDropOperation>): void;
-
-  dragInteractionSessionDidTransferItems?(interaction: UIDragInteraction, session: UIDragSession): void;
-
-  dragInteractionItemsForAddingToSessionWithTouchAtPoint?(interaction: UIDragInteraction, session: UIDragSession, point: CGPoint): NSArray;
-
-  dragInteractionSessionForAddingItemsWithTouchAtPoint?(interaction: UIDragInteraction, sessions: NSArray<interop.Object> | Array<interop.Object>, point: CGPoint): UIDragSession;
-
-  dragInteractionSessionWillAddItemsForInteraction?(interaction: UIDragInteraction, session: UIDragSession, items: NSArray<interop.Object> | Array<interop.Object>, addingInteraction: UIDragInteraction): void;
-
-  dragInteractionPreviewForCancellingItemWithDefault?(interaction: UIDragInteraction, item: UIDragItem, defaultPreview: UITargetedDragPreview): UITargetedDragPreview;
-
-  dragInteractionItemWillAnimateCancelWithAnimator?(interaction: UIDragInteraction, item: UIDragItem, animator: UIDragAnimating): void;
-}
-
-declare class UIDragInteractionDelegate extends NativeObject implements UIDragInteractionDelegate {
 }
 
 declare interface UICollectionViewDropItem extends NSObjectProtocol {
@@ -4634,23 +4608,6 @@ declare interface UITextSearching extends NSObjectProtocol {
 declare class UITextSearching extends NativeObject implements UITextSearching {
 }
 
-declare interface UIDragDropSession extends NSObjectProtocol {
-  readonly items: NSArray;
-
-  locationInView(view: UIView): CGPoint;
-
-  readonly allowsMoveOperation: boolean;
-
-  readonly isRestrictedToDraggingApplication: boolean;
-
-  hasItemsConformingToTypeIdentifiers(typeIdentifiers: NSArray<interop.Object> | Array<interop.Object>): boolean;
-
-  canLoadObjectsOfClass(aClass: NSItemProviderReading): boolean;
-}
-
-declare class UIDragDropSession extends NativeObject implements UIDragDropSession {
-}
-
 declare interface UIMenuBuilder {
   readonly system: UIMenuSystem;
 
@@ -4781,49 +4738,6 @@ declare interface UITextSelectionDisplayInteractionDelegate extends NSObjectProt
 }
 
 declare class UITextSelectionDisplayInteractionDelegate extends NativeObject implements UITextSelectionDisplayInteractionDelegate {
-}
-
-declare interface UIUserActivityRestoring extends NSObjectProtocol {
-  restoreUserActivityState(userActivity: NSUserActivity): void;
-}
-
-declare class UIUserActivityRestoring extends NativeObject implements UIUserActivityRestoring {
-}
-
-declare interface UITableViewDragDelegate extends NSObjectProtocol {
-  tableViewItemsForBeginningDragSessionAtIndexPath(tableView: UITableView, session: UIDragSession, indexPath: NSIndexPath): NSArray;
-
-  tableViewItemsForAddingToDragSessionAtIndexPathPoint?(tableView: UITableView, session: UIDragSession, indexPath: NSIndexPath, point: CGPoint): NSArray;
-
-  tableViewDragPreviewParametersForRowAtIndexPath?(tableView: UITableView, indexPath: NSIndexPath): UIDragPreviewParameters;
-
-  tableViewDragSessionWillBegin?(tableView: UITableView, session: UIDragSession): void;
-
-  tableViewDragSessionDidEnd?(tableView: UITableView, session: UIDragSession): void;
-
-  tableViewDragSessionAllowsMoveOperation?(tableView: UITableView, session: UIDragSession): boolean;
-
-  tableViewDragSessionIsRestrictedToDraggingApplication?(tableView: UITableView, session: UIDragSession): boolean;
-}
-
-declare class UITableViewDragDelegate extends NativeObject implements UITableViewDragDelegate {
-}
-
-declare interface UIFontPickerViewControllerDelegate extends NSObjectProtocol {
-  fontPickerViewControllerDidCancel?(viewController: UIFontPickerViewController): void;
-
-  fontPickerViewControllerDidPickFont?(viewController: UIFontPickerViewController): void;
-}
-
-declare class UIFontPickerViewControllerDelegate extends NativeObject implements UIFontPickerViewControllerDelegate {
-}
-
-declare interface UITextSelectionHighlightView extends UICoordinateSpace {
-  get selectionRects(): NSArray;
-  set selectionRects(value: NSArray<interop.Object> | Array<interop.Object>);
-}
-
-declare class UITextSelectionHighlightView extends NativeObject implements UITextSelectionHighlightView {
 }
 
 declare interface UITextSearchAggregator extends NSObjectProtocol {
@@ -5308,6 +5222,34 @@ declare interface UITableViewDropDelegate extends NSObjectProtocol {
 declare class UITableViewDropDelegate extends NativeObject implements UITableViewDropDelegate {
 }
 
+declare interface UIFontPickerViewControllerDelegate extends NSObjectProtocol {
+  fontPickerViewControllerDidCancel?(viewController: UIFontPickerViewController): void;
+
+  fontPickerViewControllerDidPickFont?(viewController: UIFontPickerViewController): void;
+}
+
+declare class UIFontPickerViewControllerDelegate extends NativeObject implements UIFontPickerViewControllerDelegate {
+}
+
+declare interface UITableViewDragDelegate extends NSObjectProtocol {
+  tableViewItemsForBeginningDragSessionAtIndexPath(tableView: UITableView, session: UIDragSession, indexPath: NSIndexPath): NSArray;
+
+  tableViewItemsForAddingToDragSessionAtIndexPathPoint?(tableView: UITableView, session: UIDragSession, indexPath: NSIndexPath, point: CGPoint): NSArray;
+
+  tableViewDragPreviewParametersForRowAtIndexPath?(tableView: UITableView, indexPath: NSIndexPath): UIDragPreviewParameters;
+
+  tableViewDragSessionWillBegin?(tableView: UITableView, session: UIDragSession): void;
+
+  tableViewDragSessionDidEnd?(tableView: UITableView, session: UIDragSession): void;
+
+  tableViewDragSessionAllowsMoveOperation?(tableView: UITableView, session: UIDragSession): boolean;
+
+  tableViewDragSessionIsRestrictedToDraggingApplication?(tableView: UITableView, session: UIDragSession): boolean;
+}
+
+declare class UITableViewDragDelegate extends NativeObject implements UITableViewDragDelegate {
+}
+
 declare interface UILargeContentViewerInteractionDelegate extends NSObjectProtocol {
   largeContentViewerInteractionDidEndOnItemAtPoint?(interaction: UILargeContentViewerInteraction, item: UILargeContentViewerItem | null, point: CGPoint): void;
 
@@ -5685,6 +5627,21 @@ declare interface UICollectionViewDragDelegate extends NSObjectProtocol {
 }
 
 declare class UICollectionViewDragDelegate extends NativeObject implements UICollectionViewDragDelegate {
+}
+
+declare interface UITextSelectionHighlightView extends UICoordinateSpace {
+  get selectionRects(): NSArray;
+  set selectionRects(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
+declare class UITextSelectionHighlightView extends NativeObject implements UITextSelectionHighlightView {
+}
+
+declare interface UIUserActivityRestoring extends NSObjectProtocol {
+  restoreUserActivityState(userActivity: NSUserActivity): void;
+}
+
+declare class UIUserActivityRestoring extends NativeObject implements UIUserActivityRestoring {
 }
 
 declare interface UISpringLoadedInteractionContext extends NSObjectProtocol {
@@ -6890,6 +6847,8 @@ declare interface UITextInput extends UIKeyInput {
 
   endFloatingCursor?(): void;
 
+  caretTransformForPosition?(position: UITextPosition): CGAffineTransform;
+
   editMenuForTextRangeSuggestedActions?(textRange: UITextRange, suggestedActions: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
 
   willPresentEditMenuWithAnimator?(animator: UIEditMenuInteractionAnimating): void;
@@ -6898,6 +6857,61 @@ declare interface UITextInput extends UIKeyInput {
 }
 
 declare class UITextInput extends NativeObject implements UITextInput {
+}
+
+declare interface UIItemProviderReadingAugmentationDesignating extends NSItemProviderReading {
+}
+
+declare class UIItemProviderReadingAugmentationDesignating extends NativeObject implements UIItemProviderReadingAugmentationDesignating {
+  static _ui_augmentingNSItemProviderReadingClass(): UIItemProviderReadingAugmentationProviding;
+}
+
+declare interface UIDragInteractionDelegate extends NSObjectProtocol {
+  dragInteractionItemsForBeginningSession(interaction: UIDragInteraction, session: UIDragSession): NSArray;
+
+  dragInteractionPreviewForLiftingItemSession?(interaction: UIDragInteraction, item: UIDragItem, session: UIDragSession): UITargetedDragPreview;
+
+  dragInteractionWillAnimateLiftWithAnimatorSession?(interaction: UIDragInteraction, animator: UIDragAnimating, session: UIDragSession): void;
+
+  dragInteractionSessionWillBegin?(interaction: UIDragInteraction, session: UIDragSession): void;
+
+  dragInteractionSessionAllowsMoveOperation?(interaction: UIDragInteraction, session: UIDragSession): boolean;
+
+  dragInteractionSessionIsRestrictedToDraggingApplication?(interaction: UIDragInteraction, session: UIDragSession): boolean;
+
+  dragInteractionPrefersFullSizePreviewsForSession?(interaction: UIDragInteraction, session: UIDragSession): boolean;
+
+  dragInteractionSessionDidMove?(interaction: UIDragInteraction, session: UIDragSession): void;
+
+  dragInteractionSessionWillEndWithOperation?(interaction: UIDragInteraction, session: UIDragSession, operation: interop.Enum<typeof UIDropOperation>): void;
+
+  dragInteractionSessionDidEndWithOperation?(interaction: UIDragInteraction, session: UIDragSession, operation: interop.Enum<typeof UIDropOperation>): void;
+
+  dragInteractionSessionDidTransferItems?(interaction: UIDragInteraction, session: UIDragSession): void;
+
+  dragInteractionItemsForAddingToSessionWithTouchAtPoint?(interaction: UIDragInteraction, session: UIDragSession, point: CGPoint): NSArray;
+
+  dragInteractionSessionForAddingItemsWithTouchAtPoint?(interaction: UIDragInteraction, sessions: NSArray<interop.Object> | Array<interop.Object>, point: CGPoint): UIDragSession;
+
+  dragInteractionSessionWillAddItemsForInteraction?(interaction: UIDragInteraction, session: UIDragSession, items: NSArray<interop.Object> | Array<interop.Object>, addingInteraction: UIDragInteraction): void;
+
+  dragInteractionPreviewForCancellingItemWithDefault?(interaction: UIDragInteraction, item: UIDragItem, defaultPreview: UITargetedDragPreview): UITargetedDragPreview;
+
+  dragInteractionItemWillAnimateCancelWithAnimator?(interaction: UIDragInteraction, item: UIDragItem, animator: UIDragAnimating): void;
+}
+
+declare class UIDragInteractionDelegate extends NativeObject implements UIDragInteractionDelegate {
+}
+
+declare interface UIItemProviderReadingAugmentationProviding {
+}
+
+declare class UIItemProviderReadingAugmentationProviding extends NativeObject implements UIItemProviderReadingAugmentationProviding {
+  static objectWithItemProviderDataTypeIdentifierRequestedClassError(data: NSData, typeIdentifier: string, requestedClass: interop.Object, outError: interop.PointerConvertible): interop.Object;
+
+  static readonly additionalLeadingReadableTypeIdentifiersForItemProvider: NSArray;
+
+  static readonly additionalTrailingReadableTypeIdentifiersForItemProvider: NSArray;
 }
 
 declare interface NSTextLayoutManagerDelegate extends NSObjectProtocol {
@@ -6929,6 +6943,17 @@ declare interface NSTextAttachmentLayout extends NSObjectProtocol {
 }
 
 declare class NSTextAttachmentLayout extends NativeObject implements NSTextAttachmentLayout {
+}
+
+declare interface UIPopoverBackgroundViewMethods {
+}
+
+declare class UIPopoverBackgroundViewMethods extends NativeObject implements UIPopoverBackgroundViewMethods {
+  static arrowBase(): number;
+
+  static contentViewInsets(): UIEdgeInsets;
+
+  static arrowHeight(): number;
 }
 
 declare interface UITraitOverrides extends UIMutableTraits {
@@ -7205,52 +7230,6 @@ declare interface NSTextElementProvider extends NSObjectProtocol {
 declare class NSTextElementProvider extends NativeObject implements NSTextElementProvider {
 }
 
-declare class NSTextLayoutFragment extends NSObject implements NSSecureCoding {
-  initWithTextElementRange(textElement: NSTextElement, rangeInElement: NSTextRange | null): this;
-
-  initWithCoder(coder: NSCoder): this;
-
-  readonly textLayoutManager: NSTextLayoutManager;
-
-  readonly textElement: NSTextElement | null;
-
-  readonly rangeInElement: NSTextRange;
-
-  readonly textLineFragments: NSArray;
-
-  textLineFragmentForVerticalOffsetRequiresExactMatch(verticalOffset: number, requiresExactMatch: boolean): NSTextLineFragment;
-
-  textLineFragmentForTextLocationIsUpstreamAffinity(textLocation: NSTextLocation, isUpstreamAffinity: boolean): NSTextLineFragment;
-
-  layoutQueue: NSOperationQueue;
-
-  readonly state: interop.Enum<typeof NSTextLayoutFragmentState>;
-
-  invalidateLayout(): void;
-
-  readonly layoutFragmentFrame: CGRect;
-
-  readonly renderingSurfaceBounds: CGRect;
-
-  readonly leadingPadding: number;
-
-  readonly trailingPadding: number;
-
-  readonly topMargin: number;
-
-  readonly bottomMargin: number;
-
-  drawAtPointInContext(point: CGPoint, context: interop.PointerConvertible): void;
-
-  readonly textAttachmentViewProviders: NSArray;
-
-  frameForTextAttachmentAtLocation(location: NSTextLocation): CGRect;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-}
-
 declare class NSLayoutAnchor<AnchorType = interop.Object> extends NSObject implements NSCopying, NSCoding {
   constraintEqualToAnchor(anchor: NSLayoutAnchor): NSLayoutConstraint;
 
@@ -7337,6 +7316,8 @@ declare class UITextSelectionRect extends NSObject {
   readonly containsEnd: boolean;
 
   readonly isVertical: boolean;
+
+  readonly transform: CGAffineTransform;
 }
 
 declare class UIScribbleInteraction extends NSObject implements UIInteraction {
@@ -8325,7 +8306,7 @@ declare class UIWindowSceneProminentPlacement extends UIWindowScenePlacement {
   static prominentPlacement<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSCollectionLayoutGroup extends NSCollectionLayoutItem implements NSCopying {
   static horizontalGroupWithLayoutSizeRepeatingSubitemCount<This extends abstract new (...args: any) => any>(this: This, layoutSize: NSCollectionLayoutSize, subitem: NSCollectionLayoutItem, count: number): InstanceType<This>;
 
@@ -8337,9 +8318,9 @@ declare class NSCollectionLayoutGroup extends NSCollectionLayoutItem implements 
 
   static customGroupWithLayoutSizeItemProvider<This extends abstract new (...args: any) => any>(this: This, layoutSize: NSCollectionLayoutSize, itemProvider: (p1: NSCollectionLayoutEnvironment) => NSArray): InstanceType<This>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get supplementaryItems(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set supplementaryItems(value: NSArray<interop.Object> | Array<interop.Object>);
 
   interItemSpacing: NSCollectionLayoutSpacing;
@@ -8513,11 +8494,11 @@ declare class UIWindowSceneDestructionRequestOptions extends UISceneDestructionR
   windowDismissalAnimation: interop.Enum<typeof UIWindowSceneDismissalAnimation>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIPageControlTimerProgress extends UIPageControlProgress {
   initWithPreferredDuration(preferredDuration: number): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UIPageControlTimerProgressDelegate;
 
   resetsToInitialPageAfterEnd: boolean;
@@ -8619,6 +8600,18 @@ declare class NSCollectionLayoutSpacing extends NSObject implements NSCopying {
   readonly isFixedSpacing: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UIMenuDisplayPreferences extends NSObject implements NSCopying, NSSecureCoding {
+  maximumNumberOfTitleLines: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class UIStackView extends UIView {
@@ -9053,12 +9046,6 @@ declare class UITableViewDropPlaceholder extends UITableViewPlaceholder {
 
 declare class UIWindowSceneStandardPlacement extends UIWindowScenePlacement {
   static standardPlacement<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-}
-
-declare class UITableViewDropProposal extends UIDropProposal {
-  initWithDropOperationIntent(operation: interop.Enum<typeof UIDropOperation>, intent: interop.Enum<typeof UITableViewDropIntent>): this;
-
-  readonly intent: interop.Enum<typeof UITableViewDropIntent>;
 }
 
 declare class UIBarButtonItemGroup extends NSObject implements NSCoding {
@@ -9521,6 +9508,20 @@ declare class UITargetedPreview extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class UITextCursorDropPositionAnimator extends NSObject {
+  readonly cursorView: UIView;
+
+  readonly textInput: UIView;
+
+  initWithTextCursorViewTextInput(cursorView: UIView, textInput: UIView): this;
+
+  setCursorVisibleAnimated(visible: boolean, animated: boolean): void;
+
+  placeCursorAtPositionAnimated(position: UITextPosition, animated: boolean): void;
+
+  animateAlongsideChangesCompletion(animation: () => void | null, completion: () => void | null): void;
+}
+
 declare class UIPreviewInteraction extends NSObject {
   initWithView(view: UIView): this;
 
@@ -9539,9 +9540,9 @@ declare class UISwipeGestureRecognizer extends UIGestureRecognizer {
   direction: interop.Enum<typeof UISwipeGestureRecognizerDirection>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIWindowSceneActivationAction extends UIAction {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
   static actionWithIdentifierAlternateActionConfigurationProvider<This extends abstract new (...args: any) => any>(this: This, identifier: string | null, alternateAction: UIAction | null, configurationProvider: (p1: UIWindowSceneActivationAction) => UIWindowSceneActivationConfiguration): InstanceType<This>;
@@ -9778,7 +9779,7 @@ declare class UIDocumentInteractionController extends NSObject implements UIActi
   readonly debugDescription: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSTextListElement extends NSTextParagraph {
   initWithParentElementTextListContentsMarkerAttributesChildElements(parent: NSTextListElement | null, textList: NSTextList, contents: NSAttributedString | null, markerAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, children: NSArray<interop.Object> | Array<interop.Object> | null): this;
 
@@ -9796,13 +9797,13 @@ declare class NSTextListElement extends NSTextParagraph {
 
   readonly childElements: NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly parentElement: NSTextListElement;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSTextContentStorage extends NSTextContentManager implements NSTextStorageObserving {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: NSTextContentStorageDelegate;
 
   attributedString: NSAttributedString;
@@ -10117,6 +10118,52 @@ declare class UIStatusBarManager extends NSObject {
   readonly isStatusBarHidden: boolean;
 
   readonly statusBarFrame: CGRect;
+}
+
+declare class NSTextLayoutFragment extends NSObject implements NSSecureCoding {
+  initWithTextElementRange(textElement: NSTextElement, rangeInElement: NSTextRange | null): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  readonly textLayoutManager: NSTextLayoutManager;
+
+  readonly textElement: NSTextElement | null;
+
+  readonly rangeInElement: NSTextRange;
+
+  readonly textLineFragments: NSArray;
+
+  textLineFragmentForVerticalOffsetRequiresExactMatch(verticalOffset: number, requiresExactMatch: boolean): NSTextLineFragment;
+
+  textLineFragmentForTextLocationIsUpstreamAffinity(textLocation: NSTextLocation, isUpstreamAffinity: boolean): NSTextLineFragment;
+
+  layoutQueue: NSOperationQueue;
+
+  readonly state: interop.Enum<typeof NSTextLayoutFragmentState>;
+
+  invalidateLayout(): void;
+
+  readonly layoutFragmentFrame: CGRect;
+
+  readonly renderingSurfaceBounds: CGRect;
+
+  readonly leadingPadding: number;
+
+  readonly trailingPadding: number;
+
+  readonly topMargin: number;
+
+  readonly bottomMargin: number;
+
+  drawAtPointInContext(point: CGPoint, context: interop.PointerConvertible): void;
+
+  readonly textAttachmentViewProviders: NSArray;
+
+  frameForTextAttachmentAtLocation(location: NSTextLocation): CGRect;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
 }
 
 declare class UIAlertController extends UIViewController {
@@ -10615,18 +10662,6 @@ declare class UIPointerHoverEffect extends UIPointerEffect {
   prefersShadow: boolean;
 
   prefersScaledContent: boolean;
-}
-
-declare class UIPointerRegion extends NSObject implements NSCopying {
-  readonly rect: CGRect;
-
-  readonly identifier: NSObject;
-
-  latchingAxes: interop.Enum<typeof UIAxis>;
-
-  static regionWithRectIdentifier<This extends abstract new (...args: any) => any>(this: This, rect: CGRect, identifier: NSObject | null): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class UIMenuSystem extends NSObject {
@@ -11377,9 +11412,9 @@ declare class UIGraphicsImageRendererContext extends UIGraphicsRendererContext {
   readonly currentImage: UIImage;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIPopoverPresentationController extends UIPresentationController {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UIPopoverPresentationControllerDelegate;
 
   permittedArrowDirections: interop.Enum<typeof UIPopoverArrowDirection>;
@@ -11408,9 +11443,9 @@ declare class UIPopoverPresentationController extends UIPresentationController {
   readonly adaptiveSheetPresentationController: UISheetPresentationController;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UISheetPresentationController extends UIPresentationController {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UISheetPresentationControllerDelegate;
 
   sourceView: UIView;
@@ -11848,7 +11883,7 @@ declare class UIBarButtonItemStateAppearance extends NSObject {
   backgroundImagePositionAdjustment: UIOffset;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIBarAppearance extends NSObject implements NSCopying, NSSecureCoding {
   init(): this;
 
@@ -11860,7 +11895,7 @@ declare class UIBarAppearance extends NSObject implements NSCopying, NSSecureCod
 
   initWithCoder(coder: NSCoder): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   copy(): this;
 
   configureWithDefaultBackground(): void;
@@ -11931,6 +11966,8 @@ declare class UIDragItem extends NSObject {
   localObject: interop.Object;
 
   previewProvider: () => UIDragPreview | null;
+
+  setNeedsDropPreviewUpdate(): void;
 }
 
 declare class UIToolbar extends UIView implements UIBarPositioning {
@@ -12016,9 +12053,9 @@ declare class UISnapBehavior extends UIDynamicBehavior {
   damping: number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UITextView extends UIScrollView implements UITextInput, UIContentSizeCategoryAdjusting, UILetterformAwareAdjusting {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UITextViewDelegate;
 
   text: string;
@@ -12046,10 +12083,10 @@ declare class UITextView extends UIScrollView implements UITextInput, UIContentS
 
   scrollRangeToVisible(range: _NSRange): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputView: UIView;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputAccessoryView: UIView;
 
   clearsOnInsertion: boolean;
@@ -12173,6 +12210,8 @@ declare class UITextView extends UIScrollView implements UITextInput, UIContentS
   updateFloatingCursorAtPoint(point: CGPoint): void;
 
   endFloatingCursor(): void;
+
+  caretTransformForPosition(position: UITextPosition): CGAffineTransform;
 
   editMenuForTextRangeSuggestedActions(textRange: UITextRange, suggestedActions: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
 
@@ -12511,6 +12550,18 @@ declare class UILongPressGestureRecognizer extends UIGestureRecognizer {
   minimumPressDuration: number;
 
   allowableMovement: number;
+}
+
+declare class UIPointerRegion extends NSObject implements NSCopying {
+  readonly rect: CGRect;
+
+  readonly identifier: NSObject;
+
+  latchingAxes: interop.Enum<typeof UIAxis>;
+
+  static regionWithRectIdentifier<This extends abstract new (...args: any) => any>(this: This, rect: CGRect, identifier: NSObject | null): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class UITextChecker extends NSObject {
@@ -13363,9 +13414,9 @@ declare class UISceneOpenURLOptions extends NSObject {
   readonly eventAttribution: UIEventAttribution;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIMutableUserNotificationCategory extends UIUserNotificationCategory {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   identifier: string;
 
   setActionsForContext(actions: NSArray<interop.Object> | Array<interop.Object> | null, context: interop.Enum<typeof UIUserNotificationActionContext>): void;
@@ -13385,26 +13436,26 @@ declare class UIGraphicsImageRendererFormat extends UIGraphicsRendererFormat {
   static formatForTraitCollection<This extends abstract new (...args: any) => any>(this: This, traitCollection: UITraitCollection): InstanceType<This>;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIMutableApplicationShortcutItem extends UIApplicationShortcutItem {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   type: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   localizedTitle: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   localizedSubtitle: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   icon: UIApplicationShortcutIcon;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get userInfo(): NSDictionary;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set userInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   targetContentIdentifier: interop.Object;
 }
 
@@ -13600,9 +13651,9 @@ declare class UIDocumentProperties extends NSObject {
   wantsIconRepresentation: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIInputViewController extends UIViewController implements UITextInputDelegate {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputView: UIInputView;
 
   readonly textDocumentProxy: UITextDocumentProxy;
@@ -13682,7 +13733,7 @@ declare class UIInputView extends UIView {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIImagePickerController extends UINavigationController implements NSCoding {
   static isSourceTypeAvailable(sourceType: interop.Enum<typeof UIImagePickerControllerSourceType>): boolean;
 
@@ -13694,7 +13745,7 @@ declare class UIImagePickerController extends UINavigationController implements 
 
   static availableCaptureModesForCameraDevice(cameraDevice: interop.Enum<typeof UIImagePickerControllerCameraDevice>): NSArray;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UIImagePickerControllerDelegate;
 
   sourceType: interop.Enum<typeof UIImagePickerControllerSourceType>;
@@ -13734,11 +13785,11 @@ declare class UIImagePickerController extends UINavigationController implements 
 
   encodeWithCoder(coder: NSCoder): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UINavigationController extends UIViewController {
   initWithNavigationBarClassToolbarClass(navigationBarClass: interop.Object | null, toolbarClass: interop.Object | null): this;
 
@@ -13746,7 +13797,7 @@ declare class UINavigationController extends UIViewController {
 
   initWithNibNameBundle(nibNameOrNil: string | null, nibBundleOrNil: NSBundle | null): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   pushViewControllerAnimated(viewController: UIViewController, animated: boolean): void;
@@ -13819,13 +13870,13 @@ declare class UIImageAsset extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIGraphicsImageRenderer extends UIGraphicsRenderer {
   initWithSize(size: CGSize): this;
 
   initWithSizeFormat(size: CGSize, format: UIGraphicsImageRendererFormat): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithBoundsFormat(bounds: CGRect, format: UIGraphicsImageRendererFormat): this;
 
   imageWithActions(actions: (p1: UIGraphicsImageRendererContext) => void): UIImage;
@@ -14148,12 +14199,12 @@ declare class UIVisualEffectView extends UIView implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIPointerStyle extends UIHoverStyle implements NSCopying {
   get accessories(): NSArray;
   set accessories(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   static styleWithEffectShape<This extends abstract new (...args: any) => any>(this: This, effect: UIPointerEffect, shape: UIPointerShape | null): InstanceType<This>;
 
   static styleWithShapeConstrainedAxes<This extends abstract new (...args: any) => any>(this: This, shape: UIPointerShape, axes: interop.Enum<typeof UIAxis>): InstanceType<This>;
@@ -14375,16 +14426,6 @@ declare class UITableViewController extends UIViewController implements UITableV
   tableViewMoveRowAtIndexPathToIndexPath(tableView: UITableView, sourceIndexPath: NSIndexPath, destinationIndexPath: NSIndexPath): void;
 }
 
-// @ts-ignore
-declare class UITargetedDragPreview extends UITargetedPreview {
-  // @ts-ignore
-  retargetedPreviewWithTarget(newTarget: UIDragPreviewTarget): UITargetedDragPreview;
-
-  static previewForURLTarget<This extends abstract new (...args: any) => any>(this: This, url: NSURL, target: UIDragPreviewTarget): InstanceType<This>;
-
-  static previewForURLTitleTarget<This extends abstract new (...args: any) => any>(this: This, url: NSURL, title: string | null, target: UIDragPreviewTarget): InstanceType<This>;
-}
-
 declare class UIColor extends NSObject implements NSSecureCoding, NSCopying {
   static colorWithWhiteAlpha(white: number, alpha: number): UIColor;
 
@@ -14569,6 +14610,16 @@ declare class UIColor extends NSObject implements NSSecureCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class UITargetedDragPreview extends UITargetedPreview {
+  // @ts-ignore MemberDecl.tsIgnore
+  retargetedPreviewWithTarget(newTarget: UIDragPreviewTarget): UITargetedDragPreview;
+
+  static previewForURLTarget<This extends abstract new (...args: any) => any>(this: This, url: NSURL, target: UIDragPreviewTarget): InstanceType<This>;
+
+  static previewForURLTitleTarget<This extends abstract new (...args: any) => any>(this: This, url: NSURL, title: string | null, target: UIDragPreviewTarget): InstanceType<This>;
+}
+
 declare class UISpringLoadedInteraction extends NSObject implements UIInteraction {
   initWithInteractionBehaviorInteractionEffectActivationHandler(interactionBehavior: UISpringLoadedInteractionBehavior | null, interactionEffect: UISpringLoadedInteractionEffect | null, handler: (p1: UISpringLoadedInteraction, p2: UISpringLoadedInteractionContext) => void): this;
 
@@ -14723,7 +14774,7 @@ declare class UIDocumentPickerViewController extends UIViewController {
   directoryURL: NSURL;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIResponder extends NSObject implements UIResponderStandardEditActions {
   readonly nextResponder: UIResponder;
 
@@ -14807,7 +14858,7 @@ declare class UIResponder extends NSObject implements UIResponderStandardEditAct
 
   cut(sender: interop.Object | null): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   copy(sender: interop.Object | null): void;
 
   paste(sender: interop.Object | null): void;
@@ -14920,7 +14971,7 @@ declare class UIDocumentViewController extends UIViewController {
   readonly undoRedoItemGroup: UIBarButtonItemGroup;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UISearchBar extends UIView implements UIBarPositioning, UITextInputTraits, UILookToDictateCapable {
   init(): this;
 
@@ -14969,7 +15020,7 @@ declare class UISearchBar extends UIView implements UIBarPositioning, UITextInpu
 
   setShowsScopeBarAnimated(show: boolean, animate: boolean): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputAccessoryView: UIView;
 
   isEnabled: boolean;
@@ -15163,6 +15214,8 @@ declare class UIDocument extends NSObject implements NSFilePresenter, NSProgress
   savePresentedItemChangesWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
   accommodatePresentedItemDeletionWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  accommodatePresentedItemEvictionWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
   presentedItemDidMoveToURL(newURL: NSURL): void;
 
@@ -15596,7 +15649,7 @@ declare class UITableViewPlaceholder extends NSObject {
   cellUpdateHandler: (p1: UITableViewCell) => void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UITableView extends UIScrollView implements NSCoding, UIDataSourceTranslating {
   initWithFrameStyle(frame: CGRect, style: interop.Enum<typeof UITableViewStyle>): this;
 
@@ -15606,7 +15659,7 @@ declare class UITableView extends UIScrollView implements NSCoding, UIDataSource
 
   dataSource: UITableViewDataSource;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UITableViewDelegate;
 
   prefetchDataSource: UITableViewDataSourcePrefetching;
@@ -16365,7 +16418,7 @@ declare class UIImageReader extends NSObject {
   imageWithDataCompletion(data: NSData, completion: (p1: UIImage) => void | null): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UICollectionView extends UIScrollView implements UIDataSourceTranslating {
   initWithFrameCollectionViewLayout(frame: CGRect, layout: UICollectionViewLayout): this;
 
@@ -16373,7 +16426,7 @@ declare class UICollectionView extends UIScrollView implements UIDataSourceTrans
 
   collectionViewLayout: UICollectionViewLayout;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   delegate: UICollectionViewDelegate;
 
   dataSource: UICollectionViewDataSource;
@@ -17404,6 +17457,67 @@ declare class UIAlertAction extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class UIPointerLiftEffect extends UIPointerEffect {
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class UIStandardTextCursorView extends UIView implements UITextCursorView {
+  isBlinking: boolean;
+
+  resetBlinkAnimation(): void;
+
+  convertPointToCoordinateSpace(point: CGPoint, coordinateSpace: UICoordinateSpace): CGPoint;
+
+  convertPointFromCoordinateSpace(point: CGPoint, coordinateSpace: UICoordinateSpace): CGPoint;
+
+  convertRectToCoordinateSpace(rect: CGRect, coordinateSpace: UICoordinateSpace): CGRect;
+
+  convertRectFromCoordinateSpace(rect: CGRect, coordinateSpace: UICoordinateSpace): CGRect;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  readonly bounds: CGRect;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class UIPreviewAction extends NSObject implements NSCopying, UIPreviewActionItem {
   readonly handler: (p1: UIPreviewActionItem, p2: UIViewController) => void;
 
@@ -18343,12 +18457,12 @@ declare class UIBezierPath extends NSObject implements NSCopying, NSSecureCoding
   encodeWithCoder(coder: NSCoder): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIAction extends UIMenuElement implements UIMenuLeaf {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   image: UIImage;
 
   discoverabilityTitle: string;
@@ -18664,6 +18778,12 @@ declare class UIApplicationShortcutIcon extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class UITableViewDropProposal extends UIDropProposal {
+  initWithDropOperationIntent(operation: interop.Enum<typeof UIDropOperation>, intent: interop.Enum<typeof UITableViewDropIntent>): this;
+
+  readonly intent: interop.Enum<typeof UITableViewDropIntent>;
+}
+
 declare class UITraitToolbarItemPresentationSize extends NSObject implements UINSIntegerTraitDefinition {
   static readonly defaultValue: number;
 
@@ -18800,16 +18920,16 @@ declare class UIMarkupTextPrintFormatter extends UIPrintFormatter {
   markupText: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIKeyCommand extends UICommand {
   init(): this;
 
   initWithCoder(coder: NSCoder): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   image: UIImage;
 
   discoverabilityTitle: string;
@@ -18941,6 +19061,8 @@ declare class UIMenu extends UIMenuElement {
   readonly children: NSArray;
 
   readonly selectedElements: NSArray;
+
+  displayPreferences: UIMenuDisplayPreferences;
 
   static menuWithChildren(children: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
 
@@ -19087,29 +19209,29 @@ declare class NSStringDrawingContext extends NSObject {
   readonly actualTrackingAdjustment: number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIMutableUserNotificationAction extends UIUserNotificationAction {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   identifier: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   behavior: interop.Enum<typeof UIUserNotificationActionBehavior>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get parameters(): NSDictionary;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set parameters(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   activationMode: interop.Enum<typeof UIUserNotificationActivationMode>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   isAuthenticationRequired: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   isDestructive: boolean;
 }
 
@@ -19644,7 +19766,7 @@ declare class UILocalNotification extends NSObject implements NSCopying, NSCodin
   encodeWithCoder(coder: NSCoder): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UITextField extends UIControl implements UITextInput, NSCoding, UIContentSizeCategoryAdjusting, UILetterformAwareAdjusting {
   text: string;
 
@@ -19712,10 +19834,10 @@ declare class UITextField extends UIControl implements UITextInput, NSCoding, UI
 
   drawPlaceholderInRect(rect: CGRect): void;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputView: UIView;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   inputAccessoryView: UIView;
 
   clearsOnInsertion: boolean;
@@ -19812,6 +19934,8 @@ declare class UITextField extends UIControl implements UITextInput, NSCoding, UI
   updateFloatingCursorAtPoint(point: CGPoint): void;
 
   endFloatingCursor(): void;
+
+  caretTransformForPosition(position: UITextPosition): CGAffineTransform;
 
   editMenuForTextRangeSuggestedActions(textRange: UITextRange, suggestedActions: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
 
@@ -19930,9 +20054,9 @@ declare class UIPickerView extends UIView implements NSCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIGraphicsPDFRenderer extends UIGraphicsRenderer {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithBoundsFormat(bounds: CGRect, format: UIGraphicsPDFRendererFormat): this;
 
   writePDFToURLWithActionsError(url: NSURL, actions: (p1: UIGraphicsPDFRendererContext) => void, error: interop.PointerConvertible): boolean;
@@ -20185,7 +20309,7 @@ declare class UIKey extends NSObject implements NSCopying, NSCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UIBarButtonItemAppearance extends NSObject implements NSCopying, NSSecureCoding {
   init(): this;
 
@@ -20193,7 +20317,7 @@ declare class UIBarButtonItemAppearance extends NSObject implements NSCopying, N
 
   initWithCoder(coder: NSCoder): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   copy(): this;
 
   configureWithDefaultForStyle(style: interop.Enum<typeof UIBarButtonItemStyle>): void;
@@ -20439,7 +20563,7 @@ declare class UIImageConfiguration extends NSObject implements NSCopying, NSSecu
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UITabBarItemAppearance extends NSObject implements NSCopying, NSSecureCoding {
   init(): this;
 
@@ -20447,7 +20571,7 @@ declare class UITabBarItemAppearance extends NSObject implements NSCopying, NSSe
 
   initWithCoder(coder: NSCoder): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   copy(): this;
 
   configureWithDefaultForStyle(style: interop.Enum<typeof UITabBarItemAppearanceStyle>): void;
@@ -20483,67 +20607,67 @@ declare class UICollectionViewTransitionLayout extends UICollectionViewLayout {
   valueForAnimatedKey(key: string): number;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class NSMutableParagraphStyle extends NSParagraphStyle {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   lineSpacing: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   paragraphSpacing: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   alignment: interop.Enum<typeof NSTextAlignment>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   firstLineHeadIndent: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   headIndent: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   tailIndent: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   lineBreakMode: interop.Enum<typeof NSLineBreakMode>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   minimumLineHeight: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   maximumLineHeight: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   baseWritingDirection: interop.Enum<typeof NSWritingDirection>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   lineHeightMultiple: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   paragraphSpacingBefore: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   hyphenationFactor: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   usesDefaultHyphenation: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get tabStops(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set tabStops(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   defaultTabInterval: number;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   allowsDefaultTighteningForTruncation: boolean;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   lineBreakStrategy: interop.Enum<typeof NSLineBreakStrategy>;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   get textLists(): NSArray;
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   set textLists(value: NSArray<interop.Object> | Array<interop.Object>);
 
   addTabStop(anObject: NSTextTab): void;
@@ -20833,9 +20957,6 @@ declare class UIFontMetrics extends NSObject {
   scaledValueForValueCompatibleWithTraitCollection(value: number, traitCollection: UITraitCollection | null): number;
 }
 
-declare class UIPointerLiftEffect extends UIPointerEffect {
-}
-
 declare class NSLayoutXAxisAnchor extends NSLayoutAnchor {
   anchorWithOffsetToAnchor(otherAnchor: NSLayoutXAxisAnchor): NSLayoutDimension;
 
@@ -20852,6 +20973,8 @@ declare class UIScrollView extends UIView implements NSCoding, UIFocusItemScroll
   contentSize: CGSize;
 
   contentInset: UIEdgeInsets;
+
+  contentAlignmentPoint: CGPoint;
 
   readonly adjustedContentInset: UIEdgeInsets;
 
@@ -20871,6 +20994,10 @@ declare class UIScrollView extends UIView implements NSCoding, UIFocusItemScroll
 
   bounces: boolean;
 
+  bouncesHorizontally: boolean;
+
+  bouncesVertically: boolean;
+
   alwaysBounceVertical: boolean;
 
   alwaysBounceHorizontal: boolean;
@@ -20878,6 +21005,10 @@ declare class UIScrollView extends UIView implements NSCoding, UIFocusItemScroll
   isPagingEnabled: boolean;
 
   isScrollEnabled: boolean;
+
+  transfersHorizontalScrollingToParent: boolean;
+
+  transfersVerticalScrollingToParent: boolean;
 
   showsVerticalScrollIndicator: boolean;
 
@@ -20901,11 +21032,15 @@ declare class UIScrollView extends UIView implements NSCoding, UIFocusItemScroll
 
   flashScrollIndicators(): void;
 
+  withScrollIndicatorsShownForContentOffsetChanges(changes: () => void): void;
+
   readonly isTracking: boolean;
 
   readonly isDragging: boolean;
 
   readonly isDecelerating: boolean;
+
+  readonly isScrollAnimating: boolean;
 
   delaysContentTouches: boolean;
 
@@ -20931,7 +21066,11 @@ declare class UIScrollView extends UIView implements NSCoding, UIFocusItemScroll
 
   readonly isZoomBouncing: boolean;
 
+  readonly isZoomAnimating: boolean;
+
   scrollsToTop: boolean;
+
+  stopScrollingAndZooming(): void;
 
   readonly panGestureRecognizer: UIPanGestureRecognizer;
 
@@ -21006,12 +21145,12 @@ declare class UITraitTypesettingLanguage extends NSObject implements UIObjectTra
   static readonly affectsColorAppearance: boolean;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class UICommand extends UIMenuElement implements UIMenuLeaf {
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   title: string;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   image: UIImage;
 
   discoverabilityTitle: string;
@@ -22207,6 +22346,8 @@ declare class UIControl extends UIView {
   removeActionForControlEvents(action: UIAction, controlEvents: interop.Enum<typeof UIControlEvents>): void;
 
   removeActionForIdentifierForControlEvents(actionIdentifier: string, controlEvents: interop.Enum<typeof UIControlEvents>): void;
+
+  performPrimaryAction(): void;
 
   readonly allTargets: NSSet;
 

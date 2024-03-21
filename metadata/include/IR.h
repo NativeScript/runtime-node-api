@@ -216,6 +216,7 @@ public:
   std::string methodSelector;
   bool isVariadic;
   bool isInit = false;
+  bool returnOwned = false;
 
   // Property
   TypeSpec propertyType;

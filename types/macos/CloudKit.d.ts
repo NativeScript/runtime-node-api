@@ -653,7 +653,7 @@ declare class CKShareMetadata extends NSObject implements NSCopying, NSSecureCod
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
   initWithRootRecord(rootRecord: CKRecord): this;
 
@@ -661,7 +661,7 @@ declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
 
   initWithRecordZoneID(recordZoneID: CKRecordZoneID): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   publicPermission: interop.Enum<typeof CKShareParticipantPermission>;
@@ -883,7 +883,7 @@ declare class CKDatabase extends NSObject {
   deleteSubscriptionWithIDCompletionHandler(subscriptionID: string, completionHandler: (p1: string, p2: NSError) => void | null): void;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKDatabaseSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   init(): this;
 
@@ -891,7 +891,7 @@ declare class CKDatabaseSubscription extends CKSubscription implements NSSecureC
 
   initWithSubscriptionID(subscriptionID: string): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   recordType: string;
@@ -903,13 +903,13 @@ declare class CKDatabaseSubscription extends CKSubscription implements NSSecureC
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKQuerySubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   initWithRecordTypePredicateOptions(recordType: string, predicate: NSPredicate, querySubscriptionOptions: interop.Enum<typeof CKQuerySubscriptionOptions>): this;
 
   initWithRecordTypePredicateSubscriptionIDOptions(recordType: string, predicate: NSPredicate, subscriptionID: string, querySubscriptionOptions: interop.Enum<typeof CKQuerySubscriptionOptions>): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly recordType: string;
@@ -943,11 +943,11 @@ declare class CKModifyBadgeOperation extends CKOperation {
   modifyBadgeCompletionBlock: (p1: NSError) => void | null;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSecureCoding {
   initWithKeyRelativeLocation(key: string, relativeLocation: CLLocation): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly relativeLocation: CLLocation;
@@ -1025,13 +1025,13 @@ declare class CKNotification extends NSObject {
   readonly category: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKRecordZoneSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
   initWithZoneID(zoneID: CKRecordZoneID): this;
 
   initWithZoneIDSubscriptionID(zoneID: CKRecordZoneID, subscriptionID: string): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   initWithCoder(aDecoder: NSCoder): this;
 
   readonly zoneID: CKRecordZoneID;
@@ -1233,11 +1233,11 @@ declare class CKSyncEngineFetchedRecordDeletion extends NSObject {
   readonly recordType: string;
 }
 
-// @ts-ignore
+// @ts-ignore ClassDecl.tsIgnore
 declare class CKSyncEnginePendingZoneSave extends CKSyncEnginePendingDatabaseChange {
   initWithZone(zone: CKRecordZone): this;
 
-  // @ts-ignore
+  // @ts-ignore MemberDecl.tsIgnore
   readonly zone: CKRecordZone;
 }
 
