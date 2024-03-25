@@ -35,7 +35,8 @@ export class ApplicationDelegate extends NSObject {
     window.title = "NativeScript for macOS";
     window.delegate = this;
     window.styleMask = NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
-      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable;
+      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable |
+      NSWindowStyleMask.FullSizeContentView;
 
     window.titlebarAppearsTransparent = true;
     window.titleVisibility = NSWindowTitleVisibility.Hidden;
@@ -79,11 +80,28 @@ export class Renderer extends NSObject {
   /** @type {Uint32Array} */
   viewportSize;
 
+  /** @type {NSTextField} */
+  fpsCounter;
+
+  updateIterval = 0.5;
+  accum = 0;
+  frames = 0;
+  timeLeft;
+  previousTime;
+
+  set fps(value) {
+    this.fpsCounter.stringValue = `${Number(value).toFixed(2)} FPS`;
+  }
+
   /**
    * @param {MTKView} mtkView
+   * @param {NSTextField} fpsCounter
    */
-  initWithMtkView(mtkView) {
+  initWithMtkView(mtkView, fpsCounter) {
     this.device = mtkView.device;
+    this.fpsCounter = fpsCounter;
+
+    this.updateIterval = this.timeLeft = 0.3;
 
     const error = new interop.Reference();
     const library = this.device.newLibraryWithSourceOptionsError(
@@ -251,19 +269,36 @@ export class ViewController extends NSViewController {
   mtkView;
 
   loadView() {
-    this.mtkView = this.view = MTKView.alloc().initWithFrameDevice(
+    this.mtkView = MTKView.alloc().initWithFrameDevice(
       {
         origin: { x: 0, y: 0 },
         size: { width: 480, height: 480 },
       },
       MTLCreateSystemDefaultDevice(),
     );
+
+    this.view = NSView.alloc().initWithFrame(this.mtkView.frame);
+    this.view.addSubview(this.mtkView);
   }
 
   viewDidLoad() {
     super.viewDidLoad();
 
-    this.renderer = Renderer.new().initWithMtkView(this.mtkView);
+    const fpsCounter = NSTextField.new();
+    fpsCounter.stringValue = "60 FPS";
+    fpsCounter.textColor = NSColor.whiteColor;
+    fpsCounter.backgroundColor = NSColor.blackColor;
+    fpsCounter.isBordered = false;
+    fpsCounter.isEditable = false;
+    fpsCounter.isSelectable = false;
+    fpsCounter.frame = {
+      origin: { x: 10, y: 10 },
+      size: { width: 60, height: 20 },
+    };
+
+    this.view.addSubview(fpsCounter);
+
+    this.renderer = Renderer.new().initWithMtkView(this.mtkView, fpsCounter);
 
     this.mtkView.delegate = this.renderer;
   }
