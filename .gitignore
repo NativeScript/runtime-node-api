@@ -2,7 +2,6 @@
 build/
 .vscode/
 deno.lock
-package-lock.json
 node_modules/
 # This node_modules is manually created and version-controlled. Inside it, we
 # commit a symlink back up to our root-level "objc" package. It avoids having

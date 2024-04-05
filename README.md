@@ -10,12 +10,6 @@ The repo makes use of npm [workspaces](https://docs.npmjs.com/cli/v10/using-npm/
 
 ```sh
 npm install
-
-# This installs dependencies for all except `runtime/TestApp`, as that project
-# currently assumes that you have a git checkout of the NativeScript repo as a
-# sibling to this repo. Hopefully you have no need to use `runtime/TestApp, but
-# if you do, make sure you've set up the NativeScript repo as a sibling, and
-# perform another `npm install` inside `runtime/TestApp`.
 ```
 
 ## Generating metadata

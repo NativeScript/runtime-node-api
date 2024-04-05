@@ -1,5 +1,5 @@
 {
-  "name": "@nativescript/runtimes",
+  "name": "@nativescript/runtime",
   "private": true,
   "version": "1.0.0",
   "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
@@ -19,6 +19,6 @@
     "packages/*",
     "bench",
     "examples",
-    "core-test"
+    "runtime/TestApp"
   ]
 }
