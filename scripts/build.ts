@@ -25,31 +25,30 @@ if (!VALID_PLATFORMS.includes(targetPlatform)) {
   );
 }
 
+const platformDir = targetPlatform.startsWith("ios") ? "ios" : "macos";
 const buildConfig = Deno.args.includes("debug") ? "Debug" : "Release";
 
 // Ensure we have a build directory
-await Deno.mkdir("../build").catch(() => {});
+await Deno.mkdir(`../packages/${platformDir}/build`).catch(() => {});
 
-async function ensureTargetDir(target: string) {
+async function ensureTargetDir(targetPlatform: string) {
   // Clean any previous target specific build
-  // await Deno.remove(`../build/${target}`, { recursive: true }).catch(
+  // await Deno.remove(`../packages/${platformDir}/build/${targetPlatform}`, { recursive: true }).catch(
   //   () => {},
   // );
   // Create a new target specific build directory
-  await Deno.mkdir(`../build/${target}`).catch(() => {});
+  await Deno.mkdir(`../packages/${platformDir}/build/${targetPlatform}`).catch(() => {});
 }
 
-async function build(target: string) {
-  await ensureTargetDir(target);
+async function build(targetPlatform: string) {
+  await ensureTargetDir(targetPlatform);
 
   // Generate the build files
-  await $`cmake -S=../ -B=../build/${target} -GXcode -DBRIDGE_TARGET_PLATFORM=${target} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
-    target.startsWith("ios-test") ? "" : `-DMETADATA_SIZE=${
+  await $`cmake -S=../ -B=../packages/${platformDir}/build/${targetPlatform} -GXcode -DBRIDGE_TARGET_PLATFORM=${targetPlatform} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
+    targetPlatform.startsWith("ios-test") ? "" : `-DMETADATA_SIZE=${
       Deno.lstatSync(
         new URL(
-          `../metadata/metadata.${
-            target.startsWith("ios") ? "ios" : "macos"
-          }.nsmd`,
+          `../metadata/metadata.${platformDir}.nsmd`,
           import.meta.url,
         ),
       )
@@ -58,13 +57,13 @@ async function build(target: string) {
   }`;
 
   // Build the project
-  await $`cmake --build ../build/${target} --config ${buildConfig}`;
+  await $`cmake --build ../packages/${platformDir}/build/${targetPlatform} --config ${buildConfig}`;
 
-  if (target.startsWith("macos")) {
+  if (platformDir === "macos") {
     // Copy the built app to the build directory
     await Deno.copyFile(
-      `../build/${target}/${buildConfig}/libObjCBridge.dylib`,
-      `../build/${target}/ObjCBridge.node`,
+      `../packages/${platformDir}/build/${targetPlatform}/${buildConfig}/libNativeScript.dylib`,
+      `../packages/${platformDir}/build/${targetPlatform}/NativeScript.node`,
     );
   }
 }
@@ -84,20 +83,20 @@ if (import.meta.main) {
     }
 
     await Deno.remove(
-      `../build/${targetPlatform}/ObjCBridge.xcframework`,
+      `../packages/${platformDir}/build/${targetPlatform}/NativeScript.xcframework`,
       { recursive: true },
     ).catch(() => {});
 
     await $`xcodebuild -create-xcframework ${
       targets.map((
-        target,
+        targetPlatform,
       ) => [
         `-framework`,
-        `../build/${target}/${
-          TARGET_RELEASE_FOLDERS[target]
-        }/ObjCBridge.framework`,
+        `../packages/${platformDir}/build/${targetPlatform}/${
+          TARGET_RELEASE_FOLDERS[targetPlatform]
+        }/NativeScript.framework`,
       ]).flat()
-    } -output ../build/ios-universal/ObjCBridge.xcframework`;
+    } -output ../packages/${platformDir}/build/${targetPlatform}/NativeScript.xcframework`;
   } else {
     await build(targetPlatform);
   }

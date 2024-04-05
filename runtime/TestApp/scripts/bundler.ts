@@ -21,8 +21,8 @@ await copy(
 );
 
 await copy(
-  new URL("../../../build/macos/ObjCBridge.node", import.meta.url),
-  `./${app.name}.app/Contents/Resources/ObjCBridge.node`,
+  new URL("../../../build/macos/NativeScript.node", import.meta.url),
+  `./${app.name}.app/Contents/Resources/NativeScript.node`,
 );
 
 await Deno.mkdir(`./${app.name}.app/Contents/Resources`, { recursive: true });

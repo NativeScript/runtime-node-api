@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 objc.import("SpriteKit");
 objc.import("GameController");
@@ -37,7 +37,7 @@ export class ApplicationDelegate extends NSObject {
       118 / 255,
       171 / 255,
       235 / 255,
-      1,
+      1
     );
 
     window.acceptsMouseMovedEvents = true;
@@ -77,7 +77,7 @@ export class BattlefieldScene extends SKScene {
       this,
       "controllerDidConnect",
       GCControllerDidBecomeCurrentNotification,
-      null,
+      null
     );
   }
 
@@ -90,7 +90,7 @@ export class BattlefieldScene extends SKScene {
     indicatorSize.height = indicatorHeight;
     this.indicator = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 1, 0, 1),
-      indicatorSize,
+      indicatorSize
     );
     this.indicator.position = {
       x: this.frame.size.width / 2,
@@ -101,7 +101,7 @@ export class BattlefieldScene extends SKScene {
     const heroSize = { width: 25, height: 25 };
     this.hero = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(0, 0, 1, 1),
-      heroSize,
+      heroSize
     );
 
     const heroPhysicsBody = SKPhysicsBody.bodyWithRectangleOfSize(heroSize);
@@ -119,12 +119,11 @@ export class BattlefieldScene extends SKScene {
     const villainSize = { width: 50, height: 50 };
     this.villain = SKSpriteNode.alloc().initWithColorSize(
       NSColor.colorWithSRGBRedGreenBlueAlpha(1, 0, 0, 1),
-      villainSize,
+      villainSize
     );
 
-    const villainPhysicsBody = SKPhysicsBody.bodyWithRectangleOfSize(
-      villainSize,
-    );
+    const villainPhysicsBody =
+      SKPhysicsBody.bodyWithRectangleOfSize(villainSize);
     villainPhysicsBody.allowsRotation = true;
     villainPhysicsBody.allowsRotation = true;
     villainPhysicsBody.usesPreciseCollisionDetection = false;
@@ -168,7 +167,7 @@ export class BattlefieldScene extends SKScene {
     currentPos,
     targetPos,
     deltaTime,
-    currentRotationInRadians,
+    currentRotationInRadians
   ) {
     const xDiff = targetPos.x - currentPos.x;
     const yDiff = targetPos.y - currentPos.y;
@@ -178,34 +177,27 @@ export class BattlefieldScene extends SKScene {
     const maxAdvanceX = Math.cos(angleInRadians) * (speed * deltaTime);
     const maxAdvanceY = Math.sin(angleInRadians) * (speed * deltaTime);
 
-    const x = xDiff >= 0
-      ? Math.min(
-        currentPos.x + maxAdvanceX,
-        targetPos.x,
-      )
-      : Math.max(
-        currentPos.x + maxAdvanceX,
-        targetPos.x,
-      );
-    const y = yDiff >= 0
-      ? Math.min(
-        currentPos.y + maxAdvanceY,
-        targetPos.y,
-      )
-      : Math.max(
-        currentPos.y + maxAdvanceY,
-        targetPos.y,
-      );
+    const x =
+      xDiff >= 0
+        ? Math.min(currentPos.x + maxAdvanceX, targetPos.x)
+        : Math.max(currentPos.x + maxAdvanceX, targetPos.x);
+    const y =
+      yDiff >= 0
+        ? Math.min(currentPos.y + maxAdvanceY, targetPos.y)
+        : Math.max(currentPos.y + maxAdvanceY, targetPos.y);
 
     const degToRad = Math.PI / 180;
     const radToDeg = 180 / Math.PI;
-    const extraRotation = (angleInRadians * radToDeg) -
-      (currentRotationInRadians * radToDeg);
+    const extraRotation =
+      angleInRadians * radToDeg - currentRotationInRadians * radToDeg;
     const easing = 4;
 
-    const optimalRotation = extraRotation < -180 ? 360 + extraRotation : (
-      extraRotation > 180 ? extraRotation - 360 : extraRotation
-    );
+    const optimalRotation =
+      extraRotation < -180
+        ? 360 + extraRotation
+        : extraRotation > 180
+        ? extraRotation - 360
+        : extraRotation;
     const optimalEasedRotation = optimalRotation / easing;
     const newRotationInDegrees =
       (currentRotationInRadians + optimalEasedRotation) % 360;
@@ -223,8 +215,11 @@ export class BattlefieldScene extends SKScene {
     const idealDeltaTime = 60;
 
     if (
-      !this.hero || !this.villain || !this.villainBaseSpeed ||
-      !this.heroBaseSpeed || !this.heroTargetPos
+      !this.hero ||
+      !this.villain ||
+      !this.villainBaseSpeed ||
+      !this.heroBaseSpeed ||
+      !this.heroTargetPos
     ) {
       return;
     }
@@ -234,14 +229,14 @@ export class BattlefieldScene extends SKScene {
       this.villain.position,
       this.hero.position,
       idealDeltaTime,
-      this.villain.zRotation,
+      this.villain.zRotation
     );
     const forHero = this.diffFn(
       this.heroBaseSpeed,
       this.hero.position,
       this.heroTargetPos,
       idealDeltaTime,
-      this.hero.zRotation,
+      this.hero.zRotation
     );
 
     this.villain.zRotation = forVillain.rotation;

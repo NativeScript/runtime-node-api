@@ -42,6 +42,6 @@ target_link_directories(
 target_link_libraries(
   ${NAME}
   PRIVATE
-  ObjCBridge
+  NativeScript
   "-framework hermes"
 )

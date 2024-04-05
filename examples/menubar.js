@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 /**
  * @implements {NSApplicationDelegate}
@@ -27,15 +27,12 @@ export class ApplicationDelegate extends NSObject {
   applicationDidFinishLaunching(_notification) {
     const statusBar = NSStatusBar.systemStatusBar;
     const statusItem = statusBar.statusItemWithLength(
-      NSVariableStatusItemLength,
+      NSVariableStatusItemLength
     );
 
     if (statusItem.button != null) {
-      statusItem.button.image = NSImage
-        .imageWithSystemSymbolNameAccessibilityDescription(
-          "star",
-          null,
-        );
+      statusItem.button.image =
+        NSImage.imageWithSystemSymbolNameAccessibilityDescription("star", null);
 
       statusItem.button.action = "buttonClicked";
       statusItem.button.target = this;
@@ -54,7 +51,7 @@ export class ApplicationDelegate extends NSObject {
       this.popover.showRelativeToRectOfViewPreferredEdge(
         sender.bounds,
         sender,
-        NSRectEdge.MinYEdge,
+        NSRectEdge.MinYEdge
       );
     }
   }
@@ -78,7 +75,7 @@ export class ViewController extends NSViewController {
     };
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname,
+      new URL("../assets/NativeScript.png", import.meta.url).pathname
     );
 
     image.size = { width: 128, height: 128 };
@@ -90,10 +87,10 @@ export class ViewController extends NSViewController {
     this.view.addSubview(imageView);
 
     imageView.centerXAnchor.constraintEqualToAnchor(
-      this.view.centerXAnchor,
+      this.view.centerXAnchor
     ).isActive = true;
     imageView.centerYAnchor.constraintEqualToAnchor(
-      this.view.centerYAnchor,
+      this.view.centerYAnchor
     ).isActive = true;
   }
 }

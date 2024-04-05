@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 /**
  * @implements {NSApplicationDelegate}
@@ -50,10 +50,12 @@ export class Window extends NSWindow {
 
     super.initWithContentRectStyleMaskBackingDefer(
       { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
-      NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
-        NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable,
+      NSWindowStyleMask.Titled |
+        NSWindowStyleMask.Closable |
+        NSWindowStyleMask.Miniaturizable |
+        NSWindowStyleMask.Resizable,
       2,
-      false,
+      false
     );
 
     this.title = "NativeScript for macOS";
@@ -68,7 +70,7 @@ export class Window extends NSWindow {
       118 / 255,
       171 / 255,
       235 / 255,
-      1,
+      1
     );
 
     const label = NSTextField.alloc().initWithFrame({
@@ -88,14 +90,15 @@ export class Window extends NSWindow {
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      NSFontTraitMask.Bold,
+      NSFontTraitMask.Bold
     );
 
     label.sizeToFit();
 
-    const vstack = NSStackView.alloc().initWithFrame(
-      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
-    );
+    const vstack = NSStackView.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 500, height: 500 },
+    });
 
     vstack.orientation = NSUserInterfaceLayoutOrientation.Vertical;
     vstack.alignment = NSLayoutAttribute.CenterX;
@@ -104,7 +107,7 @@ export class Window extends NSWindow {
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname,
+      new URL("../assets/NativeScript.png", import.meta.url).pathname
     );
 
     image.size = { width: 128, height: 128 };
@@ -117,10 +120,10 @@ export class Window extends NSWindow {
     this.contentView.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      this.contentView.centerXAnchor,
+      this.contentView.centerXAnchor
     ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      this.contentView.centerYAnchor,
+      this.contentView.centerYAnchor
     ).isActive = true;
 
     return this;
@@ -157,7 +160,7 @@ interop.addMethod(
         NSEventMask.Any,
         null,
         "kCFRunLoopDefaultMode",
-        true,
+        true
       );
 
       if (event != null) {
@@ -174,7 +177,7 @@ interop.addMethod(
     setTimeout(() => {
       console.log("[setTimeout] after 2 seconds");
     }, 2000);
-  },
+  }
 );
 
 NSApp.delegate = delegate;

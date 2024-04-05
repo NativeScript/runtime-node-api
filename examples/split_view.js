@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 export class ApplicationDelegate extends NSObject {
   static ObjCProtocols = [NSApplicationDelegate];
@@ -28,12 +28,15 @@ export class ApplicationDelegate extends NSObject {
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
-    window.styleMask = NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
-      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable |
+    window.styleMask =
+      NSWindowStyleMask.Titled |
+      NSWindowStyleMask.Closable |
+      NSWindowStyleMask.Miniaturizable |
+      NSWindowStyleMask.Resizable |
       NSWindowStyleMask.FullSizeContentView;
 
     const toolbar = NSToolbar.alloc().initWithIdentifier(
-      "com.nativescript.mainWindowToolbar",
+      "com.nativescript.mainWindowToolbar"
     );
     toolbar.delegate = controller;
     toolbar.displayMode = NSToolbarDisplayMode.IconOnly;
@@ -136,11 +139,11 @@ export class SidebarViewController extends NSViewController {
     const text = NSTextField.new();
     const imageView = item.symbol
       ? NSImageView.imageViewWithImage(
-        NSImage.imageWithSystemSymbolNameAccessibilityDescription(
-          item.symbol,
-          null,
-        ),
-      )
+          NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+            item.symbol,
+            null
+          )
+        )
       : NSImageView.new();
 
     text.isBordered = false;
@@ -242,9 +245,10 @@ export class ContentViewController extends NSViewController {
   loadView() {
     const view = NSView.new();
 
-    const label = NSTextField.alloc().initWithFrame(
-      { origin: { x: 0, y: 0 }, size: { width: 390, height: 100 } },
-    );
+    const label = NSTextField.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 390, height: 100 },
+    });
 
     label.stringValue = "Hello, macOS";
 
@@ -258,16 +262,17 @@ export class ContentViewController extends NSViewController {
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 35),
-      NSFontTraitMask.Bold,
+      NSFontTraitMask.Bold
     );
 
     label.sizeToFit();
 
     this.label = label;
 
-    const vstack = NSStackView.alloc().initWithFrame(
-      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
-    );
+    const vstack = NSStackView.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 500, height: 500 },
+    });
 
     vstack.orientation = NSUserInterfaceLayoutOrientation.Vertical;
     vstack.alignment = NSLayoutAttribute.CenterX;
@@ -276,26 +281,23 @@ export class ContentViewController extends NSViewController {
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname,
+      new URL("../assets/NativeScript.png", import.meta.url).pathname
     );
 
     image.size = { width: 128, height: 128 };
 
     const imageView = NSImageView.imageViewWithImage(image);
 
-    vstack.addViewInGravity(
-      imageView,
-      NSStackViewGravity.Center,
-    );
+    vstack.addViewInGravity(imageView, NSStackViewGravity.Center);
     vstack.addViewInGravity(label, NSStackViewGravity.Center);
 
     view.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      view.centerXAnchor,
+      view.centerXAnchor
     ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      view.centerYAnchor,
+      view.centerYAnchor
     ).isActive = true;
 
     this.view = view;
@@ -319,14 +321,14 @@ export class SplitViewController extends NSSplitViewController {
     };
 
     const sidebarItem = NSSplitViewItem.sidebarWithViewController(
-      this.sidebarView,
+      this.sidebarView
     );
     sidebarItem.minimumThickness = 200;
     sidebarItem.maximumThickness = 300;
     sidebarItem.canCollapse = true;
 
     const contentItem = NSSplitViewItem.contentListWithViewController(
-      this.contentView,
+      this.contentView
     );
 
     this.addSplitViewItem(sidebarItem);
@@ -364,7 +366,7 @@ export class SplitViewController extends NSSplitViewController {
   toolbarItemForItemIdentifierWillBeInsertedIntoToolbar(
     _toolbar,
     identifier,
-    _flag,
+    _flag
   ) {
     const item = NSToolbarItem.alloc().initWithItemIdentifier(identifier);
 

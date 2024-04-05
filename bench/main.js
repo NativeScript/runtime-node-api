@@ -1,4 +1,4 @@
-import "objc";
+import "@nativescript/macos-node-api";
 import { bench, run } from "mitata";
 
 const arr = NSMutableArray.arrayWithCapacity(100);

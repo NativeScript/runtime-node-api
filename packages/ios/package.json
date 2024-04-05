@@ -1,0 +1,31 @@
+{
+  "name": "@nativescript/ios-node-api",
+  "version": "1.0.0-alpha.4",
+  "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
+  "typings": "index.d.ts",
+  "type": "module",
+  "files": [
+    "build/ios-universal/NativeScript.xcframework",
+    "index.d.ts",
+    "lib",
+    "NativeScript.podspec",
+    "types"
+  ],
+  "scripts": {
+    "build": "deno task build ios",
+    "prepublishOnly": "rimraf build && npm run build"
+  },
+  "keywords": [
+    "iOS",
+    "NativeScript",
+    "UIKit"
+  ],
+  "contributors": [
+    { "name": "DjDeveloperr" },
+    { "name": "Jamie Birch" }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  }
+}

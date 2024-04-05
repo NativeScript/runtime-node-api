@@ -46,6 +46,6 @@
   },
 
   "imports": {
-    "objc": "./mod.ts"
+    "@nativescript/macos-node-api": "./packages/macos/mod.ts"
   }
 }

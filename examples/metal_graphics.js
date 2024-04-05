@@ -2,7 +2,7 @@
 
 // https://developer.apple.com/documentation/metal/using_a_render_pipeline_to_render_primitives?language=objc
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 objc.import("Metal");
 objc.import("MetalKit");
@@ -34,8 +34,11 @@ export class ApplicationDelegate extends NSObject {
 
     window.title = "NativeScript for macOS";
     window.delegate = this;
-    window.styleMask = NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
-      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable |
+    window.styleMask =
+      NSWindowStyleMask.Titled |
+      NSWindowStyleMask.Closable |
+      NSWindowStyleMask.Miniaturizable |
+      NSWindowStyleMask.Resizable |
       NSWindowStyleMask.FullSizeContentView;
 
     window.titlebarAppearsTransparent = true;
@@ -56,9 +59,8 @@ export class ApplicationDelegate extends NSObject {
 
 // deno-fmt-ignore
 const vertices = new Float32Array([
-  250,  -250,  0, 0,  1, 0, 0, 1,
- -250,  -250,  0, 0,  0, 1, 0, 1,
-    0,   250,  0, 0,  0, 0, 1, 1,
+  250, -250, 0, 0, 1, 0, 0, 1, -250, -250, 0, 0, 0, 1, 0, 1, 0, 250, 0, 0, 0, 0,
+  1, 1,
 ]);
 
 /**
@@ -161,7 +163,7 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]])
 
 `,
       null,
-      error,
+      error
     );
 
     if (!library) {
@@ -180,7 +182,7 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]])
 
     this.pipelineState = this.device.newRenderPipelineStateWithDescriptorError(
       descriptor,
-      error,
+      error
     );
 
     if (!this.pipelineState) {
@@ -217,9 +219,8 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]])
     const renderPassDescriptor = view.currentRenderPassDescriptor;
 
     if (renderPassDescriptor !== null) {
-      const renderEncoder = commandBuffer.renderCommandEncoderWithDescriptor(
-        renderPassDescriptor,
-      );
+      const renderEncoder =
+        commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor);
       renderEncoder.label = "MyRenderEncoder";
 
       renderEncoder.setViewport({
@@ -228,7 +229,7 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]])
         width: this.viewportSize[0],
         height: this.viewportSize[1],
         znear: 0,
-        zfar: 1.,
+        zfar: 1,
       });
 
       renderEncoder.setRenderPipelineState(this.pipelineState);
@@ -236,19 +237,19 @@ fragment float4 fragmentShader(RasterizerData in [[stage_in]])
       renderEncoder.setVertexBytesLengthAtIndex(
         vertices,
         vertices.byteLength,
-        0,
+        0
       );
 
       renderEncoder.setVertexBytesLengthAtIndex(
         this.viewportSize,
         this.viewportSize.byteLength,
-        1,
+        1
       );
 
       renderEncoder.drawPrimitivesVertexStartVertexCount(
         MTLPrimitiveType.Triangle,
         0,
-        3,
+        3
       );
 
       renderEncoder.endEncoding();
@@ -274,7 +275,7 @@ export class ViewController extends NSViewController {
         origin: { x: 0, y: 0 },
         size: { width: 480, height: 480 },
       },
-      MTLCreateSystemDefaultDevice(),
+      MTLCreateSystemDefaultDevice()
     );
 
     this.view = NSView.alloc().initWithFrame(this.mtkView.frame);

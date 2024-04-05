@@ -1,0 +1,25 @@
+{
+  "tasks": {
+    "build": "deno run -A ../scripts/build.ts"
+  },
+
+  "fmt": {
+    "exclude": [
+      "build",
+      "node_modules",
+      "types"
+    ]
+  },
+
+  "lint": {
+    "exclude": [
+      "build",
+      "node_modules",
+      "types"
+    ]
+  },
+
+  "imports": {
+    "@nativescript/macos-node-api": "./mod.ts"
+  }
+}

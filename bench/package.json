@@ -9,9 +9,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "mitata": "^0.1.6",
-    "objc": "file:.."
+    "mitata": "^0.1.6"
   }
 }

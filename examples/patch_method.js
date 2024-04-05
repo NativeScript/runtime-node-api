@@ -1,4 +1,4 @@
-import "objc";
+import "@nativescript/macos-node-api";
 
 class AppDelegate extends NSObject {
   static ObjCProtocols = [NSApplicationDelegate];

@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.15)
 set(BRIDGE_TARGET_PLATFORM "macos" CACHE STRING "Target platform for the Objective-C bridge")
 set(METADATA_SIZE 0 CACHE STRING "Size of embedded metadata in bytes")
 
-project(ObjCBridge)
+project(NativeScript)
 
-set(NAME ObjCBridge)
+set(NAME NativeScript)
 set(VERSION 0.1.0)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fobjective-c")
@@ -117,7 +117,7 @@ set_target_properties(${NAME} PROPERTIES
   FRAMEWORK_VERSION ${VERSION}
   MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${VERSION}
   MACOSX_FRAMEWORK_BUNDLE_VERSION ${VERSION}
-  MACOSX_FRAMEWORK_IDENTIFIER com.nativescript.ObjCBridge-${BRIDGE_TARGET_PLATFORM}
+  MACOSX_FRAMEWORK_IDENTIFIER org.nativescript.nativescript-${BRIDGE_TARGET_PLATFORM}
 )
 
 if (BUILD_FRAMEWORK)

@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 class MyClass extends NSObject {
   static {

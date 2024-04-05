@@ -1,4 +1,4 @@
-import "objc";
+import "@nativescript/macos-node-api";
 
 console.log(NSObject.new());
 console.log(NSDate.date());

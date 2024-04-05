@@ -1,23 +1,24 @@
 {
-  "name": "objc",
+  "name": "@nativescript/runtimes",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
   "type": "module",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "node examples/foundation.js"
+    "test": "node examples/foundation.js",
+    "metagen": "deno task metagen ios && deno task metagen macos",
+    "build": "deno task build ios-universal && deno task build macos"
   },
-  "keywords": [],
-  "author": "",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "mitata": "^0.1.6"
-  },
+  "author": "DjDeveloperr <hey@djdev.me>",
+  "license": "MIT",
   "devDependencies": {
     "@swc/cli": "^0.1.62",
     "@swc/core": "^1.3.95"
-  }
+  },
+  "workspaces": [
+    "packages/*",
+    "bench",
+    "examples",
+    "core-test"
+  ]
 }

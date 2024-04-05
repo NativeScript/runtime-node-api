@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 export class ApplicationDelegate extends NSObject {
   static ObjCProtocols = [NSApplicationDelegate, NSWindowDelegate];
@@ -29,8 +29,11 @@ export class ApplicationDelegate extends NSObject {
 
     window.title = "NativeScript for macOS";
     window.delegate = this;
-    window.styleMask = NSWindowStyleMask.Titled | NSWindowStyleMask.Closable |
-      NSWindowStyleMask.Miniaturizable | NSWindowStyleMask.Resizable |
+    window.styleMask =
+      NSWindowStyleMask.Titled |
+      NSWindowStyleMask.Closable |
+      NSWindowStyleMask.Miniaturizable |
+      NSWindowStyleMask.Resizable |
       NSWindowStyleMask.FullSizeContentView;
 
     window.titlebarAppearsTransparent = true;
@@ -40,7 +43,7 @@ export class ApplicationDelegate extends NSObject {
       118 / 255,
       171 / 255,
       235 / 255,
-      1,
+      1
     );
 
     window.makeKeyAndOrderFront(this);
@@ -86,9 +89,10 @@ export class ViewController extends NSViewController {
       size: { width: 500, height: 500 },
     };
 
-    const label = NSTextField.alloc().initWithFrame(
-      { origin: { x: 0, y: 0 }, size: { width: 390, height: 100 } },
-    );
+    const label = NSTextField.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 390, height: 100 },
+    });
 
     label.stringValue = "Hello, macOS";
 
@@ -101,14 +105,15 @@ export class ViewController extends NSViewController {
     label.textColor = NSColor.colorWithSRGBRedGreenBlueAlpha(1, 1, 1, 1);
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      NSFontTraitMask.Bold,
+      NSFontTraitMask.Bold
     );
 
     label.sizeToFit();
 
-    const vstack = NSStackView.alloc().initWithFrame(
-      { origin: { x: 0, y: 0 }, size: { width: 500, height: 500 } },
-    );
+    const vstack = NSStackView.alloc().initWithFrame({
+      origin: { x: 0, y: 0 },
+      size: { width: 500, height: 500 },
+    });
 
     vstack.orientation = NSUserInterfaceLayoutOrientation.Vertical;
     vstack.alignment = NSLayoutAttribute.CenterX;
@@ -117,7 +122,7 @@ export class ViewController extends NSViewController {
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname,
+      new URL("../assets/NativeScript.png", import.meta.url).pathname
     );
 
     image.size = { width: 128, height: 128 };
@@ -127,7 +132,7 @@ export class ViewController extends NSViewController {
     const button = NSButton.buttonWithTitleTargetAction(
       "Try me!",
       this,
-      "buttonClicked",
+      "buttonClicked"
     );
     button.controlSize = NSControlSize.Large;
     button.bezelStyle = NSBezelStyle.Rounded;
@@ -143,10 +148,10 @@ export class ViewController extends NSViewController {
     this.view.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      this.view.centerXAnchor,
+      this.view.centerXAnchor
     ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      this.view.centerYAnchor,
+      this.view.centerYAnchor
     ).isActive = true;
   }
 
@@ -158,7 +163,7 @@ export class ViewController extends NSViewController {
       const alert = NSAlert.new();
       alert.icon = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
         "cursorarrow.click",
-        null,
+        null
       );
       alert.messageText = "Clicked for the first time!";
       alert.runModal();

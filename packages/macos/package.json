@@ -1,0 +1,32 @@
+{
+  "name": "@nativescript/macos-node-api",
+  "version": "1.0.0-alpha.4",
+  "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "type": "module",
+  "files": [
+    "build/macos/NativeScript.node",
+    "index.d.ts",
+    "lib",
+    "types"
+  ],
+  "scripts": {
+    "test": "node ../../examples/foundation.js",
+    "build": "deno task build macos",
+    "prepublishOnly": "rimraf build && npm run build"
+  },
+  "keywords": [
+    "AppKit",
+    "macOS",
+    "NativeScript"
+  ],
+  "contributors": [
+    { "name": "DjDeveloperr" },
+    { "name": "Jamie Birch" }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  }
+}

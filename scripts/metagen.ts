@@ -93,10 +93,10 @@ if (!sdk) {
   throw new Error(`Invalid platform: ${sdkName}`);
 }
 
-await Deno.remove(new URL(`../types/${sdkName}`, import.meta.url), {
+await Deno.remove(new URL(`../packages/${sdkName}/types`, import.meta.url), {
   recursive: true,
 }).catch(() => {});
-await Deno.mkdir(new URL(`../types/${sdkName}`, import.meta.url), {
+await Deno.mkdir(new URL(`../packages/${sdkName}/types`, import.meta.url), {
   recursive: true,
 }).catch(() => {});
 
@@ -107,10 +107,7 @@ const args = [
     new URL(`../metadata/metadata.${sdkName}.nsmd`, import.meta.url)
       .pathname
   }`,
-  `types=${
-    new URL(`../types/${sdkName}`, import.meta.url)
-      .pathname
-  }`,
+  `types=${new URL(`../packages/${sdkName}/types`, import.meta.url).pathname}`,
   `sdk=${sdk.path}`,
 ];
 

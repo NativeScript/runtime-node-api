@@ -1,6 +1,6 @@
 // @ts-check
 
-import "objc";
+import "@nativescript/macos-node-api";
 
 const url = NSURL.URLWithString("https://www.google.com/");
 const session = NSURLSession.sharedSession;
@@ -10,7 +10,7 @@ const task = session.dataTaskWithURLCompletionHandler(
   (_data, response, _error) => {
     console.log("status code:", response);
     stopped = true;
-  },
+  }
 );
 task.resume();
 
