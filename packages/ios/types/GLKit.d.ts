@@ -1,4 +1,4 @@
-/// <reference path="../../lib/types.d.ts" />
+/// <reference types="@nativescript/objc-node-api" />
 
 type _GLKMatrix2Descriptor = 
   | { m2: unknown /* const array */ }

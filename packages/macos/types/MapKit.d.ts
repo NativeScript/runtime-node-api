@@ -1,4 +1,4 @@
-/// <reference path="../../lib/types.d.ts" />
+/// <reference types="@nativescript/objc-node-api" />
 /// <reference path="./Foundation.d.ts" />
 /// <reference path="./CoreLocation.d.ts" />
 /// <reference path="./Runtime.d.ts" />

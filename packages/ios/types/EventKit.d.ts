@@ -1,4 +1,4 @@
-/// <reference path="../../lib/types.d.ts" />
+/// <reference types="@nativescript/objc-node-api" />
 /// <reference path="./Runtime.d.ts" />
 
 declare const EKErrorDomain: string;

@@ -19,7 +19,7 @@ void TSLines::exit() { indentLevel--; }
 
 std::string TSFile::toString() {
   std::string result;
-  result += "/// <reference path=\"../../lib/types.d.ts\" />\n";
+  result += "/// <reference types=\"@nativescript/objc-node-api\" />\n";
   for (auto &import : imports) {
     std::string line = "/// <reference path=\"";
     line += import;

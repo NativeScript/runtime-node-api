@@ -7,7 +7,6 @@
   "files": [
     "build/ios-universal/NativeScript.xcframework",
     "index.d.ts",
-    "lib",
     "NativeScript.podspec",
     "types"
   ],
@@ -25,6 +24,9 @@
     { "name": "Jamie Birch" }
   ],
   "license": "MIT",
+  "dependencies": {
+    "@nativescript/objc-node-api": ">=1.0.0-alpha.4"
+  },
   "devDependencies": {
     "rimraf": "^5.0.5"
   }

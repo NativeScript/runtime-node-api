@@ -1,4 +1,4 @@
-/// <reference path="../../lib/types.d.ts" />
+/// <reference types="@nativescript/objc-node-api" />
 
 declare const kCGColorSpaceDisplayP3_HLG: interop.Pointer;
 
