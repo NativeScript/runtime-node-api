@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/ios-node-api",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "description": "An embeddable, engine-agnostic NativeScript runtime for iOS based on Node-API",
   "repository": {
     "type": "git",
