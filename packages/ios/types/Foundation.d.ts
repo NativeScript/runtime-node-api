@@ -7093,10 +7093,6 @@ declare class NSData extends NSObject implements NSCopying, NSMutableCopying, NS
 
   base64Encoding(): string;
 
-  static dataWithContentsOfFileCompletion(path: string, callback: (p1: NSData) => void): void;
-
-  writeToFileAtomicallyCompletion(path: string, atomically: boolean, callback: () => void): void;
-
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
@@ -9791,10 +9787,6 @@ declare class NSFileHandle extends NSObject implements NSSecureCoding {
 
   closeFile(): void;
 
-  appendDataCompletion(data: NSData, callback: (p1: NSError) => void): void;
-
-  static fileHandleWithDataCompletion(path: string, data: NSData, callback: (p1: NSFileHandle, p2: NSError) => void): void;
-
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
@@ -11519,10 +11511,6 @@ declare class NSString extends NSObject implements NSCopying, NSMutableCopying, 
   static deferredLocalizedIntentsStringWithFormatFromTableArguments(format: string, table: string | null, arguments$: string): string;
 
   static localizedUserNotificationStringForKeyArguments(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object> | null): string;
-
-  static stringWithContentsOfFileEncodingCompletion(path: string, enc: number, callback: (p1: string, p2: NSError) => void): void;
-
-  writeToFileAtomicallyEncodingCompletion(path: string, atomically: boolean, enc: number, callback: (p1: NSError) => void): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 

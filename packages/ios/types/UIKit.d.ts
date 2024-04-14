@@ -7844,16 +7844,6 @@ declare class UIView extends UIResponder implements NSCoding, UIAppearance, UIAp
 
   drawRectForViewPrintFormatter(rect: CGRect, formatter: UIViewPrintFormatter): void;
 
-  passThroughParent(): boolean;
-
-  setPassThroughParent(passThroughParent: boolean): void;
-
-  nativeScriptSetTextDecorationAndTransformTextDecorationLetterSpacingLineHeight(text: string, textDecoration: string, letterSpacing: number, lineHeight: number): void;
-
-  nativeScriptSetFormattedTextDecorationAndTransformLetterSpacingLineHeight(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, letterSpacing: number, lineHeight: number): void;
-
-  nativeScriptSetFormattedTextStrokeColor(width: number, color: UIColor): void;
-
   encodeWithCoder(coder: NSCoder): void;
 
   static appearance<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
@@ -19525,14 +19515,6 @@ declare class UIImage extends NSObject implements NSSecureCoding {
   readonly leftCapWidth: number;
 
   readonly topCapHeight: number;
-
-  static tns_safeDecodeImageNamedCompletion(name: string, callback: (p1: UIImage) => void): void;
-
-  static tns_safeImageNamed(name: string): UIImage;
-
-  static tns_decodeImageWithDataCompletion(data: NSData, callback: (p1: UIImage) => void): void;
-
-  static tns_decodeImageWidthContentsOfFileCompletion(file: string, callback: (p1: UIImage) => void): void;
 
   static readonly supportsSecureCoding: boolean;
 

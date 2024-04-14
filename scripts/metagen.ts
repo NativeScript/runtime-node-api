@@ -115,25 +115,29 @@ for (const framework of sdk.frameworks) {
   args.push(`framework=${framework}`);
 }
 
-const customFrameworks = [
-  "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",
-];
+// TODO: commit these files to the repo
+const withNativeScriptCore = false;
+if(withNativeScriptCore){
+  const customFrameworks = [
+    "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",
+  ];
+  
+  for (const framework of customFrameworks) {
+    args.push(`include=${framework}`);
+    args.push(`headers=${framework}/Headers`);
+    args.push(`import="TNSWidgets.h"`);
+  }
 
-for (const framework of customFrameworks) {
-  args.push(`include=${framework}`);
-  args.push(`headers=${framework}/Headers`);
-  args.push(`import="TNSWidgets.h"`);
+  args.push(
+    "include=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
+  );
+  args.push(
+    "headers=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
+  );
+  args.push('import="NativeScriptEmbedder.h"');
+  args.push('import="NativeScriptUtils.h"');
+  args.push('import="UIView+NativeScript.h"');
 }
-
-args.push(
-  "include=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
-);
-args.push(
-  "headers=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src",
-);
-args.push('import="NativeScriptEmbedder.h"');
-args.push('import="NativeScriptUtils.h"');
-args.push('import="UIView+NativeScript.h"');
 
 console.log(`%c$ MetadataGenerator ${args.join(" ")}`, "color: grey");
 
