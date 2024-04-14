@@ -2,6 +2,11 @@
   "name": "@nativescript/macos-node-api",
   "version": "1.0.0-alpha.4",
   "description": "An embeddable, engine-agnostic NativeScript runtime for macOS based on Node-API",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DjDeveloperr/runtime.git",
+    "directory": "packages/macos"
+  },
   "main": "index.js",
   "typings": "index.d.ts",
   "type": "module",
