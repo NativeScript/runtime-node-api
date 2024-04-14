@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "build": "deno run -A ../scripts/build.ts"
+    "build": "deno run -A ../../scripts/build.ts"
   },
 
   "fmt": {
