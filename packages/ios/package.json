@@ -11,7 +11,7 @@
     "types"
   ],
   "scripts": {
-    "build": "deno task build ios",
+    "build": "deno task build",
     "prepublishOnly": "rimraf build && npm run build"
   },
   "keywords": [
