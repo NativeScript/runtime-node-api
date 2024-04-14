@@ -1,7 +1,7 @@
 {
   "name": "@nativescript/ios-node-api",
   "version": "1.0.0-alpha.4",
-  "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
+  "description": "An embeddable, engine-agnostic NativeScript runtime for iOS based on Node-API",
   "typings": "index.d.ts",
   "type": "module",
   "files": [

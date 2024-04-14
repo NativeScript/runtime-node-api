@@ -1,7 +1,7 @@
 {
   "name": "@nativescript/objc-node-api",
   "version": "1.0.0-alpha.4",
-  "description": "An embeddable, engine-agnostic NativeScript runtime based on Node-API",
+  "description": "Typings for the common Objective-C runtime APIs used by both @nativescript/ios-node-api and @nativescript/macos-node-api",
   "main": "index.js",
   "typings": "index.d.ts",
   "type": "module",
