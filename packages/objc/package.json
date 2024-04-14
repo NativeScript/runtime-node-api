@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/objc-node-api",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Typings for the common Objective-C runtime APIs used by both @nativescript/ios-node-api and @nativescript/macos-node-api",
   "repository": {
     "type": "git",
