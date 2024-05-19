@@ -116,7 +116,7 @@ for (const framework of sdk.frameworks) {
 }
 
 // TODO: commit these files to the repo
-const withNativeScriptCore = false;
+const withNativeScriptCore = true;
 if(withNativeScriptCore){
   const customFrameworks = [
     "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",

@@ -878,8 +878,6 @@ public:
     ObjectOwnership ownership;
     if ((flags & kReturnOwned) != 0) {
       ownership = kOwnedObject;
-    } else if ((flags & kBlockParam) != 0) {
-      ownership = kBorrowedObject;
     } else {
       ownership = kUnownedObject;
     }
@@ -891,6 +889,7 @@ public:
       napi_get_null(env, &null);
       return null;
     }
+
     return object;
   }
 
@@ -1097,8 +1096,6 @@ public:
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
     Class cls = *((Class *)value);
-
-    NSLog(@"class toJS: %@", cls);
 
     if (cls == nullptr) {
       return nullptr;

@@ -65,12 +65,6 @@ void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
   bridgeState->unregisterObject(object);
 }
 
-void finalize_objc_object_borrowed(napi_env, void *data, void *hint) {
-  id object = static_cast<id>(data);
-  ObjCBridgeState *bridgeState = static_cast<ObjCBridgeState *>(hint);
-  bridgeState->objectRefs.erase(object);
-}
-
 napi_value ObjCBridgeState::getObject(napi_env env, id obj,
                                       napi_value constructor,
                                       ObjectOwnership ownership) {
@@ -128,11 +122,8 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
     napi_wrap(env, result, obj, nullptr, nullptr, nullptr);
 
     napi_ref ref = nullptr;
-    NAPI_GUARD(napi_add_finalizer(env, result, obj,
-                                  ownership == kBorrowedObject
-                                      ? finalize_objc_object_borrowed
-                                      : finalize_objc_object,
-                                  this, &ref)) {
+    NAPI_GUARD(napi_add_finalizer(env, result, obj, finalize_objc_object, this,
+                                  &ref)) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
     }
@@ -142,6 +133,24 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
     if (ownership == kUnownedObject) {
       [obj retain];
     }
+// #if DEBUG
+    // napi_value global, Error, error, stack;
+    // napi_get_global(env, &global);
+    // napi_get_named_property(env, global, "Error", &Error);
+    // napi_new_instance(env, Error, 0, nullptr, &error);
+    // napi_get_named_property(env, error, "stack", &stack);
+
+    // size_t stackSize;
+    // napi_get_value_string_utf8(env, stack, nullptr, 0, &stackSize);
+    // char *stackStr = new char[stackSize + 1];
+    // napi_get_value_string_utf8(env, stack, stackStr, stackSize + 1, nullptr);
+
+    // NSString *str = [NSString stringWithFormat:@"Wrapped object <%s: %p> @ %ld # %s",
+    //       class_getName(cls), obj, [obj retainCount], stackStr];
+    // dbglog([str UTF8String]);
+
+    // delete[] stackStr;
+// #endif
   }
 
   return result;
@@ -297,6 +306,14 @@ ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
 }
 
 void ObjCBridgeState::unregisterObject(id object) noexcept {
+// #if DEBUG
+  // NSString *string = [NSString stringWithFormat: @"Unregistering object <%s: %p> @ %ld # success: %d, finalized: %d",
+  //     class_getName(object_getClass(object)), object, [object retainCount],
+  //     (int)objectRefs.contains(object), (int)finalized];
+  
+  // dbglog([string UTF8String]);
+// #endif
+
   if (objectRefs.contains(object)) {
     objectRefs.erase(object);
     [object release];

@@ -36,10 +36,6 @@ typedef enum ObjectOwnership {
   // we will call retain and release when the JS object is
   // garbage collected.
   kUnownedObject,
-  // The object is not owned by JS land, but we will not call
-  // retain/release at all. This is useful for objects that
-  // passed to JS land as callback parameters.
-  kBorrowedObject,
 } ObjectOwnership;
 
 class ObjCBridgeState {
