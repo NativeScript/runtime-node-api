@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/macos-node-api",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.7",
   "description": "An embeddable, engine-agnostic NativeScript runtime for macOS based on Node-API",
   "repository": {
     "type": "git",
