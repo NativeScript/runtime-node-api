@@ -2210,13 +2210,6 @@ declare class SFNTLookupSegmentHeader {
   segments: unknown /* const array */;
 }
 
-declare class STXEntryOne {
-  constructor(init?: STXEntryOne);
-  newState: number;
-  flags: number;
-  index1: number;
-}
-
 declare class JustPCConditionalAddAction {
   constructor(init?: JustPCConditionalAddAction);
   substThreshold: number;
@@ -2737,6 +2730,13 @@ declare class LcarCaretClassEntry {
   constructor(init?: LcarCaretClassEntry);
   count: number;
   partials: unknown /* const array */;
+}
+
+declare class STXEntryOne {
+  constructor(init?: STXEntryOne);
+  newState: number;
+  flags: number;
+  index1: number;
 }
 
 declare class KernOffsetTable {

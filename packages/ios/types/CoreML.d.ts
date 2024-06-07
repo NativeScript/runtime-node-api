@@ -414,26 +414,6 @@ declare class MLImageSize extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class MLSequence extends NSObject implements NSSecureCoding {
-  readonly type: interop.Enum<typeof MLFeatureType>;
-
-  static emptySequenceWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLFeatureType>): InstanceType<This>;
-
-  static sequenceWithStringArray<This extends abstract new (...args: any) => any>(this: This, stringValues: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  readonly stringValues: NSArray;
-
-  static sequenceWithInt64Array<This extends abstract new (...args: any) => any>(this: This, int64Values: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  readonly int64Values: NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class MLMultiArray extends NSObject implements NSSecureCoding {
   readonly dataPointer: interop.Pointer;
 
@@ -672,6 +652,26 @@ declare class MLParameterDescription extends NSObject implements NSSecureCoding 
   readonly defaultValue: interop.Object;
 
   readonly numericConstraint: MLNumericConstraint;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLSequence extends NSObject implements NSSecureCoding {
+  readonly type: interop.Enum<typeof MLFeatureType>;
+
+  static emptySequenceWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLFeatureType>): InstanceType<This>;
+
+  static sequenceWithStringArray<This extends abstract new (...args: any) => any>(this: This, stringValues: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  readonly stringValues: NSArray;
+
+  static sequenceWithInt64Array<This extends abstract new (...args: any) => any>(this: This, int64Values: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  readonly int64Values: NSArray;
 
   static readonly supportsSecureCoding: boolean;
 

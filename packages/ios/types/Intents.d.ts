@@ -5553,6 +5553,15 @@ declare class INStartAudioCallIntentResponse extends INIntentResponse {
   readonly code: interop.Enum<typeof INStartAudioCallIntentResponseCode>;
 }
 
+declare class INPlayMediaIntentResponse extends INIntentResponse {
+  initWithCodeUserActivity(code: interop.Enum<typeof INPlayMediaIntentResponseCode>, userActivity: NSUserActivity | null): this;
+
+  readonly code: interop.Enum<typeof INPlayMediaIntentResponseCode>;
+
+  get nowPlayingInfo(): NSDictionary;
+  set nowPlayingInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+}
+
 declare class INEditMessageIntentResponse extends INIntentResponse {
   initWithCodeUserActivity(code: interop.Enum<typeof INEditMessageIntentResponseCode>, userActivity: NSUserActivity | null): this;
 
@@ -5737,15 +5746,6 @@ declare class INFlight extends NSObject implements NSCopying, NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class INPlayMediaIntentResponse extends INIntentResponse {
-  initWithCodeUserActivity(code: interop.Enum<typeof INPlayMediaIntentResponseCode>, userActivity: NSUserActivity | null): this;
-
-  readonly code: interop.Enum<typeof INPlayMediaIntentResponseCode>;
-
-  get nowPlayingInfo(): NSDictionary;
-  set nowPlayingInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 }
 
 declare class INMediaDestination extends NSObject implements NSCopying, NSSecureCoding {

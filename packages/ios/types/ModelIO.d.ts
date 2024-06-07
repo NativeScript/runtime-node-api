@@ -1744,14 +1744,17 @@ declare class MDLSubmesh extends NSObject implements MDLNamed {
   name: string;
 }
 
-declare class MDLBundleAssetResolver extends NSObject implements MDLAssetResolver {
-  initWithBundle(path: string): this;
+declare class MDLAnimationBindComponent extends NSObject implements NSCopying, MDLComponent {
+  skeleton: MDLSkeleton;
 
-  path: string;
+  jointAnimation: MDLJointAnimation;
 
-  canResolveAssetNamed(name: string): boolean;
+  get jointPaths(): NSArray;
+  set jointPaths(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  resolveAssetNamed(name: string): NSURL;
+  geometryBindTransform: simd_double4x4;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   isEqual(object: interop.Object): boolean;
 
@@ -1794,17 +1797,14 @@ declare class MDLBundleAssetResolver extends NSObject implements MDLAssetResolve
   readonly debugDescription: string;
 }
 
-declare class MDLAnimationBindComponent extends NSObject implements NSCopying, MDLComponent {
-  skeleton: MDLSkeleton;
+declare class MDLBundleAssetResolver extends NSObject implements MDLAssetResolver {
+  initWithBundle(path: string): this;
 
-  jointAnimation: MDLJointAnimation;
+  path: string;
 
-  get jointPaths(): NSArray;
-  set jointPaths(value: NSArray<interop.Object> | Array<interop.Object>);
+  canResolveAssetNamed(name: string): boolean;
 
-  geometryBindTransform: simd_double4x4;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  resolveAssetNamed(name: string): NSURL;
 
   isEqual(object: interop.Object): boolean;
 

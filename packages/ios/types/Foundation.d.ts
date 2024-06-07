@@ -3575,8 +3575,6 @@ declare class NSItemProvider extends NSObject implements NSCopying {
 
   loadPreviewImageWithOptionsCompletionHandler(options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSSecureCoding, p2: NSError) => void): void;
 
-  _availableTypes(): NSArray;
-
   teamData: NSData;
 
   preferredPresentationSize: CGSize;
@@ -4914,6 +4912,22 @@ declare class NSMorphologyPronoun extends NSObject implements NSCopying, NSSecur
   readonly morphology: NSMorphology;
 
   readonly dependentMorphology: NSMorphology;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class NSInflectionRule extends NSObject implements NSCopying, NSSecureCoding {
+  static readonly automaticRule: NSInflectionRule;
+
+  static canInflectLanguage(language: string): boolean;
+
+  static readonly canInflectPreferredLocalization: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -7092,10 +7106,6 @@ declare class NSData extends NSObject implements NSCopying, NSMutableCopying, NS
   initWithBase64Encoding(base64String: string): this;
 
   base64Encoding(): string;
-
-  static dataWithContentsOfFileCompletion(path: string, callback: (p1: NSData) => void): void;
-
-  writeToFileAtomicallyCompletion(path: string, atomically: boolean, callback: () => void): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -9442,22 +9452,6 @@ declare class NSUserDefaults extends NSObject {
   objectIsForcedForKeyInDomain(key: string, domain: string): boolean;
 }
 
-declare class NSInflectionRule extends NSObject implements NSCopying, NSSecureCoding {
-  static readonly automaticRule: NSInflectionRule;
-
-  static canInflectLanguage(language: string): boolean;
-
-  static readonly canInflectPreferredLocalization: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class NSArray<ObjectType = interop.Object> extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration {
   readonly count: number;
 
@@ -9790,10 +9784,6 @@ declare class NSFileHandle extends NSObject implements NSSecureCoding {
   synchronizeFile(): void;
 
   closeFile(): void;
-
-  appendDataCompletion(data: NSData, callback: (p1: NSError) => void): void;
-
-  static fileHandleWithDataCompletion(path: string, data: NSData, callback: (p1: NSFileHandle, p2: NSError) => void): void;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -11519,10 +11509,6 @@ declare class NSString extends NSObject implements NSCopying, NSMutableCopying, 
   static deferredLocalizedIntentsStringWithFormatFromTableArguments(format: string, table: string | null, arguments$: string): string;
 
   static localizedUserNotificationStringForKeyArguments(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object> | null): string;
-
-  static stringWithContentsOfFileEncodingCompletion(path: string, enc: number, callback: (p1: string, p2: NSError) => void): void;
-
-  writeToFileAtomicallyEncodingCompletion(path: string, atomically: boolean, enc: number, callback: (p1: NSError) => void): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 

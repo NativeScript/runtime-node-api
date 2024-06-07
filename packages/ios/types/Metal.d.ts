@@ -1101,6 +1101,18 @@ declare class MTLSamplePosition {
   y: number;
 }
 
+declare class MTLMapIndirectArguments {
+  constructor(init?: MTLMapIndirectArguments);
+  regionOriginX: number;
+  regionOriginY: number;
+  regionOriginZ: number;
+  regionSizeWidth: number;
+  regionSizeHeight: number;
+  regionSizeDepth: number;
+  mipMapLevel: number;
+  sliceId: number;
+}
+
 declare class MTLViewport {
   constructor(init?: MTLViewport);
   originX: number;
@@ -1149,6 +1161,23 @@ declare class MTLAccelerationStructureUserIDInstanceDescriptor {
 declare class _MTLPackedFloat4x3 {
   constructor(init?: _MTLPackedFloat4x3);
   columns: unknown /* const array */;
+}
+
+declare class MTLCounterResultStageUtilization {
+  constructor(init?: MTLCounterResultStageUtilization);
+  totalCycles: number;
+  vertexCycles: number;
+  tessellationCycles: number;
+  postTessellationVertexCycles: number;
+  fragmentCycles: number;
+  renderTargetCycles: number;
+}
+
+declare class unnamed_3234498417042513807 {
+  constructor(init?: unnamed_3234498417042513807);
+  x: number;
+  y: number;
+  z: number;
 }
 
 declare class _MTLPackedFloat3 {
@@ -1211,18 +1240,6 @@ declare class MTLTriangleTessellationFactorsHalf {
   insideTessellationFactor: number;
 }
 
-declare class MTLMapIndirectArguments {
-  constructor(init?: MTLMapIndirectArguments);
-  regionOriginX: number;
-  regionOriginY: number;
-  regionOriginZ: number;
-  regionSizeWidth: number;
-  regionSizeHeight: number;
-  regionSizeDepth: number;
-  mipMapLevel: number;
-  sliceId: number;
-}
-
 declare class MTLAccelerationStructureSizes {
   constructor(init?: MTLAccelerationStructureSizes);
   accelerationStructureSize: number;
@@ -1240,16 +1257,6 @@ declare class MTLCounterResultStatistic {
   fragmentInvocations: number;
   fragmentsPassed: number;
   computeKernelInvocations: number;
-}
-
-declare class MTLCounterResultStageUtilization {
-  constructor(init?: MTLCounterResultStageUtilization);
-  totalCycles: number;
-  vertexCycles: number;
-  tessellationCycles: number;
-  postTessellationVertexCycles: number;
-  fragmentCycles: number;
-  renderTargetCycles: number;
 }
 
 declare class MTLCounterResultTimestamp {
@@ -1305,13 +1312,6 @@ declare class MTLRegion {
   size: MTLSize;
 }
 
-declare class unnamed_1285943975992584927 {
-  constructor(init?: unnamed_1285943975992584927);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MTLAccelerationStructureInstanceDescriptor {
   constructor(init?: MTLAccelerationStructureInstanceDescriptor);
   transformationMatrix: _MTLPackedFloat4x3;
@@ -1353,11 +1353,11 @@ declare class MTLIndirectAccelerationStructureMotionInstanceDescriptor {
   motionEndTime: number;
 }
 
-type unnamed_14619885126613439856Descriptor = 
+type unnamed_8614943662945002694Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_14619885126613439856 {
-  constructor(init?: unnamed_14619885126613439856Descriptor);
+declare class unnamed_8614943662945002694 {
+  constructor(init?: unnamed_8614943662945002694Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -3575,34 +3575,14 @@ declare class MTLSamplerDescriptor extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class MTLTileRenderPipelineDescriptor extends NSObject implements NSCopying {
-  label: string;
+declare class MTLTileRenderPipelineColorAttachmentDescriptorArray extends NSObject {
+  objectAtIndexedSubscript(attachmentIndex: number): MTLTileRenderPipelineColorAttachmentDescriptor;
 
-  tileFunction: MTLFunction;
+  setObjectAtIndexedSubscript(attachment: MTLTileRenderPipelineColorAttachmentDescriptor, attachmentIndex: number): void;
+}
 
-  rasterSampleCount: number;
-
-  readonly colorAttachments: MTLTileRenderPipelineColorAttachmentDescriptorArray;
-
-  threadgroupSizeMatchesTileSize: boolean;
-
-  readonly tileBuffers: MTLPipelineBufferDescriptorArray;
-
-  maxTotalThreadsPerThreadgroup: number;
-
-  get binaryArchives(): NSArray;
-  set binaryArchives(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  get preloadedLibraries(): NSArray;
-  set preloadedLibraries(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  linkedFunctions: MTLLinkedFunctions;
-
-  supportAddingBinaryFunctions: boolean;
-
-  maxCallStackDepth: number;
-
-  reset(): void;
+declare class MTLTileRenderPipelineColorAttachmentDescriptor extends NSObject implements NSCopying {
+  pixelFormat: interop.Enum<typeof MTLPixelFormat>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -4007,6 +3987,38 @@ declare class MTLPrimitiveAccelerationStructureDescriptor extends MTLAcceleratio
   static descriptor<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 }
 
+declare class MTLTileRenderPipelineDescriptor extends NSObject implements NSCopying {
+  label: string;
+
+  tileFunction: MTLFunction;
+
+  rasterSampleCount: number;
+
+  readonly colorAttachments: MTLTileRenderPipelineColorAttachmentDescriptorArray;
+
+  threadgroupSizeMatchesTileSize: boolean;
+
+  readonly tileBuffers: MTLPipelineBufferDescriptorArray;
+
+  maxTotalThreadsPerThreadgroup: number;
+
+  get binaryArchives(): NSArray;
+  set binaryArchives(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  get preloadedLibraries(): NSArray;
+  set preloadedLibraries(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  linkedFunctions: MTLLinkedFunctions;
+
+  supportAddingBinaryFunctions: boolean;
+
+  maxCallStackDepth: number;
+
+  reset(): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class MTLVisibleFunctionTableDescriptor extends NSObject implements NSCopying {
   static visibleFunctionTableDescriptor(): MTLVisibleFunctionTableDescriptor;
 
@@ -4079,12 +4091,6 @@ declare class MTLResourceStatePassSampleBufferAttachmentDescriptor extends NSObj
   endOfEncoderSampleIndex: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class MTLTileRenderPipelineColorAttachmentDescriptorArray extends NSObject {
-  objectAtIndexedSubscript(attachmentIndex: number): MTLTileRenderPipelineColorAttachmentDescriptor;
-
-  setObjectAtIndexedSubscript(attachment: MTLTileRenderPipelineColorAttachmentDescriptor, attachmentIndex: number): void;
 }
 
 declare class MTLAccelerationStructurePassSampleBufferAttachmentDescriptorArray extends NSObject {
@@ -4500,12 +4506,6 @@ declare class MTLAttribute extends NSObject {
   readonly isPatchData: boolean;
 
   readonly isPatchControlPointData: boolean;
-}
-
-declare class MTLTileRenderPipelineColorAttachmentDescriptor extends NSObject implements NSCopying {
-  pixelFormat: interop.Enum<typeof MTLPixelFormat>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class MTLRenderPassColorAttachmentDescriptor extends MTLRenderPassAttachmentDescriptor {

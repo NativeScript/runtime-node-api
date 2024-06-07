@@ -2214,6 +2214,15 @@ declare class JustTable {
   vertHeaderOffset: number;
 }
 
+declare class CTRunDelegateCallbacks {
+  constructor(init?: CTRunDelegateCallbacks);
+  version: number;
+  dealloc: (p1: interop.PointerConvertible) => void | null;
+  getAscent: (p1: interop.PointerConvertible) => number | null;
+  getDescent: (p1: interop.PointerConvertible) => number | null;
+  getWidth: (p1: interop.PointerConvertible) => number | null;
+}
+
 declare class KerxStateEntry {
   constructor(init?: KerxStateEntry);
   newState: number;
@@ -2489,14 +2498,6 @@ declare class KernVersion0Header {
   version: number;
   nTables: number;
   firstSubtable: unknown /* const array */;
-}
-
-declare class TrakTableData {
-  constructor(init?: TrakTableData);
-  nTracks: number;
-  nSizes: number;
-  sizeTableOffset: number;
-  trakTable: unknown /* const array */;
 }
 
 declare class TrakTableEntry {
@@ -2900,6 +2901,14 @@ declare class MortSwashSubtable {
   lookup: SFNTLookupTable;
 }
 
+declare class TrakTableData {
+  constructor(init?: TrakTableData);
+  nTracks: number;
+  nSizes: number;
+  sizeTableOffset: number;
+  trakTable: unknown /* const array */;
+}
+
 declare class __CTFramesetter {
   constructor(init?: __CTFramesetter);
 }
@@ -2961,15 +2970,6 @@ declare class BslnFormat3Part {
   stdGlyph: number;
   ctlPoints: unknown /* const array */;
   mappingData: SFNTLookupTable;
-}
-
-declare class CTRunDelegateCallbacks {
-  constructor(init?: CTRunDelegateCallbacks);
-  version: number;
-  dealloc: (p1: interop.PointerConvertible) => void | null;
-  getAscent: (p1: interop.PointerConvertible) => number | null;
-  getDescent: (p1: interop.PointerConvertible) => number | null;
-  getWidth: (p1: interop.PointerConvertible) => number | null;
 }
 
 declare class __CTRunDelegate {
@@ -3053,18 +3053,20 @@ declare class STXEntryTwo {
   index2: number;
 }
 
-type BslnFormatUnionDescriptor = 
-  | { fmt0Part: BslnFormat0Part }
-  | { fmt1Part: BslnFormat1Part }
-  | { fmt2Part: BslnFormat2Part }
-  | { fmt3Part: BslnFormat3Part };
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
 
-declare class BslnFormatUnion {
-  constructor(init?: BslnFormatUnionDescriptor);
-  fmt0Part: BslnFormat0Part;
-  fmt1Part: BslnFormat1Part;
-  fmt2Part: BslnFormat2Part;
-  fmt3Part: BslnFormat3Part;
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
 }
 
 type KerxFormatSpecificHeaderDescriptor = 
@@ -3129,20 +3131,18 @@ declare class MortSpecificSubtable {
   insertion: MortInsertionSubtable;
 }
 
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
+type BslnFormatUnionDescriptor = 
+  | { fmt0Part: BslnFormat0Part }
+  | { fmt1Part: BslnFormat1Part }
+  | { fmt2Part: BslnFormat2Part }
+  | { fmt3Part: BslnFormat3Part };
 
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
+declare class BslnFormatUnion {
+  constructor(init?: BslnFormatUnionDescriptor);
+  fmt0Part: BslnFormat0Part;
+  fmt1Part: BslnFormat1Part;
+  fmt2Part: BslnFormat2Part;
+  fmt3Part: BslnFormat3Part;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

@@ -1021,6 +1021,22 @@ declare class CKSyncEngineSendChangesContext extends NSObject {
   readonly options: CKSyncEngineSendChangesOptions;
 }
 
+declare class CKSubscription extends NSObject implements NSSecureCoding, NSCopying {
+  readonly subscriptionID: string;
+
+  readonly subscriptionType: interop.Enum<typeof CKSubscriptionType>;
+
+  notificationInfo: CKNotificationInfo;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class CKFetchRecordZoneChangesConfiguration extends NSObject implements NSSecureCoding, NSCopying {
   previousServerChangeToken: CKServerChangeToken;
 
@@ -1104,22 +1120,6 @@ declare class CKModifyRecordZonesOperation extends CKDatabaseOperation {
   perRecordZoneDeleteBlock: (p1: CKRecordZoneID, p2: NSError) => void | null;
 
   modifyRecordZonesCompletionBlock: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSArray<interop.Object> | Array<interop.Object>, p3: NSError) => void | null;
-}
-
-declare class CKSubscription extends NSObject implements NSSecureCoding, NSCopying {
-  readonly subscriptionID: string;
-
-  readonly subscriptionType: interop.Enum<typeof CKSubscriptionType>;
-
-  notificationInfo: CKNotificationInfo;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CKFetchWebAuthTokenOperation extends CKDatabaseOperation {

@@ -1330,6 +1330,13 @@ declare const UIDatePickerMode: {
   YearAndMonth: 4,
 };
 
+declare const UIPencilInteractionPhase: {
+  Began: 0,
+  Changed: 1,
+  Ended: 2,
+  Cancelled: 3,
+};
+
 declare const UIWebViewNavigationType: {
   LinkClicked: 0,
   FormSubmitted: 1,
@@ -3063,6 +3070,7 @@ declare const UITouchProperties: {
   Azimuth: 2,
   Altitude: 4,
   Location: 8,
+  Roll: 16,
 };
 
 declare const UITextStorageDirection: {
@@ -3243,12 +3251,6 @@ declare const UIGestureRecognizerState: {
   Recognized: 3,
 };
 
-declare const UIListContentTextAlignment: {
-  Natural: 0,
-  Center: 1,
-  Justified: 2,
-};
-
 declare const UISemanticContentAttribute: {
   Unspecified: 0,
   Playback: 1,
@@ -3353,6 +3355,12 @@ declare const UIBaselineAdjustment: {
   None: 2,
 };
 
+declare const UIListContentTextAlignment: {
+  Natural: 0,
+  Center: 1,
+  Justified: 2,
+};
+
 declare const UINSToolbarItemPresentationSize: {
   Unspecified: -1,
   Regular: 0,
@@ -3372,6 +3380,8 @@ declare const UIPencilPreferredAction: {
   SwitchPrevious: 2,
   ShowColorPalette: 3,
   ShowInkAttributes: 4,
+  ShowContextualPalette: 5,
+  RunSystemShortcut: 6,
 };
 
 declare const NSTextContentManagerEnumerationOptions: {
@@ -4305,6 +4315,10 @@ declare class UITextFormattingCoordinatorDelegate extends NativeObject implement
 
 declare interface UIPencilInteractionDelegate extends NSObjectProtocol {
   pencilInteractionDidTap?(interaction: UIPencilInteraction): void;
+
+  pencilInteractionDidReceiveTap?(interaction: UIPencilInteraction, tap: UIPencilInteractionTap): void;
+
+  pencilInteractionDidReceiveSqueeze?(interaction: UIPencilInteraction, squeeze: UIPencilInteractionSqueeze): void;
 }
 
 declare class UIPencilInteractionDelegate extends NativeObject implements UIPencilInteractionDelegate {
@@ -7266,6 +7280,14 @@ declare class UIDragPreview extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class UIPencilInteractionSqueeze extends NSObject {
+  readonly timestamp: number;
+
+  readonly phase: interop.Enum<typeof UIPencilInteractionPhase>;
+
+  readonly hoverPose: UIPencilHoverPose;
+}
+
 declare class UIToolTipConfiguration extends NSObject {
   readonly toolTip: string;
 
@@ -7843,16 +7865,6 @@ declare class UIView extends UIResponder implements NSCoding, UIAppearance, UIAp
   viewPrintFormatter(): UIViewPrintFormatter;
 
   drawRectForViewPrintFormatter(rect: CGRect, formatter: UIViewPrintFormatter): void;
-
-  passThroughParent(): boolean;
-
-  setPassThroughParent(passThroughParent: boolean): void;
-
-  nativeScriptSetTextDecorationAndTransformTextDecorationLetterSpacingLineHeight(text: string, textDecoration: string, letterSpacing: number, lineHeight: number): void;
-
-  nativeScriptSetFormattedTextDecorationAndTransformLetterSpacingLineHeight(details: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, letterSpacing: number, lineHeight: number): void;
-
-  nativeScriptSetFormattedTextStrokeColor(width: number, color: UIColor): void;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -9048,62 +9060,6 @@ declare class UIWindowSceneStandardPlacement extends UIWindowScenePlacement {
   static standardPlacement<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 }
 
-declare class UIBarButtonItemGroup extends NSObject implements NSCoding {
-  initWithBarButtonItemsRepresentativeItem(barButtonItems: NSArray<interop.Object> | Array<interop.Object>, representativeItem: UIBarButtonItem | null): this;
-
-  initWithCoder(coder: NSCoder): this;
-
-  static fixedGroupWithRepresentativeItemItems(representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
-
-  static movableGroupWithCustomizationIdentifierRepresentativeItemItems(customizationIdentifier: string, representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
-
-  static optionalGroupWithCustomizationIdentifierInDefaultCustomizationRepresentativeItemItems(customizationIdentifier: string, inDefaultCustomization: boolean, representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
-
-  get barButtonItems(): NSArray;
-  set barButtonItems(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  representativeItem: UIBarButtonItem;
-
-  readonly isDisplayingRepresentativeItem: boolean;
-
-  alwaysAvailable: boolean;
-
-  menuRepresentation: UIMenuElement;
-
-  isHidden: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class UICalendarSelectionMultiDate extends UICalendarSelection {
-  get selectedDates(): NSArray;
-  set selectedDates(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  setSelectedDatesAnimated(selectedDates: NSArray<interop.Object> | Array<interop.Object>, animated: boolean): void;
-
-  readonly delegate: UICalendarSelectionMultiDateDelegate;
-
-  initWithDelegate(delegate: UICalendarSelectionMultiDateDelegate | null): this;
-}
-
-declare class NSShadow extends NSObject implements NSCopying, NSSecureCoding {
-  init(): this;
-
-  initWithCoder(coder: NSCoder): this;
-
-  shadowOffset: CGSize;
-
-  shadowBlurRadius: number;
-
-  shadowColor: interop.Object;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-}
-
 declare class UITableViewDiffableDataSource<SectionIdentifierType = interop.Object, ItemIdentifierType = interop.Object> extends NSObject implements UITableViewDataSource {
   initWithTableViewCellProvider(tableView: UITableView, cellProvider: (p1: UITableView, p2: NSIndexPath, p3: interop.Object) => UITableViewCell): this;
 
@@ -10034,6 +9990,62 @@ declare class UIContentUnavailableTextProperties extends NSObject implements NSC
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class NSShadow extends NSObject implements NSCopying, NSSecureCoding {
+  init(): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  shadowOffset: CGSize;
+
+  shadowBlurRadius: number;
+
+  shadowColor: interop.Object;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+}
+
+declare class UIBarButtonItemGroup extends NSObject implements NSCoding {
+  initWithBarButtonItemsRepresentativeItem(barButtonItems: NSArray<interop.Object> | Array<interop.Object>, representativeItem: UIBarButtonItem | null): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  static fixedGroupWithRepresentativeItemItems(representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
+
+  static movableGroupWithCustomizationIdentifierRepresentativeItemItems(customizationIdentifier: string, representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
+
+  static optionalGroupWithCustomizationIdentifierInDefaultCustomizationRepresentativeItemItems(customizationIdentifier: string, inDefaultCustomization: boolean, representativeItem: UIBarButtonItem | null, items: NSArray<interop.Object> | Array<interop.Object>): UIBarButtonItemGroup;
+
+  get barButtonItems(): NSArray;
+  set barButtonItems(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  representativeItem: UIBarButtonItem;
+
+  readonly isDisplayingRepresentativeItem: boolean;
+
+  alwaysAvailable: boolean;
+
+  menuRepresentation: UIMenuElement;
+
+  isHidden: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+}
+
+declare class UICalendarSelectionMultiDate extends UICalendarSelection {
+  get selectedDates(): NSArray;
+  set selectedDates(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  setSelectedDatesAnimated(selectedDates: NSArray<interop.Object> | Array<interop.Object>, animated: boolean): void;
+
+  readonly delegate: UICalendarSelectionMultiDateDelegate;
+
+  initWithDelegate(delegate: UICalendarSelectionMultiDateDelegate | null): this;
+}
+
 declare class UIPointerRegionRequest extends NSObject {
   readonly location: CGPoint;
 
@@ -10848,6 +10860,12 @@ declare class UISceneWindowingBehaviors extends NSObject {
   isMiniaturizable: boolean;
 }
 
+declare class UIPencilInteractionTap extends NSObject {
+  readonly timestamp: number;
+
+  readonly hoverPose: UIPencilHoverPose;
+}
+
 declare class NSLayoutConstraint extends NSObject {
   static constraintsWithVisualFormatOptionsMetricsViews(format: string, opts: interop.Enum<typeof NSLayoutFormatOptions>, metrics: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, views: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSArray;
 
@@ -10952,6 +10970,8 @@ declare class UITextItemMenuConfiguration extends NSObject {
 
 declare class UINotificationFeedbackGenerator extends UIFeedbackGenerator {
   notificationOccurred(notificationType: interop.Enum<typeof UINotificationFeedbackType>): void;
+
+  notificationOccurredAtLocation(notificationType: interop.Enum<typeof UINotificationFeedbackType>, location: CGPoint): void;
 }
 
 declare class UISceneSessionActivationRequest extends NSObject implements NSCopying {
@@ -11075,15 +11095,23 @@ declare class UIScreen extends NSObject implements UITraitEnvironment {
 }
 
 declare class UIImpactFeedbackGenerator extends UIFeedbackGenerator {
-  initWithStyle(style: interop.Enum<typeof UIImpactFeedbackStyle>): this;
+  static feedbackGeneratorWithStyleForView<This extends abstract new (...args: any) => any>(this: This, style: interop.Enum<typeof UIImpactFeedbackStyle>, view: UIView): InstanceType<This>;
 
   impactOccurred(): void;
 
+  impactOccurredAtLocation(location: CGPoint): void;
+
   impactOccurredWithIntensity(intensity: number): void;
+
+  impactOccurredWithIntensityAtLocation(intensity: number, location: CGPoint): void;
+
+  initWithStyle(style: interop.Enum<typeof UIImpactFeedbackStyle>): this;
 }
 
 declare class UISelectionFeedbackGenerator extends UIFeedbackGenerator {
   selectionChanged(): void;
+
+  selectionChangedAtLocation(location: CGPoint): void;
 }
 
 declare class UIViewPropertyAnimator extends NSObject implements UIViewImplicitlyAnimating, NSCopying {
@@ -11935,6 +11963,12 @@ declare class UIPreviewTarget extends NSObject implements NSCopying {
   readonly transform: CGAffineTransform;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UICanvasFeedbackGenerator extends UIFeedbackGenerator {
+  alignmentOccurredAtLocation(location: CGPoint): void;
+
+  pathCompletedAtLocation(location: CGPoint): void;
 }
 
 declare class UIDragPreviewParameters extends UIPreviewParameters {
@@ -15643,6 +15677,20 @@ declare class NSDiffableDataSourceSectionSnapshot<ItemIdentifierType = interop.O
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class UIPencilHoverPose extends NSObject {
+  readonly location: CGPoint;
+
+  readonly zOffset: number;
+
+  readonly azimuthAngle: number;
+
+  readonly azimuthUnitVector: CGVector;
+
+  readonly altitudeAngle: number;
+
+  readonly rollAngle: number;
+}
+
 declare class UITableViewPlaceholder extends NSObject {
   initWithInsertionIndexPathReuseIdentifierRowHeight(insertionIndexPath: NSIndexPath, reuseIdentifier: string, rowHeight: number): this;
 
@@ -16828,6 +16876,8 @@ declare class UITouch extends NSObject {
   readonly estimatedProperties: interop.Enum<typeof UITouchProperties>;
 
   readonly estimatedPropertiesExpectingUpdates: interop.Enum<typeof UITouchProperties>;
+
+  readonly rollAngle: number;
 
   locationInNode(node: SKNode): CGPoint;
 
@@ -19526,14 +19576,6 @@ declare class UIImage extends NSObject implements NSSecureCoding {
 
   readonly topCapHeight: number;
 
-  static tns_safeDecodeImageNamedCompletion(name: string, callback: (p1: UIImage) => void): void;
-
-  static tns_safeImageNamed(name: string): UIImage;
-
-  static tns_decodeImageWithDataCompletion(data: NSData, callback: (p1: UIImage) => void): void;
-
-  static tns_decodeImageWidthContentsOfFileCompletion(file: string, callback: (p1: UIImage) => void): void;
-
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
@@ -20227,6 +20269,8 @@ declare class UIHoverGestureRecognizer extends UIGestureRecognizer {
   azimuthUnitVectorInView(view: UIView | null): CGVector;
 
   readonly altitudeAngle: number;
+
+  readonly rollAngle: number;
 }
 
 declare class UIMotionEffect extends NSObject implements NSCopying, NSCoding {
@@ -20456,7 +20500,13 @@ declare class UIHoverLiftEffect extends NSObject implements UIHoverEffect {
 declare class UIPencilInteraction extends NSObject implements UIInteraction {
   static readonly preferredTapAction: interop.Enum<typeof UIPencilPreferredAction>;
 
+  static readonly preferredSqueezeAction: interop.Enum<typeof UIPencilPreferredAction>;
+
   static readonly prefersPencilOnlyDrawing: boolean;
+
+  static readonly prefersHoverToolPreview: boolean;
+
+  initWithDelegate(delegate: UIPencilInteractionDelegate): this;
 
   delegate: UIPencilInteractionDelegate;
 
@@ -21887,6 +21937,10 @@ declare class UIPresentationController extends NSObject implements UIAppearanceC
 }
 
 declare class UIFeedbackGenerator extends NSObject {
+  static feedbackGeneratorForView<This extends abstract new (...args: any) => any>(this: This, view: UIView): InstanceType<This>;
+
+  init(): this;
+
   prepare(): void;
 }
 

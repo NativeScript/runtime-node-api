@@ -46,6 +46,7 @@ const COMMON_FRAMEWORKS = [
 const MACOS_FRAMEWORKS = [
   "AppKit",
   "CoreAudio",
+  "ScreenCaptureKit",
 ];
 
 const IOS_FRAMEWORKS = ["UIKit"];
@@ -116,7 +117,7 @@ for (const framework of sdk.frameworks) {
 }
 
 // TODO: commit these files to the repo
-const withNativeScriptCore = true;
+const withNativeScriptCore = false;
 if(withNativeScriptCore){
   const customFrameworks = [
     "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",

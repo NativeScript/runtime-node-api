@@ -1168,6 +1168,13 @@ declare class _MTLAxisAlignedBoundingBox {
   max: _MTLPackedFloat3;
 }
 
+declare class unnamed_8280839391100637043 {
+  constructor(init?: unnamed_8280839391100637043);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class MTLQuadTessellationFactorsHalf {
   constructor(init?: MTLQuadTessellationFactorsHalf);
   edgeTessellationFactor: unknown /* const array */;
@@ -1263,13 +1270,6 @@ declare class MTLTriangleTessellationFactorsHalf {
   insideTessellationFactor: number;
 }
 
-declare class unnamed_9350239189274986632 {
-  constructor(init?: unnamed_9350239189274986632);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MTLDrawIndexedPrimitivesIndirectArguments {
   constructor(init?: MTLDrawIndexedPrimitivesIndirectArguments);
   indexCount: number;
@@ -1363,11 +1363,11 @@ declare class MTLDispatchThreadgroupsIndirectArguments {
   threadgroupsPerGrid: unknown /* const array */;
 }
 
-type unnamed_1520499346944027093Descriptor = 
+type unnamed_2049487544868114096Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_1520499346944027093 {
-  constructor(init?: unnamed_1520499346944027093Descriptor);
+declare class unnamed_2049487544868114096 {
+  constructor(init?: unnamed_2049487544868114096Descriptor);
   elements: unknown /* const array */;
 }
 

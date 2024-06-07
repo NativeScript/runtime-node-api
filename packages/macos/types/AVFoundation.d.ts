@@ -3457,6 +3457,8 @@ declare class AVPlayerItemErrorLogEvent extends NSObject implements NSCopying {
 
   readonly errorComment: string;
 
+  readonly allHTTPResponseHeaderFields: NSDictionary;
+
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

@@ -4372,6 +4372,116 @@ declare class AVMovie extends AVAsset implements NSCopying, NSMutableCopying {
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class AVMutableMovieTrack extends AVMovieTrack {
+  // @ts-ignore MemberDecl.tsIgnore
+  mediaDataStorage: AVMediaDataStorage;
+
+  sampleReferenceBaseURL: NSURL;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  isEnabled: boolean;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  alternateGroupID: number;
+
+  isModified: boolean;
+
+  readonly hasProtectedContent: boolean;
+
+  timescale: number;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  languageCode: string;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  extendedLanguageTag: string;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  naturalSize: CGSize;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  preferredTransform: CGAffineTransform;
+
+  layer: number;
+
+  cleanApertureDimensions: CGSize;
+
+  productionApertureDimensions: CGSize;
+
+  encodedPixelsDimensions: CGSize;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  preferredVolume: number;
+
+  preferredMediaChunkSize: number;
+
+  preferredMediaChunkDuration: CMTime;
+
+  preferredMediaChunkAlignment: number;
+
+  insertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange: CMTimeRange, track: AVAssetTrack, startTime: CMTime, copySampleData: boolean, outError: interop.PointerConvertible): boolean;
+
+  insertEmptyTimeRange(timeRange: CMTimeRange): void;
+
+  removeTimeRange(timeRange: CMTimeRange): void;
+
+  scaleTimeRangeToDuration(timeRange: CMTimeRange, duration: CMTime): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  get metadata(): NSArray;
+  // @ts-ignore MemberDecl.tsIgnore
+  set metadata(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  addTrackAssociationToTrackType(movieTrack: AVMovieTrack, trackAssociationType: string): void;
+
+  removeTrackAssociationToTrackType(movieTrack: AVMovieTrack, trackAssociationType: string): void;
+
+  replaceFormatDescriptionWithFormatDescription(formatDescription: interop.PointerConvertible, newFormatDescription: interop.PointerConvertible): void;
+
+  appendSampleBufferDecodeTimePresentationTimeError(sampleBuffer: interop.PointerConvertible, outDecodeTime: interop.PointerConvertible, outPresentationTime: interop.PointerConvertible, outError: interop.PointerConvertible): boolean;
+
+  insertMediaTimeRangeIntoTimeRange(mediaTimeRange: CMTimeRange, trackTimeRange: CMTimeRange): boolean;
+
+  hasMediaCharacteristic(mediaCharacteristic: string): boolean;
+
+  segmentForTrackTime(trackTime: CMTime): AVAssetTrackSegment;
+
+  samplePresentationTimeForTrackTime(trackTime: CMTime): CMTime;
+
+  metadataForFormat(format: string): NSArray;
+
+  associatedTracksOfType(trackAssociationType: string): NSArray;
+}
+
+declare class AVMovieTrack extends AVAssetTrack {
+  readonly mediaPresentationTimeRange: CMTimeRange;
+
+  readonly mediaDecodeTimeRange: CMTimeRange;
+
+  readonly alternateGroupID: number;
+
+  readonly mediaDataStorage: AVMediaDataStorage;
+}
+
+declare class AVMetadataItemFilter extends NSObject {
+  static metadataItemFilterForSharing(): AVMetadataItemFilter;
+}
+
+declare class AVSampleBufferGeneratorBatch extends NSObject {
+  makeDataReadyWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  cancel(): void;
+}
+
+declare class AVMetadataItemValueRequest extends NSObject {
+  readonly metadataItem: AVMetadataItem | null;
+
+  respondWithValue(value: NSCopying): void;
+
+  respondWithError(error: NSError): void;
+}
+
 declare class AVCompositionTrackSegment extends AVAssetTrackSegment {
   static compositionTrackSegmentWithURLTrackIDSourceTimeRangeTargetTimeRange<This extends abstract new (...args: any) => any>(this: This, URL: NSURL, trackID: number, sourceTimeRange: CMTimeRange, targetTimeRange: CMTimeRange): InstanceType<This>;
 
@@ -5558,10 +5668,6 @@ declare class AVAssetSegmentReportSampleInformation extends NSObject {
   readonly isSyncSample: boolean;
 }
 
-declare class AVMetadataItemFilter extends NSObject {
-  static metadataItemFilterForSharing(): AVMetadataItemFilter;
-}
-
 declare class AVDateRangeMetadataGroup extends AVMetadataGroup implements NSCopying, NSMutableCopying {
   initWithItemsStartDateEndDate(items: NSArray<interop.Object> | Array<interop.Object>, startDate: NSDate, endDate: NSDate | null): this;
 
@@ -5635,16 +5741,6 @@ declare class AVSampleBufferGenerator extends NSObject {
   createSampleBufferForRequestAddingToBatchError(request: AVSampleBufferRequest, batch: AVSampleBufferGeneratorBatch, outError: interop.PointerConvertible): interop.Pointer;
 
   static notifyOfDataReadyForSampleBufferCompletionHandler(sbuf: interop.PointerConvertible, completionHandler: (p1: boolean, p2: NSError) => void): void;
-}
-
-declare class AVMovieTrack extends AVAssetTrack {
-  readonly mediaPresentationTimeRange: CMTimeRange;
-
-  readonly mediaDecodeTimeRange: CMTimeRange;
-
-  readonly alternateGroupID: number;
-
-  readonly mediaDataStorage: AVMediaDataStorage;
 }
 
 declare class AVAudioMixInputParameters extends NSObject implements NSCopying, NSMutableCopying {
@@ -5860,6 +5956,44 @@ declare class AVDelegatingPlaybackCoordinator extends AVPlaybackCoordinator {
   reapplyCurrentItemStateToPlaybackControlDelegate(): void;
 }
 
+declare class AVAssetReader extends NSObject {
+  static assetReaderWithAssetError<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, outError: interop.PointerConvertible): InstanceType<This>;
+
+  initWithAssetError(asset: AVAsset, outError: interop.PointerConvertible): this;
+
+  readonly asset: AVAsset;
+
+  readonly status: interop.Enum<typeof AVAssetReaderStatus>;
+
+  readonly error: NSError;
+
+  timeRange: CMTimeRange;
+
+  readonly outputs: NSArray;
+
+  canAddOutput(output: AVAssetReaderOutput): boolean;
+
+  addOutput(output: AVAssetReaderOutput): void;
+
+  startReading(): boolean;
+
+  cancelReading(): void;
+}
+
+declare class AVCaptureDepthDataOutput extends AVCaptureOutput {
+  init(): this;
+
+  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  readonly delegate: AVCaptureDepthDataOutputDelegate;
+
+  readonly delegateCallbackQueue: NSObject;
+
+  alwaysDiscardsLateDepthData: boolean;
+
+  isFilteringEnabled: boolean;
+}
+
 declare class AVAssetWriter extends NSObject {
   static assetWriterWithURLFileTypeError<This extends abstract new (...args: any) => any>(this: This, outputURL: NSURL, outputFileType: string, outError: interop.PointerConvertible): InstanceType<This>;
 
@@ -6073,31 +6207,9 @@ declare class AVPlayerItemErrorLogEvent extends NSObject implements NSCopying {
 
   readonly errorComment: string;
 
+  readonly allHTTPResponseHeaderFields: NSDictionary;
+
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class AVAssetReader extends NSObject {
-  static assetReaderWithAssetError<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, outError: interop.PointerConvertible): InstanceType<This>;
-
-  initWithAssetError(asset: AVAsset, outError: interop.PointerConvertible): this;
-
-  readonly asset: AVAsset;
-
-  readonly status: interop.Enum<typeof AVAssetReaderStatus>;
-
-  readonly error: NSError;
-
-  timeRange: CMTimeRange;
-
-  readonly outputs: NSArray;
-
-  canAddOutput(output: AVAssetReaderOutput): boolean;
-
-  addOutput(output: AVAssetReaderOutput): void;
-
-  startReading(): boolean;
-
-  cancelReading(): void;
 }
 
 declare class AVVideoCompositionLayerInstruction extends NSObject implements NSSecureCoding, NSCopying, NSMutableCopying {
@@ -6285,20 +6397,6 @@ declare class AVMetadataBodyObject extends AVMetadataObject implements NSCopying
   readonly bodyID: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class AVSampleBufferGeneratorBatch extends NSObject {
-  makeDataReadyWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  cancel(): void;
-}
-
-declare class AVMetadataItemValueRequest extends NSObject {
-  readonly metadataItem: AVMetadataItem | null;
-
-  respondWithValue(value: NSCopying): void;
-
-  respondWithError(error: NSError): void;
 }
 
 declare class AVAssetPlaybackAssistant extends NSObject {
@@ -6508,20 +6606,6 @@ declare class AVContentKey extends NSObject {
   readonly externalContentProtectionStatus: interop.Enum<typeof AVExternalContentProtectionStatus>;
 
   revoke(): void;
-}
-
-declare class AVCaptureDepthDataOutput extends AVCaptureOutput {
-  init(): this;
-
-  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  readonly delegate: AVCaptureDepthDataOutputDelegate;
-
-  readonly delegateCallbackQueue: NSObject;
-
-  alwaysDiscardsLateDepthData: boolean;
-
-  isFilteringEnabled: boolean;
 }
 
 declare class AVAssetWriterInputGroup extends AVMediaSelectionGroup {
@@ -6904,88 +6988,6 @@ declare class AVCaptureDevice extends NSObject {
   static readonly isStudioLightEnabled: boolean;
 
   readonly isStudioLightActive: boolean;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class AVMutableMovieTrack extends AVMovieTrack {
-  // @ts-ignore MemberDecl.tsIgnore
-  mediaDataStorage: AVMediaDataStorage;
-
-  sampleReferenceBaseURL: NSURL;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  isEnabled: boolean;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  alternateGroupID: number;
-
-  isModified: boolean;
-
-  readonly hasProtectedContent: boolean;
-
-  timescale: number;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  languageCode: string;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  extendedLanguageTag: string;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  naturalSize: CGSize;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  preferredTransform: CGAffineTransform;
-
-  layer: number;
-
-  cleanApertureDimensions: CGSize;
-
-  productionApertureDimensions: CGSize;
-
-  encodedPixelsDimensions: CGSize;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  preferredVolume: number;
-
-  preferredMediaChunkSize: number;
-
-  preferredMediaChunkDuration: CMTime;
-
-  preferredMediaChunkAlignment: number;
-
-  insertTimeRangeOfTrackAtTimeCopySampleDataError(timeRange: CMTimeRange, track: AVAssetTrack, startTime: CMTime, copySampleData: boolean, outError: interop.PointerConvertible): boolean;
-
-  insertEmptyTimeRange(timeRange: CMTimeRange): void;
-
-  removeTimeRange(timeRange: CMTimeRange): void;
-
-  scaleTimeRangeToDuration(timeRange: CMTimeRange, duration: CMTime): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  get metadata(): NSArray;
-  // @ts-ignore MemberDecl.tsIgnore
-  set metadata(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  addTrackAssociationToTrackType(movieTrack: AVMovieTrack, trackAssociationType: string): void;
-
-  removeTrackAssociationToTrackType(movieTrack: AVMovieTrack, trackAssociationType: string): void;
-
-  replaceFormatDescriptionWithFormatDescription(formatDescription: interop.PointerConvertible, newFormatDescription: interop.PointerConvertible): void;
-
-  appendSampleBufferDecodeTimePresentationTimeError(sampleBuffer: interop.PointerConvertible, outDecodeTime: interop.PointerConvertible, outPresentationTime: interop.PointerConvertible, outError: interop.PointerConvertible): boolean;
-
-  insertMediaTimeRangeIntoTimeRange(mediaTimeRange: CMTimeRange, trackTimeRange: CMTimeRange): boolean;
-
-  hasMediaCharacteristic(mediaCharacteristic: string): boolean;
-
-  segmentForTrackTime(trackTime: CMTime): AVAssetTrackSegment;
-
-  samplePresentationTimeForTrackTime(trackTime: CMTime): CMTime;
-
-  metadataForFormat(format: string): NSArray;
-
-  associatedTracksOfType(trackAssociationType: string): NSArray;
 }
 
 declare class AVMetadataHumanFullBodyObject extends AVMetadataBodyObject implements NSCopying {

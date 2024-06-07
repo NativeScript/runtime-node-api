@@ -442,18 +442,6 @@ declare class MPSImageCoordinate {
   channel: number;
 }
 
-declare class MPSImageKeypointRangeInfo {
-  constructor(init?: MPSImageKeypointRangeInfo);
-  maximumKeypoints: number;
-  minimumThresholdValue: number;
-}
-
-declare class MPSImageKeypointData {
-  constructor(init?: MPSImageKeypointData);
-  keypointCoordinate: unknown /* ext vector */;
-  keypointColorValue: number;
-}
-
 declare class MPSMatrixCopyOffsets {
   constructor(init?: MPSMatrixCopyOffsets);
   sourceRowOffset: number;
@@ -510,6 +498,13 @@ declare class _MPSAxisAlignedBoundingBox {
   max: unknown /* ext vector */;
 }
 
+declare class unnamed_18152414414763650501 {
+  constructor(init?: unnamed_18152414414763650501);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class _MPSPackedFloat3 {
   constructor(init?: _MPSPackedFloat3);
 }
@@ -558,6 +553,14 @@ declare class MPSIntersectionDistancePrimitiveIndexBufferIndexInstanceIndex {
   instanceIndex: number;
 }
 
+declare class MPSRayOriginMaskDirectionMaxDistance {
+  constructor(init?: MPSRayOriginMaskDirectionMaxDistance);
+  origin: _MPSPackedFloat3;
+  mask: number;
+  direction: _MPSPackedFloat3;
+  maxDistance: number;
+}
+
 declare class MPSCustomKernelArgumentCount {
   constructor(init?: MPSCustomKernelArgumentCount);
   destinationTextureCount: number;
@@ -569,6 +572,12 @@ declare class MPSRayPackedOriginDirection {
   constructor(init?: MPSRayPackedOriginDirection);
   origin: _MPSPackedFloat3;
   direction: _MPSPackedFloat3;
+}
+
+declare class MPSImageKeypointRangeInfo {
+  constructor(init?: MPSImageKeypointRangeInfo);
+  maximumKeypoints: number;
+  minimumThresholdValue: number;
 }
 
 declare class MPSOrigin {
@@ -591,14 +600,6 @@ declare class MPSIntegerDivisionParams {
   recip: number;
   addend: number;
   shift: number;
-}
-
-declare class MPSRayOriginMaskDirectionMaxDistance {
-  constructor(init?: MPSRayOriginMaskDirectionMaxDistance);
-  origin: _MPSPackedFloat3;
-  mask: number;
-  direction: _MPSPackedFloat3;
-  maxDistance: number;
 }
 
 declare class MPSMatrixOffset {
@@ -677,13 +678,6 @@ declare class MPSCustomKernelInfo {
   idiv: MPSIntegerDivisionParams;
 }
 
-declare class unnamed_12592207159089713795 {
-  constructor(init?: unnamed_12592207159089713795);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MPSScaleTransform {
   constructor(init?: MPSScaleTransform);
   scaleX: number;
@@ -697,17 +691,23 @@ declare class MPSNDArrayOffsets {
   dimensions: unknown /* const array */;
 }
 
+declare class MPSImageKeypointData {
+  constructor(init?: MPSImageKeypointData);
+  keypointCoordinate: unknown /* ext vector */;
+  keypointColorValue: number;
+}
+
 declare class MPSDimensionSlice {
   constructor(init?: MPSDimensionSlice);
   start: number;
   length: number;
 }
 
-type unnamed_383004354951501000Descriptor = 
+type unnamed_6105297943175136397Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_383004354951501000 {
-  constructor(init?: unnamed_383004354951501000Descriptor);
+declare class unnamed_6105297943175136397 {
+  constructor(init?: unnamed_6105297943175136397Descriptor);
   elements: unknown /* const array */;
 }
 

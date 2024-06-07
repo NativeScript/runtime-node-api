@@ -1349,18 +1349,18 @@ declare class OpaqueCMClock {
   constructor(init?: OpaqueCMClock);
 }
 
-declare class CMTimeRange {
-  constructor(init?: CMTimeRange);
-  start: CMTime;
-  duration: CMTime;
-}
-
 declare class opaqueCMBufferQueueTriggerToken {
   constructor(init?: opaqueCMBufferQueueTriggerToken);
 }
 
 declare class opaqueCMSampleBuffer {
   constructor(init?: opaqueCMSampleBuffer);
+}
+
+declare class CMTimeRange {
+  constructor(init?: CMTimeRange);
+  start: CMTime;
+  duration: CMTime;
 }
 
 declare function CMTimeMake(value: number, timescale: number): CMTime;

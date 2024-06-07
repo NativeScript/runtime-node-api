@@ -1428,6 +1428,22 @@ declare class SKPhysicsJointFixed extends SKPhysicsJoint {
   static jointWithBodyABodyBAnchor(bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchor: CGPoint): SKPhysicsJointFixed;
 }
 
+declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
+  bodyA: SKPhysicsBody;
+
+  bodyB: SKPhysicsBody;
+
+  readonly reactionForce: CGVector;
+
+  readonly reactionTorque: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class SKTransformNode extends SKNode {
   xRotation: number;
 
@@ -1577,22 +1593,6 @@ declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCodin
   allContactedBodies(): NSArray;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
-  bodyA: SKPhysicsBody;
-
-  bodyB: SKPhysicsBody;
-
-  readonly reactionForce: CGVector;
-
-  readonly reactionTorque: number;
 
   static readonly supportsSecureCoding: boolean;
 
