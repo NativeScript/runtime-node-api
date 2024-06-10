@@ -216,6 +216,9 @@ NAPI_FUNCTION(releaseObject) {
   return nullptr;
 }
 
+// Implemented in JS to minimize calls into native. Fast enumeration
+// makes use of buffers, so we only fill up the buffer once via
+// native call and only do it again if needed via _fillStack.
 static const char *FastEnumerationIteratorFactorySource = R"(
   (function () {
     return {
@@ -465,6 +468,9 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
     napi_valuetype type;
     napi_typeof(env, SymbolDispose, &type);
 
+    napi_value sizeofValue;
+    napi_create_int32(env, sizeof(id), &sizeofValue);
+
     napi_property_descriptor properties[] = {
         {
             .utf8name = nil,
@@ -488,6 +494,16 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
         },
         {
             .utf8name = nil,
+            .name = jsSymbolFor(env, "sizeof"),
+            .method = nil,
+            .getter = nil,
+            .setter = nil,
+            .value = sizeofValue,
+            .attributes = napi_enumerable,
+            .data = nil,
+        },
+        {
+            .utf8name = nil,
             .name = SymbolIterator,
             .method = JS_fastEnumeration,
             .getter = nil,
@@ -497,7 +513,9 @@ ObjCClass::ObjCClass(napi_env env, MDSectionOffset offset) {
             .data = nil,
         }};
 
-    napi_define_properties(env, prototype, 3, properties);
+    napi_define_properties(env, prototype, 4, properties);
+
+    napi_define_properties(env, constructor, 1, &properties[2]);
 
     if (type == napi_symbol) {
       properties[0].name = SymbolDispose;

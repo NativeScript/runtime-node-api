@@ -2,6 +2,7 @@
 #include "segappend.h"
 #include <filesystem>
 #include <iostream>
+#include <array>
 
 namespace charon {
 

@@ -36,3 +36,10 @@ console.log(`${dict}`);
 for (const key of dict) {
   console.log(key);
 }
+
+console.log(
+  interop.sizeof(dict),
+  interop.sizeof(interop.types.uint8),
+  interop.sizeof(NSMutableArray),
+  interop.sizeof(AudioBuffer),
+);

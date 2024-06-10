@@ -340,10 +340,92 @@ napi_value interop_free(napi_env env, napi_callback_info info) {
   return nullptr;
 }
 
+size_t jsSizeof(napi_env env, napi_value arg) {
+  napi_valuetype type;
+  napi_typeof(env, arg, &type);
+
+  switch (type) {
+  case napi_number: {
+    int32_t ival;
+    napi_get_value_int32(env, arg, &ival);
+
+    switch (ival) {
+    case mdTypeVoid:
+      return 0;
+    
+    case mdTypeBool:
+    case mdTypeChar:
+    case mdTypeUInt8:
+      return sizeof(uint8_t);
+
+    case mdTypeSShort:
+    case mdTypeUShort:
+      return sizeof(uint16_t);
+
+    case mdTypeSInt:
+    case mdTypeUInt:
+      return sizeof(uint32_t);
+
+    case mdTypeSInt64:
+    case mdTypeUInt64:
+      return sizeof(uint64_t);
+
+    case mdTypeFloat:
+      return sizeof(float);
+
+    case mdTypeDouble:
+      return sizeof(double);
+
+    case mdTypeString:
+      return sizeof(char *);
+
+    case mdTypeAnyObject:
+      return sizeof(id);
+
+    case mdTypePointer:
+      return sizeof(void *);
+
+    case mdTypeSelector:
+      return sizeof(SEL);
+
+    default:
+      napi_throw_type_error(env, "TypeError", "Invalid type number for sizeof. Use interop.types.*");
+    }
+  }
+
+  case napi_object:
+  case napi_function: {
+    napi_value symbolSizeof = jsSymbolFor(env, "sizeof");
+    napi_value result;
+    napi_get_property(env, arg, symbolSizeof, &result);
+    napi_valuetype resultType;
+    napi_typeof(env, result, &resultType);
+    if (resultType == napi_number) {
+      int32_t size;
+      napi_get_value_int32(env, result, &size);
+      return size;
+    } else {
+      napi_throw_type_error(env, "TypeError", "Invalid type for sizeof");
+    }
+  }
+
+  default:
+    napi_throw_type_error(env, "TypeError", "Invalid type for sizeof");
+  }
+
+  return -1;
+}
+
 napi_value interop_sizeof(napi_env env, napi_callback_info info) {
-  // TODO
+  napi_valuetype type;
+  napi_value arg;
+  size_t argc = 1;
+  napi_get_cb_info(env, info, &argc, &arg, nullptr, nullptr);
+  
+  size_t size = jsSizeof(env, arg);
   napi_value result;
-  napi_create_int32(env, 0, &result);
+  napi_create_int32(env, size, &result);
+
   return result;
 }
 

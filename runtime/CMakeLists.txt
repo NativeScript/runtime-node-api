@@ -9,6 +9,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_OBJCXX_STANDARD 20)
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -20,6 +21,8 @@ set(EXEC_SOURCE_FILES
   src/Runtime.cpp
   src/segappend.cpp
   src/Compiler.cpp
+  src/Require.mm
+  src/Performance.cpp
 )
 
 add_executable(
@@ -36,7 +39,7 @@ target_link_options(
 target_link_directories(
   ${NAME}
   PRIVATE
-  ${CMAKE_CURRENT_SOURCE_DIR}/../build/macos/Release
+  ${CMAKE_CURRENT_SOURCE_DIR}/../packages/macos/build/macos/Release
 )
 
 target_link_libraries(

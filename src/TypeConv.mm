@@ -1299,10 +1299,13 @@ public:
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
                 bool *shouldFreeAny) override {
-    // TODO?
     NAPI_PREAMBLE
-
-    NSLog(@"ArrayTypeConv toNative: TODO");
+    
+    if (Pointer::isInstance(env, value)) {
+      Pointer *ptr = Pointer::unwrap(env, value);
+      memcpy(result, ptr->data, type->size);
+      return;
+    }
 
     void *data;
     size_t length = 0;

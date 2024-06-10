@@ -316,7 +316,7 @@ StructObject *StructObject::unwrap(napi_env env, napi_value object) {
 
 napi_value StructObject::defineJSClass(napi_env env, StructInfo *info) {
   auto properties = (napi_property_descriptor *)malloc(
-      (info->fields.size() + 1) * sizeof(napi_property_descriptor));
+      (info->fields.size() + 2) * sizeof(napi_property_descriptor));
 
   for (int i = 0; i < info->fields.size(); i++) {
     auto field = info->fields[i];
@@ -342,9 +342,24 @@ napi_value StructObject::defineJSClass(napi_env env, StructInfo *info) {
   prop->attributes = napi_default;
   prop->data = nullptr;
 
+  napi_value size;
+  napi_create_int32(env, info->size, &size);
+
+  auto sizeofProp = &properties[info->fields.size() + 1]; 
+  sizeofProp->utf8name = nullptr;
+  sizeofProp->name = jsSymbolFor(env, "sizeof");
+  sizeofProp->method = nullptr;
+  sizeofProp->getter = nullptr;
+  sizeofProp->setter = nullptr;
+  sizeofProp->value = size;
+  sizeofProp->attributes = napi_enumerable;
+  sizeofProp->data = nullptr;
+
   napi_value result;
   napi_define_class(env, info->name, NAPI_AUTO_LENGTH, JS_StructConstructor,
-                    (void *)info, info->fields.size() + 1, properties, &result);
+                    (void *)info, info->fields.size() + 2, properties, &result);
+
+  napi_define_properties(env, result, 1, sizeofProp);
 
   free(properties);
 
