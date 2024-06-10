@@ -117,6 +117,8 @@ void registerInterop(napi_env env, napi_value global) {
                           createJSNumber(env, mdTypeAnyObject));
   napi_set_named_property(env, types, "SEL",
                           createJSNumber(env, mdTypeSelector));
+  napi_set_named_property(env, types, "pointer",
+                          createJSNumber(env, mdTypePointer));
 
   napi_value Pointer = Pointer::defineJSClass(env);
   bridgeState->pointerClass = make_ref(env, Pointer);

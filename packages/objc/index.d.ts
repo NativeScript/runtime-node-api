@@ -49,6 +49,7 @@ declare global {
       protocol: Type;
       class: Type;
       SEL: Type;
+      pointer: Type;
     };
 
     export interface PointerObject {
@@ -108,6 +109,6 @@ declare global {
     export function sizeof(obj: unknown): number;
     export function alloc(size: number): Pointer;
     export function handleof(obj: unknown): Pointer;
-    export function bufferFromData(data: NSData): ArrayBuffer;
+    export function bufferFromData(data: NativeObject): ArrayBuffer;
   }
 }
