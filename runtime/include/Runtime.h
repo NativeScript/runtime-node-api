@@ -17,6 +17,7 @@ public:
 
   std::unique_ptr<facebook::hermes::HermesRuntime> runtime;
   napi_env env;
+  std::string mainPath;
 };
 
 } // namespace charon

@@ -1,6 +1,7 @@
 #include "Runtime.h"
 #include "Console.h"
 #include "Performance.h"
+#include "Require.h"
 #include <iostream>
 
 namespace charon {
@@ -25,6 +26,7 @@ Runtime::Runtime() {
 
   Console::init(env);
   Performance::init(env);
+  Require::init(env, mainPath, mainPath);
 
   const char *metadata_path = std::getenv("METADATA_PATH");
   objc_bridge_init(env, metadata_path);
