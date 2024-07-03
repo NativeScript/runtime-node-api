@@ -3,21 +3,29 @@
 
 #include <hermes/hermes.h>
 #include <hermes/hermes_api.h>
+#include <jsi/threadsafe.h>
 
-extern "C" void objc_bridge_init(napi_env env, const char *metadata_path);
+#include "Require.h"
 
 namespace charon {
 
 class Runtime {
 public:
-  Runtime();
+  Runtime(std::string &mainPath);
 
+  napi_value evaluateModule(std::string &spec);
   int executeJS(const char *sourceFile);
   int executeBytecode(const uint8_t *data, size_t size);
 
-  std::unique_ptr<facebook::hermes::HermesRuntime> runtime;
+  bool eventLoopStep();
+  void addEventLoopToRunLoop(bool exitOnEmpty = false);
+  void runRunLoop();
+
+  std::unique_ptr<facebook::jsi::ThreadSafeRuntime> threadSafeRuntime;
+  facebook::hermes::HermesRuntime* runtime;
   napi_env env;
   std::string mainPath;
+  Require *require;
 };
 
 } // namespace charon

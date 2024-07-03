@@ -59,6 +59,10 @@ segappend_status segappend_create_segment(const char *binary_path,
 
   auto header = (mach_header_64 *)binary_data;
 
+  if (header->magic != MH_MAGIC && header->magic != MH_MAGIC_64) {
+    return segappend_invalid_binary;
+  }
+
   segment_command_64 *linkedit_cmd = NULL;
 
   auto segment = (segment_command_64 *)(header + 1);

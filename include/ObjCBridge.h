@@ -10,6 +10,7 @@
 #include "Struct.h"
 #include "TypeConv.h"
 #include "js_native_api.h"
+#include "NativeScript.h"
 #include "objc/runtime.h"
 #include <dlfcn.h>
 #include <map>
@@ -19,7 +20,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-extern "C" void objc_bridge_init(napi_env env, const char *metadata_path);
 extern "C" napi_value napi_register_module_v1(napi_env env, napi_value exports);
 
 using namespace metagen;

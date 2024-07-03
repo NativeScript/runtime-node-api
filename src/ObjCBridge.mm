@@ -16,6 +16,7 @@
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
+#include "NativeScript.h"
 
 #import <Foundation/Foundation.h>
 #include <mach-o/dyld.h>
@@ -87,6 +88,17 @@ ObjCBridgeState::~ObjCBridgeState() {
   dlclose(self_dl);
 }
 
+napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
+                                              bool isArray) {
+  napi_value factory = get_ref_value(env, createNativeProxy);
+  napi_value result, global;
+  napi_value args[2] = {object};
+  napi_get_boolean(env, isArray, &args[1]);
+  napi_get_global(env, &global);
+  napi_call_function(env, global, factory, 2, args, &result);
+  return result;
+}
+
 } // namespace objc_bridge
 
 using namespace objc_bridge;
@@ -127,7 +139,9 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
   return exports;
 }
 
-NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
+NAPI_EXPORT void objc_bridge_init(void *_env, const char *metadata_path) {
+  napi_env env = (napi_env)_env;
+  
   ObjCBridgeState *bridgeState = new ObjCBridgeState(env, metadata_path);
 
   napi_value objc;
@@ -188,15 +202,4 @@ NAPI_EXPORT void objc_bridge_init(napi_env env, const char *metadata_path) {
   bridgeState->registerFunctionGlobals(env, global);
   bridgeState->registerClassGlobals(env, global);
   bridgeState->registerProtocolGlobals(env, global);
-}
-
-napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
-                                              bool isArray) {
-  napi_value factory = get_ref_value(env, createNativeProxy);
-  napi_value result, global;
-  napi_value args[2] = {object};
-  napi_get_boolean(env, isArray, &args[1]);
-  napi_get_global(env, &global);
-  napi_call_function(env, global, factory, 2, args, &result);
-  return result;
 }

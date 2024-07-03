@@ -38,6 +38,10 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
 
   while (next) {
     auto flags = bridgeState->metadata->getMemberFlag(offset);
+
+    if (flags == mdMemberFlagNull)
+      break;
+
     next = (flags & mdMemberNext) != 0;
     offset += sizeof(flags);
 
@@ -50,12 +54,13 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
 
     if ((flags & mdMemberProperty) != 0) {
       bool readonly = (flags & mdMemberReadonly) != 0;
-      auto name = bridgeState->metadata->getString(offset);
+      const char *name = bridgeState->metadata->getString(offset);
       offset += sizeof(MDSectionOffset); // name
 
       MDSectionOffset getterSignature, setterSignature;
 
       const char *getterSelector = bridgeState->metadata->getString(offset);
+      
       offset += sizeof(MDSectionOffset); // getterSelector
 
       getterSignature = bridgeState->metadata->getOffset(offset);

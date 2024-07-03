@@ -44,7 +44,7 @@ async function build(targetPlatform: string) {
   await ensureTargetDir(targetPlatform);
 
   // Generate the build files
-  await $`cmake -S=../ -B=../packages/${platformDir}/build/${targetPlatform} -GXcode -DBRIDGE_TARGET_PLATFORM=${targetPlatform} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
+  await $`cmake -S=../ -B=../packages/${platformDir}/build/${targetPlatform} -GXcode -DTARGET_PLATFORM=${targetPlatform} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
     targetPlatform.startsWith("ios-test") ? "" : `-DMETADATA_SIZE=${
       Deno.lstatSync(
         new URL(

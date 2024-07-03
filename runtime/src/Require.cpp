@@ -4,9 +4,12 @@
 #include <iostream>
 #include <string>
 
-napi_value Require::createRequire(napi_env env, std::string& path,
-                                  std::string& tilde) {
+napi_value Require::createRequire(napi_env env, std::string &path,
+                                  std::string &tilde, Require **pRequire) {
   Require *require = new Require(path, tilde);
+  if (pRequire) {
+    *pRequire = require;
+  }
   napi_value result;
   napi_create_function(env, "require", NAPI_AUTO_LENGTH,
                        Require::requireCallback, require, &result);
@@ -15,12 +18,16 @@ napi_value Require::createRequire(napi_env env, std::string& path,
   return result;
 }
 
-void Require::init(napi_env env, std::string& path, std::string& tilde) {
+Require *Require::init(napi_env env, std::string &path, std::string &tilde) {
   napi_value global;
   napi_get_global(env, &global);
 
-  napi_value require = createRequire(env, path, tilde);
+  Require *out = nullptr;
+  napi_value require = createRequire(env, path, tilde, &out);
+
   napi_set_named_property(env, global, "require", require);
+
+  return out;
 }
 
 void Require::finalize(napi_env env, void *data, void *hint) {
@@ -94,10 +101,11 @@ napi_value Require::require(napi_env env, std::string &spec) {
   bootstrap = "let cjsModule; try { cjsModule = function c(exports, "
               "require, module, __filename, __dirname) {";
   bootstrap += source;
-  bootstrap +=
-      "\n};\n"
-      "Object.defineProperty(cjsModule, \"name\", { value: `" +
-      path + "` });\n} catch (e) { throw new Error(`Failed to evaluate module: ${e.stack}`); }\n cjsModule";
+  bootstrap += "\n};\n"
+               "Object.defineProperty(cjsModule, \"name\", { value: `" +
+               path +
+               "` });\n} catch (e) { throw new Error(`Failed to evaluate "
+               "module: ${e.stack}`); }\n cjsModule";
 
   napi_status status;
   napi_value func, script, module, exports, require, __filename, __dirname,
@@ -136,7 +144,8 @@ napi_value Require::require(napi_env env, std::string &spec) {
     const napi_extended_error_info *info;
     napi_get_last_error_info(env, &info);
     std::cerr << "error in evaluate module: " << status << ", "
-              << info->error_message << std::endl;
+              << ((info->error_message == nullptr) ? "" : info->error_message)
+              << std::endl;
     return nullptr;
   }
 

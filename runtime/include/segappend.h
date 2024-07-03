@@ -7,6 +7,7 @@ typedef enum segappend_status : unsigned int {
   segappend_file_not_found,
   segappend_linkedit_not_found,
   segappend_cannot_write,
+  segappend_invalid_binary,
 } segappend_status;
 
 extern "C" segappend_status segappend_create_segment(const char *binary_path,

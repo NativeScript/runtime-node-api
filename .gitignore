@@ -14,3 +14,4 @@ libffi/darwin_*
 libffi/x86_64-*
 compile_commands.json
 .cache/
+runtime/Frameworks/hermes.xcframework
