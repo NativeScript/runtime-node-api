@@ -51,11 +51,13 @@ int main(int argc, char **argv) {
 
     runtime.addEventLoopToRunLoop(true);
 
-    int code = runtime.executeJS(argv[2]);
-    if (code != 0) {
-      std::cout << "Failed to execute JS" << std::endl;
-      return code;
-    }
+    std::string spec = argv[2];
+
+    runtime.evaluateModule(spec);
+    // if (code != 0) {
+    //   std::cout << "Failed to execute JS" << std::endl;
+    //   return code;
+    // }
 
     runtime.runRunLoop();
 

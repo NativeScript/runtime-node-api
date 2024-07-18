@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.15)
 
 set(NAME NativeScriptRuntime)
 set(VERSION 0.1.0)
+set(BUNDLE_IDENTIFIER "org.nativescript.hermes-runtime")
 
 project(${NAME} VERSION ${VERSION} LANGUAGES CXX)
 
@@ -78,7 +79,6 @@ include_directories(
 set(RT_SOURCE_FILES
   src/Console.cpp
   src/Runtime.cpp
-  src/segappend.cpp
   src/Require.cpp
   src/Performance.cpp
 )
@@ -113,7 +113,7 @@ set_target_properties(
   PUBLIC_HEADER "${PUBLIC_HEADERS}"
   VERSION ${VERSION}
   SOVERSION ${VERSION}
-  MACOSX_FRAMEWORK_IDENTIFIER org.nativescript.hermes-runtime
+  MACOSX_FRAMEWORK_IDENTIFIER ${BUNDLE_IDENTIFIER}
   MACOSX_FRAMEWORK_BUNDLE_VERSION ${VERSION}
   MACOSX_FRAMEWORK_SHORT_VERSION_STRING ${VERSION}
   FRAMEWORK_VERSION ${VERSION}
@@ -122,7 +122,7 @@ set_target_properties(
 target_link_options(
   NativeScriptRuntime
   PRIVATE
-  -Wl,-F${NS_BRIDGE_PATH},-F${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC},-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
+  -Wl,-F${NS_BRIDGE_PATH},-F${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC},-rpath,${NS_BRIDGE_PATH},-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
 )
 
 if (TARGET_PLATFORM_MACOS)
@@ -152,6 +152,7 @@ if(TARGET_PLATFORM_MACOS)
     charon
     src/main.cpp
     src/Compiler.cpp
+    src/segappend.cpp
   )
 
   target_link_options(

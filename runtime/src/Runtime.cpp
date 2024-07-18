@@ -6,6 +6,12 @@
 #include <iostream>
 #include <CoreFoundation/CFRunLoop.h>
 
+// #include <NativeScript/NativeScript.h>
+
+extern "C" {
+  void objc_bridge_init(napi_env env, const char *metadata_path);
+}
+
 namespace charon {
 
 class BytecodeBuffer : public facebook::jsi::Buffer {

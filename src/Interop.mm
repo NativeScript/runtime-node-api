@@ -694,7 +694,7 @@ napi_value Reference::defineJSClass(napi_env env) {
   const napi_property_descriptor properties[] = {
       {
           .utf8name = "value",
-          .attributes = napi_enumerable,
+          .attributes = (napi_property_attributes) (napi_enumerable | napi_writable),
           .getter = Reference::get_value,
           .setter = Reference::set_value,
           .value = nullptr,

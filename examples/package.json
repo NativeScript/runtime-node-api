@@ -1,0 +1,10 @@
+{
+  "name": "@nativescript/runtime-examples",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Examples for NativeScript runtime",
+  "type": "module",
+  "scripts": {},
+  "author": "DjDeveloperr <hey@djdev.me>",
+  "license": "MIT"
+}

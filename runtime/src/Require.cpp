@@ -74,6 +74,8 @@ std::string Require::resolve(std::string &spec) {
 napi_value Require::require(napi_env env, std::string &spec) {
   std::string path = resolve(spec);
 
+  // std::cout << "================\nrequire: " << path << std::endl;
+
   char *source = nullptr;
   size_t size = 0;
   FILE *file = fopen(path.c_str(), "r");
@@ -139,7 +141,14 @@ napi_value Require::require(napi_env env, std::string &spec) {
 
   napi_value argv[5] = {exports, require, module, __filename, __dirname};
 
+  // std::cout << "napi_call_function(env: " << env << ", global: " << global << ", func: " << func << ", argc: 5, argv: " << argv[0] << ", " << argv[1] << ", " << argv[2] << ", " << argv[3] << ", " << argv[4] << ", result: " << result << std::endl;
+
+  std::cout << "require eval: " << path << std::endl;
+
   status = napi_call_function(env, global, func, 5, argv, &result);
+
+  std::cout << "require eval done: " << path << std::endl;
+
   if (status != napi_ok) {
     const napi_extended_error_info *info;
     napi_get_last_error_info(env, &info);
