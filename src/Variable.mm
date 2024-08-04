@@ -88,6 +88,9 @@ NAPI_FUNCTION(variableGetter) {
   case mdEvalString: {
     auto value = bridgeState->metadata->getString(offset);
     napi_create_string_utf8(env, value, NAPI_AUTO_LENGTH, &result);
+    if (result != nullptr) {
+      bridgeState->mdValueCache[originalOffset] = make_ref(env, result);
+    }
     break;
   }
 
@@ -101,10 +104,6 @@ NAPI_FUNCTION(variableGetter) {
     }
     return result;
   }
-  }
-
-  if (result != nullptr) {
-    bridgeState->mdValueCache[originalOffset] = make_ref(env, result);
   }
 
   return result;

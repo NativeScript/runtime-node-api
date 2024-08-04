@@ -1,6 +1,6 @@
 // @ts-check
 
-import "../index.js";
+import "@nativescript/macos-node-api";
 
 objc.import("GameController");
 

@@ -6,5 +6,8 @@
   "type": "module",
   "scripts": {},
   "author": "DjDeveloperr <hey@djdev.me>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "popmotion": "^11.0.5"
+  }
 }

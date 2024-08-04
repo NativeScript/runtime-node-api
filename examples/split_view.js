@@ -28,15 +28,14 @@ export class ApplicationDelegate extends NSObject {
     const window = NSWindow.windowWithContentViewController(controller);
 
     window.title = "NativeScript for macOS";
-    window.styleMask =
-      NSWindowStyleMask.Titled |
+    window.styleMask = NSWindowStyleMask.Titled |
       NSWindowStyleMask.Closable |
       NSWindowStyleMask.Miniaturizable |
       NSWindowStyleMask.Resizable |
       NSWindowStyleMask.FullSizeContentView;
 
     const toolbar = NSToolbar.alloc().initWithIdentifier(
-      "com.nativescript.mainWindowToolbar"
+      "com.nativescript.mainWindowToolbar",
     );
     toolbar.delegate = controller;
     toolbar.displayMode = NSToolbarDisplayMode.IconOnly;
@@ -139,11 +138,11 @@ export class SidebarViewController extends NSViewController {
     const text = NSTextField.new();
     const imageView = item.symbol
       ? NSImageView.imageViewWithImage(
-          NSImage.imageWithSystemSymbolNameAccessibilityDescription(
-            item.symbol,
-            null
-          )
-        )
+        NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+          item.symbol,
+          null,
+        ),
+      )
       : NSImageView.new();
 
     text.isBordered = false;
@@ -262,7 +261,7 @@ export class ContentViewController extends NSViewController {
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 35),
-      NSFontTraitMask.Bold
+      NSFontTraitMask.Bold,
     );
 
     label.sizeToFit();
@@ -281,7 +280,7 @@ export class ContentViewController extends NSViewController {
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname
+      new URL("../assets/NativeScript.png", import.meta.url).pathname,
     );
 
     image.size = { width: 128, height: 128 };
@@ -294,10 +293,10 @@ export class ContentViewController extends NSViewController {
     view.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      view.centerXAnchor
+      view.centerXAnchor,
     ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      view.centerYAnchor
+      view.centerYAnchor,
     ).isActive = true;
 
     this.view = view;
@@ -321,14 +320,14 @@ export class SplitViewController extends NSSplitViewController {
     };
 
     const sidebarItem = NSSplitViewItem.sidebarWithViewController(
-      this.sidebarView
+      this.sidebarView,
     );
     sidebarItem.minimumThickness = 200;
     sidebarItem.maximumThickness = 300;
     sidebarItem.canCollapse = true;
 
     const contentItem = NSSplitViewItem.contentListWithViewController(
-      this.contentView
+      this.contentView,
     );
 
     this.addSplitViewItem(sidebarItem);
@@ -366,7 +365,7 @@ export class SplitViewController extends NSSplitViewController {
   toolbarItemForItemIdentifierWillBeInsertedIntoToolbar(
     _toolbar,
     identifier,
-    _flag
+    _flag,
   ) {
     const item = NSToolbarItem.alloc().initWithItemIdentifier(identifier);
 

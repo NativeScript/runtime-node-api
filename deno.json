@@ -47,6 +47,7 @@
 
   "imports": {
     "@nativescript/macos-node-api": "./packages/macos/mod.ts",
-    "@nativescript/objc-node-api": "./packages/objc/index.d.ts"
+    "@nativescript/objc-node-api": "./packages/objc/index.d.ts",
+    "popmotion": "npm:popmotion@^11.0.5"
   }
 }
