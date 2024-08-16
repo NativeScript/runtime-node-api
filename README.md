@@ -44,14 +44,6 @@ node examples/view_controller.js
 node examples/spritekit.js
 ```
 
-## Notes
-
-Deno Node-API has an issue with `napi_get_all_property_names`.
-
-Without a custom Deno build from the below PR, you can't use AppKit in Deno (works in Node).
-
-Upstream PR: https://github.com/denoland/deno/pull/19585
-
 ## License
 
 MIT licensed.
