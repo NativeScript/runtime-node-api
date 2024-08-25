@@ -9,7 +9,24 @@
     "metagen": "deno task metagen ios && deno task metagen macos",
     "build": "deno task build ios-universal && deno task build macos"
   },
-  "author": "DjDeveloperr <hey@djdev.me>",
+  "author": {
+    "name": "NativeScript",
+    "email": "oss@nativescript.org"
+  },
+  "contributors": [
+    {
+      "name": "DjDeveloperr"
+    },
+    {
+      "name": "Jamie Birch"
+    },
+    {
+      "name": "Nathan Walker"
+    },
+    {
+      "name": "Eduardo Speroni"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@swc/cli": "^0.1.62",

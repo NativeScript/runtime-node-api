@@ -25,14 +25,28 @@
     "UIKit"
   ],
   "contributors": [
-    { "name": "DjDeveloperr" },
-    { "name": "Jamie Birch" }
+    {
+      "name": "DjDeveloperr"
+    },
+    {
+      "name": "Jamie Birch"
+    },
+    {
+      "name": "Nathan Walker"
+    },
+    {
+      "name": "Eduardo Speroni"
+    },
+    {
+      "name": "NativeScript",
+      "email": "oss@nativescript.org"
+    }
   ],
   "license": "MIT",
   "dependencies": {
     "@nativescript/objc-node-api": ">=1.0.0-alpha.5"
   },
   "devDependencies": {
-    "rimraf": "^5.0.5"
+    "rimraf": "^6.0.0"
   }
 }
