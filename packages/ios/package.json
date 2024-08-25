@@ -1,16 +1,16 @@
 {
   "name": "@nativescript/ios-node-api",
-  "version": "1.0.0-alpha.7",
+  "version": "0.1.1",
   "description": "An embeddable, engine-agnostic NativeScript runtime for iOS based on Node-API",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DjDeveloperr/runtime.git",
+    "url": "https://github.com/NativeScript/runtime-node-api.git",
     "directory": "packages/ios"
   },
   "typings": "index.d.ts",
   "type": "module",
   "files": [
-    "build/ios-universal/NativeScript.xcframework",
+    "dist/ios-universal/NativeScript.xcframework",
     "index.d.ts",
     "NativeScript.podspec",
     "types"
