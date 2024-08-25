@@ -1,4 +1,4 @@
-let path = "../build/macos/NativeScript.node";
+let path = "../dist/macos/NativeScript.node";
 
 if (typeof Deno == "object") {
   const execPath = Deno.execPath();
