@@ -4840,6 +4840,9 @@ declare class AUAudioUnitBusArray extends NSObject implements NSFastEnumeration 
   replaceBusses(busArray: NSArray<interop.Object> | Array<interop.Object>): void;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class AUParameterTree extends AUParameterGroup implements NSSecureCoding {

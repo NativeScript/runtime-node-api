@@ -1028,6 +1028,9 @@ declare class NSManagedObjectModel extends NSObject implements NSCoding, NSCopyi
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSManagedObjectID extends NSObject implements NSCopying {
@@ -1496,6 +1499,9 @@ declare class NSEntityDescription extends NSObject implements NSCoding, NSCopyin
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSAsynchronousFetchRequest<ResultType = interop.Object> extends NSPersistentStoreRequest {

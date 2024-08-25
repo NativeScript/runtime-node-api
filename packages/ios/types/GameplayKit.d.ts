@@ -352,6 +352,9 @@ declare class GKBehavior extends NSObject implements NSFastEnumeration, NSCopyin
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class GKCircleObstacle extends GKObstacle {
@@ -463,6 +466,9 @@ declare class GKComponentSystem<ComponentType = interop.Object> extends NSObject
   classForGenericArgumentAtIndex(index: number): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ComponentType>;
+
 }
 
 declare class GKNoiseMap extends NSObject {

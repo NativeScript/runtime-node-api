@@ -117,7 +117,8 @@ for (const framework of sdk.frameworks) {
 }
 
 // TODO: commit these files to the repo
-const withNativeScriptCore = true;
+// These are needed to make it work with NativeScriptCore on iOS apps (compat with old NativeScript runtime)
+const withNativeScriptCore = Deno.env.get("WITH_NATIVESCRIPT_CORE") === "1";
 if(withNativeScriptCore){
   const customFrameworks = [
     "/Users/dj/Projects/NativeScript/packages/ui-mobile-base/dist/package/platforms/ios/TNSWidgets.xcframework/ios-arm64/TNSWidgets.framework",

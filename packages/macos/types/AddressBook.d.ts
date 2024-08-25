@@ -449,6 +449,9 @@ declare class ABMultiValue extends NSObject implements NSCopying, NSMutableCopyi
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class ABRecord extends NSObject {

@@ -403,6 +403,9 @@ declare class MLDictionaryFeatureProvider extends NSObject implements MLFeatureP
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class MLFeatureDescription extends NSObject implements NSCopying, NSSecureCoding {

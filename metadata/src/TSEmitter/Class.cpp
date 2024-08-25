@@ -26,10 +26,15 @@ void TSFile::write(ClassDecl &decl) {
     line += " extends NativeObject";
   }
 
+  bool hasFastEnumeration = false;
+
   if (!decl.protocolNames.empty()) {
     line += " implements ";
     for (size_t i = 0; i < decl.protocolNames.size(); i++) {
       line += decl.protocolNames[i];
+      if (decl.protocolNames[i] == "NSFastEnumeration") {
+        hasFastEnumeration = true;
+      }
       protocolReferences.emplace(decl.protocolNames[i]);
       if (i < decl.protocolNames.size() - 1) {
         line += ", ";
@@ -49,6 +54,14 @@ void TSFile::write(ClassDecl &decl) {
       code.newline();
     }
   }
+
+  if (hasFastEnumeration) {
+    code.newline();
+    std::string type = decl.typeParameters.size() == 1 ? decl.typeParameters[0] : "any";
+    code.write("readonly [Symbol.iterator]: () => Iterator<" + type + ">;");
+    code.newline();
+  }
+
   code.exit();
   code.write("}");
   code.newline();

@@ -1088,6 +1088,9 @@ declare class NSEntityDescription extends NSObject implements NSCoding, NSCopyin
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSIncrementalStoreNode extends NSObject {
@@ -1573,6 +1576,9 @@ declare class NSManagedObjectModel extends NSObject implements NSCoding, NSCopyi
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSMigrationManager extends NSObject {

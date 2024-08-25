@@ -2908,6 +2908,9 @@ declare class AVCaptureSynchronizedDataCollection extends NSObject implements NS
   readonly count: number;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class AVCaptureDataOutputSynchronizer extends NSObject {

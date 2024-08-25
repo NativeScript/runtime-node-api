@@ -228,6 +228,9 @@ declare class CMHighFrequencyHeartRateData extends CMLogItem {
 
 declare class CMSensorDataList extends NSObject implements NSFastEnumeration {
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class CMRecordedAccelerometerData extends CMAccelerometerData {

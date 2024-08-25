@@ -1389,6 +1389,9 @@ declare class GCPhysicalInputElementCollection<Key = interop.Object, Element = i
   elementEnumerator(): NSEnumerator;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class GCVirtualControllerConfiguration extends NSObject {

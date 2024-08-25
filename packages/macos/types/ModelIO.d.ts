@@ -1005,6 +1005,9 @@ declare class MDLMaterial extends NSObject implements MDLNamed, NSFastEnumeratio
   materialFace: interop.Enum<typeof MDLMaterialFace>;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class MDLScatteringFunction extends NSObject implements MDLNamed {
@@ -1264,6 +1267,9 @@ declare class MDLAsset extends NSObject implements NSCopying, NSFastEnumeration 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class MDLPackedJointAnimation extends MDLObject implements NSCopying, MDLJointAnimation {

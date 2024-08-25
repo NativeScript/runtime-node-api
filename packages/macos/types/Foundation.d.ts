@@ -4937,6 +4937,9 @@ declare class NSDictionary<KeyType = interop.Object, ObjectType = interop.Object
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSError extends NSObject implements NSCopying, NSSecureCoding {
@@ -6711,6 +6714,9 @@ declare class NSOrderedCollectionDifference<ObjectType = interop.Object> extends
   inverseDifference(): this;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSHTTPURLResponse extends NSURLResponse {
@@ -7402,6 +7408,9 @@ declare class NSOrderedSet<ObjectType = interop.Object> extends NSObject impleme
   encodeWithCoder(coder: NSCoder): void;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSURLCache extends NSObject {
@@ -7912,6 +7921,9 @@ declare class NSSet<ObjectType = interop.Object> extends NSObject implements NSC
   encodeWithCoder(coder: NSCoder): void;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSNetServiceBrowser extends NSObject {
@@ -8845,6 +8857,9 @@ declare class NSHashTable<ObjectType = interop.Object> extends NSObject implemen
   initWithCoder(coder: NSCoder): this;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSLogicalTest extends NSScriptWhoseTest {
@@ -11123,6 +11138,9 @@ declare class NSPointerArray extends NSObject implements NSFastEnumeration, NSCo
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSOrthography extends NSObject implements NSCopying, NSSecureCoding {
@@ -11819,6 +11837,9 @@ declare class NSMapTable<KeyType = interop.Object, ObjectType = interop.Object> 
   initWithCoder(coder: NSCoder): this;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
 }
 
 declare class NSUnitElectricResistance extends NSDimension implements NSSecureCoding {
@@ -12151,6 +12172,9 @@ declare class NSArray<ObjectType = interop.Object> extends NSObject implements N
   encodeWithCoder(coder: NSCoder): void;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSHTTPCookie extends NSObject {
@@ -13629,6 +13653,9 @@ declare class NSEnumerator<ObjectType = interop.Object> extends NSObject impleme
   readonly allObjects: NSArray;
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<ObjectType>;
+
 }
 
 declare class NSDateComponentsFormatter extends NSFormatter {
