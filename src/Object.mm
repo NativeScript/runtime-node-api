@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "JSObject.h"
 #include "ObjCBridge.h"
 #include "js_native_api.h"
 #include "node_api_util.h"
@@ -6,10 +7,65 @@
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
 
+static SEL JSWrapperObjectAssociationKey = @selector(JSWrapperObjectAssociationKey);
+
+@interface JSWrapperObjectAssociation : NSObject
+
+@property (nonatomic) napi_env env;
+@property (nonatomic) napi_ref ref;
+
++ (void)transferOwnership:(napi_env)env of:(napi_value)value toNative:(id)object;
+
++ (instancetype)associationFor:(id)object;
+
+- (instancetype)initWithEnv:(napi_env)env ref:(napi_ref)ref;
+
+@end
+
+@implementation JSWrapperObjectAssociation
+
+- (instancetype)initWithEnv:(napi_env)env ref:(napi_ref)ref {
+  self = [super init];
+  if (self) {
+    self.env = env;
+    self.ref = ref;
+  }
+  return self;
+}
+
++ (void)transferOwnership:(napi_env)env of:(napi_value)value toNative:(id)object {
+  napi_ref ref = objc_bridge::make_ref(env, value);
+  JSWrapperObjectAssociation *association = [[JSWrapperObjectAssociation alloc] initWithEnv:env ref:ref];
+  objc_setAssociatedObject(object, JSWrapperObjectAssociationKey, association, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
++ (instancetype)associationFor:(id)object {
+  return objc_getAssociatedObject(object, JSWrapperObjectAssociationKey);
+}
+
+- (void)dealloc {
+  napi_delete_reference(self.env, self.ref);
+}
+
+@end
+
+napi_value JS_transferOwnershipToNative(napi_env env, napi_callback_info cbinfo) {
+  size_t argc = 1;
+  napi_value arg;
+  napi_get_cb_info(env, cbinfo, &argc, &arg, nullptr, nullptr);
+
+  id obj = nil;
+  napi_unwrap(env, arg, (void **)&obj);
+  
+  [JSWrapperObjectAssociation transferOwnership:env of:arg toNative:obj];
+}
+
 namespace objc_bridge {
 
 const char *nativeObjectProxySource = R"(
-  (function (object, isArray) {
+  (function (object, isArray, transferOwnershipToNative) {
+    let isTransfered = false;
+
     return new Proxy(object, {
       get (target, name) {
         if (name in target) {
@@ -22,31 +78,26 @@ const char *nativeObjectProxySource = R"(
             return target.objectAtIndex(index);
           }
         }
-
-        // return target[name];
       },
 
-      // set (target, name, value) {
-      //   if (name in target) {
-      //     target[name] = value;
-      //     return true;
-      //   }
+      set (target, name, value) {
+        if (isArray) {
+          const index = Number(name);
+          if (!isNaN(index)) {
+            target.setObjectAtIndexedSubscript(value, index);
+            return true;
+          }
+        }
 
-      //   // if (isArray) {
-      //   //   const index = Number(name);
-      //   //   if (!isNaN(index)) {
-      //   //     target.setObjectAtIndexedSubscript(value, index);
-      //   //     return true;
-      //   //   }
-      //   // }
+        if (!(name in target) && !isTransfered) {
+          isTransfered = true;
+          transferOwnershipToNative(target);
+        }
 
-      //   if (!target.__customProps__) {
-      //     target.__customProps__ = {};
-      //   }
+        target[name] = value;
 
-      //   target.__customProps__[name] = value;
-      //   return true;
-      // },
+        return true;
+      },
     });
   })
 )";
@@ -57,6 +108,10 @@ void initProxyFactory(napi_env env, ObjCBridgeState *state) {
                           &script);
   napi_run_script(env, script, &result);
   state->createNativeProxy = make_ref(env, result);
+
+  napi_value transferOwnershipToNative;
+  napi_create_function(env, "transferOwnershipToNative", NAPI_AUTO_LENGTH, JS_transferOwnershipToNative, nullptr, &transferOwnershipToNative);
+  state->transferOwnershipToNative = make_ref(env, transferOwnershipToNative);
 }
 
 void finalize_objc_object(napi_env /*env*/, void *data, void *hint) {
@@ -82,6 +137,13 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
     }
 
     unregisterObject(obj);
+  }
+
+  JSWrapperObjectAssociation *association = [JSWrapperObjectAssociation associationFor:obj];
+  if (association != nil) {
+    napi_value jsObject = get_ref_value(env, association.ref);
+    [obj retain];
+    return proxyNativeObject(env, jsObject, obj);
   }
 
   napi_value result = nil;
@@ -114,25 +176,12 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
 
     napi_value orig = result;
 
-    result =
-        proxyNativeObject(env, result, [obj isKindOfClass:[NSArray class]]);
-
-    // We need to wrap the proxied object separately except for Hermes,
-    // We'll just ignore the error there.
-    napi_wrap(env, result, obj, nullptr, nullptr, nullptr);
-
-    napi_ref ref = nullptr;
-    NAPI_GUARD(napi_add_finalizer(env, result, obj, finalize_objc_object, this,
-                                  &ref)) {
-      NAPI_THROW_LAST_ERROR
-      return nullptr;
-    }
-
-    objectRefs[obj] = ref;
-
     if (ownership == kUnownedObject) {
       [obj retain];
     }
+
+    result = proxyNativeObject(env, result, obj);
+
 // #if DEBUG
     // napi_value global, Error, error, stack;
     // napi_get_global(env, &global);
