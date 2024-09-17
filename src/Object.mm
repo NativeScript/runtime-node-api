@@ -44,6 +44,7 @@ static SEL JSWrapperObjectAssociationKey = @selector(JSWrapperObjectAssociationK
 }
 
 - (void)dealloc {
+  [super dealloc];
   napi_delete_reference(self.env, self.ref);
 }
 
@@ -58,6 +59,8 @@ napi_value JS_transferOwnershipToNative(napi_env env, napi_callback_info cbinfo)
   napi_unwrap(env, arg, (void **)&obj);
   
   [JSWrapperObjectAssociation transferOwnership:env of:arg toNative:obj];
+
+  return nullptr;
 }
 
 namespace objc_bridge {

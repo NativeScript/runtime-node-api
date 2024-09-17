@@ -55,7 +55,7 @@ export class Window extends NSWindow {
         NSWindowStyleMask.Miniaturizable |
         NSWindowStyleMask.Resizable,
       2,
-      false
+      false,
     );
 
     this.title = "NativeScript for macOS";
@@ -70,7 +70,7 @@ export class Window extends NSWindow {
       118 / 255,
       171 / 255,
       235 / 255,
-      1
+      1,
     );
 
     const label = NSTextField.alloc().initWithFrame({
@@ -90,7 +90,7 @@ export class Window extends NSWindow {
 
     label.font = NSFontManager.sharedFontManager.convertFontToHaveTrait(
       NSFont.fontWithNameSize(label.font.fontName, 45),
-      NSFontTraitMask.Bold
+      NSFontTraitMask.Bold,
     );
 
     label.sizeToFit();
@@ -107,7 +107,7 @@ export class Window extends NSWindow {
     vstack.translatesAutoresizingMaskIntoConstraints = false;
 
     const image = NSImage.alloc().initWithContentsOfFile(
-      new URL("../assets/NativeScript.png", import.meta.url).pathname
+      new URL("../assets/NativeScript.png", import.meta.url).pathname,
     );
 
     image.size = { width: 128, height: 128 };
@@ -120,10 +120,10 @@ export class Window extends NSWindow {
     this.contentView.addSubview(vstack);
 
     vstack.centerXAnchor.constraintEqualToAnchor(
-      this.contentView.centerXAnchor
+      this.contentView.centerXAnchor,
     ).isActive = true;
     vstack.centerYAnchor.constraintEqualToAnchor(
-      this.contentView.centerYAnchor
+      this.contentView.centerYAnchor,
     ).isActive = true;
 
     return this;
@@ -160,7 +160,7 @@ interop.addMethod(
         NSEventMask.Any,
         null,
         "kCFRunLoopDefaultMode",
-        true
+        true,
       );
 
       if (event != null) {
@@ -169,6 +169,7 @@ interop.addMethod(
 
       if (this.running) {
         setTimeout(loop, 10);
+        // queueMicrotask(loop);
       }
     };
 
@@ -177,7 +178,7 @@ interop.addMethod(
     setTimeout(() => {
       console.log("[setTimeout] after 2 seconds");
     }, 2000);
-  }
+  },
 );
 
 NSApp.delegate = delegate;
