@@ -435,6 +435,14 @@ declare class GKRidgedNoiseSource extends GKCoherentNoiseSource {
   initWithFrequencyOctaveCountLacunaritySeed(frequency: number, octaveCount: number, lacunarity: number, seed: number): this;
 }
 
+declare class GKBillowNoiseSource extends GKCoherentNoiseSource {
+  persistence: number;
+
+  static billowNoiseSourceWithFrequencyOctaveCountPersistenceLacunaritySeed<This extends abstract new (...args: any) => any>(this: This, frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): InstanceType<This>;
+
+  initWithFrequencyOctaveCountPersistenceLacunaritySeed(frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): this;
+}
+
 declare class GKPerlinNoiseSource extends GKCoherentNoiseSource {
   persistence: number;
 
@@ -443,20 +451,242 @@ declare class GKPerlinNoiseSource extends GKCoherentNoiseSource {
   initWithFrequencyOctaveCountPersistenceLacunaritySeed(frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): this;
 }
 
-declare class GKGridGraphNode extends GKGraphNode {
-  readonly gridPosition: unknown /* ext vector */;
+declare class GKDecisionNode extends NSObject {
+  createBranchWithValueAttribute(value: NSNumber, attribute: NSObject): this;
 
-  static nodeWithGridPosition<This extends abstract new (...args: any) => any>(this: This, gridPosition: unknown /* ext vector */): InstanceType<This>;
+  createBranchWithPredicateAttribute(predicate: NSPredicate, attribute: NSObject): this;
 
-  initWithGridPosition(gridPosition: unknown /* ext vector */): this;
+  createBranchWithWeightAttribute(weight: number, attribute: NSObject): this;
 }
 
-declare class GKGraphNode2D extends GKGraphNode {
+declare class GKMonteCarloStrategist extends NSObject implements GKStrategist {
+  budget: number;
+
+  explorationParameter: number;
+
+  gameModel: GKGameModel;
+
+  randomSource: GKRandom;
+
+  bestMoveForActivePlayer(): GKGameModelUpdate;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GKMinmaxStrategist extends NSObject implements GKStrategist {
+  maxLookAheadDepth: number;
+
+  bestMoveForPlayer(player: GKGameModelPlayer): GKGameModelUpdate;
+
+  randomMoveForPlayerFromNumberOfBestMoves(player: GKGameModelPlayer, numMovesToConsider: number): GKGameModelUpdate;
+
+  gameModel: GKGameModel;
+
+  randomSource: GKRandom;
+
+  bestMoveForActivePlayer(): GKGameModelUpdate;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GKMeshGraph<NodeType = interop.Object> extends GKGraph {
+  readonly obstacles: NSArray;
+
+  readonly bufferRadius: number;
+
+  triangulationMode: interop.Enum<typeof GKMeshGraphTriangulationMode>;
+
+  readonly triangleCount: number;
+
+  static graphWithBufferRadiusMinCoordinateMaxCoordinateNodeClass<NodeType, This extends abstract new (...args: any) => any>(this: This, bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */, nodeClass: interop.Object): InstanceType<This>;
+
+  initWithBufferRadiusMinCoordinateMaxCoordinateNodeClass(bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */, nodeClass: interop.Object): this;
+
+  static graphWithBufferRadiusMinCoordinateMaxCoordinate<NodeType, This extends abstract new (...args: any) => any>(this: This, bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */): InstanceType<This>;
+
+  initWithBufferRadiusMinCoordinateMaxCoordinate(bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */): this;
+
+  addObstacles(obstacles: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  removeObstacles(obstacles: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  connectNodeUsingObstacles(node: NodeType): void;
+
+  triangulate(): void;
+
+  triangleAtIndex(index: number): GKTriangle;
+
+  classForGenericArgumentAtIndex(index: number): interop.Object;
+}
+
+declare class GKMersenneTwisterRandomSource extends GKRandomSource {
+  seed: number;
+
+  init(): this;
+
+  initWithSeed(seed: number): this;
+}
+
+declare class GKLinearCongruentialRandomSource extends GKRandomSource {
+  seed: number;
+
+  init(): this;
+
+  initWithSeed(seed: number): this;
+}
+
+declare class GKRandomSource extends NSObject implements GKRandom, NSSecureCoding, NSCopying {
+  init(): this;
+
+  initWithCoder(aDecoder: NSCoder): this;
+
+  static sharedRandom(): GKRandomSource;
+
+  arrayByShufflingObjectsInArray(array: NSArray<interop.Object> | Array<interop.Object>): NSArray;
+
+  nextInt(): number;
+
+  nextIntWithUpperBound(upperBound: number): number;
+
+  nextUniform(): number;
+
+  nextBool(): boolean;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class GKGraphNode3D extends GKGraphNode {
   position: unknown /* ext vector */;
 
   static nodeWithPoint<This extends abstract new (...args: any) => any>(this: This, point: unknown /* ext vector */): InstanceType<This>;
 
   initWithPoint(point: unknown /* ext vector */): this;
+}
+
+declare class GKGraphNode extends NSObject implements NSSecureCoding {
+  readonly connectedNodes: NSArray;
+
+  addConnectionsToNodesBidirectional(nodes: NSArray<interop.Object> | Array<interop.Object>, bidirectional: boolean): void;
+
+  removeConnectionsToNodesBidirectional(nodes: NSArray<interop.Object> | Array<interop.Object>, bidirectional: boolean): void;
+
+  estimatedCostToNode(node: GKGraphNode): number;
+
+  costToNode(node: GKGraphNode): number;
+
+  findPathToNode(goalNode: GKGraphNode): NSArray;
+
+  findPathFromNode(startNode: GKGraphNode): NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class GKGridGraph<NodeType = interop.Object> extends GKGraph {
+  readonly gridOrigin: unknown /* ext vector */;
+
+  readonly gridWidth: number;
+
+  readonly gridHeight: number;
+
+  readonly diagonalsAllowed: boolean;
+
+  static graphFromGridStartingAtWidthHeightDiagonalsAllowed<NodeType, This extends abstract new (...args: any) => any>(this: This, position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean): InstanceType<This>;
+
+  initFromGridStartingAtWidthHeightDiagonalsAllowed(position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean): this;
+
+  static graphFromGridStartingAtWidthHeightDiagonalsAllowedNodeClass<NodeType, This extends abstract new (...args: any) => any>(this: This, position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean, nodeClass: interop.Object): InstanceType<This>;
+
+  initFromGridStartingAtWidthHeightDiagonalsAllowedNodeClass(position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean, nodeClass: interop.Object): this;
+
+  nodeAtGridPosition(position: unknown /* ext vector */): NodeType;
+
+  connectNodeToAdjacentNodes(node: GKGridGraphNode): void;
+
+  classForGenericArgumentAtIndex(index: number): interop.Object;
 }
 
 declare class GKGraph extends NSObject implements NSCopying, NSSecureCoding {
@@ -483,6 +713,56 @@ declare class GKGraph extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class GKEntity extends NSObject implements NSCopying, NSSecureCoding {
+  static entity<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  init(): this;
+
+  updateWithDeltaTime(seconds: number): void;
+
+  readonly components: NSArray;
+
+  addComponent(component: GKComponent): void;
+
+  removeComponentForClass(componentClass: interop.Object): void;
+
+  componentForClass(componentClass: interop.Object): GKComponent;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class GKCompositeBehavior extends GKBehavior {
+  readonly behaviorCount: number;
+
+  static behaviorWithBehaviors<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  static behaviorWithBehaviorsAndWeights<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>, weights: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  setWeightForBehavior(weight: number, behavior: GKBehavior): void;
+
+  weightForBehavior(behavior: GKBehavior): number;
+
+  removeBehavior(behavior: GKBehavior): void;
+
+  removeAllBehaviors(): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  objectAtIndexedSubscript(idx: number): GKBehavior;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  setObjectForKeyedSubscript(weight: NSNumber, behavior: GKBehavior): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  objectForKeyedSubscript(behavior: GKBehavior): NSNumber;
+}
+
 declare class GKAgent2D extends GKAgent implements NSSecureCoding {
   position: unknown /* ext vector */;
 
@@ -491,6 +771,28 @@ declare class GKAgent2D extends GKAgent implements NSSecureCoding {
   rotation: number;
 
   updateWithDeltaTime(seconds: number): void;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class GKAgent extends GKComponent implements NSSecureCoding {
+  delegate: GKAgentDelegate;
+
+  behavior: GKBehavior;
+
+  mass: number;
+
+  radius: number;
+
+  speed: number;
+
+  maxAcceleration: number;
+
+  maxSpeed: number;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -560,6 +862,16 @@ declare class GKBehavior extends NSObject implements NSFastEnumeration, NSCopyin
 
 }
 
+declare class GKSphereObstacle extends GKObstacle {
+  radius: number;
+
+  position: unknown /* ext vector */;
+
+  static obstacleWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
+
+  initWithRadius(radius: number): this;
+}
+
 declare class GKPolygonObstacle extends GKObstacle implements NSSecureCoding {
   readonly vertexCount: number;
 
@@ -576,7 +888,14 @@ declare class GKPolygonObstacle extends GKObstacle implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class GKObstacle extends NSObject {
+declare class GKCircleObstacle extends GKObstacle {
+  radius: number;
+
+  position: unknown /* ext vector */;
+
+  static obstacleWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
+
+  initWithRadius(radius: number): this;
 }
 
 declare class GKComponent extends NSObject implements NSCopying, NSSecureCoding {
@@ -597,76 +916,12 @@ declare class GKComponent extends NSObject implements NSCopying, NSSecureCoding 
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class GKMersenneTwisterRandomSource extends GKRandomSource {
-  seed: number;
-
-  init(): this;
-
-  initWithSeed(seed: number): this;
-}
-
-declare class GKSphereObstacle extends GKObstacle {
-  radius: number;
-
+declare class GKGraphNode2D extends GKGraphNode {
   position: unknown /* ext vector */;
 
-  static obstacleWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
+  static nodeWithPoint<This extends abstract new (...args: any) => any>(this: This, point: unknown /* ext vector */): InstanceType<This>;
 
-  initWithRadius(radius: number): this;
-}
-
-declare class GKEntity extends NSObject implements NSCopying, NSSecureCoding {
-  static entity<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  init(): this;
-
-  updateWithDeltaTime(seconds: number): void;
-
-  readonly components: NSArray;
-
-  addComponent(component: GKComponent): void;
-
-  removeComponentForClass(componentClass: interop.Object): void;
-
-  componentForClass(componentClass: interop.Object): GKComponent;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class GKMeshGraph<NodeType = interop.Object> extends GKGraph {
-  readonly obstacles: NSArray;
-
-  readonly bufferRadius: number;
-
-  triangulationMode: interop.Enum<typeof GKMeshGraphTriangulationMode>;
-
-  readonly triangleCount: number;
-
-  static graphWithBufferRadiusMinCoordinateMaxCoordinateNodeClass<NodeType, This extends abstract new (...args: any) => any>(this: This, bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */, nodeClass: interop.Object): InstanceType<This>;
-
-  initWithBufferRadiusMinCoordinateMaxCoordinateNodeClass(bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */, nodeClass: interop.Object): this;
-
-  static graphWithBufferRadiusMinCoordinateMaxCoordinate<NodeType, This extends abstract new (...args: any) => any>(this: This, bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */): InstanceType<This>;
-
-  initWithBufferRadiusMinCoordinateMaxCoordinate(bufferRadius: number, min: unknown /* ext vector */, max: unknown /* ext vector */): this;
-
-  addObstacles(obstacles: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  removeObstacles(obstacles: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  connectNodeUsingObstacles(node: NodeType): void;
-
-  triangulate(): void;
-
-  triangleAtIndex(index: number): GKTriangle;
-
-  classForGenericArgumentAtIndex(index: number): interop.Object;
+  initWithPoint(point: unknown /* ext vector */): this;
 }
 
 declare class GKAgent3D extends GKAgent {
@@ -697,60 +952,6 @@ declare class GKStateMachine extends NSObject {
   enterState(stateClass: interop.Object): boolean;
 }
 
-declare class GKMinmaxStrategist extends NSObject implements GKStrategist {
-  maxLookAheadDepth: number;
-
-  bestMoveForPlayer(player: GKGameModelPlayer): GKGameModelUpdate;
-
-  randomMoveForPlayerFromNumberOfBestMoves(player: GKGameModelPlayer, numMovesToConsider: number): GKGameModelUpdate;
-
-  gameModel: GKGameModel;
-
-  randomSource: GKRandom;
-
-  bestMoveForActivePlayer(): GKGameModelUpdate;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class GKDecisionTree extends NSObject implements NSSecureCoding {
   readonly rootNode: GKDecisionNode;
 
@@ -771,14 +972,6 @@ declare class GKDecisionTree extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class GKGraphNode3D extends GKGraphNode {
-  position: unknown /* ext vector */;
-
-  static nodeWithPoint<This extends abstract new (...args: any) => any>(this: This, point: unknown /* ext vector */): InstanceType<This>;
-
-  initWithPoint(point: unknown /* ext vector */): this;
 }
 
 declare class GKComponentSystem<ComponentType = interop.Object> extends NSObject implements NSFastEnumeration {
@@ -822,80 +1015,7 @@ declare class GKRule extends NSObject {
   static ruleWithBlockPredicateAction<This extends abstract new (...args: any) => any>(this: This, predicate: (p1: GKRuleSystem) => boolean, action: (p1: GKRuleSystem) => void): InstanceType<This>;
 }
 
-declare class GKGridGraph<NodeType = interop.Object> extends GKGraph {
-  readonly gridOrigin: unknown /* ext vector */;
-
-  readonly gridWidth: number;
-
-  readonly gridHeight: number;
-
-  readonly diagonalsAllowed: boolean;
-
-  static graphFromGridStartingAtWidthHeightDiagonalsAllowed<NodeType, This extends abstract new (...args: any) => any>(this: This, position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean): InstanceType<This>;
-
-  initFromGridStartingAtWidthHeightDiagonalsAllowed(position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean): this;
-
-  static graphFromGridStartingAtWidthHeightDiagonalsAllowedNodeClass<NodeType, This extends abstract new (...args: any) => any>(this: This, position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean, nodeClass: interop.Object): InstanceType<This>;
-
-  initFromGridStartingAtWidthHeightDiagonalsAllowedNodeClass(position: unknown /* ext vector */, width: number, height: number, diagonalsAllowed: boolean, nodeClass: interop.Object): this;
-
-  nodeAtGridPosition(position: unknown /* ext vector */): NodeType;
-
-  connectNodeToAdjacentNodes(node: GKGridGraphNode): void;
-
-  classForGenericArgumentAtIndex(index: number): interop.Object;
-}
-
-declare class GKMonteCarloStrategist extends NSObject implements GKStrategist {
-  budget: number;
-
-  explorationParameter: number;
-
-  gameModel: GKGameModel;
-
-  randomSource: GKRandom;
-
-  bestMoveForActivePlayer(): GKGameModelUpdate;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
+declare class GKObstacle extends NSObject {
 }
 
 declare class GKARC4RandomSource extends GKRandomSource {
@@ -916,46 +1036,6 @@ declare class GKGaussianDistribution extends GKRandomDistribution {
   initWithRandomSourceLowestValueHighestValue(source: GKRandom, lowestInclusive: number, highestInclusive: number): this;
 
   initWithRandomSourceMeanDeviation(source: GKRandom, mean: number, deviation: number): this;
-}
-
-declare class GKCircleObstacle extends GKObstacle {
-  radius: number;
-
-  position: unknown /* ext vector */;
-
-  static obstacleWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
-
-  initWithRadius(radius: number): this;
-}
-
-declare class GKLinearCongruentialRandomSource extends GKRandomSource {
-  seed: number;
-
-  init(): this;
-
-  initWithSeed(seed: number): this;
-}
-
-declare class GKAgent extends GKComponent implements NSSecureCoding {
-  delegate: GKAgentDelegate;
-
-  behavior: GKBehavior;
-
-  mass: number;
-
-  radius: number;
-
-  speed: number;
-
-  maxAcceleration: number;
-
-  maxSpeed: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GKPath extends NSObject {
@@ -1012,28 +1092,6 @@ declare class GKScene extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class GKGraphNode extends NSObject implements NSSecureCoding {
-  readonly connectedNodes: NSArray;
-
-  addConnectionsToNodesBidirectional(nodes: NSArray<interop.Object> | Array<interop.Object>, bidirectional: boolean): void;
-
-  removeConnectionsToNodesBidirectional(nodes: NSArray<interop.Object> | Array<interop.Object>, bidirectional: boolean): void;
-
-  estimatedCostToNode(node: GKGraphNode): number;
-
-  costToNode(node: GKGraphNode): number;
-
-  findPathToNode(goalNode: GKGraphNode): NSArray;
-
-  findPathFromNode(startNode: GKGraphNode): NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class GKCoherentNoiseSource extends GKNoiseSource {
   frequency: number;
 
@@ -1042,6 +1100,14 @@ declare class GKCoherentNoiseSource extends GKNoiseSource {
   lacunarity: number;
 
   seed: number;
+}
+
+declare class GKGridGraphNode extends GKGraphNode {
+  readonly gridPosition: unknown /* ext vector */;
+
+  static nodeWithGridPosition<This extends abstract new (...args: any) => any>(this: This, gridPosition: unknown /* ext vector */): InstanceType<This>;
+
+  initWithGridPosition(gridPosition: unknown /* ext vector */): this;
 }
 
 declare class GKSCNNodeComponent extends GKComponent implements GKAgentDelegate {
@@ -1096,14 +1162,6 @@ declare class GKSCNNodeComponent extends GKComponent implements GKAgentDelegate 
   readonly debugDescription: string;
 }
 
-declare class GKBillowNoiseSource extends GKCoherentNoiseSource {
-  persistence: number;
-
-  static billowNoiseSourceWithFrequencyOctaveCountPersistenceLacunaritySeed<This extends abstract new (...args: any) => any>(this: This, frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): InstanceType<This>;
-
-  initWithFrequencyOctaveCountPersistenceLacunaritySeed(frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): this;
-}
-
 declare class GKObstacleGraph<NodeType = interop.Object> extends GKGraph {
   readonly obstacles: NSArray;
 
@@ -1149,63 +1207,5 @@ declare class GKCheckerboardNoiseSource extends GKNoiseSource {
 }
 
 declare class GKNoiseSource extends NSObject {
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class GKCompositeBehavior extends GKBehavior {
-  readonly behaviorCount: number;
-
-  static behaviorWithBehaviors<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  static behaviorWithBehaviorsAndWeights<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>, weights: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  setWeightForBehavior(weight: number, behavior: GKBehavior): void;
-
-  weightForBehavior(behavior: GKBehavior): number;
-
-  removeBehavior(behavior: GKBehavior): void;
-
-  removeAllBehaviors(): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  objectAtIndexedSubscript(idx: number): GKBehavior;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  setObjectForKeyedSubscript(weight: NSNumber, behavior: GKBehavior): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  objectForKeyedSubscript(behavior: GKBehavior): NSNumber;
-}
-
-declare class GKRandomSource extends NSObject implements GKRandom, NSSecureCoding, NSCopying {
-  init(): this;
-
-  initWithCoder(aDecoder: NSCoder): this;
-
-  static sharedRandom(): GKRandomSource;
-
-  arrayByShufflingObjectsInArray(array: NSArray<interop.Object> | Array<interop.Object>): NSArray;
-
-  nextInt(): number;
-
-  nextIntWithUpperBound(upperBound: number): number;
-
-  nextUniform(): number;
-
-  nextBool(): boolean;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class GKDecisionNode extends NSObject {
-  createBranchWithValueAttribute(value: NSNumber, attribute: NSObject): this;
-
-  createBranchWithPredicateAttribute(predicate: NSPredicate, attribute: NSObject): this;
-
-  createBranchWithWeightAttribute(weight: number, attribute: NSObject): this;
 }
 

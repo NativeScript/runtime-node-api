@@ -91,29 +91,43 @@ declare const NSOpenGLCPSurfaceOrder: interop.Enum<typeof NSOpenGLContextParamet
 
 declare const NSOpenGLCPSwapInterval: interop.Enum<typeof NSOpenGLContextParameter>;
 
+declare const NSOpenGLProfileVersionLegacy: number;
+
+declare const NSOpenGLPFARemotePixelBuffer: number;
+
+declare const NSOpenGLPFAPixelBuffer: number;
+
+declare const NSOpenGLPFACompliant: number;
+
 declare const NSOpenGLPFAMultiScreen: number;
 
 declare const NSOpenGLPFAWindow: number;
 
 declare const NSOpenGLPFARobust: number;
 
-declare const NSOpenGLPFASingleRenderer: number;
+declare const NSOpenGLPFAFullScreen: number;
+
+declare const NSOpenGLPFAOffScreen: number;
+
+declare const NSOpenGLPFAStereo: number;
+
+declare const NSOpenGLPFAVirtualScreenCount: number;
+
+declare const NSOpenGLPFAOpenGLProfile: number;
 
 declare const NSOpenGLPFAAcceleratedCompute: number;
 
-declare const NSOpenGLCPSurfaceOpacity: interop.Enum<typeof NSOpenGLContextParameter>;
-
-declare const NSOpenGLPFAAllowOfflineRenderers: number;
-
-declare const NSOpenGLPFAScreenMask: number;
-
-declare const NSMenuDidRemoveItemNotification: string;
-
-declare const NSOpenGLPFAAccelerated: number;
+declare const NSOpenGLPFABackingStore: number;
 
 declare const NSOpenGLPFANoRecovery: number;
 
 declare const NSOpenGLPFASampleAlpha: number;
+
+declare const NSOpenGLPFASupersample: number;
+
+declare const NSOpenGLPFAMultisample: number;
+
+declare const NSOpenGLPFAColorFloat: number;
 
 declare const NSOpenGLPFAAccumSize: number;
 
@@ -138,8 +152,6 @@ declare const NSNonZeroWindingRule: interop.Enum<typeof NSWindingRule>;
 declare const NSBevelLineJoinStyle: interop.Enum<typeof NSLineJoinStyle>;
 
 declare const NSRoundLineJoinStyle: interop.Enum<typeof NSLineJoinStyle>;
-
-declare const NSPopUpButtonCellWillPopUpNotification: string;
 
 declare const NSProgressIndicatorBarStyle: interop.Enum<typeof NSProgressIndicatorStyle>;
 
@@ -219,8 +231,6 @@ declare const NSTextContentTypeCreditCardName: string;
 
 declare const NSTextContentTypeCreditCardNumber: string;
 
-declare const NSOpenGLPFACompliant: number;
-
 declare const NSTextContentTypeEmailAddress: string;
 
 declare const NSTextContentTypeTelephoneNumber: string;
@@ -268,6 +278,8 @@ declare const NSPrintNoPresetsJobStyleHint: string;
 declare const NSPrintPhotoJobStyleHint: string;
 
 declare const NSPopUpButtonWillPopUpNotification: string;
+
+declare const NSPopUpButtonCellWillPopUpNotification: string;
 
 declare const NSFileHandlingPanelOKButton: number;
 
@@ -370,8 +382,6 @@ declare const NSImageNameTouchBarUserTemplate: string;
 declare const NSImageNameTouchBarUserAddTemplate: string;
 
 declare const NSImageNameTouchBarTextLeftAlignTemplate: string;
-
-declare const NSImageNameTouchBarTextItalicTemplate: string;
 
 declare const NSImageNameTouchBarTextBoxTemplate: string;
 
@@ -480,8 +490,6 @@ declare const NSImageNameComputer: string;
 declare const NSImageNameCaution: string;
 
 declare const NSImageNameBonjour: string;
-
-declare const NSImageHintInterpolation: string;
 
 declare const NSToolbarSpaceItemIdentifier: string;
 
@@ -881,8 +889,6 @@ declare const NSValueBinding: string;
 
 declare const NSTextColorBinding: string;
 
-declare const NSSortDescriptorsBinding: string;
-
 declare const NSSelectionIndexesBinding: string;
 
 declare const NSSelectedValuesBinding: string;
@@ -1097,21 +1103,9 @@ declare const NSUnderlinePatternDashDotDot: interop.Enum<typeof NSUnderlineStyle
 
 declare const NSUnderlinePatternSolid: interop.Enum<typeof NSUnderlineStyle>;
 
-declare const NSSourceTextScalingDocumentOption: string;
-
 declare const NSWebPreferencesDocumentOption: string;
 
 declare const NSTextEncodingNameDocumentOption: string;
-
-declare const NSCharacterEncodingDocumentOption: string;
-
-declare const NSAccessibilityShowMenuAction: string;
-
-declare const NSHyphenationFactorDocumentAttribute: string;
-
-declare const NSBackgroundColorDocumentAttribute: string;
-
-declare const NSViewSizeDocumentAttribute: string;
 
 declare const NSTopMarginDocumentAttribute: string;
 
@@ -1127,11 +1121,7 @@ declare const NSSubjectDocumentAttribute: string;
 
 declare const NSFileTypeDocumentAttribute: string;
 
-declare const NSRTFDTextDocumentType: string;
-
-declare const NSImageNameTouchBarTextRightAlignTemplate: string;
-
-declare const NSTextEffectLetterpressStyle: string;
+declare const NSWindowSharingReadWrite: interop.Enum<typeof NSWindowSharingType>;
 
 declare const NSSuperscriptAttributeName: string;
 
@@ -1140,20 +1130,6 @@ declare const NSSpellingStateAttributeName: string;
 declare const NSTextAlternativesAttributeName: string;
 
 declare const NSMarkedClauseSegmentAttributeName: string;
-
-declare const NSBaselineOffsetAttributeName: string;
-
-declare const NSLinkAttributeName: string;
-
-declare const NSShadowAttributeName: string;
-
-declare const NSStrokeWidthAttributeName: string;
-
-declare const NSTrackingAttributeName: string;
-
-declare const NSParagraphStyleAttributeName: string;
-
-declare const NSFontAttributeName: string;
 
 declare const NSMenuDidChangeItemNotification: string;
 
@@ -1363,10 +1339,6 @@ declare const NSImageNameTouchBarColorPickerStroke: string;
 
 declare const NSAccessibilityInchesUnitValue: string;
 
-declare const NSDefaultFontExcludedDocumentAttribute: string;
-
-declare const NSAccessibilityUnknownMarkerTypeValue: string;
-
 declare const NSAccessibilityLeftTabStopMarkerTypeValue: string;
 
 declare const NSAccessibilityMarkerTypeAttribute: string;
@@ -1392,6 +1364,8 @@ declare const NSAccessibilityHandlesAttribute: string;
 declare const NSAccessibilityLayoutSizeForScreenSizeParameterizedAttribute: string;
 
 declare const NSAccessibilityVerticalUnitsAttribute: string;
+
+declare const NSAdaptiveImageGlyphAttributeName: string;
 
 declare const NSAccessibilityHorizontalUnitsAttribute: string;
 
@@ -1767,8 +1741,6 @@ declare const NSAppearanceNameAccessibilityHighContrastDarkAqua: string;
 
 declare const NSAppearanceNameAccessibilityHighContrastAqua: string;
 
-declare const NSAppearanceNameDarkAqua: string;
-
 declare const NSAnimationTriggerOrderOut: string;
 
 declare const NSAccessibilityAnnotationLabel: string;
@@ -1788,6 +1760,50 @@ declare const NSViewAnimationTargetKey: string;
 declare const NSAnimationProgressMark: string;
 
 declare const NSAnimationProgressMarkNotification: string;
+
+declare const NSSourceTextScalingDocumentOption: string;
+
+declare const NSCharacterEncodingDocumentOption: string;
+
+declare const NSAccessibilityShowMenuAction: string;
+
+declare const NSHyphenationFactorDocumentAttribute: string;
+
+declare const NSBackgroundColorDocumentAttribute: string;
+
+declare const NSAccessibilityUnknownMarkerTypeValue: string;
+
+declare const NSDefaultFontExcludedDocumentAttribute: string;
+
+declare const NSViewSizeDocumentAttribute: string;
+
+declare const NSRTFDTextDocumentType: string;
+
+declare const NSImageHintInterpolation: string;
+
+declare const NSTextHighlightStyleDefault: string;
+
+declare const NSImageNameTouchBarTextRightAlignTemplate: string;
+
+declare const NSTextEffectLetterpressStyle: string;
+
+declare const NSTextHighlightColorSchemeAttributeName: string;
+
+declare const NSTextHighlightStyleAttributeName: string;
+
+declare const NSBaselineOffsetAttributeName: string;
+
+declare const NSLinkAttributeName: string;
+
+declare const NSShadowAttributeName: string;
+
+declare const NSStrokeWidthAttributeName: string;
+
+declare const NSTrackingAttributeName: string;
+
+declare const NSParagraphStyleAttributeName: string;
+
+declare const NSFontAttributeName: string;
 
 declare const NSAccessibilityException: string;
 
@@ -1827,11 +1843,11 @@ declare const NSUnifiedTitleAndToolbarWindowMask: interop.Enum<typeof NSWindowSt
 
 declare const NSAccessibilityAttachmentTextAttribute: string;
 
-declare const NSOpenGLPFAColorFloat: number;
-
 declare const NSAllowsEditingMultipleValuesSelectionBindingOption: string;
 
 declare const NSSharingServiceNamePostOnFacebook: string;
+
+declare const NSAppearanceNameDarkAqua: string;
 
 declare const NSCompositeColorBurn: interop.Enum<typeof NSCompositingOperation>;
 
@@ -1847,6 +1863,8 @@ declare const NSCMYKColorSpaceModel: interop.Enum<typeof NSColorSpaceModel>;
 
 declare const NSInvokesSeparatelyWithArrayObjectsBindingOption: string;
 
+declare const NSSortDescriptorsBinding: string;
+
 declare const NSAppKitVersionNumber12_1: number;
 
 declare const NSWorkspaceDidDeactivateApplicationNotification: string;
@@ -1856,6 +1874,8 @@ declare const NSAccessibilityApplicationActivatedNotification: string;
 declare const NSHiddenBinding: string;
 
 declare const NSAppKitVersionNumber10_4_7: number;
+
+declare const NSImageNameTouchBarTextItalicTemplate: string;
 
 declare const NSAppKitVersionNumber10_4_3: number;
 
@@ -1875,8 +1895,6 @@ declare const NSDefinitionPresentationTypeOverlay: string;
 
 declare const NSComboBoxSelectionIsChangingNotification: string;
 
-declare const NSSystemDefined: interop.Enum<typeof NSEventType>;
-
 declare const NSVariableStatusItemLength: number;
 
 declare const NSSpeechModeNormal: string;
@@ -1889,6 +1907,8 @@ declare const NSInkTextPboardType: string;
 
 declare const NSToolbarDidRemoveItemNotification: string;
 
+declare const NSAccessibilityNumberOfCharactersAttribute: string;
+
 declare const NSTextFinderCaseInsensitiveKey: string;
 
 declare const NSRuleEditorPredicateOperatorType: string;
@@ -1898,6 +1918,10 @@ declare const NSAccessibilityMovedNotification: string;
 declare const NSTextWriteInapplicableDocumentTypeError: number;
 
 declare const NSBackgroundStyleLight: interop.Enum<typeof NSBackgroundStyle>;
+
+declare const NSOpenGLPFAAccelerated: number;
+
+declare const NSMenuDidRemoveItemNotification: string;
 
 declare const NSLeftMouseDownMask: interop.Enum<typeof NSEventMask>;
 
@@ -1939,9 +1963,15 @@ declare const NSImageNameBluetoothTemplate: string;
 
 declare const NSRulerPboard: string;
 
+declare const NSOpenGLCPSurfaceOpacity: interop.Enum<typeof NSOpenGLContextParameter>;
+
+declare const NSOpenGLPFAAllowOfflineRenderers: number;
+
 declare const NSTextDidBeginEditingNotification: string;
 
 declare const NSAccessibilityVerticalUnitDescriptionAttribute: string;
+
+declare const NSOpenGLPFASingleRenderer: number;
 
 declare const NSFontWidthExpanded: number;
 
@@ -1954,8 +1984,6 @@ declare const NSToolTipBinding: string;
 declare const NSImageRepMatchesDevice: number;
 
 declare const NSPlainFileType: string;
-
-declare const NSAccessibilityGrowAreaAttribute: string;
 
 declare const NSF7FunctionKey: number;
 
@@ -2030,6 +2058,8 @@ declare const NSAppearanceNameLightContent: string;
 declare const NSAccessibilityToolbarRole: string;
 
 declare const NSWindowDidMiniaturizeNotification: string;
+
+declare const NSAccessibilityGrowAreaAttribute: string;
 
 declare const NSTextListMarkerUppercaseHexadecimal: string;
 
@@ -2193,10 +2223,6 @@ declare const NSOpenGLCPSwapRectangle: interop.Enum<typeof NSOpenGLContextParame
 
 declare const NSTIFFPboardType: string;
 
-declare const NSOpenGLPFABackingStore: number;
-
-declare const NSOpenGLPFAVirtualScreenCount: number;
-
 declare const NSF9FunctionKey: number;
 
 declare const NSTabularTextPboardType: string;
@@ -2208,6 +2234,8 @@ declare const NSFPSizeTitle: number;
 declare const NSDeviceRGBColorSpace: string;
 
 declare const NSAccessibilityFocusedWindowChangedNotification: string;
+
+declare const NSTextHighlightColorSchemeDefault: string;
 
 declare const NSGraphicsContextPDFFormat: string;
 
@@ -2230,6 +2258,8 @@ declare const NSScrollViewWillStartLiveMagnifyNotification: string;
 declare const NSToolbarItemVisibilityPriorityUser: number;
 
 declare const NSNoSelectionPlaceholderBindingOption: string;
+
+declare const NSTextHighlightColorSchemeBlue: string;
 
 declare const NSAppKitVersionNumber10_12_1: number;
 
@@ -2256,8 +2286,6 @@ declare const NSF20FunctionKey: number;
 declare const NSSharingServiceNameUseAsFacebookProfileImage: string;
 
 declare const NSVoiceGenderFemale: string;
-
-declare const NSOpenGLPFAOpenGLProfile: number;
 
 declare const NSAccessibilityContainsProtectedContentAttribute: string;
 
@@ -2421,6 +2449,8 @@ declare const NSRightTextAlignment: interop.Enum<typeof NSTextAlignment>;
 
 declare const NSPrintHeaderAndFooter: string;
 
+declare const NSTextHighlightColorSchemeOrange: string;
+
 declare const NSFontVariationAxisNameKey: string;
 
 declare const NSDarkGray: number;
@@ -2581,8 +2611,6 @@ declare const NSViewDidUpdateTrackingAreasNotification: string;
 
 declare const NSTextContentTypeStreetAddressLine2: string;
 
-declare const NSAccessibilityNumberOfCharactersAttribute: string;
-
 declare const NSPrintMustCollate: string;
 
 declare const NSF26FunctionKey: number;
@@ -2598,6 +2626,8 @@ declare const NSAlphaFirstBitmapFormat: interop.Enum<typeof NSBitmapFormat>;
 declare const NSAppKitVersionNumber10_11_2: number;
 
 declare const NSAccessibilityMatteHoleAttribute: string;
+
+declare const NSTextHighlightColorSchemePurple: string;
 
 declare const NSModificationTimeDocumentAttribute: string;
 
@@ -2628,8 +2658,6 @@ declare const NSSharingServiceNamePostVideoOnTudou: string;
 declare const NSAnyEventMask: interop.Enum<typeof NSEventMask>;
 
 declare const NSWordTablesReadException: string;
-
-declare const NSOpenGLPFAFullScreen: number;
 
 declare const NSAccessibilityIncrementorRole: string;
 
@@ -2870,6 +2898,8 @@ declare const NSImageNameTouchBarDeleteTemplate: string;
 declare const NSAccessibilityShadowTextAttribute: string;
 
 declare const NSPDFPboardType: string;
+
+declare const NSTextHighlightColorSchemeMint: string;
 
 declare const NSAccessibilityIncrementButtonAttribute: string;
 
@@ -3353,8 +3383,6 @@ declare const NSFontTraitsAttribute: string;
 
 declare const NSAccessibilityAnnouncementKey: string;
 
-declare const NSOpenGLPFAStereo: number;
-
 declare const NSTextCheckingDocumentTitleKey: string;
 
 declare const NSFontTextStyleCaption2: string;
@@ -3364,6 +3392,8 @@ declare const NSObservedObjectKey: string;
 declare const NSAccessibilitySizeAttribute: string;
 
 declare const NSPatternColorSpace: string;
+
+declare const NSOpenGLPFAScreenMask: number;
 
 declare const NSWorkspaceWillPowerOffNotification: string;
 
@@ -3433,8 +3463,6 @@ declare const NSMouseEnteredMask: interop.Enum<typeof NSEventMask>;
 
 declare const NSTouchBarItemPriorityHigh: number;
 
-declare const NSOpenGLPFARemotePixelBuffer: number;
-
 declare const NSAccessibilityLabelUIElementsAttribute: string;
 
 declare const NSAccessibilitySystemWideRole: string;
@@ -3480,8 +3508,6 @@ declare const NSAlphaNonpremultipliedBitmapFormat: interop.Enum<typeof NSBitmapF
 declare const NSAccessibilityPickAction: string;
 
 declare const NSWorkspaceCopyOperation: string;
-
-declare const NSOpenGLPFAMultisample: number;
 
 declare const NSOpenGLProfileVersion3_2Core: number;
 
@@ -3587,8 +3613,6 @@ declare const NSPrefixSpacesDocumentAttribute: string;
 
 declare const NSImageNameTouchBarAudioOutputVolumeLowTemplate: string;
 
-declare const NSOpenGLPFAOffScreen: number;
-
 declare const NSPrintAllPages: string;
 
 declare const NSAlertFirstButtonReturn: number;
@@ -3613,6 +3637,8 @@ declare const NSAccessibilityScreenSizeForLayoutSizeParameterizedAttribute: stri
 
 declare const NSPrintSelectionOnly: string;
 
+declare const NSTextHighlightColorSchemePink: string;
+
 declare const NSLayoutPriorityDefaultLow: number;
 
 declare const NSStrikethroughStyleAttributeName: string;
@@ -3632,6 +3658,8 @@ declare const NSSharingServiceNotConfiguredError: number;
 declare const NSControlStateValueMixed: number;
 
 declare const NSPrintingCommunicationException: string;
+
+declare const NSSystemDefined: interop.Enum<typeof NSEventType>;
 
 declare const NSAppKitVersionNumber10_15: number;
 
@@ -3661,7 +3689,7 @@ declare const NSDocFormatTextDocumentType: string;
 
 declare const NSToolbarInspectorTrackingSeparatorItemIdentifier: string;
 
-declare const NSOpenGLPFARendererID: number;
+declare const NSToolbarNewIndexKey: string;
 
 declare const NSFontOrnamentalsClass: number;
 
@@ -3708,8 +3736,6 @@ declare const NSAccessibilityOutlineRowSubrole: string;
 declare const NSAlertThirdButtonReturn: number;
 
 declare const NSAutoPagination: interop.Enum<typeof NSPrintingPaginationMode>;
-
-declare const NSOpenGLProfileVersionLegacy: number;
 
 declare const NSPlainTextDocumentType: string;
 
@@ -3795,8 +3821,6 @@ declare const NSAccessibilityStrikethroughColorTextAttribute: string;
 
 declare const NSRecentSearchesBinding: string;
 
-declare const NSOpenGLPFASupersample: number;
-
 declare const NSPasteboardTypeFont: string;
 
 declare const NSImageNameUserGroup: string;
@@ -3834,8 +3858,6 @@ declare const NSImageNameTouchBarUserGroupTemplate: string;
 declare const NSValueTransformerNameBindingOption: string;
 
 declare const NSAccessibilityTextFieldRole: string;
-
-declare const NSOpenGLPFAPixelBuffer: number;
 
 declare const NSButtLineCapStyle: interop.Enum<typeof NSLineCapStyle>;
 
@@ -3905,6 +3927,8 @@ declare const NSAccessibilityTableRole: string;
 
 declare const NSAccessibilityRTFForRangeParameterizedAttribute: string;
 
+declare const NSOpenGLPFARendererID: number;
+
 declare const NSWorkspaceDidHideApplicationNotification: string;
 
 declare const NSAccessibilityWindowAttribute: string;
@@ -3940,35 +3964,6 @@ declare const NSFontSymbolicClass: number;
 declare const NSWindowDidEnterFullScreenNotification: string;
 
 declare const NSClosePathBezierPathElement: interop.Enum<typeof NSBezierPathElement>;
-
-declare const NSBrowserDropOperation: {
-  On: 0,
-  Above: 1,
-};
-
-declare const NSFontTraitMask: {
-  Italic: 1,
-  Bold: 2,
-  Unbold: 4,
-  NonStandardCharacterSet: 8,
-  Narrow: 16,
-  Expanded: 32,
-  Condensed: 64,
-  SmallCaps: 128,
-  Poster: 256,
-  Compressed: 512,
-  FixedPitch: 1024,
-  Unitalic: 16777216,
-};
-
-declare const NSApplicationOcclusionState: {
-  NSApplicationOcclusionStateVisible: 2,
-};
-
-declare const NSScrubberMode: {
-  Fixed: 0,
-  Free: 1,
-};
 
 declare const NSTextFieldBezelStyle: {
   Square: 0,
@@ -4132,6 +4127,23 @@ declare const NSTouchTypeMask: {
 declare const NSRulerOrientation: {
   Horizontal: 0,
   Vertical: 1,
+};
+
+declare const NSLayoutAttribute: {
+  Left: 1,
+  Right: 2,
+  Top: 3,
+  Bottom: 4,
+  Leading: 5,
+  Trailing: 6,
+  Width: 7,
+  Height: 8,
+  CenterX: 9,
+  CenterY: 10,
+  LastBaseline: 11,
+  Baseline: 11,
+  FirstBaseline: 12,
+  NotAnAttribute: 0,
 };
 
 declare const NSImageScaling: {
@@ -4621,6 +4633,27 @@ declare const NSTextStorageEditActions: {
   Characters: 2,
 };
 
+declare const NSWritingToolsAllowedInputOptions: {
+  Default: 0,
+  PlainText: 1,
+  RichText: 2,
+  List: 4,
+  Table: 8,
+};
+
+declare const NSToolbarItemGroupSelectionMode: {
+  SelectOne: 0,
+  SelectAny: 1,
+  Momentary: 2,
+};
+
+declare const NSWritingToolsBehavior: {
+  None: -1,
+  Default: 0,
+  Complete: 1,
+  Limited: 2,
+};
+
 declare const NSGradientType: {
   None: 0,
   ConcaveWeak: 1,
@@ -4635,6 +4668,19 @@ declare const NSStackViewGravity: {
   Center: 2,
   Bottom: 3,
   Trailing: 3,
+};
+
+declare const NSTextAlignment: {
+  Left: 0,
+  Center: 1,
+  Right: 2,
+  Justified: 3,
+  Natural: 4,
+};
+
+declare const NSSharingCollaborationMode: {
+  SendCopy: 0,
+  Collaborate: 1,
 };
 
 declare const NSSegmentDistribution: {
@@ -4783,6 +4829,11 @@ declare const NSSharingContentScope: {
   Full: 2,
 };
 
+declare const NSScrubberMode: {
+  Fixed: 0,
+  Free: 1,
+};
+
 declare const NSWindowDepth: {
   Twentyfour: 520,
   Sixtyfour: 528,
@@ -4871,23 +4922,6 @@ declare const NSTextLayoutManagerSegmentOptions: {
   UpstreamAffinity: 16,
 };
 
-declare const NSLayoutAttribute: {
-  Left: 1,
-  Right: 2,
-  Top: 3,
-  Bottom: 4,
-  Leading: 5,
-  Trailing: 6,
-  Width: 7,
-  Height: 8,
-  CenterX: 9,
-  CenterY: 10,
-  LastBaseline: 11,
-  Baseline: 11,
-  FirstBaseline: 12,
-  NotAnAttribute: 0,
-};
-
 declare const NSLayoutRelation: {
   LessThanOr: -1,
   NSLayoutRelationEqual: 0,
@@ -4911,6 +4945,23 @@ declare const NSLayoutConstraintOrientation: {
 declare const NSGradientDrawingOptions: {
   BeforeStarting: 1,
   AfterEnding: 2,
+};
+
+declare const NSCursorFrameResizeDirections: {
+  Inward: 1,
+  Outward: 2,
+  All: 3,
+};
+
+declare const NSCursorFrameResizePosition: {
+  Top: 1,
+  Left: 2,
+  Bottom: 4,
+  Right: 8,
+  TopLeft: 3,
+  TopRight: 9,
+  BottomLeft: 6,
+  BottomRight: 12,
 };
 
 declare const NSColorWellStyle: {
@@ -4986,7 +5037,6 @@ declare const NSWindowAnimationBehavior: {
 declare const NSWindowSharingType: {
   None: 0,
   ReadOnly: 1,
-  ReadWrite: 2,
 };
 
 declare const NSLineCapStyle: {
@@ -5008,6 +5058,18 @@ declare const NSFontRenderingMode: {
   Antialiased: 1,
   IntegerAdvancements: 2,
   AntialiasedIntegerAdvancements: 3,
+};
+
+declare const NSVerticalDirections: {
+  Up: 1,
+  Down: 2,
+  All: 3,
+};
+
+declare const NSHorizontalDirections: {
+  Left: 1,
+  Right: 2,
+  All: 3,
 };
 
 declare const NSCollectionLayoutSectionOrthogonalScrollingBehavior: {
@@ -5108,18 +5170,6 @@ declare const NSViewControllerTransitionOptions: {
   AllowUserInteraction: 4096,
 };
 
-declare const NSSplitViewDividerStyle: {
-  Thick: 1,
-  Thin: 2,
-  PaneSplitter: 3,
-};
-
-declare const NSPopoverBehavior: {
-  ApplicationDefined: 0,
-  Transient: 1,
-  Semitransient: 2,
-};
-
 declare const NSBoxType: {
   Primary: 0,
   Separator: 2,
@@ -5157,6 +5207,30 @@ declare const NSGridRowAlignment: {
   None: 1,
   FirstBaseline: 2,
   LastBaseline: 3,
+};
+
+declare const NSBrowserDropOperation: {
+  On: 0,
+  Above: 1,
+};
+
+declare const NSFontTraitMask: {
+  Italic: 1,
+  Bold: 2,
+  Unbold: 4,
+  NonStandardCharacterSet: 8,
+  Narrow: 16,
+  Expanded: 32,
+  Condensed: 64,
+  SmallCaps: 128,
+  Poster: 256,
+  Compressed: 512,
+  FixedPitch: 1024,
+  Unitalic: 16777216,
+};
+
+declare const NSApplicationOcclusionState: {
+  NSApplicationOcclusionStateVisible: 2,
 };
 
 declare const NSApplicationPresentationOptions: {
@@ -5239,43 +5313,6 @@ declare const NSImageInterpolation: {
   Low: 2,
   Medium: 4,
   High: 3,
-};
-
-declare const NSControlCharacterAction: {
-  ZeroAdvancement: 1,
-  Whitespace: 2,
-  HorizontalTab: 4,
-  LineBreak: 8,
-  ParagraphBreak: 16,
-  ContainerBreak: 32,
-};
-
-declare const NSWindowTitleVisibility: {
-  Visible: 0,
-  Hidden: 1,
-};
-
-declare const NSTextScalingType: {
-  ScalingStandard: 0,
-  ScalingiOS: 1,
-};
-
-declare const NSWritingDirectionFormatType: {
-  Embedding: 0,
-  Override: 2,
-};
-
-declare const NSUnderlineStyle: {
-  None: 0,
-  Single: 1,
-  Thick: 2,
-  Double: 9,
-  PatternSolid: 0,
-  PatternDot: 256,
-  PatternDash: 512,
-  PatternDashDot: 768,
-  PatternDashDotDot: 1024,
-  ByWord: 32768,
 };
 
 declare const NSFontAction: {
@@ -5604,6 +5641,43 @@ declare const NSPasteboardReadingOptions: {
   KeyedArchive: 4,
 };
 
+declare const NSControlCharacterAction: {
+  ZeroAdvancement: 1,
+  Whitespace: 2,
+  HorizontalTab: 4,
+  LineBreak: 8,
+  ParagraphBreak: 16,
+  ContainerBreak: 32,
+};
+
+declare const NSWindowTitleVisibility: {
+  Visible: 0,
+  Hidden: 1,
+};
+
+declare const NSTextScalingType: {
+  ScalingStandard: 0,
+  ScalingiOS: 1,
+};
+
+declare const NSWritingDirectionFormatType: {
+  Embedding: 0,
+  Override: 2,
+};
+
+declare const NSUnderlineStyle: {
+  None: 0,
+  Single: 1,
+  Thick: 2,
+  Double: 9,
+  PatternSolid: 0,
+  PatternDot: 256,
+  PatternDash: 512,
+  PatternDashDot: 768,
+  PatternDashDotDot: 1024,
+  ByWord: 32768,
+};
+
 declare const NSImageLayoutDirection: {
   Unspecified: -1,
   LeftToRight: 2,
@@ -5651,26 +5725,6 @@ declare const NSSpringLoadingOptions: {
   Enabled: 1,
   ContinuousActivation: 2,
   NoHover: 8,
-};
-
-declare const NSImageAlignment: {
-  Center: 0,
-  Top: 1,
-  TopLeft: 2,
-  TopRight: 3,
-  Left: 4,
-  Bottom: 5,
-  BottomLeft: 6,
-  BottomRight: 7,
-  Right: 8,
-};
-
-declare const NSTextAlignment: {
-  Left: 0,
-  Center: 1,
-  Right: 2,
-  Justified: 3,
-  Natural: 4,
 };
 
 declare const NSWindowButton: {
@@ -5746,6 +5800,12 @@ declare const NSCellHitResult: {
   ContentArea: 1,
   EditableTextArea: 2,
   TrackableArea: 4,
+};
+
+declare const NSSplitViewDividerStyle: {
+  Thick: 1,
+  Thin: 2,
+  PaneSplitter: 3,
 };
 
 declare const NSBackingStoreType: {
@@ -6073,6 +6133,18 @@ declare const NSAccessibilityOrientation: {
   Horizontal: 2,
 };
 
+declare const NSImageAlignment: {
+  Center: 0,
+  Top: 1,
+  TopLeft: 2,
+  TopRight: 3,
+  Left: 4,
+  Bottom: 5,
+  BottomLeft: 6,
+  BottomRight: 7,
+  Right: 8,
+};
+
 declare const NSTabViewControllerTabStyle: {
   SegmentedControlOnTop: 0,
   SegmentedControlOnBottom: 1,
@@ -6120,12 +6192,6 @@ declare const NSTextSelectionNavigationWritingDirection: {
 declare const NSTextSelectionNavigationLayoutOrientation: {
   Horizontal: 0,
   Vertical: 1,
-};
-
-declare const NSToolbarItemGroupSelectionMode: {
-  SelectOne: 0,
-  SelectAny: 1,
-  Momentary: 2,
 };
 
 declare const NSPrinterTableStatus: {
@@ -6199,6 +6265,12 @@ declare const NSWritingDirection: {
   Natural: -1,
   LeftToRight: 0,
   RightToLeft: 1,
+};
+
+declare const NSPopoverBehavior: {
+  ApplicationDefined: 0,
+  Transient: 1,
+  Semitransient: 2,
 };
 
 declare class NSDirectionalEdgeInsets {
@@ -6408,44 +6480,6 @@ declare interface NSAccessibilityElementProtocol extends NSObjectProtocol {
 declare class NSAccessibilityElementProtocol extends NativeObject implements NSAccessibilityElementProtocol {
 }
 
-declare interface NSLayoutManagerDelegate extends NSObjectProtocol {
-  layoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange?(layoutManager: NSLayoutManager, glyphs: interop.PointerConvertible, props: interop.PointerConvertible, charIndexes: interop.PointerConvertible, aFont: NSFont, glyphRange: _NSRange): number;
-
-  layoutManagerLineSpacingAfterGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
-
-  layoutManagerParagraphSpacingBeforeGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
-
-  layoutManagerParagraphSpacingAfterGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
-
-  layoutManagerShouldUseActionForControlCharacterAtIndex?(layoutManager: NSLayoutManager, action: interop.Enum<typeof NSControlCharacterAction>, charIndex: number): interop.Enum<typeof NSControlCharacterAction>;
-
-  layoutManagerShouldBreakLineByWordBeforeCharacterAtIndex?(layoutManager: NSLayoutManager, charIndex: number): boolean;
-
-  layoutManagerShouldBreakLineByHyphenatingBeforeCharacterAtIndex?(layoutManager: NSLayoutManager, charIndex: number): boolean;
-
-  layoutManagerBoundingBoxForControlGlyphAtIndexForTextContainerProposedLineFragmentGlyphPositionCharacterIndex?(layoutManager: NSLayoutManager, glyphIndex: number, textContainer: NSTextContainer, proposedRect: CGRect, glyphPosition: CGPoint, charIndex: number): CGRect;
-
-  layoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange?(layoutManager: NSLayoutManager, lineFragmentRect: interop.PointerConvertible, lineFragmentUsedRect: interop.PointerConvertible, baselineOffset: interop.PointerConvertible, textContainer: NSTextContainer, glyphRange: _NSRange): boolean;
-
-  layoutManagerDidInvalidateLayout?(sender: NSLayoutManager): void;
-
-  layoutManagerDidCompleteLayoutForTextContainerAtEnd?(layoutManager: NSLayoutManager, textContainer: NSTextContainer | null, layoutFinishedFlag: boolean): void;
-
-  layoutManagerTextContainerDidChangeGeometryFromSize?(layoutManager: NSLayoutManager, textContainer: NSTextContainer, oldSize: CGSize): void;
-
-  layoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange?(layoutManager: NSLayoutManager, attrs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, toScreen: boolean, charIndex: number, effectiveCharRange: interop.PointerConvertible): NSDictionary;
-}
-
-declare class NSLayoutManagerDelegate extends NativeObject implements NSLayoutManagerDelegate {
-}
-
-declare interface NSViewLayerContentScaleDelegate extends NSObjectProtocol {
-  layerShouldInheritContentsScaleFromWindow?(layer: CALayer, newScale: number, window: NSWindow): boolean;
-}
-
-declare class NSViewLayerContentScaleDelegate extends NativeObject implements NSViewLayerContentScaleDelegate {
-}
-
 declare interface NSPasteboardWriting extends NSObjectProtocol {
   writableTypesForPasteboard(pasteboard: NSPasteboard): NSArray;
 
@@ -6576,6 +6610,17 @@ declare interface NSCollectionViewDelegateFlowLayout extends NSCollectionViewDel
 declare class NSCollectionViewDelegateFlowLayout extends NativeObject implements NSCollectionViewDelegateFlowLayout {
 }
 
+declare interface NSFilePromiseProviderDelegate extends NSObjectProtocol {
+  filePromiseProviderFileNameForType(filePromiseProvider: NSFilePromiseProvider, fileType: string): string;
+
+  filePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider: NSFilePromiseProvider, url: NSURL, completionHandler: (p1: NSError) => void | null): void;
+
+  operationQueueForFilePromiseProvider?(filePromiseProvider: NSFilePromiseProvider): NSOperationQueue;
+}
+
+declare class NSFilePromiseProviderDelegate extends NativeObject implements NSFilePromiseProviderDelegate {
+}
+
 declare interface NSTextAttachmentContainer extends NSObjectProtocol {
   imageForBoundsTextContainerCharacterIndex(imageBounds: CGRect, textContainer: NSTextContainer | null, charIndex: number): NSImage;
 
@@ -6589,6 +6634,19 @@ declare interface NSAlignmentFeedbackToken extends NSObjectProtocol {
 }
 
 declare class NSAlignmentFeedbackToken extends NativeObject implements NSAlignmentFeedbackToken {
+}
+
+declare interface NSTextViewportLayoutControllerDelegate extends NSObjectProtocol {
+  viewportBoundsForTextViewportLayoutController(textViewportLayoutController: NSTextViewportLayoutController): CGRect;
+
+  textViewportLayoutControllerConfigureRenderingSurfaceForTextLayoutFragment(textViewportLayoutController: NSTextViewportLayoutController, textLayoutFragment: NSTextLayoutFragment): void;
+
+  textViewportLayoutControllerWillLayout?(textViewportLayoutController: NSTextViewportLayoutController): void;
+
+  textViewportLayoutControllerDidLayout?(textViewportLayoutController: NSTextViewportLayoutController): void;
+}
+
+declare class NSTextViewportLayoutControllerDelegate extends NativeObject implements NSTextViewportLayoutControllerDelegate {
 }
 
 declare interface NSImageDelegate extends NSObjectProtocol {
@@ -6628,6 +6686,12 @@ declare interface NSTextInputTraits {
   textCompletionType?: interop.Enum<typeof NSTextInputTraitType>;
 
   inlinePredictionType?: interop.Enum<typeof NSTextInputTraitType>;
+
+  mathExpressionCompletionType?: interop.Enum<typeof NSTextInputTraitType>;
+
+  writingToolsBehavior?: interop.Enum<typeof NSWritingToolsBehavior>;
+
+  writingToolsAllowedInputOptions?: interop.Enum<typeof NSWritingToolsAllowedInputOptions>;
 }
 
 declare class NSTextInputTraits extends NativeObject implements NSTextInputTraits {
@@ -6868,6 +6932,13 @@ declare interface NSPasteboardTypeOwner extends NSObjectProtocol {
 }
 
 declare class NSPasteboardTypeOwner extends NativeObject implements NSPasteboardTypeOwner {
+}
+
+declare interface NSAccessibilityLayoutItem extends NSAccessibilityGroup {
+  setAccessibilityFrame?(frame: CGRect): void;
+}
+
+declare class NSAccessibilityLayoutItem extends NativeObject implements NSAccessibilityLayoutItem {
 }
 
 declare interface NSDockTilePlugIn extends NSObjectProtocol {
@@ -7516,6 +7587,10 @@ declare interface NSTextInputClient {
   readonly unionRectInVisibleSelectedRange?: CGRect;
 
   readonly documentVisibleRect?: CGRect;
+
+  readonly supportsAdaptiveImageGlyph?: boolean;
+
+  insertAdaptiveImageGlyphReplacementRange?(adaptiveImageGlyph: NSAdaptiveImageGlyph, replacementRange: _NSRange): void;
 }
 
 declare class NSTextInputClient extends NativeObject implements NSTextInputClient {
@@ -7618,6 +7693,10 @@ declare interface NSOpenSavePanelDelegate extends NSObjectProtocol {
   panelWillExpand?(sender: interop.Object, expanding: boolean): void;
 
   panelSelectionDidChange?(sender: interop.Object | null): void;
+
+  panelDisplayNameForType?(sender: interop.Object, type: UTType): string;
+
+  panelDidSelectType?(sender: interop.Object, type: UTType | null): void;
 }
 
 declare class NSOpenSavePanelDelegate extends NativeObject implements NSOpenSavePanelDelegate {
@@ -7847,6 +7926,8 @@ declare interface NSWindowDelegate extends NSObjectProtocol {
   windowDidDecodeRestorableState?(window: NSWindow, state: NSCoder): void;
 
   previewRepresentableActivityItemsForWindow?(window: NSWindow): NSArray | null;
+
+  windowForSharingRequestFromWindow?(window: NSWindow): NSWindow;
 
   windowDidResize?(notification: NSNotification): void;
 
@@ -8147,6 +8228,22 @@ declare interface NSAccessibilityCustomRotorItemSearchDelegate extends NSObjectP
 declare class NSAccessibilityCustomRotorItemSearchDelegate extends NativeObject implements NSAccessibilityCustomRotorItemSearchDelegate {
 }
 
+declare interface NSEditorRegistration extends NSObjectProtocol {
+  objectDidBeginEditing?(editor: NSEditor): void;
+
+  objectDidEndEditing?(editor: NSEditor): void;
+}
+
+declare class NSEditorRegistration extends NativeObject implements NSEditorRegistration {
+}
+
+declare interface NSMenuItemValidation extends NSObjectProtocol {
+  validateMenuItem(menuItem: NSMenuItem): boolean;
+}
+
+declare class NSMenuItemValidation extends NativeObject implements NSMenuItemValidation {
+}
+
 declare interface NSFontChanging extends NSObjectProtocol {
   changeFont?(sender: NSFontManager | null): void;
 
@@ -8193,6 +8290,13 @@ declare interface NSChangeSpelling {
 declare class NSChangeSpelling extends NativeObject implements NSChangeSpelling {
 }
 
+declare interface NSViewLayerContentScaleDelegate extends NSObjectProtocol {
+  layerShouldInheritContentsScaleFromWindow?(layer: CALayer, newScale: number, window: NSWindow): boolean;
+}
+
+declare class NSViewLayerContentScaleDelegate extends NativeObject implements NSViewLayerContentScaleDelegate {
+}
+
 declare interface NSSpringLoadingDestination extends NSObjectProtocol {
   springLoadingActivatedDraggingInfo(activated: boolean, draggingInfo: NSDraggingInfo): void;
 
@@ -8217,13 +8321,6 @@ declare interface NSAccessibilityElementLoading extends NSObjectProtocol {
 }
 
 declare class NSAccessibilityElementLoading extends NativeObject implements NSAccessibilityElementLoading {
-}
-
-declare interface NSAccessibilityLayoutItem extends NSAccessibilityGroup {
-  setAccessibilityFrame?(frame: CGRect): void;
-}
-
-declare class NSAccessibilityLayoutItem extends NativeObject implements NSAccessibilityLayoutItem {
 }
 
 declare interface NSAccessibilityRow extends NSAccessibilityGroup {
@@ -8354,6 +8451,12 @@ declare interface NSTextViewDelegate extends NSTextDelegate {
   textViewCandidatesForSelectedRange?(textView: NSTextView, selectedRange: _NSRange): NSArray;
 
   textViewShouldSelectCandidateAtIndex?(textView: NSTextView, index: number): boolean;
+
+  textViewWritingToolsWillBegin?(textView: NSTextView): void;
+
+  textViewWritingToolsDidEnd?(textView: NSTextView): void;
+
+  textViewWritingToolsIgnoredRangesInEnclosingRange?(textView: NSTextView, enclosingRange: _NSRange): NSArray;
 
   textViewClickedOnLink?(textView: NSTextView, link: interop.Object): boolean;
 
@@ -8810,15 +8913,6 @@ declare interface NSGestureRecognizerDelegate extends NSObjectProtocol {
 declare class NSGestureRecognizerDelegate extends NativeObject implements NSGestureRecognizerDelegate {
 }
 
-declare interface NSEditorRegistration extends NSObjectProtocol {
-  objectDidBeginEditing?(editor: NSEditor): void;
-
-  objectDidEndEditing?(editor: NSEditor): void;
-}
-
-declare class NSEditorRegistration extends NativeObject implements NSEditorRegistration {
-}
-
 declare interface NSAccessibilityContainsTransientUI extends NSAccessibilityElementProtocol {
   accessibilityPerformShowAlternateUI(): boolean;
 
@@ -8874,17 +8968,6 @@ declare interface NSTextElementProvider extends NSObjectProtocol {
 declare class NSTextElementProvider extends NativeObject implements NSTextElementProvider {
 }
 
-declare interface NSFilePromiseProviderDelegate extends NSObjectProtocol {
-  filePromiseProviderFileNameForType(filePromiseProvider: NSFilePromiseProvider, fileType: string): string;
-
-  filePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider: NSFilePromiseProvider, url: NSURL, completionHandler: (p1: NSError) => void | null): void;
-
-  operationQueueForFilePromiseProvider?(filePromiseProvider: NSFilePromiseProvider): NSOperationQueue;
-}
-
-declare class NSFilePromiseProviderDelegate extends NativeObject implements NSFilePromiseProviderDelegate {
-}
-
 declare interface NSComboBoxCellDataSource extends NSObjectProtocol {
   numberOfItemsInComboBoxCell?(comboBoxCell: NSComboBoxCell): number;
 
@@ -8921,7 +9004,7 @@ declare interface NSApplicationDelegate extends NSObjectProtocol {
 
   applicationShouldTerminateAfterLastWindowClosed?(sender: NSApplication): boolean;
 
-  applicationShouldHandleReopenHasVisibleWindows?(sender: NSApplication, flag: boolean): boolean;
+  applicationShouldHandleReopenHasVisibleWindows?(sender: NSApplication, hasVisibleWindows: boolean): boolean;
 
   applicationDockMenu?(sender: NSApplication): NSMenu;
 
@@ -8999,6 +9082,8 @@ declare interface NSSharingServicePickerDelegate extends NSObjectProtocol {
   sharingServicePickerDelegateForSharingService?(sharingServicePicker: NSSharingServicePicker, sharingService: NSSharingService): NSSharingServiceDelegate;
 
   sharingServicePickerDidChooseSharingService?(sharingServicePicker: NSSharingServicePicker, service: NSSharingService | null): void;
+
+  sharingServicePickerCollaborationModeRestrictions?(sharingServicePicker: NSSharingServicePicker): NSArray;
 }
 
 declare class NSSharingServicePickerDelegate extends NativeObject implements NSSharingServicePickerDelegate {
@@ -9053,13 +9138,6 @@ declare interface NSAppearanceCustomization extends NSObjectProtocol {
 }
 
 declare class NSAppearanceCustomization extends NativeObject implements NSAppearanceCustomization {
-}
-
-declare interface NSMenuItemValidation extends NSObjectProtocol {
-  validateMenuItem(menuItem: NSMenuItem): boolean;
-}
-
-declare class NSMenuItemValidation extends NativeObject implements NSMenuItemValidation {
 }
 
 declare interface NSAccessibilityColor {
@@ -9259,19 +9337,6 @@ declare interface NSTokenFieldDelegate extends NSTextFieldDelegate {
 declare class NSTokenFieldDelegate extends NativeObject implements NSTokenFieldDelegate {
 }
 
-declare interface NSTextViewportLayoutControllerDelegate extends NSObjectProtocol {
-  viewportBoundsForTextViewportLayoutController(textViewportLayoutController: NSTextViewportLayoutController): CGRect;
-
-  textViewportLayoutControllerConfigureRenderingSurfaceForTextLayoutFragment(textViewportLayoutController: NSTextViewportLayoutController, textLayoutFragment: NSTextLayoutFragment): void;
-
-  textViewportLayoutControllerWillLayout?(textViewportLayoutController: NSTextViewportLayoutController): void;
-
-  textViewportLayoutControllerDidLayout?(textViewportLayoutController: NSTextViewportLayoutController): void;
-}
-
-declare class NSTextViewportLayoutControllerDelegate extends NativeObject implements NSTextViewportLayoutControllerDelegate {
-}
-
 declare interface NSTextLayoutManagerDelegate extends NSObjectProtocol {
   textLayoutManagerTextLayoutFragmentForLocationInTextElement?(textLayoutManager: NSTextLayoutManager, location: NSTextLocation, textElement: NSTextElement): NSTextLayoutFragment;
 
@@ -9281,6 +9346,37 @@ declare interface NSTextLayoutManagerDelegate extends NSObjectProtocol {
 }
 
 declare class NSTextLayoutManagerDelegate extends NativeObject implements NSTextLayoutManagerDelegate {
+}
+
+declare interface NSLayoutManagerDelegate extends NSObjectProtocol {
+  layoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange?(layoutManager: NSLayoutManager, glyphs: interop.PointerConvertible, props: interop.PointerConvertible, charIndexes: interop.PointerConvertible, aFont: NSFont, glyphRange: _NSRange): number;
+
+  layoutManagerLineSpacingAfterGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
+
+  layoutManagerParagraphSpacingBeforeGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
+
+  layoutManagerParagraphSpacingAfterGlyphAtIndexWithProposedLineFragmentRect?(layoutManager: NSLayoutManager, glyphIndex: number, rect: CGRect): number;
+
+  layoutManagerShouldUseActionForControlCharacterAtIndex?(layoutManager: NSLayoutManager, action: interop.Enum<typeof NSControlCharacterAction>, charIndex: number): interop.Enum<typeof NSControlCharacterAction>;
+
+  layoutManagerShouldBreakLineByWordBeforeCharacterAtIndex?(layoutManager: NSLayoutManager, charIndex: number): boolean;
+
+  layoutManagerShouldBreakLineByHyphenatingBeforeCharacterAtIndex?(layoutManager: NSLayoutManager, charIndex: number): boolean;
+
+  layoutManagerBoundingBoxForControlGlyphAtIndexForTextContainerProposedLineFragmentGlyphPositionCharacterIndex?(layoutManager: NSLayoutManager, glyphIndex: number, textContainer: NSTextContainer, proposedRect: CGRect, glyphPosition: CGPoint, charIndex: number): CGRect;
+
+  layoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange?(layoutManager: NSLayoutManager, lineFragmentRect: interop.PointerConvertible, lineFragmentUsedRect: interop.PointerConvertible, baselineOffset: interop.PointerConvertible, textContainer: NSTextContainer, glyphRange: _NSRange): boolean;
+
+  layoutManagerDidInvalidateLayout?(sender: NSLayoutManager): void;
+
+  layoutManagerDidCompleteLayoutForTextContainerAtEnd?(layoutManager: NSLayoutManager, textContainer: NSTextContainer | null, layoutFinishedFlag: boolean): void;
+
+  layoutManagerTextContainerDidChangeGeometryFromSize?(layoutManager: NSLayoutManager, textContainer: NSTextContainer, oldSize: CGSize): void;
+
+  layoutManagerShouldUseTemporaryAttributesForDrawingToScreenAtCharacterIndexEffectiveRange?(layoutManager: NSLayoutManager, attrs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, toScreen: boolean, charIndex: number, effectiveCharRange: interop.PointerConvertible): NSDictionary;
+}
+
+declare class NSLayoutManagerDelegate extends NativeObject implements NSLayoutManagerDelegate {
 }
 
 declare interface NSPopoverDelegate extends NSObjectProtocol {
@@ -9524,20 +9620,6 @@ declare class NSCollectionViewLayout extends NSObject implements NSCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class NSDockTile extends NSObject {
-  readonly size: CGSize;
-
-  contentView: NSView;
-
-  display(): void;
-
-  showsApplicationBadge: boolean;
-
-  badgeLabel: string;
-
-  readonly owner: interop.Object | null;
-}
-
 // @ts-ignore ClassDecl.tsIgnore
 declare class NSSliderCell extends NSActionCell {
   static readonly prefersTrackingUntilMouseUp: boolean;
@@ -9715,6 +9797,62 @@ declare class NSScrollView extends NSView implements NSTextFinderBarContainer {
   isFindBarVisible: boolean;
 
   findBarViewDidChangeHeight(): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class NSTableHeaderView extends NSView implements NSViewToolTipOwner {
+  tableView: NSTableView;
+
+  readonly draggedColumn: number;
+
+  readonly draggedDistance: number;
+
+  readonly resizedColumn: number;
+
+  headerRectOfColumn(column: number): CGRect;
+
+  columnAtPoint(point: CGPoint): number;
+
+  viewStringForToolTipPointUserData(view: NSView, tag: number, point: CGPoint, data: interop.PointerConvertible): string;
 
   isEqual(object: interop.Object): boolean;
 
@@ -10545,6 +10683,28 @@ declare class NSEvent extends NSObject implements NSCopying, NSCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class NSAdaptiveImageGlyph extends NSObject implements NSCopying, NSSecureCoding, CTAdaptiveImageProviding {
+  initWithImageContent(imageContent: NSData): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  readonly imageContent: NSData;
+
+  readonly contentIdentifier: string;
+
+  readonly contentDescription: string;
+
+  static readonly contentType: UTType;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  imageForProposedSizeScaleFactorImageOffsetImageSize(proposedSize: CGSize, scaleFactor: number, outImageOffset: interop.PointerConvertible, outImageSize: interop.PointerConvertible): interop.Pointer;
+}
+
 declare class NSBindingSelectionMarker extends NSObject implements NSCopying {
   static readonly multipleValuesSelectionMarker: NSBindingSelectionMarker;
 
@@ -10882,6 +11042,20 @@ declare class NSScrubberLayout extends NSObject implements NSCoding {
   encodeWithCoder(coder: NSCoder): void;
 }
 
+declare class NSDockTile extends NSObject {
+  readonly size: CGSize;
+
+  contentView: NSView;
+
+  display(): void;
+
+  showsApplicationBadge: boolean;
+
+  badgeLabel: string;
+
+  readonly owner: interop.Object | null;
+}
+
 declare class NSWindowController extends NSResponder implements NSSeguePerforming {
   initWithWindow(window: NSWindow | null): this;
 
@@ -11214,143 +11388,73 @@ declare class NSRulerView extends NSView {
   readonly isFlipped: boolean;
 }
 
-declare class NSSplitViewController extends NSViewController implements NSSplitViewDelegate, NSUserInterfaceValidations {
-  splitView: NSSplitView;
+declare class NSInputServer extends NSObject implements NSInputServiceProvider, NSInputServerMouseTracker {
+  initWithDelegateName(delegate: interop.Object, name: string): this;
 
-  get splitViewItems(): NSArray;
-  set splitViewItems(value: NSArray<interop.Object> | Array<interop.Object>);
+  insertTextClient(string: interop.Object, sender: interop.Object): void;
 
-  addSplitViewItem(splitViewItem: NSSplitViewItem): void;
+  doCommandBySelectorClient(selector: string, sender: interop.Object): void;
 
-  insertSplitViewItemAtIndex(splitViewItem: NSSplitViewItem, index: number): void;
+  markedTextAbandoned(sender: interop.Object | null): void;
 
-  removeSplitViewItem(splitViewItem: NSSplitViewItem): void;
+  markedTextSelectionChangedClient(newSel: _NSRange, sender: interop.Object): void;
 
-  splitViewItemForViewController(viewController: NSViewController): NSSplitViewItem;
+  terminate(sender: interop.Object | null): void;
 
-  minimumThicknessForInlineSidebars: number;
+  canBeDisabled(): boolean;
 
-  validateUserInterfaceItem(item: NSValidatedUserInterfaceItem): boolean;
+  wantsToInterpretAllKeystrokes(): boolean;
 
-  viewDidLoad(): void;
+  wantsToHandleMouseEvents(): boolean;
 
-  splitViewCanCollapseSubview(splitView: NSSplitView, subview: NSView): boolean;
+  wantsToDelayTextChangeNotifications(): boolean;
 
-  splitViewShouldCollapseSubviewForDoubleClickOnDividerAtIndex(splitView: NSSplitView, subview: NSView, dividerIndex: number): boolean;
+  inputClientBecomeActive(sender: interop.Object | null): void;
 
-  splitViewShouldHideDividerAtIndex(splitView: NSSplitView, dividerIndex: number): boolean;
+  inputClientResignActive(sender: interop.Object | null): void;
 
-  splitViewEffectiveRectForDrawnRectOfDividerAtIndex(splitView: NSSplitView, proposedEffectiveRect: CGRect, drawnRect: CGRect, dividerIndex: number): CGRect;
+  inputClientEnabled(sender: interop.Object | null): void;
 
-  splitViewAdditionalEffectiveRectOfDividerAtIndex(splitView: NSSplitView, dividerIndex: number): CGRect;
+  inputClientDisabled(sender: interop.Object | null): void;
 
-  toggleSidebar(sender: interop.Object | null): void;
+  activeConversationWillChangeFromOldConversation(sender: interop.Object, oldConversation: number): void;
 
-  toggleInspector(sender: interop.Object | null): void;
+  activeConversationChangedToNewConversation(sender: interop.Object, newConversation: number): void;
 
-  splitViewConstrainMinCoordinateOfSubviewAt(splitView: NSSplitView, proposedMinimumPosition: number, dividerIndex: number): number;
+  mouseDownOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): boolean;
 
-  splitViewConstrainMaxCoordinateOfSubviewAt(splitView: NSSplitView, proposedMaximumPosition: number, dividerIndex: number): number;
+  mouseDraggedOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): boolean;
 
-  splitViewConstrainSplitPositionOfSubviewAt(splitView: NSSplitView, proposedPosition: number, dividerIndex: number): number;
-
-  splitViewResizeSubviewsWithOldSize(splitView: NSSplitView, oldSize: CGSize): void;
-
-  splitViewShouldAdjustSizeOfSubview(splitView: NSSplitView, view: NSView): boolean;
-
-  splitViewWillResizeSubviews(notification: NSNotification): void;
-
-  splitViewDidResizeSubviews(notification: NSNotification): void;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
+  mouseUpOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): void;
 }
 
-declare class NSRunningApplication extends NSObject {
-  readonly isTerminated: boolean;
+// @ts-ignore ClassDecl.tsIgnore
+declare class NSColorPickerTouchBarItem extends NSTouchBarItem {
+  static colorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
 
-  readonly isFinishedLaunching: boolean;
+  static textColorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
 
-  readonly isHidden: boolean;
+  static strokeColorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
 
-  readonly isActive: boolean;
+  static colorPickerWithIdentifierButtonImage<This extends abstract new (...args: any) => any>(this: This, identifier: string, image: NSImage): InstanceType<This>;
 
-  readonly ownsMenuBar: boolean;
+  color: NSColor;
 
-  readonly activationPolicy: interop.Enum<typeof NSApplicationActivationPolicy>;
+  showsAlpha: boolean;
 
-  readonly localizedName: string;
+  get allowedColorSpaces(): NSArray;
+  set allowedColorSpaces(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  readonly bundleIdentifier: string;
+  colorList: NSColorList;
 
-  readonly bundleURL: NSURL;
+  // @ts-ignore MemberDecl.tsIgnore
+  customizationLabel: string;
 
-  readonly executableURL: NSURL;
+  target: interop.Object;
 
-  readonly processIdentifier: number;
+  action: string;
 
-  readonly launchDate: NSDate;
-
-  readonly icon: NSImage;
-
-  readonly executableArchitecture: number;
-
-  hide(): boolean;
-
-  unhide(): boolean;
-
-  activateFromApplicationOptions(application: NSRunningApplication, options: interop.Enum<typeof NSApplicationActivationOptions>): boolean;
-
-  activateWithOptions(options: interop.Enum<typeof NSApplicationActivationOptions>): boolean;
-
-  terminate(): boolean;
-
-  forceTerminate(): boolean;
-
-  static runningApplicationsWithBundleIdentifier(bundleIdentifier: string): NSArray;
-
-  static runningApplicationWithProcessIdentifier<This extends abstract new (...args: any) => any>(this: This, pid: number): InstanceType<This>;
-
-  static readonly currentApplication: NSRunningApplication;
-
-  static terminateAutomaticallyTerminableApplications(): void;
+  isEnabled: boolean;
 }
 
 declare class NSImage extends NSObject {
@@ -11917,74 +12021,6 @@ declare class NSDraggingSession extends NSObject {
   readonly draggingLocation: CGPoint;
 
   enumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts: interop.Enum<typeof NSDraggingItemEnumerationOptions>, view: NSView | null, classArray: NSArray<interop.Object> | Array<interop.Object>, searchOptions: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, block: (p1: NSDraggingItem, p2: number, p3: interop.PointerConvertible) => void): void;
-}
-
-declare class NSDraggingImageComponent extends NSObject {
-  static draggingImageComponentWithKey(key: string): NSDraggingImageComponent;
-
-  initWithKey(key: string): this;
-
-  key: string;
-
-  contents: interop.Object;
-
-  frame: CGRect;
-}
-
-declare class NSTableHeaderView extends NSView implements NSViewToolTipOwner {
-  tableView: NSTableView;
-
-  readonly draggedColumn: number;
-
-  readonly draggedDistance: number;
-
-  readonly resizedColumn: number;
-
-  headerRectOfColumn(column: number): CGRect;
-
-  columnAtPoint(point: CGPoint): number;
-
-  viewStringForToolTipPointUserData(view: NSView, tag: number, point: CGPoint, data: interop.PointerConvertible): string;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
 }
 
 declare class NSPDFInfo extends NSObject implements NSCopying, NSCoding {
@@ -13512,6 +13548,10 @@ declare class NSPathCell extends NSActionCell implements NSMenuItemValidation, N
   panelWillExpand(sender: interop.Object, expanding: boolean): void;
 
   panelSelectionDidChange(sender: interop.Object | null): void;
+
+  panelDisplayNameForType(sender: interop.Object, type: UTType): string;
+
+  panelDidSelectType(sender: interop.Object, type: UTType | null): void;
 }
 
 declare class NSPredicateEditorRowTemplate extends NSObject implements NSCoding, NSCopying {
@@ -15878,6 +15918,12 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
   get allowedInputSourceLocales(): NSArray;
   set allowedInputSourceLocales(value: NSArray<interop.Object> | Array<interop.Object>);
 
+  readonly isWritingToolsActive: boolean;
+
+  writingToolsBehavior: interop.Enum<typeof NSWritingToolsBehavior>;
+
+  writingToolsAllowedInputOptions: interop.Enum<typeof NSWritingToolsAllowedInputOptions>;
+
   smartInsertDeleteEnabled: boolean;
 
   smartDeleteRangeForProposedRange(proposedCharRange: _NSRange): _NSRange;
@@ -15934,6 +15980,8 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
 
   inlinePredictionType: interop.Enum<typeof NSTextInputTraitType>;
 
+  mathExpressionCompletionType: interop.Enum<typeof NSTextInputTraitType>;
+
   toggleQuickLookPreviewPanel(sender: interop.Object | null): void;
 
   quickLookPreviewableItemsInRanges(ranges: NSArray<interop.Object> | Array<interop.Object>): NSArray;
@@ -15963,6 +16011,13 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
   static scrollableDocumentContentTextView(): NSScrollView;
 
   static scrollablePlainDocumentContentTextView(): NSScrollView;
+
+  get textHighlightAttributes(): NSDictionary;
+  set textHighlightAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  drawTextHighlightBackgroundForTextRangeOrigin(textRange: NSTextRange, origin: CGPoint): void;
+
+  highlight(sender: interop.Object | null): void;
 
   toggleBaseWritingDirection(sender: interop.Object | null): void;
 
@@ -16047,6 +16102,10 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
   readonly unionRectInVisibleSelectedRange: CGRect;
 
   readonly documentVisibleRect: CGRect;
+
+  readonly supportsAdaptiveImageGlyph: boolean;
+
+  insertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph: NSAdaptiveImageGlyph, replacementRange: _NSRange): void;
 
   readonly layoutOrientation: interop.Enum<typeof NSTextLayoutOrientation>;
 
@@ -16297,7 +16356,7 @@ declare class NSTextAttachmentViewProvider extends NSObject {
   attachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, location: NSTextLocation, textContainer: NSTextContainer | null, proposedLineFragment: CGRect, position: CGPoint): CGRect;
 }
 
-declare class NSTextAttachment extends NSObject implements NSTextAttachmentLayout, NSTextAttachmentContainer, NSSecureCoding {
+declare class NSTextAttachment extends NSObject implements NSTextAttachmentLayout, NSSecureCoding {
   initWithDataOfType(contentData: NSData | null, uti: string | null): this;
 
   initWithFileWrapper(fileWrapper: NSFileWrapper | null): this;
@@ -16369,10 +16428,6 @@ declare class NSTextAttachment extends NSObject implements NSTextAttachmentLayou
   readonly description: string;
 
   readonly debugDescription: string;
-
-  imageForBoundsTextContainerCharacterIndex(imageBounds: CGRect, textContainer: NSTextContainer | null, charIndex: number): NSImage;
-
-  attachmentBoundsForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer: NSTextContainer | null, lineFrag: CGRect, position: CGPoint, charIndex: number): CGRect;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -16497,6 +16552,8 @@ declare class NSToolbarItem extends NSObject implements NSCopying {
   view: NSView;
 
   readonly isVisible: boolean;
+
+  isHidden: boolean;
 
   minSize: CGSize;
 
@@ -16782,6 +16839,14 @@ declare class NSGridCell extends NSObject implements NSCoding {
 
 // @ts-ignore ClassDecl.tsIgnore
 declare class NSPopUpButton extends NSButton {
+  static popUpButtonWithMenuTargetAction<This extends abstract new (...args: any) => any>(this: This, menu: NSMenu, target: interop.Object | null, action: string | null): InstanceType<This>;
+
+  static pullDownButtonWithTitleMenu<This extends abstract new (...args: any) => any>(this: This, title: string, menu: NSMenu): InstanceType<This>;
+
+  static pullDownButtonWithImageMenu<This extends abstract new (...args: any) => any>(this: This, image: NSImage, menu: NSMenu): InstanceType<This>;
+
+  static pullDownButtonWithTitleImageMenu<This extends abstract new (...args: any) => any>(this: This, title: string, image: NSImage, menu: NSMenu): InstanceType<This>;
+
   initWithFramePullsDown(buttonFrame: CGRect, flag: boolean): this;
 
   menu: NSMenu;
@@ -16791,6 +16856,10 @@ declare class NSPopUpButton extends NSButton {
   autoenablesItems: boolean;
 
   preferredEdge: interop.Enum<typeof NSRectEdge>;
+
+  usesItemFromMenu: boolean;
+
+  altersStateOfSelectedItem: boolean;
 
   addItemWithTitle(title: string): void;
 
@@ -17060,6 +17129,36 @@ declare class NSStepperCell extends NSActionCell {
   valueWraps: boolean;
 
   autorepeat: boolean;
+}
+
+declare class NSSharingCollaborationModeRestriction extends NSObject implements NSSecureCoding, NSCopying {
+  readonly disabledMode: interop.Enum<typeof NSSharingCollaborationMode>;
+
+  readonly alertTitle: string;
+
+  readonly alertMessage: string;
+
+  readonly alertDismissButtonTitle: string;
+
+  readonly alertRecoverySuggestionButtonTitle: string;
+
+  readonly alertRecoverySuggestionButtonLaunchURL: NSURL;
+
+  initWithDisabledMode(disabledMode: interop.Enum<typeof NSSharingCollaborationMode>): this;
+
+  initWithDisabledModeAlertTitleAlertMessage(disabledMode: interop.Enum<typeof NSSharingCollaborationMode>, alertTitle: string, alertMessage: string): this;
+
+  initWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitle(disabledMode: interop.Enum<typeof NSSharingCollaborationMode>, alertTitle: string, alertMessage: string, alertDismissButtonTitle: string): this;
+
+  initWithDisabledModeAlertTitleAlertMessageAlertDismissButtonTitleAlertRecoverySuggestionButtonTitleAlertRecoverySuggestionButtonLaunchURL(disabledMode: interop.Enum<typeof NSSharingCollaborationMode>, alertTitle: string, alertMessage: string, alertDismissButtonTitle: string, alertRecoverySuggestionButtonTitle: string, alertRecoverySuggestionButtonLaunchURL: NSURL): this;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class NSSegmentedCell extends NSActionCell {
@@ -17353,8 +17452,6 @@ declare class NSParagraphStyle extends NSObject implements NSCopying, NSMutableC
 
   readonly paragraphSpacing: number;
 
-  readonly alignment: interop.Enum<typeof NSTextAlignment>;
-
   readonly headIndent: number;
 
   readonly tailIndent: number;
@@ -17381,17 +17478,19 @@ declare class NSParagraphStyle extends NSObject implements NSCopying, NSMutableC
 
   readonly defaultTabInterval: number;
 
+  readonly textLists: NSArray;
+
   readonly allowsDefaultTighteningForTruncation: boolean;
+
+  readonly lineBreakStrategy: interop.Enum<typeof NSLineBreakStrategy>;
+
+  readonly alignment: interop.Enum<typeof NSTextAlignment>;
 
   readonly tighteningFactorForTruncation: number;
 
   readonly textBlocks: NSArray;
 
-  readonly textLists: NSArray;
-
   readonly headerLevel: number;
-
-  readonly lineBreakStrategy: interop.Enum<typeof NSLineBreakStrategy>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -17471,6 +17570,8 @@ declare class NSSavePanel extends NSPanel {
 
   allowsOtherFileTypes: boolean;
 
+  currentContentType: UTType;
+
   accessoryView: NSView;
 
   // @ts-ignore MemberDecl.tsIgnore
@@ -17496,14 +17597,16 @@ declare class NSSavePanel extends NSPanel {
 
   message: string;
 
-  validateVisibleColumns(): void;
-
   showsHiddenFiles: boolean;
 
   showsTagField: boolean;
 
   get tagNames(): NSArray;
   set tagNames(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  showsContentTypes: boolean;
+
+  validateVisibleColumns(): void;
 
   ok(sender: interop.Object | null): void;
 
@@ -17693,42 +17796,6 @@ declare class NSSharingServicePickerTouchBarItem extends NSTouchBarItem {
   buttonImage: NSImage;
 }
 
-declare class NSTextLineFragment extends NSObject implements NSSecureCoding {
-  initWithAttributedStringRange(attributedString: NSAttributedString, range: _NSRange): this;
-
-  initWithCoder(aDecoder: NSCoder): this;
-
-  initWithStringAttributesRange(string: string, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, range: _NSRange): this;
-
-  readonly attributedString: NSAttributedString;
-
-  readonly characterRange: _NSRange;
-
-  readonly typographicBounds: CGRect;
-
-  readonly glyphOrigin: CGPoint;
-
-  drawAtPointInContext(point: CGPoint, context: interop.PointerConvertible): void;
-
-  locationForCharacterAtIndex(index: number): CGPoint;
-
-  characterIndexForPoint(point: CGPoint): number;
-
-  fractionOfDistanceThroughGlyphForPoint(point: CGPoint): number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class NSScrubberFlowLayout extends NSScrubberLayout {
-  itemSpacing: number;
-
-  itemSize: CGSize;
-
-  invalidateLayoutForItemsAtIndexes(invalidItemIndexes: NSIndexSet): void;
-}
-
 declare class NSScrubberLayoutAttributes extends NSObject implements NSCopying {
   itemIndex: number;
 
@@ -17821,6 +17888,126 @@ declare class NSScrubber extends NSView {
   registerNibForItemIdentifier(nib: NSNib | null, itemIdentifier: string): void;
 
   makeItemWithIdentifierOwner(itemIdentifier: string, owner: interop.Object | null): NSScrubberItemView;
+}
+
+declare class NSDraggingImageComponent extends NSObject {
+  static draggingImageComponentWithKey(key: string): NSDraggingImageComponent;
+
+  initWithKey(key: string): this;
+
+  key: string;
+
+  contents: interop.Object;
+
+  frame: CGRect;
+}
+
+declare class NSCollectionViewLayoutInvalidationContext extends NSObject {
+  readonly invalidateEverything: boolean;
+
+  readonly invalidateDataSourceCounts: boolean;
+
+  invalidateItemsAtIndexPaths(indexPaths: NSSet): void;
+
+  invalidateSupplementaryElementsOfKindAtIndexPaths(elementKind: string, indexPaths: NSSet): void;
+
+  invalidateDecorationElementsOfKindAtIndexPaths(elementKind: string, indexPaths: NSSet): void;
+
+  readonly invalidatedItemIndexPaths: NSSet;
+
+  readonly invalidatedSupplementaryIndexPaths: NSDictionary;
+
+  readonly invalidatedDecorationIndexPaths: NSDictionary;
+
+  contentOffsetAdjustment: CGPoint;
+
+  contentSizeAdjustment: CGSize;
+}
+
+declare class NSTextLineFragment extends NSObject implements NSSecureCoding {
+  initWithAttributedStringRange(attributedString: NSAttributedString, range: _NSRange): this;
+
+  initWithCoder(aDecoder: NSCoder): this;
+
+  initWithStringAttributesRange(string: string, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, range: _NSRange): this;
+
+  readonly attributedString: NSAttributedString;
+
+  readonly characterRange: _NSRange;
+
+  readonly typographicBounds: CGRect;
+
+  readonly glyphOrigin: CGPoint;
+
+  drawAtPointInContext(point: CGPoint, context: interop.PointerConvertible): void;
+
+  locationForCharacterAtIndex(index: number): CGPoint;
+
+  characterIndexForPoint(point: CGPoint): number;
+
+  fractionOfDistanceThroughGlyphForPoint(point: CGPoint): number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+}
+
+declare class NSScrubberFlowLayout extends NSScrubberLayout {
+  itemSpacing: number;
+
+  itemSize: CGSize;
+
+  invalidateLayoutForItemsAtIndexes(invalidItemIndexes: NSIndexSet): void;
+}
+
+declare class NSRunningApplication extends NSObject {
+  readonly isTerminated: boolean;
+
+  readonly isFinishedLaunching: boolean;
+
+  readonly isHidden: boolean;
+
+  readonly isActive: boolean;
+
+  readonly ownsMenuBar: boolean;
+
+  readonly activationPolicy: interop.Enum<typeof NSApplicationActivationPolicy>;
+
+  readonly localizedName: string;
+
+  readonly bundleIdentifier: string;
+
+  readonly bundleURL: NSURL;
+
+  readonly executableURL: NSURL;
+
+  readonly processIdentifier: number;
+
+  readonly launchDate: NSDate;
+
+  readonly icon: NSImage;
+
+  readonly executableArchitecture: number;
+
+  hide(): boolean;
+
+  unhide(): boolean;
+
+  activateFromApplicationOptions(application: NSRunningApplication, options: interop.Enum<typeof NSApplicationActivationOptions>): boolean;
+
+  activateWithOptions(options: interop.Enum<typeof NSApplicationActivationOptions>): boolean;
+
+  terminate(): boolean;
+
+  forceTerminate(): boolean;
+
+  static runningApplicationsWithBundleIdentifier(bundleIdentifier: string): NSArray;
+
+  static runningApplicationWithProcessIdentifier<This extends abstract new (...args: any) => any>(this: This, pid: number): InstanceType<This>;
+
+  static readonly currentApplication: NSRunningApplication;
+
+  static terminateAutomaticallyTerminableApplications(): void;
 }
 
 declare class NSImageSymbolConfiguration extends NSObject implements NSCopying, NSSecureCoding {
@@ -17928,75 +18115,6 @@ declare class NSRulerMarker extends NSObject implements NSCopying, NSCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class NSInputServer extends NSObject implements NSInputServiceProvider, NSInputServerMouseTracker {
-  initWithDelegateName(delegate: interop.Object, name: string): this;
-
-  insertTextClient(string: interop.Object, sender: interop.Object): void;
-
-  doCommandBySelectorClient(selector: string, sender: interop.Object): void;
-
-  markedTextAbandoned(sender: interop.Object | null): void;
-
-  markedTextSelectionChangedClient(newSel: _NSRange, sender: interop.Object): void;
-
-  terminate(sender: interop.Object | null): void;
-
-  canBeDisabled(): boolean;
-
-  wantsToInterpretAllKeystrokes(): boolean;
-
-  wantsToHandleMouseEvents(): boolean;
-
-  wantsToDelayTextChangeNotifications(): boolean;
-
-  inputClientBecomeActive(sender: interop.Object | null): void;
-
-  inputClientResignActive(sender: interop.Object | null): void;
-
-  inputClientEnabled(sender: interop.Object | null): void;
-
-  inputClientDisabled(sender: interop.Object | null): void;
-
-  activeConversationWillChangeFromOldConversation(sender: interop.Object, oldConversation: number): void;
-
-  activeConversationChangedToNewConversation(sender: interop.Object, newConversation: number): void;
-
-  mouseDownOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): boolean;
-
-  mouseDraggedOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): boolean;
-
-  mouseUpOnCharacterIndexAtCoordinateWithModifierClient(index: number, point: CGPoint, flags: number, sender: interop.Object): void;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class NSColorPickerTouchBarItem extends NSTouchBarItem {
-  static colorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
-
-  static textColorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
-
-  static strokeColorPickerWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: string): InstanceType<This>;
-
-  static colorPickerWithIdentifierButtonImage<This extends abstract new (...args: any) => any>(this: This, identifier: string, image: NSImage): InstanceType<This>;
-
-  color: NSColor;
-
-  showsAlpha: boolean;
-
-  get allowedColorSpaces(): NSArray;
-  set allowedColorSpaces(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  colorList: NSColorList;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  customizationLabel: string;
-
-  target: interop.Object;
-
-  action: string;
-
-  isEnabled: boolean;
 }
 
 declare class NSLayoutDimension extends NSLayoutAnchor {
@@ -18401,31 +18519,31 @@ declare class NSDocumentController extends NSObject implements NSCoding, NSMenuI
 }
 
 declare class NSCursor extends NSObject implements NSSecureCoding {
+  initWithImageHotSpot(newImage: NSImage, point: CGPoint): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  readonly image: NSImage;
+
+  readonly hotSpot: CGPoint;
+
+  static hide(): void;
+
+  static unhide(): void;
+
+  static setHiddenUntilMouseMoves(flag: boolean): void;
+
+  static pop(): void;
+
+  pop(): void;
+
+  push(): void;
+
+  set(): void;
+
   static readonly currentCursor: NSCursor;
 
-  static readonly currentSystemCursor: NSCursor;
-
   static readonly arrowCursor: NSCursor;
-
-  static readonly IBeamCursor: NSCursor;
-
-  static readonly pointingHandCursor: NSCursor;
-
-  static readonly closedHandCursor: NSCursor;
-
-  static readonly openHandCursor: NSCursor;
-
-  static readonly resizeLeftCursor: NSCursor;
-
-  static readonly resizeRightCursor: NSCursor;
-
-  static readonly resizeLeftRightCursor: NSCursor;
-
-  static readonly resizeUpCursor: NSCursor;
-
-  static readonly resizeDownCursor: NSCursor;
-
-  static readonly resizeUpDownCursor: NSCursor;
 
   static readonly crosshairCursor: NSCursor;
 
@@ -18439,29 +18557,43 @@ declare class NSCursor extends NSObject implements NSSecureCoding {
 
   static readonly contextualMenuCursor: NSCursor;
 
+  static readonly pointingHandCursor: NSCursor;
+
+  static readonly closedHandCursor: NSCursor;
+
+  static readonly openHandCursor: NSCursor;
+
+  static readonly IBeamCursor: NSCursor;
+
   static readonly IBeamCursorForVerticalLayout: NSCursor;
 
-  initWithImageHotSpot(newImage: NSImage, point: CGPoint): this;
+  static readonly zoomInCursor: NSCursor;
 
-  initWithCoder(coder: NSCoder): this;
+  static readonly zoomOutCursor: NSCursor;
 
-  static hide(): void;
+  static readonly columnResizeCursor: NSCursor;
 
-  static unhide(): void;
+  static columnResizeCursorInDirections(directions: interop.Enum<typeof NSHorizontalDirections>): NSCursor;
 
-  static setHiddenUntilMouseMoves(flag: boolean): void;
+  static readonly rowResizeCursor: NSCursor;
 
-  static pop(): void;
+  static rowResizeCursorInDirections(directions: interop.Enum<typeof NSVerticalDirections>): NSCursor;
 
-  readonly image: NSImage;
+  static frameResizeCursorFromPositionInDirections(position: interop.Enum<typeof NSCursorFrameResizePosition>, directions: interop.Enum<typeof NSCursorFrameResizeDirections>): NSCursor;
 
-  readonly hotSpot: CGPoint;
+  static readonly currentSystemCursor: NSCursor;
 
-  push(): void;
+  static readonly resizeLeftCursor: NSCursor;
 
-  pop(): void;
+  static readonly resizeRightCursor: NSCursor;
 
-  set(): void;
+  static readonly resizeLeftRightCursor: NSCursor;
+
+  static readonly resizeUpCursor: NSCursor;
+
+  static readonly resizeDownCursor: NSCursor;
+
+  static readonly resizeUpDownCursor: NSCursor;
 
   initWithImageForegroundColorHintBackgroundColorHintHotSpot(newImage: NSImage, fg: NSColor | null, bg: NSColor | null, hotSpot: CGPoint): this;
 
@@ -19104,6 +19236,40 @@ declare class NSFontCollection extends NSObject implements NSCopying, NSMutableC
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class NSTabViewItem extends NSObject implements NSCoding {
+  static tabViewItemWithViewController<This extends abstract new (...args: any) => any>(this: This, viewController: NSViewController): InstanceType<This>;
+
+  initWithIdentifier(identifier: interop.Object | null): this;
+
+  identifier: interop.Object;
+
+  color: NSColor;
+
+  label: string;
+
+  image: NSImage;
+
+  view: NSView;
+
+  viewController: NSViewController;
+
+  readonly tabState: interop.Enum<typeof NSTabState>;
+
+  readonly tabView: NSTabView;
+
+  initialFirstResponder: NSView;
+
+  toolTip: string;
+
+  drawLabelInRect(shouldTruncateLabel: boolean, labelRect: CGRect): void;
+
+  sizeOfLabel(computeMin: boolean): CGSize;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class NSFontAssetRequest extends NSObject implements NSProgressReporting {
   initWithFontDescriptorsOptions(fontDescriptors: NSArray<interop.Object> | Array<interop.Object>, options: interop.Enum<typeof NSFontAssetRequestOptions>): this;
 
@@ -19421,9 +19587,6 @@ declare class NSMutableParagraphStyle extends NSParagraphStyle {
   paragraphSpacing: number;
 
   // @ts-ignore MemberDecl.tsIgnore
-  alignment: interop.Enum<typeof NSTextAlignment>;
-
-  // @ts-ignore MemberDecl.tsIgnore
   firstLineHeadIndent: number;
 
   // @ts-ignore MemberDecl.tsIgnore
@@ -19467,11 +19630,22 @@ declare class NSMutableParagraphStyle extends NSParagraphStyle {
   // @ts-ignore MemberDecl.tsIgnore
   allowsDefaultTighteningForTruncation: boolean;
 
+  // @ts-ignore MemberDecl.tsIgnore
+  lineBreakStrategy: interop.Enum<typeof NSLineBreakStrategy>;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  get textLists(): NSArray;
+  // @ts-ignore MemberDecl.tsIgnore
+  set textLists(value: NSArray<interop.Object> | Array<interop.Object>);
+
   addTabStop(anObject: NSTextTab): void;
 
   removeTabStop(anObject: NSTextTab): void;
 
   setParagraphStyle(obj: NSParagraphStyle): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  alignment: interop.Enum<typeof NSTextAlignment>;
 
   // @ts-ignore MemberDecl.tsIgnore
   tighteningFactorForTruncation: number;
@@ -19482,15 +19656,7 @@ declare class NSMutableParagraphStyle extends NSParagraphStyle {
   set textBlocks(value: NSArray<interop.Object> | Array<interop.Object>);
 
   // @ts-ignore MemberDecl.tsIgnore
-  get textLists(): NSArray;
-  // @ts-ignore MemberDecl.tsIgnore
-  set textLists(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  // @ts-ignore MemberDecl.tsIgnore
   headerLevel: number;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  lineBreakStrategy: interop.Enum<typeof NSLineBreakStrategy>;
 }
 
 declare class NSSharingServicePicker extends NSObject {
@@ -19598,28 +19764,6 @@ declare class NSCollectionViewCompositionalLayoutConfiguration extends NSObject 
   set boundarySupplementaryItems(value: NSArray<interop.Object> | Array<interop.Object>);
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class NSCollectionViewLayoutInvalidationContext extends NSObject {
-  readonly invalidateEverything: boolean;
-
-  readonly invalidateDataSourceCounts: boolean;
-
-  invalidateItemsAtIndexPaths(indexPaths: NSSet): void;
-
-  invalidateSupplementaryElementsOfKindAtIndexPaths(elementKind: string, indexPaths: NSSet): void;
-
-  invalidateDecorationElementsOfKindAtIndexPaths(elementKind: string, indexPaths: NSSet): void;
-
-  readonly invalidatedItemIndexPaths: NSSet;
-
-  readonly invalidatedSupplementaryIndexPaths: NSDictionary;
-
-  readonly invalidatedDecorationIndexPaths: NSDictionary;
-
-  contentOffsetAdjustment: CGPoint;
-
-  contentSizeAdjustment: CGSize;
 }
 
 declare class NSCollectionViewLayoutAttributes extends NSObject implements NSCopying {
@@ -20088,7 +20232,7 @@ declare class NSApplication extends NSResponder implements NSUserInterfaceValida
 
   deactivate(): void;
 
-  activateIgnoringOtherApps(flag: boolean): void;
+  activateIgnoringOtherApps(ignoreOtherApps: boolean): void;
 
   activate(): void;
 
@@ -20174,7 +20318,7 @@ declare class NSApplication extends NSResponder implements NSUserInterfaceValida
 
   sendEvent(event: NSEvent): void;
 
-  postEventAtStart(event: NSEvent, flag: boolean): void;
+  postEventAtStart(event: NSEvent, atStart: boolean): void;
 
   readonly currentEvent: NSEvent;
 
@@ -20246,7 +20390,7 @@ declare class NSApplication extends NSResponder implements NSUserInterfaceValida
 
   endSheetReturnCode(sheet: NSWindow, returnCode: number): void;
 
-  makeWindowsPerformInOrder(selector: string, flag: boolean): NSWindow;
+  makeWindowsPerformInOrder(selector: string, inOrder: boolean): NSWindow;
 
   readonly context: NSGraphicsContext;
 
@@ -20968,6 +21112,12 @@ declare class NSTableView extends NSControl implements NSUserInterfaceValidation
 
   textViewShouldSelectCandidateAtIndex(textView: NSTextView, index: number): boolean;
 
+  textViewWritingToolsWillBegin(textView: NSTextView): void;
+
+  textViewWritingToolsDidEnd(textView: NSTextView): void;
+
+  textViewWritingToolsIgnoredRangesInEnclosingRange(textView: NSTextView, enclosingRange: _NSRange): NSArray;
+
   textViewClickedOnLink(textView: NSTextView, link: interop.Object): boolean;
 
   textViewClickedOnCellInRect(textView: NSTextView, cell: NSTextAttachmentCell, cellFrame: CGRect): void;
@@ -21198,21 +21348,14 @@ declare class NSCustomTouchBarItem extends NSTouchBarItem {
   customizationLabel: string;
 }
 
-declare class NSTextContainer extends NSObject implements NSSecureCoding, NSTextLayoutOrientationProvider {
+declare class NSTextContainer extends NSObject implements NSSecureCoding {
   initWithSize(size: CGSize): this;
 
   initWithCoder(coder: NSCoder): this;
 
-  layoutManager: NSLayoutManager;
-
-  replaceLayoutManager(newLayoutManager: NSLayoutManager): void;
-
   readonly textLayoutManager: NSTextLayoutManager;
 
   size: CGSize;
-
-  get exclusionPaths(): NSArray;
-  set exclusionPaths(value: NSArray<interop.Object> | Array<interop.Object>);
 
   lineBreakMode: interop.Enum<typeof NSLineBreakMode>;
 
@@ -21228,6 +21371,13 @@ declare class NSTextContainer extends NSObject implements NSSecureCoding, NSText
 
   heightTracksTextView: boolean;
 
+  layoutManager: NSLayoutManager;
+
+  replaceLayoutManager(newLayoutManager: NSLayoutManager): void;
+
+  get exclusionPaths(): NSArray;
+  set exclusionPaths(value: NSArray<interop.Object> | Array<interop.Object>);
+
   textView: NSTextView;
 
   initWithContainerSize(aContainerSize: CGSize): this;
@@ -21241,8 +21391,6 @@ declare class NSTextContainer extends NSObject implements NSSecureCoding, NSText
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
-
-  readonly layoutOrientation: interop.Enum<typeof NSTextLayoutOrientation>;
 }
 
 declare class NSWorkspace extends NSObject {
@@ -21794,8 +21942,6 @@ declare class NSAccessibilityElement extends NSObject implements NSAccessibility
 declare class NSGraphicsContext extends NSObject {
   static graphicsContextWithAttributes(attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSGraphicsContext;
 
-  static graphicsContextWithWindow(window: NSWindow): NSGraphicsContext;
-
   static graphicsContextWithBitmapImageRep(bitmapRep: NSBitmapImageRep): NSGraphicsContext;
 
   static graphicsContextWithCGContextFlipped(graphicsPort: interop.PointerConvertible, initialFlippedState: boolean): NSGraphicsContext;
@@ -21843,6 +21989,8 @@ declare class NSGraphicsContext extends NSObject {
   static graphicsContextWithGraphicsPortFlipped(graphicsPort: interop.PointerConvertible, initialFlippedState: boolean): NSGraphicsContext;
 
   readonly graphicsPort: interop.Pointer;
+
+  static graphicsContextWithWindow(window: NSWindow): NSGraphicsContext;
 }
 
 declare class NSTableViewRowAction extends NSObject implements NSCopying {
@@ -22476,13 +22624,13 @@ declare class NSMenuItem extends NSObject implements NSCopying, NSCoding, NSVali
 declare class NSTextTab extends NSObject implements NSCopying, NSCoding, NSSecureCoding {
   static columnTerminatorsForLocale(aLocale: NSLocale | null): NSCharacterSet;
 
-  initWithTextAlignmentLocationOptions(alignment: interop.Enum<typeof NSTextAlignment>, loc: number, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
-
-  readonly alignment: interop.Enum<typeof NSTextAlignment>;
-
   readonly location: number;
 
   readonly options: NSDictionary;
+
+  initWithTextAlignmentLocationOptions(alignment: interop.Enum<typeof NSTextAlignment>, loc: number, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
+
+  readonly alignment: interop.Enum<typeof NSTextAlignment>;
 
   initWithTypeLocation(type: interop.Enum<typeof NSTextTabType>, loc: number): this;
 
@@ -24202,6 +24350,8 @@ declare class NSToolbar extends NSObject {
 
   removeItemAtIndex(index: number): void;
 
+  removeItemWithItemIdentifier(itemIdentifier: string): void;
+
   delegate: NSToolbarDelegate;
 
   isVisible: boolean;
@@ -24214,11 +24364,9 @@ declare class NSToolbar extends NSObject {
 
   selectedItemIdentifier: string;
 
-  sizeMode: interop.Enum<typeof NSToolbarSizeMode>;
-
-  showsBaselineSeparator: boolean;
-
   allowsUserCustomization: boolean;
+
+  allowsDisplayModeCustomization: boolean;
 
   readonly identifier: string;
 
@@ -24226,25 +24374,32 @@ declare class NSToolbar extends NSObject {
 
   readonly visibleItems: NSArray;
 
+  get itemIdentifiers(): NSArray;
+  set itemIdentifiers(value: NSArray<interop.Object> | Array<interop.Object>);
+
   centeredItemIdentifiers: NSSet;
 
-  centeredItemIdentifier: string;
-
   autosavesConfiguration: boolean;
-
-  setConfigurationFromDictionary(configDict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
-
-  readonly configurationDictionary: NSDictionary;
 
   validateVisibleItems(): void;
 
   allowsExtensionItems: boolean;
+
+  sizeMode: interop.Enum<typeof NSToolbarSizeMode>;
+
+  centeredItemIdentifier: string;
 
   fullScreenAccessoryView: NSView;
 
   fullScreenAccessoryViewMinHeight: number;
 
   fullScreenAccessoryViewMaxHeight: number;
+
+  showsBaselineSeparator: boolean;
+
+  readonly configurationDictionary: NSDictionary;
+
+  setConfigurationFromDictionary(configDict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
 }
 
 declare class NSAlignmentFeedbackFilter extends NSObject {
@@ -24798,7 +24953,7 @@ declare class NSDocument extends NSObject implements NSEditorRegistration, NSFil
 
   runModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation: interop.Enum<typeof NSSaveOperationType>, delegate: interop.Object | null, didSaveSelector: string | null, contextInfo: interop.PointerConvertible): void;
 
-  readonly shouldRunSavePanelWithAccessoryView: boolean;
+  readonly savePanelShowsFileFormatsControl: boolean;
 
   prepareSavePanel(savePanel: NSSavePanel): boolean;
 
@@ -24988,6 +25143,8 @@ declare class NSDocument extends NSObject implements NSEditorRegistration, NSFil
   presentedItemDidLoseVersion(version: NSFileVersion): void;
 
   presentedItemDidResolveConflictVersion(version: NSFileVersion): void;
+
+  readonly shouldRunSavePanelWithAccessoryView: boolean;
 
   saveToURLOfTypeForSaveOperationError(url: NSURL, typeName: string, saveOperation: interop.Enum<typeof NSSaveOperationType>, outError: interop.PointerConvertible): boolean;
 
@@ -25851,6 +26008,95 @@ declare class NSFilePromiseProvider extends NSObject implements NSPasteboardWrit
   readonly debugDescription: string;
 }
 
+declare class NSSplitViewController extends NSViewController implements NSSplitViewDelegate, NSUserInterfaceValidations {
+  splitView: NSSplitView;
+
+  get splitViewItems(): NSArray;
+  set splitViewItems(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  addSplitViewItem(splitViewItem: NSSplitViewItem): void;
+
+  insertSplitViewItemAtIndex(splitViewItem: NSSplitViewItem, index: number): void;
+
+  removeSplitViewItem(splitViewItem: NSSplitViewItem): void;
+
+  splitViewItemForViewController(viewController: NSViewController): NSSplitViewItem;
+
+  minimumThicknessForInlineSidebars: number;
+
+  validateUserInterfaceItem(item: NSValidatedUserInterfaceItem): boolean;
+
+  viewDidLoad(): void;
+
+  splitViewCanCollapseSubview(splitView: NSSplitView, subview: NSView): boolean;
+
+  splitViewShouldCollapseSubviewForDoubleClickOnDividerAtIndex(splitView: NSSplitView, subview: NSView, dividerIndex: number): boolean;
+
+  splitViewShouldHideDividerAtIndex(splitView: NSSplitView, dividerIndex: number): boolean;
+
+  splitViewEffectiveRectForDrawnRectOfDividerAtIndex(splitView: NSSplitView, proposedEffectiveRect: CGRect, drawnRect: CGRect, dividerIndex: number): CGRect;
+
+  splitViewAdditionalEffectiveRectOfDividerAtIndex(splitView: NSSplitView, dividerIndex: number): CGRect;
+
+  toggleSidebar(sender: interop.Object | null): void;
+
+  toggleInspector(sender: interop.Object | null): void;
+
+  splitViewConstrainMinCoordinateOfSubviewAt(splitView: NSSplitView, proposedMinimumPosition: number, dividerIndex: number): number;
+
+  splitViewConstrainMaxCoordinateOfSubviewAt(splitView: NSSplitView, proposedMaximumPosition: number, dividerIndex: number): number;
+
+  splitViewConstrainSplitPositionOfSubviewAt(splitView: NSSplitView, proposedPosition: number, dividerIndex: number): number;
+
+  splitViewResizeSubviewsWithOldSize(splitView: NSSplitView, oldSize: CGSize): void;
+
+  splitViewShouldAdjustSizeOfSubview(splitView: NSSplitView, view: NSView): boolean;
+
+  splitViewWillResizeSubviews(notification: NSNotification): void;
+
+  splitViewDidResizeSubviews(notification: NSNotification): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class NSScrubberTextItemView extends NSScrubberItemView {
   readonly textField: NSTextField;
 
@@ -26194,6 +26440,8 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
 
   cascadeTopLeftFromPoint(topLeftPoint: CGPoint): CGPoint;
 
+  readonly cascadingReferenceFrame: CGRect;
+
   readonly frame: CGRect;
 
   animationResizeTime(newFrame: CGRect): number;
@@ -26372,8 +26620,6 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
 
   displaysWhenScreenProfileChanges: boolean;
 
-  disableScreenUpdatesUntilFlush(): void;
-
   canBecomeVisibleWithoutLogin: boolean;
 
   collectionBehavior: interop.Enum<typeof NSWindowCollectionBehavior>;
@@ -26524,6 +26770,10 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
 
   readonly hasActiveWindowSharingSession: boolean;
 
+  requestSharingOfWindowCompletionHandler(window: NSWindow, completionHandler: (p1: NSError) => void | null): void;
+
+  requestSharingOfWindowUsingPreviewTitleCompletionHandler(image: NSImage, title: string, completionHandler: (p1: NSError) => void | null): void;
+
   readonly windowTitlebarLayoutDirection: interop.Enum<typeof NSUserInterfaceLayoutDirection>;
 
   trackEventsMatchingMaskTimeoutModeHandler(mask: interop.Enum<typeof NSEventMask>, timeout: number, mode: string, trackingHandler: (p1: NSEvent, p2: interop.PointerConvertible) => void | null): void;
@@ -26558,15 +26808,13 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
 
   resetCursorRects(): void;
 
+  beginDraggingSessionWithItemsEventSource(items: NSArray<interop.Object> | Array<interop.Object>, event: NSEvent, source: NSDraggingSource): NSDraggingSession;
+
   dragImageAtOffsetEventPasteboardSourceSlideBack(image: NSImage, baseLocation: CGPoint, initialOffset: CGSize, event: NSEvent, pboard: NSPasteboard, sourceObj: interop.Object, slideFlag: boolean): void;
 
   registerForDraggedTypes(newTypes: NSArray<interop.Object> | Array<interop.Object>): void;
 
   unregisterDraggedTypes(): void;
-
-  initWithWindowRef(windowRef: interop.PointerConvertible): this;
-
-  readonly windowRef: interop.Pointer;
 
   displayLinkWithTargetSelector(target: interop.Object, selector: string): CADisplayLink;
 
@@ -26611,6 +26859,12 @@ declare class NSWindow extends NSResponder implements NSAnimatablePropertyContai
   readonly backingLocation: interop.Enum<typeof NSWindowBackingLocation>;
 
   showsResizeIndicator: boolean;
+
+  initWithWindowRef(windowRef: interop.PointerConvertible): this;
+
+  readonly windowRef: interop.Pointer;
+
+  disableScreenUpdatesUntilFlush(): void;
 
   updateConstraintsIfNeeded(): void;
 
@@ -28322,38 +28576,14 @@ declare class NSAnimation extends NSObject implements NSCopying, NSCoding {
   encodeWithCoder(coder: NSCoder): void;
 }
 
-declare class NSTabViewItem extends NSObject implements NSCoding {
-  static tabViewItemWithViewController<This extends abstract new (...args: any) => any>(this: This, viewController: NSViewController): InstanceType<This>;
+declare class NSTextParagraph extends NSTextElement {
+  initWithAttributedString(attributedString: NSAttributedString | null): this;
 
-  initWithIdentifier(identifier: interop.Object | null): this;
+  readonly attributedString: NSAttributedString;
 
-  identifier: interop.Object;
+  readonly paragraphContentRange: NSTextRange;
 
-  color: NSColor;
-
-  label: string;
-
-  image: NSImage;
-
-  view: NSView;
-
-  viewController: NSViewController;
-
-  readonly tabState: interop.Enum<typeof NSTabState>;
-
-  readonly tabView: NSTabView;
-
-  initialFirstResponder: NSView;
-
-  toolTip: string;
-
-  drawLabelInRect(shouldTruncateLabel: boolean, labelRect: CGRect): void;
-
-  sizeOfLabel(computeMin: boolean): CGSize;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
+  readonly paragraphSeparatorRange: NSTextRange;
 }
 
 declare class NSPasteboard extends NSObject {
@@ -28553,16 +28783,6 @@ declare class NSTextElement extends NSObject {
   readonly parentElement: NSTextElement;
 
   readonly isRepresentedElement: boolean;
-}
-
-declare class NSTextParagraph extends NSTextElement {
-  initWithAttributedString(attributedString: NSAttributedString | null): this;
-
-  readonly attributedString: NSAttributedString;
-
-  readonly paragraphContentRange: NSTextRange;
-
-  readonly paragraphSeparatorRange: NSTextRange;
 }
 
 declare class NSObjectController extends NSController {

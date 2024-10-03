@@ -26,6 +26,8 @@ using namespace metagen;
 
 namespace objc_bridge {
 
+void finalize_objc_object(napi_env /*env*/, void *data, void *hint);
+
 // Determines how retain/release should be called when an Objective-C
 // object is exposed to JavaScript land.
 typedef enum ObjectOwnership {
@@ -68,7 +70,7 @@ public:
   MethodCif *getMethodCif(napi_env env, MDSectionOffset offset);
 
   napi_value proxyNativeObject(napi_env env, napi_value object,
-                               bool isArray = false);
+                               id nativeObject);
 
   napi_value getObject(napi_env env, id object, napi_value constructor,
                        ObjectOwnership ownership = kUnownedObject);
@@ -112,6 +114,7 @@ public:
   napi_ref referenceClass;
   napi_ref createNativeProxy;
   napi_ref createFastEnumeratorIterator;
+  napi_ref transferOwnershipToNative;
 
   std::unordered_map<MDSectionOffset, ObjCClass *> classes;
   std::unordered_map<MDSectionOffset, ObjCProtocol *> protocols;

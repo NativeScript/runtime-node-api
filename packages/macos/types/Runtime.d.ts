@@ -8,12 +8,6 @@ declare class __sFILEX {
   constructor(init?: __sFILEX);
 }
 
-declare class __sbuf {
-  constructor(init?: __sbuf);
-  _base: interop.Pointer;
-  _size: number;
-}
-
 declare class simd_quatd {
   constructor(init?: simd_quatd);
   vector: unknown /* ext vector */;
@@ -87,6 +81,12 @@ declare class _acl {
   constructor(init?: _acl);
 }
 
+declare class UnsignedWide {
+  constructor(init?: UnsignedWide);
+  lo: number;
+  hi: number;
+}
+
 declare class simd_float4x3 {
   constructor(init?: simd_float4x3);
   columns: unknown /* const array */;
@@ -102,6 +102,12 @@ declare class os_workgroup_attr_opaque_s {
   constructor(init?: os_workgroup_attr_opaque_s);
   sig: number;
   opaque: unknown /* const array */;
+}
+
+declare class __sbuf {
+  constructor(init?: __sbuf);
+  _base: interop.Pointer;
+  _size: number;
 }
 
 declare class _xpc_type_s {
@@ -127,12 +133,6 @@ declare class simd_float4x4 {
 declare class simd_float3x3 {
   constructor(init?: simd_float3x3);
   columns: unknown /* const array */;
-}
-
-declare class UnsignedWide {
-  constructor(init?: UnsignedWide);
-  lo: number;
-  hi: number;
 }
 
 declare class Float80 {
@@ -365,6 +365,8 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
   set observationInfo(value: interop.PointerConvertible);
 
   static setKeysTriggerChangeNotificationsForDependentKey(keys: NSArray<interop.Object> | Array<interop.Object>, dependentKey: string): void;
+
+  setSharedObservers(sharedObservers: NSKeyValueSharedObserversSnapshot | null): void;
 
   readonly classForKeyedArchiver: interop.Object;
 

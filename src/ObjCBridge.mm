@@ -89,13 +89,30 @@ ObjCBridgeState::~ObjCBridgeState() {
 }
 
 napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
-                                              bool isArray) {
+                                              id nativeObject) {
+  NAPI_PREAMBLE
+  
   napi_value factory = get_ref_value(env, createNativeProxy);
+  napi_value transferOwnershipFunc = get_ref_value(env, this->transferOwnershipToNative);
   napi_value result, global;
-  napi_value args[2] = {object};
-  napi_get_boolean(env, isArray, &args[1]);
+  napi_value args[3] = {object, nullptr, transferOwnershipFunc};
+  napi_get_boolean(env, [nativeObject isKindOfClass:NSArray.class], &args[1]);
   napi_get_global(env, &global);
-  napi_call_function(env, global, factory, 2, args, &result);
+  napi_call_function(env, global, factory, 3, args, &result);
+
+  // We need to wrap the proxied object separately except for Hermes,
+  // We'll just ignore the error there.
+  napi_wrap(env, result, nativeObject, nullptr, nullptr, nullptr);
+
+  napi_ref ref = nullptr;
+  NAPI_GUARD(napi_add_finalizer(env, result, nativeObject, finalize_objc_object, this,
+                                &ref)) {
+    NAPI_THROW_LAST_ERROR
+    return nullptr;
+  }
+
+  objectRefs[nativeObject] = ref;
+
   return result;
 }
 

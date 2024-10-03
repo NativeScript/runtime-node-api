@@ -38,6 +38,8 @@ declare class IOSurface extends NSObject implements NSSecureCoding {
 
   readonly elementHeight: number;
 
+  readonly surfaceID: number;
+
   readonly seed: number;
 
   readonly planeCount: number;

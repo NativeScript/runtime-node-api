@@ -484,18 +484,6 @@ declare class NLEmbedding extends NSObject {
   static writeEmbeddingForDictionaryLanguageRevisionToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, revision: number, url: NSURL, error: interop.PointerConvertible): boolean;
 }
 
-declare class NLContextualEmbeddingResult extends NSObject {
-  readonly string: string;
-
-  readonly language: string;
-
-  readonly sequenceLength: number;
-
-  enumerateTokenVectorsInRangeUsingBlock(range: _NSRange, block: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: _NSRange, p3: interop.PointerConvertible) => void): void;
-
-  tokenVectorAtIndexTokenRange(characterIndex: number, tokenRange: interop.PointerConvertible): NSArray;
-}
-
 declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {
   readonly type: interop.Enum<typeof NLModelType>;
 
@@ -514,6 +502,18 @@ declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecu
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class NLContextualEmbeddingResult extends NSObject {
+  readonly string: string;
+
+  readonly language: string;
+
+  readonly sequenceLength: number;
+
+  enumerateTokenVectorsInRangeUsingBlock(range: _NSRange, block: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: _NSRange, p3: interop.PointerConvertible) => void): void;
+
+  tokenVectorAtIndexTokenRange(characterIndex: number, tokenRange: interop.PointerConvertible): NSArray;
 }
 
 declare class NLTokenizer extends NSObject {

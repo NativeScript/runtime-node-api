@@ -1,5 +1,5 @@
-/// <reference path="./UniformTypeIdentifiers.d.ts" />
 /// <reference path="./Symbols.d.ts" />
+/// <reference path="./UniformTypeIdentifiers.d.ts" />
 /// <reference path="./GLKit.d.ts" />
 /// <reference path="./DiskArbitration.d.ts" />
 /// <reference path="./IOKit.d.ts" />

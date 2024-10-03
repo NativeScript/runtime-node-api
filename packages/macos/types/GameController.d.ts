@@ -1,6 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
-/// <reference path="./Runtime.d.ts" />
 /// <reference path="./AppKit.d.ts" />
+/// <reference path="./Runtime.d.ts" />
 
 declare const GCHapticsLocalityRightTrigger: string;
 
@@ -102,8 +102,6 @@ declare const GCKeyDeleteForward: string;
 
 declare const GCKeyPageUp: string;
 
-declare const GCKeyPause: string;
-
 declare const GCKeyScrollLock: string;
 
 declare const GCKeyF20: string;
@@ -185,8 +183,6 @@ declare const GCKeyW: string;
 declare const GCKeyT: string;
 
 declare const GCKeyR: string;
-
-declare const GCKeyQ: string;
 
 declare const GCKeyP: string;
 
@@ -271,8 +267,6 @@ declare const GCKeyCodeKeypadAsterisk: number;
 declare const GCKeyCodeKeypadSlash: number;
 
 declare const GCKeyCodeUpArrow: number;
-
-declare const GCKeyCodeRightArrow: number;
 
 declare const GCKeyCodePageDown: number;
 
@@ -478,6 +472,8 @@ declare const GCProductCategoryDualSense: string;
 
 declare const GCKeyCodeF12: number;
 
+declare const GCKeyQ: string;
+
 declare const GCProductCategoryArcadeStick: string;
 
 declare const GCKeyF12: string;
@@ -497,6 +493,8 @@ declare const GCKeyOpenBracket: string;
 declare const GCKeyLANG9: string;
 
 declare const GCKeyCodeF17: number;
+
+declare const GCKeyPause: string;
 
 declare const GCKeyCodeHyphen: number;
 
@@ -533,8 +531,6 @@ declare const GCKeyCodeRightAlt: number;
 declare const GCInputPedalClutch: string;
 
 declare const GCKeyGraveAccentAndTilde: string;
-
-declare const GCKeyF15: string;
 
 declare const GCKeyCodeKeyJ: number;
 
@@ -588,6 +584,8 @@ declare const GCProductCategoryControlCenterRemote: string;
 
 declare const GCControllerUserCustomizationsDidChangeNotification: string;
 
+declare const GCKeyF15: string;
+
 declare const GCProductCategoryHID: string;
 
 declare const GCKeyCodeApplication: number;
@@ -637,6 +635,8 @@ declare const GCInputRightPaddle: string;
 declare const GCKeyCodeKeyN: number;
 
 declare const GCKeyLANG6: string;
+
+declare const GCKeyCodeRightArrow: number;
 
 declare const GCInputXboxPaddleFour: string;
 
@@ -722,14 +722,6 @@ declare const GCDevicePhysicalInputElementChange: {
   Changed: 1,
 };
 
-declare const GCPhysicalInputSourceDirection: {
-  NotApplicable: 0,
-  Up: 1,
-  Right: 2,
-  Down: 4,
-  Left: 8,
-};
-
 declare const GCDualSenseAdaptiveTriggerMode: {
   Off: 0,
   Feedback: 1,
@@ -744,6 +736,14 @@ declare const GCControllerPlayerIndex: {
   Index2: 1,
   Index3: 2,
   Index4: 3,
+};
+
+declare const GCPhysicalInputSourceDirection: {
+  NotApplicable: 0,
+  Up: 1,
+  Right: 2,
+  Down: 4,
+  Left: 8,
 };
 
 declare const GCSystemGestureState: {
@@ -838,13 +838,6 @@ declare class GCQuaternion {
   w: number;
 }
 
-declare class GCAcceleration {
-  constructor(init?: GCAcceleration);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class GCDualSenseAdaptiveTriggerPositionalResistiveStrengths {
   constructor(init?: GCDualSenseAdaptiveTriggerPositionalResistiveStrengths);
   values: unknown /* const array */;
@@ -863,6 +856,13 @@ declare class GCPoint2 {
 
 declare class GCRotationRate {
   constructor(init?: GCRotationRate);
+  x: number;
+  y: number;
+  z: number;
+}
+
+declare class GCAcceleration {
+  constructor(init?: GCAcceleration);
   x: number;
   y: number;
   z: number;
@@ -1207,6 +1207,10 @@ declare interface GCDevicePhysicalInputStateDiff extends NSObjectProtocol {
 declare class GCDevicePhysicalInputStateDiff extends NativeObject implements GCDevicePhysicalInputStateDiff {
 }
 
+declare class GCEventViewController extends NSViewController {
+  controllerUserInteractionEnabled: boolean;
+}
+
 declare class GCGearShifterElement extends NSObject implements GCPhysicalInputElement {
   readonly patternInput: GCSwitchPositionInput;
 
@@ -1257,10 +1261,6 @@ declare class GCGearShifterElement extends NSObject implements GCPhysicalInputEl
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class GCEventViewController extends NSViewController {
-  controllerUserInteractionEnabled: boolean;
 }
 
 declare class GCDirectionalGamepad extends GCMicroGamepad {
@@ -1801,6 +1801,76 @@ declare class GCSteeringWheelElement extends NSObject implements GCAxisElement {
   readonly debugDescription: string;
 }
 
+declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysicalInputState {
+  readonly wheel: GCSteeringWheelElement;
+
+  readonly acceleratorPedal: GCButtonElement;
+
+  readonly brakePedal: GCButtonElement;
+
+  readonly clutchPedal: GCButtonElement;
+
+  readonly shifter: GCGearShifterElement;
+
+  readonly device: GCDevice | null;
+
+  readonly lastEventTimestamp: number;
+
+  readonly lastEventLatency: number;
+
+  readonly elements: GCPhysicalInputElementCollection;
+
+  readonly buttons: GCPhysicalInputElementCollection;
+
+  readonly axes: GCPhysicalInputElementCollection;
+
+  readonly switches: GCPhysicalInputElementCollection;
+
+  readonly dpads: GCPhysicalInputElementCollection;
+
+  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class GCKeyboard extends NSObject implements GCDevice {
   readonly keyboardInput: GCKeyboardInput;
 
@@ -2025,76 +2095,6 @@ declare class GCDeviceBattery extends NSObject {
   readonly batteryLevel: number;
 
   readonly batteryState: interop.Enum<typeof GCDeviceBatteryState>;
-}
-
-declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysicalInputState {
-  readonly wheel: GCSteeringWheelElement;
-
-  readonly acceleratorPedal: GCButtonElement;
-
-  readonly brakePedal: GCButtonElement;
-
-  readonly clutchPedal: GCButtonElement;
-
-  readonly shifter: GCGearShifterElement;
-
-  readonly device: GCDevice | null;
-
-  readonly lastEventTimestamp: number;
-
-  readonly lastEventLatency: number;
-
-  readonly elements: GCPhysicalInputElementCollection;
-
-  readonly buttons: GCPhysicalInputElementCollection;
-
-  readonly axes: GCPhysicalInputElementCollection;
-
-  readonly switches: GCPhysicalInputElementCollection;
-
-  readonly dpads: GCPhysicalInputElementCollection;
-
-  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
 }
 
 declare class GCControllerInputState extends NSObject implements GCDevicePhysicalInputState {

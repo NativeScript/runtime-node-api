@@ -1,7 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const kCFErrorDomainOSStatus: interop.Pointer;
-
 declare const kCFDateFormatterPMSymbol: interop.Pointer;
 
 declare const kCFAllocatorNull: interop.Pointer;
@@ -53,6 +51,8 @@ declare const kCFStreamSocketSecurityLevelNegotiatedSSL: interop.Pointer;
 declare const kCFLocaleCurrentLocaleDidChangeNotification: interop.Pointer;
 
 declare const kCFUserNotificationStopAlertLevel: number;
+
+declare const kCFErrorDomainOSStatus: interop.Pointer;
 
 declare const kCFURLVolumeResourceCountKey: interop.Pointer;
 
@@ -123,8 +123,6 @@ declare const kCFURLHasHiddenExtensionKey: interop.Pointer;
 declare const kCFErrorUnderlyingErrorKey: interop.Pointer;
 
 declare const kCFStringTokenizerAttributeLatinTranscription: number;
-
-declare const kCFStringTransformLatinHangul: interop.Pointer;
 
 declare const kCFURLVolumeAvailableCapacityForOpportunisticUsageKey: interop.Pointer;
 
@@ -492,8 +490,6 @@ declare const kCFStreamErrorDomainSOCKS: number;
 
 declare const kCFNumberFormatterFormatWidth: interop.Pointer;
 
-declare const kCFURLVolumeIsLocalKey: interop.Pointer;
-
 declare const kCFStreamPropertyAppendToFile: interop.Pointer;
 
 declare const kCFURLFileResourceTypeSymbolicLink: interop.Pointer;
@@ -511,6 +507,8 @@ declare const kCFXMLTreeErrorLineNumber: interop.Pointer;
 declare const kCFURLVolumeSupportsExtendedSecurityKey: interop.Pointer;
 
 declare const kCFXMLTreeErrorStatusCode: interop.Pointer;
+
+declare const kCFNumberFormatterMinGroupingDigits: interop.Pointer;
 
 declare const kCFURLVolumeIsEjectableKey: interop.Pointer;
 
@@ -531,6 +529,8 @@ declare const kCFBundleLocalizationsKey: interop.Pointer;
 declare const kCFDateFormatterTwoDigitStartDate: interop.Pointer;
 
 declare const kCFSocketRetrieveCommand: interop.Pointer;
+
+declare const kCFStringTransformLatinHangul: interop.Pointer;
 
 declare const kCFURLVolumeIdentifierKey: interop.Pointer;
 
@@ -644,8 +644,6 @@ declare const kCFURLVolumeSupportsFileCloningKey: interop.Pointer;
 
 declare const kCFFileDescriptorReadCallBack: number;
 
-declare const kCFStreamPropertySOCKSPassword: interop.Pointer;
-
 declare const kCFXMLTreeErrorDescription: interop.Pointer;
 
 declare const kCFLocaleMeasurementSystem: interop.Pointer;
@@ -686,6 +684,8 @@ declare const kCFPropertyListReadStreamError: number;
 
 declare const kCFStreamSocketSecurityLevelNone: interop.Pointer;
 
+declare const kCFStreamPropertySOCKSPassword: interop.Pointer;
+
 declare const kCFNumberNegativeInfinity: interop.Pointer;
 
 declare const kCFStreamSocketSecurityLevelTLSv1: interop.Pointer;
@@ -719,6 +719,8 @@ declare const kCFURLVolumeUUIDStringKey: interop.Pointer;
 declare const kCFErrorDomainPOSIX: interop.Pointer;
 
 declare const kCFBooleanFalse: interop.Pointer;
+
+declare const kCFURLVolumeIsLocalKey: interop.Pointer;
 
 declare const kCFURLFileLength: interop.Pointer;
 
@@ -822,15 +824,6 @@ declare const CFXMLNodeTypeCode: {
   AttributeListDeclaration: 15,
 };
 
-declare const CFTimeZoneNameStyle: {
-  Standard: 0,
-  ShortStandard: 1,
-  DaylightSaving: 2,
-  ShortDaylightSaving: 3,
-  Generic: 4,
-  ShortGeneric: 5,
-};
-
 declare const CFLocaleLanguageDirection: {
   Unknown: 0,
   LeftToRight: 1,
@@ -845,6 +838,15 @@ declare const CFXMLEntityTypeCode: {
   ParsedExternal: 2,
   Unparsed: 3,
   Character: 4,
+};
+
+declare const CFTimeZoneNameStyle: {
+  Standard: 0,
+  ShortStandard: 1,
+  DaylightSaving: 2,
+  ShortDaylightSaving: 3,
+  Generic: 4,
+  ShortGeneric: 5,
 };
 
 declare const CFXMLParserStatusCode: {
@@ -866,13 +868,6 @@ declare const CFXMLParserStatusCode: {
   ErrorMalformedCharacterReference: 13,
   ErrorMalformedParsedCharacterData: 14,
   ErrorNoData: 15,
-};
-
-declare const CFNotificationSuspensionBehavior: {
-  Drop: 1,
-  Coalesce: 2,
-  Hold: 3,
-  DeliverImmediately: 4,
 };
 
 declare const CFStreamStatus: {
@@ -925,6 +920,7 @@ declare const CFCalendarUnit: {
   WeekOfMonth: 4096,
   WeekOfYear: 8192,
   YearForWeekOfYear: 16384,
+  DayOfYear: 65536,
 };
 
 declare const CFURLComponentType: {
@@ -940,6 +936,13 @@ declare const CFURLComponentType: {
   ParameterString: 10,
   Query: 11,
   Fragment: 12,
+};
+
+declare const CFNotificationSuspensionBehavior: {
+  Drop: 1,
+  Coalesce: 2,
+  Hold: 3,
+  DeliverImmediately: 4,
 };
 
 declare const CFURLError: {
@@ -1414,14 +1417,6 @@ declare class __CFArray {
   constructor(init?: __CFArray);
 }
 
-declare class CGAffineTransformComponents {
-  constructor(init?: CGAffineTransformComponents);
-  scale: CGSize;
-  horizontalShear: number;
-  rotation: number;
-  translation: CGVector;
-}
-
 declare class __CFBinaryHeap {
   constructor(init?: __CFBinaryHeap);
 }
@@ -1470,6 +1465,14 @@ declare class CFDictionaryValueCallBacks {
   release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+}
+
+declare class CGAffineTransformComponents {
+  constructor(init?: CGAffineTransformComponents);
+  scale: CGSize;
+  horizontalShear: number;
+  rotation: number;
+  translation: CGVector;
 }
 
 declare class __CFFileSecurity {
@@ -1522,6 +1525,10 @@ declare class CFBinaryHeapCompareContext {
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
 }
 
+declare class __CFBitVector {
+  constructor(init?: __CFBitVector);
+}
+
 declare class CFXMLEntityInfo {
   constructor(init?: CFXMLEntityInfo);
   entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
@@ -1548,18 +1555,6 @@ declare class CFArrayCallBacks {
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
 }
 
-declare class __CFUserNotification {
-  constructor(init?: __CFUserNotification);
-}
-
-declare class __CFBitVector {
-  constructor(init?: __CFBitVector);
-}
-
-declare class __CFSocket {
-  constructor(init?: __CFSocket);
-}
-
 declare class CFSocketSignature {
   constructor(init?: CFSocketSignature);
   protocolFamily: number;
@@ -1578,13 +1573,12 @@ declare class __CFNotificationCenter {
   constructor(init?: __CFNotificationCenter);
 }
 
-declare class __CFDateFormatter {
-  constructor(init?: __CFDateFormatter);
+declare class __CFUserNotification {
+  constructor(init?: __CFUserNotification);
 }
 
-declare class FSRef {
-  constructor(init?: FSRef);
-  hidden: unknown /* const array */;
+declare class __CFDateFormatter {
+  constructor(init?: __CFDateFormatter);
 }
 
 declare class __CFBundle {
@@ -1804,6 +1798,10 @@ declare class __CFSet {
   constructor(init?: __CFSet);
 }
 
+declare class __CFSocket {
+  constructor(init?: __CFSocket);
+}
+
 declare class CFRunLoopSourceContext {
   constructor(init?: CFRunLoopSourceContext);
   version: number;
@@ -1839,6 +1837,11 @@ declare class CFXMLAttributeListDeclarationInfo {
   constructor(init?: CFXMLAttributeListDeclarationInfo);
   numberOfAttributes: number;
   attributes: interop.Pointer;
+}
+
+declare class FSRef {
+  constructor(init?: FSRef);
+  hidden: unknown /* const array */;
 }
 
 declare class __CFDate {
@@ -3406,6 +3409,8 @@ declare function CFAttributedStringReplaceAttributedString(aStr: interop.Pointer
 declare function CFAttributedStringBeginEditing(aStr: interop.PointerConvertible): void;
 
 declare function CFAttributedStringEndEditing(aStr: interop.PointerConvertible): void;
+
+declare function CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString: interop.PointerConvertible, range: CFRange, baseDirection: number, bidiLevels: interop.PointerConvertible, baseDirections: interop.PointerConvertible): boolean;
 
 declare function CFURLEnumeratorGetTypeID(): number;
 

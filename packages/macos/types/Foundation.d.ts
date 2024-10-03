@@ -621,6 +621,8 @@ declare const NSAppleScriptErrorBriefMessage: string;
 
 declare const NSMetadataItemOrientationKey: string;
 
+declare const NSURLUbiquitousItemDownloadingStatusKey: string;
+
 declare const NSMetadataItemAudioEncodingApplicationKey: string;
 
 declare const NSMetadataItemInstantMessageAddressesKey: string;
@@ -771,8 +773,6 @@ declare const NSMetadataQueryUbiquitousDataScope: string;
 
 declare const NSURLVolumeLocalizedFormatDescriptionKey: string;
 
-declare const NSURLFileIdentifierKey: string;
-
 declare const NSKeyValueChangeOldKey: string;
 
 declare const NSPropertyListWriteStreamError: number;
@@ -786,8 +786,6 @@ declare const NSArgumentEvaluationScriptError: number;
 declare const NSMetadataItemWhiteBalanceKey: string;
 
 declare const NSNotificationDeliverImmediately: interop.Enum<typeof NSDistributedNotificationOptions>;
-
-declare const NSMaximumKeyValueOperator: string;
 
 declare const NS_BigEndian: number;
 
@@ -1120,8 +1118,6 @@ declare const NSMetadataItemSubjectKey: string;
 declare const NSURLErrorFileOutsideSafeArea: number;
 
 declare const NSMetadataItemISOSpeedKey: string;
-
-declare const NSURLUbiquitousItemDownloadingStatusKey: string;
 
 declare const NSURLVolumeSupportsZeroRunsKey: string;
 
@@ -1549,6 +1545,8 @@ declare const NSCalendarDayChangedNotification: string;
 
 declare const NSPersonNameComponentSuffix: string;
 
+declare const NSLocalizedNumberFormatAttributeName: string;
+
 declare const NSIntMapKeyCallBacks: NSMapTableKeyCallBacks;
 
 declare const NSUTF16BigEndianStringEncoding: number;
@@ -1652,6 +1650,8 @@ declare const NSTextCheckingAllTypes: number;
 declare const NSStreamNetworkServiceTypeVideo: string;
 
 declare const NSErrorFailingURLStringKey: string;
+
+declare const NSMaximumKeyValueOperator: string;
 
 declare const NSStringTransformLatinToHangul: string;
 
@@ -1808,6 +1808,8 @@ declare const NSURLAuthenticationMethodDefault: string;
 declare const NSLinguisticTagCloseParenthesis: string;
 
 declare const NSLinguisticTagPersonalName: string;
+
+declare const NSURLFileIdentifierKey: string;
 
 declare const NSURLDocumentIdentifierKey: string;
 
@@ -2057,15 +2059,6 @@ declare const NSLinguisticTagDash: string;
 
 declare const NSURLAuthenticationMethodNegotiate: string;
 
-declare const NSDataReadingOptions: {
-  DataReadingMappedIfSafe: 1,
-  DataReadingUncached: 2,
-  DataReadingMappedAlways: 8,
-  DataReadingMapped: 1,
-  MappedRead: 1,
-  UncachedRead: 2,
-};
-
 declare const NSBackgroundActivityResult: {
   Finished: 1,
   Deferred: 2,
@@ -2193,6 +2186,7 @@ declare const NSCalendarUnit: {
   CalendarUnitWeekOfYear: 8192,
   CalendarUnitYearForWeekOfYear: 16384,
   CalendarUnitNanosecond: 32768,
+  CalendarUnitDayOfYear: 65536,
   CalendarUnitCalendar: 1048576,
   CalendarUnitTimeZone: 2097152,
   EraCalendarUnit: 2,
@@ -2416,10 +2410,6 @@ declare const NSOrderedCollectionDifferenceCalculationOptions: {
   InferMoves: 4,
 };
 
-declare const NSPersonNameComponentsFormatterOptions: {
-  NSPersonNameComponentsFormatterPhonetic: 2,
-};
-
 declare const NSURLRequestCachePolicy: {
   UseProtocolCachePolicy: 0,
   ReloadIgnoringLocalCacheData: 1,
@@ -2475,6 +2465,10 @@ declare const NSLocaleLanguageDirection: {
   RightToLeft: 2,
   TopToBottom: 3,
   BottomToTop: 4,
+};
+
+declare const NSPersonNameComponentsFormatterOptions: {
+  NSPersonNameComponentsFormatterPhonetic: 2,
 };
 
 declare const NSURLSessionTaskMetricsResourceFetchType: {
@@ -3259,6 +3253,15 @@ declare const NSDataCompressionAlgorithm: {
   LZ4: 1,
   LZMA: 2,
   Zlib: 3,
+};
+
+declare const NSDataReadingOptions: {
+  DataReadingMappedIfSafe: 1,
+  DataReadingUncached: 2,
+  DataReadingMappedAlways: 8,
+  DataReadingMapped: 1,
+  MappedRead: 1,
+  UncachedRead: 2,
 };
 
 declare const NSPropertyListFormat: {
@@ -4382,18 +4385,6 @@ declare interface NSUserActivityDelegate extends NSObjectProtocol {
 declare class NSUserActivityDelegate extends NativeObject implements NSUserActivityDelegate {
 }
 
-declare class NSLock extends NSObject implements NSLocking {
-  tryLock(): boolean;
-
-  lockBeforeDate(limit: NSDate): boolean;
-
-  name: string;
-
-  lock(): void;
-
-  unlock(): void;
-}
-
 declare class NSOrderedCollectionChange<ObjectType = interop.Object> extends NSObject {
   static changeWithObjectTypeIndex<ObjectType>(anObject: ObjectType | null, type: interop.Enum<typeof NSCollectionChangeType>, index: number): NSOrderedCollectionChange;
 
@@ -4488,58 +4479,6 @@ declare class NSCache<KeyType = interop.Object, ObjectType = interop.Object> ext
   countLimit: number;
 
   evictsObjectsWithDiscardedContent: boolean;
-}
-
-declare class NSUserNotification extends NSObject implements NSCopying {
-  init(): this;
-
-  title: string;
-
-  subtitle: string;
-
-  informativeText: string;
-
-  actionButtonTitle: string;
-
-  get userInfo(): NSDictionary;
-  set userInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  deliveryDate: NSDate;
-
-  deliveryTimeZone: NSTimeZone;
-
-  deliveryRepeatInterval: NSDateComponents;
-
-  readonly actualDeliveryDate: NSDate;
-
-  readonly isPresented: boolean;
-
-  readonly isRemote: boolean;
-
-  soundName: string;
-
-  hasActionButton: boolean;
-
-  readonly activationType: interop.Enum<typeof NSUserNotificationActivationType>;
-
-  otherButtonTitle: string;
-
-  identifier: string;
-
-  contentImage: NSImage;
-
-  hasReplyButton: boolean;
-
-  responsePlaceholder: string;
-
-  readonly response: NSAttributedString;
-
-  get additionalActions(): NSArray;
-  set additionalActions(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  readonly additionalActivationAction: NSUserNotificationAction;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class NSUnitPower extends NSDimension implements NSSecureCoding {
@@ -5163,6 +5102,8 @@ declare class NSDateComponents extends NSObject implements NSCopying, NSSecureCo
 
   yearForWeekOfYear: number;
 
+  dayOfYear: number;
+
   isLeapMonth: boolean;
 
   readonly date: NSDate;
@@ -5444,240 +5385,30 @@ declare class NSComparisonPredicate extends NSPredicate {
   readonly options: interop.Enum<typeof NSComparisonPredicateOptions>;
 }
 
-// @ts-ignore ClassDecl.tsIgnore
-declare class NSDecimalNumber extends NSNumber {
-  initWithMantissaExponentIsNegative(mantissa: number, exponent: number, flag: boolean): this;
+declare class NSHTTPCookieStorage extends NSObject {
+  static readonly sharedHTTPCookieStorage: NSHTTPCookieStorage;
 
-  initWithDecimal(dcm: NSDecimal): this;
+  static sharedCookieStorageForGroupContainerIdentifier(identifier: string): NSHTTPCookieStorage;
 
-  initWithString(numberValue: string | null): this;
+  readonly cookies: NSArray;
 
-  initWithStringLocale(numberValue: string | null, locale: interop.Object | null): this;
+  setCookie(cookie: NSHTTPCookie): void;
 
-  descriptionWithLocale(locale: interop.Object | null): string;
+  deleteCookie(cookie: NSHTTPCookie): void;
 
-  readonly decimalValue: NSDecimal;
+  removeCookiesSinceDate(date: NSDate): void;
 
-  static decimalNumberWithMantissaExponentIsNegative(mantissa: number, exponent: number, flag: boolean): NSDecimalNumber;
+  cookiesForURL(URL: NSURL): NSArray;
 
-  static decimalNumberWithDecimal(dcm: NSDecimal): NSDecimalNumber;
+  setCookiesForURLMainDocumentURL(cookies: NSArray<interop.Object> | Array<interop.Object>, URL: NSURL | null, mainDocumentURL: NSURL | null): void;
 
-  static decimalNumberWithString(numberValue: string | null): NSDecimalNumber;
+  cookieAcceptPolicy: interop.Enum<typeof NSHTTPCookieAcceptPolicy>;
 
-  static decimalNumberWithStringLocale(numberValue: string | null, locale: interop.Object | null): NSDecimalNumber;
+  sortedCookiesUsingDescriptors(sortOrder: NSArray<interop.Object> | Array<interop.Object>): NSArray;
 
-  static readonly zero: NSDecimalNumber;
+  storeCookiesForTask(cookies: NSArray<interop.Object> | Array<interop.Object>, task: NSURLSessionTask): void;
 
-  static readonly one: NSDecimalNumber;
-
-  static readonly minimumDecimalNumber: NSDecimalNumber;
-
-  static readonly maximumDecimalNumber: NSDecimalNumber;
-
-  static readonly notANumber: NSDecimalNumber;
-
-  decimalNumberByAdding(decimalNumber: NSDecimalNumber): NSDecimalNumber;
-
-  decimalNumberByAddingWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberBySubtracting(decimalNumber: NSDecimalNumber): NSDecimalNumber;
-
-  decimalNumberBySubtractingWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberByMultiplyingBy(decimalNumber: NSDecimalNumber): NSDecimalNumber;
-
-  decimalNumberByMultiplyingByWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberByDividingBy(decimalNumber: NSDecimalNumber): NSDecimalNumber;
-
-  decimalNumberByDividingByWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberByRaisingToPower(power: number): NSDecimalNumber;
-
-  decimalNumberByRaisingToPowerWithBehavior(power: number, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberByMultiplyingByPowerOf10(power: number): NSDecimalNumber;
-
-  decimalNumberByMultiplyingByPowerOf10WithBehavior(power: number, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  decimalNumberByRoundingAccordingToBehavior(behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  compare(decimalNumber: NSNumber): interop.Enum<typeof NSComparisonResult>;
-
-  static defaultBehavior: NSDecimalNumberBehaviors;
-
-  readonly objCType: string;
-
-  readonly doubleValue: number;
-}
-
-declare class NSSpellServer extends NSObject {
-  delegate: NSSpellServerDelegate;
-
-  registerLanguageByVendor(language: string | null, vendor: string | null): boolean;
-
-  isWordInUserDictionariesCaseSensitive(word: string, flag: boolean): boolean;
-
-  run(): void;
-}
-
-declare class NSAttributedString extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
-  readonly string: string;
-
-  attributesAtIndexEffectiveRange(location: number, range: interop.PointerConvertible): NSDictionary;
-
-  readonly length: number;
-
-  attributeAtIndexEffectiveRange(attrName: string, location: number, range: interop.PointerConvertible): interop.Object;
-
-  attributedSubstringFromRange(range: _NSRange): NSAttributedString;
-
-  attributesAtIndexLongestEffectiveRangeInRange(location: number, range: interop.PointerConvertible, rangeLimit: _NSRange): NSDictionary;
-
-  attributeAtIndexLongestEffectiveRangeInRange(attrName: string, location: number, range: interop.PointerConvertible, rangeLimit: _NSRange): interop.Object;
-
-  isEqualToAttributedString(other: NSAttributedString): boolean;
-
-  initWithString(str: string): this;
-
-  initWithStringAttributes(str: string, attrs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
-
-  initWithAttributedString(attrStr: NSAttributedString): this;
-
-  enumerateAttributesInRangeOptionsUsingBlock(enumerationRange: _NSRange, opts: interop.Enum<typeof NSAttributedStringEnumerationOptions>, block: (p1: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p2: _NSRange, p3: interop.PointerConvertible) => void): void;
-
-  enumerateAttributeInRangeOptionsUsingBlock(attrName: string, enumerationRange: _NSRange, opts: interop.Enum<typeof NSAttributedStringEnumerationOptions>, block: (p1: interop.Object, p2: _NSRange, p3: interop.PointerConvertible) => void | null): void;
-
-  initWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile: NSURL, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
-
-  initWithMarkdownOptionsBaseURLError(markdown: NSData, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
-
-  initWithMarkdownStringOptionsBaseURLError(markdownString: string, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
-
-  initWithFormatOptionsLocale(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null): this;
-
-  initWithFormatOptionsLocaleArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, arguments$: string): this;
-
-  static localizedAttributedStringWithFormat<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString): InstanceType<This>;
-
-  static localizedAttributedStringWithFormatOptions<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>): InstanceType<This>;
-
-  initWithFormatOptionsLocaleContext(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
-
-  initWithFormatOptionsLocaleContextArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, arguments$: string): this;
-
-  static localizedAttributedStringWithFormatContext<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
-
-  static localizedAttributedStringWithFormatOptionsContext<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
-
-  attributedStringByInflectingString(): NSAttributedString;
-
-  initWithURLOptionsDocumentAttributesError(url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): this;
-
-  initWithDataOptionsDocumentAttributesError(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): this;
-
-  dataFromRangeDocumentAttributesError(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): NSData;
-
-  fileWrapperFromRangeDocumentAttributesError(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): NSFileWrapper;
-
-  initWithRTFDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
-
-  initWithRTFDDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
-
-  initWithHTMLDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
-
-  initWithHTMLBaseURLDocumentAttributes(data: NSData, base: NSURL, dict: interop.PointerConvertible): this;
-
-  initWithDocFormatDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
-
-  initWithHTMLOptionsDocumentAttributes(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible): this;
-
-  initWithRTFDFileWrapperDocumentAttributes(wrapper: NSFileWrapper, dict: interop.PointerConvertible): this;
-
-  RTFFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
-
-  RTFDFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
-
-  RTFDFileWrapperFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSFileWrapper;
-
-  docFormatFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
-
-  fontAttributesInRange(range: _NSRange): NSDictionary;
-
-  rulerAttributesInRange(range: _NSRange): NSDictionary;
-
-  containsAttachmentsInRange(range: _NSRange): boolean;
-
-  lineBreakBeforeIndexWithinRange(location: number, aRange: _NSRange): number;
-
-  lineBreakByHyphenatingBeforeIndexWithinRange(location: number, aRange: _NSRange): number;
-
-  doubleClickAtIndex(location: number): _NSRange;
-
-  nextWordFromIndexForward(location: number, isForward: boolean): number;
-
-  rangeOfTextBlockAtIndex(block: NSTextBlock, location: number): _NSRange;
-
-  rangeOfTextTableAtIndex(table: NSTextTable, location: number): _NSRange;
-
-  rangeOfTextListAtIndex(list: NSTextList, location: number): _NSRange;
-
-  itemNumberInTextListAtIndex(list: NSTextList, location: number): number;
-
-  static readonly textTypes: NSArray;
-
-  static readonly textUnfilteredTypes: NSArray;
-
-  readonly containsAttachments: boolean;
-
-  static textFileTypes(): NSArray;
-
-  static textPasteboardTypes(): NSArray;
-
-  static textUnfilteredFileTypes(): NSArray;
-
-  static textUnfilteredPasteboardTypes(): NSArray;
-
-  initWithURLDocumentAttributes(url: NSURL, dict: interop.PointerConvertible): this;
-
-  initWithPathDocumentAttributes(path: string, dict: interop.PointerConvertible): this;
-
-  URLAtIndexEffectiveRange(location: number, effectiveRange: interop.PointerConvertible): NSURL;
-
-  static loadFromHTMLWithRequestOptionsCompletionHandler(request: NSURLRequest, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
-
-  static loadFromHTMLWithFileURLOptionsCompletionHandler(fileURL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
-
-  static loadFromHTMLWithStringOptionsCompletionHandler(string: string, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
-
-  static loadFromHTMLWithDataOptionsCompletionHandler(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
-
-  static attributedStringWithAttachment(attachment: NSTextAttachment): NSAttributedString;
-
-  size(): CGSize;
-
-  drawAtPoint(point: CGPoint): void;
-
-  drawInRect(rect: CGRect): void;
-
-  drawWithRectOptionsContext(rect: CGRect, options: interop.Enum<typeof NSStringDrawingOptions>, context: NSStringDrawingContext | null): void;
-
-  boundingRectWithSizeOptionsContext(size: CGSize, options: interop.Enum<typeof NSStringDrawingOptions>, context: NSStringDrawingContext | null): CGRect;
-
-  drawWithRectOptions(rect: CGRect, options: interop.Enum<typeof NSStringDrawingOptions>): void;
-
-  boundingRectWithSizeOptions(size: CGSize, options: interop.Enum<typeof NSStringDrawingOptions>): CGRect;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
+  getCookiesForTaskCompletionHandler(task: NSURLSessionTask, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void | null): void;
 }
 
 declare class NSXPCCoder extends NSCoder {
@@ -5792,6 +5523,18 @@ declare class NSURLProtectionSpace extends NSObject implements NSSecureCoding, N
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class NSLock extends NSObject implements NSLocking {
+  tryLock(): boolean;
+
+  lockBeforeDate(limit: NSDate): boolean;
+
+  name: string;
+
+  lock(): void;
+
+  unlock(): void;
 }
 
 declare class NSPortCoder extends NSCoder {
@@ -6012,6 +5755,8 @@ declare class NSNumberFormatter extends NSFormatter {
   static defaultFormatterBehavior(): interop.Enum<typeof NSNumberFormatterBehavior>;
 
   static setDefaultFormatterBehavior(behavior: interop.Enum<typeof NSNumberFormatterBehavior>): void;
+
+  minimumGroupingDigits: number;
 
   numberStyle: interop.Enum<typeof NSNumberFormatterStyle>;
 
@@ -6405,34 +6150,6 @@ declare class NSAssertionHandler extends NSObject {
   handleFailureInFunctionFileLineNumberDescription(functionName: string, fileName: string, line: number, format: string | null): void;
 }
 
-declare class NSLengthFormatter extends NSFormatter {
-  numberFormatter: NSNumberFormatter;
-
-  unitStyle: interop.Enum<typeof NSFormattingUnitStyle>;
-
-  isForPersonHeightUse: boolean;
-
-  stringFromValueUnit(value: number, unit: interop.Enum<typeof NSLengthFormatterUnit>): string;
-
-  stringFromMeters(numberInMeters: number): string;
-
-  unitStringFromValueUnit(value: number, unit: interop.Enum<typeof NSLengthFormatterUnit>): string;
-
-  unitStringFromMetersUsedUnit(numberInMeters: number, unitp: interop.PointerConvertible): string;
-
-  getObjectValueForStringErrorDescription(obj: interop.PointerConvertible, string: string, error: interop.PointerConvertible): boolean;
-}
-
-declare class NSRelativeSpecifier extends NSScriptObjectSpecifier {
-  initWithCoder(inCoder: NSCoder): this;
-
-  initWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier(classDesc: NSScriptClassDescription, container: NSScriptObjectSpecifier | null, property: string, relPos: interop.Enum<typeof NSRelativePosition>, baseSpecifier: NSScriptObjectSpecifier | null): this;
-
-  relativePosition: interop.Enum<typeof NSRelativePosition>;
-
-  baseSpecifier: NSScriptObjectSpecifier;
-}
-
 declare class NSSocketPortNameServer extends NSPortNameServer {
   static sharedInstance(): interop.Object;
 
@@ -6503,6 +6220,9 @@ declare class NSMutableURLRequest extends NSURLRequest {
 
   // @ts-ignore MemberDecl.tsIgnore
   requiresDNSSECValidation: boolean;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  allowsPersistentDNS: boolean;
 
   // @ts-ignore MemberDecl.tsIgnore
   HTTPMethod: string;
@@ -7073,6 +6793,121 @@ declare class NSClassDescription extends NSObject {
   inverseForRelationshipKey(relationshipKey: string): string;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class NSKeyedUnarchiver extends NSCoder {
+  initForReadingFromDataError(data: NSData, error: interop.PointerConvertible): this;
+
+  static unarchivedObjectOfClassFromDataError(cls: interop.Object, data: NSData, error: interop.PointerConvertible): interop.Object;
+
+  static unarchivedArrayOfObjectsOfClassFromDataError(cls: interop.Object, data: NSData, error: interop.PointerConvertible): NSArray;
+
+  static unarchivedDictionaryWithKeysOfClassObjectsOfClassFromDataError(keyCls: interop.Object, valueCls: interop.Object, data: NSData, error: interop.PointerConvertible): NSDictionary;
+
+  static unarchivedObjectOfClassesFromDataError(classes: NSSet, data: NSData, error: interop.PointerConvertible): interop.Object;
+
+  static unarchivedArrayOfObjectsOfClassesFromDataError(classes: NSSet, data: NSData, error: interop.PointerConvertible): NSArray;
+
+  static unarchivedDictionaryWithKeysOfClassesObjectsOfClassesFromDataError(keyClasses: NSSet, valueClasses: NSSet, data: NSData, error: interop.PointerConvertible): NSDictionary;
+
+  init(): this;
+
+  initForReadingWithData(data: NSData): this;
+
+  static unarchiveObjectWithData(data: NSData): interop.Object;
+
+  static unarchiveTopLevelObjectWithDataError(data: NSData, error: interop.PointerConvertible): interop.Object;
+
+  static unarchiveObjectWithFile(path: string): interop.Object;
+
+  delegate: NSKeyedUnarchiverDelegate;
+
+  finishDecoding(): void;
+
+  static setClassForClassName(cls: interop.Object | null, codedName: string): void;
+
+  setClassForClassName(cls: interop.Object | null, codedName: string): void;
+
+  static classForClassName(codedName: string): interop.Object;
+
+  classForClassName(codedName: string): interop.Object;
+
+  containsValueForKey(key: string): boolean;
+
+  decodeObjectForKey(key: string): interop.Object;
+
+  decodeBoolForKey(key: string): boolean;
+
+  decodeIntForKey(key: string): number;
+
+  decodeInt32ForKey(key: string): number;
+
+  decodeInt64ForKey(key: string): number;
+
+  decodeFloatForKey(key: string): number;
+
+  decodeDoubleForKey(key: string): number;
+
+  decodeBytesForKeyReturnedLength(key: string, lengthp: interop.PointerConvertible): interop.Pointer;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  requiresSecureCoding: boolean;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  decodingFailurePolicy: interop.Enum<typeof NSDecodingFailurePolicy>;
+}
+
+declare class NSUserNotification extends NSObject implements NSCopying {
+  init(): this;
+
+  title: string;
+
+  subtitle: string;
+
+  informativeText: string;
+
+  actionButtonTitle: string;
+
+  get userInfo(): NSDictionary;
+  set userInfo(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  deliveryDate: NSDate;
+
+  deliveryTimeZone: NSTimeZone;
+
+  deliveryRepeatInterval: NSDateComponents;
+
+  readonly actualDeliveryDate: NSDate;
+
+  readonly isPresented: boolean;
+
+  readonly isRemote: boolean;
+
+  soundName: string;
+
+  hasActionButton: boolean;
+
+  readonly activationType: interop.Enum<typeof NSUserNotificationActivationType>;
+
+  otherButtonTitle: string;
+
+  identifier: string;
+
+  contentImage: NSImage;
+
+  hasReplyButton: boolean;
+
+  responsePlaceholder: string;
+
+  readonly response: NSAttributedString;
+
+  get additionalActions(): NSArray;
+  set additionalActions(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  readonly additionalActivationAction: NSUserNotificationAction;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class NSUndoManager extends NSObject {
   beginUndoGrouping(): void;
 
@@ -7133,6 +6968,12 @@ declare class NSUndoManager extends NSObject {
 
   setActionName(actionName: string): void;
 
+  undoActionUserInfoValueForKey(key: string): interop.Object | null;
+
+  redoActionUserInfoValueForKey(key: string): interop.Object | null;
+
+  setActionUserInfoValueForKey(info: interop.Object | null, key: string): void;
+
   readonly undoMenuItemTitle: string;
 
   readonly redoMenuItemTitle: string;
@@ -7140,32 +6981,6 @@ declare class NSUndoManager extends NSObject {
   undoMenuTitleForUndoActionName(actionName: string): string;
 
   redoMenuTitleForUndoActionName(actionName: string): string;
-}
-
-declare class NSHTTPCookieStorage extends NSObject {
-  static readonly sharedHTTPCookieStorage: NSHTTPCookieStorage;
-
-  static sharedCookieStorageForGroupContainerIdentifier(identifier: string): NSHTTPCookieStorage;
-
-  readonly cookies: NSArray;
-
-  setCookie(cookie: NSHTTPCookie): void;
-
-  deleteCookie(cookie: NSHTTPCookie): void;
-
-  removeCookiesSinceDate(date: NSDate): void;
-
-  cookiesForURL(URL: NSURL): NSArray;
-
-  setCookiesForURLMainDocumentURL(cookies: NSArray<interop.Object> | Array<interop.Object>, URL: NSURL | null, mainDocumentURL: NSURL | null): void;
-
-  cookieAcceptPolicy: interop.Enum<typeof NSHTTPCookieAcceptPolicy>;
-
-  sortedCookiesUsingDescriptors(sortOrder: NSArray<interop.Object> | Array<interop.Object>): NSArray;
-
-  storeCookiesForTask(cookies: NSArray<interop.Object> | Array<interop.Object>, task: NSURLSessionTask): void;
-
-  getCookiesForTaskCompletionHandler(task: NSURLSessionTask, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void | null): void;
 }
 
 declare class NSPositionalSpecifier extends NSObject {
@@ -7411,6 +7226,18 @@ declare class NSOrderedSet<ObjectType = interop.Object> extends NSObject impleme
 
   readonly [Symbol.iterator]: () => Iterator<ObjectType>;
 
+}
+
+declare class NSLocalizedNumberFormatRule extends NSObject implements NSCopying, NSSecureCoding {
+  static automatic(): NSLocalizedNumberFormatRule;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class NSURLCache extends NSObject {
@@ -8209,6 +8036,10 @@ declare class NSValue extends NSObject implements NSCopying, NSSecureCoding {
 
   readonly MKCoordinateSpanValue: MKCoordinateSpan;
 
+  static valueWithCMVideoDimensions(dimensions: CMVideoDimensions): NSValue;
+
+  readonly CMVideoDimensionsValue: CMVideoDimensions;
+
   static valueWithCMTime(time: CMTime): NSValue;
 
   readonly CMTimeValue: CMTime;
@@ -8220,10 +8051,6 @@ declare class NSValue extends NSObject implements NSCopying, NSSecureCoding {
   static valueWithCMTimeMapping(timeMapping: CMTimeMapping): NSValue;
 
   readonly CMTimeMappingValue: CMTimeMapping;
-
-  static valueWithCMVideoDimensions(dimensions: CMVideoDimensions): NSValue;
-
-  readonly CMVideoDimensionsValue: CMVideoDimensions;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -8449,38 +8276,6 @@ declare class NSMutableArray<ObjectType = interop.Object> extends NSArray {
   sortUsingDescriptors(sortDescriptors: NSArray<interop.Object> | Array<interop.Object>): void;
 
   filterUsingPredicate(predicate: NSPredicate): void;
-}
-
-declare class NSRangeSpecifier extends NSScriptObjectSpecifier {
-  initWithCoder(inCoder: NSCoder): this;
-
-  initWithContainerClassDescriptionContainerSpecifierKeyStartSpecifierEndSpecifier(classDesc: NSScriptClassDescription, container: NSScriptObjectSpecifier | null, property: string, startSpec: NSScriptObjectSpecifier | null, endSpec: NSScriptObjectSpecifier | null): this;
-
-  startSpecifier: NSScriptObjectSpecifier;
-
-  endSpecifier: NSScriptObjectSpecifier;
-}
-
-declare class NSTermOfAddress extends NSObject implements NSCopying, NSSecureCoding {
-  static neutral<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  static feminine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  static masculine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  static localizedForLanguageIdentifierWithPronouns<This extends abstract new (...args: any) => any>(this: This, language: string, pronouns: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  readonly languageIdentifier: string;
-
-  readonly pronouns: NSArray;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class NSMachBootstrapServer extends NSPortNameServer {
@@ -8919,6 +8714,34 @@ declare class NSUniqueIDSpecifier extends NSScriptObjectSpecifier {
   uniqueID: interop.Object;
 }
 
+declare class NSLengthFormatter extends NSFormatter {
+  numberFormatter: NSNumberFormatter;
+
+  unitStyle: interop.Enum<typeof NSFormattingUnitStyle>;
+
+  isForPersonHeightUse: boolean;
+
+  stringFromValueUnit(value: number, unit: interop.Enum<typeof NSLengthFormatterUnit>): string;
+
+  stringFromMeters(numberInMeters: number): string;
+
+  unitStringFromValueUnit(value: number, unit: interop.Enum<typeof NSLengthFormatterUnit>): string;
+
+  unitStringFromMetersUsedUnit(numberInMeters: number, unitp: interop.PointerConvertible): string;
+
+  getObjectValueForStringErrorDescription(obj: interop.PointerConvertible, string: string, error: interop.PointerConvertible): boolean;
+}
+
+declare class NSRelativeSpecifier extends NSScriptObjectSpecifier {
+  initWithCoder(inCoder: NSCoder): this;
+
+  initWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier(classDesc: NSScriptClassDescription, container: NSScriptObjectSpecifier | null, property: string, relPos: interop.Enum<typeof NSRelativePosition>, baseSpecifier: NSScriptObjectSpecifier | null): this;
+
+  relativePosition: interop.Enum<typeof NSRelativePosition>;
+
+  baseSpecifier: NSScriptObjectSpecifier;
+}
+
 declare class NSDeleteCommand extends NSScriptCommand {
   setReceiversSpecifier(receiversRef: NSScriptObjectSpecifier | null): void;
 
@@ -9118,6 +8941,8 @@ declare class NSURLRequest extends NSObject implements NSSecureCoding, NSCopying
   readonly attribution: interop.Enum<typeof NSURLRequestAttribution>;
 
   readonly requiresDNSSECValidation: boolean;
+
+  readonly allowsPersistentDNS: boolean;
 
   readonly HTTPMethod: string;
 
@@ -10222,6 +10047,74 @@ declare class NSCompoundPredicate extends NSPredicate {
   static notPredicateWithSubpredicate(predicate: NSPredicate): NSCompoundPredicate;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class NSDecimalNumber extends NSNumber {
+  initWithMantissaExponentIsNegative(mantissa: number, exponent: number, flag: boolean): this;
+
+  initWithDecimal(dcm: NSDecimal): this;
+
+  initWithString(numberValue: string | null): this;
+
+  initWithStringLocale(numberValue: string | null, locale: interop.Object | null): this;
+
+  descriptionWithLocale(locale: interop.Object | null): string;
+
+  readonly decimalValue: NSDecimal;
+
+  static decimalNumberWithMantissaExponentIsNegative(mantissa: number, exponent: number, flag: boolean): NSDecimalNumber;
+
+  static decimalNumberWithDecimal(dcm: NSDecimal): NSDecimalNumber;
+
+  static decimalNumberWithString(numberValue: string | null): NSDecimalNumber;
+
+  static decimalNumberWithStringLocale(numberValue: string | null, locale: interop.Object | null): NSDecimalNumber;
+
+  static readonly zero: NSDecimalNumber;
+
+  static readonly one: NSDecimalNumber;
+
+  static readonly minimumDecimalNumber: NSDecimalNumber;
+
+  static readonly maximumDecimalNumber: NSDecimalNumber;
+
+  static readonly notANumber: NSDecimalNumber;
+
+  decimalNumberByAdding(decimalNumber: NSDecimalNumber): NSDecimalNumber;
+
+  decimalNumberByAddingWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberBySubtracting(decimalNumber: NSDecimalNumber): NSDecimalNumber;
+
+  decimalNumberBySubtractingWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberByMultiplyingBy(decimalNumber: NSDecimalNumber): NSDecimalNumber;
+
+  decimalNumberByMultiplyingByWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberByDividingBy(decimalNumber: NSDecimalNumber): NSDecimalNumber;
+
+  decimalNumberByDividingByWithBehavior(decimalNumber: NSDecimalNumber, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberByRaisingToPower(power: number): NSDecimalNumber;
+
+  decimalNumberByRaisingToPowerWithBehavior(power: number, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberByMultiplyingByPowerOf10(power: number): NSDecimalNumber;
+
+  decimalNumberByMultiplyingByPowerOf10WithBehavior(power: number, behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  decimalNumberByRoundingAccordingToBehavior(behavior: NSDecimalNumberBehaviors | null): NSDecimalNumber;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  compare(decimalNumber: NSNumber): interop.Enum<typeof NSComparisonResult>;
+
+  static defaultBehavior: NSDecimalNumberBehaviors;
+
+  readonly objCType: string;
+
+  readonly doubleValue: number;
+}
+
 declare class NSXPCListenerEndpoint extends NSObject implements NSSecureCoding {
   static readonly supportsSecureCoding: boolean;
 
@@ -10382,6 +10275,10 @@ declare class NSProcessInfo extends NSObject {
   readonly isMacCatalystApp: boolean;
 
   readonly isiOSAppOnMac: boolean;
+
+  isDeviceCertifiedFor(performanceTier: number): boolean;
+
+  hasPerformanceProfile(performanceProfile: number): boolean;
 }
 
 declare class NSURLProtocol extends NSObject {
@@ -10826,6 +10723,180 @@ declare class NSRegularExpression extends NSObject implements NSCopying, NSSecur
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class NSAttributedString extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
+  readonly string: string;
+
+  attributesAtIndexEffectiveRange(location: number, range: interop.PointerConvertible): NSDictionary;
+
+  readonly length: number;
+
+  attributeAtIndexEffectiveRange(attrName: string, location: number, range: interop.PointerConvertible): interop.Object;
+
+  attributedSubstringFromRange(range: _NSRange): NSAttributedString;
+
+  attributesAtIndexLongestEffectiveRangeInRange(location: number, range: interop.PointerConvertible, rangeLimit: _NSRange): NSDictionary;
+
+  attributeAtIndexLongestEffectiveRangeInRange(attrName: string, location: number, range: interop.PointerConvertible, rangeLimit: _NSRange): interop.Object;
+
+  isEqualToAttributedString(other: NSAttributedString): boolean;
+
+  initWithString(str: string): this;
+
+  initWithStringAttributes(str: string, attrs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
+
+  initWithAttributedString(attrStr: NSAttributedString): this;
+
+  enumerateAttributesInRangeOptionsUsingBlock(enumerationRange: _NSRange, opts: interop.Enum<typeof NSAttributedStringEnumerationOptions>, block: (p1: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p2: _NSRange, p3: interop.PointerConvertible) => void): void;
+
+  enumerateAttributeInRangeOptionsUsingBlock(attrName: string, enumerationRange: _NSRange, opts: interop.Enum<typeof NSAttributedStringEnumerationOptions>, block: (p1: interop.Object, p2: _NSRange, p3: interop.PointerConvertible) => void | null): void;
+
+  initWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile: NSURL, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
+
+  initWithMarkdownOptionsBaseURLError(markdown: NSData, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
+
+  initWithMarkdownStringOptionsBaseURLError(markdownString: string, options: NSAttributedStringMarkdownParsingOptions | null, baseURL: NSURL | null, error: interop.PointerConvertible): this;
+
+  initWithFormatOptionsLocale(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null): this;
+
+  initWithFormatOptionsLocaleArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, arguments$: string): this;
+
+  static localizedAttributedStringWithFormat<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString): InstanceType<This>;
+
+  static localizedAttributedStringWithFormatOptions<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>): InstanceType<This>;
+
+  initWithFormatOptionsLocaleContext(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
+
+  initWithFormatOptionsLocaleContextArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, arguments$: string): this;
+
+  static localizedAttributedStringWithFormatContext<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  static localizedAttributedStringWithFormatOptionsContext<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  attributedStringByInflectingString(): NSAttributedString;
+
+  initWithURLOptionsDocumentAttributesError(url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): this;
+
+  initWithDataOptionsDocumentAttributesError(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): this;
+
+  dataFromRangeDocumentAttributesError(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): NSData;
+
+  fileWrapperFromRangeDocumentAttributesError(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): NSFileWrapper;
+
+  containsAttachmentsInRange(range: _NSRange): boolean;
+
+  prefersRTFDInRange(range: _NSRange): boolean;
+
+  initWithRTFDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
+
+  initWithRTFDDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
+
+  initWithHTMLDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
+
+  initWithHTMLBaseURLDocumentAttributes(data: NSData, base: NSURL, dict: interop.PointerConvertible): this;
+
+  initWithDocFormatDocumentAttributes(data: NSData, dict: interop.PointerConvertible): this;
+
+  initWithHTMLOptionsDocumentAttributes(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible): this;
+
+  initWithRTFDFileWrapperDocumentAttributes(wrapper: NSFileWrapper, dict: interop.PointerConvertible): this;
+
+  RTFFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
+
+  RTFDFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
+
+  RTFDFileWrapperFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSFileWrapper;
+
+  docFormatFromRangeDocumentAttributes(range: _NSRange, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSData;
+
+  fontAttributesInRange(range: _NSRange): NSDictionary;
+
+  rulerAttributesInRange(range: _NSRange): NSDictionary;
+
+  lineBreakBeforeIndexWithinRange(location: number, aRange: _NSRange): number;
+
+  lineBreakByHyphenatingBeforeIndexWithinRange(location: number, aRange: _NSRange): number;
+
+  doubleClickAtIndex(location: number): _NSRange;
+
+  nextWordFromIndexForward(location: number, isForward: boolean): number;
+
+  rangeOfTextBlockAtIndex(block: NSTextBlock, location: number): _NSRange;
+
+  rangeOfTextTableAtIndex(table: NSTextTable, location: number): _NSRange;
+
+  rangeOfTextListAtIndex(list: NSTextList, location: number): _NSRange;
+
+  itemNumberInTextListAtIndex(list: NSTextList, location: number): number;
+
+  static readonly textTypes: NSArray;
+
+  static readonly textUnfilteredTypes: NSArray;
+
+  readonly containsAttachments: boolean;
+
+  static textFileTypes(): NSArray;
+
+  static textPasteboardTypes(): NSArray;
+
+  static textUnfilteredFileTypes(): NSArray;
+
+  static textUnfilteredPasteboardTypes(): NSArray;
+
+  initWithURLDocumentAttributes(url: NSURL, dict: interop.PointerConvertible): this;
+
+  initWithPathDocumentAttributes(path: string, dict: interop.PointerConvertible): this;
+
+  URLAtIndexEffectiveRange(location: number, effectiveRange: interop.PointerConvertible): NSURL;
+
+  static loadFromHTMLWithRequestOptionsCompletionHandler(request: NSURLRequest, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
+
+  static loadFromHTMLWithFileURLOptionsCompletionHandler(fileURL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
+
+  static loadFromHTMLWithStringOptionsCompletionHandler(string: string, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
+
+  static loadFromHTMLWithDataOptionsCompletionHandler(data: NSData, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, completionHandler: (p1: NSAttributedString, p2: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p3: NSError) => void): void;
+
+  static attributedStringWithAttachment(attachment: NSTextAttachment): NSAttributedString;
+
+  static attributedStringWithAttachmentAttributes<This extends abstract new (...args: any) => any>(this: This, attachment: NSTextAttachment, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  size(): CGSize;
+
+  drawAtPoint(point: CGPoint): void;
+
+  drawInRect(rect: CGRect): void;
+
+  drawWithRectOptionsContext(rect: CGRect, options: interop.Enum<typeof NSStringDrawingOptions>, context: NSStringDrawingContext | null): void;
+
+  boundingRectWithSizeOptionsContext(size: CGSize, options: interop.Enum<typeof NSStringDrawingOptions>, context: NSStringDrawingContext | null): CGRect;
+
+  drawWithRectOptions(rect: CGRect, options: interop.Enum<typeof NSStringDrawingOptions>): void;
+
+  boundingRectWithSizeOptions(size: CGSize, options: interop.Enum<typeof NSStringDrawingOptions>): CGRect;
+
+  static attributedStringWithAdaptiveImageGlyphAttributes<This extends abstract new (...args: any) => any>(this: This, adaptiveImageGlyph: NSAdaptiveImageGlyph, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class NSSpellServer extends NSObject {
+  delegate: NSSpellServerDelegate;
+
+  registerLanguageByVendor(language: string | null, vendor: string | null): boolean;
+
+  isWordInUserDictionariesCaseSensitive(word: string, flag: boolean): boolean;
+
+  run(): void;
+}
+
 declare class NSTextCheckingResult extends NSObject implements NSCopying, NSSecureCoding {
   readonly resultType: interop.Enum<typeof NSTextCheckingType>;
 
@@ -10933,15 +11004,15 @@ declare class NSMutableAttributedString extends NSAttributedString {
 
   fixAttributesInRange(range: _NSRange): void;
 
+  readFromURLOptionsDocumentAttributesError(url: NSURL, opts: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
+
+  readFromDataOptionsDocumentAttributesError(data: NSData, opts: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
+
   fixFontAttributeInRange(range: _NSRange): void;
 
   fixParagraphStyleAttributeInRange(range: _NSRange): void;
 
   fixAttachmentAttributeInRange(range: _NSRange): void;
-
-  readFromURLOptionsDocumentAttributesError(url: NSURL, opts: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
-
-  readFromDataOptionsDocumentAttributesError(data: NSData, opts: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, dict: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
 
   superscriptRange(range: _NSRange): void;
 
@@ -11533,6 +11604,38 @@ declare class NSProtocolChecker extends NSProxy {
   initWithTargetProtocol(anObject: NSObject, aProtocol: interop.PointerConvertible): this;
 }
 
+declare class NSTermOfAddress extends NSObject implements NSCopying, NSSecureCoding {
+  static neutral<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static feminine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static masculine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static localizedForLanguageIdentifierWithPronouns<This extends abstract new (...args: any) => any>(this: This, language: string, pronouns: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  readonly languageIdentifier: string;
+
+  readonly pronouns: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class NSRangeSpecifier extends NSScriptObjectSpecifier {
+  initWithCoder(inCoder: NSCoder): this;
+
+  initWithContainerClassDescriptionContainerSpecifierKeyStartSpecifierEndSpecifier(classDesc: NSScriptClassDescription, container: NSScriptObjectSpecifier | null, property: string, startSpec: NSScriptObjectSpecifier | null, endSpec: NSScriptObjectSpecifier | null): this;
+
+  startSpecifier: NSScriptObjectSpecifier;
+
+  endSpecifier: NSScriptObjectSpecifier;
+}
+
 declare class NSInflectionRuleExplicit extends NSInflectionRule {
   initWithMorphology(morphology: NSMorphology): this;
 
@@ -11571,6 +11674,14 @@ declare class NSMorphology extends NSObject implements NSCopying, NSSecureCoding
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class NSKeyValueSharedObservers extends NSObject {
+  initWithObservableClass(observableClass: interop.Object): this;
+
+  addSharedObserverForKeyOptionsContext(observer: NSObject, key: string, options: interop.Enum<typeof NSKeyValueObservingOptions>, context: interop.PointerConvertible): void;
+
+  snapshot(): NSKeyValueSharedObserversSnapshot;
 }
 
 declare class NSNetService extends NSObject {
@@ -12735,67 +12846,7 @@ declare class NSUnitAngle extends NSDimension implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore ClassDecl.tsIgnore
-declare class NSKeyedUnarchiver extends NSCoder {
-  initForReadingFromDataError(data: NSData, error: interop.PointerConvertible): this;
-
-  static unarchivedObjectOfClassFromDataError(cls: interop.Object, data: NSData, error: interop.PointerConvertible): interop.Object;
-
-  static unarchivedArrayOfObjectsOfClassFromDataError(cls: interop.Object, data: NSData, error: interop.PointerConvertible): NSArray;
-
-  static unarchivedDictionaryWithKeysOfClassObjectsOfClassFromDataError(keyCls: interop.Object, valueCls: interop.Object, data: NSData, error: interop.PointerConvertible): NSDictionary;
-
-  static unarchivedObjectOfClassesFromDataError(classes: NSSet, data: NSData, error: interop.PointerConvertible): interop.Object;
-
-  static unarchivedArrayOfObjectsOfClassesFromDataError(classes: NSSet, data: NSData, error: interop.PointerConvertible): NSArray;
-
-  static unarchivedDictionaryWithKeysOfClassesObjectsOfClassesFromDataError(keyClasses: NSSet, valueClasses: NSSet, data: NSData, error: interop.PointerConvertible): NSDictionary;
-
-  init(): this;
-
-  initForReadingWithData(data: NSData): this;
-
-  static unarchiveObjectWithData(data: NSData): interop.Object;
-
-  static unarchiveTopLevelObjectWithDataError(data: NSData, error: interop.PointerConvertible): interop.Object;
-
-  static unarchiveObjectWithFile(path: string): interop.Object;
-
-  delegate: NSKeyedUnarchiverDelegate;
-
-  finishDecoding(): void;
-
-  static setClassForClassName(cls: interop.Object | null, codedName: string): void;
-
-  setClassForClassName(cls: interop.Object | null, codedName: string): void;
-
-  static classForClassName(codedName: string): interop.Object;
-
-  classForClassName(codedName: string): interop.Object;
-
-  containsValueForKey(key: string): boolean;
-
-  decodeObjectForKey(key: string): interop.Object;
-
-  decodeBoolForKey(key: string): boolean;
-
-  decodeIntForKey(key: string): number;
-
-  decodeInt32ForKey(key: string): number;
-
-  decodeInt64ForKey(key: string): number;
-
-  decodeFloatForKey(key: string): number;
-
-  decodeDoubleForKey(key: string): number;
-
-  decodeBytesForKeyReturnedLength(key: string, lengthp: interop.PointerConvertible): interop.Pointer;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  requiresSecureCoding: boolean;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  decodingFailurePolicy: interop.Enum<typeof NSDecodingFailurePolicy>;
+declare class NSKeyValueSharedObserversSnapshot extends NSObject {
 }
 
 declare class NSDimension extends NSUnit implements NSSecureCoding {

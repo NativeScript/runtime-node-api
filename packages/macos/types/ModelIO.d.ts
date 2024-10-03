@@ -299,26 +299,6 @@ declare interface MDLJointAnimation {
 declare class MDLJointAnimation extends NativeObject implements MDLJointAnimation {
 }
 
-// @ts-ignore ProtocolDecl.tsIgnore
-declare interface MDLMeshBuffer extends NSObjectProtocol, NSCopying {
-  fillDataOffset(data: NSData, offset: number): void;
-
-  map(): MDLMeshBufferMap;
-
-  readonly length: number;
-
-  readonly allocator: MDLMeshBufferAllocator;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  readonly zone: MDLMeshBufferZone;
-
-  readonly type: interop.Enum<typeof MDLMeshBufferType>;
-}
-
-// @ts-ignore ProtocolDecl.tsIgnore
-declare class MDLMeshBuffer extends NativeObject implements MDLMeshBuffer {
-}
-
 declare interface MDLTransformComponent extends MDLComponent {
   matrix: simd_float4x4;
 
@@ -375,6 +355,26 @@ declare interface MDLMeshBufferZone extends NSObjectProtocol {
 declare class MDLMeshBufferZone extends NativeObject implements MDLMeshBufferZone {
 }
 
+// @ts-ignore ProtocolDecl.tsIgnore
+declare interface MDLMeshBuffer extends NSObjectProtocol, NSCopying {
+  fillDataOffset(data: NSData, offset: number): void;
+
+  map(): MDLMeshBufferMap;
+
+  readonly length: number;
+
+  readonly allocator: MDLMeshBufferAllocator;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  readonly zone: MDLMeshBufferZone;
+
+  readonly type: interop.Enum<typeof MDLMeshBufferType>;
+}
+
+// @ts-ignore ProtocolDecl.tsIgnore
+declare class MDLMeshBuffer extends NativeObject implements MDLMeshBuffer {
+}
+
 declare interface MDLMeshBufferAllocator extends NSObjectProtocol {
   newZone(capacity: number): MDLMeshBufferZone;
 
@@ -405,6 +405,24 @@ declare interface MDLObjectContainerComponent extends MDLComponent, NSFastEnumer
 }
 
 declare class MDLObjectContainerComponent extends NativeObject implements MDLObjectContainerComponent {
+}
+
+declare class MDLStereoscopicCamera extends MDLCamera {
+  interPupillaryDistance: number;
+
+  leftVergence: number;
+
+  rightVergence: number;
+
+  overlap: number;
+
+  readonly leftViewMatrix: simd_float4x4;
+
+  readonly rightViewMatrix: simd_float4x4;
+
+  readonly leftProjectionMatrix: simd_float4x4;
+
+  readonly rightProjectionMatrix: simd_float4x4;
 }
 
 declare class MDLTransform extends NSObject implements NSCopying, MDLTransformComponent {
@@ -511,24 +529,6 @@ declare class MDLTransform extends NSObject implements NSCopying, MDLTransformCo
   readonly debugDescription: string;
 }
 
-declare class MDLStereoscopicCamera extends MDLCamera {
-  interPupillaryDistance: number;
-
-  leftVergence: number;
-
-  rightVergence: number;
-
-  overlap: number;
-
-  readonly leftViewMatrix: simd_float4x4;
-
-  readonly rightViewMatrix: simd_float4x4;
-
-  readonly leftProjectionMatrix: simd_float4x4;
-
-  readonly rightProjectionMatrix: simd_float4x4;
-}
-
 declare class MDLVertexAttribute extends NSObject implements NSCopying {
   initWithNameFormatOffsetBufferIndex(name: string, format: interop.Enum<typeof MDLVertexFormat>, offset: number, bufferIndex: number): this;
 
@@ -545,6 +545,16 @@ declare class MDLVertexAttribute extends NSObject implements NSCopying {
   initializationValue: unknown /* ext vector */;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class MDLLight extends MDLObject {
+  irradianceAtPoint(point: unknown /* ext vector */): interop.Pointer;
+
+  irradianceAtPointColorSpace(point: unknown /* ext vector */, colorSpace: interop.PointerConvertible): interop.Pointer;
+
+  lightType: interop.Enum<typeof MDLLightType>;
+
+  colorSpace: string;
 }
 
 declare class MDLVoxelArray extends MDLObject {
@@ -634,6 +644,10 @@ declare class MDLPhysicallyPlausibleLight extends MDLLight {
   attenuationStartDistance: number;
 
   attenuationEndDistance: number;
+}
+
+declare class MDLUtility extends NSObject {
+  static convertToUSDZWriteToURL(inputURL: NSURL, outputURL: NSURL): void;
 }
 
 declare class MDLTransformStack extends NSObject implements NSCopying, MDLTransformComponent {
@@ -1008,26 +1022,6 @@ declare class MDLMaterial extends NSObject implements MDLNamed, NSFastEnumeratio
 
   readonly [Symbol.iterator]: () => Iterator<any>;
 
-}
-
-declare class MDLScatteringFunction extends NSObject implements MDLNamed {
-  name: string;
-
-  readonly baseColor: MDLMaterialProperty;
-
-  readonly emission: MDLMaterialProperty;
-
-  readonly specular: MDLMaterialProperty;
-
-  readonly materialIndexOfRefraction: MDLMaterialProperty;
-
-  readonly interfaceIndexOfRefraction: MDLMaterialProperty;
-
-  readonly normal: MDLMaterialProperty;
-
-  readonly ambientOcclusion: MDLMaterialProperty;
-
-  readonly ambientOcclusionScale: MDLMaterialProperty;
 }
 
 declare class MDLMaterialPropertyGraph extends MDLMaterialPropertyNode {
@@ -1682,16 +1676,6 @@ declare class MDLPathAssetResolver extends NSObject implements MDLAssetResolver 
   readonly debugDescription: string;
 }
 
-declare class MDLLight extends MDLObject {
-  irradianceAtPoint(point: unknown /* ext vector */): interop.Pointer;
-
-  irradianceAtPointColorSpace(point: unknown /* ext vector */, colorSpace: interop.PointerConvertible): interop.Pointer;
-
-  lightType: interop.Enum<typeof MDLLightType>;
-
-  colorSpace: string;
-}
-
 declare class MDLSubmesh extends NSObject implements MDLNamed {
   initWithNameIndexBufferIndexCountIndexTypeGeometryTypeMaterial(name: string, indexBuffer: MDLMeshBuffer, indexCount: number, indexType: interop.Enum<typeof MDLIndexBitDepth>, geometryType: interop.Enum<typeof MDLGeometryType>, material: MDLMaterial | null): this;
 
@@ -1903,6 +1887,26 @@ declare class MDLPhysicallyPlausibleScatteringFunction extends MDLScatteringFunc
   readonly clearcoat: MDLMaterialProperty;
 
   readonly clearcoatGloss: MDLMaterialProperty;
+}
+
+declare class MDLScatteringFunction extends NSObject implements MDLNamed {
+  name: string;
+
+  readonly baseColor: MDLMaterialProperty;
+
+  readonly emission: MDLMaterialProperty;
+
+  readonly specular: MDLMaterialProperty;
+
+  readonly materialIndexOfRefraction: MDLMaterialProperty;
+
+  readonly interfaceIndexOfRefraction: MDLMaterialProperty;
+
+  readonly normal: MDLMaterialProperty;
+
+  readonly ambientOcclusion: MDLMaterialProperty;
+
+  readonly ambientOcclusionScale: MDLMaterialProperty;
 }
 
 declare class MDLAnimatedScalarArray extends MDLAnimatedValue {

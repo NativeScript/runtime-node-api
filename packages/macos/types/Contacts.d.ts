@@ -474,8 +474,6 @@ declare const CNLabelContactRelationBrotherInLawSistersHusband: string;
 
 declare const CNLabelContactRelationElderCousinParentsSiblingsSon: string;
 
-declare const CNLabelContactRelationParentsSiblingMothersYoungerSibling: string;
-
 declare const CNLabelContactRelationDaughterInLaw: string;
 
 declare const CNLabelContactRelationParentsElderSibling: string;
@@ -604,6 +602,8 @@ declare const CNLabelContactRelationElderCousinParentsSiblingsDaughter: string;
 
 declare const CNSocialProfileServiceTencentWeibo: string;
 
+declare const CNLabelContactRelationParentsSiblingMothersYoungerSibling: string;
+
 declare const CNGroupNameKey: string;
 
 declare const CNContactThumbnailImageDataKey: string;
@@ -629,13 +629,6 @@ declare const CNContainerType: {
 
 declare const CNEntityType: {
   CNEntityTypeContacts: 0,
-};
-
-declare const CNContactSortOrder: {
-  None: 0,
-  UserDefault: 1,
-  GivenName: 2,
-  FamilyName: 3,
 };
 
 declare const CNContactDisplayNameOrder: {
@@ -680,6 +673,13 @@ declare const CNErrorCode: {
   ChangeHistoryInvalidFetchRequest: 605,
   VCardMalformed: 700,
   VCardSummarizationError: 701,
+};
+
+declare const CNContactSortOrder: {
+  None: 0,
+  UserDefault: 1,
+  GivenName: 2,
+  FamilyName: 3,
 };
 
 declare const CNContactType: {
@@ -858,9 +858,6 @@ declare class CNChangeHistoryAddContactEvent extends CNChangeHistoryEvent {
   readonly contact: CNContact;
 
   readonly containerIdentifier: string;
-}
-
-declare class CNChangeHistoryDropEverythingEvent extends CNChangeHistoryEvent {
 }
 
 declare class CNChangeHistoryEvent extends NSObject implements NSCopying, NSSecureCoding {
@@ -1117,6 +1114,80 @@ declare class CNLabeledValue<ValueType = interop.Object> extends NSObject implem
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class CNGroup extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
+  readonly identifier: string;
+
+  readonly name: string;
+
+  static predicateForGroupsWithIdentifiers(identifiers: NSArray<interop.Object> | Array<interop.Object>): NSPredicate;
+
+  static predicateForSubgroupsInGroupWithIdentifier(parentGroupIdentifier: string): NSPredicate;
+
+  static predicateForGroupsInContainerWithIdentifier(containerIdentifier: string): NSPredicate;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCoding {
+  static phoneNumberWithStringValue<This extends abstract new (...args: any) => any>(this: This, stringValue: string): InstanceType<This>;
+
+  initWithStringValue(string: string): this;
+
+  init(): this;
+
+  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  readonly stringValue: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class CNContactStore extends NSObject {
+  static authorizationStatusForEntityType(entityType: interop.Enum<typeof CNEntityType>): interop.Enum<typeof CNAuthorizationStatus>;
+
+  requestAccessForEntityTypeCompletionHandler(entityType: interop.Enum<typeof CNEntityType>, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
+
+  unifiedContactsMatchingPredicateKeysToFetchError(predicate: NSPredicate, keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSArray;
+
+  unifiedContactWithIdentifierKeysToFetchError(identifier: string, keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): CNContact;
+
+  unifiedMeContactWithKeysToFetchError(keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): CNContact;
+
+  enumeratorForContactFetchRequestError(request: CNContactFetchRequest, error: interop.PointerConvertible): CNFetchResult;
+
+  enumeratorForChangeHistoryFetchRequestError(request: CNChangeHistoryFetchRequest, error: interop.PointerConvertible): CNFetchResult;
+
+  enumerateContactsWithFetchRequestErrorUsingBlock(fetchRequest: CNContactFetchRequest, error: interop.PointerConvertible, block: (p1: CNContact, p2: interop.PointerConvertible) => void): boolean;
+
+  groupsMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
+
+  containersMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
+
+  executeSaveRequestError(saveRequest: CNSaveRequest, error: interop.PointerConvertible): boolean;
+
+  readonly currentHistoryToken: NSData;
+
+  defaultContainerIdentifier(): string;
+}
+
+declare class CNChangeHistoryUpdateGroupEvent extends CNChangeHistoryEvent {
+  readonly group: CNGroup;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class CNMutableContact extends CNContact {
   // @ts-ignore MemberDecl.tsIgnore
@@ -1217,86 +1288,6 @@ declare class CNMutableContact extends CNContact {
   set dates(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-declare class CNGroup extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding {
-  readonly identifier: string;
-
-  readonly name: string;
-
-  static predicateForGroupsWithIdentifiers(identifiers: NSArray<interop.Object> | Array<interop.Object>): NSPredicate;
-
-  static predicateForSubgroupsInGroupWithIdentifier(parentGroupIdentifier: string): NSPredicate;
-
-  static predicateForGroupsInContainerWithIdentifier(containerIdentifier: string): NSPredicate;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCoding {
-  static phoneNumberWithStringValue<This extends abstract new (...args: any) => any>(this: This, stringValue: string): InstanceType<This>;
-
-  initWithStringValue(string: string): this;
-
-  init(): this;
-
-  static new<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  readonly stringValue: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class CNContactStore extends NSObject {
-  static authorizationStatusForEntityType(entityType: interop.Enum<typeof CNEntityType>): interop.Enum<typeof CNAuthorizationStatus>;
-
-  requestAccessForEntityTypeCompletionHandler(entityType: interop.Enum<typeof CNEntityType>, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
-
-  unifiedContactsMatchingPredicateKeysToFetchError(predicate: NSPredicate, keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSArray;
-
-  unifiedContactWithIdentifierKeysToFetchError(identifier: string, keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): CNContact;
-
-  unifiedMeContactWithKeysToFetchError(keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): CNContact;
-
-  enumeratorForContactFetchRequestError(request: CNContactFetchRequest, error: interop.PointerConvertible): CNFetchResult;
-
-  enumeratorForChangeHistoryFetchRequestError(request: CNChangeHistoryFetchRequest, error: interop.PointerConvertible): CNFetchResult;
-
-  enumerateContactsWithFetchRequestErrorUsingBlock(fetchRequest: CNContactFetchRequest, error: interop.PointerConvertible, block: (p1: CNContact, p2: interop.PointerConvertible) => void): boolean;
-
-  groupsMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
-
-  containersMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
-
-  executeSaveRequestError(saveRequest: CNSaveRequest, error: interop.PointerConvertible): boolean;
-
-  readonly currentHistoryToken: NSData;
-
-  defaultContainerIdentifier(): string;
-}
-
-declare class CNChangeHistoryAddGroupEvent extends CNChangeHistoryEvent {
-  readonly group: CNGroup;
-
-  readonly containerIdentifier: string;
-}
-
-declare class CNChangeHistoryUpdateGroupEvent extends CNChangeHistoryEvent {
-  readonly group: CNGroup;
-}
-
 declare class CNSaveRequest extends NSObject {
   addContactToContainerWithIdentifier(contact: CNMutableContact, identifier: string | null): void;
 
@@ -1357,6 +1348,9 @@ declare class CNChangeHistoryAddSubgroupToGroupEvent extends CNChangeHistoryEven
   readonly group: CNGroup;
 }
 
+declare class CNChangeHistoryDropEverythingEvent extends CNChangeHistoryEvent {
+}
+
 declare class CNSocialProfile extends NSObject implements NSCopying, NSSecureCoding {
   readonly urlString: string;
 
@@ -1387,5 +1381,11 @@ declare class CNContactVCardSerialization extends NSObject {
   static dataWithContactsError(contacts: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSData;
 
   static contactsWithDataError(data: NSData, error: interop.PointerConvertible): NSArray;
+}
+
+declare class CNChangeHistoryAddGroupEvent extends CNChangeHistoryEvent {
+  readonly group: CNGroup;
+
+  readonly containerIdentifier: string;
 }
 

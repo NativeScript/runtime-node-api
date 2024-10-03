@@ -1,5 +1,7 @@
 /// <reference types="@nativescript/objc-node-api" />
 
+declare const kCMMetadataDataType_QuickTimeMetadataMilliLux: interop.Pointer;
+
 declare const kCMMetadataDataType_QuickTimeMetadataDirection: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_JSON: interop.Pointer;
@@ -31,6 +33,8 @@ declare const kCMMetadataBaseDataType_PNG: interop.Pointer;
 declare const kCMMetadataBaseDataType_JPEG: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_GIF: interop.Pointer;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataSceneIlluminance: interop.Pointer;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
 
@@ -143,6 +147,8 @@ declare const kCMTagValueKey: interop.Pointer;
 declare const kCMTagPackingTypeSideBySide: CMTag;
 
 declare const kCMTagProjectionTypeFisheye: CMTag;
+
+declare const kCMTagProjectionTypeHalfEquirectangular: CMTag;
 
 declare const kCMTagProjectionTypeEquirectangular: CMTag;
 
@@ -388,11 +394,13 @@ declare const kCMTextDisplayFlag_scrollIn: number;
 
 declare const kCMTextFormatType_3GText: number;
 
-declare const kCMMuxedStreamType_MPEG2Program: number;
-
 declare const kCMMuxedStreamType_MPEG1System: number;
 
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
+
+declare const kCMFormatDescriptionProjectionKind_Rectilinear: interop.Pointer;
+
+declare const kCMFormatDescriptionExtension_ProjectionKind: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_HasRightStereoEyeView: interop.Pointer;
 
@@ -638,9 +646,13 @@ declare const kCMTimeInvalid: CMTime;
 
 declare const kCMPersistentTrackID_Invalid: number;
 
+declare const kCMMuxedStreamType_MPEG2Program: number;
+
 declare const kCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35: number;
 
 declare const kCMMetadataIdentifierError_BadIdentifier: number;
+
+declare const kCMFormatDescriptionExtension_ViewPackingKind: interop.Pointer;
 
 declare const kCMMuxedStreamType_MPEG2Transport: number;
 
@@ -826,13 +838,13 @@ declare const kCMMediaType_TimeCode: number;
 
 declare const kCMTextVerticalLayout_RightToLeft: interop.Pointer;
 
+declare const kCMMetadataDataType_QuickTimeMetadataUUID: interop.Pointer;
+
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
 declare const kCMFormatDescriptionExtension_HasLeftStereoEyeView: interop.Pointer;
 
 declare const kCMMetadataBaseDataType_PolylineF32: interop.Pointer;
-
-declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix: interop.Pointer;
 
@@ -861,6 +873,8 @@ declare const kCMSampleBufferLensStabilizationInfo_Off: interop.Pointer;
 declare const kCMTimebaseNotification_TimeJumped: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_Version: interop.Pointer;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataSegmentIdentifier: interop.Pointer;
 
 declare const kCMTimeCodeFormatType_TimeCode32: number;
 
@@ -980,6 +994,8 @@ declare const kCMFormatDescriptionAlphaChannelMode_PremultipliedAlpha: interop.P
 
 declare const kCMSampleBufferDroppedFrameReason_OutOfBuffers: interop.Pointer;
 
+declare const kCMTagCollectionTagsArrayKey: interop.Pointer;
+
 declare const kCMFormatDescriptionChromaLocation_Center: interop.Pointer;
 
 declare const kCMSampleBufferError_SampleIndexOutOfRange: number;
@@ -1029,6 +1045,8 @@ declare const kCMTextDisplayFlag_continuousKaraoke: number;
 declare const kCMFormatDescriptionChromaLocation_TopLeft: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_GenericFontFamilyName: interop.Pointer;
+
+declare const kCMFormatDescriptionViewPackingKind_SideBySide: interop.Pointer;
 
 declare const kCMTextFormatDescriptionExtension_VerticalJustification: interop.Pointer;
 
@@ -1148,6 +1166,8 @@ declare const kCMMuxedStreamType_EmbeddedDeviceScreenRecording: number;
 
 declare const kCMSampleBufferAttachmentKey_TrimDurationAtEnd: interop.Pointer;
 
+declare const kCMFormatDescriptionViewPackingKind_OverUnder: interop.Pointer;
+
 declare const kCMSampleAttachmentKey_AudioIndependentSampleDecoderRefreshCount: interop.Pointer;
 
 declare const kCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: number;
@@ -1246,12 +1266,6 @@ declare const CMTimeFlags: {
   ImpliedValueFlagsMask: 28,
 };
 
-declare class CMTimeMapping {
-  constructor(init?: CMTimeMapping);
-  source: CMTimeRange;
-  target: CMTimeRange;
-}
-
 declare class CMBufferHandlers {
   constructor(init?: CMBufferHandlers);
   version: number;
@@ -1300,6 +1314,12 @@ declare class CMVideoDimensions {
   constructor(init?: CMVideoDimensions);
   width: number;
   height: number;
+}
+
+declare class CMTimeMapping {
+  constructor(init?: CMTimeMapping);
+  source: CMTimeRange;
+  target: CMTimeRange;
 }
 
 declare class OpaqueCMTaggedBufferGroup {

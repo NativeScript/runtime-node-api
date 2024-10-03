@@ -29,6 +29,11 @@ declare const CLTimeIntervalMax: number;
 
 declare const kCLDistanceFilterNone: number;
 
+declare const CLServiceSessionAuthorizationRequirement: {
+  None: 0,
+  WhenInUse: 1,
+};
+
 declare const CLAccuracyAuthorization: {
   Full: 0,
   Reduced: 1,
@@ -341,7 +346,25 @@ declare class CLLocationUpdater extends NSObject {
 }
 
 declare class CLUpdate extends NSObject {
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
   readonly isStationary: boolean;
+
+  readonly stationary: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly locationUnavailable: boolean;
+
+  readonly accuracyLimited: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
 
   readonly location: CLLocation | null;
 }
@@ -672,6 +695,26 @@ declare class CLMonitoringEvent extends NSObject implements NSSecureCoding {
   readonly state: interop.Enum<typeof CLMonitoringState>;
 
   readonly date: NSDate;
+
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly accuracyLimited: boolean;
+
+  readonly conditionUnsupported: boolean;
+
+  readonly conditionLimitExceeded: boolean;
+
+  readonly persistenceUnavailable: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
 
   static readonly supportsSecureCoding: boolean;
 

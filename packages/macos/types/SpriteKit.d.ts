@@ -2,6 +2,82 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./AppKit.d.ts" />
 
+declare const SKTileSetType: {
+  Grid: 0,
+  Isometric: 1,
+  HexagonalFlat: 2,
+  HexagonalPointy: 3,
+};
+
+declare const SKTileDefinitionRotation: {
+  Rotation0: 0,
+  Rotation90: 1,
+  Rotation180: 2,
+  Rotation270: 3,
+};
+
+declare const SKAttributeType: {
+  None: 0,
+  Float: 1,
+  VectorFloat2: 2,
+  VectorFloat3: 3,
+  VectorFloat4: 4,
+  HalfFloat: 5,
+  VectorHalfFloat2: 6,
+  VectorHalfFloat3: 7,
+  VectorHalfFloat4: 8,
+};
+
+declare const SKTextureFilteringMode: {
+  Nearest: 0,
+  Linear: 1,
+};
+
+declare const SKLabelVerticalAlignmentMode: {
+  Baseline: 0,
+  Center: 1,
+  Top: 2,
+  Bottom: 3,
+};
+
+declare const SKActionTimingMode: {
+  Linear: 0,
+  EaseIn: 1,
+  EaseOut: 2,
+  EaseInEaseOut: 3,
+};
+
+declare const SKBlendMode: {
+  Alpha: 0,
+  Add: 1,
+  Subtract: 2,
+  Multiply: 3,
+  MultiplyX2: 4,
+  Screen: 5,
+  Replace: 6,
+  MultiplyAlpha: 7,
+};
+
+declare const SKParticleRenderOrder: {
+  OldestLast: 0,
+  OldestFirst: 1,
+  DontCare: 2,
+};
+
+declare const SKSceneScaleMode: {
+  Fill: 0,
+  AspectFill: 1,
+  AspectFit: 2,
+  ResizeFill: 3,
+};
+
+declare const SKTransitionDirection: {
+  Up: 0,
+  Down: 1,
+  Right: 2,
+  Left: 3,
+};
+
 declare const SKTileAdjacencyMask: {
   AdjacencyUp: 1,
   AdjacencyUpperRight: 2,
@@ -40,6 +116,12 @@ declare const SKTileAdjacencyMask: {
   AdjacencyUpperLeftCorner: 247,
 };
 
+declare const SKInterpolationMode: {
+  Linear: 1,
+  Spline: 2,
+  Step: 3,
+};
+
 declare const SKUniformType: {
   None: 0,
   Float: 1,
@@ -50,88 +132,6 @@ declare const SKUniformType: {
   FloatMatrix3: 6,
   FloatMatrix4: 7,
   Texture: 8,
-};
-
-declare const SKTextureFilteringMode: {
-  Nearest: 0,
-  Linear: 1,
-};
-
-declare const SKTransitionDirection: {
-  Up: 0,
-  Down: 1,
-  Right: 2,
-  Left: 3,
-};
-
-declare const SKLabelVerticalAlignmentMode: {
-  Baseline: 0,
-  Center: 1,
-  Top: 2,
-  Bottom: 3,
-};
-
-declare const SKSceneScaleMode: {
-  Fill: 0,
-  AspectFill: 1,
-  AspectFit: 2,
-  ResizeFill: 3,
-};
-
-declare const SKActionTimingMode: {
-  Linear: 0,
-  EaseIn: 1,
-  EaseOut: 2,
-  EaseInEaseOut: 3,
-};
-
-declare const SKBlendMode: {
-  Alpha: 0,
-  Add: 1,
-  Subtract: 2,
-  Multiply: 3,
-  MultiplyX2: 4,
-  Screen: 5,
-  Replace: 6,
-  MultiplyAlpha: 7,
-};
-
-declare const SKTileDefinitionRotation: {
-  Rotation0: 0,
-  Rotation90: 1,
-  Rotation180: 2,
-  Rotation270: 3,
-};
-
-declare const SKParticleRenderOrder: {
-  OldestLast: 0,
-  OldestFirst: 1,
-  DontCare: 2,
-};
-
-declare const SKAttributeType: {
-  None: 0,
-  Float: 1,
-  VectorFloat2: 2,
-  VectorFloat3: 3,
-  VectorFloat4: 4,
-  HalfFloat: 5,
-  VectorHalfFloat2: 6,
-  VectorHalfFloat3: 7,
-  VectorHalfFloat4: 8,
-};
-
-declare const SKInterpolationMode: {
-  Linear: 1,
-  Spline: 2,
-  Step: 3,
-};
-
-declare const SKTileSetType: {
-  Grid: 0,
-  Isometric: 1,
-  HexagonalFlat: 2,
-  HexagonalPointy: 3,
 };
 
 declare const SKRepeatMode: {
@@ -183,56 +183,6 @@ declare interface SKViewDelegate extends NSObjectProtocol {
 }
 
 declare class SKViewDelegate extends NativeObject implements SKViewDelegate {
-}
-
-declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
-  static textureWithImageNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
-
-  static textureWithRectInTexture<This extends abstract new (...args: any) => any>(this: This, rect: CGRect, texture: SKTexture): InstanceType<This>;
-
-  static textureVectorNoiseWithSmoothnessSize<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize): InstanceType<This>;
-
-  static textureNoiseWithSmoothnessSizeGrayscale<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize, grayscale: boolean): InstanceType<This>;
-
-  static textureWithCGImage<This extends abstract new (...args: any) => any>(this: This, image: interop.PointerConvertible): InstanceType<This>;
-
-  static textureWithImage<This extends abstract new (...args: any) => any>(this: This, image: NSImage): InstanceType<This>;
-
-  static textureWithDataSize<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize): InstanceType<This>;
-
-  static textureWithDataSizeFlipped<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, flipped: boolean): InstanceType<This>;
-
-  static textureWithDataSizeRowLengthAlignment<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, rowLength: number, alignment: number): InstanceType<This>;
-
-  textureByApplyingCIFilter(filter: CIFilter): this;
-
-  textureByGeneratingNormalMap(): this;
-
-  textureByGeneratingNormalMapWithSmoothnessContrast(smoothness: number, contrast: number): this;
-
-  textureRect(): CGRect;
-
-  size(): CGSize;
-
-  filteringMode: interop.Enum<typeof SKTextureFilteringMode>;
-
-  usesMipmaps: boolean;
-
-  CGImage(): interop.Pointer;
-
-  static preloadTexturesWithCompletionHandler(textures: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
-
-  preloadWithCompletionHandler(completionHandler: () => void): void;
-
-  static textureWithNoiseMap<This extends abstract new (...args: any) => any>(this: This, noiseMap: GKNoiseMap): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class SKPhysicsJointLimit extends SKPhysicsJoint {
@@ -475,6 +425,56 @@ declare class SKAttribute extends NSObject implements NSSecureCoding {
   readonly name: string;
 
   readonly type: interop.Enum<typeof SKAttributeType>;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
+  static textureWithImageNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
+
+  static textureWithRectInTexture<This extends abstract new (...args: any) => any>(this: This, rect: CGRect, texture: SKTexture): InstanceType<This>;
+
+  static textureVectorNoiseWithSmoothnessSize<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize): InstanceType<This>;
+
+  static textureNoiseWithSmoothnessSizeGrayscale<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize, grayscale: boolean): InstanceType<This>;
+
+  static textureWithCGImage<This extends abstract new (...args: any) => any>(this: This, image: interop.PointerConvertible): InstanceType<This>;
+
+  static textureWithImage<This extends abstract new (...args: any) => any>(this: This, image: NSImage): InstanceType<This>;
+
+  static textureWithDataSize<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize): InstanceType<This>;
+
+  static textureWithDataSizeFlipped<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, flipped: boolean): InstanceType<This>;
+
+  static textureWithDataSizeRowLengthAlignment<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, rowLength: number, alignment: number): InstanceType<This>;
+
+  textureByApplyingCIFilter(filter: CIFilter): this;
+
+  textureByGeneratingNormalMap(): this;
+
+  textureByGeneratingNormalMapWithSmoothnessContrast(smoothness: number, contrast: number): this;
+
+  textureRect(): CGRect;
+
+  size(): CGSize;
+
+  filteringMode: interop.Enum<typeof SKTextureFilteringMode>;
+
+  usesMipmaps: boolean;
+
+  CGImage(): interop.Pointer;
+
+  static preloadTexturesWithCompletionHandler(textures: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
+
+  preloadWithCompletionHandler(completionHandler: () => void): void;
+
+  static textureWithNoiseMap<This extends abstract new (...args: any) => any>(this: This, noiseMap: GKNoiseMap): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -928,18 +928,6 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class SKPhysicsContact extends NSObject {
-  readonly bodyA: SKPhysicsBody;
-
-  readonly bodyB: SKPhysicsBody;
-
-  readonly contactPoint: CGPoint;
-
-  readonly contactNormal: CGVector;
-
-  readonly collisionImpulse: number;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -1546,6 +1534,18 @@ declare class SKRange extends NSObject implements NSSecureCoding, NSCopying {
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class SKPhysicsContact extends NSObject {
+  readonly bodyA: SKPhysicsBody;
+
+  readonly bodyB: SKPhysicsBody;
+
+  readonly contactPoint: CGPoint;
+
+  readonly contactNormal: CGVector;
+
+  readonly collisionImpulse: number;
 }
 
 declare class SKPhysicsWorld extends NSObject implements NSSecureCoding {
