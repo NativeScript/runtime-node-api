@@ -52,17 +52,17 @@ declare const CMDeviceMotionSensorLocation: {
   HeadphoneRight: 2,
 };
 
+declare const CMOdometerOriginDevice: {
+  Unknown: 0,
+  Local: 1,
+  Remote: 2,
+};
+
 declare const CMAuthorizationStatus: {
   NotDetermined: 0,
   Restricted: 1,
   Denied: 2,
   Authorized: 3,
-};
-
-declare const CMOdometerOriginDevice: {
-  Unknown: 0,
-  Local: 1,
-  Remote: 2,
 };
 
 declare const CMAttitudeReferenceFrame: {
@@ -85,6 +85,11 @@ declare const CMWaterSubmersionDepthState: {
 declare const CMPedometerEventType: {
   Pause: 0,
   Resume: 1,
+};
+
+declare const CMHeadphoneActivityStatus: {
+  Disconnected: 0,
+  Connected: 1,
 };
 
 declare class CMQuaternion {
@@ -162,6 +167,22 @@ declare class CMPedometerEvent extends NSObject implements NSSecureCoding, NSCop
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CMMotionActivity extends CMLogItem {
+  readonly confidence: interop.Enum<typeof CMMotionActivityConfidence>;
+
+  readonly startDate: NSDate;
+
+  readonly unknown: boolean;
+
+  readonly stationary: boolean;
+
+  readonly walking: boolean;
+
+  readonly running: boolean;
+
+  readonly automotive: boolean;
+}
+
 declare class CMGyroData extends CMLogItem {
   readonly rotationRate: CMRotationRate;
 }
@@ -198,22 +219,24 @@ declare class CMAmbientPressureData extends CMLogItem {
   readonly temperature: NSMeasurement;
 }
 
-declare class CMHeadphoneMotionManager extends NSObject {
+declare class CMHeadphoneActivityManager extends NSObject {
   static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
 
-  delegate: CMHeadphoneMotionManagerDelegate;
+  readonly isActivityAvailable: boolean;
 
-  readonly isDeviceMotionAvailable: boolean;
+  readonly isActivityActive: boolean;
 
-  readonly isDeviceMotionActive: boolean;
+  readonly isStatusAvailable: boolean;
 
-  readonly deviceMotion: CMDeviceMotion;
+  readonly isStatusActive: boolean;
 
-  startDeviceMotionUpdates(): void;
+  startActivityUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMMotionActivity, p2: NSError) => void): void;
 
-  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
+  stopActivityUpdates(): void;
 
-  stopDeviceMotionUpdates(): void;
+  startStatusUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: interop.Enum<typeof CMHeadphoneActivityStatus>, p2: NSError) => void): void;
+
+  stopStatusUpdates(): void;
 }
 
 declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
@@ -226,6 +249,30 @@ declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMHeadphoneMotionManager extends NSObject {
+  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
+
+  delegate: CMHeadphoneMotionManagerDelegate;
+
+  readonly isConnectionStatusActive: boolean;
+
+  readonly isDeviceMotionAvailable: boolean;
+
+  readonly isDeviceMotionActive: boolean;
+
+  readonly deviceMotion: CMDeviceMotion;
+
+  startDeviceMotionUpdates(): void;
+
+  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
+
+  stopDeviceMotionUpdates(): void;
+
+  startConnectionStatusUpdates(): void;
+
+  stopConnectionStatusUpdates(): void;
 }
 
 declare class CMMagnetometerData extends CMLogItem {

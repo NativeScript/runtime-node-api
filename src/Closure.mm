@@ -16,10 +16,58 @@
 
 namespace objc_bridge {
 
+inline void JSCallbackInner(Closure *closure, napi_value func,
+                            napi_value thisArg, napi_value *argv, size_t argc,
+                            bool *done, void *ret) {
+  napi_env env = closure->env;
+
+  napi_value result;
+
+  napi_get_and_clear_last_exception(env, &result);
+
+  napi_status status =
+      napi_call_function(env, thisArg, func, argc, argv, &result);
+
+  if (done != NULL)
+    *done = true;
+
+  if (status != napi_ok) {
+    napi_get_and_clear_last_exception(env, &result);
+    napi_valuetype resultType;
+    napi_typeof(env, result, &resultType);
+
+    if (resultType != napi_object) {
+      napi_value code, msg;
+      napi_create_string_utf8(env, "Error", NAPI_AUTO_LENGTH, &code);
+      napi_create_string_utf8(
+          env,
+          "Unable to obtain the error thrown by the JS function "
+          "call",
+          NAPI_AUTO_LENGTH, &msg);
+      napi_create_error(env, code, msg, &result);
+    }
+
+    napi_value errstr;
+    NAPI_GUARD(napi_get_named_property(env, result, "stack", &errstr)) {
+      return;
+    }
+    char errbuf[512];
+    size_t errlen;
+    napi_get_value_string_utf8(env, errstr, errbuf, 512, &errlen);
+    NSLog(@"ObjC->JS call failed: %s", errbuf);
+    napi_throw(env, result);
+  }
+
+  // Even if call was failed and result is just undefined, let's still try to
+  // fill the return value memory with something so that it doesn't crash.
+  bool shouldFree;
+  closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
+}
+
 // Bridge calls from Objective-C to JavaScript.
 // Opposite of what native_call.cc does - but a lot of type conversion logic
 // is reused, just in reverse.
-void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
+void JSMethodCallback(ffi_cif *cif, void *ret, void *args[], void *data) {
   Closure *closure = (Closure *)data;
   napi_env env = closure->env;
   auto bridgeState = ObjCBridgeState::InstanceData(env);
@@ -49,34 +97,12 @@ void JSIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
     return;
   }
 
-  napi_value result;
-
   napi_value argv[cif->nargs - 2];
   for (int i = 2; i < cif->nargs; i++) {
     argv[i - 2] = closure->argTypes[i]->toJS(env, args[i], 0);
   }
 
-  // Clear any pending exceptions before calling the function.
-  napi_get_and_clear_last_exception(env, &result);
-
-  napi_status status =
-      napi_call_function(env, thisArg, func, cif->nargs - 2, argv, &result);
-
-  bool shouldFree;
-  closure->returnType->toNative(env, result, ret, &shouldFree, &shouldFree);
-
-  if (status != napi_ok) {
-    napi_get_and_clear_last_exception(env, &result);
-    napi_value errstr;
-    NAPI_GUARD(napi_get_named_property(env, result, "stack", &errstr)) {
-      return;
-    }
-    char errbuf[512];
-    size_t errlen;
-    napi_get_value_string_utf8(env, errstr, errbuf, 512, &errlen);
-    NSLog(@"ObjC->JS (MethodIMP) call failed: %s", errbuf);
-    napi_throw(env, result);
-  }
+  JSCallbackInner(closure, func, thisArg, argv, cif->nargs - 2, nullptr, ret);
 }
 
 struct JSBlockCallContext {
@@ -98,41 +124,18 @@ void Closure::callBlockFromMainThread(napi_env env, napi_value js_cb,
   napi_value thisArg;
   napi_get_global(env, &thisArg);
 
-  napi_value result;
-
   napi_value argv[ctx->cif->nargs - 1];
   for (int i = 0; i < ctx->cif->nargs - 1; i++) {
     argv[i] = closure->argTypes[i]->toJS(env, ctx->args[i + 1], 0);
   }
 
-  // Clear any pending exceptions before calling the function.
-  napi_get_and_clear_last_exception(env, &result);
+  JSCallbackInner(closure, func, thisArg, argv, ctx->cif->nargs - 1, &ctx->done,
+                  ctx->ret);
 
-  napi_status status = napi_call_function(env, thisArg, func,
-                                          ctx->cif->nargs - 1, argv, &result);
-
-  bool shouldFree;
-  closure->returnType->toNative(env, result, ctx->ret, &shouldFree,
-                                &shouldFree);
-
-  ctx->done = true;
   ctx->cv.notify_one();
-
-  if (status != napi_ok) {
-    napi_get_and_clear_last_exception(env, &result);
-    napi_value errstr;
-    NAPI_GUARD(napi_get_named_property(env, result, "stack", &errstr)) {
-      return;
-    }
-    char errbuf[512];
-    size_t errlen;
-    napi_get_value_string_utf8(env, errstr, errbuf, 512, &errlen);
-    NSLog(@"ObjC->JS (BlockIMP) call failed: %s", errbuf);
-    napi_throw(env, result);
-  }
 }
 
-void JSBlockIMP(ffi_cif *cif, void *ret, void *args[], void *data) {
+void JSBlockCallback(ffi_cif *cif, void *ret, void *args[], void *data) {
   Closure *closure = (Closure *)data;
   napi_env env = closure->env;
 
@@ -184,8 +187,6 @@ Closure::Closure(std::string encoding, bool isBlock) {
     this->argTypes.push_back(argTypeInfo);
   }
 
-  [signature release];
-
   ffi_status status =
       ffi_prep_cif(&cif, FFI_DEFAULT_ABI, (int)argc + skipArgs, rtype, atypes);
 
@@ -196,8 +197,8 @@ Closure::Closure(std::string encoding, bool isBlock) {
 
   closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
 
-  ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
-                       fnptr);
+  ffi_prep_closure_loc(
+      closure, &cif, isBlock ? JSBlockCallback : JSMethodCallback, this, fnptr);
 }
 
 Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
@@ -258,8 +259,8 @@ Closure::Closure(MDMetadataReader *reader, MDSectionOffset offset, bool isBlock,
 
   closure = (ffi_closure *)ffi_closure_alloc(sizeof(ffi_closure), &fnptr);
 
-  ffi_prep_closure_loc(closure, &cif, isBlock ? JSBlockIMP : JSIMP, this,
-                       fnptr);
+  ffi_prep_closure_loc(
+      closure, &cif, isBlock ? JSBlockCallback : JSMethodCallback, this, fnptr);
 }
 
 Closure::~Closure() {

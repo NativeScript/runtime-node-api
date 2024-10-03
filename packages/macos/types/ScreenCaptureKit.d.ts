@@ -49,6 +49,15 @@ declare const SCStreamErrorCode: {
   UserStopped: -3817,
   FailedToStartAudioCapture: -3818,
   FailedToStopAudioCapture: -3819,
+  FailedToStartMicrophoneCapture: -3820,
+  SystemStoppedStream: -3821,
+};
+
+declare const SCStreamConfigurationPreset: {
+  StreamLocal: 0,
+  StreamCanonical: 1,
+  ScreenshotLocal: 2,
+  ScreenshotCanonical: 3,
 };
 
 declare const SCStreamType: {
@@ -74,6 +83,13 @@ declare const SCFrameStatus: {
 declare const SCStreamOutputType: {
   Screen: 0,
   Audio: 1,
+  Microphone: 2,
+};
+
+declare const SCCaptureDynamicRange: {
+  SDR: 0,
+  HDRLocalDisplay: 1,
+  HDRCanonicalDisplay: 2,
 };
 
 declare const SCCaptureResolutionType: {
@@ -92,8 +108,6 @@ declare const SCShareableContentStyle: {
 declare interface SCStreamDelegate extends NSObjectProtocol {
   streamDidStopWithError?(stream: SCStream, error: NSError): void;
 
-  userDidStopStream?(stream: SCStream): void;
-
   outputVideoEffectDidStartForStream?(stream: SCStream): void;
 
   outputVideoEffectDidStopForStream?(stream: SCStream): void;
@@ -107,6 +121,17 @@ declare interface SCStreamOutput extends NSObjectProtocol {
 }
 
 declare class SCStreamOutput extends NativeObject implements SCStreamOutput {
+}
+
+declare interface SCRecordingOutputDelegate extends NSObjectProtocol {
+  recordingOutputDidStartRecording?(recordingOutput: SCRecordingOutput): void;
+
+  recordingOutputDidFailWithError?(recordingOutput: SCRecordingOutput, error: NSError): void;
+
+  recordingOutputDidFinishRecording?(recordingOutput: SCRecordingOutput): void;
+}
+
+declare class SCRecordingOutputDelegate extends NativeObject implements SCRecordingOutputDelegate {
 }
 
 declare interface SCContentSharingPickerObserver extends NSObjectProtocol {
@@ -154,6 +179,18 @@ declare class SCStream extends NSObject {
   startCaptureWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
   stopCaptureWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  addRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): boolean;
+
+  removeRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): boolean;
+}
+
+declare class SCRecordingOutput extends NSObject {
+  readonly recordedDuration: CMTime;
+
+  readonly recordedFileSize: number;
+
+  initWithConfigurationDelegate(recordingOutputConfiguration: SCRecordingOutputConfiguration, delegate: SCRecordingOutputDelegate): this;
 }
 
 declare class SCShareableContentInfo extends NSObject {
@@ -204,6 +241,18 @@ declare class SCContentFilter extends NSObject {
   initWithDisplayExcludingApplicationsExceptingWindows(display: SCDisplay, applications: NSArray<interop.Object> | Array<interop.Object>, exceptingWindows: NSArray<interop.Object> | Array<interop.Object>): this;
 }
 
+declare class SCRecordingOutputConfiguration extends NSObject {
+  outputURL: NSURL;
+
+  videoCodecType: string;
+
+  outputFileType: string;
+
+  readonly availableVideoCodecTypes: NSArray;
+
+  readonly availableOutputFileTypes: NSArray;
+}
+
 declare class SCWindow extends NSObject {
   readonly windowID: number;
 
@@ -236,6 +285,8 @@ declare class SCStreamConfiguration extends NSObject {
   streamName: string;
 
   showsCursor: boolean;
+
+  showMouseClicks: boolean;
 
   get backgroundColor(): interop.Pointer;
   set backgroundColor(value: interop.PointerConvertible);
@@ -277,6 +328,14 @@ declare class SCStreamConfiguration extends NSObject {
   presenterOverlayPrivacyAlertSetting: interop.Enum<typeof SCPresenterOverlayAlertSetting>;
 
   includeChildWindows: boolean;
+
+  captureMicrophone: boolean;
+
+  microphoneCaptureDeviceID: string;
+
+  captureDynamicRange: interop.Enum<typeof SCCaptureDynamicRange>;
+
+  static streamConfigurationWithPreset<This extends abstract new (...args: any) => any>(this: This, preset: interop.Enum<typeof SCStreamConfigurationPreset>): InstanceType<This>;
 }
 
 declare class SCShareableContent extends NSObject {

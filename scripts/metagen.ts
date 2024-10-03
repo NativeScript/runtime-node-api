@@ -41,6 +41,7 @@ const COMMON_FRAMEWORKS = [
   "AudioUnit",
   "AVFoundation",
   "NaturalLanguage",
+  "Symbols",
 ];
 
 const MACOS_FRAMEWORKS = [

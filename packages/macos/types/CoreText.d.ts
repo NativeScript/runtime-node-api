@@ -1,11 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const kStylisticAltFifteenOffSelector: number;
-
-declare const kSTRearrVerbMask: number;
-
-declare const kFontRussianLanguage: number;
-
 declare const kFontOromoLanguage: number;
 
 declare const kLineFinalSwashesOffSelector: number;
@@ -138,6 +132,10 @@ declare const kFontQuechuaLanguage: number;
 
 declare const kFontLatinLanguage: number;
 
+declare const kFontFullName: number;
+
+declare const kFontWelshLanguage: number;
+
 declare const kFontEsperantoLanguage: number;
 
 declare const kFontChewaLanguage: number;
@@ -199,6 +197,8 @@ declare const kFontCzechLanguage: number;
 declare const kFontRomanianLanguage: number;
 
 declare const kFontSimpChineseLanguage: number;
+
+declare const kFontRussianLanguage: number;
 
 declare const kFontPersianLanguage: number;
 
@@ -450,6 +450,8 @@ declare const kLCARTag: number;
 
 declare const kSTKCrossStreamReset: number;
 
+declare const kSTRearrVerbMask: number;
+
 declare const kSTMarkEnd: number;
 
 declare const kSTClassEndOfLine: number;
@@ -489,6 +491,8 @@ declare const kStylisticAltSeventeenOffSelector: number;
 declare const kStylisticAltSeventeenOnSelector: number;
 
 declare const kStylisticAltSixteenOnSelector: number;
+
+declare const kStylisticAltFifteenOffSelector: number;
 
 declare const kStylisticAltThirteenOnSelector: number;
 
@@ -591,12 +595,6 @@ declare const kExpertCharactersSelector: number;
 declare const kTraditionalAltFiveSelector: number;
 
 declare const kTraditionalAltOneSelector: number;
-
-declare const kFontRSymbolScript: number;
-
-declare const kCJKItalicRomanSelector: number;
-
-declare const kJIS1990CharactersSelector: number;
 
 declare const kJIS1983CharactersSelector: number;
 
@@ -725,6 +723,8 @@ declare const kVerticalSubstitutionType: number;
 declare const kLigaturesType: number;
 
 declare const kCTTabColumnTerminatorsAttributeName: interop.Pointer;
+
+declare const kCTAdaptiveImageProviderAttributeName: interop.Pointer;
 
 declare const kCTRubyAnnotationAttributeName: interop.Pointer;
 
@@ -906,6 +906,12 @@ declare const kCTFontTableCBDT: number;
 
 declare const kPROPRLODirectionClass: number;
 
+declare const kFontRSymbolScript: number;
+
+declare const kCJKItalicRomanSelector: number;
+
+declare const kJIS1990CharactersSelector: number;
+
 declare const kPreventOverlapOffSelector: number;
 
 declare const kAltProportionalTextSelector: number;
@@ -1086,6 +1092,8 @@ declare const kKERXValuesAreLong: number;
 
 declare const kInferiorsSelector: number;
 
+declare const kStylisticAltSevenOffSelector: number;
+
 declare const kStylisticAltTwelveOffSelector: number;
 
 declare const kKERXDescending: number;
@@ -1164,10 +1172,6 @@ declare const kCTFontTableOpbd: number;
 
 declare const kFontTraditionalChineseScript: number;
 
-declare const kFontFullName: number;
-
-declare const kFontWelshLanguage: number;
-
 declare const kLowerCasePetiteCapsSelector: number;
 
 declare const kNoStyleOptionsSelector: number;
@@ -1229,8 +1233,6 @@ declare const kJUSTLetterPriority: number;
 declare const kKERNOrderedList: number;
 
 declare const kRebusPicturesOffSelector: number;
-
-declare const kStylisticAltSevenOffSelector: number;
 
 declare const cmapFontTableTag: number;
 
@@ -2150,19 +2152,6 @@ declare const CTFontDescriptorMatchingState: {
   DidFailWithError: 8,
 };
 
-declare class __CTLine {
-  constructor(init?: __CTLine);
-}
-
-declare class KernSimpleArrayHeader {
-  constructor(init?: KernSimpleArrayHeader);
-  rowWidth: number;
-  leftOffsetTable: number;
-  rightOffsetTable: number;
-  theArray: number;
-  firstTable: unknown /* const array */;
-}
-
 declare class FontVariation {
   constructor(init?: FontVariation);
   name: number;
@@ -2212,15 +2201,6 @@ declare class JustTable {
   format: number;
   horizHeaderOffset: number;
   vertHeaderOffset: number;
-}
-
-declare class CTRunDelegateCallbacks {
-  constructor(init?: CTRunDelegateCallbacks);
-  version: number;
-  dealloc: (p1: interop.PointerConvertible) => void | null;
-  getAscent: (p1: interop.PointerConvertible) => number | null;
-  getDescent: (p1: interop.PointerConvertible) => number | null;
-  getWidth: (p1: interop.PointerConvertible) => number | null;
 }
 
 declare class KerxStateEntry {
@@ -2311,14 +2291,6 @@ declare class sfntCMapHeader {
   version: number;
   numTables: number;
   encoding: unknown /* const array */;
-}
-
-declare class sfntDirectoryEntry {
-  constructor(init?: sfntDirectoryEntry);
-  tableTag: number;
-  checkSum: number;
-  offset: number;
-  length: number;
 }
 
 declare class sfntVariationAxis {
@@ -2498,6 +2470,14 @@ declare class KernVersion0Header {
   version: number;
   nTables: number;
   firstSubtable: unknown /* const array */;
+}
+
+declare class TrakTableData {
+  constructor(init?: TrakTableData);
+  nTracks: number;
+  nSizes: number;
+  sizeTableOffset: number;
+  trakTable: unknown /* const array */;
 }
 
 declare class TrakTableEntry {
@@ -2754,6 +2734,30 @@ declare class STXEntryOne {
   index1: number;
 }
 
+declare class __CTLine {
+  constructor(init?: __CTLine);
+}
+
+declare class KernSimpleArrayHeader {
+  constructor(init?: KernSimpleArrayHeader);
+  rowWidth: number;
+  leftOffsetTable: number;
+  rightOffsetTable: number;
+  theArray: number;
+  firstTable: unknown /* const array */;
+}
+
+declare class BslnFormat0Part {
+  constructor(init?: BslnFormat0Part);
+  deltas: unknown /* const array */;
+}
+
+declare class MorxInsertionSubtable {
+  constructor(init?: MorxInsertionSubtable);
+  header: STXHeader;
+  insertionGlyphTableOffset: number;
+}
+
 declare class JustWidthDeltaGroup {
   constructor(init?: JustWidthDeltaGroup);
   count: number;
@@ -2772,17 +2776,6 @@ declare class SFNTLookupSingleHeader {
   constructor(init?: SFNTLookupSingleHeader);
   binSearch: SFNTLookupBinarySearchHeader;
   entries: unknown /* const array */;
-}
-
-declare class BslnFormat0Part {
-  constructor(init?: BslnFormat0Part);
-  deltas: unknown /* const array */;
-}
-
-declare class MorxInsertionSubtable {
-  constructor(init?: MorxInsertionSubtable);
-  header: STXHeader;
-  insertionGlyphTableOffset: number;
 }
 
 declare class BslnFormat1Part {
@@ -2868,6 +2861,14 @@ declare class sfntCMapExtendedSubHeader {
   language: number;
 }
 
+declare class sfntDirectoryEntry {
+  constructor(init?: sfntDirectoryEntry);
+  tableTag: number;
+  checkSum: number;
+  offset: number;
+  length: number;
+}
+
 declare class JustPCActionSubrecord {
   constructor(init?: JustPCActionSubrecord);
   theClass: number;
@@ -2899,14 +2900,6 @@ declare class sfntDirectory {
 declare class MortSwashSubtable {
   constructor(init?: MortSwashSubtable);
   lookup: SFNTLookupTable;
-}
-
-declare class TrakTableData {
-  constructor(init?: TrakTableData);
-  nTracks: number;
-  nSizes: number;
-  sizeTableOffset: number;
-  trakTable: unknown /* const array */;
 }
 
 declare class __CTFramesetter {
@@ -2970,6 +2963,15 @@ declare class BslnFormat3Part {
   stdGlyph: number;
   ctlPoints: unknown /* const array */;
   mappingData: SFNTLookupTable;
+}
+
+declare class CTRunDelegateCallbacks {
+  constructor(init?: CTRunDelegateCallbacks);
+  version: number;
+  dealloc: (p1: interop.PointerConvertible) => void | null;
+  getAscent: (p1: interop.PointerConvertible) => number | null;
+  getDescent: (p1: interop.PointerConvertible) => number | null;
+  getWidth: (p1: interop.PointerConvertible) => number | null;
 }
 
 declare class __CTRunDelegate {
@@ -3053,22 +3055,6 @@ declare class STXEntryTwo {
   index2: number;
 }
 
-type SFNTLookupFormatSpecificHeaderDescriptor = 
-  | { theArray: SFNTLookupArrayHeader }
-  | { segment: SFNTLookupSegmentHeader }
-  | { single: SFNTLookupSingleHeader }
-  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
-  | { vector: SFNTLookupVectorHeader };
-
-declare class SFNTLookupFormatSpecificHeader {
-  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
-  theArray: SFNTLookupArrayHeader;
-  segment: SFNTLookupSegmentHeader;
-  single: SFNTLookupSingleHeader;
-  trimmedArray: SFNTLookupTrimmedArrayHeader;
-  vector: SFNTLookupVectorHeader;
-}
-
 type KerxFormatSpecificHeaderDescriptor = 
   | { orderedList: KerxOrderedListHeader }
   | { stateTable: KerxStateHeader }
@@ -3083,22 +3069,6 @@ declare class KerxFormatSpecificHeader {
   simpleArray: KerxSimpleArrayHeader;
   indexArray: KerxIndexArrayHeader;
   controlPoint: KerxControlPointHeader;
-}
-
-type MorxSpecificSubtableDescriptor = 
-  | { rearrangement: MorxRearrangementSubtable }
-  | { contextual: MorxContextualSubtable }
-  | { ligature: MorxLigatureSubtable }
-  | { swash: MortSwashSubtable }
-  | { insertion: MorxInsertionSubtable };
-
-declare class MorxSpecificSubtable {
-  constructor(init?: MorxSpecificSubtableDescriptor);
-  rearrangement: MorxRearrangementSubtable;
-  contextual: MorxContextualSubtable;
-  ligature: MorxLigatureSubtable;
-  swash: MortSwashSubtable;
-  insertion: MorxInsertionSubtable;
 }
 
 type KernFormatSpecificHeaderDescriptor = 
@@ -3131,6 +3101,22 @@ declare class MortSpecificSubtable {
   insertion: MortInsertionSubtable;
 }
 
+type SFNTLookupFormatSpecificHeaderDescriptor = 
+  | { theArray: SFNTLookupArrayHeader }
+  | { segment: SFNTLookupSegmentHeader }
+  | { single: SFNTLookupSingleHeader }
+  | { trimmedArray: SFNTLookupTrimmedArrayHeader }
+  | { vector: SFNTLookupVectorHeader };
+
+declare class SFNTLookupFormatSpecificHeader {
+  constructor(init?: SFNTLookupFormatSpecificHeaderDescriptor);
+  theArray: SFNTLookupArrayHeader;
+  segment: SFNTLookupSegmentHeader;
+  single: SFNTLookupSingleHeader;
+  trimmedArray: SFNTLookupTrimmedArrayHeader;
+  vector: SFNTLookupVectorHeader;
+}
+
 type BslnFormatUnionDescriptor = 
   | { fmt0Part: BslnFormat0Part }
   | { fmt1Part: BslnFormat1Part }
@@ -3143,6 +3129,22 @@ declare class BslnFormatUnion {
   fmt1Part: BslnFormat1Part;
   fmt2Part: BslnFormat2Part;
   fmt3Part: BslnFormat3Part;
+}
+
+type MorxSpecificSubtableDescriptor = 
+  | { rearrangement: MorxRearrangementSubtable }
+  | { contextual: MorxContextualSubtable }
+  | { ligature: MorxLigatureSubtable }
+  | { swash: MortSwashSubtable }
+  | { insertion: MorxInsertionSubtable };
+
+declare class MorxSpecificSubtable {
+  constructor(init?: MorxSpecificSubtableDescriptor);
+  rearrangement: MorxRearrangementSubtable;
+  contextual: MorxContextualSubtable;
+  ligature: MorxLigatureSubtable;
+  swash: MortSwashSubtable;
+  insertion: MorxInsertionSubtable;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;
@@ -3206,6 +3208,8 @@ declare function CTFontGetMatrix(font: interop.PointerConvertible): CGAffineTran
 declare function CTFontGetSymbolicTraits(font: interop.PointerConvertible): interop.Enum<typeof CTFontSymbolicTraits>;
 
 declare function CTFontCopyTraits(font: interop.PointerConvertible): interop.Pointer;
+
+declare function CTFontCopyDefaultCascadeListForLanguages(font: interop.PointerConvertible, languagePrefList: interop.PointerConvertible): interop.Pointer;
 
 declare function CTFontCopyPostScriptName(font: interop.PointerConvertible): interop.Pointer;
 
@@ -3289,7 +3293,9 @@ declare function CTFontDrawGlyphs(font: interop.PointerConvertible, glyphs: inte
 
 declare function CTFontGetLigatureCaretPositions(font: interop.PointerConvertible, glyph: number, positions: interop.PointerConvertible, maxPositions: number): number;
 
-declare function CTFontCopyDefaultCascadeListForLanguages(font: interop.PointerConvertible, languagePrefList: interop.PointerConvertible): interop.Pointer;
+declare function CTFontGetTypographicBoundsForAdaptiveImageProvider(font: interop.PointerConvertible, provider: CTAdaptiveImageProviding): CGRect;
+
+declare function CTFontDrawImageFromAdaptiveImageProviderAtPoint(font: interop.PointerConvertible, provider: CTAdaptiveImageProviding, point: CGPoint, context: interop.PointerConvertible): void;
 
 declare function CTFontCollectionGetTypeID(): number;
 
@@ -3538,4 +3544,11 @@ declare function CTTextTabGetLocation(tab: interop.PointerConvertible): number;
 declare function CTTextTabGetOptions(tab: interop.PointerConvertible): interop.Pointer;
 
 declare function CTGetCoreTextVersion(): number;
+
+declare interface CTAdaptiveImageProviding {
+  imageForProposedSizeScaleFactorImageOffsetImageSize(proposedSize: CGSize, scaleFactor: number, outImageOffset: interop.PointerConvertible, outImageSize: interop.PointerConvertible): interop.Pointer;
+}
+
+declare class CTAdaptiveImageProviding extends NativeObject implements CTAdaptiveImageProviding {
+}
 

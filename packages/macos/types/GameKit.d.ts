@@ -588,11 +588,11 @@ declare class GKMatch extends NSObject {
 
   disconnect(): void;
 
-  voiceChatWithName(name: string): GKVoiceChat;
-
   chooseBestHostingPlayerWithCompletionHandler(completionHandler: (p1: GKPlayer) => void | null): void;
 
   rematchWithCompletionHandler(completionHandler: (p1: GKMatch, p2: NSError) => void | null): void;
+
+  voiceChatWithName(name: string): GKVoiceChat;
 
   chooseBestHostPlayerWithCompletionHandler(completionHandler: (p1: string) => void | null): void;
 
@@ -1010,7 +1010,11 @@ declare class GKGameCenterViewController extends NSViewController implements GKV
 
   initWithLeaderboardPlayerScope(leaderboard: GKLeaderboard, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>): this;
 
+  initWithLeaderboardSetID(leaderboardSetID: string): this;
+
   initWithAchievementID(achievementID: string): this;
+
+  initWithPlayer(player: GKPlayer): this;
 
   viewState: interop.Enum<typeof GKGameCenterViewControllerState>;
 
@@ -1305,6 +1309,14 @@ declare class GKAccessPoint extends NSObject {
   triggerAccessPointWithHandler(handler: () => void): void;
 
   triggerAccessPointWithStateHandler(state: interop.Enum<typeof GKGameCenterViewControllerState>, handler: () => void): void;
+
+  triggerAccessPointWithAchievementIDHandler(achievementID: string, handler: () => void | null): void;
+
+  triggerAccessPointWithLeaderboardSetIDHandler(leaderboardSetID: string, handler: () => void | null): void;
+
+  triggerAccessPointWithLeaderboardIDPlayerScopeTimeScopeHandler(leaderboardID: string, playerScope: interop.Enum<typeof GKLeaderboardPlayerScope>, timeScope: interop.Enum<typeof GKLeaderboardTimeScope>, handler: () => void | null): void;
+
+  triggerAccessPointWithPlayerHandler(player: GKPlayer, handler: () => void | null): void;
 }
 
 declare class GKSavedGame extends NSObject implements NSCopying {

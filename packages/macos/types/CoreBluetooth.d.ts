@@ -57,6 +57,8 @@ declare const CBAdvertisementDataTxPowerLevelKey: string;
 
 declare const CBUUIDServerCharacteristicConfigurationString: string;
 
+declare const CBUUIDCharacteristicObservationScheduleString: string;
+
 declare const CBUUIDCharacteristicValidRangeString: string;
 
 declare const CBCentralManagerScanOptionSolicitedServiceUUIDsKey: string;

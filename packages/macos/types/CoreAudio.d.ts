@@ -114,8 +114,6 @@ declare const kAudioDevicePropertyVoiceActivityDetectionEnable: number;
 
 declare const kAudioDevicePropertySubVolumeRangeDecibels: number;
 
-declare const kAudioDevicePropertySubVolumeDecibels: number;
-
 declare const kAudioDevicePropertySubVolumeScalar: number;
 
 declare const kAudioDevicePropertyHighPassFilterSettings: number;
@@ -499,6 +497,8 @@ declare const kAudioDevicePropertyClockSource: number;
 declare const kAudioControlClassID: number;
 
 declare const kAudioHardwareNotReadyError: number;
+
+declare const kAudioDevicePropertySubVolumeDecibels: number;
 
 declare const kAudioDeviceTransportTypeContinuityCaptureWireless: number;
 

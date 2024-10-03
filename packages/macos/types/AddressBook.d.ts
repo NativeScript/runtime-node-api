@@ -1,8 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const ABMultiValueIdentifiersErrorKey: string;
-
 declare const ABPropertyReadOnlyError: number;
 
 declare const ABPropertyValueValidationError: number;
@@ -228,6 +226,8 @@ declare const kABUIDProperty: string;
 declare const kABMiddleNamePhoneticProperty: string;
 
 declare const kABAddressCountryCodeKey: string;
+
+declare const ABMultiValueIdentifiersErrorKey: string;
 
 declare const kABInstantMessageServiceJabber: string;
 

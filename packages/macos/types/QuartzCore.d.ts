@@ -89,6 +89,8 @@ declare const kCAAlignmentRight: string;
 
 declare const kCAScrollBoth: string;
 
+declare const CAToneMapModeAutomatic: string;
+
 declare const kCAFillRuleNonZero: string;
 
 declare const kCALineCapSquare: string;
@@ -149,6 +151,8 @@ declare const kCAGradientLayerRadial: string;
 
 declare const CAFrameRateRangeDefault: CAFrameRateRange;
 
+declare const CAToneMapModeIfSupported: string;
+
 declare const kCAEmitterLayerAdditive: string;
 
 declare const kCAOnOrderIn: string;
@@ -168,6 +172,8 @@ declare const kCAEmitterLayerOldestLast: string;
 declare const kCAGradientLayerConic: string;
 
 declare const kCATruncationStart: string;
+
+declare const CAToneMapModeNever: string;
 
 declare const kCAAnimationLinear: string;
 
@@ -305,6 +311,15 @@ declare function CAFrameRateRangeMake(minimum: number, maximum: number, preferre
 
 declare function CAFrameRateRangeIsEqualToRange(range: CAFrameRateRange, other: CAFrameRateRange): boolean;
 
+declare interface CAAnimationDelegate extends NSObjectProtocol {
+  animationDidStart?(anim: CAAnimation): void;
+
+  animationDidStopFinished?(anim: CAAnimation, flag: boolean): void;
+}
+
+declare class CAAnimationDelegate extends NativeObject implements CAAnimationDelegate {
+}
+
 declare interface CAMediaTiming {
   beginTime: number;
 
@@ -340,15 +355,6 @@ declare interface CAMetalDrawable extends MTLDrawable {
 }
 
 declare class CAMetalDrawable extends NativeObject implements CAMetalDrawable {
-}
-
-declare interface CAAnimationDelegate extends NSObjectProtocol {
-  animationDidStart?(anim: CAAnimation): void;
-
-  animationDidStopFinished?(anim: CAAnimation, flag: boolean): void;
-}
-
-declare class CAAnimationDelegate extends NativeObject implements CAAnimationDelegate {
 }
 
 declare interface CAAction {
@@ -417,38 +423,6 @@ declare class CABasicAnimation extends CAPropertyAnimation {
   toValue: interop.Object;
 
   byValue: interop.Object;
-}
-
-declare class CATransaction extends NSObject {
-  static begin(): void;
-
-  static commit(): void;
-
-  static flush(): void;
-
-  static lock(): void;
-
-  static unlock(): void;
-
-  static animationDuration(): number;
-
-  static setAnimationDuration(dur: number): void;
-
-  static animationTimingFunction(): CAMediaTimingFunction;
-
-  static setAnimationTimingFunction(function$: CAMediaTimingFunction | null): void;
-
-  static disableActions(): boolean;
-
-  static setDisableActions(flag: boolean): void;
-
-  static completionBlock(): () => void;
-
-  static setCompletionBlock(block: () => void | null): void;
-
-  static valueForKey(key: string): interop.Object;
-
-  static setValueForKey(anObject: interop.Object | null, key: string): void;
 }
 
 declare class CAGradientLayer extends CALayer {
@@ -637,14 +611,6 @@ declare class CAMetalLayer extends CALayer {
 }
 
 declare class CATransformLayer extends CALayer {
-}
-
-declare class CAScrollLayer extends CALayer {
-  scrollToPoint(p: CGPoint): void;
-
-  scrollToRect(r: CGRect): void;
-
-  scrollMode: string;
 }
 
 declare class CAReplicatorLayer extends CALayer {
@@ -966,6 +932,8 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   wantsExtendedDynamicRangeContent: boolean;
 
+  toneMapMode: string;
+
   minificationFilter: string;
 
   magnificationFilter: string;
@@ -1130,6 +1098,38 @@ declare class CAValueFunction extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class CATransaction extends NSObject {
+  static begin(): void;
+
+  static commit(): void;
+
+  static flush(): void;
+
+  static lock(): void;
+
+  static unlock(): void;
+
+  static animationDuration(): number;
+
+  static setAnimationDuration(dur: number): void;
+
+  static animationTimingFunction(): CAMediaTimingFunction;
+
+  static setAnimationTimingFunction(function$: CAMediaTimingFunction | null): void;
+
+  static disableActions(): boolean;
+
+  static setDisableActions(flag: boolean): void;
+
+  static completionBlock(): () => void;
+
+  static setCompletionBlock(block: () => void | null): void;
+
+  static valueForKey(key: string): interop.Object;
+
+  static setValueForKey(anObject: interop.Object | null, key: string): void;
+}
+
 declare class CARemoteLayerClient extends NSObject {
   initWithServerPort(port: number): this;
 
@@ -1177,6 +1177,14 @@ declare class CAOpenGLLayer extends CALayer {
   set colorspace(value: interop.PointerConvertible);
 
   wantsExtendedDynamicRangeContent: boolean;
+}
+
+declare class CAScrollLayer extends CALayer {
+  scrollToPoint(p: CGPoint): void;
+
+  scrollToRect(r: CGRect): void;
+
+  scrollMode: string;
 }
 
 declare class CARemoteLayerServer extends NSObject {

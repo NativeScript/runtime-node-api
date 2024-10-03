@@ -201,6 +201,8 @@ declare const kCIImageAuxiliaryDepth: string;
 
 declare const kCIImageTextureFormat: string;
 
+declare const kCIImageContentHeadroom: string;
+
 declare const kCIImageColorSpace: string;
 
 declare const kCIFormatLA16: number;
@@ -454,6 +456,8 @@ declare const kCIInputAmountKey: string;
 declare const kCIInputShadingImageKey: string;
 
 declare const kCIInputMoireAmountKey: string;
+
+declare const kCIImageRepresentationHDRImage: string;
 
 declare const kCIFormatLA8: number;
 
@@ -847,7 +851,13 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   imageByInsertingIntermediate(): CIImage;
 
+  imageByApplyingGainMap(gainmap: CIImage): CIImage;
+
+  imageByApplyingGainMapHeadroom(gainmap: CIImage, headroom: number): CIImage;
+
   readonly extent: CGRect;
+
+  readonly isOpaque: boolean;
 
   readonly properties: NSDictionary;
 
@@ -857,9 +867,13 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly colorSpace: interop.Pointer;
 
+  readonly contentHeadroom: number;
+
   readonly pixelBuffer: interop.Pointer;
 
   readonly CGImage: interop.Pointer;
+
+  readonly metalTexture: MTLTexture;
 
   regionOfInterestForImageInRect(image: CIImage, rect: CGRect): CGRect;
 
@@ -972,6 +986,39 @@ declare class CIFaceFeature extends CIFeature {
   readonly leftEyeClosed: boolean;
 
   readonly rightEyeClosed: boolean;
+}
+
+declare class CIRenderDestination extends NSObject {
+  initWithPixelBuffer(pixelBuffer: interop.PointerConvertible): this;
+
+  initWithIOSurface(surface: IOSurface): this;
+
+  initWithMTLTextureCommandBuffer(texture: MTLTexture, commandBuffer: MTLCommandBuffer | null): this;
+
+  initWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width: number, height: number, pixelFormat: interop.Enum<typeof MTLPixelFormat>, commandBuffer: MTLCommandBuffer | null, block: () => MTLTexture | null): this;
+
+  initWithGLTextureTargetWidthHeight(texture: number, target: number, width: number, height: number): this;
+
+  initWithBitmapDataWidthHeightBytesPerRowFormat(data: interop.PointerConvertible, width: number, height: number, bytesPerRow: number, format: number): this;
+
+  readonly width: number;
+
+  readonly height: number;
+
+  alphaMode: interop.Enum<typeof CIRenderDestinationAlphaMode>;
+
+  isFlipped: boolean;
+
+  isDithered: boolean;
+
+  isClamped: boolean;
+
+  get colorSpace(): interop.Pointer;
+  set colorSpace(value: interop.PointerConvertible);
+
+  blendKernel: CIBlendKernel;
+
+  blendsInDestinationColorSpace: boolean;
 }
 
 declare class CIAztecCodeDescriptor extends CIBarcodeDescriptor {
@@ -1112,12 +1159,6 @@ declare class CIPlugIn extends NSObject {
   static loadNonExecutablePlugIn(url: NSURL): void;
 }
 
-declare class CIColorKernel extends CIKernel {
-  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
-
-  applyWithExtentArguments(extent: CGRect, args: NSArray<interop.Object> | Array<interop.Object> | null): CIImage;
-}
-
 declare class CIRenderInfo extends NSObject {
   readonly kernelExecutionTime: number;
 
@@ -1219,39 +1260,6 @@ declare class CIRectangleFeature extends CIFeature {
   readonly bottomLeft: CGPoint;
 
   readonly bottomRight: CGPoint;
-}
-
-declare class CIRenderDestination extends NSObject {
-  initWithPixelBuffer(pixelBuffer: interop.PointerConvertible): this;
-
-  initWithIOSurface(surface: IOSurface): this;
-
-  initWithMTLTextureCommandBuffer(texture: MTLTexture, commandBuffer: MTLCommandBuffer | null): this;
-
-  initWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width: number, height: number, pixelFormat: interop.Enum<typeof MTLPixelFormat>, commandBuffer: MTLCommandBuffer | null, block: () => MTLTexture | null): this;
-
-  initWithGLTextureTargetWidthHeight(texture: number, target: number, width: number, height: number): this;
-
-  initWithBitmapDataWidthHeightBytesPerRowFormat(data: interop.PointerConvertible, width: number, height: number, bytesPerRow: number, format: number): this;
-
-  readonly width: number;
-
-  readonly height: number;
-
-  alphaMode: interop.Enum<typeof CIRenderDestinationAlphaMode>;
-
-  isFlipped: boolean;
-
-  isDithered: boolean;
-
-  isClamped: boolean;
-
-  get colorSpace(): interop.Pointer;
-  set colorSpace(value: interop.PointerConvertible);
-
-  blendKernel: CIBlendKernel;
-
-  blendsInDestinationColorSpace: boolean;
 }
 
 declare class CIContext extends NSObject {
@@ -1650,6 +1658,12 @@ declare class CIFilter extends NSObject implements NSSecureCoding, NSCopying {
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CIColorKernel extends CIKernel {
+  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
+
+  applyWithExtentArguments(extent: CGRect, args: NSArray<interop.Object> | Array<interop.Object> | null): CIImage;
 }
 
 declare class CIWarpKernel extends CIKernel {

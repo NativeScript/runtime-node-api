@@ -1,9 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const notLeafAtomErr: number;
-
-declare const kernelReadPermissionErr: number;
-
 declare const kMPIterationEndErr: number;
 
 declare const kNSpAlreadyAdvertisingErr: number;
@@ -116,6 +112,8 @@ declare const limitReachedErr: number;
 
 declare const kAEEndsWith: number;
 
+declare const kMDItemXMPDigitalSourceType: interop.Pointer;
+
 declare const errFSRefsDifferent: number;
 
 declare const tooManyReqs: number;
@@ -181,8 +179,6 @@ declare const kFSAliasInfoNone: number;
 declare const kCSDiskSpaceRecoveryOptionNoUI: number;
 
 declare const timeNotInViewErr: number;
-
-declare const errItemAlreadyInTree: number;
 
 declare const gestaltATAPresent: number;
 
@@ -272,6 +268,8 @@ declare const gestaltX86HasSupplementalSSE3: number;
 
 declare const kLocalDomain: number;
 
+declare const kTextEncodingUnicodeV15_0: number;
+
 declare const kUnicodeNormalizationFormC: number;
 
 declare const FormatVersionID: number;
@@ -312,19 +310,7 @@ declare const tsmInvalidContext: number;
 
 declare const kAESocksHostAttr: number;
 
-declare const minuteField: number;
-
-declare const keyHighLevelID: number;
-
-declare const smSystemScript: number;
-
 declare const cDevErr: number;
-
-declare const MIDIDataID: number;
-
-declare const gestaltCPU604: number;
-
-declare const catChangedErr: number;
 
 declare const errInvalidWindowRef: number;
 
@@ -544,6 +530,22 @@ declare const gestaltMacPlusKbd: number;
 
 declare const kUSBInternalReserved1: number;
 
+declare const minuteField: number;
+
+declare const keyHighLevelID: number;
+
+declare const kUTTypeJavaSource: interop.Pointer;
+
+declare const smSystemScript: number;
+
+declare const kFSVolFlagJournalingActiveMask: number;
+
+declare const MIDIDataID: number;
+
+declare const gestaltCPU604: number;
+
+declare const catChangedErr: number;
+
 declare const gestaltAppleEventsAttr: number;
 
 declare const errCoreEndianDataDoesNotMatchFormat: number;
@@ -631,6 +633,12 @@ declare const smMaskAscii2: number;
 declare const kIsShared: number;
 
 declare const destPortErr: number;
+
+declare const langAssamese: number;
+
+declare const kAEQDCopy: number;
+
+declare const monthMask: number;
 
 declare const kLSExecutableIncorrectFormat: number;
 
@@ -729,8 +737,6 @@ declare const badUnitErr: number;
 declare const kCollateInvalidCollationRef: number;
 
 declare const cFixedPoint: number;
-
-declare const kDictionariesFolderType: number;
 
 declare const kSharingPrivsReadWriteIcon: number;
 
@@ -894,8 +900,6 @@ declare const gestaltHasStereoDecoder: number;
 
 declare const gestaltPowerBook3400: number;
 
-declare const gestaltHasVIA2: number;
-
 declare const keyAENewElementLoc: number;
 
 declare const errWindowDoesNotFitOnscreen: number;
@@ -935,6 +939,8 @@ declare const smWhiteSpaceList: number;
 declare const tokenAmpersand: number;
 
 declare const sdmPRAMInitErr: number;
+
+declare const keyAETextServiceMacEncoding: number;
 
 declare const cedilla: number;
 
@@ -1031,6 +1037,8 @@ declare const eAudioLineOut: number;
 declare const pSCSILUN: number;
 
 declare const kUSBPipeStalledError: number;
+
+declare const gestaltHasVIA2: number;
 
 declare const kUTTypeContent: interop.Pointer;
 
@@ -1597,6 +1605,8 @@ declare const kMDItemColorSpace: interop.Pointer;
 declare const kMDItemPixelCount: interop.Pointer;
 
 declare const kMDItemPixelWidth: interop.Pointer;
+
+declare const kMDItemXMPCredit: interop.Pointer;
 
 declare const openFolderIconResource: number;
 
@@ -3290,6 +3300,10 @@ declare const gestaltMenuMgrAttr: number;
 
 declare const pUniformStyles: number;
 
+declare const kFSCatInfoGettableInfo: number;
+
+declare const fsSBFlPyLenBit: number;
+
 declare const bSupportsExtendedFileSecurity: number;
 
 declare const pTextStyles: number;
@@ -4258,8 +4272,6 @@ declare const typeBoolean: number;
 
 declare const verUnspecified: number;
 
-declare const kTECPluginManyToOne: number;
-
 declare const kTECPluginOneToMany: number;
 
 declare const kTECPluginOneToOne: number;
@@ -4394,30 +4406,6 @@ declare const kPEFFirstSectionHeaderOffset: number;
 
 declare const kPEFTag2: number;
 
-declare const errCanNotInsertWhileWalkProcInProgress: number;
-
-declare const errItemNotFoundInTree: number;
-
-declare const kAVLNullNode: number;
-
-declare const kAVLIsRightBranch: number;
-
-declare const kAVLIsLeftBranch: number;
-
-declare const kFSIterateReserved: number;
-
-declare const kRightToLeft: number;
-
-declare const kLeftToRight: number;
-
-declare const gestaltExtISOADBKbd: number;
-
-declare const kAVLPostOrder: number;
-
-declare const kAVLInOrder: number;
-
-declare const kAVLPreOrder: number;
-
 declare const kMPAddressSpaceInfoVersion: number;
 
 declare const kMPCriticalRegionInfoVersion: number;
@@ -4435,6 +4423,8 @@ declare const keySOAPSMDNamespaceURI: number;
 declare const kWidgetsFolderType: number;
 
 declare const kPreferencePanesFolderType: number;
+
+declare const kDictionariesFolderType: number;
 
 declare const kCurrentUserFolderLocation: number;
 
@@ -4709,18 +4699,6 @@ declare const kDirectoryServicesFolderType: number;
 declare const kLSSharedFileListSessionLoginItems: interop.Pointer;
 
 declare const kKernelExtensionsFolderType: number;
-
-declare const kTECTableFormatErr: number;
-
-declare const kMPAllocateGloballyMask: number;
-
-declare const invalidViewStateErr: number;
-
-declare const verMacedonian: number;
-
-declare const kAudioSoundsFolderType: number;
-
-declare const kAudioPresetsFolderType: number;
 
 declare const gestaltTeleMgrPowerPCSupport: number;
 
@@ -5078,8 +5056,6 @@ declare const smKeyToggleInline: number;
 
 declare const kLocaleLanguageMask: number;
 
-declare const kAVLIsTree: number;
-
 declare const kCFM68kRTA: number;
 
 declare const gestaltPowerMacQuadra610: number;
@@ -5163,6 +5139,10 @@ declare const dsNoPk7: number;
 declare const kAudioSupportFolderType: number;
 
 declare const errOSASourceNotAvailable: number;
+
+declare const invalidViewStateErr: number;
+
+declare const kMPAllocateGloballyMask: number;
 
 declare const gestaltPowerMac8100_120: number;
 
@@ -5704,8 +5684,6 @@ declare const kFSVolFlagSoftwareLockedMask: number;
 
 declare const kFSVolFlagJournalingActiveBit: number;
 
-declare const keyAETextServiceMacEncoding: number;
-
 declare const kMPTaskState32BitMemoryException: number;
 
 declare const urlDataHFTPProtocolErr: number;
@@ -5749,6 +5727,8 @@ declare const kFSAllocAllOrNothingMask: number;
 declare const kioACAccessBlankAccessBit: number;
 
 declare const kFSAllocDefaultFlags: number;
+
+declare const kFSIterateReserved: number;
 
 declare const rightSingGuillemet: number;
 
@@ -5913,10 +5893,6 @@ declare const tokenLiteral: number;
 declare const typeAEText: number;
 
 declare const fsSBFlMdDatBit: number;
-
-declare const kFSCatInfoGettableInfo: number;
-
-declare const fsSBFlPyLenBit: number;
 
 declare const verTurkey: number;
 
@@ -6099,12 +6075,6 @@ declare const kStackParameterMask: number;
 declare const dayOfYearMask: number;
 
 declare const minuteMask: number;
-
-declare const langAssamese: number;
-
-declare const kAEQDCopy: number;
-
-declare const monthMask: number;
 
 declare const typeRelativeDescriptor: number;
 
@@ -6572,6 +6542,8 @@ declare const multiplePublisherWrn: number;
 
 declare const gestaltSystemVersionMinor: number;
 
+declare const kHIDInvalidPreparsedDataErr: number;
+
 declare const kSmallIconSize: number;
 
 declare const portNotPwr: number;
@@ -6779,8 +6751,6 @@ declare const gestaltGXVersion: number;
 declare const gestaltQD3DPresent: number;
 
 declare const gestaltTranslationAttr: number;
-
-declare const errTreeIsLocked: number;
 
 declare const tokenRightCurly: number;
 
@@ -8728,6 +8698,10 @@ declare const kTextEncodingISOLatin2: number;
 
 declare const kTextEncodingISOLatin1: number;
 
+declare const kTECPluginManyToOne: number;
+
+declare const kTextEncodingUnicodeV15_1: number;
+
 declare const kTextEncodingUnicodeV13_0: number;
 
 declare const kAEDown: number;
@@ -8903,8 +8877,6 @@ declare const kPOSIXErrorESHLIBVERS: number;
 declare const kPOSIXErrorEBADARCH: number;
 
 declare const kPOSIXErrorEDEVERR: number;
-
-declare const kUTTypeJavaSource: interop.Pointer;
 
 declare const kPOSIXErrorENEEDAUTH: number;
 
@@ -9370,8 +9342,6 @@ declare const diaeresisUprI: number;
 
 declare const themeBadCursorIndexErr: number;
 
-declare const kFSVolFlagJournalingActiveMask: number;
-
 declare const themeBadTextColorErr: number;
 
 declare const errAEDescIsNull: number;
@@ -9393,6 +9363,12 @@ declare const noMemoryNodeFailedInitialize: number;
 declare const invalidHotSpotIDErr: number;
 
 declare const bTrshOffLine: number;
+
+declare const verMacedonian: number;
+
+declare const kAudioSoundsFolderType: number;
+
+declare const kTECTableFormatErr: number;
 
 declare const verBulgaria: number;
 
@@ -10146,6 +10122,8 @@ declare const k16BitCardErr: number;
 
 declare const kNSpInitializationFailedErr: number;
 
+declare const kCertUsageDecryptAskAndAdd: number;
+
 declare const errKCNoCertificateModule: number;
 
 declare const kNoCardErr: number;
@@ -10464,13 +10442,9 @@ declare const typeToken: number;
 
 declare const kUSBUnknownPipeErr: number;
 
-declare const gestaltMixedModeCFM68KHasTrap: number;
-
-declare const gestaltRealtimeMgrAttr: number;
-
-declare const errNotValidTree: number;
-
 declare const gestaltUnknownThirdPartyKbd: number;
+
+declare const gestaltExtISOADBKbd: number;
 
 declare const errOSACantOpenComponent: number;
 
@@ -10661,10 +10635,6 @@ declare const laTooSmallBufferErr: number;
 declare const kDMFoundErr: number;
 
 declare const kDMNoDeviceTableclothErr: number;
-
-declare const codecConditionErr: number;
-
-declare const kENOTSOCKErr: number;
 
 declare const cfragClosureIDErr: number;
 
@@ -11118,6 +11088,10 @@ declare const dsBadSlotInt: number;
 
 declare const kNSLCannotContinueLookup: number;
 
+declare const codecConditionErr: number;
+
+declare const kENOTSOCKErr: number;
+
 declare const kNSLBadProtocolTypeErr: number;
 
 declare const errCppLastSystemDefinedError: number;
@@ -11382,6 +11356,8 @@ declare const durationMillisecond: number;
 
 declare const gestaltSupportsFSpResourceFileAlreadyOpenBit: number;
 
+declare const kMDItemMediaExtensions: interop.Pointer;
+
 declare const numberFormattingNotADigitErr: number;
 
 declare const kDOSJapaneseStandardVariant: number;
@@ -11638,6 +11614,10 @@ declare const kAECondensed: number;
 
 declare const kFBCbadParam: number;
 
+declare const notLeafAtomErr: number;
+
+declare const kernelReadPermissionErr: number;
+
 declare const kernelCanceledErr: number;
 
 declare const notExactMatrixErr: number;
@@ -11873,6 +11853,8 @@ declare const kMDItemRedEyeOnOff: interop.Pointer;
 declare const kCollectionUser11Mask: number;
 
 declare const badEditList: number;
+
+declare const kTextEncodingUnicodeV14_0: number;
 
 declare const kRecentItemsIcon: number;
 
@@ -12286,10 +12268,6 @@ declare const gestaltMachineType: number;
 
 declare const badLocNameErr: number;
 
-declare const kHIDInvalidPreparsedDataErr: number;
-
-declare const kAVLIsLeaf: number;
-
 declare const afpItemNotFound: number;
 
 declare const rcDBAsyncNotSupp: number;
@@ -12341,6 +12319,10 @@ declare const dtQType: number;
 declare const errNoHiliteText: number;
 
 declare const afpSessClosed: number;
+
+declare const gestaltMixedModeCFM68KHasTrap: number;
+
+declare const gestaltRealtimeMgrAttr: number;
 
 declare const kUSBInternalReserved8: number;
 
@@ -12497,8 +12479,6 @@ declare const kRegisterParameterSizePhase: number;
 declare const invalidAtomErr: number;
 
 declare const pIsModified: number;
-
-declare const kCertUsageDecryptAskAndAdd: number;
 
 declare const gestaltROMVersion: number;
 
@@ -13257,6 +13237,14 @@ declare const gestaltResourceMgrBugFixesAttrs: number;
 declare const dirFulErr: number;
 
 declare const gestaltNuBusPresent: number;
+
+declare const kInternetLocationHTTPIcon: number;
+
+declare const gestaltControlMgrVersion: number;
+
+declare const kUTTypeCSource: interop.Pointer;
+
+declare const tokenRight2Quote: number;
 
 declare const kFSAllowConcurrentAsyncIOMask: number;
 
@@ -14442,10 +14430,6 @@ declare const smOriya: number;
 
 declare const keyAEStartPoint: number;
 
-declare const kInternetLocationHTTPIcon: number;
-
-declare const gestaltControlMgrVersion: number;
-
 declare const acuteUprA: number;
 
 declare const afpFlatVol: number;
@@ -14603,10 +14587,6 @@ declare const gestaltFBCIndexingState: number;
 declare const keyWhere: number;
 
 declare const keyAERangeStart: number;
-
-declare const kUTTypeCSource: interop.Pointer;
-
-declare const tokenRight2Quote: number;
 
 declare const kTextEncodingShiftJIS_X0213: number;
 
@@ -15054,6 +15034,8 @@ declare const procNotFound: number;
 
 declare const errAECantUndo: number;
 
+declare const kAudioPresetsFolderType: number;
+
 declare const smJapanese: number;
 
 declare const supDay: number;
@@ -15115,8 +15097,6 @@ declare const laTextOverFlowErr: number;
 declare const kMPDeletedErr: number;
 
 declare const keyAEPropData: number;
-
-declare const kTextEncodingEUC_KR: number;
 
 declare const kAddressKCItemAttr: number;
 
@@ -15242,8 +15222,6 @@ declare const kVCBFlagsIdleFlushMask: number;
 
 declare const langFrench: number;
 
-declare const kAudioPlugInsFolderType: number;
-
 declare const invalidHandler: number;
 
 declare const gestaltPCCardHasPowerControl: number;
@@ -15267,10 +15245,6 @@ declare const smCurrentScript: number;
 declare const kShiftJIS_DOSVariant: number;
 
 declare const kGenericRAMDiskIcon: number;
-
-declare const kAEMouseClass: number;
-
-declare const platformSunOSintel: number;
 
 declare const graveUprU: number;
 
@@ -15320,6 +15294,10 @@ declare const ePCIcard: number;
 
 declare const gestaltVMHasLockMemoryForOutput: number;
 
+declare const kAEMouseClass: number;
+
+declare const platformSunOSintel: number;
+
 declare const kSelectorsAreIndexable: number;
 
 declare const kUCGenlCatOtherControl: number;
@@ -15365,6 +15343,8 @@ declare const gestaltStdNBPSupportsAutoPosition: number;
 declare const kControlPanelFolderIcon: number;
 
 declare const kTextEncodingISOLatinGreek: number;
+
+declare const kAudioPlugInsFolderType: number;
 
 declare const badComponentType: number;
 
@@ -15660,6 +15640,8 @@ declare const errAEDescNotFound: number;
 
 declare const gestaltCanStartDragInFloatWindow: number;
 
+declare const kTextEncodingEUC_KR: number;
+
 declare const verNynorsk: number;
 
 declare const kTextEncodingISOLatinCyrillic: number;
@@ -15814,24 +15796,14 @@ declare class TECEncodingPairs {
   speed: number;
 }
 
-declare class ItlbExtRecord {
-  constructor(init?: ItlbExtRecord);
-  base: ItlbRecord;
-  itlbLocalSize: number;
-  itlbMonoFond: number;
-  itlbMonoSize: number;
-  itlbPrefFond: number;
-  itlbPrefSize: number;
-  itlbSmallFond: number;
-  itlbSmallSize: number;
-  itlbSysFond: number;
-  itlbSysSize: number;
-  itlbAppFond: number;
-  itlbAppSize: number;
-  itlbHelpFond: number;
-  itlbHelpSize: number;
-  itlbValidStyles: number;
-  itlbAliasStyle: number;
+declare class DeferredTask {
+  constructor(init?: DeferredTask);
+  qLink: interop.Pointer;
+  qType: number;
+  dtFlags: number;
+  dtAddr: (p1: number) => void | null;
+  dtParam: number;
+  dtReserved: number;
 }
 
 declare class DateTimeRec {
@@ -15869,6 +15841,10 @@ declare class OpaqueMPProcessID {
   constructor(init?: OpaqueMPProcessID);
 }
 
+declare class __MDItem {
+  constructor(init?: __MDItem);
+}
+
 declare class FSRefForkIOParam {
   constructor(init?: FSRefForkIOParam);
   qLink: interop.Pointer;
@@ -15904,10 +15880,18 @@ declare class OpaqueAreaID {
   constructor(init?: OpaqueAreaID);
 }
 
-declare class unnamed_13030785391079086134 {
-  constructor(init?: unnamed_13030785391079086134);
-  pad: unknown /* const array */;
-  Delta: number;
+declare class FSForkInfo {
+  constructor(init?: FSForkInfo);
+  flags: number;
+  permissions: number;
+  volume: number;
+  reserved2: number;
+  nodeID: number;
+  forkID: number;
+  currentPosition: number;
+  logicalEOF: number;
+  physicalEOF: number;
+  process: number;
 }
 
 declare class DateCacheRecord {
@@ -16058,6 +16042,14 @@ declare class FSEventStreamContext {
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
 }
 
+declare class OpaqueAEStreamRef {
+  constructor(init?: OpaqueAEStreamRef);
+}
+
+declare class OpaqueLSSharedFileListItemRef {
+  constructor(init?: OpaqueLSSharedFileListItemRef);
+}
+
 declare class RegisterInformation {
   constructor(init?: RegisterInformation);
   __unusedRegisterInformationField: interop.Pointer;
@@ -16098,24 +16090,6 @@ declare class CSIdentityClientContext {
   statusUpdated: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => void | null;
 }
 
-declare class unnamed_8519560157449367945 {
-  constructor(init?: unnamed_8519560157449367945);
-  era: number;
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
-  second: number;
-  dayOfWeek: number;
-  dayOfYear: number;
-  weekOfYear: number;
-  pm: number;
-  res1: number;
-  res2: number;
-  res3: number;
-}
-
 declare class MPEventInfo {
   constructor(init?: MPEventInfo);
   version: number;
@@ -16133,10 +16107,6 @@ declare class TextChunk {
   text: unknown /* const array */;
 }
 
-declare class __MDItem {
-  constructor(init?: __MDItem);
-}
-
 declare class AEDesc {
   constructor(init?: AEDesc);
   descriptorType: number;
@@ -16150,14 +16120,6 @@ declare class FInfo {
   fdFlags: number;
   fdLocation: Point;
   fdFldr: number;
-}
-
-declare class OpaqueAEStreamRef {
-  constructor(init?: OpaqueAEStreamRef);
-}
-
-declare class OpaqueLSSharedFileListItemRef {
-  constructor(init?: OpaqueLSSharedFileListItemRef);
 }
 
 declare class __SKSearch {
@@ -16236,6 +16198,24 @@ declare class __CSIdentityQuery {
 
 declare class __DCSDictionary {
   constructor(init?: __DCSDictionary);
+}
+
+declare class MPTaskInfoVersion2 {
+  constructor(init?: MPTaskInfoVersion2);
+  version: number;
+  name: number;
+  queueName: number;
+  runState: number;
+  lastCPU: number;
+  weight: number;
+  processID: interop.Pointer;
+  cpuTime: UnsignedWide;
+  schedTime: UnsignedWide;
+  creationTime: UnsignedWide;
+  codePageFaults: number;
+  dataPageFaults: number;
+  preemptions: number;
+  cpuID: interop.Pointer;
 }
 
 declare class WritingCode {
@@ -16337,6 +16317,12 @@ declare class TECLocaleListToEncodingListRec {
   locales: number;
 }
 
+declare class unnamed_1422987458602596927 {
+  constructor(init?: unnamed_1422987458602596927);
+  lo: number;
+  hi: number;
+}
+
 declare class TECEncodingPairRec {
   constructor(init?: TECEncodingPairRec);
   source: TextEncodingRec;
@@ -16356,6 +16342,12 @@ declare class TECSubTextEncodingRec {
   searchEncoding: TextEncodingRec;
   count: number;
   subEncodings: TextEncodingRec;
+}
+
+declare class unnamed_6160244313320354374 {
+  constructor(init?: unnamed_6160244313320354374);
+  eraAlt: number;
+  oldDate: DateTimeRec;
 }
 
 declare class KCCallbackInfo {
@@ -16581,12 +16573,6 @@ declare class PEFLoaderInfoHeader {
   exportedSymbolCount: number;
 }
 
-declare class AVLTreeStruct {
-  constructor(init?: AVLTreeStruct);
-  signature: number;
-  privateStuff: unknown /* const array */;
-}
-
 declare class MPAddressSpaceInfo {
   constructor(init?: MPAddressSpaceInfo);
   version: number;
@@ -16701,19 +16687,12 @@ declare class decform {
   digits: number;
 }
 
-declare class unnamed_612154128643478683 {
-  constructor(init?: unnamed_612154128643478683);
-  length: number;
-  text: unknown /* const array */;
-  unused: number;
-}
-
 declare class decimal {
   constructor(init?: decimal);
   sgn: number;
   unused: number;
   exp: number;
-  sig: unnamed_612154128643478683;
+  sig: unnamed_4624337271158547001;
 }
 
 declare class OpaqueUCTypeSelectRef {
@@ -16813,6 +16792,12 @@ declare class MachineInformationPowerPC {
   Reserved: UnsignedWide;
 }
 
+declare class unnamed_13315157399081334721 {
+  constructor(init?: unnamed_13315157399081334721);
+  lLow: number;
+  lHigh: number;
+}
+
 declare class LocaleAndVariant {
   constructor(init?: LocaleAndVariant);
   locale: interop.Pointer;
@@ -16867,12 +16852,6 @@ declare class NumFormatString {
   data: unknown /* const array */;
 }
 
-declare class unnamed_13171903008311699871 {
-  constructor(init?: unnamed_13171903008311699871);
-  lo: number;
-  hi: number;
-}
-
 declare class FileInfo {
   constructor(init?: FileInfo);
   fileType: number;
@@ -16900,24 +16879,6 @@ declare class CustomBadgeResource {
   windowBadgeCreator: number;
   overrideType: number;
   overrideCreator: number;
-}
-
-declare class MPTaskInfoVersion2 {
-  constructor(init?: MPTaskInfoVersion2);
-  version: number;
-  name: number;
-  queueName: number;
-  runState: number;
-  lastCPU: number;
-  weight: number;
-  processID: interop.Pointer;
-  cpuTime: UnsignedWide;
-  schedTime: UnsignedWide;
-  creationTime: UnsignedWide;
-  codePageFaults: number;
-  dataPageFaults: number;
-  preemptions: number;
-  cpuID: interop.Pointer;
 }
 
 declare class OpaqueMPAreaID {
@@ -17258,6 +17219,34 @@ declare class XLibContainerHeader {
   oldImpVersion: number;
 }
 
+declare class ccntTokenRecord {
+  constructor(init?: ccntTokenRecord);
+  tokenClass: number;
+  token: AEDesc;
+}
+
+declare class __FSFileSecurity {
+  constructor(init?: __FSFileSecurity);
+}
+
+declare class unnamed_10828452723169173678 {
+  constructor(init?: unnamed_10828452723169173678);
+  era: number;
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+  dayOfWeek: number;
+  dayOfYear: number;
+  weekOfYear: number;
+  pm: number;
+  res1: number;
+  res2: number;
+  res3: number;
+}
+
 declare class ComponentDescription {
   constructor(init?: ComponentDescription);
   componentType: number;
@@ -17275,21 +17264,6 @@ declare class FSSearchParams {
   searchName: interop.Pointer;
   searchInfo1: interop.Pointer;
   searchInfo2: interop.Pointer;
-}
-
-declare class ccntTokenRecord {
-  constructor(init?: ccntTokenRecord);
-  tokenClass: number;
-  token: AEDesc;
-}
-
-declare class __FSFileSecurity {
-  constructor(init?: __FSFileSecurity);
-}
-
-declare class BigEndianOSType {
-  constructor(init?: BigEndianOSType);
-  bigEndianValue: number;
 }
 
 declare class __SKSearchGroup {
@@ -17331,11 +17305,16 @@ declare class BigEndianUInt32 {
 
 declare class PEFExportedSymbolKey {
   constructor(init?: PEFExportedSymbolKey);
-  u: unnamed_6022771028037474817;
+  u: unnamed_2517247322364165323;
 }
 
 declare class BigEndianUnsignedShort {
   constructor(init?: BigEndianUnsignedShort);
+  bigEndianValue: number;
+}
+
+declare class BigEndianOSType {
+  constructor(init?: BigEndianOSType);
   bigEndianValue: number;
 }
 
@@ -17379,12 +17358,6 @@ declare class RoutineDescriptor {
   routineRecords: unknown /* const array */;
 }
 
-declare class unnamed_16980884254245320555 {
-  constructor(init?: unnamed_16980884254245320555);
-  eraAlt: number;
-  oldDate: DateTimeRec;
-}
-
 declare class TECInfo {
   constructor(init?: TECInfo);
   format: number;
@@ -17417,7 +17390,7 @@ declare class MachineLocation {
   constructor(init?: MachineLocation);
   latitude: number;
   longitude: number;
-  u: unnamed_15393404502478114442;
+  u: unnamed_10663552477967923722;
 }
 
 declare class FSSpec {
@@ -17518,6 +17491,26 @@ declare class AFPXVolMountInfo {
   AFPData: unknown /* const array */;
 }
 
+declare class ItlbExtRecord {
+  constructor(init?: ItlbExtRecord);
+  base: ItlbRecord;
+  itlbLocalSize: number;
+  itlbMonoFond: number;
+  itlbMonoSize: number;
+  itlbPrefFond: number;
+  itlbPrefSize: number;
+  itlbSmallFond: number;
+  itlbSmallSize: number;
+  itlbSysFond: number;
+  itlbSysSize: number;
+  itlbAppFond: number;
+  itlbAppSize: number;
+  itlbHelpFond: number;
+  itlbHelpSize: number;
+  itlbValidStyles: number;
+  itlbAliasStyle: number;
+}
+
 declare class __MDQuery {
   constructor(init?: __MDQuery);
 }
@@ -17539,19 +17532,6 @@ declare class Itl4Rec {
   resOffset6: number;
   resOffset7: number;
   resOffset8: number;
-}
-
-declare class AudioRecordingChunk {
-  constructor(init?: AudioRecordingChunk);
-  ckID: number;
-  ckSize: number;
-  AESChannelStatus: unknown /* const array */;
-}
-
-declare class unnamed_2047008921649952518 {
-  constructor(init?: unnamed_2047008921649952518);
-  lLow: number;
-  lHigh: number;
 }
 
 declare class TextEncodingRun {
@@ -17720,16 +17700,6 @@ declare class OpaqueUnicodeToTextRunInfo {
   constructor(init?: OpaqueUnicodeToTextRunInfo);
 }
 
-declare class DeferredTask {
-  constructor(init?: DeferredTask);
-  qLink: interop.Pointer;
-  qType: number;
-  dtFlags: number;
-  dtAddr: (p1: number) => void | null;
-  dtParam: number;
-  dtReserved: number;
-}
-
 declare class RuleBasedTrslRecord {
   constructor(init?: RuleBasedTrslRecord);
   sourceType: number;
@@ -17746,20 +17716,6 @@ declare class UTCDateTime {
   fraction: number;
 }
 
-declare class FSForkInfo {
-  constructor(init?: FSForkInfo);
-  flags: number;
-  permissions: number;
-  volume: number;
-  reserved2: number;
-  nodeID: number;
-  forkID: number;
-  currentPosition: number;
-  logicalEOF: number;
-  physicalEOF: number;
-  process: number;
-}
-
 declare class MPNotificationInfo {
   constructor(init?: MPNotificationInfo);
   version: number;
@@ -17772,6 +17728,13 @@ declare class MPNotificationInfo {
   eventID: interop.Pointer;
   events: number;
   semaphoreID: interop.Pointer;
+}
+
+declare class AudioRecordingChunk {
+  constructor(init?: AudioRecordingChunk);
+  ckID: number;
+  ckSize: number;
+  AESChannelStatus: unknown /* const array */;
 }
 
 declare class QHdr {
@@ -17831,6 +17794,12 @@ declare class FSCatalogInfo {
   rsrcPhysicalSize: number;
   valence: number;
   textEncodingHint: number;
+}
+
+declare class unnamed_11058520404825886551 {
+  constructor(init?: unnamed_11058520404825886551);
+  pad: unknown /* const array */;
+  Delta: number;
 }
 
 declare class MPCriticalRegionInfo {
@@ -18019,6 +17988,13 @@ declare class FSRefParam {
   outName: interop.Pointer;
 }
 
+declare class unnamed_4624337271158547001 {
+  constructor(init?: unnamed_4624337271158547001);
+  length: number;
+  text: unknown /* const array */;
+  unused: number;
+}
+
 declare class ComponentRecord {
   constructor(init?: ComponentRecord);
   data: unknown /* const array */;
@@ -18035,14 +18011,24 @@ declare class UCKeyboardTypeHeader {
   keySequenceDataIndexOffset: number;
 }
 
-type WideCharDescriptor = 
-  | { a: unnamed_13171903008311699871 }
-  | { b: number };
+type LongDateCvtDescriptor = 
+  | { c: number }
+  | { hl: unnamed_13315157399081334721 };
 
-declare class WideChar {
-  constructor(init?: WideCharDescriptor);
-  a: unnamed_13171903008311699871;
-  b: number;
+declare class LongDateCvt {
+  constructor(init?: LongDateCvtDescriptor);
+  c: number;
+  hl: unnamed_13315157399081334721;
+}
+
+type unnamed_2517247322364165323Descriptor = 
+  | { fullHashWord: number }
+  | { splitHashWord: PEFSplitHashWord };
+
+declare class unnamed_2517247322364165323 {
+  constructor(init?: unnamed_2517247322364165323Descriptor);
+  fullHashWord: number;
+  splitHashWord: PEFSplitHashWord;
 }
 
 type ExceptionInfoDescriptor = 
@@ -18051,6 +18037,18 @@ type ExceptionInfoDescriptor =
 declare class ExceptionInfo {
   constructor(init?: ExceptionInfoDescriptor);
   memoryInfo: interop.Pointer;
+}
+
+type Vector128Descriptor = 
+  | { l: unknown /* const array */ }
+  | { s: unknown /* const array */ }
+  | { c: unknown /* const array */ };
+
+declare class Vector128 {
+  constructor(init?: Vector128Descriptor);
+  l: unknown /* const array */;
+  s: unknown /* const array */;
+  c: unknown /* const array */;
 }
 
 type AEArrayDataDescriptor = 
@@ -18069,58 +18067,36 @@ declare class AEArrayData {
   kAEKeyDescArray: unknown /* const array */;
 }
 
-type Vector128Descriptor = 
-  | { l: unknown /* const array */ }
-  | { s: unknown /* const array */ }
-  | { c: unknown /* const array */ };
-
-declare class Vector128 {
-  constructor(init?: Vector128Descriptor);
-  l: unknown /* const array */;
-  s: unknown /* const array */;
-  c: unknown /* const array */;
-}
-
-type unnamed_15393404502478114442Descriptor = 
+type unnamed_10663552477967923722Descriptor = 
   | { gmtDelta: number }
-  | { dls: unnamed_13030785391079086134 };
+  | { dls: unnamed_11058520404825886551 };
 
-declare class unnamed_15393404502478114442 {
-  constructor(init?: unnamed_15393404502478114442Descriptor);
+declare class unnamed_10663552477967923722 {
+  constructor(init?: unnamed_10663552477967923722Descriptor);
   gmtDelta: number;
-  dls: unnamed_13030785391079086134;
-}
-
-type unnamed_6022771028037474817Descriptor = 
-  | { fullHashWord: number }
-  | { splitHashWord: PEFSplitHashWord };
-
-declare class unnamed_6022771028037474817 {
-  constructor(init?: unnamed_6022771028037474817Descriptor);
-  fullHashWord: number;
-  splitHashWord: PEFSplitHashWord;
-}
-
-type LongDateCvtDescriptor = 
-  | { c: number }
-  | { hl: unnamed_2047008921649952518 };
-
-declare class LongDateCvt {
-  constructor(init?: LongDateCvtDescriptor);
-  c: number;
-  hl: unnamed_2047008921649952518;
+  dls: unnamed_11058520404825886551;
 }
 
 type LongDateRecDescriptor = 
-  | { ld: unnamed_8519560157449367945 }
+  | { ld: unnamed_10828452723169173678 }
   | { list: unknown /* const array */ }
-  | { od: unnamed_16980884254245320555 };
+  | { od: unnamed_6160244313320354374 };
 
 declare class LongDateRec {
   constructor(init?: LongDateRecDescriptor);
-  ld: unnamed_8519560157449367945;
+  ld: unnamed_10828452723169173678;
   list: unknown /* const array */;
-  od: unnamed_16980884254245320555;
+  od: unnamed_6160244313320354374;
+}
+
+type WideCharDescriptor = 
+  | { a: unnamed_1422987458602596927 }
+  | { b: number };
+
+declare class WideChar {
+  constructor(init?: WideCharDescriptor);
+  a: unnamed_1422987458602596927;
+  b: number;
 }
 
 declare function FixRatio(numer: number, denom: number): number;
@@ -18397,105 +18373,9 @@ declare function IsHandleValid(h: interop.PointerConvertible): number;
 
 declare function IsPointerValid(p: string): number;
 
-declare function S64Max(): number;
-
-declare function S64Min(): number;
-
-declare function S64Add(left: number, right: number): number;
-
-declare function S64Subtract(left: number, right: number): number;
-
-declare function S64Negate(value: number): number;
-
-declare function S64Multiply(left: number, right: number): number;
-
-declare function S64Mod(dividend: number, divisor: number): number;
-
-declare function S64Divide(dividend: number, divisor: number, remainder: interop.PointerConvertible): number;
-
-declare function S64Div(dividend: number, divisor: number): number;
-
-declare function S64Set(value: number): number;
-
-declare function S64SetU(value: number): number;
-
-declare function S32Set(value: number): number;
-
-declare function S64And(left: number, right: number): number;
-
-declare function S64Or(left: number, right: number): number;
-
-declare function S64Eor(left: number, right: number): number;
-
-declare function S64Not(value: number): number;
-
-declare function S64Compare(left: number, right: number): number;
-
-declare function S64BitwiseAnd(left: number, right: number): number;
-
-declare function S64BitwiseOr(left: number, right: number): number;
-
-declare function S64BitwiseEor(left: number, right: number): number;
-
-declare function S64BitwiseNot(value: number): number;
-
-declare function S64ShiftRight(value: number, shift: number): number;
-
-declare function S64ShiftLeft(value: number, shift: number): number;
-
-declare function SInt64ToLongDouble(value: number): number;
-
-declare function LongDoubleToSInt64(value: number): number;
-
-declare function U64Max(): number;
-
-declare function U64Add(left: number, right: number): number;
-
-declare function U64Subtract(left: number, right: number): number;
-
-declare function U64Multiply(left: number, right: number): number;
-
-declare function U64Mod(dividend: number, divisor: number): number;
-
-declare function U64Divide(dividend: number, divisor: number, remainder: interop.PointerConvertible): number;
-
-declare function U64Div(dividend: number, divisor: number): number;
-
-declare function U64Set(value: number): number;
-
-declare function U64SetU(value: number): number;
-
-declare function U32SetU(value: number): number;
-
-declare function U64And(left: number, right: number): number;
-
-declare function U64Or(left: number, right: number): number;
-
-declare function U64Eor(left: number, right: number): number;
-
-declare function U64Not(value: number): number;
+declare function S64Absolute(value: number): number;
 
 declare function U64Compare(left: number, right: number): number;
-
-declare function U64BitwiseAnd(left: number, right: number): number;
-
-declare function U64BitwiseOr(left: number, right: number): number;
-
-declare function U64BitwiseEor(left: number, right: number): number;
-
-declare function U64BitwiseNot(value: number): number;
-
-declare function U64ShiftRight(value: number, shift: number): number;
-
-declare function U64ShiftLeft(value: number, shift: number): number;
-
-declare function UInt64ToLongDouble(value: number): number;
-
-declare function LongDoubleToUInt64(value: number): number;
-
-declare function UInt64ToSInt64(value: number): number;
-
-declare function SInt64ToUInt64(value: number): number;
 
 declare function CSBackupSetItemExcluded(item: interop.PointerConvertible, exclude: number, excludeByPath: number): number;
 
@@ -19900,30 +19780,6 @@ declare function LMSetSysFontFam(value: number): void;
 declare function LMGetSysFontSize(): number;
 
 declare function LMSetSysFontSize(value: number): void;
-
-declare function NewAVLCompareItemsUPP(userRoutine: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number) => number): (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number) => number;
-
-declare function NewAVLItemSizeUPP(userRoutine: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number): (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number;
-
-declare function NewAVLDisposeItemUPP(userRoutine: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void): (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void;
-
-declare function NewAVLWalkUPP(userRoutine: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: number, p5: number, p6: number, p7: interop.PointerConvertible) => number): (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: number, p5: number, p6: number, p7: interop.PointerConvertible) => number;
-
-declare function DisposeAVLCompareItemsUPP(userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number) => number): void;
-
-declare function DisposeAVLItemSizeUPP(userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number): void;
-
-declare function DisposeAVLDisposeItemUPP(userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void): void;
-
-declare function DisposeAVLWalkUPP(userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: number, p5: number, p6: number, p7: interop.PointerConvertible) => number): void;
-
-declare function InvokeAVLCompareItemsUPP(tree: interop.PointerConvertible, i1: interop.PointerConvertible, i2: interop.PointerConvertible, nd_typ: number, userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: number) => number): number;
-
-declare function InvokeAVLItemSizeUPP(tree: interop.PointerConvertible, itemPtr: interop.PointerConvertible, userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number): number;
-
-declare function InvokeAVLDisposeItemUPP(tree: interop.PointerConvertible, dataP: interop.PointerConvertible, userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void): void;
-
-declare function InvokeAVLWalkUPP(tree: interop.PointerConvertible, dataPtr: interop.PointerConvertible, visitStage: number, node: number, level: number, balance: number, refCon: interop.PointerConvertible, userUPP: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: number, p5: number, p6: number, p7: interop.PointerConvertible) => number): number;
 
 declare function NewAECoerceDescUPP(userRoutine: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => number): (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => number;
 

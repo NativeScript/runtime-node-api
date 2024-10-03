@@ -221,16 +221,6 @@ declare class AVAudioTime extends NSObject {
   readonly audioTimeStamp: AudioTimeStamp;
 }
 
-declare class AVAudioEnvironmentReverbParameters extends NSObject {
-  enable: boolean;
-
-  level: number;
-
-  readonly filterParameters: AVAudioUnitEQFilterParameters;
-
-  loadFactoryReverbPreset(preset: interop.Enum<typeof AVAudioUnitReverbPreset>): void;
-}
-
 declare class AVAudioPCMBuffer extends AVAudioBuffer {
   initWithPCMFormatFrameCapacity(format: AVAudioFormat, frameCapacity: number): this;
 
@@ -452,6 +442,16 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class AVAudioEnvironmentReverbParameters extends NSObject {
+  enable: boolean;
+
+  level: number;
+
+  readonly filterParameters: AVAudioUnitEQFilterParameters;
+
+  loadFactoryReverbPreset(preset: interop.Enum<typeof AVAudioUnitReverbPreset>): void;
+}
+
 declare class AVAudioIONode extends AVAudioNode {
   readonly presentationLatency: number;
 
@@ -667,6 +667,8 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
   readonly reverbParameters: AVAudioEnvironmentReverbParameters;
 
   readonly applicableRenderingAlgorithms: NSArray;
+
+  isListenerHeadTrackingEnabled: boolean;
 
   destinationForMixerBus(mixer: AVAudioNode, bus: number): AVAudioMixingDestination;
 

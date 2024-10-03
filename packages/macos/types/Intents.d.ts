@@ -69,6 +69,12 @@ declare const INBookRestaurantReservationIntentCode: {
   FailureRequiringAppLaunchServiceTemporarilyUnavailable: 5,
 };
 
+declare const INStickerType: {
+  Unknown: 0,
+  Emoji: 1,
+  Generic: 2,
+};
+
 declare const INStartCallCallRecordToCallBackUnsupportedReason: {
   INStartCallCallRecordToCallBackUnsupportedReasonNoMatchingCall: 1,
 };
@@ -93,6 +99,13 @@ declare const INPaymentMethodType: {
   Prepaid: 6,
   Store: 7,
   ApplePay: 8,
+};
+
+declare const INMessageReactionType: {
+  Unknown: 0,
+  EmojiReaction: 1,
+  Emoji: 2,
+  Generic: 3,
 };
 
 declare const INUnsendMessagesIntentResponseCode: {
@@ -170,11 +183,6 @@ declare const INRestaurantReservationUserBookingStatus: {
   Denied: 2,
 };
 
-declare const INReservationActionType: {
-  Unknown: 0,
-  CheckIn: 1,
-};
-
 declare const INHangUpCallIntentResponseCode: {
   Unspecified: 0,
   Ready: 1,
@@ -230,6 +238,11 @@ declare const INGetUserCurrentRestaurantReservationBookingsIntentResponseCode: {
   Failure: 1,
   FailureRequestUnsatisfiable: 2,
   Unspecified: 3,
+};
+
+declare const INReservationActionType: {
+  Unknown: 0,
+  CheckIn: 1,
 };
 
 declare const INEditMessageIntentResponseCode: {
@@ -823,6 +836,22 @@ declare class INTicketedEvent extends NSObject implements NSCopying, NSSecureCod
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class INSticker extends NSObject implements NSCopying, NSSecureCoding {
+  initWithTypeEmoji(type: interop.Enum<typeof INStickerType>, emoji: string | null): this;
+
+  readonly type: interop.Enum<typeof INStickerType>;
+
+  readonly emoji: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class INStartCallCallRecordToCallBackResolutionResult extends INCallRecordResolutionResult {
   static unsupportedForReason<This extends abstract new (...args: any) => any>(this: This, reason: interop.Enum<typeof INStartCallCallRecordToCallBackUnsupportedReason>): InstanceType<This>;
 
@@ -883,12 +912,6 @@ declare class INPaymentMethod extends NSObject implements NSCopying, NSSecureCod
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class INOutgoingMessageTypeResolutionResult extends INIntentResolutionResult {
-  static successWithResolvedOutgoingMessageType<This extends abstract new (...args: any) => any>(this: This, resolvedOutgoingMessageType: interop.Enum<typeof INOutgoingMessageType>): InstanceType<This>;
-
-  static confirmationRequiredWithOutgoingMessageTypeToConfirm<This extends abstract new (...args: any) => any>(this: This, outgoingMessageTypeToConfirm: interop.Enum<typeof INOutgoingMessageType>): InstanceType<This>;
 }
 
 declare class INFocusStatus extends NSObject implements NSCopying, NSSecureCoding {
@@ -1268,6 +1291,14 @@ declare class INRentalCarReservation extends INReservation implements NSCopying,
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class INEditMessageIntent extends INIntent {
+  initWithMessageIdentifierEditedContent(messageIdentifier: string | null, editedContent: string | null): this;
+
+  readonly messageIdentifier: string;
+
+  readonly editedContent: string;
+}
+
 declare class INBooleanResolutionResult extends INIntentResolutionResult {
   static successWithResolvedValue<This extends abstract new (...args: any) => any>(this: This, resolvedValue: boolean): InstanceType<This>;
 
@@ -1300,14 +1331,6 @@ declare class INBusTrip extends NSObject implements NSCopying, NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class INStringResolutionResult extends INIntentResolutionResult {
-  static successWithResolvedString<This extends abstract new (...args: any) => any>(this: This, resolvedString: string): InstanceType<This>;
-
-  static disambiguationWithStringsToDisambiguate<This extends abstract new (...args: any) => any>(this: This, stringsToDisambiguate: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  static confirmationRequiredWithStringToConfirm<This extends abstract new (...args: any) => any>(this: This, stringToConfirm: string | null): InstanceType<This>;
 }
 
 declare class INMassResolutionResult extends INIntentResolutionResult {
@@ -1388,6 +1411,24 @@ declare class INStartCallIntent extends INIntent {
   readonly contacts: NSArray;
 
   readonly callCapability: interop.Enum<typeof INCallCapability>;
+}
+
+declare class INMessageReaction extends NSObject implements NSCopying, NSSecureCoding {
+  initWithReactionTypeReactionDescriptionEmoji(reactionType: interop.Enum<typeof INMessageReactionType>, reactionDescription: string | null, emoji: string | null): this;
+
+  readonly reactionType: interop.Enum<typeof INMessageReactionType>;
+
+  readonly reactionDescription: string;
+
+  readonly emoji: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class INSpeakableString extends NSObject implements INSpeakable, NSCopying, NSSecureCoding {
@@ -1550,6 +1591,12 @@ declare class INCallRecordTypeOptionsResolutionResult extends INIntentResolution
   static confirmationRequiredWithCallRecordTypeOptionsToConfirm<This extends abstract new (...args: any) => any>(this: This, callRecordTypeOptionsToConfirm: interop.Enum<typeof INCallRecordTypeOptions>): InstanceType<This>;
 }
 
+declare class INShareFocusStatusIntent extends INIntent {
+  initWithFocusStatus(focusStatus: INFocusStatus | null): this;
+
+  readonly focusStatus: INFocusStatus;
+}
+
 declare class INEnergyResolutionResult extends INIntentResolutionResult {
   static successWithResolvedEnergy<This extends abstract new (...args: any) => any>(this: This, resolvedEnergy: NSMeasurement): InstanceType<This>;
 
@@ -1572,14 +1619,6 @@ declare class INBoatReservation extends INReservation implements NSCopying, NSSe
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class INEditMessageIntent extends INIntent {
-  initWithMessageIdentifierEditedContent(messageIdentifier: string | null, editedContent: string | null): this;
-
-  readonly messageIdentifier: string;
-
-  readonly editedContent: string;
 }
 
 declare class INImage extends NSObject implements NSCopying, NSSecureCoding {
@@ -1616,6 +1655,20 @@ declare class INTrainReservation extends INReservation implements NSCopying, NSS
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class INOutgoingMessageTypeResolutionResult extends INIntentResolutionResult {
+  static successWithResolvedOutgoingMessageType<This extends abstract new (...args: any) => any>(this: This, resolvedOutgoingMessageType: interop.Enum<typeof INOutgoingMessageType>): InstanceType<This>;
+
+  static confirmationRequiredWithOutgoingMessageTypeToConfirm<This extends abstract new (...args: any) => any>(this: This, outgoingMessageTypeToConfirm: interop.Enum<typeof INOutgoingMessageType>): InstanceType<This>;
+}
+
+declare class INStringResolutionResult extends INIntentResolutionResult {
+  static successWithResolvedString<This extends abstract new (...args: any) => any>(this: This, resolvedString: string): InstanceType<This>;
+
+  static disambiguationWithStringsToDisambiguate<This extends abstract new (...args: any) => any>(this: This, stringsToDisambiguate: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  static confirmationRequiredWithStringToConfirm<This extends abstract new (...args: any) => any>(this: This, stringToConfirm: string | null): InstanceType<This>;
 }
 
 declare class INTimeIntervalResolutionResult extends INIntentResolutionResult {
@@ -1668,24 +1721,6 @@ declare class INCallRecordResolutionResult extends INIntentResolutionResult {
   static disambiguationWithCallRecordsToDisambiguate<This extends abstract new (...args: any) => any>(this: This, callRecordsToDisambiguate: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
 
   static confirmationRequiredWithCallRecordToConfirm<This extends abstract new (...args: any) => any>(this: This, callRecordToConfirm: INCallRecord | null): InstanceType<This>;
-}
-
-declare class INShareFocusStatusIntent extends INIntent {
-  initWithFocusStatus(focusStatus: INFocusStatus | null): this;
-
-  readonly focusStatus: INFocusStatus;
-}
-
-declare class INSendMessageIntentDonationMetadata extends INIntentDonationMetadata {
-  mentionsCurrentUser: boolean;
-
-  isReplyToCurrentUser: boolean;
-
-  notifyRecipientAnyway: boolean;
-
-  recipientCount: number;
-
-  init(): this;
 }
 
 declare class INHangUpCallIntentResponse extends INIntentResponse {
@@ -1860,5 +1895,17 @@ declare class INEditMessageIntentResponse extends INIntentResponse {
   initWithCodeUserActivity(code: interop.Enum<typeof INEditMessageIntentResponseCode>, userActivity: NSUserActivity | null): this;
 
   readonly code: interop.Enum<typeof INEditMessageIntentResponseCode>;
+}
+
+declare class INSendMessageIntentDonationMetadata extends INIntentDonationMetadata {
+  mentionsCurrentUser: boolean;
+
+  isReplyToCurrentUser: boolean;
+
+  notifyRecipientAnyway: boolean;
+
+  recipientCount: number;
+
+  init(): this;
 }
 

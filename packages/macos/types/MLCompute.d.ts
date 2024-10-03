@@ -793,6 +793,32 @@ declare class MLCConcatenationLayer extends MLCLayer {
   static layerWithDimension<This extends abstract new (...args: any) => any>(this: This, dimension: number): InstanceType<This>;
 }
 
+declare class MLCLossDescriptor extends NSObject implements NSCopying {
+  readonly lossType: interop.Enum<typeof MLCLossType>;
+
+  readonly reductionType: interop.Enum<typeof MLCReductionType>;
+
+  readonly weight: number;
+
+  readonly labelSmoothing: number;
+
+  readonly classCount: number;
+
+  readonly epsilon: number;
+
+  readonly delta: number;
+
+  static descriptorWithTypeReductionType<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>): InstanceType<This>;
+
+  static descriptorWithTypeReductionTypeWeight<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number): InstanceType<This>;
+
+  static descriptorWithTypeReductionTypeWeightLabelSmoothingClassCount<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number, labelSmoothing: number, classCount: number): InstanceType<This>;
+
+  static descriptorWithTypeReductionTypeWeightLabelSmoothingClassCountEpsilonDelta<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number, labelSmoothing: number, classCount: number, epsilon: number, delta: number): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class MLCConvolutionDescriptor extends NSObject implements NSCopying {
   readonly convolutionType: interop.Enum<typeof MLCConvolutionType>;
 
@@ -1291,32 +1317,6 @@ declare class MLCMatMulDescriptor extends NSObject implements NSCopying {
   static descriptorWithAlphaTransposesXTransposesY<This extends abstract new (...args: any) => any>(this: This, alpha: number, transposesX: boolean, transposesY: boolean): InstanceType<This> | null;
 
   static descriptor<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class MLCLossDescriptor extends NSObject implements NSCopying {
-  readonly lossType: interop.Enum<typeof MLCLossType>;
-
-  readonly reductionType: interop.Enum<typeof MLCReductionType>;
-
-  readonly weight: number;
-
-  readonly labelSmoothing: number;
-
-  readonly classCount: number;
-
-  readonly epsilon: number;
-
-  readonly delta: number;
-
-  static descriptorWithTypeReductionType<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>): InstanceType<This>;
-
-  static descriptorWithTypeReductionTypeWeight<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number): InstanceType<This>;
-
-  static descriptorWithTypeReductionTypeWeightLabelSmoothingClassCount<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number, labelSmoothing: number, classCount: number): InstanceType<This>;
-
-  static descriptorWithTypeReductionTypeWeightLabelSmoothingClassCountEpsilonDelta<This extends abstract new (...args: any) => any>(this: This, lossType: interop.Enum<typeof MLCLossType>, reductionType: interop.Enum<typeof MLCReductionType>, weight: number, labelSmoothing: number, classCount: number, epsilon: number, delta: number): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

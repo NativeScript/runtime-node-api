@@ -460,8 +460,24 @@ napi_value interop_alloc(napi_env env, napi_callback_info info) {
 }
 
 napi_value interop_handleof(napi_env env, napi_callback_info info) {
-  // TODO
-  napi_value result;
+  napi_value value, result;
+  size_t argc = 1;
+  napi_get_cb_info(env, info, &argc, &value, nullptr, nullptr);
+  
+  if (Pointer::isInstance(env, value)) {
+    return value;
+  } else if (Reference::isInstance(env, value)) {
+    Reference *ref = Reference::unwrap(env, value);
+    return Pointer::create(env, ref->data);
+  }
+
+  void *data = nullptr;
+  napi_unwrap(env, value, (void **)&data);
+
+  if (data != nullptr) {
+    return Pointer::create(env, data);
+  }
+
   napi_get_null(env, &result);
   return result;
 }

@@ -433,6 +433,33 @@ declare class EKRecurrenceEnd extends NSObject implements NSCopying, NSSecureCod
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class EKCalendar extends EKObject {
+  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
+
+  source: EKSource;
+
+  readonly calendarIdentifier: string;
+
+  title: string;
+
+  readonly type: interop.Enum<typeof EKCalendarType>;
+
+  readonly allowsContentModifications: boolean;
+
+  readonly isSubscribed: boolean;
+
+  readonly isImmutable: boolean;
+
+  get CGColor(): interop.Pointer;
+  set CGColor(value: interop.PointerConvertible);
+
+  color: NSColor;
+
+  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
+
+  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
+}
+
 declare class EKEvent extends EKCalendarItem {
   static eventWithEventStore(eventStore: EKEventStore): EKEvent;
 
@@ -463,33 +490,6 @@ declare class EKEvent extends EKCalendarItem {
   readonly birthdayContactIdentifier: string;
 
   readonly birthdayPersonUniqueID: string;
-}
-
-declare class EKCalendar extends EKObject {
-  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
-
-  source: EKSource;
-
-  readonly calendarIdentifier: string;
-
-  title: string;
-
-  readonly type: interop.Enum<typeof EKCalendarType>;
-
-  readonly allowsContentModifications: boolean;
-
-  readonly isSubscribed: boolean;
-
-  readonly isImmutable: boolean;
-
-  get CGColor(): interop.Pointer;
-  set CGColor(value: interop.PointerConvertible);
-
-  color: NSColor;
-
-  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
-
-  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
 }
 
 declare class EKEventStore extends NSObject {
