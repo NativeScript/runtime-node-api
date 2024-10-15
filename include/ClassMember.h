@@ -1,7 +1,7 @@
 #ifndef BRIDGED_METHOD_H
 #define BRIDGED_METHOD_H
 
-#include "MethodCif.h"
+#include "Cif.h"
 #include "objc/runtime.h"
 #include <iostream>
 
@@ -50,10 +50,10 @@ public:
   static void defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
                             MDSectionOffset offset, napi_value constructor);
 
-  static napi_value JSCall(napi_env env, napi_callback_info cbinfo);
-  static napi_value JSCallInit(napi_env env, napi_callback_info cbinfo);
-  static napi_value JSGetter(napi_env env, napi_callback_info cbinfo);
-  static napi_value JSSetter(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsCall(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsCallInit(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsGetter(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsSetter(napi_env env, napi_callback_info cbinfo);
 
   ObjCClassMember(ObjCBridgeState *bridgeState, SEL selector,
                   MDSectionOffset offset, MDMemberFlag flags)
@@ -77,8 +77,8 @@ public:
   ObjCBridgeState *bridgeState;
   MethodDescriptor methodOrGetter;
   MethodDescriptor setter;
-  MethodCif *methodCif = nullptr;
-  MethodCif *setterMethodCif = nullptr;
+  Cif *cif = nullptr;
+  Cif *setterCif = nullptr;
   bool returnOwned;
   bool classMethod;
 };

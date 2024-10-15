@@ -15,7 +15,7 @@ NAPI_FUNCTION(protocolGetter);
 
 class ObjCProtocol {
 public:
-  static napi_value JSConstructor(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsConstructor(napi_env env, napi_callback_info cbinfo);
 
   ObjCProtocol(napi_env env, MDSectionOffset offset);
   ~ObjCProtocol();

@@ -109,7 +109,7 @@ NAPI_FUNCTION(protocolGetter) {
   return get_ref_value(env, cls->constructor);
 }
 
-napi_value ObjCProtocol::JSConstructor(napi_env env,
+napi_value ObjCProtocol::jsConstructor(napi_env env,
                                        napi_callback_info cbinfo) {
   NAPI_CALLBACK_BEGIN(0)
   return jsThis;
@@ -129,7 +129,7 @@ ObjCProtocol::ObjCProtocol(napi_env env, MDSectionOffset offset) {
 
   napi_value constructor;
   napi_define_class(env, name.c_str(), NAPI_AUTO_LENGTH,
-                    ObjCProtocol::JSConstructor, nullptr, 0, nullptr,
+                    ObjCProtocol::jsConstructor, nullptr, 0, nullptr,
                     &constructor);
   napi_wrap(env, constructor, this, nullptr, nullptr, nullptr);
 

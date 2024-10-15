@@ -1,4 +1,4 @@
-#include "MethodCif.h"
+#include "Cif.h"
 #include "MetadataReader.h"
 #include "ObjCBridge.h"
 #include "TypeConv.h"
@@ -12,32 +12,56 @@ namespace objc_bridge {
 // Essentially, we cache libffi structures per unique method signature,
 // this helps us avoid the overhead of creating them on the fly for each
 // invocation.
-MethodCif *ObjCBridgeState::getMethodCif(napi_env env, Method method) {
+Cif *ObjCBridgeState::getMethodCif(napi_env env, Method method) {
   auto encoding = std::string(method_getTypeEncoding(method));
-  auto find = this->methodCifs[encoding];
+  auto find = this->cifs[encoding];
   if (find != nullptr) {
     return find;
   }
 
-  auto methodCif = new MethodCif(env, encoding);
-  this->methodCifs[encoding] = methodCif;
+  auto cif = new Cif(env, encoding);
+  this->cifs[encoding] = cif;
 
-  return methodCif;
+  return cif;
 }
 
-MethodCif *ObjCBridgeState::getMethodCif(napi_env env, MDSectionOffset offset) {
+Cif *ObjCBridgeState::getMethodCif(napi_env env, MDSectionOffset offset) {
   auto find = this->mdMethodSignatureCache[offset];
   if (find != nullptr) {
     return find;
   }
 
-  auto methodCif = new MethodCif(env, metadata, offset, true);
-  this->mdMethodSignatureCache[offset] = methodCif;
+  auto cif = new Cif(env, metadata, offset, true, false);
+  this->mdMethodSignatureCache[offset] = cif;
 
-  return methodCif;
+  return cif;
 }
 
-MethodCif::MethodCif(napi_env env, std::string encoding) {
+Cif *ObjCBridgeState::getBlockCif(napi_env env, MDSectionOffset offset) {
+  auto find = this->mdBlockSignatureCache[offset];
+  if (find != nullptr) {
+    return find;
+  }
+
+  auto cif = new Cif(env, metadata, offset, false, true);
+  this->mdBlockSignatureCache[offset] = cif;
+
+  return cif;
+}
+
+Cif *ObjCBridgeState::getCFunctionCif(napi_env env, MDSectionOffset offset) {
+  auto find = this->mdFunctionSignatureCache[offset];
+  if (find != nullptr) {
+    return find;
+  }
+
+  auto cif = new Cif(env, metadata, offset, false, false);
+  this->mdFunctionSignatureCache[offset] = cif;
+
+  return cif;
+}
+
+Cif::Cif(napi_env env, std::string encoding) {
   auto signature = [NSMethodSignature signatureWithObjCTypes:encoding.c_str()];
   unsigned long numberOfArguments = signature.numberOfArguments;
   this->argc = (int)numberOfArguments - 2;
@@ -89,8 +113,8 @@ MethodCif::MethodCif(napi_env env, std::string encoding) {
   }
 }
 
-MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
-                     MDSectionOffset offset, bool isMethod) {
+Cif::Cif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset,
+         bool isMethod, bool isBlock) {
   auto returnTypeKind = reader->getTypeKind(offset);
   bool next = (returnTypeKind & mdTypeFlagNext) != 0;
   isVariadic = (returnTypeKind & mdTypeFlagVariadic) != 0;
@@ -99,15 +123,17 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
 
   ffi_type **atypes = nullptr;
 
-  auto implicitArgs = isMethod ? 2 : 0;
+  auto implicitArgs = isMethod ? 2 : isBlock ? 1 : 0;
 
   shouldFreeAny = false;
 
-  if (next || isMethod) {
+  if (next || isMethod || isBlock) {
     while (next) {
       auto argTypeKind = reader->getTypeKind(offset);
       next = (argTypeKind & mdTypeFlagNext) != 0;
       auto argTypeInfo = TypeConv::Make(env, reader, &offset);
+      std::string enc;
+      argTypeInfo->encode(&enc);
       argTypes.push_back(argTypeInfo);
     }
 
@@ -119,11 +145,15 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
     shouldFree = (bool *)malloc(sizeof(bool) * argc);
 
     atypes = (ffi_type **)malloc(sizeof(ffi_type *) * totalArgc);
-    avalues = (void **)malloc(sizeof(void *) * totalArgc);
+    avalues = (void **)malloc(sizeof(void *) * argc);
 
     if (isMethod) {
       atypes[0] = &ffi_type_pointer;
       atypes[1] = &ffi_type_pointer;
+    }
+
+    if (isBlock) {
+      atypes[0] = &ffi_type_pointer;
     }
 
     for (int i = 0; i < argc; i++) {
@@ -146,8 +176,8 @@ MethodCif::MethodCif(napi_env env, MDMetadataReader *reader,
     return;
   }
 
-  for (int i = implicitArgs; i < (argc + implicitArgs); i++) {
-    avalues[i] = malloc(cif.arg_types[i]->size);
+  for (int i = 0; i < argc; i++) {
+    avalues[i] = malloc(cif.arg_types[i + implicitArgs]->size);
   }
 
   rvalue = malloc(cif.rtype->size);

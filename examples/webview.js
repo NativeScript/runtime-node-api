@@ -51,9 +51,10 @@ export class ApplicationDelegate extends NSObject {
 
 /**
  * @implements {WKUIDelegate}
+ * @implements {WKNavigationDelegate}
  */
 export class ViewController extends NSViewController {
-  static ObjCProtocols = [WKUIDelegate];
+  static ObjCProtocols = [WKUIDelegate, WKNavigationDelegate];
 
   static {
     NativeClass(this);
@@ -74,6 +75,7 @@ export class ViewController extends NSViewController {
       config,
     );
     view.UIDelegate = this;
+    view.navigationDelegate = this;
     this.view = view;
     this.webview = view;
   }
@@ -92,6 +94,19 @@ export class ViewController extends NSViewController {
     const url = NSURL.URLWithString("https://nativescript.org");
     const request = NSURLRequest.requestWithURL(url);
     if (this.webview) this.webview.loadRequest(request);
+  }
+
+  /**
+   * @param {WKWebView} _webView
+   * @param {WKNavigationAction} _navigationAction
+   * @param {(p1: interop.Enum<typeof WKNavigationActionPolicy>) => void} decisionHandler
+   */
+  webViewDecidePolicyForNavigationActionDecisionHandler(
+    _webView,
+    _navigationAction,
+    decisionHandler,
+  ) {
+    decisionHandler(WKNavigationActionPolicy.Allow);
   }
 }
 

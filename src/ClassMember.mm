@@ -60,7 +60,7 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
       MDSectionOffset getterSignature, setterSignature;
 
       const char *getterSelector = bridgeState->metadata->getString(offset);
-      
+
       offset += sizeof(MDSectionOffset); // getterSelector
 
       getterSignature = bridgeState->metadata->getOffset(offset);
@@ -93,8 +93,8 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
           .utf8name = name,
           .name = nil,
           .method = nil,
-          .getter = ObjCClassMember::JSGetter,
-          .setter = readonly ? nil : ObjCClassMember::JSSetter,
+          .getter = jsGetter,
+          .setter = readonly ? nil : jsSetter,
           .value = nil,
           .attributes =
               (napi_property_attributes)(napi_configurable | napi_enumerable),
@@ -125,9 +125,8 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
       napi_property_descriptor property = {
           .utf8name = name.c_str(),
           .name = nil,
-          .method = (flags & metagen::mdMemberIsInit) != 0
-                        ? ObjCClassMember::JSCallInit
-                        : ObjCClassMember::JSCall,
+          .method =
+              (flags & metagen::mdMemberIsInit) != 0 ? jsCallInit : jsCall,
           .getter = nil,
           .setter = nil,
           .value = nil,
@@ -146,8 +145,8 @@ void ObjCClassMember::defineMembers(napi_env env, ObjCClassMemberMap &memberMap,
   }
 }
 
-inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
-                           id self, void **avalues, void *rvalue) {
+inline void objcNativeCall(napi_env env, napi_value jsThis, Cif *cif, id self,
+                           void **avalues, void *rvalue) {
   bool classMethod = class_isMetaClass(object_getClass(self));
 
   bool supercall =
@@ -196,7 +195,7 @@ inline void objcNativeCall(napi_env env, napi_value jsThis, MethodCif *cif,
   }
 }
 
-napi_value ObjCClassMember::JSCallInit(napi_env env,
+napi_value ObjCClassMember::jsCallInit(napi_env env,
                                        napi_callback_info cbinfo) {
   napi_value jsThis;
   ObjCClassMember *method;
@@ -210,9 +209,9 @@ napi_value ObjCClassMember::JSCallInit(napi_env env,
     return nullptr;
   }
 
-  MethodCif *cif = method->methodCif;
+  Cif *cif = method->cif;
   if (cif == nullptr) {
-    cif = method->methodCif = method->bridgeState->getMethodCif(
+    cif = method->cif = method->bridgeState->getMethodCif(
         env, method->methodOrGetter.signatureOffset);
   }
 
@@ -230,7 +229,7 @@ napi_value ObjCClassMember::JSCallInit(napi_env env,
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      avalues[i + 2] = cif->avalues[i + 2];
+      avalues[i + 2] = cif->avalues[i];
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
                                  &shouldFree[i], &shouldFreeAny);
     }
@@ -261,7 +260,7 @@ napi_value ObjCClassMember::JSCallInit(napi_env env,
   return result;
 }
 
-napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
+napi_value ObjCClassMember::jsCall(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis;
   ObjCClassMember *method;
 
@@ -274,9 +273,9 @@ napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
     return nullptr;
   }
 
-  MethodCif *cif = method->methodCif;
+  Cif *cif = method->cif;
   if (cif == nullptr) {
-    cif = method->methodCif = method->bridgeState->getMethodCif(
+    cif = method->cif = method->bridgeState->getMethodCif(
         env, method->methodOrGetter.signatureOffset);
   }
 
@@ -295,7 +294,7 @@ napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
   if (cif->argc > 0) {
     for (unsigned int i = 0; i < cif->argc; i++) {
       shouldFree[i] = false;
-      avalues[i + 2] = cif->avalues[i + 2];
+      avalues[i + 2] = cif->avalues[i];
       cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 2],
                                  &shouldFree[i], &shouldFreeAny);
     }
@@ -323,7 +322,7 @@ napi_value ObjCClassMember::JSCall(napi_env env, napi_callback_info cbinfo) {
                                method->returnOwned ? kReturnOwned : 0);
 }
 
-napi_value ObjCClassMember::JSGetter(napi_env env, napi_callback_info cbinfo) {
+napi_value ObjCClassMember::jsGetter(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis;
   ObjCClassMember *method;
 
@@ -332,9 +331,9 @@ napi_value ObjCClassMember::JSGetter(napi_env env, napi_callback_info cbinfo) {
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
-  MethodCif *cif = method->methodCif;
+  Cif *cif = method->cif;
   if (cif == nullptr) {
-    cif = method->methodCif = method->bridgeState->getMethodCif(
+    cif = method->cif = method->bridgeState->getMethodCif(
         env, method->methodOrGetter.signatureOffset);
   }
 
@@ -357,7 +356,7 @@ napi_value ObjCClassMember::JSGetter(napi_env env, napi_callback_info cbinfo) {
   return cif->returnType->toJS(env, rvalue, 0);
 }
 
-napi_value ObjCClassMember::JSSetter(napi_env env, napi_callback_info cbinfo) {
+napi_value ObjCClassMember::jsSetter(napi_env env, napi_callback_info cbinfo) {
   napi_value jsThis, argv;
   size_t argc = 1;
   ObjCClassMember *method;
@@ -367,13 +366,13 @@ napi_value ObjCClassMember::JSSetter(napi_env env, napi_callback_info cbinfo) {
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
-  MethodCif *cif = method->setterMethodCif;
+  Cif *cif = method->setterCif;
   if (cif == nullptr) {
-    cif = method->setterMethodCif =
+    cif = method->setterCif =
         method->bridgeState->getMethodCif(env, method->setter.signatureOffset);
   }
 
-  void *avalues[3] = {&self, &method->setter.selector, cif->avalues[2]};
+  void *avalues[3] = {&self, &method->setter.selector, cif->avalues[0]};
   void *rvalue = nullptr;
 
   bool shouldFree = false;

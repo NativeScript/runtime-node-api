@@ -264,7 +264,7 @@ napi_value findConstructorForObject(napi_env env, ObjCBridgeState *bridgeState,
     if (!impls.empty()) {
       napi_value constructor;
       napi_define_class(env, class_getName(cls), NAPI_AUTO_LENGTH,
-                        ObjCProtocol::JSConstructor, nullptr, 0, nullptr,
+                        ObjCProtocol::jsConstructor, nullptr, 0, nullptr,
                         &constructor);
       for (auto impl : impls) {
         ObjCClassMember::defineMembers(env, impl->members, impl->membersOffset,

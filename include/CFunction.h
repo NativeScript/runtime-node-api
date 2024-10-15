@@ -1,19 +1,19 @@
 #ifndef C_FUNCTION_H
 #define C_FUNCTION_H
 
-#include "MethodCif.h"
+#include "Cif.h"
 
 namespace objc_bridge {
 
 class CFunction {
 public:
-  static napi_value JSCall(napi_env env, napi_callback_info cbinfo);
+  static napi_value jsCall(napi_env env, napi_callback_info cbinfo);
 
   CFunction(void *fnptr) : fnptr(fnptr) {}
   ~CFunction();
 
   void *fnptr;
-  MethodCif *cif = nullptr;
+  Cif *cif = nullptr;
 };
 
 } // namespace objc_bridge

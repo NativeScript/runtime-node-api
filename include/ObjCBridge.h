@@ -5,7 +5,7 @@
 #include "CFunction.h"
 #include "Class.h"
 #include "MetadataReader.h"
-#include "MethodCif.h"
+#include "Cif.h"
 #include "Protocol.h"
 #include "Struct.h"
 #include "TypeConv.h"
@@ -66,8 +66,10 @@ public:
 
   ObjCProtocol *getProtocol(napi_env env, MDSectionOffset offset);
 
-  MethodCif *getMethodCif(napi_env env, Method method);
-  MethodCif *getMethodCif(napi_env env, MDSectionOffset offset);
+  Cif *getMethodCif(napi_env env, Method method);
+  Cif *getMethodCif(napi_env env, MDSectionOffset offset);
+  Cif *getBlockCif(napi_env env, MDSectionOffset offset);
+  Cif *getCFunctionCif(napi_env env, MDSectionOffset offset);
 
   napi_value proxyNativeObject(napi_env env, napi_value object,
                                id nativeObject);
@@ -123,11 +125,12 @@ public:
   std::unordered_map<Protocol *, MDSectionOffset> mdProtocolsByPointer;
   std::unordered_map<Class, napi_ref> constructorsByPointer;
 
-  std::unordered_map<std::string, MethodCif *> methodCifs;
+  std::unordered_map<std::string, Cif *> cifs;
   std::unordered_map<MDSectionOffset, napi_ref> mdValueCache;
   std::unordered_map<MDSectionOffset, CFunction *> cFunctionCache;
-  std::unordered_map<MDSectionOffset, MethodCif *> mdFunctionSignatureCache;
-  std::unordered_map<MDSectionOffset, MethodCif *> mdMethodSignatureCache;
+  std::unordered_map<MDSectionOffset, Cif *> mdFunctionSignatureCache;
+  std::unordered_map<MDSectionOffset, Cif *> mdMethodSignatureCache;
+  std::unordered_map<MDSectionOffset, Cif *> mdBlockSignatureCache;
   std::unordered_map<std::string, MDSectionOffset> structOffsets;
   std::unordered_map<std::string, MDSectionOffset> unionOffsets;
   // std::unordered_map<std::string, MDSectionOffset> protocolOffsets;

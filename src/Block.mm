@@ -1,5 +1,7 @@
 #include "Block.h"
+#include "Interop.h"
 #include "ObjCBridge.h"
+#include "js_native_api.h"
 #include "node_api_util.h"
 #include "objc/runtime.h"
 #import <Foundation/Foundation.h>
@@ -94,6 +96,120 @@ NAPI_FUNCTION(registerBlock) {
   registerBlock(env, closure, callback);
 
   return callback;
+}
+
+napi_value FunctionPointer::wrap(napi_env env, void *function,
+                                 metagen::MDSectionOffset offset,
+                                 bool isBlock) {
+  FunctionPointer *ref = new FunctionPointer();
+  ref->function = function;
+  ref->offset = offset;
+
+  ObjCBridgeState *bridgeState = ObjCBridgeState::InstanceData(env);
+
+  if (isBlock) {
+    ref->cif = bridgeState->getBlockCif(env, offset);
+  } else {
+    ref->cif = bridgeState->getCFunctionCif(env, offset);
+  }
+
+  napi_value result;
+  napi_create_function(
+      env, isBlock ? "objcBlockWrapper" : "cFunctionWrapper", NAPI_AUTO_LENGTH,
+      isBlock ? jsCallAsBlock : jsCallAsCFunction, ref, &result);
+
+  napi_ref jsRef;
+  napi_add_finalizer(env, result, ref, FunctionPointer::finalize, nullptr,
+                     &jsRef);
+
+  return result;
+}
+
+void FunctionPointer::finalize(napi_env env, void *finalize_data,
+                               void *finalize_hint) {
+  auto ref = (FunctionPointer *)finalize_data;
+  delete ref;
+}
+
+napi_value FunctionPointer::jsCallAsCFunction(napi_env env,
+                                              napi_callback_info cbinfo) {
+  FunctionPointer *ref;
+
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, (void **)&ref);
+
+  auto cif = ref->cif;
+
+  size_t argc = cif->argc;
+  napi_get_cb_info(env, cbinfo, &argc, cif->argv, nullptr, nullptr);
+
+  void *avalues[cif->argc];
+  void *rvalue = cif->rvalue;
+
+  bool shouldFreeAny = false;
+  bool shouldFree[cif->argc];
+
+  if (cif->argc > 0) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      shouldFree[i] = false;
+      avalues[i] = cif->avalues[i];
+      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i], &shouldFree[i],
+                                 &shouldFreeAny);
+    }
+  }
+
+  ffi_call(&cif->cif, FFI_FN(ref->function), rvalue, avalues);
+
+  if (shouldFreeAny) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      if (shouldFree[i]) {
+        cif->argTypes[i]->free(env, *((void **)avalues[i]));
+      }
+    }
+  }
+
+  return cif->returnType->toJS(env, rvalue);
+}
+
+napi_value FunctionPointer::jsCallAsBlock(napi_env env,
+                                          napi_callback_info cbinfo) {
+  FunctionPointer *ref;
+
+  napi_get_cb_info(env, cbinfo, nullptr, nullptr, nullptr, (void **)&ref);
+
+  Block_literal_1 *block = (Block_literal_1 *)ref->function;
+  auto cif = ref->cif;
+
+  size_t argc = cif->argc;
+  napi_get_cb_info(env, cbinfo, &argc, cif->argv, nullptr, nullptr);
+
+  void *avalues[cif->cif.nargs];
+  void *rvalue = cif->rvalue;
+
+  bool shouldFreeAny = false;
+  bool shouldFree[cif->argc];
+
+  avalues[0] = &block;
+
+  if (cif->argc > 0) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      shouldFree[i] = false;
+      avalues[i + 1] = cif->avalues[i];
+      cif->argTypes[i]->toNative(env, cif->argv[i], avalues[i + 1],
+                                 &shouldFree[i], &shouldFreeAny);
+    }
+  }
+
+  ffi_call(&cif->cif, FFI_FN(block->invoke), rvalue, avalues);
+
+  if (shouldFreeAny) {
+    for (unsigned int i = 0; i < cif->argc; i++) {
+      if (shouldFree[i]) {
+        cif->argTypes[i]->free(env, *((void **)avalues[i + 1]));
+      }
+    }
+  }
+
+  return cif->returnType->toJS(env, rvalue);
 }
 
 } // namespace objc_bridge

@@ -631,10 +631,7 @@ public:
   }
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
-    // TODO: Maybe a wrapper function?
-    napi_value external;
-    napi_create_external(env, value, nullptr, nullptr, &external);
-    return external;
+    return FunctionPointer::wrap(env, *((void **)value), signatureOffset, true);
   }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,
@@ -724,10 +721,7 @@ public:
   }
 
   napi_value toJS(napi_env env, void *value, uint32_t flags) override {
-    // TODO: Maybe a wrapper function?
-    napi_value external;
-    napi_create_external(env, value, nullptr, nullptr, &external);
-    return external;
+    return FunctionPointer::wrap(env, *((void **)value), signatureOffset, false);
   }
 
   void toNative(napi_env env, napi_value value, void *result, bool *shouldFree,

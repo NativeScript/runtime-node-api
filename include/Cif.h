@@ -10,7 +10,7 @@
 
 namespace objc_bridge {
 
-class MethodCif {
+class Cif {
 public:
   ffi_cif cif;
   unsigned int argc;
@@ -28,9 +28,9 @@ public:
   bool shouldFreeAny;
   bool *shouldFree;
 
-  MethodCif(napi_env env, std::string typeEncoding);
-  MethodCif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset,
-            bool isMethod = false);
+  Cif(napi_env env, std::string typeEncoding);
+  Cif(napi_env env, MDMetadataReader *reader, MDSectionOffset offset,
+            bool isMethod = false, bool isBlock = false);
 };
 
 } // namespace objc_bridge

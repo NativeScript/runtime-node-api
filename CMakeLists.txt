@@ -90,7 +90,7 @@ set(LIB_SOURCE_FILES
   src/Class.mm
   src/Closure.mm
   src/ClassMember.mm
-  src/MethodCif.mm
+  src/Cif.mm
   src/TypeConv.mm
   src/Util.mm
   src/Struct.mm
