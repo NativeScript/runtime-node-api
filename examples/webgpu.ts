@@ -30,7 +30,30 @@ export class Window extends NSWindow implements NSWindowDelegate {
   context!: GPUCanvasContext;
   renderPipeline!: GPURenderPipeline;
 
-  init() {
+  configure() {
+    const { width, height } = this.convertRectToBacking(this.frame).size;
+
+    this.surface = new Deno.UnsafeWindowSurface({
+      system: "cocoa",
+      windowHandle: Deno.UnsafePointer.create(
+        BigInt(interop.handleof(this).toNumber())
+      ),
+      displayHandle: Deno.UnsafePointer.create(
+        BigInt(interop.handleof(this.contentView).toNumber())
+      ),
+      width,
+      height,
+    });
+
+    this.context = this.surface.getContext("webgpu");
+
+    this.context.configure({
+      device,
+      format: "bgra8unorm",
+    });
+  }
+
+  override init() {
     const menu = NSMenu.new();
     NSApp.mainMenu = menu;
 
@@ -57,24 +80,7 @@ export class Window extends NSWindow implements NSWindowDelegate {
 
     this.isReleasedWhenClosed = false;
 
-    this.surface = new Deno.UnsafeWindowSurface(
-      "cocoa",
-      Deno.UnsafePointer.create(BigInt(interop.handleof(this).toNumber())),
-      Deno.UnsafePointer.create(
-        BigInt(interop.handleof(this.contentView).toNumber())
-      )
-    );
-
-    const { width, height } = this.convertRectToBacking(this.frame).size;
-
-    this.context = this.surface.getContext("webgpu");
-
-    this.context.configure({
-      device,
-      format: "bgra8unorm",
-      width,
-      height,
-    });
+    this.configure();
 
     const shaderCode = `
 @vertex
@@ -133,7 +139,7 @@ fn fs_main() -> @location(0) vec4<f32> {
           view: texture,
           storeOp: "store",
           loadOp: "clear",
-          clearValue: { r: 0, g: 1, b: 0, a: 1.0 },
+          clearValue: { r: 0, g: 0, b: 0, a: 1.0 },
         },
       ],
     });
@@ -142,6 +148,11 @@ fn fs_main() -> @location(0) vec4<f32> {
     renderPass.end();
     device.queue.submit([encoder.finish()]);
     this.surface.present();
+  }
+
+  windowDidResize(_notification: NSNotification): void {
+    this.configure();
+    this.render();
   }
 
   windowWillClose(_notification: NSNotification) {
