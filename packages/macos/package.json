@@ -1,6 +1,6 @@
 {
   "name": "@nativescript/macos-node-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An embeddable, engine-agnostic NativeScript runtime for macOS based on Node-API",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "scripts": {
     "test": "node ../../examples/foundation.js",
     "build": "deno task build",
-    "prepublishOnly": "rimraf build && npm run build"
+    "prepublishOnly": "npx rimraf build && npm run build"
   },
   "keywords": [
     "AppKit",
@@ -46,7 +46,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@nativescript/objc-node-api": ">=1.0.0-alpha.5"
+    "@nativescript/objc-node-api": ">=1.0.0-alpha.7"
   },
   "devDependencies": {
     "rimraf": "^6.0.0"
