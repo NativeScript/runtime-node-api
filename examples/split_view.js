@@ -42,7 +42,7 @@ export class ApplicationDelegate extends NSObject {
     toolbar.allowsUserCustomization = true;
     toolbar.autosavesConfiguration = true;
 
-    window.toolbarStyle = NSWindowToolbarStyle.Unified;
+    window.toolbarStyle = NSWindowToolbarStyle.Automatic;
 
     window.toolbar = toolbar;
     toolbar.validateVisibleItems();
@@ -94,6 +94,9 @@ export class SidebarViewController extends NSViewController {
     ]),
   ];
 
+  /**
+   * @override
+   */
   loadView() {
     const outline = NSOutlineView.new();
 
@@ -241,6 +244,9 @@ export class ContentViewController extends NSViewController {
   /** @type {NSTextField | null} */
   label = null;
 
+  /**
+   * @override
+   */
   loadView() {
     const view = NSView.new();
 
@@ -313,6 +319,9 @@ export class SplitViewController extends NSSplitViewController {
   sidebarView = SidebarViewController.new();
   contentView = ContentViewController.new();
 
+  /**
+   * @override
+   */
   viewDidLoad() {
     this.view.frame = {
       origin: { x: 0, y: 0 },
@@ -341,9 +350,7 @@ export class SplitViewController extends NSSplitViewController {
    * @returns
    */
   toolbarAllowedItemIdentifiers(_toolbar) {
-    const array = NSMutableArray.new();
-    array.addObject("NSToolbarToggleSidebarItem");
-    return array;
+    return this.toolbarDefaultItemIdentifiers(_toolbar);
   }
 
   /**
@@ -351,9 +358,12 @@ export class SplitViewController extends NSSplitViewController {
    * @returns
    */
   toolbarDefaultItemIdentifiers(_toolbar) {
-    const array = NSMutableArray.new();
-    array.addObject("NSToolbarToggleSidebarItem");
-    return array;
+    return NSArray.arrayWithArray([
+      NSToolbarToggleSidebarItemIdentifier,
+      NSToolbarFlexibleSpaceItemIdentifier,
+      "run",
+      NSToolbarSidebarTrackingSeparatorItemIdentifier,
+    ]);
   }
 
   /**
@@ -369,10 +379,14 @@ export class SplitViewController extends NSSplitViewController {
   ) {
     const item = NSToolbarItem.alloc().initWithItemIdentifier(identifier);
 
-    if (identifier === "NSToolbarToggleSidebarItem") {
+    if (identifier === "run") {
       item.target = this;
       item.action = "toggleSidebar:";
-      item.image = NSImage.imageNamed("sidebar.leading");
+      item.image = NSImage.imageWithSystemSymbolNameAccessibilityDescription(
+        "play.fill",
+        null,
+      );
+      // item.isBordered = true;
     }
 
     return item;
@@ -381,6 +395,7 @@ export class SplitViewController extends NSSplitViewController {
   /**
    * @param {NSObject} _item
    * @returns
+   * @override
    */
   validateToolbarItem(_item) {
     return true;

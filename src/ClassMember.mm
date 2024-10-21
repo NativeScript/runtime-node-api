@@ -21,6 +21,15 @@ napi_value JS_NSObject_alloc(napi_env env, napi_callback_info cbinfo) {
   id self;
   napi_unwrap(env, jsThis, (void **)&self);
 
+  bool supercall = class_conformsToProtocol(self, @protocol(ObjCBridgeClassBuilderProtocol));
+
+  if (supercall) {
+    ObjCBridgeState *state = ObjCBridgeState::InstanceData(env);
+    ClassBuilder *builder = (ClassBuilder *)state->classesByPointer[self];
+    if (!builder->isFinal)
+      builder->build();
+  }
+
   id result = [self alloc];
   return ObjCBridgeState::InstanceData(env)->getObject(env, result, jsThis,
                                                        kOwnedObject);
