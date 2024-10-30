@@ -106,7 +106,7 @@ declare class MLComputeDeviceProtocol extends NativeObject implements MLComputeD
 }
 
 declare interface MLWritable extends NSObjectProtocol {
-  writeToURLError(url: NSURL, error: interop.PointerConvertible): boolean;
+  writeToURLError(url: NSURL, error: interop.PointerConvertible): number;
 }
 
 declare class MLWritable extends NativeObject implements MLWritable {
@@ -144,13 +144,13 @@ declare class MLFeatureProvider extends NativeObject implements MLFeatureProvide
 declare interface MLCustomLayer {
   initWithParameterDictionaryError(parameters: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): this;
 
-  setWeightDataError(weights: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): boolean;
+  setWeightDataError(weights: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): number;
 
   outputShapesForInputShapesError(inputShapes: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSArray;
 
-  evaluateOnCPUWithInputsOutputsError(inputs: NSArray<interop.Object> | Array<interop.Object>, outputs: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): boolean;
+  evaluateOnCPUWithInputsOutputsError(inputs: NSArray<interop.Object> | Array<interop.Object>, outputs: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): number;
 
-  encodeToCommandBufferInputsOutputsError?(commandBuffer: MTLCommandBuffer, inputs: NSArray<interop.Object> | Array<interop.Object>, outputs: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): boolean;
+  encodeToCommandBufferInputsOutputsError?(commandBuffer: MTLCommandBuffer, inputs: NSArray<interop.Object> | Array<interop.Object>, outputs: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): number;
 }
 
 declare class MLCustomLayer extends NativeObject implements MLCustomLayer {
@@ -209,7 +209,7 @@ declare class MLModelStructurePipeline extends NSObject {
 declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeDeviceProtocol {
   readonly totalCoreCount: number;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -225,15 +225,15 @@ declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeD
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -257,7 +257,7 @@ declare class MLParameterDescription extends NSObject implements NSSecureCoding 
 
   readonly numericConstraint: MLNumericConstraint;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -319,7 +319,7 @@ declare class MLKey extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -345,7 +345,7 @@ declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecu
 
   optimizationHints: MLOptimizationHints;
 
-  allowLowPrecisionAccumulationOnGPU: boolean;
+  allowLowPrecisionAccumulationOnGPU: number;
 
   preferredMetalDevice: MTLDevice;
 
@@ -356,7 +356,7 @@ declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecu
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -378,13 +378,13 @@ declare class MLModelDescription extends NSObject implements NSSecureCoding {
 
   readonly classLabels: NSArray;
 
-  readonly isUpdatable: boolean;
+  readonly isUpdatable: number;
 
   readonly trainingInputDescriptionsByName: NSDictionary;
 
   readonly parameterDescriptionsByKey: NSDictionary;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -416,7 +416,7 @@ declare class MLDictionaryFeatureProvider extends NSObject implements MLFeatureP
 
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -431,9 +431,9 @@ declare class MLFeatureDescription extends NSObject implements NSCopying, NSSecu
 
   readonly type: interop.Enum<typeof MLFeatureType>;
 
-  readonly isOptional: boolean;
+  readonly isOptional: number;
 
-  isAllowedValue(value: MLFeatureValue): boolean;
+  isAllowedValue(value: MLFeatureValue): number;
 
   readonly multiArrayConstraint: MLMultiArrayConstraint;
 
@@ -447,7 +447,7 @@ declare class MLFeatureDescription extends NSObject implements NSCopying, NSSecu
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -463,7 +463,7 @@ declare class MLImageConstraint extends NSObject implements NSSecureCoding {
 
   readonly sizeConstraint: MLImageSizeConstraint;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -479,7 +479,7 @@ declare class MLImageSizeConstraint extends NSObject implements NSSecureCoding {
 
   readonly enumeratedImageSizes: NSArray;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -491,7 +491,7 @@ declare class MLImageSize extends NSObject implements NSSecureCoding {
 
   readonly pixelsHigh: number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -501,7 +501,7 @@ declare class MLImageSize extends NSObject implements NSSecureCoding {
 declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCoding {
   readonly type: interop.Enum<typeof MLFeatureType>;
 
-  readonly isUndefined: boolean;
+  readonly isUndefined: number;
 
   readonly int64Value: number;
 
@@ -533,7 +533,7 @@ declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCodi
 
   static featureValueWithDictionaryError<This extends abstract new (...args: any) => any>(this: This, value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): InstanceType<This>;
 
-  isEqualToFeatureValue(value: MLFeatureValue): boolean;
+  isEqualToFeatureValue(value: MLFeatureValue): number;
 
   static featureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsError<This extends abstract new (...args: any) => any>(this: This, url: NSURL, pixelsWide: number, pixelsHigh: number, pixelFormatType: number, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): InstanceType<This>;
 
@@ -553,7 +553,7 @@ declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCodi
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -573,7 +573,7 @@ declare class MLSequence extends NSObject implements NSSecureCoding {
 
   readonly int64Values: NSArray;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -617,7 +617,7 @@ declare class MLMultiArray extends NSObject implements NSSecureCoding {
 
   transferToMultiArray(destinationMultiArray: MLMultiArray): void;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -627,7 +627,7 @@ declare class MLMultiArray extends NSObject implements NSSecureCoding {
 declare class MLGPUComputeDevice extends NSObject implements MLComputeDeviceProtocol {
   readonly metalDevice: MTLDevice;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -643,15 +643,15 @@ declare class MLGPUComputeDevice extends NSObject implements MLComputeDeviceProt
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -685,7 +685,7 @@ declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
 
   readonly countRange: _NSRange;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -705,7 +705,7 @@ declare class MLMultiArrayShapeConstraint extends NSObject implements NSSecureCo
 
   readonly enumeratedShapes: NSArray;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -719,7 +719,7 @@ declare class MLState extends NSObject {
 declare class MLDictionaryConstraint extends NSObject implements NSSecureCoding {
   readonly keyType: interop.Enum<typeof MLFeatureType>;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -733,7 +733,7 @@ declare class MLMultiArrayConstraint extends NSObject implements NSSecureCoding 
 
   readonly shapeConstraint: MLMultiArrayShapeConstraint;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -759,7 +759,7 @@ declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecur
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -767,7 +767,7 @@ declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecur
 }
 
 declare class MLPredictionOptions extends NSObject {
-  usesCPUOnly: boolean;
+  usesCPUOnly: number;
 
   get outputBackings(): NSDictionary;
   set outputBackings(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
@@ -778,7 +778,7 @@ declare class MLStateConstraint extends NSObject implements NSSecureCoding {
 
   readonly dataType: interop.Enum<typeof MLMultiArrayDataType>;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -810,7 +810,7 @@ declare class MLModelCollection extends NSObject {
 
   static beginAccessingModelCollectionWithIdentifierCompletionHandler(identifier: string, completionHandler: (p1: MLModelCollection, p2: NSError) => void | null): NSProgress;
 
-  static endAccessingModelCollectionWithIdentifierCompletionHandler(identifier: string, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
+  static endAccessingModelCollectionWithIdentifierCompletionHandler(identifier: string, completionHandler: (p1: number, p2: NSError) => void | null): void;
 }
 
 declare class MLModel extends NSObject {
@@ -860,7 +860,7 @@ declare class MLModelCollectionEntry extends NSObject {
 
   readonly modelURL: NSURL;
 
-  isEqualToModelCollectionEntry(entry: MLModelCollectionEntry): boolean;
+  isEqualToModelCollectionEntry(entry: MLModelCollectionEntry): number;
 }
 
 declare class MLNumericConstraint extends NSObject implements NSSecureCoding {
@@ -870,7 +870,7 @@ declare class MLNumericConstraint extends NSObject implements NSSecureCoding {
 
   readonly enumeratedNumbers: NSSet;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -878,7 +878,7 @@ declare class MLNumericConstraint extends NSObject implements NSSecureCoding {
 }
 
 declare class MLCPUComputeDevice extends NSObject implements MLComputeDeviceProtocol {
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -894,15 +894,15 @@ declare class MLCPUComputeDevice extends NSObject implements MLComputeDeviceProt
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 

@@ -2609,6 +2609,14 @@ declare class LcarCaretTable {
   lookup: SFNTLookupTable;
 }
 
+declare class STXHeader {
+  constructor(init?: STXHeader);
+  nClasses: number;
+  classTableOffset: number;
+  stateArrayOffset: number;
+  entryTableOffset: number;
+}
+
 declare class STEntryOne {
   constructor(init?: STEntryOne);
   newState: number;
@@ -3023,14 +3031,6 @@ declare class ALMXHeader {
   FirstGlyph: number;
   LastGlyph: number;
   lookup: SFNTLookupTable;
-}
-
-declare class STXHeader {
-  constructor(init?: STXHeader);
-  nClasses: number;
-  classTableOffset: number;
-  stateArrayOffset: number;
-  entryTableOffset: number;
 }
 
 declare class LtagStringRange {

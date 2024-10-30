@@ -816,10 +816,6 @@ declare const CGPathElementType: {
   CloseSubpath: 4,
 };
 
-declare class CGColorConversionInfo {
-  constructor(init?: CGColorConversionInfo);
-}
-
 declare class CGLayer {
   constructor(init?: CGLayer);
 }
@@ -997,6 +993,10 @@ declare class CGFunctionCallbacks {
 
 declare class CGPDFStream {
   constructor(init?: CGPDFStream);
+}
+
+declare class CGColorConversionInfo {
+  constructor(init?: CGColorConversionInfo);
 }
 
 declare class __IOSurface {
@@ -1942,7 +1942,7 @@ declare function CGColorConversionInfoCreateWithOptions(src: interop.PointerConv
 
 declare function CGColorConversionInfoCreateFromList(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>): interop.Pointer;
 
-declare function CGColorConversionInfoCreateFromListWithArguments(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>, p5: string): interop.Pointer;
+declare function CGColorConversionInfoCreateFromListWithArguments(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>, p5: unknown /* const array */): interop.Pointer;
 
 declare function CGConvertColorDataWithFormat(width: number, height: number, dst_data: interop.PointerConvertible, dst_format: CGColorDataFormat, src_data: interop.PointerConvertible, src_format: CGColorDataFormat, options: interop.PointerConvertible): boolean;
 

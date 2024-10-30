@@ -646,7 +646,7 @@ declare interface WebDocumentRepresentation extends NSObjectProtocol {
 
   finishedLoadingWithDataSource(dataSource: WebDataSource): void;
 
-  canProvideDocumentSource(): boolean;
+  canProvideDocumentSource(): number;
 
   documentSource(): string;
 
@@ -678,23 +678,23 @@ declare class WKScriptMessageHandler extends NativeObject implements WKScriptMes
 }
 
 declare interface WebEditingDelegate extends NSObjectProtocol {
-  webViewShouldBeginEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
+  webViewShouldBeginEditingInDOMRange?(webView: WebView, range: DOMRange): number;
 
-  webViewShouldEndEditingInDOMRange?(webView: WebView, range: DOMRange): boolean;
+  webViewShouldEndEditingInDOMRange?(webView: WebView, range: DOMRange): number;
 
-  webViewShouldInsertNodeReplacingDOMRangeGivenAction?(webView: WebView, node: DOMNode, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
+  webViewShouldInsertNodeReplacingDOMRangeGivenAction?(webView: WebView, node: DOMNode, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): number;
 
-  webViewShouldInsertTextReplacingDOMRangeGivenAction?(webView: WebView, text: string, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): boolean;
+  webViewShouldInsertTextReplacingDOMRangeGivenAction?(webView: WebView, text: string, range: DOMRange, action: interop.Enum<typeof WebViewInsertAction>): number;
 
-  webViewShouldDeleteDOMRange?(webView: WebView, range: DOMRange): boolean;
+  webViewShouldDeleteDOMRange?(webView: WebView, range: DOMRange): number;
 
-  webViewShouldChangeSelectedDOMRangeToDOMRangeAffinityStillSelecting?(webView: WebView, currentRange: DOMRange, proposedRange: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>, flag: boolean): boolean;
+  webViewShouldChangeSelectedDOMRangeToDOMRangeAffinityStillSelecting?(webView: WebView, currentRange: DOMRange, proposedRange: DOMRange, selectionAffinity: interop.Enum<typeof NSSelectionAffinity>, flag: number): number;
 
-  webViewShouldApplyStyleToElementsInDOMRange?(webView: WebView, style: DOMCSSStyleDeclaration, range: DOMRange): boolean;
+  webViewShouldApplyStyleToElementsInDOMRange?(webView: WebView, style: DOMCSSStyleDeclaration, range: DOMRange): number;
 
-  webViewShouldChangeTypingStyleToStyle?(webView: WebView, currentStyle: DOMCSSStyleDeclaration, proposedStyle: DOMCSSStyleDeclaration): boolean;
+  webViewShouldChangeTypingStyleToStyle?(webView: WebView, currentStyle: DOMCSSStyleDeclaration, proposedStyle: DOMCSSStyleDeclaration): number;
 
-  webViewDoCommandBySelector?(webView: WebView, selector: string): boolean;
+  webViewDoCommandBySelector?(webView: WebView, selector: string): number;
 
   webViewDidBeginEditing?(notification: NSNotification): void;
 
@@ -759,7 +759,7 @@ declare class WebFrameLoadDelegate extends NativeObject implements WebFrameLoadD
 }
 
 declare interface WebDocumentText extends NSObjectProtocol {
-  supportsTextEncoding(): boolean;
+  supportsTextEncoding(): number;
 
   string(): string;
 
@@ -782,7 +782,7 @@ declare interface WebDocumentView extends NSObjectProtocol {
 
   dataSourceUpdated(dataSource: WebDataSource): void;
 
-  setNeedsLayout(flag: boolean): void;
+  setNeedsLayout(flag: number): void;
 
   layout(): void;
 
@@ -809,15 +809,15 @@ declare class DOMEventListener extends NativeObject implements DOMEventListener 
 }
 
 declare interface DOMEventTarget extends NSObjectProtocol, NSCopying {
-  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  dispatchEvent(event: DOMEvent): boolean;
+  dispatchEvent(event: DOMEvent): number;
 
-  addEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  addEventListener(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  removeEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  removeEventListener(type: string, listener: DOMEventListener, useCapture: number): void;
 }
 
 declare class DOMEventTarget extends NativeObject implements DOMEventTarget {
@@ -845,7 +845,7 @@ declare interface WKUIDelegate extends NSObjectProtocol {
 
   webViewRunJavaScriptAlertPanelWithMessageInitiatedByFrameCompletionHandler?(webView: WKWebView, message: string, frame: WKFrameInfo, completionHandler: () => void): void;
 
-  webViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrameCompletionHandler?(webView: WKWebView, message: string, frame: WKFrameInfo, completionHandler: (p1: boolean) => void): void;
+  webViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrameCompletionHandler?(webView: WKWebView, message: string, frame: WKFrameInfo, completionHandler: (p1: number) => void): void;
 
   webViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler?(webView: WKWebView, prompt: string, defaultText: string | null, frame: WKFrameInfo, completionHandler: (p1: string) => void | null): void;
 
@@ -887,7 +887,7 @@ declare interface WKNavigationDelegate extends NSObjectProtocol {
 
   webViewWebContentProcessDidTerminate?(webView: WKWebView): void;
 
-  webViewAuthenticationChallengeShouldAllowDeprecatedTLS?(webView: WKWebView, challenge: NSURLAuthenticationChallenge, decisionHandler: (p1: boolean) => void): void;
+  webViewAuthenticationChallengeShouldAllowDeprecatedTLS?(webView: WKWebView, challenge: NSURLAuthenticationChallenge, decisionHandler: (p1: number) => void): void;
 
   webViewNavigationActionDidBecomeDownload?(webView: WKWebView, navigationAction: WKNavigationAction, download: WKDownload): void;
 
@@ -927,17 +927,17 @@ declare interface WebUIDelegate extends NSObjectProtocol {
 
   webViewStatusText?(sender: WebView): string;
 
-  webViewAreToolbarsVisible?(sender: WebView): boolean;
+  webViewAreToolbarsVisible?(sender: WebView): number;
 
-  webViewSetToolbarsVisible?(sender: WebView, visible: boolean): void;
+  webViewSetToolbarsVisible?(sender: WebView, visible: number): void;
 
-  webViewIsStatusBarVisible?(sender: WebView): boolean;
+  webViewIsStatusBarVisible?(sender: WebView): number;
 
-  webViewSetStatusBarVisible?(sender: WebView, visible: boolean): void;
+  webViewSetStatusBarVisible?(sender: WebView, visible: number): void;
 
-  webViewIsResizable?(sender: WebView): boolean;
+  webViewIsResizable?(sender: WebView): number;
 
-  webViewSetResizable?(sender: WebView, resizable: boolean): void;
+  webViewSetResizable?(sender: WebView, resizable: number): void;
 
   webViewSetFrame?(sender: WebView, frame: CGRect): void;
 
@@ -945,23 +945,23 @@ declare interface WebUIDelegate extends NSObjectProtocol {
 
   webViewRunJavaScriptAlertPanelWithMessageInitiatedByFrame?(sender: WebView, message: string, frame: WebFrame): void;
 
-  webViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrame?(sender: WebView, message: string, frame: WebFrame): boolean;
+  webViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrame?(sender: WebView, message: string, frame: WebFrame): number;
 
   webViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrame?(sender: WebView, prompt: string, defaultText: string, frame: WebFrame): string;
 
-  webViewRunBeforeUnloadConfirmPanelWithMessageInitiatedByFrame?(sender: WebView, message: string, frame: WebFrame): boolean;
+  webViewRunBeforeUnloadConfirmPanelWithMessageInitiatedByFrame?(sender: WebView, message: string, frame: WebFrame): number;
 
   webViewRunOpenPanelForFileButtonWithResultListener?(sender: WebView, resultListener: WebOpenPanelResultListener): void;
 
-  webViewRunOpenPanelForFileButtonWithResultListenerAllowMultipleFiles?(sender: WebView, resultListener: WebOpenPanelResultListener, allowMultipleFiles: boolean): void;
+  webViewRunOpenPanelForFileButtonWithResultListenerAllowMultipleFiles?(sender: WebView, resultListener: WebOpenPanelResultListener, allowMultipleFiles: number): void;
 
   webViewMouseDidMoveOverElementModifierFlags?(sender: WebView, elementInformation: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, modifierFlags: number): void;
 
   webViewContextMenuItemsForElementDefaultMenuItems?(sender: WebView, element: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, defaultMenuItems: NSArray<interop.Object> | Array<interop.Object>): NSArray;
 
-  webViewValidateUserInterfaceItemDefaultValidation?(webView: WebView, item: NSValidatedUserInterfaceItem, defaultValidation: boolean): boolean;
+  webViewValidateUserInterfaceItemDefaultValidation?(webView: WebView, item: NSValidatedUserInterfaceItem, defaultValidation: number): number;
 
-  webViewShouldPerformActionFromSender?(webView: WebView, action: string, sender: interop.Object): boolean;
+  webViewShouldPerformActionFromSender?(webView: WebView, action: string, sender: interop.Object): number;
 
   webViewDragDestinationActionMaskForDraggingInfo?(webView: WebView, draggingInfo: NSDraggingInfo): number;
 
@@ -983,7 +983,7 @@ declare interface WebUIDelegate extends NSObjectProtocol {
 
   webViewRunJavaScriptAlertPanelWithMessage?(sender: WebView, message: string): void;
 
-  webViewRunJavaScriptConfirmPanelWithMessage?(sender: WebView, message: string): boolean;
+  webViewRunJavaScriptConfirmPanelWithMessage?(sender: WebView, message: string): number;
 
   webViewRunJavaScriptTextInputPanelWithPromptDefaultText?(sender: WebView, prompt: string, defaultText: string): string;
 
@@ -1074,7 +1074,7 @@ declare class WebResourceLoadDelegate extends NativeObject implements WebResourc
 }
 
 declare interface WebDocumentSearching extends NSObjectProtocol {
-  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
+  searchForDirectionCaseSensitiveWrap(string: string, forward: number, caseFlag: number, wrapFlag: number): number;
 }
 
 declare class WebDocumentSearching extends NativeObject implements WebDocumentSearching {
@@ -1082,9 +1082,9 @@ declare class WebDocumentSearching extends NativeObject implements WebDocumentSe
 
 // @ts-ignore ClassDecl.tsIgnore
 declare class WebView extends NSView {
-  static canShowMIMEType(MIMEType: string): boolean;
+  static canShowMIMEType(MIMEType: string): number;
 
-  static canShowMIMETypeAsHTML(MIMEType: string): boolean;
+  static canShowMIMETypeAsHTML(MIMEType: string): number;
 
   static MIMETypesShownAsHTML(): NSArray;
 
@@ -1100,7 +1100,7 @@ declare class WebView extends NSView {
 
   close(): void;
 
-  shouldCloseWithWindow: boolean;
+  shouldCloseWithWindow: number;
 
   UIDelegate: WebUIDelegate;
 
@@ -1118,13 +1118,13 @@ declare class WebView extends NSView {
 
   readonly backForwardList: WebBackForwardList;
 
-  setMaintainsBackForwardList(flag: boolean): void;
+  setMaintainsBackForwardList(flag: number): void;
 
-  goBack(): boolean;
+  goBack(): number;
 
-  goForward(): boolean;
+  goForward(): number;
 
-  goToBackForwardItem(item: WebHistoryItem): boolean;
+  goToBackForwardItem(item: WebHistoryItem): number;
 
   textSizeMultiplier: number;
 
@@ -1134,7 +1134,7 @@ declare class WebView extends NSView {
 
   userAgentForURL(URL: NSURL): string;
 
-  readonly supportsTextEncoding: boolean;
+  readonly supportsTextEncoding: number;
 
   customTextEncodingName: string;
 
@@ -1150,7 +1150,7 @@ declare class WebView extends NSView {
 
   hostWindow: NSWindow;
 
-  searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
+  searchForDirectionCaseSensitiveWrap(string: string, forward: number, caseFlag: number, wrapFlag: number): number;
 
   static registerViewClassRepresentationClassForMIMEType(viewClass: interop.Object, representationClass: interop.Object, MIMEType: string): void;
 
@@ -1158,7 +1158,7 @@ declare class WebView extends NSView {
 
   readonly estimatedProgress: number;
 
-  readonly isLoading: boolean;
+  readonly isLoading: number;
 
   elementAtPoint(point: CGPoint): NSDictionary;
 
@@ -1174,9 +1174,9 @@ declare class WebView extends NSView {
 
   removeDragCaret(): void;
 
-  drawsBackground: boolean;
+  drawsBackground: number;
 
-  shouldUpdateWhileOffscreen: boolean;
+  shouldUpdateWhileOffscreen: number;
 
   mainFrameURL: string;
 
@@ -1194,19 +1194,19 @@ declare class WebView extends NSView {
 
   reloadFromOrigin(sender: interop.Object): void;
 
-  readonly canGoBack: boolean;
+  readonly canGoBack: number;
 
-  readonly canGoForward: boolean;
+  readonly canGoForward: number;
 
-  readonly canMakeTextLarger: boolean;
+  readonly canMakeTextLarger: number;
 
   makeTextLarger(sender: interop.Object): void;
 
-  readonly canMakeTextSmaller: boolean;
+  readonly canMakeTextSmaller: number;
 
   makeTextSmaller(sender: interop.Object): void;
 
-  readonly canMakeTextStandardSize: boolean;
+  readonly canMakeTextStandardSize: number;
 
   makeTextStandardSize(sender: interop.Object): void;
 
@@ -1224,15 +1224,15 @@ declare class WebView extends NSView {
 
   readonly selectionAffinity: interop.Enum<typeof NSSelectionAffinity>;
 
-  readonly maintainsInactiveSelection: boolean;
+  readonly maintainsInactiveSelection: number;
 
-  isEditable: boolean;
+  isEditable: number;
 
   typingStyle: DOMCSSStyleDeclaration;
 
-  smartInsertDeleteEnabled: boolean;
+  smartInsertDeleteEnabled: number;
 
-  isContinuousSpellCheckingEnabled: boolean;
+  isContinuousSpellCheckingEnabled: number;
 
   readonly spellCheckerDocumentTag: number;
 
@@ -1313,13 +1313,13 @@ declare class WebView extends NSView {
 }
 
 declare class DOMHTMLSelectElement extends DOMHTMLElement {
-  autofocus: boolean;
+  autofocus: number;
 
-  disabled: boolean;
+  disabled: number;
 
   readonly form: DOMHTMLFormElement;
 
-  multiple: boolean;
+  multiple: number;
 
   name: string;
 
@@ -1335,7 +1335,7 @@ declare class DOMHTMLSelectElement extends DOMHTMLElement {
 
   value: string;
 
-  readonly willValidate: boolean;
+  readonly willValidate: number;
 
   item(index: number): DOMNode;
 
@@ -1367,7 +1367,7 @@ declare class DOMStyleSheetList extends DOMObject {
 }
 
 declare class WKProcessPool extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1375,7 +1375,7 @@ declare class WKProcessPool extends NSObject implements NSSecureCoding {
 }
 
 declare class WKFindResult extends NSObject implements NSCopying {
-  readonly matchFound: boolean;
+  readonly matchFound: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1439,7 +1439,7 @@ declare class WKNavigationAction extends NSObject {
 
   readonly request: NSURLRequest;
 
-  readonly shouldPerformDownload: boolean;
+  readonly shouldPerformDownload: number;
 
   readonly modifierFlags: interop.Enum<typeof NSEventModifierFlags>;
 
@@ -1463,7 +1463,7 @@ declare class WebDataSource extends NSObject {
 
   readonly textEncodingName: string;
 
-  readonly isLoading: boolean;
+  readonly isLoading: number;
 
   readonly pageTitle: string;
 
@@ -1481,7 +1481,7 @@ declare class WebDataSource extends NSObject {
 }
 
 declare class DOMProgressEvent extends DOMEvent {
-  readonly lengthComputable: boolean;
+  readonly lengthComputable: number;
 
   readonly loaded: number;
 
@@ -1499,7 +1499,7 @@ declare class WKDownload extends NSObject implements NSProgressReporting {
 
   readonly progress: NSProgress;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1515,15 +1515,15 @@ declare class WKDownload extends NSObject implements NSProgressReporting {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1545,9 +1545,9 @@ declare class WebHistory extends NSObject {
 
   static setOptionalSharedHistory(history: WebHistory): void;
 
-  loadFromURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
+  loadFromURLError(URL: NSURL, error: interop.PointerConvertible): number;
 
-  saveToURLError(URL: NSURL, error: interop.PointerConvertible): boolean;
+  saveToURLError(URL: NSURL, error: interop.PointerConvertible): number;
 
   addItems(newItems: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -1653,17 +1653,17 @@ declare class DOMElement extends DOMNode {
 
   setAttributeNodeNS(newAttr: DOMAttr): DOMAttr;
 
-  hasAttribute(name: string): boolean;
+  hasAttribute(name: string): number;
 
-  hasAttributeNSLocalName(namespaceURI: string, localName: string): boolean;
+  hasAttributeNSLocalName(namespaceURI: string, localName: string): number;
 
   focus(): void;
 
   blur(): void;
 
-  scrollIntoView(alignWithTop: boolean): void;
+  scrollIntoView(alignWithTop: number): void;
 
-  scrollIntoViewIfNeeded(centerIfNeeded: boolean): void;
+  scrollIntoViewIfNeeded(centerIfNeeded: number): void;
 
   getElementsByClassName(name: string): DOMNodeList;
 
@@ -1685,7 +1685,7 @@ declare class DOMElement extends DOMNode {
 
   getAttributeNodeNS(namespaceURI: string, localName: string): DOMAttr;
 
-  hasAttributeNS(namespaceURI: string, localName: string): boolean;
+  hasAttributeNS(namespaceURI: string, localName: string): number;
 
   scrollByLines(lines: number): void;
 
@@ -1705,7 +1705,7 @@ declare class DOMCSSRule extends DOMObject {
 }
 
 declare class DOMHTMLOptGroupElement extends DOMHTMLElement {
-  disabled: boolean;
+  disabled: number;
 
   label: string;
 }
@@ -1761,39 +1761,39 @@ declare class WebPreferences extends NSObject implements NSCoding {
 
   defaultTextEncodingName: string;
 
-  userStyleSheetEnabled: boolean;
+  userStyleSheetEnabled: number;
 
   userStyleSheetLocation: NSURL;
 
-  isJavaEnabled: boolean;
+  isJavaEnabled: number;
 
-  isJavaScriptEnabled: boolean;
+  isJavaScriptEnabled: number;
 
-  javaScriptCanOpenWindowsAutomatically: boolean;
+  javaScriptCanOpenWindowsAutomatically: number;
 
-  arePlugInsEnabled: boolean;
+  arePlugInsEnabled: number;
 
-  allowsAnimatedImages: boolean;
+  allowsAnimatedImages: number;
 
-  allowsAnimatedImageLooping: boolean;
+  allowsAnimatedImageLooping: number;
 
-  loadsImagesAutomatically: boolean;
+  loadsImagesAutomatically: number;
 
-  autosaves: boolean;
+  autosaves: number;
 
-  shouldPrintBackgrounds: boolean;
+  shouldPrintBackgrounds: number;
 
-  privateBrowsingEnabled: boolean;
+  privateBrowsingEnabled: number;
 
-  tabsToLinks: boolean;
+  tabsToLinks: number;
 
-  usesPageCache: boolean;
+  usesPageCache: number;
 
   cacheModel: interop.Enum<typeof WebCacheModel>;
 
-  suppressesIncrementalRendering: boolean;
+  suppressesIncrementalRendering: number;
 
-  allowsAirPlayForMediaPlayback: boolean;
+  allowsAirPlayForMediaPlayback: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1823,13 +1823,13 @@ declare class WebFrameView extends NSView {
 
   readonly documentView: NSView;
 
-  allowsScrolling: boolean;
+  allowsScrolling: number;
 
-  readonly canPrintHeadersAndFooters: boolean;
+  readonly canPrintHeadersAndFooters: number;
 
   printOperationWithPrintInfo(printInfo: NSPrintInfo): NSPrintOperation;
 
-  readonly documentViewShouldHandlePrint: boolean;
+  readonly documentViewShouldHandlePrint: number;
 
   printDocumentView(): void;
 }
@@ -1844,11 +1844,11 @@ declare class DOMXPathResult extends DOMObject {
 
   readonly stringValue: string;
 
-  readonly booleanValue: boolean;
+  readonly booleanValue: number;
 
   readonly singleNodeValue: DOMNode;
 
-  readonly invalidIteratorState: boolean;
+  readonly invalidIteratorState: number;
 
   readonly snapshotLength: number;
 
@@ -1878,7 +1878,7 @@ declare class DOMHTMLTableCellElement extends DOMHTMLElement {
 
   height: string;
 
-  noWrap: boolean;
+  noWrap: number;
 
   vAlign: string;
 
@@ -1906,21 +1906,21 @@ declare class DOMMutationEvent extends DOMEvent {
 
   readonly attrChange: number;
 
-  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: number, cancelable: number, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
 
-  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+  initMutationEvent(type: string, canBubble: number, cancelable: number, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
 }
 
 declare class DOMHTMLTextAreaElement extends DOMHTMLElement {
-  autofocus: boolean;
+  autofocus: number;
 
-  disabled: boolean;
+  disabled: number;
 
   readonly form: DOMHTMLFormElement;
 
   name: string;
 
-  readOnly: boolean;
+  readOnly: number;
 
   rows: number;
 
@@ -1932,7 +1932,7 @@ declare class DOMHTMLTextAreaElement extends DOMHTMLElement {
 
   value: string;
 
-  readonly willValidate: boolean;
+  readonly willValidate: number;
 
   selectionStart: number;
 
@@ -2030,7 +2030,7 @@ declare class DOMHTMLTableElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLStyleElement extends DOMHTMLElement {
-  disabled: boolean;
+  disabled: number;
 
   media: string;
 
@@ -2044,7 +2044,7 @@ declare class DOMHTMLQuoteElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLOListElement extends DOMHTMLElement {
-  compact: boolean;
+  compact: number;
 
   start: number;
 
@@ -2068,7 +2068,7 @@ declare class DOMHTMLMetaElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLMenuElement extends DOMHTMLElement {
-  compact: boolean;
+  compact: number;
 }
 
 declare class DOMHTMLMapElement extends DOMHTMLElement {
@@ -2078,7 +2078,7 @@ declare class DOMHTMLMapElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLLinkElement extends DOMHTMLElement {
-  disabled: boolean;
+  disabled: number;
 
   charset: string;
 
@@ -2132,7 +2132,7 @@ declare class DOMHTMLImageElement extends DOMHTMLElement {
 
   hspace: number;
 
-  isMap: boolean;
+  isMap: number;
 
   longDesc: string;
 
@@ -2144,7 +2144,7 @@ declare class DOMHTMLImageElement extends DOMHTMLElement {
 
   width: number;
 
-  readonly complete: boolean;
+  readonly complete: number;
 
   lowsrc: string;
 
@@ -2200,7 +2200,7 @@ declare class DOMTreeWalker extends DOMObject {
 
   readonly filter: DOMNodeFilter;
 
-  readonly expandEntityReferences: boolean;
+  readonly expandEntityReferences: number;
 
   currentNode: DOMNode;
 
@@ -2222,7 +2222,7 @@ declare class DOMTreeWalker extends DOMObject {
 declare class WKPDFConfiguration extends NSObject implements NSCopying {
   rect: CGRect;
 
-  allowTransparentBackground: boolean;
+  allowTransparentBackground: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -2230,7 +2230,7 @@ declare class WKPDFConfiguration extends NSObject implements NSCopying {
 declare class DOMHTMLHRElement extends DOMHTMLElement {
   align: string;
 
-  noShade: boolean;
+  noShade: number;
 
   size: string;
 
@@ -2246,7 +2246,7 @@ declare class DOMRange extends DOMObject {
 
   readonly endOffset: number;
 
-  readonly collapsed: boolean;
+  readonly collapsed: number;
 
   readonly commonAncestorContainer: DOMNode;
 
@@ -2260,7 +2260,7 @@ declare class DOMRange extends DOMObject {
 
   setEndAfter(refNode: DOMNode): void;
 
-  collapse(toStart: boolean): void;
+  collapse(toStart: number): void;
 
   selectNode(refNode: DOMNode): void;
 
@@ -2288,11 +2288,11 @@ declare class DOMRange extends DOMObject {
 
   compareNode(refNode: DOMNode): number;
 
-  intersectsNode(refNode: DOMNode): boolean;
+  intersectsNode(refNode: DOMNode): number;
 
   comparePointOffset(refNode: DOMNode, offset: number): number;
 
-  isPointInRangeOffset(refNode: DOMNode, offset: number): boolean;
+  isPointInRangeOffset(refNode: DOMNode, offset: number): number;
 
   setStart(refNode: DOMNode, offset: number): void;
 
@@ -2316,7 +2316,7 @@ declare class DOMHTMLFrameElement extends DOMHTMLElement {
 
   name: string;
 
-  noResize: boolean;
+  noResize: number;
 
   scrolling: string;
 
@@ -2354,7 +2354,7 @@ declare class DOMHTMLDivElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLDListElement extends DOMHTMLElement {
-  compact: boolean;
+  compact: number;
 }
 
 declare class DOMHTMLBodyElement extends DOMHTMLElement {
@@ -2402,7 +2402,7 @@ declare class DOMHTMLAreaElement extends DOMHTMLElement {
 
   coords: string;
 
-  noHref: boolean;
+  noHref: number;
 
   shape: string;
 
@@ -2430,7 +2430,7 @@ declare class DOMHTMLAreaElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLDirectoryElement extends DOMHTMLElement {
-  compact: boolean;
+  compact: number;
 }
 
 declare class DOMCounter extends DOMObject {
@@ -2510,7 +2510,7 @@ declare class DOMHTMLObjectElement extends DOMHTMLElement {
 
   data: string;
 
-  declare: boolean;
+  declare: number;
 
   height: string;
 
@@ -2580,7 +2580,7 @@ declare class DOMFileList extends DOMObject {
 }
 
 declare class WebScriptObject extends NSObject {
-  static throwException(exceptionMessage: string): boolean;
+  static throwException(exceptionMessage: string): number;
 
   JSObject(): interop.Pointer;
 
@@ -2648,11 +2648,11 @@ declare class WKUserScript extends NSObject implements NSCopying {
 
   readonly injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>;
 
-  readonly isForMainFrameOnly: boolean;
+  readonly isForMainFrameOnly: number;
 
-  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean): this;
+  initWithSourceInjectionTimeForMainFrameOnly(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: number): this;
 
-  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: boolean, contentWorld: WKContentWorld): this;
+  initWithSourceInjectionTimeForMainFrameOnlyInContentWorld(source: string, injectionTime: interop.Enum<typeof WKUserScriptInjectionTime>, forMainFrameOnly: number, contentWorld: WKContentWorld): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -2684,7 +2684,7 @@ declare class WKUserContentController extends NSObject implements NSSecureCoding
 
   removeAllContentRuleLists(): void;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2696,7 +2696,7 @@ declare class WKSnapshotConfiguration extends NSObject implements NSCopying {
 
   snapshotWidth: NSNumber;
 
-  afterScreenUpdates: boolean;
+  afterScreenUpdates: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -2760,29 +2760,29 @@ declare class DOMRect extends DOMObject {
 declare class WKPreferences extends NSObject implements NSSecureCoding {
   minimumFontSize: number;
 
-  javaScriptCanOpenWindowsAutomatically: boolean;
+  javaScriptCanOpenWindowsAutomatically: number;
 
-  isFraudulentWebsiteWarningEnabled: boolean;
+  isFraudulentWebsiteWarningEnabled: number;
 
-  shouldPrintBackgrounds: boolean;
+  shouldPrintBackgrounds: number;
 
-  tabFocusesLinks: boolean;
+  tabFocusesLinks: number;
 
-  isTextInteractionEnabled: boolean;
+  isTextInteractionEnabled: number;
 
-  isSiteSpecificQuirksModeEnabled: boolean;
+  isSiteSpecificQuirksModeEnabled: number;
 
-  isElementFullscreenEnabled: boolean;
+  isElementFullscreenEnabled: number;
 
   inactiveSchedulingPolicy: interop.Enum<typeof WKInactiveSchedulingPolicy>;
 
-  javaEnabled: boolean;
+  javaEnabled: number;
 
-  plugInsEnabled: boolean;
+  plugInsEnabled: number;
 
-  javaScriptEnabled: boolean;
+  javaScriptEnabled: number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2794,9 +2794,9 @@ declare class DOMHTMLParagraphElement extends DOMHTMLElement {
 }
 
 declare class WKOpenPanelParameters extends NSObject {
-  readonly allowsMultipleSelection: boolean;
+  readonly allowsMultipleSelection: number;
 
-  readonly allowsDirectories: boolean;
+  readonly allowsDirectories: number;
 }
 
 declare class WKNavigation extends NSObject {
@@ -2806,9 +2806,9 @@ declare class WKNavigation extends NSObject {
 declare class WKWebpagePreferences extends NSObject {
   preferredContentMode: interop.Enum<typeof WKContentMode>;
 
-  allowsContentJavaScript: boolean;
+  allowsContentJavaScript: number;
 
-  isLockdownModeEnabled: boolean;
+  isLockdownModeEnabled: number;
 }
 
 declare class WebArchive extends NSObject implements NSCoding, NSCopying {
@@ -2866,7 +2866,7 @@ declare class DOMNode extends DOMObject implements DOMEventTarget {
 
   readonly parentElement: DOMElement;
 
-  readonly isContentEditable: boolean;
+  readonly isContentEditable: number;
 
   insertBeforeRefChild(newChild: DOMNode, refChild: DOMNode): DOMNode;
 
@@ -2876,35 +2876,35 @@ declare class DOMNode extends DOMObject implements DOMEventTarget {
 
   appendChild(newChild: DOMNode): DOMNode;
 
-  hasChildNodes(): boolean;
+  hasChildNodes(): number;
 
-  cloneNode(deep: boolean): DOMNode;
+  cloneNode(deep: number): DOMNode;
 
   normalize(): void;
 
-  isSupportedVersion(feature: string, version: string): boolean;
+  isSupportedVersion(feature: string, version: string): number;
 
-  hasAttributes(): boolean;
+  hasAttributes(): number;
 
-  isSameNode(other: DOMNode): boolean;
+  isSameNode(other: DOMNode): number;
 
-  isEqualNode(other: DOMNode): boolean;
+  isEqualNode(other: DOMNode): number;
 
   lookupPrefix(namespaceURI: string): string;
 
   lookupNamespaceURI(prefix: string): string;
 
-  isDefaultNamespace(namespaceURI: string): boolean;
+  isDefaultNamespace(namespaceURI: string): number;
 
   compareDocumentPosition(other: DOMNode): number;
 
-  contains(other: DOMNode): boolean;
+  contains(other: DOMNode): number;
 
   insertBefore(newChild: DOMNode, refChild: DOMNode): DOMNode;
 
   replaceChild(newChild: DOMNode, oldChild: DOMNode): DOMNode;
 
-  isSupported(feature: string, version: string): boolean;
+  isSupported(feature: string, version: string): number;
 
   boundingBox(): CGRect;
 
@@ -2912,17 +2912,17 @@ declare class DOMNode extends DOMObject implements DOMEventTarget {
 
   readonly webArchive: WebArchive;
 
-  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  addEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  removeEventListenerListenerUseCapture(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  dispatchEvent(event: DOMEvent): boolean;
+  dispatchEvent(event: DOMEvent): number;
 
-  addEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  addEventListener(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  removeEventListener(type: string, listener: DOMEventListener, useCapture: boolean): void;
+  removeEventListener(type: string, listener: DOMEventListener, useCapture: number): void;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -2938,15 +2938,15 @@ declare class DOMNode extends DOMObject implements DOMEventTarget {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -2970,7 +2970,7 @@ declare class WKWebsiteDataStore extends NSObject implements NSSecureCoding {
 
   static nonPersistentDataStore(): WKWebsiteDataStore;
 
-  readonly isPersistent: boolean;
+  readonly isPersistent: number;
 
   static allWebsiteDataTypes(): NSSet;
 
@@ -2993,7 +2993,7 @@ declare class WKWebsiteDataStore extends NSObject implements NSSecureCoding {
   get proxyConfigurations(): NSArray;
   set proxyConfigurations(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3013,7 +3013,7 @@ declare class WKScriptMessage extends NSObject {
 }
 
 declare class DOMHTMLUListElement extends DOMHTMLElement {
-  compact: boolean;
+  compact: number;
 
   type: string;
 }
@@ -3025,7 +3025,7 @@ declare class WKWebsiteDataRecord extends NSObject {
 }
 
 declare class WKFrameInfo extends NSObject implements NSCopying {
-  readonly isMainFrame: boolean;
+  readonly isMainFrame: number;
 
   readonly request: NSURLRequest;
 
@@ -3043,35 +3043,35 @@ declare class DOMKeyboardEvent extends DOMUIEvent {
 
   readonly keyLocation: number;
 
-  readonly ctrlKey: boolean;
+  readonly ctrlKey: number;
 
-  readonly shiftKey: boolean;
+  readonly shiftKey: number;
 
-  readonly altKey: boolean;
+  readonly altKey: number;
 
-  readonly metaKey: boolean;
+  readonly metaKey: number;
 
-  readonly altGraphKey: boolean;
+  readonly altGraphKey: number;
 
   readonly keyCode: number;
 
   readonly charCode: number;
 
-  getModifierState(keyIdentifierArg: string): boolean;
+  getModifierState(keyIdentifierArg: string): number;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number, altGraphKey: number): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number, altGraphKey: number): this;
 
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number): this;
 }
 
 declare class DOMHTMLButtonElement extends DOMHTMLElement {
-  autofocus: boolean;
+  autofocus: number;
 
-  disabled: boolean;
+  disabled: number;
 
   readonly form: DOMHTMLFormElement;
 
@@ -3081,7 +3081,7 @@ declare class DOMHTMLButtonElement extends DOMHTMLElement {
 
   value: string;
 
-  readonly willValidate: boolean;
+  readonly willValidate: number;
 
   accessKey: string;
 
@@ -3113,9 +3113,9 @@ declare class DOMUIEvent extends DOMEvent {
 
   readonly which: number;
 
-  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
+  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, detail: number): this;
 
-  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
+  initUIEvent(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, detail: number): this;
 }
 
 declare class WebResource extends NSObject implements NSCoding, NSCopying {
@@ -3157,11 +3157,11 @@ declare class WKHTTPCookieStore extends NSObject {
 declare class DOMOverflowEvent extends DOMEvent {
   readonly orient: number;
 
-  readonly horizontalOverflow: boolean;
+  readonly horizontalOverflow: number;
 
-  readonly verticalOverflow: boolean;
+  readonly verticalOverflow: number;
 
-  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): this;
+  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: number, verticalOverflow: number): this;
 }
 
 declare class DOMHTMLCollection extends DOMObject {
@@ -3199,7 +3199,7 @@ declare class WebBackForwardList extends NSObject {
 
   readonly forwardListCount: number;
 
-  containsItem(item: WebHistoryItem): boolean;
+  containsItem(item: WebHistoryItem): number;
 
   itemAtIndex(index: number): WebHistoryItem;
 
@@ -3215,15 +3215,15 @@ declare class DOMWheelEvent extends DOMMouseEvent {
 
   readonly wheelDelta: number;
 
-  readonly isHorizontal: boolean;
+  readonly isHorizontal: number;
 
-  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number): this;
 }
 
 declare class DOMStyleSheet extends DOMObject {
   readonly type: string;
 
-  disabled: boolean;
+  disabled: number;
 
   readonly ownerNode: DOMNode;
 
@@ -3257,7 +3257,7 @@ declare class DOMCSSStyleDeclaration extends DOMObject {
 
   getPropertyShorthand(propertyName: string): string;
 
-  isPropertyImplicit(propertyName: string): boolean;
+  isPropertyImplicit(propertyName: string): number;
 
   setProperty(propertyName: string, value: string, priority: string): void;
 
@@ -3769,7 +3769,7 @@ declare class DOMDocument extends DOMNode {
 
   xmlVersion: string;
 
-  xmlStandalone: boolean;
+  xmlStandalone: number;
 
   documentURI: string;
 
@@ -3833,7 +3833,7 @@ declare class DOMDocument extends DOMNode {
 
   getElementsByTagName(tagname: string): DOMNodeList;
 
-  importNodeDeep(importedNode: DOMNode, deep: boolean): DOMNode;
+  importNodeDeep(importedNode: DOMNode, deep: number): DOMNode;
 
   createElementNSQualifiedName(namespaceURI: string, qualifiedName: string): DOMElement;
 
@@ -3847,9 +3847,9 @@ declare class DOMDocument extends DOMNode {
 
   createRange(): DOMRange;
 
-  createNodeIteratorWhatToShowFilterExpandEntityReferences(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: boolean): DOMNodeIterator;
+  createNodeIteratorWhatToShowFilterExpandEntityReferences(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: number): DOMNodeIterator;
 
-  createTreeWalkerWhatToShowFilterExpandEntityReferences(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: boolean): DOMTreeWalker;
+  createTreeWalkerWhatToShowFilterExpandEntityReferences(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: number): DOMTreeWalker;
 
   getOverrideStylePseudoElement(element: DOMElement, pseudoElement: string): DOMCSSStyleDeclaration;
 
@@ -3859,19 +3859,19 @@ declare class DOMDocument extends DOMNode {
 
   evaluateContextNodeResolverTypeInResult(expression: string, contextNode: DOMNode, resolver: DOMXPathNSResolver, type: number, inResult: DOMXPathResult): DOMXPathResult;
 
-  execCommandUserInterfaceValue(command: string, userInterface: boolean, value: string): boolean;
+  execCommandUserInterfaceValue(command: string, userInterface: number, value: string): number;
 
-  execCommandUserInterface(command: string, userInterface: boolean): boolean;
+  execCommandUserInterface(command: string, userInterface: number): number;
 
-  execCommand(command: string): boolean;
+  execCommand(command: string): number;
 
-  queryCommandEnabled(command: string): boolean;
+  queryCommandEnabled(command: string): number;
 
-  queryCommandIndeterm(command: string): boolean;
+  queryCommandIndeterm(command: string): number;
 
-  queryCommandState(command: string): boolean;
+  queryCommandState(command: string): number;
 
-  queryCommandSupported(command: string): boolean;
+  queryCommandSupported(command: string): number;
 
   queryCommandValue(command: string): string;
 
@@ -3885,11 +3885,11 @@ declare class DOMDocument extends DOMNode {
 
   getMatchedCSSRulesPseudoElement(element: DOMElement, pseudoElement: string): DOMCSSRuleList;
 
-  getMatchedCSSRulesPseudoElementAuthorOnly(element: DOMElement, pseudoElement: string, authorOnly: boolean): DOMCSSRuleList;
+  getMatchedCSSRulesPseudoElementAuthorOnly(element: DOMElement, pseudoElement: string, authorOnly: number): DOMCSSRuleList;
 
   getElementsByClassName(classNames: string): DOMNodeList;
 
-  hasFocus(): boolean;
+  hasFocus(): number;
 
   webkitCancelFullScreen(): void;
 
@@ -3901,7 +3901,7 @@ declare class DOMDocument extends DOMNode {
 
   createProcessingInstruction(target: string, data: string): DOMProcessingInstruction;
 
-  importNode(importedNode: DOMNode, deep: boolean): DOMNode;
+  importNode(importedNode: DOMNode, deep: number): DOMNode;
 
   createElementNS(namespaceURI: string, qualifiedName: string): DOMElement;
 
@@ -3909,9 +3909,9 @@ declare class DOMDocument extends DOMNode {
 
   getElementsByTagNameNS(namespaceURI: string, localName: string): DOMNodeList;
 
-  createNodeIterator(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: boolean): DOMNodeIterator;
+  createNodeIterator(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: number): DOMNodeIterator;
 
-  createTreeWalker(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: boolean): DOMTreeWalker;
+  createTreeWalker(root: DOMNode, whatToShow: number, filter: DOMNodeFilter, expandEntityReferences: number): DOMTreeWalker;
 
   getOverrideStyle(element: DOMElement, pseudoElement: string): DOMCSSStyleDeclaration;
 
@@ -3939,13 +3939,13 @@ declare class DOMMouseEvent extends DOMUIEvent {
 
   readonly clientY: number;
 
-  readonly ctrlKey: boolean;
+  readonly ctrlKey: number;
 
-  readonly shiftKey: boolean;
+  readonly shiftKey: number;
 
-  readonly altKey: boolean;
+  readonly altKey: number;
 
-  readonly metaKey: boolean;
+  readonly metaKey: number;
 
   readonly button: number;
 
@@ -3963,9 +3963,9 @@ declare class DOMMouseEvent extends DOMUIEvent {
 
   readonly toElement: DOMNode;
 
-  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): this;
+  initMouseEventCanBubbleCancelableViewDetailScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKeyButtonRelatedTarget(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number, button: number, relatedTarget: DOMEventTarget): this;
 
-  initMouseEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, button: number, relatedTarget: DOMEventTarget): this;
+  initMouseEvent(type: string, canBubble: number, cancelable: number, view: DOMAbstractView, detail: number, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: number, altKey: number, shiftKey: number, metaKey: number, button: number, relatedTarget: DOMEventTarget): this;
 }
 
 declare class DOMHTMLFrameSetElement extends DOMHTMLElement {
@@ -3977,7 +3977,7 @@ declare class DOMHTMLFrameSetElement extends DOMHTMLElement {
 declare class DOMHTMLPreElement extends DOMHTMLElement {
   width: number;
 
-  wrap: boolean;
+  wrap: number;
 }
 
 declare class DOMCharacterData extends DOMNode {
@@ -4013,7 +4013,7 @@ declare class DOMHTMLScriptElement extends DOMHTMLElement {
 
   charset: string;
 
-  defer: boolean;
+  defer: number;
 
   src: string;
 
@@ -4039,27 +4039,27 @@ declare class DOMHTMLInputElement extends DOMHTMLElement {
 
   alt: string;
 
-  autofocus: boolean;
+  autofocus: number;
 
-  defaultChecked: boolean;
+  defaultChecked: number;
 
-  checked: boolean;
+  checked: number;
 
-  disabled: boolean;
+  disabled: number;
 
   readonly form: DOMHTMLFormElement;
 
   files: DOMFileList;
 
-  indeterminate: boolean;
+  indeterminate: number;
 
   maxLength: number;
 
-  multiple: boolean;
+  multiple: number;
 
   name: string;
 
-  readOnly: boolean;
+  readOnly: number;
 
   size: string;
 
@@ -4071,7 +4071,7 @@ declare class DOMHTMLInputElement extends DOMHTMLElement {
 
   value: string;
 
-  readonly willValidate: boolean;
+  readonly willValidate: number;
 
   selectionStart: number;
 
@@ -4119,15 +4119,15 @@ declare class DOMHTMLFormElement extends DOMHTMLElement {
 }
 
 declare class DOMHTMLOptionElement extends DOMHTMLElement {
-  disabled: boolean;
+  disabled: number;
 
   readonly form: DOMHTMLFormElement;
 
   label: string;
 
-  defaultSelected: boolean;
+  defaultSelected: number;
 
-  selected: boolean;
+  selected: number;
 
   value: string;
 
@@ -4163,17 +4163,17 @@ declare class WKWebView extends NSView {
 
   readonly URL: NSURL;
 
-  readonly isLoading: boolean;
+  readonly isLoading: number;
 
   readonly estimatedProgress: number;
 
-  readonly hasOnlySecureContent: boolean;
+  readonly hasOnlySecureContent: number;
 
   readonly serverTrust: interop.Pointer;
 
-  readonly canGoBack: boolean;
+  readonly canGoBack: number;
 
-  readonly canGoForward: boolean;
+  readonly canGoForward: number;
 
   goBack(): WKNavigation;
 
@@ -4199,7 +4199,7 @@ declare class WKWebView extends NSView {
 
   pauseAllMediaPlayback(completionHandler: () => void | null): void;
 
-  setAllMediaPlaybackSuspendedCompletionHandler(suspended: boolean, completionHandler: () => void | null): void;
+  setAllMediaPlaybackSuspendedCompletionHandler(suspended: number, completionHandler: () => void | null): void;
 
   resumeAllMediaPlayback(completionHandler: () => void | null): void;
 
@@ -4223,13 +4223,13 @@ declare class WKWebView extends NSView {
 
   createWebArchiveDataWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void): void;
 
-  allowsBackForwardNavigationGestures: boolean;
+  allowsBackForwardNavigationGestures: number;
 
   customUserAgent: string;
 
-  allowsLinkPreview: boolean;
+  allowsLinkPreview: number;
 
-  allowsMagnification: boolean;
+  allowsMagnification: number;
 
   magnification: number;
 
@@ -4239,7 +4239,7 @@ declare class WKWebView extends NSView {
 
   findStringWithConfigurationCompletionHandler(string: string, configuration: WKFindConfiguration | null, completionHandler: (p1: WKFindResult) => void): void;
 
-  static handlesURLScheme(urlScheme: string): boolean;
+  static handlesURLScheme(urlScheme: string): number;
 
   startDownloadUsingRequestCompletionHandler(request: NSURLRequest, completionHandler: (p1: WKDownload) => void): void;
 
@@ -4273,9 +4273,9 @@ declare class WKWebView extends NSView {
 
   setMinimumViewportInsetMaximumViewportInset(minimumViewportInset: NSEdgeInsets, maximumViewportInset: NSEdgeInsets): void;
 
-  isInspectable: boolean;
+  isInspectable: number;
 
-  readonly isWritingToolsActive: boolean;
+  readonly isWritingToolsActive: number;
 
   readonly certificateChain: NSArray;
 }
@@ -4303,11 +4303,11 @@ declare class WKSecurityOrigin extends NSObject {
 }
 
 declare class WKFindConfiguration extends NSObject implements NSCopying {
-  backwards: boolean;
+  backwards: number;
 
-  caseSensitive: boolean;
+  caseSensitive: number;
 
-  wraps: boolean;
+  wraps: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -4354,7 +4354,7 @@ declare class DOMHTMLOptionsCollection extends DOMObject {
 }
 
 declare class DOMImplementation extends DOMObject {
-  hasFeatureVersion(feature: string, version: string): boolean;
+  hasFeatureVersion(feature: string, version: string): number;
 
   createDocumentTypePublicIdSystemId(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
 
@@ -4364,7 +4364,7 @@ declare class DOMImplementation extends DOMObject {
 
   createHTMLDocument(title: string): DOMHTMLDocument;
 
-  hasFeature(feature: string, version: string): boolean;
+  hasFeature(feature: string, version: string): number;
 
   createDocumentType(qualifiedName: string, publicId: string, systemId: string): DOMDocumentType;
 
@@ -4411,21 +4411,21 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
 
   websiteDataStore: WKWebsiteDataStore;
 
-  suppressesIncrementalRendering: boolean;
+  suppressesIncrementalRendering: number;
 
   applicationNameForUserAgent: string;
 
-  allowsAirPlayForMediaPlayback: boolean;
+  allowsAirPlayForMediaPlayback: number;
 
-  upgradeKnownHostsToHTTPS: boolean;
+  upgradeKnownHostsToHTTPS: number;
 
   mediaTypesRequiringUserActionForPlayback: interop.Enum<typeof WKAudiovisualMediaTypes>;
 
   defaultWebpagePreferences: WKWebpagePreferences;
 
-  limitsNavigationsToAppBoundDomains: boolean;
+  limitsNavigationsToAppBoundDomains: number;
 
-  allowsInlinePredictions: boolean;
+  allowsInlinePredictions: number;
 
   userInterfaceDirectionPolicy: interop.Enum<typeof WKUserInterfaceDirectionPolicy>;
 
@@ -4433,11 +4433,11 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
 
   urlSchemeHandlerForURLScheme(urlScheme: string): WKURLSchemeHandler;
 
-  supportsAdaptiveImageGlyph: boolean;
+  supportsAdaptiveImageGlyph: number;
 
   writingToolsBehavior: interop.Enum<typeof NSWritingToolsBehavior>;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4457,7 +4457,7 @@ declare class DOMHTMLFontElement extends DOMHTMLElement {
 declare class DOMAttr extends DOMNode {
   readonly name: string;
 
-  readonly specified: boolean;
+  readonly specified: number;
 
   value: string;
 
@@ -4503,7 +4503,7 @@ declare class DOMHTMLElement extends DOMElement {
 
   contentEditable: string;
 
-  readonly isContentEditable: boolean;
+  readonly isContentEditable: number;
 
   idName: string;
 
@@ -4533,11 +4533,11 @@ declare class DOMCSSImportRule extends DOMCSSRule {
 }
 
 declare class WKNavigationResponse extends NSObject {
-  readonly isForMainFrame: boolean;
+  readonly isForMainFrame: number;
 
   readonly response: NSURLResponse;
 
-  readonly canShowMIMEType: boolean;
+  readonly canShowMIMEType: number;
 }
 
 declare class WebFrame extends NSObject {
@@ -4600,11 +4600,11 @@ declare class DOMNodeIterator extends DOMObject {
 
   readonly filter: DOMNodeFilter;
 
-  readonly expandEntityReferences: boolean;
+  readonly expandEntityReferences: number;
 
   readonly referenceNode: DOMNode;
 
-  readonly pointerBeforeReferenceNode: boolean;
+  readonly pointerBeforeReferenceNode: number;
 
   nextNode(): DOMNode;
 
@@ -4630,25 +4630,25 @@ declare class DOMEvent extends DOMObject {
 
   readonly eventPhase: number;
 
-  readonly bubbles: boolean;
+  readonly bubbles: number;
 
-  readonly cancelable: boolean;
+  readonly cancelable: number;
 
   readonly timeStamp: number;
 
   readonly srcElement: DOMEventTarget;
 
-  returnValue: boolean;
+  returnValue: number;
 
-  cancelBubble: boolean;
+  cancelBubble: number;
 
   stopPropagation(): void;
 
   preventDefault(): void;
 
-  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
+  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: number, cancelableArg: number): this;
 
-  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
+  initEvent(eventTypeArg: string, canBubbleArg: number, cancelableArg: number): this;
 }
 
 declare class DOMHTMLMarqueeElement extends DOMHTMLElement {

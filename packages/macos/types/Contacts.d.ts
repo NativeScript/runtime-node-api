@@ -742,7 +742,7 @@ declare class CNContactProperty extends NSObject implements NSCopying, NSSecureC
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -778,7 +778,7 @@ declare class CNContactFormatter extends NSFormatter implements NSSecureCoding {
 
   attributedStringFromContactDefaultAttributes(contact: CNContact, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSAttributedString;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -800,7 +800,7 @@ declare class CNContainer extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -865,7 +865,7 @@ declare class CNChangeHistoryEvent extends NSObject implements NSCopying, NSSecu
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -878,16 +878,16 @@ declare class CNChangeHistoryFetchRequest extends CNFetchRequest implements NSSe
   get additionalContactKeyDescriptors(): NSArray;
   set additionalContactKeyDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  shouldUnifyResults: boolean;
+  shouldUnifyResults: number;
 
-  mutableObjects: boolean;
+  mutableObjects: number;
 
-  includeGroupChanges: boolean;
+  includeGroupChanges: number;
 
   get excludedTransactionAuthors(): NSArray;
   set excludedTransactionAuthors(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -908,13 +908,13 @@ declare class CNContactFetchRequest extends CNFetchRequest implements NSSecureCo
   get keysToFetch(): NSArray;
   set keysToFetch(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  mutableObjects: boolean;
+  mutableObjects: number;
 
-  unifyResults: boolean;
+  unifyResults: number;
 
   sortOrder: interop.Enum<typeof CNContactSortOrder>;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -963,7 +963,7 @@ declare class CNContact extends NSObject implements NSCopying, NSMutableCopying,
 
   readonly thumbnailImageData: NSData;
 
-  readonly imageDataAvailable: boolean;
+  readonly imageDataAvailable: number;
 
   readonly phoneNumbers: NSArray;
 
@@ -985,9 +985,9 @@ declare class CNContact extends NSObject implements NSCopying, NSMutableCopying,
 
   readonly dates: NSArray;
 
-  isKeyAvailable(key: string): boolean;
+  isKeyAvailable(key: string): number;
 
-  areKeysAvailable(keyDescriptors: NSArray<interop.Object> | Array<interop.Object>): boolean;
+  areKeysAvailable(keyDescriptors: NSArray<interop.Object> | Array<interop.Object>): number;
 
   static localizedStringForKey(key: string): string;
 
@@ -995,7 +995,7 @@ declare class CNContact extends NSObject implements NSCopying, NSMutableCopying,
 
   static descriptorForAllComparatorKeys(): CNKeyDescriptor;
 
-  isUnifiedWithContactWithIdentifier(contactIdentifier: string): boolean;
+  isUnifiedWithContactWithIdentifier(contactIdentifier: string): number;
 
   static predicateForContactsMatchingName(name: string): NSPredicate;
 
@@ -1013,7 +1013,7 @@ declare class CNContact extends NSObject implements NSCopying, NSMutableCopying,
 
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1033,7 +1033,7 @@ declare class CNInstantMessageAddress extends NSObject implements NSCopying, NSS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1049,7 +1049,7 @@ declare class CNContactRelation extends NSObject implements NSCopying, NSSecureC
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1079,7 +1079,7 @@ declare class CNPostalAddress extends NSObject implements NSCopying, NSMutableCo
 
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1107,7 +1107,7 @@ declare class CNLabeledValue<ValueType = interop.Object> extends NSObject implem
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1129,7 +1129,7 @@ declare class CNGroup extends NSObject implements NSCopying, NSMutableCopying, N
 
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1149,7 +1149,7 @@ declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCodin
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1159,7 +1159,7 @@ declare class CNPhoneNumber extends NSObject implements NSCopying, NSSecureCodin
 declare class CNContactStore extends NSObject {
   static authorizationStatusForEntityType(entityType: interop.Enum<typeof CNEntityType>): interop.Enum<typeof CNAuthorizationStatus>;
 
-  requestAccessForEntityTypeCompletionHandler(entityType: interop.Enum<typeof CNEntityType>, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
+  requestAccessForEntityTypeCompletionHandler(entityType: interop.Enum<typeof CNEntityType>, completionHandler: (p1: number, p2: NSError) => void | null): void;
 
   unifiedContactsMatchingPredicateKeysToFetchError(predicate: NSPredicate, keys: NSArray<interop.Object> | Array<interop.Object>, error: interop.PointerConvertible): NSArray;
 
@@ -1171,13 +1171,13 @@ declare class CNContactStore extends NSObject {
 
   enumeratorForChangeHistoryFetchRequestError(request: CNChangeHistoryFetchRequest, error: interop.PointerConvertible): CNFetchResult;
 
-  enumerateContactsWithFetchRequestErrorUsingBlock(fetchRequest: CNContactFetchRequest, error: interop.PointerConvertible, block: (p1: CNContact, p2: interop.PointerConvertible) => void): boolean;
+  enumerateContactsWithFetchRequestErrorUsingBlock(fetchRequest: CNContactFetchRequest, error: interop.PointerConvertible, block: (p1: CNContact, p2: interop.PointerConvertible) => void): number;
 
   groupsMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
 
   containersMatchingPredicateError(predicate: NSPredicate | null, error: interop.PointerConvertible): NSArray;
 
-  executeSaveRequestError(saveRequest: CNSaveRequest, error: interop.PointerConvertible): boolean;
+  executeSaveRequestError(saveRequest: CNSaveRequest, error: interop.PointerConvertible): number;
 
   readonly currentHistoryToken: NSData;
 
@@ -1311,7 +1311,7 @@ declare class CNSaveRequest extends NSObject {
 
   transactionAuthor: string;
 
-  shouldRefetchContacts: boolean;
+  shouldRefetchContacts: number;
 }
 
 declare class CNChangeHistoryRemoveMemberFromGroupEvent extends CNChangeHistoryEvent {
@@ -1368,7 +1368,7 @@ declare class CNSocialProfile extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 

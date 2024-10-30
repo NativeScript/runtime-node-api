@@ -120,7 +120,7 @@ declare class AVAudio3DAngularOrientation {
 
 declare class AVAudioVoiceProcessingOtherAudioDuckingConfiguration {
   constructor(init?: AVAudioVoiceProcessingOtherAudioDuckingConfiguration);
-  enableAdvancedDucking: boolean;
+  enableAdvancedDucking: number;
   duckingLevel: interop.Enum<typeof AVAudioVoiceProcessingOtherAudioDuckingLevel>;
 }
 
@@ -170,7 +170,7 @@ declare class AVAudioUnitEQFilterParameters extends NSObject {
 
   gain: number;
 
-  bypass: boolean;
+  bypass: number;
 }
 
 declare class AVAudioBuffer extends NSObject implements NSCopying, NSMutableCopying {
@@ -208,11 +208,11 @@ declare class AVAudioTime extends NSObject {
 
   extrapolateTimeFromAnchor(anchorTime: AVAudioTime): AVAudioTime;
 
-  readonly isHostTimeValid: boolean;
+  readonly isHostTimeValid: number;
 
   readonly hostTime: number;
 
-  readonly isSampleTimeValid: boolean;
+  readonly isSampleTimeValid: number;
 
   readonly sampleTime: number;
 
@@ -252,7 +252,7 @@ declare class AVAudioMixerNode extends AVAudioNode implements AVAudioMixing {
 
   pan: number;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -268,15 +268,15 @@ declare class AVAudioMixerNode extends AVAudioNode implements AVAudioMixing {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -310,15 +310,15 @@ declare class AVAudioMixerNode extends AVAudioNode implements AVAudioMixing {
 }
 
 declare class AVAudioInputNode extends AVAudioIONode implements AVAudioMixing {
-  setManualRenderingInputPCMFormatInputBlock(format: AVAudioFormat, block: (p1: number) => interop.Pointer): boolean;
+  setManualRenderingInputPCMFormatInputBlock(format: AVAudioFormat, block: (p1: number) => interop.Pointer): number;
 
-  isVoiceProcessingBypassed: boolean;
+  isVoiceProcessingBypassed: number;
 
-  isVoiceProcessingAGCEnabled: boolean;
+  isVoiceProcessingAGCEnabled: number;
 
-  isVoiceProcessingInputMuted: boolean;
+  isVoiceProcessingInputMuted: number;
 
-  setMutedSpeechActivityEventListener(listenerBlock: (p1: interop.Enum<typeof AVAudioVoiceProcessingSpeechActivityEvent>) => void | null): boolean;
+  setMutedSpeechActivityEventListener(listenerBlock: (p1: interop.Enum<typeof AVAudioVoiceProcessingSpeechActivityEvent>) => void | null): number;
 
   voiceProcessingOtherAudioDuckingConfiguration: AVAudioVoiceProcessingOtherAudioDuckingConfiguration;
 
@@ -328,7 +328,7 @@ declare class AVAudioInputNode extends AVAudioIONode implements AVAudioMixing {
 
   pan: number;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -344,15 +344,15 @@ declare class AVAudioInputNode extends AVAudioIONode implements AVAudioMixing {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -405,17 +405,17 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
 
   initStandardFormatWithSampleRateChannelLayout(sampleRate: number, layout: AVAudioChannelLayout): this;
 
-  initWithCommonFormatSampleRateChannelsInterleaved(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, channels: number, interleaved: boolean): this;
+  initWithCommonFormatSampleRateChannelsInterleaved(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, channels: number, interleaved: number): this;
 
-  initWithCommonFormatSampleRateInterleavedChannelLayout(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, interleaved: boolean, layout: AVAudioChannelLayout): this;
+  initWithCommonFormatSampleRateInterleavedChannelLayout(format: interop.Enum<typeof AVAudioCommonFormat>, sampleRate: number, interleaved: number, layout: AVAudioChannelLayout): this;
 
   initWithSettings(settings: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
 
   initWithCMAudioFormatDescription(formatDescription: interop.PointerConvertible): this;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
-  readonly isStandard: boolean;
+  readonly isStandard: number;
 
   readonly commonFormat: interop.Enum<typeof AVAudioCommonFormat>;
 
@@ -423,7 +423,7 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
 
   readonly sampleRate: number;
 
-  readonly isInterleaved: boolean;
+  readonly isInterleaved: number;
 
   readonly streamDescription: interop.Pointer;
 
@@ -435,7 +435,7 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
 
   readonly formatDescription: interop.Pointer;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -443,7 +443,7 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
 }
 
 declare class AVAudioEnvironmentReverbParameters extends NSObject {
-  enable: boolean;
+  enable: number;
 
   level: number;
 
@@ -457,9 +457,9 @@ declare class AVAudioIONode extends AVAudioNode {
 
   readonly audioUnit: interop.Pointer;
 
-  readonly isVoiceProcessingEnabled: boolean;
+  readonly isVoiceProcessingEnabled: number;
 
-  setVoiceProcessingEnabledError(enabled: boolean, outError: interop.PointerConvertible): boolean;
+  setVoiceProcessingEnabledError(enabled: number, outError: interop.PointerConvertible): number;
 }
 
 declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing {
@@ -471,7 +471,7 @@ declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing
 
   pan: number;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -487,15 +487,15 @@ declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -533,7 +533,7 @@ declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
 
   initWithLayout(layout: interop.PointerConvertible): this;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   static layoutWithLayoutTag<This extends abstract new (...args: any) => any>(this: This, layoutTag: number): InstanceType<This>;
 
@@ -545,7 +545,7 @@ declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
 
   readonly channelCount: number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -575,7 +575,7 @@ declare class AVAudioEngine extends NSObject {
 
   prepare(): void;
 
-  startAndReturnError(outError: interop.PointerConvertible): boolean;
+  startAndReturnError(outError: interop.PointerConvertible): number;
 
   pause(): void;
 
@@ -596,13 +596,13 @@ declare class AVAudioEngine extends NSObject {
 
   readonly mainMixerNode: AVAudioMixerNode;
 
-  readonly isRunning: boolean;
+  readonly isRunning: number;
 
-  isAutoShutdownEnabled: boolean;
+  isAutoShutdownEnabled: number;
 
   readonly attachedNodes: NSSet;
 
-  enableManualRenderingModeFormatMaximumFrameCountError(mode: interop.Enum<typeof AVAudioEngineManualRenderingMode>, pcmFormat: AVAudioFormat, maximumFrameCount: number, outError: interop.PointerConvertible): boolean;
+  enableManualRenderingModeFormatMaximumFrameCountError(mode: interop.Enum<typeof AVAudioEngineManualRenderingMode>, pcmFormat: AVAudioFormat, maximumFrameCount: number, outError: interop.PointerConvertible): number;
 
   disableManualRenderingMode(): void;
 
@@ -610,7 +610,7 @@ declare class AVAudioEngine extends NSObject {
 
   readonly manualRenderingBlock: (p1: number, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => interop.Enum<typeof AVAudioEngineManualRenderingStatus>;
 
-  readonly isInManualRenderingMode: boolean;
+  readonly isInManualRenderingMode: number;
 
   readonly manualRenderingMode: interop.Enum<typeof AVAudioEngineManualRenderingMode>;
 
@@ -668,7 +668,7 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
 
   readonly applicableRenderingAlgorithms: NSArray;
 
-  isListenerHeadTrackingEnabled: boolean;
+  isListenerHeadTrackingEnabled: number;
 
   destinationForMixerBus(mixer: AVAudioNode, bus: number): AVAudioMixingDestination;
 
@@ -676,7 +676,7 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
 
   pan: number;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -692,15 +692,15 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 

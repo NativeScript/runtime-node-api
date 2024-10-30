@@ -788,9 +788,9 @@ declare class GCExtendedGamepadSnapshotData {
   rightThumbstickY: number;
   leftTrigger: number;
   rightTrigger: number;
-  supportsClickableThumbsticks: boolean;
-  leftThumbstickButton: boolean;
-  rightThumbstickButton: boolean;
+  supportsClickableThumbsticks: number;
+  leftThumbstickButton: number;
+  rightThumbstickButton: number;
 }
 
 declare class GCEulerAngles {
@@ -900,23 +900,23 @@ declare function GCInputBackRightButton(position: number): string;
 
 declare function GCInputArcadeButtonName(row: number, column: number): string;
 
-declare function GCGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
+declare function GCGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): number;
 
 declare function NSDataFromGCGamepadSnapShotDataV100(snapshotData: interop.PointerConvertible): NSData;
 
-declare function GCExtendedGamepadSnapshotDataFromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
+declare function GCExtendedGamepadSnapshotDataFromNSData(snapshotData: interop.PointerConvertible, data: NSData): number;
 
 declare function NSDataFromGCExtendedGamepadSnapshotData(snapshotData: interop.PointerConvertible): NSData;
 
-declare function GCExtendedGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
+declare function GCExtendedGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): number;
 
 declare function NSDataFromGCExtendedGamepadSnapShotDataV100(snapshotData: interop.PointerConvertible): NSData;
 
-declare function GCMicroGamepadSnapshotDataFromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
+declare function GCMicroGamepadSnapshotDataFromNSData(snapshotData: interop.PointerConvertible, data: NSData): number;
 
 declare function NSDataFromGCMicroGamepadSnapshotData(snapshotData: interop.PointerConvertible): NSData;
 
-declare function GCMicroGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): boolean;
+declare function GCMicroGamepadSnapShotDataV100FromNSData(snapshotData: interop.PointerConvertible, data: NSData): number;
 
 declare function NSDataFromGCMicroGamepadSnapShotDataV100(snapshotData: interop.PointerConvertible): NSData;
 
@@ -938,9 +938,9 @@ declare interface GCAxis2DInput extends NSObjectProtocol {
 
   readonly value: GCPoint2;
 
-  readonly isAnalog: boolean;
+  readonly isAnalog: number;
 
-  readonly canWrap: boolean;
+  readonly canWrap: number;
 
   readonly lastValueTimestamp: number;
 
@@ -953,9 +953,9 @@ declare class GCAxis2DInput extends NativeObject implements GCAxis2DInput {
 }
 
 declare interface GCPressedStateInput extends NSObjectProtocol {
-  pressedDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCPressedStateInput, p3: boolean) => void;
+  pressedDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCPressedStateInput, p3: number) => void;
 
-  readonly isPressed: boolean;
+  readonly isPressed: number;
 
   readonly lastPressedStateTimestamp: number;
 
@@ -972,9 +972,9 @@ declare interface GCAxisInput extends NSObjectProtocol {
 
   readonly value: number;
 
-  readonly isAnalog: boolean;
+  readonly isAnalog: number;
 
-  readonly canWrap: boolean;
+  readonly canWrap: number;
 
   readonly lastValueTimestamp: number;
 
@@ -1043,9 +1043,9 @@ declare interface GCSwitchPositionInput extends NSObjectProtocol {
 
   readonly positionRange: _NSRange;
 
-  readonly isSequential: boolean;
+  readonly isSequential: number;
 
-  readonly canWrap: boolean;
+  readonly canWrap: number;
 
   readonly lastPositionTimestamp: number;
 
@@ -1090,9 +1090,9 @@ declare interface GCLinearInput extends NSObjectProtocol {
 
   readonly value: number;
 
-  readonly isAnalog: boolean;
+  readonly isAnalog: number;
 
-  readonly canWrap: boolean;
+  readonly canWrap: number;
 
   readonly lastValueTimestamp: number;
 
@@ -1105,9 +1105,9 @@ declare class GCLinearInput extends NativeObject implements GCLinearInput {
 }
 
 declare interface GCTouchedStateInput extends NSObjectProtocol {
-  touchedDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCTouchedStateInput, p3: boolean) => void;
+  touchedDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCTouchedStateInput, p3: number) => void;
 
-  readonly isTouched: boolean;
+  readonly isTouched: number;
 
   readonly lastTouchedStateTimestamp: number;
 
@@ -1124,7 +1124,7 @@ declare interface GCRelativeInput extends NSObjectProtocol {
 
   readonly delta: number;
 
-  readonly isAnalog: boolean;
+  readonly isAnalog: number;
 
   readonly lastDeltaTimestamp: number;
 
@@ -1208,7 +1208,7 @@ declare class GCDevicePhysicalInputStateDiff extends NativeObject implements GCD
 }
 
 declare class GCEventViewController extends NSViewController {
-  controllerUserInteractionEnabled: boolean;
+  controllerUserInteractionEnabled: number;
 }
 
 declare class GCGearShifterElement extends NSObject implements GCPhysicalInputElement {
@@ -1222,7 +1222,7 @@ declare class GCGearShifterElement extends NSObject implements GCPhysicalInputEl
 
   readonly sfSymbolsName: string;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1238,15 +1238,15 @@ declare class GCGearShifterElement extends NSObject implements GCPhysicalInputEl
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1289,9 +1289,9 @@ declare class GCMicroGamepad extends GCPhysicalInputProfile {
 
   readonly buttonMenu: GCControllerButtonInput;
 
-  reportsAbsoluteDpadValues: boolean;
+  reportsAbsoluteDpadValues: number;
 
-  allowsRotation: boolean;
+  allowsRotation: number;
 
   setStateFromMicroGamepad(microGamepad: GCMicroGamepad): void;
 }
@@ -1374,11 +1374,11 @@ declare class GCMotion extends NSObject {
 
   valueChangedHandler: (p1: GCMotion) => void;
 
-  readonly sensorsRequireManualActivation: boolean;
+  readonly sensorsRequireManualActivation: number;
 
-  sensorsActive: boolean;
+  sensorsActive: number;
 
-  readonly hasGravityAndUserAcceleration: boolean;
+  readonly hasGravityAndUserAcceleration: number;
 
   readonly gravity: GCAcceleration;
 
@@ -1386,11 +1386,11 @@ declare class GCMotion extends NSObject {
 
   readonly acceleration: GCAcceleration;
 
-  readonly hasAttitudeAndRotationRate: boolean;
+  readonly hasAttitudeAndRotationRate: number;
 
-  readonly hasAttitude: boolean;
+  readonly hasAttitude: number;
 
-  readonly hasRotationRate: boolean;
+  readonly hasRotationRate: number;
 
   readonly attitude: GCQuaternion;
 
@@ -1427,19 +1427,19 @@ declare class GCDualSenseAdaptiveTrigger extends GCControllerButtonInput {
 declare class GCControllerTouchpad extends GCControllerElement {
   readonly button: GCControllerButtonInput;
 
-  touchDown: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: boolean) => void;
+  touchDown: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: number) => void;
 
-  touchMoved: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: boolean) => void;
+  touchMoved: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: number) => void;
 
-  touchUp: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: boolean) => void;
+  touchUp: (p1: GCControllerTouchpad, p2: number, p3: number, p4: number, p5: number) => void;
 
   readonly touchSurface: GCControllerDirectionPad;
 
   readonly touchState: interop.Enum<typeof GCTouchState>;
 
-  reportsAbsoluteTouchSurfaceValues: boolean;
+  reportsAbsoluteTouchSurfaceValues: number;
 
-  setValueForXAxisYAxisTouchDownButtonValue(xAxis: number, yAxis: number, touchDown: boolean, buttonValue: number): void;
+  setValueForXAxisYAxisTouchDownButtonValue(xAxis: number, yAxis: number, touchDown: number, buttonValue: number): void;
 }
 
 declare class GCControllerDirectionPad extends GCControllerElement {
@@ -1463,9 +1463,9 @@ declare class GCControllerDirectionPad extends GCControllerElement {
 declare class GCControllerElement extends NSObject {
   readonly collection: GCControllerElement;
 
-  readonly isAnalog: boolean;
+  readonly isAnalog: number;
 
-  readonly isBoundToSystemGesture: boolean;
+  readonly isBoundToSystemGesture: number;
 
   preferredSystemGestureState: interop.Enum<typeof GCSystemGestureState>;
 
@@ -1510,7 +1510,7 @@ declare class GCColor extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1518,9 +1518,9 @@ declare class GCColor extends NSObject implements NSCopying, NSSecureCoding {
 }
 
 declare class GCKeyboardInput extends GCPhysicalInputProfile {
-  keyChangedHandler: (p1: GCKeyboardInput, p2: GCControllerButtonInput, p3: number, p4: boolean) => void;
+  keyChangedHandler: (p1: GCKeyboardInput, p2: GCControllerButtonInput, p3: number, p4: number) => void;
 
-  readonly isAnyKeyPressed: boolean;
+  readonly isAnyKeyPressed: number;
 
   buttonForKeyCode(code: number): GCControllerButtonInput | null;
 }
@@ -1548,17 +1548,17 @@ declare class GCGamepad extends GCPhysicalInputProfile {
 }
 
 declare class GCControllerButtonInput extends GCControllerElement {
-  valueChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: boolean) => void;
+  valueChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: number) => void;
 
-  pressedChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: boolean) => void;
+  pressedChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: number) => void;
 
-  touchedChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: boolean, p4: boolean) => void;
+  touchedChangedHandler: (p1: GCControllerButtonInput, p2: number, p3: number, p4: number) => void;
 
   readonly value: number;
 
-  readonly isPressed: boolean;
+  readonly isPressed: number;
 
-  readonly isTouched: boolean;
+  readonly isTouched: number;
 }
 
 declare class GCMouse extends NSObject implements GCDevice {
@@ -1576,7 +1576,7 @@ declare class GCMouse extends NSObject implements GCDevice {
 
   readonly physicalInputProfile: GCPhysicalInputProfile;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1592,15 +1592,15 @@ declare class GCMouse extends NSObject implements GCDevice {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1622,7 +1622,7 @@ declare class GCPhysicalInputProfile extends NSObject {
 
   readonly lastEventTimestamp: number;
 
-  readonly hasRemappedElements: boolean;
+  readonly hasRemappedElements: number;
 
   valueDidChangeHandler: (p1: GCPhysicalInputProfile, p2: GCControllerElement) => void;
 
@@ -1688,7 +1688,7 @@ declare class GCRacingWheelInput extends GCRacingWheelInputState implements GCDe
 
   objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1704,15 +1704,15 @@ declare class GCRacingWheelInput extends GCRacingWheelInputState implements GCDe
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1760,7 +1760,7 @@ declare class GCSteeringWheelElement extends NSObject implements GCAxisElement {
 
   readonly sfSymbolsName: string;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1776,15 +1776,15 @@ declare class GCSteeringWheelElement extends NSObject implements GCAxisElement {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1830,7 +1830,7 @@ declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysic
 
   objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1846,15 +1846,15 @@ declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysic
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1884,7 +1884,7 @@ declare class GCKeyboard extends NSObject implements GCDevice {
 
   readonly physicalInputProfile: GCPhysicalInputProfile;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1900,15 +1900,15 @@ declare class GCKeyboard extends NSObject implements GCDevice {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -1942,15 +1942,15 @@ declare class GCMouseInput extends GCPhysicalInputProfile {
 declare class GCRacingWheel extends NSObject implements GCDevice {
   static readonly connectedRacingWheels: NSSet;
 
-  acquireDeviceWithError(error: interop.PointerConvertible): boolean;
+  acquireDeviceWithError(error: interop.PointerConvertible): number;
 
   relinquishDevice(): void;
 
-  readonly isAcquired: boolean;
+  readonly isAcquired: number;
 
   readonly wheelInput: GCRacingWheelInput;
 
-  readonly isSnapshot: boolean;
+  readonly isSnapshot: number;
 
   capture(): GCRacingWheel;
 
@@ -1962,7 +1962,7 @@ declare class GCRacingWheel extends NSObject implements GCDevice {
 
   readonly physicalInputProfile: GCPhysicalInputProfile;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -1978,15 +1978,15 @@ declare class GCRacingWheel extends NSObject implements GCDevice {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -2050,7 +2050,7 @@ declare class GCControllerLiveInput extends GCControllerInputState implements GC
 
   objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -2066,15 +2066,15 @@ declare class GCControllerLiveInput extends GCControllerInputState implements GC
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -2116,7 +2116,7 @@ declare class GCControllerInputState extends NSObject implements GCDevicePhysica
 
   objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -2132,15 +2132,15 @@ declare class GCControllerInputState extends NSObject implements GCDevicePhysica
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -2162,11 +2162,11 @@ declare class GCController extends NSObject implements GCDevice {
 
   static readonly current: GCController;
 
-  static shouldMonitorBackgroundEvents: boolean;
+  static shouldMonitorBackgroundEvents: number;
 
-  readonly isAttachedToDevice: boolean;
+  readonly isAttachedToDevice: number;
 
-  readonly isSnapshot: boolean;
+  readonly isSnapshot: number;
 
   playerIndex: interop.Enum<typeof GCControllerPlayerIndex>;
 
@@ -2200,7 +2200,7 @@ declare class GCController extends NSObject implements GCDevice {
 
   static controllerWithExtendedGamepad(): GCController;
 
-  static supportsHIDDevice(device: interop.PointerConvertible): boolean;
+  static supportsHIDDevice(device: interop.PointerConvertible): number;
 
   handlerQueue: NSObject;
 
@@ -2208,7 +2208,7 @@ declare class GCController extends NSObject implements GCDevice {
 
   readonly productCategory: string;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -2224,15 +2224,15 @@ declare class GCController extends NSObject implements GCDevice {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 

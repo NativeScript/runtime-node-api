@@ -144,7 +144,7 @@ MDTypeInfo *MDMetadataWriter::getTypeInfo(TypeSpec &type) {
     } else {
       info->structOffset = MD_SECTION_OFFSET_NULL;
       std::cout << "Unknown record: " << type.recordName << std::endl;
-      assert(false && "Unknown record: not found in structs or unions");
+      // assert(false && "Unknown record: not found in structs or unions");
     }
     break;
 

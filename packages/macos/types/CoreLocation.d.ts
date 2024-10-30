@@ -122,7 +122,7 @@ declare class CLLocationCoordinate2D {
   longitude: number;
 }
 
-declare function CLLocationCoordinate2DIsValid(coord: CLLocationCoordinate2D): boolean;
+declare function CLLocationCoordinate2DIsValid(coord: CLLocationCoordinate2D): number;
 
 declare function CLLocationCoordinate2DMake(latitude: number, longitude: number): CLLocationCoordinate2D;
 
@@ -133,7 +133,7 @@ declare interface CLLocationManagerDelegate extends NSObjectProtocol {
 
   locationManagerDidUpdateHeading?(manager: CLLocationManager, newHeading: CLHeading): void;
 
-  locationManagerShouldDisplayHeadingCalibration?(manager: CLLocationManager): boolean;
+  locationManagerShouldDisplayHeadingCalibration?(manager: CLLocationManager): number;
 
   locationManagerDidDetermineStateForRegion?(manager: CLLocationManager, state: interop.Enum<typeof CLRegionState>, region: CLRegion): void;
 
@@ -180,7 +180,7 @@ declare class CLVisit extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly horizontalAccuracy: number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -190,19 +190,19 @@ declare class CLVisit extends NSObject implements NSSecureCoding, NSCopying {
 }
 
 declare class CLLocationManager extends NSObject {
-  static locationServicesEnabled(): boolean;
+  static locationServicesEnabled(): number;
 
-  static headingAvailable(): boolean;
+  static headingAvailable(): number;
 
-  static significantLocationChangeMonitoringAvailable(): boolean;
+  static significantLocationChangeMonitoringAvailable(): number;
 
-  static isMonitoringAvailableForClass(regionClass: interop.Object): boolean;
+  static isMonitoringAvailableForClass(regionClass: interop.Object): number;
 
-  static regionMonitoringAvailable(): boolean;
+  static regionMonitoringAvailable(): number;
 
-  static regionMonitoringEnabled(): boolean;
+  static regionMonitoringEnabled(): number;
 
-  static isRangingAvailable(): boolean;
+  static isRangingAvailable(): number;
 
   readonly authorizationStatus: interop.Enum<typeof CLAuthorizationStatus>;
 
@@ -210,11 +210,11 @@ declare class CLLocationManager extends NSObject {
 
   readonly accuracyAuthorization: interop.Enum<typeof CLAccuracyAuthorization>;
 
-  readonly isAuthorizedForWidgetUpdates: boolean;
+  readonly isAuthorizedForWidgetUpdates: number;
 
   delegate: CLLocationManagerDelegate;
 
-  readonly locationServicesEnabled: boolean;
+  readonly locationServicesEnabled: number;
 
   purpose: string;
 
@@ -224,13 +224,13 @@ declare class CLLocationManager extends NSObject {
 
   desiredAccuracy: number;
 
-  pausesLocationUpdatesAutomatically: boolean;
+  pausesLocationUpdatesAutomatically: number;
 
-  allowsBackgroundLocationUpdates: boolean;
+  allowsBackgroundLocationUpdates: number;
 
   readonly location: CLLocation;
 
-  readonly headingAvailable: boolean;
+  readonly headingAvailable: number;
 
   headingFilter: number;
 
@@ -288,7 +288,7 @@ declare class CLLocationManager extends NSObject {
 
   disallowDeferredLocationUpdates(): void;
 
-  static deferredLocationUpdatesAvailable(): boolean;
+  static deferredLocationUpdatesAvailable(): number;
 
   startMonitoringVisits(): void;
 
@@ -326,7 +326,7 @@ declare class CLMonitoringRecord extends NSObject implements NSSecureCoding {
 
   readonly lastEvent: CLMonitoringEvent;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -346,25 +346,25 @@ declare class CLLocationUpdater extends NSObject {
 }
 
 declare class CLUpdate extends NSObject {
-  readonly authorizationDenied: boolean;
+  readonly authorizationDenied: number;
 
-  readonly authorizationDeniedGlobally: boolean;
+  readonly authorizationDeniedGlobally: number;
 
-  readonly authorizationRestricted: boolean;
+  readonly authorizationRestricted: number;
 
-  readonly isStationary: boolean;
+  readonly isStationary: number;
 
-  readonly stationary: boolean;
+  readonly stationary: number;
 
-  readonly insufficientlyInUse: boolean;
+  readonly insufficientlyInUse: number;
 
-  readonly locationUnavailable: boolean;
+  readonly locationUnavailable: number;
 
-  readonly accuracyLimited: boolean;
+  readonly accuracyLimited: number;
 
-  readonly serviceSessionRequired: boolean;
+  readonly serviceSessionRequired: number;
 
-  readonly authorizationRequestInProgress: boolean;
+  readonly authorizationRequestInProgress: number;
 
   readonly location: CLLocation | null;
 }
@@ -386,7 +386,7 @@ declare class CLHeading extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -412,7 +412,7 @@ declare class CLBeacon extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -446,13 +446,13 @@ declare class CLBeaconRegion extends CLRegion {
 
   readonly minor: NSNumber;
 
-  notifyEntryStateOnDisplay: boolean;
+  notifyEntryStateOnDisplay: number;
 }
 
 declare class CLBeaconIdentityConstraint extends CLBeaconIdentityCondition implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -474,7 +474,7 @@ declare class CLBeaconIdentityCondition extends CLCondition implements NSCopying
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -488,7 +488,7 @@ declare class CLCircularGeographicCondition extends CLCondition implements NSSec
 
   initWithCenterRadius(center: CLLocationCoordinate2D, radius: number): this;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -502,11 +502,11 @@ declare class CLCircularRegion extends CLRegion {
 
   readonly radius: number;
 
-  containsCoordinate(coordinate: CLLocationCoordinate2D): boolean;
+  containsCoordinate(coordinate: CLLocationCoordinate2D): number;
 }
 
 declare class CLCondition extends NSObject implements NSSecureCoding, NSCopying {
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -524,15 +524,15 @@ declare class CLRegion extends NSObject implements NSCopying, NSSecureCoding {
 
   readonly identifier: string;
 
-  notifyOnEntry: boolean;
+  notifyOnEntry: number;
 
-  notifyOnExit: boolean;
+  notifyOnExit: number;
 
-  containsCoordinate(coordinate: CLLocationCoordinate2D): boolean;
+  containsCoordinate(coordinate: CLLocationCoordinate2D): number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -582,7 +582,7 @@ declare class CLPlacemark extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -594,7 +594,7 @@ declare class CLFloor extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -642,7 +642,7 @@ declare class CLLocation extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -650,7 +650,7 @@ declare class CLLocation extends NSObject implements NSCopying, NSSecureCoding {
 }
 
 declare class CLGeocoder extends NSObject {
-  readonly isGeocoding: boolean;
+  readonly isGeocoding: number;
 
   reverseGeocodeLocationCompletionHandler(location: CLLocation, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void): void;
 
@@ -672,15 +672,15 @@ declare class CLGeocoder extends NSObject {
 }
 
 declare class CLLocationSourceInformation extends NSObject implements NSCopying, NSSecureCoding {
-  initWithSoftwareSimulationStateAndExternalAccessoryState(isSoftware: boolean, isAccessory: boolean): this;
+  initWithSoftwareSimulationStateAndExternalAccessoryState(isSoftware: number, isAccessory: number): this;
 
-  readonly isSimulatedBySoftware: boolean;
+  readonly isSimulatedBySoftware: number;
 
-  readonly isProducedByAccessory: boolean;
+  readonly isProducedByAccessory: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -696,27 +696,27 @@ declare class CLMonitoringEvent extends NSObject implements NSSecureCoding {
 
   readonly date: NSDate;
 
-  readonly authorizationDenied: boolean;
+  readonly authorizationDenied: number;
 
-  readonly authorizationDeniedGlobally: boolean;
+  readonly authorizationDeniedGlobally: number;
 
-  readonly authorizationRestricted: boolean;
+  readonly authorizationRestricted: number;
 
-  readonly insufficientlyInUse: boolean;
+  readonly insufficientlyInUse: number;
 
-  readonly accuracyLimited: boolean;
+  readonly accuracyLimited: number;
 
-  readonly conditionUnsupported: boolean;
+  readonly conditionUnsupported: number;
 
-  readonly conditionLimitExceeded: boolean;
+  readonly conditionLimitExceeded: number;
 
-  readonly persistenceUnavailable: boolean;
+  readonly persistenceUnavailable: number;
 
-  readonly serviceSessionRequired: boolean;
+  readonly serviceSessionRequired: number;
 
-  readonly authorizationRequestInProgress: boolean;
+  readonly authorizationRequestInProgress: number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 

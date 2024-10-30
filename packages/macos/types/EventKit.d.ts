@@ -200,7 +200,7 @@ declare class EKVirtualConferenceProvider extends NSObject implements NSExtensio
 
   beginRequestWithExtensionContext(context: NSExtensionContext): void;
 
-  isEqual(object: interop.Object): boolean;
+  isEqual(object: interop.Object): number;
 
   readonly hash: number;
 
@@ -216,15 +216,15 @@ declare class EKVirtualConferenceProvider extends NSObject implements NSExtensio
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: boolean;
+  readonly isProxy: number;
 
-  isKindOfClass(aClass: interop.Object): boolean;
+  isKindOfClass(aClass: interop.Object): number;
 
-  isMemberOfClass(aClass: interop.Object): boolean;
+  isMemberOfClass(aClass: interop.Object): number;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
 
-  respondsToSelector(aSelector: string): boolean;
+  respondsToSelector(aSelector: string): number;
 
   retain(): this;
 
@@ -276,7 +276,7 @@ declare class EKSource extends EKObject {
 
   calendarsForEntityType(entityType: interop.Enum<typeof EKEntityType>): NSSet;
 
-  readonly isDelegate: boolean;
+  readonly isDelegate: number;
 }
 
 declare class EKReminder extends EKCalendarItem {
@@ -286,7 +286,7 @@ declare class EKReminder extends EKCalendarItem {
 
   dueDateComponents: NSDateComponents;
 
-  isCompleted: boolean;
+  isCompleted: number;
 
   completionDate: NSDate;
 
@@ -306,7 +306,7 @@ declare class EKRecurrenceDayOfWeek extends NSObject implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -324,7 +324,7 @@ declare class EKParticipant extends EKObject implements NSCopying {
 
   readonly participantType: interop.Enum<typeof EKParticipantType>;
 
-  readonly isCurrentUser: boolean;
+  readonly isCurrentUser: number;
 
   readonly contactPredicate: NSPredicate;
 
@@ -354,13 +354,13 @@ declare class EKCalendarItem extends EKObject {
 
   timeZone: NSTimeZone;
 
-  readonly hasAlarms: boolean;
+  readonly hasAlarms: number;
 
-  readonly hasRecurrenceRules: boolean;
+  readonly hasRecurrenceRules: number;
 
-  readonly hasAttendees: boolean;
+  readonly hasAttendees: number;
 
-  readonly hasNotes: boolean;
+  readonly hasNotes: number;
 
   readonly attendees: NSArray;
 
@@ -404,15 +404,15 @@ declare class EKAlarm extends EKObject implements NSCopying {
 }
 
 declare class EKObject extends NSObject {
-  readonly hasChanges: boolean;
+  readonly hasChanges: number;
 
-  readonly isNew: boolean;
+  readonly isNew: number;
 
   reset(): void;
 
   rollback(): void;
 
-  refresh(): boolean;
+  refresh(): number;
 }
 
 declare class EKRecurrenceEnd extends NSObject implements NSCopying, NSSecureCoding {
@@ -426,7 +426,7 @@ declare class EKRecurrenceEnd extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -444,11 +444,11 @@ declare class EKCalendar extends EKObject {
 
   readonly type: interop.Enum<typeof EKCalendarType>;
 
-  readonly allowsContentModifications: boolean;
+  readonly allowsContentModifications: number;
 
-  readonly isSubscribed: boolean;
+  readonly isSubscribed: number;
 
-  readonly isImmutable: boolean;
+  readonly isImmutable: number;
 
   get CGColor(): interop.Pointer;
   set CGColor(value: interop.PointerConvertible);
@@ -465,7 +465,7 @@ declare class EKEvent extends EKCalendarItem {
 
   readonly eventIdentifier: string;
 
-  isAllDay: boolean;
+  isAllDay: number;
 
   startDate: NSDate;
 
@@ -481,11 +481,11 @@ declare class EKEvent extends EKCalendarItem {
 
   readonly status: interop.Enum<typeof EKEventStatus>;
 
-  readonly isDetached: boolean;
+  readonly isDetached: number;
 
   readonly occurrenceDate: NSDate;
 
-  refresh(): boolean;
+  refresh(): number;
 
   readonly birthdayContactIdentifier: string;
 
@@ -501,13 +501,13 @@ declare class EKEventStore extends NSObject {
 
   initWithSources(sources: NSArray<interop.Object> | Array<interop.Object>): this;
 
-  requestFullAccessToEventsWithCompletion(completion: (p1: boolean, p2: NSError) => void): void;
+  requestFullAccessToEventsWithCompletion(completion: (p1: number, p2: NSError) => void): void;
 
-  requestWriteOnlyAccessToEventsWithCompletion(completion: (p1: boolean, p2: NSError) => void): void;
+  requestWriteOnlyAccessToEventsWithCompletion(completion: (p1: number, p2: NSError) => void): void;
 
-  requestFullAccessToRemindersWithCompletion(completion: (p1: boolean, p2: NSError) => void): void;
+  requestFullAccessToRemindersWithCompletion(completion: (p1: number, p2: NSError) => void): void;
 
-  requestAccessToEntityTypeCompletion(entityType: interop.Enum<typeof EKEntityType>, completion: (p1: boolean, p2: NSError) => void): void;
+  requestAccessToEntityTypeCompletion(entityType: interop.Enum<typeof EKEntityType>, completion: (p1: number, p2: NSError) => void): void;
 
   readonly eventStoreIdentifier: string;
 
@@ -525,21 +525,21 @@ declare class EKEventStore extends NSObject {
 
   calendarWithIdentifier(identifier: string): EKCalendar;
 
-  saveCalendarCommitError(calendar: EKCalendar, commit: boolean, error: interop.PointerConvertible): boolean;
+  saveCalendarCommitError(calendar: EKCalendar, commit: number, error: interop.PointerConvertible): number;
 
-  removeCalendarCommitError(calendar: EKCalendar, commit: boolean, error: interop.PointerConvertible): boolean;
+  removeCalendarCommitError(calendar: EKCalendar, commit: number, error: interop.PointerConvertible): number;
 
   calendarItemWithIdentifier(identifier: string): EKCalendarItem;
 
   calendarItemsWithExternalIdentifier(externalIdentifier: string): NSArray;
 
-  saveEventSpanError(event: EKEvent, span: interop.Enum<typeof EKSpan>, error: interop.PointerConvertible): boolean;
+  saveEventSpanError(event: EKEvent, span: interop.Enum<typeof EKSpan>, error: interop.PointerConvertible): number;
 
-  removeEventSpanError(event: EKEvent, span: interop.Enum<typeof EKSpan>, error: interop.PointerConvertible): boolean;
+  removeEventSpanError(event: EKEvent, span: interop.Enum<typeof EKSpan>, error: interop.PointerConvertible): number;
 
-  saveEventSpanCommitError(event: EKEvent, span: interop.Enum<typeof EKSpan>, commit: boolean, error: interop.PointerConvertible): boolean;
+  saveEventSpanCommitError(event: EKEvent, span: interop.Enum<typeof EKSpan>, commit: number, error: interop.PointerConvertible): number;
 
-  removeEventSpanCommitError(event: EKEvent, span: interop.Enum<typeof EKSpan>, commit: boolean, error: interop.PointerConvertible): boolean;
+  removeEventSpanCommitError(event: EKEvent, span: interop.Enum<typeof EKSpan>, commit: number, error: interop.PointerConvertible): number;
 
   eventWithIdentifier(identifier: string): EKEvent;
 
@@ -549,9 +549,9 @@ declare class EKEventStore extends NSObject {
 
   predicateForEventsWithStartDateEndDateCalendars(startDate: NSDate, endDate: NSDate, calendars: NSArray<interop.Object> | Array<interop.Object> | null): NSPredicate;
 
-  saveReminderCommitError(reminder: EKReminder, commit: boolean, error: interop.PointerConvertible): boolean;
+  saveReminderCommitError(reminder: EKReminder, commit: number, error: interop.PointerConvertible): number;
 
-  removeReminderCommitError(reminder: EKReminder, commit: boolean, error: interop.PointerConvertible): boolean;
+  removeReminderCommitError(reminder: EKReminder, commit: number, error: interop.PointerConvertible): number;
 
   fetchRemindersMatchingPredicateCompletion(predicate: NSPredicate, completion: (p1: NSArray<interop.Object> | Array<interop.Object>) => void | null): interop.Object;
 
@@ -563,7 +563,7 @@ declare class EKEventStore extends NSObject {
 
   predicateForCompletedRemindersWithCompletionDateStartingEndingCalendars(startDate: NSDate | null, endDate: NSDate | null, calendars: NSArray<interop.Object> | Array<interop.Object> | null): NSPredicate;
 
-  commit(error: interop.PointerConvertible): boolean;
+  commit(error: interop.PointerConvertible): number;
 
   reset(): void;
 

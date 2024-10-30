@@ -3442,13 +3442,6 @@ declare class MusicDeviceNoteParams {
   mControls: unknown /* const array */;
 }
 
-declare class MusicDeviceStdNoteParams {
-  constructor(init?: MusicDeviceStdNoteParams);
-  argCount: number;
-  mPitch: number;
-  mVelocity: number;
-}
-
 declare class MixerDistanceParams {
   constructor(init?: MixerDistanceParams);
   mReferenceDistance: number;
@@ -3752,6 +3745,17 @@ declare class AURecordedParameterEvent {
   value: number;
 }
 
+declare class AUMIDIEvent {
+  constructor(init?: AUMIDIEvent);
+  next: interop.Pointer;
+  eventSampleTime: number;
+  eventType: interop.Enum<typeof AURenderEventType>;
+  reserved: number;
+  length: number;
+  cable: number;
+  data: unknown /* const array */;
+}
+
 declare class AudioUnitFrequencyResponseBin {
   constructor(init?: AudioUnitFrequencyResponseBin);
   mFrequency: number;
@@ -3874,6 +3878,13 @@ declare class CAFStringID {
   mStringStartByteOffset: number;
 }
 
+declare class MusicDeviceStdNoteParams {
+  constructor(init?: MusicDeviceStdNoteParams);
+  argCount: number;
+  mPitch: number;
+  mVelocity: number;
+}
+
 declare class AudioUnitRenderContext {
   constructor(init?: AudioUnitRenderContext);
   workgroup: OS_os_workgroup | null;
@@ -3994,17 +4005,6 @@ declare class AudioFileFDFTableExtended {
   mReadPacketDataFDF: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible, p5: number, p6: interop.PointerConvertible, p7: interop.PointerConvertible) => number | null;
 }
 
-declare class AUMIDIEvent {
-  constructor(init?: AUMIDIEvent);
-  next: interop.Pointer;
-  eventSampleTime: number;
-  eventType: interop.Enum<typeof AURenderEventType>;
-  reserved: number;
-  length: number;
-  cable: number;
-  data: unknown /* const array */;
-}
-
 declare class MIDIChannelMessage {
   constructor(init?: MIDIChannelMessage);
   status: number;
@@ -4032,16 +4032,6 @@ declare class unnamed_5862534633934963649 {
   immediate: unnamed_12188048926459557065;
 }
 
-type unnamed_519932056669805451Descriptor = 
-  | { connection: AudioUnitNodeConnection }
-  | { inputCallback: AUNodeRenderCallback };
-
-declare class unnamed_519932056669805451 {
-  constructor(init?: unnamed_519932056669805451Descriptor);
-  connection: AudioUnitNodeConnection;
-  inputCallback: AUNodeRenderCallback;
-}
-
 type unnamed_7430456954590750461Descriptor = 
   | { mParameter: AudioUnitParameter }
   | { mProperty: AudioUnitProperty };
@@ -4050,20 +4040,6 @@ declare class unnamed_7430456954590750461 {
   constructor(init?: unnamed_7430456954590750461Descriptor);
   mParameter: AudioUnitParameter;
   mProperty: AudioUnitProperty;
-}
-
-type AURenderEventDescriptor = 
-  | { head: AURenderEventHeader }
-  | { parameter: AUParameterEvent }
-  | { MIDI: AUMIDIEvent }
-  | { MIDIEventsList: AUMIDIEventList };
-
-declare class AURenderEvent {
-  constructor(init?: AURenderEventDescriptor);
-  head: AURenderEventHeader;
-  parameter: AUParameterEvent;
-  MIDI: AUMIDIEvent;
-  MIDIEventsList: AUMIDIEventList;
 }
 
 type unnamed_12004977790882776085Descriptor = 
@@ -4080,6 +4056,30 @@ declare class unnamed_12004977790882776085 {
   beats: number;
   seconds: number;
   smpte: SMPTETime;
+}
+
+type AURenderEventDescriptor = 
+  | { head: AURenderEventHeader }
+  | { parameter: AUParameterEvent }
+  | { MIDI: AUMIDIEvent }
+  | { MIDIEventsList: AUMIDIEventList };
+
+declare class AURenderEvent {
+  constructor(init?: AURenderEventDescriptor);
+  head: AURenderEventHeader;
+  parameter: AUParameterEvent;
+  MIDI: AUMIDIEvent;
+  MIDIEventsList: AUMIDIEventList;
+}
+
+type unnamed_519932056669805451Descriptor = 
+  | { connection: AudioUnitNodeConnection }
+  | { inputCallback: AUNodeRenderCallback };
+
+declare class unnamed_519932056669805451 {
+  constructor(init?: unnamed_519932056669805451Descriptor);
+  connection: AudioUnitNodeConnection;
+  inputCallback: AUNodeRenderCallback;
 }
 
 declare function AudioComponentFindNext(inComponent: interop.PointerConvertible, inDesc: interop.PointerConvertible): interop.Pointer;
@@ -4819,7 +4819,7 @@ declare class AUAudioUnitPreset extends NSObject implements NSSecureCoding {
 
   name: string;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4835,9 +4835,9 @@ declare class AUAudioUnitBusArray extends NSObject implements NSFastEnumeration 
 
   objectAtIndexedSubscript(index: number): AUAudioUnitBus;
 
-  readonly isCountChangeable: boolean;
+  readonly isCountChangeable: number;
 
-  setBusCountError(count: number, outError: interop.PointerConvertible): boolean;
+  setBusCountError(count: number, outError: interop.PointerConvertible): number;
 
   addObserverToAllBussesForKeyPathOptionsContext(observer: NSObject, keyPath: string, options: interop.Enum<typeof NSKeyValueObservingOptions>, context: interop.PointerConvertible): void;
 
@@ -4870,7 +4870,7 @@ declare class AUParameterTree extends AUParameterGroup implements NSSecureCoding
 
   static createTreeWithChildren(children: NSArray<interop.Object> | Array<interop.Object>): AUParameterTree;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4882,7 +4882,7 @@ declare class AUParameterGroup extends AUParameterNode implements NSSecureCoding
 
   readonly allParameters: NSArray;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4946,7 +4946,7 @@ declare class AUParameter extends AUParameterNode implements NSSecureCoding {
 
   valueFromString(string: string): number;
 
-  static readonly supportsSecureCoding: boolean;
+  static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4956,11 +4956,11 @@ declare class AUParameter extends AUParameterNode implements NSSecureCoding {
 declare class AUAudioUnitBus extends NSObject {
   readonly format: AVAudioFormat;
 
-  setFormatError(format: AVAudioFormat, outError: interop.PointerConvertible): boolean;
+  setFormatError(format: AVAudioFormat, outError: interop.PointerConvertible): number;
 
-  shouldAllocateBuffer: boolean;
+  shouldAllocateBuffer: number;
 
-  isEnabled: boolean;
+  isEnabled: number;
 
   name: string;
 
@@ -5003,11 +5003,11 @@ declare class AUAudioUnit extends NSObject {
 
   readonly componentVersion: number;
 
-  allocateRenderResourcesAndReturnError(outError: interop.PointerConvertible): boolean;
+  allocateRenderResourcesAndReturnError(outError: interop.PointerConvertible): number;
 
   deallocateRenderResources(): void;
 
-  readonly renderResourcesAllocated: boolean;
+  readonly renderResourcesAllocated: number;
 
   reset(): void;
 
@@ -5029,9 +5029,9 @@ declare class AUAudioUnit extends NSObject {
 
   parametersForOverviewWithCount(count: number): NSArray;
 
-  readonly allParameterValues: boolean;
+  readonly allParameterValues: number;
 
-  readonly isMusicDeviceOrEffect: boolean;
+  readonly isMusicDeviceOrEffect: number;
 
   readonly virtualMIDICableCount: number;
 
@@ -5041,7 +5041,7 @@ declare class AUAudioUnit extends NSObject {
 
   readonly MIDIOutputNames: NSArray;
 
-  readonly providesUserInterface: boolean;
+  readonly providesUserInterface: number;
 
   MIDIOutputEventBlock: (p1: number, p2: number, p3: number, p4: interop.PointerConvertible) => number;
 
@@ -5061,15 +5061,15 @@ declare class AUAudioUnit extends NSObject {
 
   readonly userPresets: NSArray;
 
-  saveUserPresetError(userPreset: AUAudioUnitPreset, outError: interop.PointerConvertible): boolean;
+  saveUserPresetError(userPreset: AUAudioUnitPreset, outError: interop.PointerConvertible): number;
 
-  deleteUserPresetError(userPreset: AUAudioUnitPreset, outError: interop.PointerConvertible): boolean;
+  deleteUserPresetError(userPreset: AUAudioUnitPreset, outError: interop.PointerConvertible): number;
 
   presetStateForError(userPreset: AUAudioUnitPreset, outError: interop.PointerConvertible): NSDictionary;
 
-  readonly supportsUserPresets: boolean;
+  readonly supportsUserPresets: number;
 
-  readonly isLoadedInProcess: boolean;
+  readonly isLoadedInProcess: number;
 
   currentPreset: AUAudioUnitPreset;
 
@@ -5079,44 +5079,44 @@ declare class AUAudioUnit extends NSObject {
 
   renderQuality: number;
 
-  shouldBypassEffect: boolean;
+  shouldBypassEffect: number;
 
-  readonly canProcessInPlace: boolean;
+  readonly canProcessInPlace: number;
 
-  isRenderingOffline: boolean;
+  isRenderingOffline: number;
 
   readonly channelCapabilities: NSArray;
 
-  musicalContextBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: interop.PointerConvertible, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => boolean;
+  musicalContextBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: interop.PointerConvertible, p5: interop.PointerConvertible, p6: interop.PointerConvertible) => number;
 
-  transportStateBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => boolean;
+  transportStateBlock: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => number;
 
   contextName: string;
 
   readonly migrateFromPlugin: NSArray;
 
-  readonly supportsMPE: boolean;
+  readonly supportsMPE: number;
 
   get channelMap(): NSArray;
   set channelMap(value: NSArray<interop.Object> | Array<interop.Object>);
 
   profileStateForCableChannel(cable: number, channel: number): MIDICIProfileState;
 
-  enableProfileCableOnChannelError(profile: MIDICIProfile, cable: number, channel: number, outError: interop.PointerConvertible): boolean;
+  enableProfileCableOnChannelError(profile: MIDICIProfile, cable: number, channel: number, outError: interop.PointerConvertible): number;
 
-  disableProfileCableOnChannelError(profile: MIDICIProfile, cable: number, channel: number, outError: interop.PointerConvertible): boolean;
+  disableProfileCableOnChannelError(profile: MIDICIProfile, cable: number, channel: number, outError: interop.PointerConvertible): number;
 
-  profileChangedBlock: (p1: number, p2: number, p3: MIDICIProfile, p4: boolean) => void;
+  profileChangedBlock: (p1: number, p2: number, p3: MIDICIProfile, p4: number) => void;
 
   messageChannelFor(channelName: string): AUMessageChannel;
 
-  readonly canPerformInput: boolean;
+  readonly canPerformInput: number;
 
-  readonly canPerformOutput: boolean;
+  readonly canPerformOutput: number;
 
-  isInputEnabled: boolean;
+  isInputEnabled: number;
 
-  isOutputEnabled: boolean;
+  isOutputEnabled: number;
 
   outputProvider: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number, p4: number, p5: interop.PointerConvertible) => number;
 
@@ -5124,15 +5124,15 @@ declare class AUAudioUnit extends NSObject {
 
   readonly deviceID: number;
 
-  setDeviceIDError(deviceID: number, outError: interop.PointerConvertible): boolean;
+  setDeviceIDError(deviceID: number, outError: interop.PointerConvertible): number;
 
   readonly deviceInputLatency: number;
 
   readonly deviceOutputLatency: number;
 
-  readonly isRunning: boolean;
+  readonly isRunning: number;
 
-  startHardwareAndReturnError(outError: interop.PointerConvertible): boolean;
+  startHardwareAndReturnError(outError: interop.PointerConvertible): number;
 
   stopHardware(): void;
 
@@ -5146,7 +5146,7 @@ declare class AUAudioUnit extends NSObject {
 
   MIDIOutputBufferSizeHint: number;
 
-  shouldChangeToFormatForBus(format: AVAudioFormat, bus: AUAudioUnitBus): boolean;
+  shouldChangeToFormatForBus(format: AVAudioFormat, bus: AUAudioUnitBus): number;
 }
 
 declare class AUAudioUnitV2Bridge extends AUAudioUnit {
