@@ -48,6 +48,8 @@ ClassBuilder::ClassBuilder(napi_env env, napi_value constructor) {
 
   objc_registerClassPair(nativeClass);
 
+  napi_remove_wrap(env, constructor, nullptr);
+
   napi_wrap(env, constructor, (void *)nativeClass, nullptr, nullptr, nullptr);
 
   napi_value prototype;

@@ -2,14 +2,15 @@
 #include "Console.h"
 #include "Performance.h"
 #include "Require.h"
+#include "Timers.h"
 #include "js_native_api.h"
-#include <iostream>
 #include <CoreFoundation/CFRunLoop.h>
+#include <iostream>
 
 // #include <NativeScript/NativeScript.h>
 
 extern "C" {
-  void objc_bridge_init(napi_env env, const char *metadata_path);
+void objc_bridge_init(napi_env env, const char *metadata_path);
 }
 
 namespace charon {
@@ -28,9 +29,11 @@ private:
 };
 
 Runtime::Runtime(std::string &mainPath) : mainPath(mainPath) {
-  hermes::vm::RuntimeConfig config = hermes::vm::RuntimeConfig::Builder().withMicrotaskQueue(true).build();
+  hermes::vm::RuntimeConfig config =
+      hermes::vm::RuntimeConfig::Builder().withMicrotaskQueue(true).build();
   threadSafeRuntime = facebook::hermes::makeThreadSafeHermesRuntime(config);
-  runtime = (facebook::hermes::HermesRuntime *) &threadSafeRuntime->getUnsafeRuntime();
+  runtime =
+      (facebook::hermes::HermesRuntime *)&threadSafeRuntime->getUnsafeRuntime();
 
   runtime->createNapiEnv(&env);
 
@@ -40,6 +43,9 @@ Runtime::Runtime(std::string &mainPath) : mainPath(mainPath) {
 
   Console::init(env);
   Performance::init(env);
+#ifdef __APPLE__
+  Timers::init(env);
+#endif // __APPLE__
 
   require = Require::init(env, mainPath, mainPath);
 
@@ -84,31 +90,32 @@ int Runtime::executeBytecode(const uint8_t *data, size_t size) {
   return 0;
 }
 
-bool Runtime::eventLoopStep() {
-  return !runtime->drainMicrotasks();
-}
+bool Runtime::eventLoopStep() { return !runtime->drainMicrotasks(); }
 
 void Runtime::addEventLoopToRunLoop(bool exitOnEmpty) {
-  auto handler = ^void (CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
-    if (activity == kCFRunLoopBeforeWaiting){
-      bool moreWork = this->eventLoopStep();
-      if (moreWork) {
-        CFRunLoopWakeUp(CFRunLoopGetMain());
-      } else if (exitOnEmpty) {
-        CFRunLoopStop(CFRunLoopGetMain());
-      }
-    }
-  };
+  auto handler =
+      ^void(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+        if (activity == kCFRunLoopBeforeWaiting) {
+          bool moreWork = this->eventLoopStep();
+          if (moreWork) {
+            CFRunLoopWakeUp(CFRunLoopGetMain());
+          } else if (exitOnEmpty) {
+            CFRunLoopStop(CFRunLoopGetMain());
+          }
+        }
+      };
 
-  CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, kCFRunLoopAllActivities, true, 0, handler);
+  CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(
+      kCFAllocatorDefault, kCFRunLoopAllActivities, true, 0, handler);
   CFRunLoopAddObserver(CFRunLoopGetMain(), observer, kCFRunLoopDefaultMode);
 }
 
 void Runtime::runRunLoop() {
   // Why does this not stop?
   // while (true) {
-  //   CFRunLoopRunResult result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
-  //   if (result == kCFRunLoopRunFinished || result == kCFRunLoopRunStopped) {
+  //   CFRunLoopRunResult result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0,
+  //   true); if (result == kCFRunLoopRunFinished || result ==
+  //   kCFRunLoopRunStopped) {
   //     break;
   //   }
   // }

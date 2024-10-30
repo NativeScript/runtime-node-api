@@ -57,7 +57,6 @@ async function build(targetPlatform: string) {
       recursive: true,
     }).catch(() => {});
 
-    // Copy the built app to the build directory
     await Deno.copyFile(
       `../packages/${platformDir}/build/${targetPlatform}/${buildConfig}/libNativeScript.dylib`,
       `../packages/${platformDir}/dist/${targetPlatform}/NativeScript.node`

@@ -1,12 +1,44 @@
+#include "Bundle.h"
 #include "Compiler.h"
 #include "Runtime.h"
 #include "segappend.h"
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 
 using namespace charon;
 
 int main(int argc, char **argv) {
+#ifdef __APPLE__
+  std::string bytecodePath = getBytecodePathFromBundle();
+  if (!bytecodePath.empty()) {
+    std::string bundlePath = getBundlePath();
+
+    auto runtime = Runtime(bundlePath);
+
+    // runtime.addEventLoopToRunLoop(true);
+
+    std::ifstream file(bytecodePath, std::ios::binary);
+    if (!file.is_open()) {
+      std::cout << "Failed to open bytecode file" << std::endl;
+      return 1;
+    }
+
+    file.seekg(0, std::ios::end);
+    size_t size = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    std::vector<uint8_t> data(size);
+    file.read((char *)data.data(), size);
+
+    file.close();
+
+    runtime.executeBytecode(data.data(), size);
+
+    return 0;
+  }
+#endif // __APPLE__
+
   const uint8_t *segmentData;
   size_t segmentSize;
   auto status = segappend_load_segment("__charon_start", (void **)&segmentData,

@@ -81,6 +81,8 @@ set(RT_SOURCE_FILES
   src/Runtime.cpp
   src/Require.cpp
   src/Performance.cpp
+  src/Bundle.mm
+  src/Timers.mm
 )
 
 # Define targets
@@ -122,16 +124,19 @@ set_target_properties(
 target_link_options(
   NativeScriptRuntime
   PRIVATE
-  -Wl,-F${NS_BRIDGE_PATH},-F${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC},-rpath,${NS_BRIDGE_PATH},-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
+  -Wl,-rpath,@executable_path/../Frameworks
+  -Wl,-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
+  -Wl,-rpath,${NS_BRIDGE_PATH}
+  -Wl,-F${NS_BRIDGE_PATH},-F${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
 )
 
 if (TARGET_PLATFORM_MACOS)
-  set(BRIDGE_BIN "NativeScript")
+  set(BRIDGE_BIN "-lNativeScript")
 
-  target_link_directories(
+  target_link_options(
     NativeScriptRuntime
     PRIVATE
-    ${NS_BRIDGE_PATH}
+    -L${NS_BRIDGE_PATH}
   )
 else()
   set(BRIDGE_BIN "-framework NativeScript")
@@ -158,12 +163,15 @@ if(TARGET_PLATFORM_MACOS)
   target_link_options(
     charon
     PRIVATE
+    -Wl,-rpath,@executable_path/../Frameworks
+    -Wl,-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
+    -Wl,-rpath,${NS_BRIDGE_PATH}
     -undefined dynamic_lookup
   )
 
   target_link_libraries(
     charon
     PRIVATE
-    NativeScriptRuntime
+    "NativeScriptRuntime"
   )
 endif()
