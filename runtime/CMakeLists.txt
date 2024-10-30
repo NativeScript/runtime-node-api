@@ -103,6 +103,7 @@ set(PUBLIC_HEADERS
   "include/jsi"
   "include/js_native_api.h"
   "include/js_native_api_types.h"
+  "include/js_runtime_api.h"
 )
 
 target_sources(
