@@ -3,6 +3,7 @@
 #include "js_native_api.h"
 #include <iostream>
 #include <string>
+#include <dlfcn.h>
 
 napi_value Require::createRequire(napi_env env, std::string &path,
                                   std::string &tilde, Require **pRequire) {
@@ -64,15 +65,51 @@ std::string Require::resolve(std::string &spec) {
 
   size_t pos = result.rfind("/");
   size_t jspos = result.find(".js");
-  if (jspos < pos || jspos == std::string::npos) {
-    result += result.ends_with("/") ? "index.js" : "/index.js";
+  size_t dylibpos = result.rfind(".dylib");
+  if ((jspos < pos || jspos == std::string::npos) && !(dylibpos < pos)) {
+    // result += result.ends_with("/") ? "index.js" : "/index.js";
   }
 
   return result;
 }
 
+void finalize_dlobject(napi_env env, void *finalize_data, void *finalize_hint) {
+  void *handle = finalize_data;
+  dlclose(handle);
+}
+
+typedef napi_value napi_module_register_fn(napi_env env, napi_value exports);
+
 napi_value Require::require(napi_env env, std::string &spec) {
   std::string path = resolve(spec);
+
+  if (path.ends_with(".node") || path.ends_with(".dylib") || path.ends_with(".so")) {
+    void *handle = dlopen(path.c_str(), RTLD_GLOBAL | RTLD_LAZY);
+    if (!handle) {
+      std::cerr << "error in dlopen: " << dlerror() << std::endl;
+      return nullptr;
+    }
+
+    void *sym = dlsym(handle, "napi_register_module_v1");
+    if (!sym) {
+      std::cerr << "error in dlsym: " << dlerror() << std::endl;
+      return nullptr;
+    }
+
+    napi_value module, exports;
+    napi_create_object(env, &module);
+    napi_create_object(env, &exports);
+    napi_set_named_property(env, module, "exports", exports);
+
+    napi_module_register_fn *register_fn = (napi_module_register_fn *)sym;
+
+    exports = register_fn(env, exports);
+
+    napi_ref ref;
+    napi_add_finalizer(env, module, handle, finalize_dlobject, nullptr, &ref);
+
+    return module;
+  }
 
   // std::cout << "================\nrequire: " << path << std::endl;
 
