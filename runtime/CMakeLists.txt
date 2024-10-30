@@ -101,6 +101,8 @@ set(PUBLIC_HEADERS
   "include/Require.h"
   "include/hermes"
   "include/jsi"
+  "include/js_native_api.h"
+  "include/js_native_api_types.h"
 )
 
 target_sources(
