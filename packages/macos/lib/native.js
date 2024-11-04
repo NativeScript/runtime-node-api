@@ -20,24 +20,16 @@ if (typeof interop === "undefined") {
     metaURL = "file://" + metaURL;
   }
 
-  let functions;
-  if (typeof Deno === "object") {
-    const { dlopen } = await import("node:process");
-    functions = dlopen(
-      { exports: {} },
-      new URL(path, metaURL).pathname,
-    ).exports;
-  } else {
-    functions = {};
-    process.dlopen(
-      { exports: functions },
-      new URL(path, metaURL).pathname,
-    );
-  }
+  const module = { exports: {} };
 
-  functions.init(
-    typeof Deno === "object"
-      ? Deno.env.get("METADATA_PATH")
-      : process.env.METADATA_PATH,
+  // deno-lint-ignore no-process-globals
+  process.dlopen(
+    module,
+    new URL(path, metaURL).pathname,
+  );
+
+  module.exports.init(
+    // deno-lint-ignore no-process-globals
+    process.env.METADATA_PATH,
   );
 }

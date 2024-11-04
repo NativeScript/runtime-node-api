@@ -254,6 +254,12 @@ napi_value ObjCClassMember::jsCallInit(napi_env env,
     }
   }
 
+  if (rvalue == nil) {
+    napi_value result;
+    napi_get_null(env, &result);
+    return result;
+  }
+
   napi_value constructor = jsThis;
   if (!method->classMethod)
     napi_get_named_property(env, jsThis, "constructor", &constructor);
