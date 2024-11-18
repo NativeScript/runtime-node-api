@@ -43,7 +43,7 @@ elseif(TARGET_PLATFORM STREQUAL "macos")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
   set(TARGET_PLATFORM_MACOS TRUE)
   set(SDK_NAME "macosx")
-  set(CMAKE_OSX_ARCHITECTURES "arm64")
+  set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
   set(NS_BRIDGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../packages/macos/build/macos/Release)
   set(TARGET_PLATFORM_SPEC "macos-arm64_x86_64")
 else()
@@ -101,6 +101,9 @@ set(PUBLIC_HEADERS
   "include/Require.h"
   "include/hermes"
   "include/jsi"
+  "include/js_native_api.h"
+  "include/js_native_api_types.h"
+  "include/js_runtime_api.h"
 )
 
 target_sources(

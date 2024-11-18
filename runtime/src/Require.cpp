@@ -1,6 +1,6 @@
 #include "Require.h"
 #include "NapiUtil.h"
-#include "js_native_api.h"
+#include <dlfcn.h>
 #include <iostream>
 #include <string>
 #include <dlfcn.h>
@@ -83,7 +83,8 @@ typedef napi_value napi_module_register_fn(napi_env env, napi_value exports);
 napi_value Require::require(napi_env env, std::string &spec) {
   std::string path = resolve(spec);
 
-  if (path.ends_with(".node") || path.ends_with(".dylib") || path.ends_with(".so")) {
+  if (path.ends_with(".node") || path.ends_with(".dylib") ||
+      path.ends_with(".so")) {
     void *handle = dlopen(path.c_str(), RTLD_GLOBAL | RTLD_LAZY);
     if (!handle) {
       std::cerr << "error in dlopen: " << dlerror() << std::endl;
@@ -177,14 +178,8 @@ napi_value Require::require(napi_env env, std::string &spec) {
   napi_create_string_utf8(env, dirname.c_str(), NAPI_AUTO_LENGTH, &__dirname);
 
   napi_value argv[5] = {exports, require, module, __filename, __dirname};
-
-  // std::cout << "napi_call_function(env: " << env << ", global: " << global << ", func: " << func << ", argc: 5, argv: " << argv[0] << ", " << argv[1] << ", " << argv[2] << ", " << argv[3] << ", " << argv[4] << ", result: " << result << std::endl;
-
-  std::cout << "require eval: " << path << std::endl;
-
+  
   status = napi_call_function(env, global, func, 5, argv, &result);
-
-  std::cout << "require eval done: " << path << std::endl;
 
   if (status != napi_ok) {
     const napi_extended_error_info *info;
