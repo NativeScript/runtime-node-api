@@ -164,6 +164,8 @@ declare const kCMTagMediaSubTypeMebx: CMTag;
 
 declare const kCMTagInvalid: CMTag;
 
+declare const kCMSampleAttachmentKey_PostDecodeProcessingMetadata: interop.Pointer;
+
 declare const kCMSampleAttachmentKey_CryptorSubsampleAuxiliaryData: interop.Pointer;
 
 declare const kCMSampleBufferAttachmentKey_ForceKeyFrame: interop.Pointer;
@@ -602,6 +604,8 @@ declare const kCMAudioCodecType_AAC_LCProtected: number;
 
 declare const kCMFormatDescriptionExtension_SampleDescriptionExtensionAtoms: interop.Pointer;
 
+declare const kCMMediaType_AuxiliaryPicture: number;
+
 declare const kCMMediaType_TaggedBufferGroup: number;
 
 declare const kCMMediaType_Metadata: number;
@@ -694,6 +698,8 @@ declare const kCMClosedCaptionFormatType_ATSC: number;
 
 declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
 
+declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
+
 declare const kCMVideoCodecType_SorensonVideo3: number;
 
 declare const kCMMPEG2VideoProfile_HDV_720p24: number;
@@ -783,8 +789,6 @@ declare const kCMVideoCodecType_DolbyVisionHEVC: number;
 declare const kCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50: number;
 
 declare const kCMMetadataKeySpace_ID3: interop.Pointer;
-
-declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
 
 declare const kCMMPEG2VideoProfile_HDV_1080p24: number;
 
@@ -1079,6 +1083,8 @@ declare const kCMVideoCodecType_AppleProRes422Proxy: number;
 declare const kCMFormatDescriptionExtension_VerbatimImageDescription: interop.Pointer;
 
 declare const kCMSyncError_AllocationFailed: number;
+
+declare const kCMVideoCodecType_JPEG_XL: number;
 
 declare const kCMTextDisplayFlag_scrollDirection_bottomToTop: number;
 

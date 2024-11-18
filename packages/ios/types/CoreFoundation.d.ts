@@ -1,11 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const kCFNumberFormatterUseSignificantDigits: interop.Pointer;
-
-declare const kCFNumberNaN: interop.Pointer;
-
-declare const kCFURLUbiquitousItemDownloadingStatusDownloaded: interop.Pointer;
-
 declare const kCFCopyStringDictionaryKeyCallBacks: CFDictionaryKeyCallBacks;
 
 declare const kCFURLIsDirectoryKey: interop.Pointer;
@@ -50,8 +44,6 @@ declare const kCFNumberFormatterRoundingMode: interop.Pointer;
 
 declare const kCFStreamPropertySocketNativeHandle: interop.Pointer;
 
-declare const kCFBooleanTrue: interop.Pointer;
-
 declare const kCFURLFileOwnerID: interop.Pointer;
 
 declare const kCFURLVolumeSupportsSymbolicLinksKey: interop.Pointer;
@@ -61,6 +53,8 @@ declare const kCFLocaleQuotationBeginDelimiterKey: interop.Pointer;
 declare const kCFNumberFormatterPositiveSuffix: interop.Pointer;
 
 declare const kCFURLVolumeSupportsHardLinksKey: interop.Pointer;
+
+declare const kCFNumberFormatterUseSignificantDigits: interop.Pointer;
 
 declare const kCFIslamicCalendar: interop.Pointer;
 
@@ -94,6 +88,8 @@ declare const kCFURLDocumentIdentifierKey: interop.Pointer;
 
 declare const kCFDateFormatterIsLenient: interop.Pointer;
 
+declare const kCFURLUbiquitousItemDownloadingStatusDownloaded: interop.Pointer;
+
 declare const kCFBuddhistCalendar: interop.Pointer;
 
 declare const kCFISO8601Calendar: interop.Pointer;
@@ -104,11 +100,11 @@ declare const kCFURLFileSecurityKey: interop.Pointer;
 
 declare const kCFURLFileExists: interop.Pointer;
 
-declare const kCFURLUbiquitousItemHasUnresolvedConflictsKey: interop.Pointer;
-
 declare const kCFStreamPropertySocketSecurityLevel: interop.Pointer;
 
 declare const kCFLocaleIdentifier: interop.Pointer;
+
+declare const kCFURLVolumeSupportsSparseFilesKey: interop.Pointer;
 
 declare const kCFFileDescriptorWriteCallBack: number;
 
@@ -117,12 +113,6 @@ declare const kCFMessagePortTransportError: number;
 declare const kCFNumberFormatterGroupingSeparator: interop.Pointer;
 
 declare const kCFNumberFormatterInternationalCurrencySymbol: interop.Pointer;
-
-declare const kCFStreamPropertySOCKSProxyHost: interop.Pointer;
-
-declare const kCFTypeArrayCallBacks: CFArrayCallBacks;
-
-declare const kCFPreferencesCurrentUser: interop.Pointer;
 
 declare const kCFNumberFormatterNegativePrefix: interop.Pointer;
 
@@ -184,8 +174,6 @@ declare const kCFURLIsSymbolicLinkKey: interop.Pointer;
 
 declare const kCFURLIsExcludedFromBackupKey: interop.Pointer;
 
-declare const kCFNumberFormatterRoundingIncrement: interop.Pointer;
-
 declare const kCFSocketResultKey: interop.Pointer;
 
 declare const kCFPersianCalendar: interop.Pointer;
@@ -204,6 +192,8 @@ declare const kCFURLFileProtectionNone: interop.Pointer;
 
 declare const kCFURLUbiquitousItemIsUploadingKey: interop.Pointer;
 
+declare const kCFNumberFormatterRoundingIncrement: interop.Pointer;
+
 declare const kCFStringTransformStripCombiningMarks: interop.Pointer;
 
 declare const kCFErrorDomainCocoa: interop.Pointer;
@@ -217,6 +207,8 @@ declare const kCFDateFormatterCalendar: interop.Pointer;
 declare const kCFNumberFormatterExponentSymbol: interop.Pointer;
 
 declare const kCFURLLabelNumberKey: interop.Pointer;
+
+declare const kCFTypeArrayCallBacks: CFArrayCallBacks;
 
 declare const kCFURLFileProtectionCompleteUnlessOpen: interop.Pointer;
 
@@ -233,6 +225,8 @@ declare const kCFNumberFormatterCurrencyCode: interop.Pointer;
 declare const kCFDateFormatterQuarterSymbols: interop.Pointer;
 
 declare const kCFURLIsApplicationKey: interop.Pointer;
+
+declare const kCFPreferencesCurrentUser: interop.Pointer;
 
 declare const kCFURLFileResourceTypeKey: interop.Pointer;
 
@@ -258,6 +252,8 @@ declare const kCFURLVolumeCreationDateKey: interop.Pointer;
 
 declare const kCFBundleInfoDictionaryVersionKey: interop.Pointer;
 
+declare const kCFURLUbiquitousItemHasUnresolvedConflictsKey: interop.Pointer;
+
 declare const kCFStringTransformToXMLHex: interop.Pointer;
 
 declare const kCFStreamPropertySOCKSVersion: interop.Pointer;
@@ -271,8 +267,6 @@ declare const kCFDateFormatterShortQuarterSymbols: interop.Pointer;
 declare const kCFStringTransformLatinKatakana: interop.Pointer;
 
 declare const kCFNumberFormatterMinFractionDigits: interop.Pointer;
-
-declare const kCFErrorURLKey: interop.Pointer;
 
 declare const kCFGregorianCalendar: interop.Pointer;
 
@@ -308,6 +302,8 @@ declare const kCFDateFormatterShortMonthSymbols: interop.Pointer;
 
 declare const kCFPreferencesAnyUser: interop.Pointer;
 
+declare const kCFNumberFormatterMinGroupingDigits: interop.Pointer;
+
 declare const kCFNumberFormatterPlusSign: interop.Pointer;
 
 declare const kCFPreferencesCurrentHost: interop.Pointer;
@@ -320,7 +316,13 @@ declare const kCFDateFormatterPMSymbol: interop.Pointer;
 
 declare const kCFURLIsPurgeableKey: interop.Pointer;
 
+declare const kCFCalendarComponentsWrap: number;
+
+declare const kCFURLVolumeIsEncryptedKey: interop.Pointer;
+
 declare const kCFIslamicUmmAlQuraCalendar: interop.Pointer;
+
+declare const kCFURLIsRegularFileKey: interop.Pointer;
 
 declare const kCFLocaleCollationIdentifier: interop.Pointer;
 
@@ -353,6 +355,8 @@ declare const kCFURLAddedToDirectoryDateKey: interop.Pointer;
 declare const kCFURLFileResourceTypeBlockSpecial: interop.Pointer;
 
 declare const kCFURLPreferredIOBlockSizeKey: interop.Pointer;
+
+declare const kCFErrorURLKey: interop.Pointer;
 
 declare const kCFIndianCalendar: interop.Pointer;
 
@@ -392,8 +396,6 @@ declare const kCFLocaleGroupingSeparator: interop.Pointer;
 
 declare const kCFURLVolumeIsRootFileSystemKey: interop.Pointer;
 
-declare const kCFURLVolumeIsEncryptedKey: interop.Pointer;
-
 declare const kCFStringTransformLatinHiragana: interop.Pointer;
 
 declare const kCFURLIsReadableKey: interop.Pointer;
@@ -405,10 +407,6 @@ declare const kCFURLUbiquitousItemDownloadingErrorKey: interop.Pointer;
 declare const kCFDateFormatterDefaultFormat: interop.Pointer;
 
 declare const kCFCoreFoundationVersionNumber: number;
-
-declare const kCFURLVolumeSupportsZeroRunsKey: interop.Pointer;
-
-declare const kCFURLIsRegularFileKey: interop.Pointer;
 
 declare const kCFTypeDictionaryValueCallBacks: CFDictionaryValueCallBacks;
 
@@ -442,6 +440,8 @@ declare const kCFURLVolumeSupportsImmutableFilesKey: interop.Pointer;
 
 declare const kCFNumberFormatterDefaultFormat: interop.Pointer;
 
+declare const kCFBooleanTrue: interop.Pointer;
+
 declare const kCFURLFileDirectoryContents: interop.Pointer;
 
 declare const kCFNumberFormatterMinSignificantDigits: interop.Pointer;
@@ -472,8 +472,6 @@ declare const kCFURLVolumeIsRemovableKey: interop.Pointer;
 
 declare const kCFURLKeysOfUnsetValuesKey: interop.Pointer;
 
-declare const kCFNumberFormatterMaxIntegerDigits: interop.Pointer;
-
 declare const kCFStringTokenizerUnitWordBoundary: number;
 
 declare const kCFLocaleCalendarIdentifier: interop.Pointer;
@@ -498,9 +496,9 @@ declare const kCFURLVolumeNameKey: interop.Pointer;
 
 declare const kCFURLVolumeIsAutomountedKey: interop.Pointer;
 
-declare const kCFURLUbiquitousItemPercentDownloadedKey: interop.Pointer;
+declare const kCFURLVolumeSupportsZeroRunsKey: interop.Pointer;
 
-declare const kCFCalendarComponentsWrap: number;
+declare const kCFURLUbiquitousItemPercentDownloadedKey: interop.Pointer;
 
 declare const kCFAllocatorNull: interop.Pointer;
 
@@ -520,7 +518,11 @@ declare const kCFURLVolumeLocalizedNameKey: interop.Pointer;
 
 declare const kCFDateFormatterShortStandaloneWeekdaySymbols: interop.Pointer;
 
+declare const kCFNumberFormatterMaxIntegerDigits: interop.Pointer;
+
 declare const kCFStreamPropertyFileCurrentOffset: interop.Pointer;
+
+declare const kCFURLFileResourceTypeRegular: interop.Pointer;
 
 declare const kCFStringTransformToLatin: interop.Pointer;
 
@@ -590,15 +592,17 @@ declare const kCFURLTypeIdentifierKey: interop.Pointer;
 
 declare const kCFErrorDomainOSStatus: interop.Pointer;
 
-declare const kCFURLFileResourceTypeRegular: interop.Pointer;
-
 declare const kCFStreamSocketSecurityLevelNegotiatedSSL: interop.Pointer;
 
 declare const kCFURLPathKey: interop.Pointer;
 
 declare const kCFNumberNegativeInfinity: interop.Pointer;
 
+declare const kCFStreamPropertySOCKSProxyHost: interop.Pointer;
+
 declare const kCFNotFound: number;
+
+declare const kCFNumberNaN: interop.Pointer;
 
 declare const kCFStreamPropertyDataWritten: interop.Pointer;
 
@@ -647,8 +651,6 @@ declare const kCFNumberFormatterMinIntegerDigits: interop.Pointer;
 declare const kCFBundleExecutableArchitectureI386: number;
 
 declare const kCFURLVolumeSupportsVolumeSizesKey: interop.Pointer;
-
-declare const kCFURLVolumeSupportsSparseFilesKey: interop.Pointer;
 
 declare const kCFURLVolumeSupportsPersistentIDsKey: interop.Pointer;
 
@@ -813,6 +815,12 @@ declare const CFRunLoopRunResult: {
   HandledSource: 4,
 };
 
+declare const CFPropertyListMutabilityOptions: {
+  Immutable: 0,
+  MutableContainers: 1,
+  MutableContainersAndLeaves: 2,
+};
+
 declare const CFNumberFormatterStyle: {
   No: 0,
   Decimal: 1,
@@ -897,6 +905,7 @@ declare const CFCalendarUnit: {
   WeekOfMonth: 4096,
   WeekOfYear: 8192,
   YearForWeekOfYear: 16384,
+  DayOfYear: 65536,
 };
 
 declare const CFRunLoopActivity: {
@@ -950,13 +959,6 @@ declare const CFNumberFormatterRoundingMode: {
   HalfEven: 4,
   HalfDown: 5,
   HalfUp: 6,
-};
-
-declare const CFStringNormalizationForm: {
-  D: 0,
-  KD: 1,
-  C: 2,
-  KC: 3,
 };
 
 declare const CFURLBookmarkCreationOptions: {
@@ -1168,12 +1170,6 @@ declare const CFPropertyListFormat: {
   BinaryFormat_v1_0: 200,
 };
 
-declare const CFPropertyListMutabilityOptions: {
-  Immutable: 0,
-  MutableContainers: 1,
-  MutableContainersAndLeaves: 2,
-};
-
 declare const CFSocketError: {
   Success: 0,
   Error: -1,
@@ -1199,6 +1195,13 @@ declare const CFURLComponentType: {
   ParameterString: 10,
   Query: 11,
   Fragment: 12,
+};
+
+declare const CFStringNormalizationForm: {
+  D: 0,
+  KD: 1,
+  C: 2,
+  KC: 3,
 };
 
 declare const CFURLBookmarkResolutionOptions: {
@@ -1242,10 +1245,6 @@ declare const CFNumberType: {
   CGFloat: 16,
   Max: 16,
 };
-
-declare class __CFNull {
-  constructor(init?: __CFNull);
-}
 
 declare class __CFTimeZone {
   constructor(init?: __CFTimeZone);
@@ -1484,6 +1483,15 @@ declare class __CFBitVector {
   constructor(init?: __CFBitVector);
 }
 
+declare class CFArrayCallBacks {
+  constructor(init?: CFArrayCallBacks);
+  version: number;
+  retain: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+}
+
 declare class __CFBundle {
   constructor(init?: __CFBundle);
 }
@@ -1565,6 +1573,10 @@ declare class CFTreeContext {
 
 declare class __CFBinaryHeap {
   constructor(init?: __CFBinaryHeap);
+}
+
+declare class __CFNull {
+  constructor(init?: __CFNull);
 }
 
 declare class CGRect {
@@ -1701,15 +1713,6 @@ declare class CFRunLoopSourceContext1 {
   perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
-declare class CFArrayCallBacks {
-  constructor(init?: CFArrayCallBacks);
-  version: number;
-  retain: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-}
-
 declare class __CFPlugInInstance {
   constructor(init?: __CFPlugInInstance);
 }
@@ -1731,6 +1734,14 @@ declare function CFAllocatorSetDefault(allocator: interop.PointerConvertible): v
 declare function CFAllocatorGetDefault(): interop.Pointer;
 
 declare function CFAllocatorCreate(allocator: interop.PointerConvertible, context: interop.PointerConvertible): interop.Pointer;
+
+declare function CFAllocatorAllocateTyped(allocator: interop.PointerConvertible, size: number, descriptor: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorReallocateTyped(allocator: interop.PointerConvertible, ptr: interop.PointerConvertible, newsize: number, descriptor: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorAllocateBytes(allocator: interop.PointerConvertible, size: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorReallocateBytes(allocator: interop.PointerConvertible, ptr: interop.PointerConvertible, newsize: number, hint: number): interop.Pointer;
 
 declare function CFAllocatorAllocate(allocator: interop.PointerConvertible, size: number, hint: number): interop.Pointer;
 
@@ -2150,11 +2161,11 @@ declare function CFStringCreateCopy(alloc: interop.PointerConvertible, theString
 
 declare function CFStringCreateWithFormat(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible): interop.Pointer;
 
-declare function CFStringCreateWithFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string): interop.Pointer;
+declare function CFStringCreateWithFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */): interop.Pointer;
 
 declare function CFStringCreateStringWithValidatedFormat(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, errorPtr: interop.PointerConvertible): interop.Pointer;
 
-declare function CFStringCreateStringWithValidatedFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string, errorPtr: interop.PointerConvertible): interop.Pointer;
+declare function CFStringCreateStringWithValidatedFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */, errorPtr: interop.PointerConvertible): interop.Pointer;
 
 declare function CFStringCreateMutable(alloc: interop.PointerConvertible, maxLength: number): interop.Pointer;
 
@@ -2246,7 +2257,7 @@ declare function CFStringAppendCString(theString: interop.PointerConvertible, cS
 
 declare function CFStringAppendFormat(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible): void;
 
-declare function CFStringAppendFormatAndArguments(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string): void;
+declare function CFStringAppendFormatAndArguments(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */): void;
 
 declare function CFStringInsert(str: interop.PointerConvertible, idx: number, insertedStr: interop.PointerConvertible): void;
 
@@ -3181,6 +3192,8 @@ declare function CFAttributedStringReplaceAttributedString(aStr: interop.Pointer
 declare function CFAttributedStringBeginEditing(aStr: interop.PointerConvertible): void;
 
 declare function CFAttributedStringEndEditing(aStr: interop.PointerConvertible): void;
+
+declare function CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString: interop.PointerConvertible, range: CFRange, baseDirection: number, bidiLevels: interop.PointerConvertible, baseDirections: interop.PointerConvertible): boolean;
 
 declare function CFURLEnumeratorGetTypeID(): number;
 

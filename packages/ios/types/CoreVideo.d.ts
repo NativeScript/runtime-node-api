@@ -4,8 +4,6 @@ declare const kCVImageBufferFieldDetailTemporalTopFirst: interop.Pointer;
 
 declare const kCVPixelFormatType_2IndexedGray_WhiteIsZero: number;
 
-declare const kCVPixelFormatCGImageCompatibility: interop.Pointer;
-
 declare const kCVReturnAllocationFailed: number;
 
 declare const kCVReturnInvalidPoolAttributes: number;
@@ -54,8 +52,6 @@ declare const kCVPixelFormatType_32BGRA: number;
 
 declare const kCVPixelFormatType_16LE565: number;
 
-declare const kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey: interop.Pointer;
-
 declare const kCVPixelBufferHeightKey: interop.Pointer;
 
 declare const kCVPixelFormatFillExtendedPixelsCallback: interop.Pointer;
@@ -82,13 +78,9 @@ declare const kCVPixelFormatHorizontalSubsampling: interop.Pointer;
 
 declare const kCVPixelFormatOpenGLInternalFormat: interop.Pointer;
 
-declare const kCVImageBufferChromaSubsampling_422: interop.Pointer;
-
-declare const kCVPixelFormatType_422YpCbCr10: number;
+declare const kCVPixelBufferIOSurfaceCoreAnimationCompatibilityKey: interop.Pointer;
 
 declare const kCVPixelFormatType_Lossless_422YpCbCr10PackedBiPlanarVideoRange: number;
-
-declare const kCVImageBufferYCbCrMatrix_SMPTE_240M_1995: interop.Pointer;
 
 declare const kCVPixelBufferMetalCompatibilityKey: interop.Pointer;
 
@@ -97,6 +89,8 @@ declare const kCVPixelFormatType_420YpCbCr8Planar: number;
 declare const kCVPixelFormatType_422YpCbCr10BiPlanarVideoRange: number;
 
 declare const kCVImageBufferFieldCountKey: interop.Pointer;
+
+declare const kCVPixelFormatBitsPerComponent: interop.Pointer;
 
 declare const kCVPixelBufferPoolMinimumBufferCountKey: interop.Pointer;
 
@@ -110,6 +104,8 @@ declare const kCVReturnUnsupported: number;
 
 declare const kCVPixelFormatBlockVerticalAlignment: interop.Pointer;
 
+declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
+
 declare const kCVImageBufferCleanApertureKey: interop.Pointer;
 
 declare const kCVReturnDisplayLinkNotRunning: number;
@@ -117,6 +113,8 @@ declare const kCVReturnDisplayLinkNotRunning: number;
 declare const kCVMetalTextureUsage: interop.Pointer;
 
 declare const kCVPixelFormatOpenGLESCompatibility: interop.Pointer;
+
+declare const kCVPixelFormatCGImageCompatibility: interop.Pointer;
 
 declare const kCVPixelFormatQDCompatibility: interop.Pointer;
 
@@ -127,8 +125,6 @@ declare const kCVPixelFormatBlackBlock: interop.Pointer;
 declare const kCVPixelFormatBlockHeight: interop.Pointer;
 
 declare const kCVPixelFormatComponentRange_WideRange: interop.Pointer;
-
-declare const kCVPixelFormatContainsGrayscale: interop.Pointer;
 
 declare const kCVPixelFormatContainsAlpha: interop.Pointer;
 
@@ -152,8 +148,6 @@ declare const kCVVersatileBayer_BayerPattern_GBRG: number;
 
 declare const kCVPixelBufferOpenGLCompatibilityKey: interop.Pointer;
 
-declare const kCVPixelBufferCGBitmapContextCompatibilityKey: interop.Pointer;
-
 declare const kCVPixelBufferExtendedPixelsBottomKey: interop.Pointer;
 
 declare const kCVPixelBufferExtendedPixelsRightKey: interop.Pointer;
@@ -173,6 +167,8 @@ declare const kCVPixelFormatType_Lossy_420YpCbCr8BiPlanarFullRange: number;
 declare const kCVPixelFormatType_Lossy_32BGRA: number;
 
 declare const kCVPixelFormatType_Lossless_420YpCbCr10PackedBiPlanarVideoRange: number;
+
+declare const kCVPixelFormatType_Lossless_64RGBAHalf: number;
 
 declare const kCVPixelFormatType_422YpCbCr16BiPlanarVideoRange: number;
 
@@ -216,6 +212,8 @@ declare const kCVPixelFormatType_4444AYpCbCr8: number;
 
 declare const kCVPixelFormatType_4444YpCbCrA8R: number;
 
+declare const kCVPixelFormatType_30RGB_r210: number;
+
 declare const kCVPixelFormatType_30RGB: number;
 
 declare const kCVPixelFormatType_48RGB: number;
@@ -232,11 +230,15 @@ declare const kCVPixelFormatType_1Monochrome: number;
 
 declare const kCVImageBufferRegionOfInterestKey: interop.Pointer;
 
+declare const kCVImageBufferSceneIlluminationKey: interop.Pointer;
+
 declare const kCVImageBufferAlphaChannelMode_PremultipliedAlpha: interop.Pointer;
 
 declare const kCVImageBufferAlphaChannelModeKey: interop.Pointer;
 
 declare const kCVImageBufferChromaSubsampling_411: interop.Pointer;
+
+declare const kCVImageBufferChromaSubsampling_422: interop.Pointer;
 
 declare const kCVImageBufferChromaSubsampling_420: interop.Pointer;
 
@@ -283,6 +285,8 @@ declare const kCVImageBufferYCbCrMatrix_ITU_R_2020: interop.Pointer;
 declare const kCVImageBufferYCbCrMatrix_P3_D65: interop.Pointer;
 
 declare const kCVImageBufferYCbCrMatrix_DCI_P3: interop.Pointer;
+
+declare const kCVImageBufferYCbCrMatrix_SMPTE_240M_1995: interop.Pointer;
 
 declare const kCVImageBufferYCbCrMatrixKey: interop.Pointer;
 
@@ -337,6 +341,8 @@ declare const kCVImageBufferChromaLocation_TopLeft: interop.Pointer;
 declare const kCVPixelFormatType_TwoComponent16Half: number;
 
 declare const kCVPixelFormatType_24BGR: number;
+
+declare const kCVPixelBufferCGBitmapContextCompatibilityKey: interop.Pointer;
 
 declare const kCVImageBufferPixelAspectRatioKey: interop.Pointer;
 
@@ -404,6 +410,8 @@ declare const kCVPixelFormatComponentRange_VideoRange: interop.Pointer;
 
 declare const kCVImageBufferDisplayWidthKey: interop.Pointer;
 
+declare const kCVPixelFormatType_422YpCbCr10: number;
+
 declare const kCVReturnFirst: number;
 
 declare const kCVPixelFormatType_422YpCbCr8BiPlanarVideoRange: number;
@@ -423,6 +431,8 @@ declare const kCVPixelFormatType_420YpCbCr10BiPlanarVideoRange: number;
 declare const kCVPixelFormatVerticalSubsampling: interop.Pointer;
 
 declare const kCVPixelFormatType_422YpCbCr8_yuvs: number;
+
+declare const kCVPixelFormatType_Lossless_420YpCbCr10PackedBiPlanarFullRange: number;
 
 declare const kCVPixelFormatType_DepthFloat32: number;
 
@@ -512,6 +522,8 @@ declare const kCVPixelBufferProResRAWKey_RecommendedCrop: interop.Pointer;
 
 declare const kCVImageBufferCleanApertureHeightKey: interop.Pointer;
 
+declare const kCVMetalBufferCacheMaximumBufferAgeKey: interop.Pointer;
+
 declare const kCVPixelFormatType_16BE565: number;
 
 declare const kCVVersatileBayer_BayerPattern_RGGB: number;
@@ -571,6 +583,10 @@ declare const CVTimeFlags: {
   kCVTimeIsIndefinite: 1,
 };
 
+declare class __CVMetalBufferCache {
+  constructor(init?: __CVMetalBufferCache);
+}
+
 declare class CVFillExtendedPixelsCallBackData {
   constructor(init?: CVFillExtendedPixelsCallBackData);
   version: number;
@@ -578,14 +594,14 @@ declare class CVFillExtendedPixelsCallBackData {
   refCon: interop.Pointer;
 }
 
+declare class __CVOpenGLESTextureCache {
+  constructor(init?: __CVOpenGLESTextureCache);
+}
+
 declare class CVPlanarPixelBufferInfo_YCbCrBiPlanar {
   constructor(init?: CVPlanarPixelBufferInfo_YCbCrBiPlanar);
   componentInfoY: CVPlanarComponentInfo;
   componentInfoCbCr: CVPlanarComponentInfo;
-}
-
-declare class __CVOpenGLESTextureCache {
-  constructor(init?: __CVOpenGLESTextureCache);
 }
 
 declare class CVPlanarComponentInfo {
@@ -808,4 +824,16 @@ declare function CVMetalTextureCacheCreate(allocator: interop.PointerConvertible
 declare function CVMetalTextureCacheCreateTextureFromImage(allocator: interop.PointerConvertible, textureCache: interop.PointerConvertible, sourceImage: interop.PointerConvertible, textureAttributes: interop.PointerConvertible, pixelFormat: interop.Enum<typeof MTLPixelFormat>, width: number, height: number, planeIndex: number, textureOut: interop.PointerConvertible): number;
 
 declare function CVMetalTextureCacheFlush(textureCache: interop.PointerConvertible, options: number): void;
+
+declare function CVMetalBufferGetTypeID(): number;
+
+declare function CVMetalBufferGetBuffer(buffer: interop.PointerConvertible): MTLBuffer;
+
+declare function CVMetalBufferCacheGetTypeID(): number;
+
+declare function CVMetalBufferCacheCreate(allocator: interop.PointerConvertible, cacheAttributes: interop.PointerConvertible, metalDevice: MTLDevice, cacheOut: interop.PointerConvertible): number;
+
+declare function CVMetalBufferCacheCreateBufferFromImage(allocator: interop.PointerConvertible, bufferCache: interop.PointerConvertible, imageBuffer: interop.PointerConvertible, bufferOut: interop.PointerConvertible): number;
+
+declare function CVMetalBufferCacheFlush(bufferCache: interop.PointerConvertible, options: number): void;
 

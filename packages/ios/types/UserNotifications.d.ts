@@ -244,6 +244,50 @@ declare class UNNotificationActionIcon extends NSObject implements NSCopying, NS
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class UNNotificationAttributedMessageContext extends NSObject implements UNNotificationContentProviding {
+  static contextWithSendMessageIntentAttributedContent<This extends abstract new (...args: any) => any>(this: This, sendMessageIntent: INSendMessageIntent, attributedContent: NSAttributedString): InstanceType<This>;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class UNUserNotificationCenter extends NSObject {
   delegate: UNUserNotificationCenterDelegate;
 

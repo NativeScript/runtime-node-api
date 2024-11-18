@@ -81,6 +81,7 @@ const sdks: Record<string, SDK> = {
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
     targets: {
       arm64: "arm64-apple-ios13.0",
+      x86_64: "x86_64-apple-ios13.0",
     },
   },
   "ios-sim": {

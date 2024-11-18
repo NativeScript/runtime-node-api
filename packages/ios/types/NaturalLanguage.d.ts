@@ -19,8 +19,6 @@ declare const NLTagOpenQuote: string;
 
 declare const NLTagOtherWord: string;
 
-declare const NLTagIdiom: string;
-
 declare const NLTagPreposition: string;
 
 declare const NLTagParticle: string;
@@ -70,8 +68,6 @@ declare const NLScriptHebrew: string;
 declare const NLScriptGujarati: string;
 
 declare const NLScriptGreek: string;
-
-declare const NLScriptGeorgian: string;
 
 declare const NLScriptDevanagari: string;
 
@@ -175,6 +171,8 @@ declare const NLLanguageKazakh: string;
 
 declare const NLLanguageTelugu: string;
 
+declare const NLTagIdiom: string;
+
 declare const NLScriptSinhala: string;
 
 declare const NLLanguageGreek: string;
@@ -186,6 +184,8 @@ declare const NLContextualEmbeddingKeyLanguages: string;
 declare const NLTagSchemeLexicalClass: string;
 
 declare const NLScriptMalayalam: string;
+
+declare const NLScriptGeorgian: string;
 
 declare const NLTagWord: string;
 
@@ -237,13 +237,13 @@ declare const NLLanguageUndetermined: string;
 
 declare const NLLanguageRomanian: string;
 
+declare const NLScriptArmenian: string;
+
 declare const NLScriptKhmer: string;
 
 declare const NLLanguageSpanish: string;
 
 declare const NLScriptJapanese: string;
-
-declare const NLScriptArmenian: string;
 
 declare const NLTagNumber: string;
 
@@ -430,44 +430,6 @@ declare class NLGazetteer extends NSObject {
   static writeGazetteerForDictionaryLanguageToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, url: NSURL, error: interop.PointerConvertible): boolean;
 }
 
-declare class NLTokenizer extends NSObject {
-  initWithUnit(unit: interop.Enum<typeof NLTokenUnit>): this;
-
-  readonly unit: interop.Enum<typeof NLTokenUnit>;
-
-  string: string;
-
-  setLanguage(language: string): void;
-
-  tokenRangeAtIndex(characterIndex: number): _NSRange;
-
-  tokenRangeForRange(range: _NSRange): _NSRange;
-
-  tokensForRange(range: _NSRange): NSArray;
-
-  enumerateTokensInRangeUsingBlock(range: _NSRange, block: (p1: _NSRange, p2: interop.Enum<typeof NLTokenizerAttributes>, p3: interop.PointerConvertible) => void): void;
-}
-
-declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {
-  readonly type: interop.Enum<typeof NLModelType>;
-
-  readonly language: string;
-
-  readonly revision: number;
-
-  static supportedRevisionsForType(type: interop.Enum<typeof NLModelType>): NSIndexSet;
-
-  static currentRevisionForType(type: interop.Enum<typeof NLModelType>): number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class NLEmbedding extends NSObject {
   static wordEmbeddingForLanguage(language: string): NLEmbedding;
 
@@ -520,6 +482,44 @@ declare class NLEmbedding extends NSObject {
   static currentSentenceEmbeddingRevisionForLanguage(language: string): number;
 
   static writeEmbeddingForDictionaryLanguageRevisionToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, revision: number, url: NSURL, error: interop.PointerConvertible): boolean;
+}
+
+declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {
+  readonly type: interop.Enum<typeof NLModelType>;
+
+  readonly language: string;
+
+  readonly revision: number;
+
+  static supportedRevisionsForType(type: interop.Enum<typeof NLModelType>): NSIndexSet;
+
+  static currentRevisionForType(type: interop.Enum<typeof NLModelType>): number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class NLTokenizer extends NSObject {
+  initWithUnit(unit: interop.Enum<typeof NLTokenUnit>): this;
+
+  readonly unit: interop.Enum<typeof NLTokenUnit>;
+
+  string: string;
+
+  setLanguage(language: string): void;
+
+  tokenRangeAtIndex(characterIndex: number): _NSRange;
+
+  tokenRangeForRange(range: _NSRange): _NSRange;
+
+  tokensForRange(range: _NSRange): NSArray;
+
+  enumerateTokensInRangeUsingBlock(range: _NSRange, block: (p1: _NSRange, p2: interop.Enum<typeof NLTokenizerAttributes>, p3: interop.PointerConvertible) => void): void;
 }
 
 declare class NLContextualEmbeddingResult extends NSObject {

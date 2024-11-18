@@ -35,18 +35,30 @@ async function ensureTargetDir(targetPlatform: string) {
   );
 }
 
+const archs: Record<string, string[]> = {
+  ios: ["arm64"],
+  "ios-universal": ["arm64", "x86_64"],
+  "ios-sim": ["arm64", "x86_64"],
+  macos: ["x86_64", "arm64"],
+};
+
 async function build(targetPlatform: string) {
   await ensureTargetDir(targetPlatform);
 
+  const maxMDSize = Math.max(
+    ...archs[targetPlatform].map((arch) => {
+      return Deno.lstatSync(
+        new URL(
+          `../metadata/metadata.${platformDir}.${arch}.nsmd`,
+          import.meta.url
+        )
+      ).size;
+    })
+  );
+
   // Generate the build files
   await $`cmake -S=../ -B=../packages/${platformDir}/build/${targetPlatform} -GXcode -DTARGET_PLATFORM=${targetPlatform} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ${
-    targetPlatform.startsWith("ios-test")
-      ? ""
-      : `-DMETADATA_SIZE=${
-          Deno.lstatSync(
-            new URL(`../metadata/metadata.${platformDir}.nsmd`, import.meta.url)
-          ).size
-        }`
+    targetPlatform.startsWith("ios-test") ? "" : `-DMETADATA_SIZE=${maxMDSize}`
   }`;
 
   // Build the project

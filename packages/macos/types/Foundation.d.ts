@@ -85,6 +85,8 @@ declare const NSMetadataItemMusicalGenreKey: string;
 
 declare const NSUserActivityHandoffUserInfoTooLargeError: number;
 
+declare const NSMetadataQueryNetworkScope: string;
+
 declare const NSFileReadInapplicableStringEncodingError: number;
 
 declare const NSLocaleCountryCode: string;
@@ -182,8 +184,6 @@ declare const NSUbiquitousKeyValueStoreChangeReasonKey: string;
 declare const NSMetadataQueryUbiquitousDocumentsScope: string;
 
 declare const NSMetadataQueryIndexedLocalComputerScope: string;
-
-declare const NSMetadataQueryNetworkScope: string;
 
 declare const NSMetadataQueryLocalComputerScope: string;
 
@@ -3410,6 +3410,13 @@ declare class NSOperatingSystemVersion {
   patchVersion: number;
 }
 
+declare class NSMapTableValueCallBacks {
+  constructor(init?: NSMapTableValueCallBacks);
+  retain: (p1: NSMapTable, p2: interop.PointerConvertible) => void | null;
+  release: (p1: NSMapTable, p2: interop.PointerConvertible) => void | null;
+  describe: (p1: NSMapTable, p2: interop.PointerConvertible) => string | null;
+}
+
 declare class __NSAppleEventManagerSuspension {
   constructor(init?: __NSAppleEventManagerSuspension);
 }
@@ -3487,13 +3494,6 @@ declare class _NSRange {
 declare class NSSwappedDouble {
   constructor(init?: NSSwappedDouble);
   v: number;
-}
-
-declare class NSMapTableValueCallBacks {
-  constructor(init?: NSMapTableValueCallBacks);
-  retain: (p1: NSMapTable, p2: interop.PointerConvertible) => void | null;
-  release: (p1: NSMapTable, p2: interop.PointerConvertible) => void | null;
-  describe: (p1: NSMapTable, p2: interop.PointerConvertible) => string | null;
 }
 
 declare function NSStringFromSelector(aSelector: string): string;
@@ -11610,6 +11610,8 @@ declare class NSTermOfAddress extends NSObject implements NSCopying, NSSecureCod
   static feminine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
   static masculine<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static currentUser<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
   static localizedForLanguageIdentifierWithPronouns<This extends abstract new (...args: any) => any>(this: This, language: string, pronouns: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
 

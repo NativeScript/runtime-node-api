@@ -129,6 +129,10 @@ declare const NSOpenGLPFAMultisample: number;
 
 declare const NSOpenGLPFAColorFloat: number;
 
+declare const NSOpenGLPFAMaximumPolicy: number;
+
+declare const NSOpenGLPFAMinimumPolicy: number;
+
 declare const NSOpenGLPFAAccumSize: number;
 
 declare const NSOpenGLPFAColorSize: number;
@@ -2215,8 +2219,6 @@ declare const NSValuePathBinding: string;
 
 declare const NSImageNameRefreshTemplate: string;
 
-declare const NSOpenGLPFAMinimumPolicy: number;
-
 declare const NSImageNameTouchBarRefreshTemplate: string;
 
 declare const NSOpenGLCPSwapRectangle: interop.Enum<typeof NSOpenGLContextParameter>;
@@ -3563,6 +3565,8 @@ declare const NSAppKitVersionNumber12_5: number;
 
 declare const NSImageNameNetwork: string;
 
+declare const NSTextKit1ListMarkerFormatDocumentOption: string;
+
 declare const NSTouchBarItemIdentifierTextColorPicker: string;
 
 declare const NSUnderlineByWordMask: number;
@@ -3708,8 +3712,6 @@ declare const NSAboutPanelOptionCredits: string;
 declare const NSAccessibilityRangeForLineParameterizedAttribute: string;
 
 declare const NSImageNameTouchBarHistoryTemplate: string;
-
-declare const NSOpenGLPFAMaximumPolicy: number;
 
 declare const NSLABColorSpaceModel: interop.Enum<typeof NSColorSpaceModel>;
 
@@ -4631,14 +4633,6 @@ declare const NSTextLayoutOrientation: {
 declare const NSTextStorageEditActions: {
   Attributes: 1,
   Characters: 2,
-};
-
-declare const NSWritingToolsAllowedInputOptions: {
-  Default: 0,
-  PlainText: 1,
-  RichText: 2,
-  List: 4,
-  Table: 8,
 };
 
 declare const NSToolbarItemGroupSelectionMode: {
@@ -5941,6 +5935,14 @@ declare const NSSpellingState: {
   Grammar: 2,
 };
 
+declare const NSWritingToolsResultOptions: {
+  Default: 0,
+  PlainText: 1,
+  RichText: 2,
+  List: 4,
+  Table: 8,
+};
+
 declare const NSRemoteNotificationType: {
   None: 0,
   Badge: 1,
@@ -6580,6 +6582,13 @@ declare interface NSScrubberDelegate extends NSObjectProtocol {
 declare class NSScrubberDelegate extends NativeObject implements NSScrubberDelegate {
 }
 
+declare interface NSViewContentSelectionInfo extends NSObjectProtocol {
+  readonly selectionAnchorRect?: CGRect;
+}
+
+declare class NSViewContentSelectionInfo extends NativeObject implements NSViewContentSelectionInfo {
+}
+
 declare interface NSPreviewRepresentableActivityItem extends NSObjectProtocol {
   readonly item: interop.Object;
 
@@ -6691,7 +6700,7 @@ declare interface NSTextInputTraits {
 
   writingToolsBehavior?: interop.Enum<typeof NSWritingToolsBehavior>;
 
-  writingToolsAllowedInputOptions?: interop.Enum<typeof NSWritingToolsAllowedInputOptions>;
+  allowedWritingToolsResultOptions?: interop.Enum<typeof NSWritingToolsResultOptions>;
 }
 
 declare class NSTextInputTraits extends NativeObject implements NSTextInputTraits {
@@ -6920,6 +6929,8 @@ declare interface NSStandardKeyBindingResponding extends NSObjectProtocol {
   makeTextWritingDirectionRightToLeft?(sender: interop.Object | null): void;
 
   quickLookPreviewItems?(sender: interop.Object | null): void;
+
+  showContextMenuForSelection?(sender: interop.Object | null): void;
 }
 
 declare class NSStandardKeyBindingResponding extends NativeObject implements NSStandardKeyBindingResponding {
@@ -7065,36 +7076,6 @@ declare interface NSHapticFeedbackPerformer extends NSObjectProtocol {
 }
 
 declare class NSHapticFeedbackPerformer extends NativeObject implements NSHapticFeedbackPerformer {
-}
-
-declare interface NSDraggingDestination extends NSObjectProtocol {
-  draggingEntered?(sender: NSDraggingInfo): interop.Enum<typeof NSDragOperation>;
-
-  draggingUpdated?(sender: NSDraggingInfo): interop.Enum<typeof NSDragOperation>;
-
-  draggingExited?(sender: NSDraggingInfo | null): void;
-
-  prepareForDragOperation?(sender: NSDraggingInfo): number;
-
-  performDragOperation?(sender: NSDraggingInfo): number;
-
-  concludeDragOperation?(sender: NSDraggingInfo | null): void;
-
-  draggingEnded?(sender: NSDraggingInfo): void;
-
-  wantsPeriodicDraggingUpdates?(): number;
-
-  updateDraggingItemsForDrag?(sender: NSDraggingInfo | null): void;
-}
-
-declare class NSDraggingDestination extends NativeObject implements NSDraggingDestination {
-}
-
-declare interface NSTextLocation extends NSObjectProtocol {
-  compare(location: NSTextLocation): interop.Enum<typeof NSComparisonResult>;
-}
-
-declare class NSTextLocation extends NativeObject implements NSTextLocation {
 }
 
 declare interface NSWindowRestoration extends NSObjectProtocol {
@@ -7762,6 +7743,36 @@ declare interface NSScrubberFlowLayoutDelegate extends NSScrubberDelegate {
 declare class NSScrubberFlowLayoutDelegate extends NativeObject implements NSScrubberFlowLayoutDelegate {
 }
 
+declare interface NSDraggingDestination extends NSObjectProtocol {
+  draggingEntered?(sender: NSDraggingInfo): interop.Enum<typeof NSDragOperation>;
+
+  draggingUpdated?(sender: NSDraggingInfo): interop.Enum<typeof NSDragOperation>;
+
+  draggingExited?(sender: NSDraggingInfo | null): void;
+
+  prepareForDragOperation?(sender: NSDraggingInfo): number;
+
+  performDragOperation?(sender: NSDraggingInfo): number;
+
+  concludeDragOperation?(sender: NSDraggingInfo | null): void;
+
+  draggingEnded?(sender: NSDraggingInfo): void;
+
+  wantsPeriodicDraggingUpdates?(): number;
+
+  updateDraggingItemsForDrag?(sender: NSDraggingInfo | null): void;
+}
+
+declare class NSDraggingDestination extends NativeObject implements NSDraggingDestination {
+}
+
+declare interface NSTextLocation extends NSObjectProtocol {
+  compare(location: NSTextLocation): interop.Enum<typeof NSComparisonResult>;
+}
+
+declare class NSTextLocation extends NativeObject implements NSTextLocation {
+}
+
 declare interface NSColorPickingDefault {
   initWithPickerMaskColorPanel(mask: number, owningColorPanel: NSColorPanel): this;
 
@@ -8242,6 +8253,21 @@ declare interface NSMenuItemValidation extends NSObjectProtocol {
 }
 
 declare class NSMenuItemValidation extends NativeObject implements NSMenuItemValidation {
+}
+
+declare interface NSTextDelegate extends NSObjectProtocol {
+  textShouldBeginEditing?(textObject: NSText): number;
+
+  textShouldEndEditing?(textObject: NSText): number;
+
+  textDidBeginEditing?(notification: NSNotification): void;
+
+  textDidEndEditing?(notification: NSNotification): void;
+
+  textDidChange?(notification: NSNotification): void;
+}
+
+declare class NSTextDelegate extends NativeObject implements NSTextDelegate {
 }
 
 declare interface NSFontChanging extends NSObjectProtocol {
@@ -9398,21 +9424,6 @@ declare interface NSPopoverDelegate extends NSObjectProtocol {
 }
 
 declare class NSPopoverDelegate extends NativeObject implements NSPopoverDelegate {
-}
-
-declare interface NSTextDelegate extends NSObjectProtocol {
-  textShouldBeginEditing?(textObject: NSText): number;
-
-  textShouldEndEditing?(textObject: NSText): number;
-
-  textDidBeginEditing?(notification: NSNotification): void;
-
-  textDidEndEditing?(notification: NSNotification): void;
-
-  textDidChange?(notification: NSNotification): void;
-}
-
-declare class NSTextDelegate extends NativeObject implements NSTextDelegate {
 }
 
 declare class NSCollectionViewFlowLayout extends NSCollectionViewLayout {
@@ -15922,7 +15933,7 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
 
   writingToolsBehavior: interop.Enum<typeof NSWritingToolsBehavior>;
 
-  writingToolsAllowedInputOptions: interop.Enum<typeof NSWritingToolsAllowedInputOptions>;
+  allowedWritingToolsResultOptions: interop.Enum<typeof NSWritingToolsResultOptions>;
 
   smartInsertDeleteEnabled: number;
 
@@ -16302,6 +16313,8 @@ declare class NSTextView extends NSText implements NSColorChanging, NSMenuItemVa
   makeTextWritingDirectionRightToLeft(sender: interop.Object | null): void;
 
   quickLookPreviewItems(sender: interop.Object | null): void;
+
+  showContextMenuForSelection(sender: interop.Object | null): void;
 
   setMarkedTextSelectedRange(string: interop.Object, selRange: _NSRange): void;
 
@@ -22180,6 +22193,8 @@ declare class NSMenuItem extends NSObject implements NSCopying, NSCoding, NSVali
 
   attributedTitle: NSAttributedString;
 
+  subtitle: string;
+
   readonly isSeparatorItem: number;
 
   readonly isSectionHeader: number;
@@ -27609,6 +27624,8 @@ declare class NSResponder extends NSObject implements NSCoding {
   quickLookWithEvent(event: NSEvent): void;
 
   pressureChangeWithEvent(event: NSEvent): void;
+
+  contextMenuKeyDown(event: NSEvent): void;
 
   noResponderFor(eventSelector: string): void;
 

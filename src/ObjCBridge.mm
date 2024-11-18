@@ -8,6 +8,7 @@
 #include "Interop.h"
 #include "Metadata.h"
 #include "MetadataReader.h"
+#include "NativeScript.h"
 #include "Object.h"
 #include "ObjectRef.h"
 #include "Struct.h"
@@ -16,7 +17,6 @@
 #include "js_native_api.h"
 #include "js_native_api_types.h"
 #include "node_api_util.h"
-#include "NativeScript.h"
 
 #import <Foundation/Foundation.h>
 #include <mach-o/dyld.h>
@@ -25,7 +25,11 @@
 
 #ifdef EMBED_METADATA_SIZE
 const unsigned char __attribute__((section("__objc_metadata,__objc_metadata")))
-embedded_metadata[EMBED_METADATA_SIZE] = "NSMDSectionHeader";
+#if defined(__aarch64__)
+embedded_metadata[EMBED_METADATA_SIZE] = "NSMDSectionHeaderARM";
+#else
+embedded_metadata[EMBED_METADATA_SIZE] = "NSMDSectionHeaderX86";
+#endif
 #endif
 
 namespace objc_bridge {
@@ -91,9 +95,10 @@ ObjCBridgeState::~ObjCBridgeState() {
 napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
                                               id nativeObject) {
   NAPI_PREAMBLE
-  
+
   napi_value factory = get_ref_value(env, createNativeProxy);
-  napi_value transferOwnershipFunc = get_ref_value(env, this->transferOwnershipToNative);
+  napi_value transferOwnershipFunc =
+      get_ref_value(env, this->transferOwnershipToNative);
   napi_value result, global;
   napi_value args[3] = {object, nullptr, transferOwnershipFunc};
   napi_get_boolean(env, [nativeObject isKindOfClass:NSArray.class], &args[1]);
@@ -105,8 +110,8 @@ napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
   napi_wrap(env, result, nativeObject, nullptr, nullptr, nullptr);
 
   napi_ref ref = nullptr;
-  NAPI_GUARD(napi_add_finalizer(env, result, nativeObject, finalize_objc_object, this,
-                                &ref)) {
+  NAPI_GUARD(napi_add_finalizer(env, result, nativeObject, finalize_objc_object,
+                                this, &ref)) {
     NAPI_THROW_LAST_ERROR
     return nullptr;
   }
@@ -158,7 +163,7 @@ NAPI_EXPORT NAPI_MODULE_REGISTER {
 
 NAPI_EXPORT void objc_bridge_init(void *_env, const char *metadata_path) {
   napi_env env = (napi_env)_env;
-  
+
   ObjCBridgeState *bridgeState = new ObjCBridgeState(env, metadata_path);
 
   napi_value objc;

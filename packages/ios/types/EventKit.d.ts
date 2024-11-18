@@ -193,16 +193,6 @@ declare const EKEventAvailability: {
   Unavailable: 3,
 };
 
-declare class EKVirtualConferenceDescriptor extends NSObject {
-  initWithTitleURLDescriptorsConferenceDetails(title: string | null, URLDescriptors: NSArray<interop.Object> | Array<interop.Object>, conferenceDetails: string | null): this;
-
-  readonly title: string;
-
-  readonly URLDescriptors: NSArray;
-
-  readonly conferenceDetails: string;
-}
-
 declare class EKVirtualConferenceURLDescriptor extends NSObject {
   initWithTitleURL(title: string | null, URL: NSURL): this;
 
@@ -403,18 +393,31 @@ declare class EKVirtualConferenceProvider extends NSObject implements NSExtensio
   readonly debugDescription: string;
 }
 
-declare class EKStructuredLocation extends EKObject implements NSCopying {
-  static locationWithTitle<This extends abstract new (...args: any) => any>(this: This, title: string): InstanceType<This>;
+declare class EKCalendar extends EKObject {
+  static calendarWithEventStore(eventStore: EKEventStore): EKCalendar;
 
-  static locationWithMapItem<This extends abstract new (...args: any) => any>(this: This, mapItem: MKMapItem): InstanceType<This>;
+  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
+
+  source: EKSource;
+
+  readonly calendarIdentifier: string;
 
   title: string;
 
-  geoLocation: CLLocation;
+  readonly type: interop.Enum<typeof EKCalendarType>;
 
-  radius: number;
+  readonly allowsContentModifications: boolean;
 
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  readonly isSubscribed: boolean;
+
+  readonly isImmutable: boolean;
+
+  get CGColor(): interop.Pointer;
+  set CGColor(value: interop.PointerConvertible);
+
+  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
+
+  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
 }
 
 declare class EKVirtualConferenceRoomTypeDescriptor extends NSObject {
@@ -457,31 +460,14 @@ declare class EKEvent extends EKCalendarItem {
   readonly birthdayPersonID: number;
 }
 
-declare class EKCalendar extends EKObject {
-  static calendarWithEventStore(eventStore: EKEventStore): EKCalendar;
+declare class EKVirtualConferenceDescriptor extends NSObject {
+  initWithTitleURLDescriptorsConferenceDetails(title: string | null, URLDescriptors: NSArray<interop.Object> | Array<interop.Object>, conferenceDetails: string | null): this;
 
-  static calendarForEntityTypeEventStore(entityType: interop.Enum<typeof EKEntityType>, eventStore: EKEventStore): EKCalendar;
+  readonly title: string;
 
-  source: EKSource;
+  readonly URLDescriptors: NSArray;
 
-  readonly calendarIdentifier: string;
-
-  title: string;
-
-  readonly type: interop.Enum<typeof EKCalendarType>;
-
-  readonly allowsContentModifications: boolean;
-
-  readonly isSubscribed: boolean;
-
-  readonly isImmutable: boolean;
-
-  get CGColor(): interop.Pointer;
-  set CGColor(value: interop.PointerConvertible);
-
-  readonly supportedEventAvailabilities: interop.Enum<typeof EKCalendarEventAvailabilityMask>;
-
-  readonly allowedEntityTypes: interop.Enum<typeof EKEntityMask>;
+  readonly conferenceDetails: string;
 }
 
 declare class EKEventStore extends NSObject {
@@ -588,6 +574,20 @@ declare class EKRecurrenceRule extends EKObject implements NSCopying {
   readonly monthsOfTheYear: NSArray;
 
   readonly setPositions: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class EKStructuredLocation extends EKObject implements NSCopying {
+  static locationWithTitle<This extends abstract new (...args: any) => any>(this: This, title: string): InstanceType<This>;
+
+  static locationWithMapItem<This extends abstract new (...args: any) => any>(this: This, mapItem: MKMapItem): InstanceType<This>;
+
+  title: string;
+
+  geoLocation: CLLocation;
+
+  radius: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

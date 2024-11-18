@@ -33,6 +33,11 @@ declare const MLModelError: {
   PredictionCancelled: 11,
 };
 
+declare const MLSpecializationStrategy: {
+  Default: 0,
+  FastPrediction: 1,
+};
+
 declare const MLImageSizeConstraintType: {
   Unspecified: 0,
   Enumerated: 2,
@@ -48,6 +53,7 @@ declare const MLFeatureType: {
   MultiArray: 5,
   Dictionary: 6,
   Sequence: 7,
+  State: 8,
 };
 
 declare const MLMultiArrayShapeConstraintType: {
@@ -279,10 +285,28 @@ declare class MLModel extends NSObject {
   static compileModelAtURLCompletionHandler(modelURL: NSURL, handler: (p1: NSURL, p2: NSError) => void | null): void;
 
   static readonly availableComputeDevices: NSArray;
+
+  newState(): MLState;
+
+  predictionFromFeaturesUsingStateError(inputFeatures: MLFeatureProvider, state: MLState, error: interop.PointerConvertible): MLFeatureProvider;
+
+  predictionFromFeaturesUsingStateOptionsError(inputFeatures: MLFeatureProvider, state: MLState, options: MLPredictionOptions, error: interop.PointerConvertible): MLFeatureProvider;
+
+  predictionFromFeaturesUsingStateOptionsCompletionHandler(inputFeatures: MLFeatureProvider, state: MLState, options: MLPredictionOptions, completionHandler: (p1: MLFeatureProvider, p2: NSError) => void | null): void;
 }
 
 declare class MLModelAsset extends NSObject {
   static modelAssetWithSpecificationDataError<This extends abstract new (...args: any) => any>(this: This, specificationData: NSData, error: interop.PointerConvertible): InstanceType<This>;
+
+  static modelAssetWithSpecificationDataBlobMappingError<This extends abstract new (...args: any) => any>(this: This, specificationData: NSData, blobMapping: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): InstanceType<This>;
+
+  static modelAssetWithURLError<This extends abstract new (...args: any) => any>(this: This, compiledModelURL: NSURL, error: interop.PointerConvertible): InstanceType<This>;
+
+  modelDescriptionWithCompletionHandler(handler: (p1: MLModelDescription, p2: NSError) => void | null): void;
+
+  modelDescriptionOfFunctionNamedCompletionHandler(functionName: string, handler: (p1: MLModelDescription, p2: NSError) => void | null): void;
+
+  functionNamesWithCompletionHandler(handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 }
 
 declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {
@@ -299,6 +323,8 @@ declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecu
   get parameters(): NSDictionary;
   set parameters(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
+  functionName: string;
+
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
@@ -312,6 +338,8 @@ declare class MLModelDescription extends NSObject implements NSSecureCoding {
   readonly inputDescriptionsByName: NSDictionary;
 
   readonly outputDescriptionsByName: NSDictionary;
+
+  readonly stateDescriptionsByName: NSDictionary;
 
   readonly predictedFeatureName: string;
 
@@ -386,6 +414,8 @@ declare class MLFeatureDescription extends NSObject implements NSCopying, NSSecu
 
   readonly sequenceConstraint: MLSequenceConstraint;
 
+  readonly stateConstraint: MLStateConstraint;
+
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
@@ -432,6 +462,8 @@ declare class MLMultiArray extends NSObject implements NSSecureCoding {
 
   initWithShapeDataTypeError(shape: NSArray<interop.Object> | Array<interop.Object>, dataType: interop.Enum<typeof MLMultiArrayDataType>, error: interop.PointerConvertible): this;
 
+  initWithShapeDataTypeStrides(shape: NSArray<interop.Object> | Array<interop.Object>, dataType: interop.Enum<typeof MLMultiArrayDataType>, strides: NSArray<interop.Object> | Array<interop.Object>): this;
+
   initWithDataPointerShapeDataTypeStridesDeallocatorError(dataPointer: interop.PointerConvertible, shape: NSArray<interop.Object> | Array<interop.Object>, dataType: interop.Enum<typeof MLMultiArrayDataType>, strides: NSArray<interop.Object> | Array<interop.Object>, deallocator: (p1: interop.PointerConvertible) => void | null, error: interop.PointerConvertible): this;
 
   initWithPixelBufferShape(pixelBuffer: interop.PointerConvertible, shape: NSArray<interop.Object> | Array<interop.Object>): this;
@@ -449,6 +481,8 @@ declare class MLMultiArray extends NSObject implements NSSecureCoding {
   setObjectAtIndexedSubscript(obj: NSNumber, idx: number): void;
 
   setObjectForKeyedSubscript(obj: NSNumber, key: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  transferToMultiArray(destinationMultiArray: MLMultiArray): void;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -557,36 +591,6 @@ declare class MLMultiArrayConstraint extends NSObject implements NSSecureCoding 
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class MLModelStructureProgramArgument extends NSObject {
-  readonly bindings: NSArray;
-}
-
-declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
-  readonly valueDescription: MLFeatureDescription;
-
-  readonly countRange: _NSRange;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MLMultiArrayShapeConstraint extends NSObject implements NSSecureCoding {
-  readonly type: interop.Enum<typeof MLMultiArrayShapeConstraintType>;
-
-  readonly sizeRangeForDimension: NSArray;
-
-  readonly enumeratedShapes: NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeDeviceProtocol {
   readonly totalCoreCount: number;
 
@@ -629,84 +633,6 @@ declare class MLNeuralEngineComputeDevice extends NSObject implements MLComputeD
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecureCoding {
-  reshapeFrequency: interop.Enum<typeof MLReshapeFrequencyHint>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MLModelStructureProgramFunction extends NSObject {
-  readonly inputs: NSArray;
-
-  readonly block: MLModelStructureProgramBlock;
-}
-
-declare class MLParameterDescription extends NSObject implements NSSecureCoding {
-  readonly key: MLParameterKey;
-
-  readonly defaultValue: interop.Object;
-
-  readonly numericConstraint: MLNumericConstraint;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MLSequence extends NSObject implements NSSecureCoding {
-  readonly type: interop.Enum<typeof MLFeatureType>;
-
-  static emptySequenceWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLFeatureType>): InstanceType<This>;
-
-  static sequenceWithStringArray<This extends abstract new (...args: any) => any>(this: This, stringValues: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  readonly stringValues: NSArray;
-
-  static sequenceWithInt64Array<This extends abstract new (...args: any) => any>(this: This, int64Values: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  readonly int64Values: NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MLImageSizeConstraint extends NSObject implements NSSecureCoding {
-  readonly type: interop.Enum<typeof MLImageSizeConstraintType>;
-
-  readonly pixelsWideRange: _NSRange;
-
-  readonly pixelsHighRange: _NSRange;
-
-  readonly enumeratedImageSizes: NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class MLModelStructureNeuralNetworkLayer extends NSObject {
-  readonly name: string;
-
-  readonly type: string;
-
-  readonly inputNames: NSArray;
-
-  readonly outputNames: NSArray;
 }
 
 declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCoding {
@@ -771,6 +697,106 @@ declare class MLFeatureValue extends NSObject implements NSCopying, NSSecureCodi
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class MLModelStructureProgramArgument extends NSObject {
+  readonly bindings: NSArray;
+}
+
+declare class MLSequenceConstraint extends NSObject implements NSSecureCoding {
+  readonly valueDescription: MLFeatureDescription;
+
+  readonly countRange: _NSRange;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLMultiArrayShapeConstraint extends NSObject implements NSSecureCoding {
+  readonly type: interop.Enum<typeof MLMultiArrayShapeConstraintType>;
+
+  readonly sizeRangeForDimension: NSArray;
+
+  readonly enumeratedShapes: NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureProgramFunction extends NSObject {
+  readonly inputs: NSArray;
+
+  readonly block: MLModelStructureProgramBlock;
+}
+
+declare class MLState extends NSObject {
+  getMultiArrayForStateNamedHandler(stateName: string, handler: (p1: MLMultiArray) => void): void;
+}
+
+declare class MLParameterDescription extends NSObject implements NSSecureCoding {
+  readonly key: MLParameterKey;
+
+  readonly defaultValue: interop.Object;
+
+  readonly numericConstraint: MLNumericConstraint;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLSequence extends NSObject implements NSSecureCoding {
+  readonly type: interop.Enum<typeof MLFeatureType>;
+
+  static emptySequenceWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLFeatureType>): InstanceType<This>;
+
+  static sequenceWithStringArray<This extends abstract new (...args: any) => any>(this: This, stringValues: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  readonly stringValues: NSArray;
+
+  static sequenceWithInt64Array<This extends abstract new (...args: any) => any>(this: This, int64Values: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  readonly int64Values: NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLImageSizeConstraint extends NSObject implements NSSecureCoding {
+  readonly type: interop.Enum<typeof MLImageSizeConstraintType>;
+
+  readonly pixelsWideRange: _NSRange;
+
+  readonly pixelsHighRange: _NSRange;
+
+  readonly enumeratedImageSizes: NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLModelStructureNeuralNetworkLayer extends NSObject {
+  readonly name: string;
+
+  readonly type: string;
+
+  readonly inputNames: NSArray;
+
+  readonly outputNames: NSArray;
+}
+
 declare class MLModelCollection extends NSObject {
   readonly identifier: string;
 
@@ -781,6 +807,32 @@ declare class MLModelCollection extends NSObject {
   static beginAccessingModelCollectionWithIdentifierCompletionHandler(identifier: string, completionHandler: (p1: MLModelCollection, p2: NSError) => void | null): NSProgress;
 
   static endAccessingModelCollectionWithIdentifierCompletionHandler(identifier: string, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
+}
+
+declare class MLOptimizationHints extends NSObject implements NSCopying, NSSecureCoding {
+  reshapeFrequency: interop.Enum<typeof MLReshapeFrequencyHint>;
+
+  specializationStrategy: interop.Enum<typeof MLSpecializationStrategy>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class MLStateConstraint extends NSObject implements NSSecureCoding {
+  readonly bufferShape: NSArray;
+
+  readonly dataType: interop.Enum<typeof MLMultiArrayDataType>;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class MLNumericConstraint extends NSObject implements NSSecureCoding {

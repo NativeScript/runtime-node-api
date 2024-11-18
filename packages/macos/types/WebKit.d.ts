@@ -4435,8 +4435,6 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
 
   supportsAdaptiveImageGlyph: number;
 
-  writingToolsBehavior: interop.Enum<typeof NSWritingToolsBehavior>;
-
   static readonly supportsSecureCoding: number;
 
   encodeWithCoder(coder: NSCoder): void;

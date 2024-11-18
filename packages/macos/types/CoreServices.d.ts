@@ -4030,6 +4030,8 @@ declare const kAEOpenContents: number;
 
 declare const kCoreEventClass: number;
 
+declare const kAEApplicationActivationExpected: number;
+
 declare const gestaltX86HasEST: number;
 
 declare const keySelectProc: number;
@@ -15796,14 +15798,13 @@ declare class TECEncodingPairs {
   speed: number;
 }
 
-declare class DeferredTask {
-  constructor(init?: DeferredTask);
-  qLink: interop.Pointer;
-  qType: number;
-  dtFlags: number;
-  dtAddr: (p1: number) => void | null;
-  dtParam: number;
-  dtReserved: number;
+declare class ComponentParameters {
+  constructor(init?: ComponentParameters);
+  flags: number;
+  paramSize: number;
+  what: number;
+  padding: number;
+  params: unknown /* const array */;
 }
 
 declare class DateTimeRec {
@@ -15817,13 +15818,11 @@ declare class DateTimeRec {
   dayOfWeek: number;
 }
 
-declare class ComponentParameters {
-  constructor(init?: ComponentParameters);
-  flags: number;
-  paramSize: number;
-  what: number;
-  padding: number;
-  params: unknown /* const array */;
+declare class unnamed_1414740728148256445 {
+  constructor(init?: unnamed_1414740728148256445);
+  length: number;
+  text: unknown /* const array */;
+  unused: number;
 }
 
 declare class LSApplicationParameters {
@@ -15839,10 +15838,6 @@ declare class LSApplicationParameters {
 
 declare class OpaqueMPProcessID {
   constructor(init?: OpaqueMPProcessID);
-}
-
-declare class __MDItem {
-  constructor(init?: __MDItem);
 }
 
 declare class FSRefForkIOParam {
@@ -15878,20 +15873,6 @@ declare class DXInfo {
 
 declare class OpaqueAreaID {
   constructor(init?: OpaqueAreaID);
-}
-
-declare class FSForkInfo {
-  constructor(init?: FSForkInfo);
-  flags: number;
-  permissions: number;
-  volume: number;
-  reserved2: number;
-  nodeID: number;
-  forkID: number;
-  currentPosition: number;
-  logicalEOF: number;
-  physicalEOF: number;
-  process: number;
 }
 
 declare class RegisterInformationIntel64 {
@@ -15935,13 +15916,6 @@ declare class TokenRec {
 
 declare class OpaqueTextToUnicodeInfo {
   constructor(init?: OpaqueTextToUnicodeInfo);
-}
-
-declare class TextRange {
-  constructor(init?: TextRange);
-  fStart: number;
-  fEnd: number;
-  fHiliteStyle: number;
 }
 
 declare class Itl1ExtRec {
@@ -16062,14 +16036,6 @@ declare class FSEventStreamContext {
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
 }
 
-declare class OpaqueAEStreamRef {
-  constructor(init?: OpaqueAEStreamRef);
-}
-
-declare class OpaqueLSSharedFileListItemRef {
-  constructor(init?: OpaqueLSSharedFileListItemRef);
-}
-
 declare class LocalDateTime {
   constructor(init?: LocalDateTime);
   highSeconds: number;
@@ -16117,6 +16083,10 @@ declare class TextChunk {
   text: unknown /* const array */;
 }
 
+declare class __MDItem {
+  constructor(init?: __MDItem);
+}
+
 declare class AEDesc {
   constructor(init?: AEDesc);
   descriptorType: number;
@@ -16130,6 +16100,14 @@ declare class FInfo {
   fdFlags: number;
   fdLocation: Point;
   fdFldr: number;
+}
+
+declare class OpaqueAEStreamRef {
+  constructor(init?: OpaqueAEStreamRef);
+}
+
+declare class OpaqueLSSharedFileListItemRef {
+  constructor(init?: OpaqueLSSharedFileListItemRef);
 }
 
 declare class __SKSearch {
@@ -16210,24 +16188,6 @@ declare class __DCSDictionary {
   constructor(init?: __DCSDictionary);
 }
 
-declare class MPTaskInfoVersion2 {
-  constructor(init?: MPTaskInfoVersion2);
-  version: number;
-  name: number;
-  queueName: number;
-  runState: number;
-  lastCPU: number;
-  weight: number;
-  processID: interop.Pointer;
-  cpuTime: UnsignedWide;
-  schedTime: UnsignedWide;
-  creationTime: UnsignedWide;
-  codePageFaults: number;
-  dataPageFaults: number;
-  preemptions: number;
-  cpuID: interop.Pointer;
-}
-
 declare class WritingCode {
   constructor(init?: WritingCode);
   theScriptCode: number;
@@ -16244,6 +16204,13 @@ declare class TextRangeArray {
   constructor(init?: TextRangeArray);
   fNumOfRanges: number;
   fRange: unknown /* const array */;
+}
+
+declare class TextRange {
+  constructor(init?: TextRange);
+  fStart: number;
+  fEnd: number;
+  fHiliteStyle: number;
 }
 
 declare class AERemoteProcessResolver {
@@ -16327,12 +16294,6 @@ declare class TECLocaleListToEncodingListRec {
   locales: number;
 }
 
-declare class unnamed_1422987458602596927 {
-  constructor(init?: unnamed_1422987458602596927);
-  lo: number;
-  hi: number;
-}
-
 declare class TECEncodingPairRec {
   constructor(init?: TECEncodingPairRec);
   source: TextEncodingRec;
@@ -16352,12 +16313,6 @@ declare class TECSubTextEncodingRec {
   searchEncoding: TextEncodingRec;
   count: number;
   subEncodings: TextEncodingRec;
-}
-
-declare class unnamed_6160244313320354374 {
-  constructor(init?: unnamed_6160244313320354374);
-  eraAlt: number;
-  oldDate: DateTimeRec;
 }
 
 declare class KCCallbackInfo {
@@ -16398,6 +16353,19 @@ declare class Comment {
   marker: number;
   count: number;
   text: unknown /* const array */;
+}
+
+declare class FPUInformationPowerPC {
+  constructor(init?: FPUInformationPowerPC);
+  Registers: unknown /* const array */;
+  FPSCR: number;
+  Reserved: number;
+}
+
+declare class unnamed_10463458013166095202 {
+  constructor(init?: unnamed_10463458013166095202);
+  lLow: number;
+  lHigh: number;
 }
 
 declare class __SKSearchResults {
@@ -16691,12 +16659,18 @@ declare class decform {
   digits: number;
 }
 
+declare class unnamed_13202748768273695021 {
+  constructor(init?: unnamed_13202748768273695021);
+  eraAlt: number;
+  oldDate: DateTimeRec;
+}
+
 declare class decimal {
   constructor(init?: decimal);
   sgn: number;
   unused: number;
   exp: number;
-  sig: unnamed_4624337271158547001;
+  sig: unnamed_1414740728148256445;
 }
 
 declare class OpaqueUCTypeSelectRef {
@@ -16811,13 +16785,6 @@ declare class ExceptionInformationPowerPC {
   vectorImage: interop.Pointer;
 }
 
-declare class FPUInformationPowerPC {
-  constructor(init?: FPUInformationPowerPC);
-  Registers: unknown /* const array */;
-  FPSCR: number;
-  Reserved: number;
-}
-
 declare class MachineInformationPowerPC {
   constructor(init?: MachineInformationPowerPC);
   CTR: UnsignedWide;
@@ -16831,12 +16798,6 @@ declare class MachineInformationPowerPC {
   DSISR: number;
   DAR: UnsignedWide;
   Reserved: UnsignedWide;
-}
-
-declare class unnamed_13315157399081334721 {
-  constructor(init?: unnamed_13315157399081334721);
-  lLow: number;
-  lHigh: number;
 }
 
 declare class LocaleAndVariant {
@@ -16929,6 +16890,24 @@ declare class CustomBadgeResource {
   windowBadgeCreator: number;
   overrideType: number;
   overrideCreator: number;
+}
+
+declare class MPTaskInfoVersion2 {
+  constructor(init?: MPTaskInfoVersion2);
+  version: number;
+  name: number;
+  queueName: number;
+  runState: number;
+  lastCPU: number;
+  weight: number;
+  processID: interop.Pointer;
+  cpuTime: UnsignedWide;
+  schedTime: UnsignedWide;
+  creationTime: UnsignedWide;
+  codePageFaults: number;
+  dataPageFaults: number;
+  preemptions: number;
+  cpuID: interop.Pointer;
 }
 
 declare class OpaqueMPAreaID {
@@ -17269,34 +17248,6 @@ declare class XLibContainerHeader {
   oldImpVersion: number;
 }
 
-declare class ccntTokenRecord {
-  constructor(init?: ccntTokenRecord);
-  tokenClass: number;
-  token: AEDesc;
-}
-
-declare class __FSFileSecurity {
-  constructor(init?: __FSFileSecurity);
-}
-
-declare class unnamed_10828452723169173678 {
-  constructor(init?: unnamed_10828452723169173678);
-  era: number;
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
-  second: number;
-  dayOfWeek: number;
-  dayOfYear: number;
-  weekOfYear: number;
-  pm: number;
-  res1: number;
-  res2: number;
-  res3: number;
-}
-
 declare class ComponentDescription {
   constructor(init?: ComponentDescription);
   componentType: number;
@@ -17314,6 +17265,40 @@ declare class FSSearchParams {
   searchName: interop.Pointer;
   searchInfo1: interop.Pointer;
   searchInfo2: interop.Pointer;
+}
+
+declare class ccntTokenRecord {
+  constructor(init?: ccntTokenRecord);
+  tokenClass: number;
+  token: AEDesc;
+}
+
+declare class __FSFileSecurity {
+  constructor(init?: __FSFileSecurity);
+}
+
+declare class unnamed_4888091610255463706 {
+  constructor(init?: unnamed_4888091610255463706);
+  pad: unknown /* const array */;
+  Delta: number;
+}
+
+declare class unnamed_1634512669767708102 {
+  constructor(init?: unnamed_1634512669767708102);
+  era: number;
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+  dayOfWeek: number;
+  dayOfYear: number;
+  weekOfYear: number;
+  pm: number;
+  res1: number;
+  res2: number;
+  res3: number;
 }
 
 declare class __SKSearchGroup {
@@ -17355,7 +17340,7 @@ declare class BigEndianUInt32 {
 
 declare class PEFExportedSymbolKey {
   constructor(init?: PEFExportedSymbolKey);
-  u: unnamed_2517247322364165323;
+  u: unnamed_13631383190721420215;
 }
 
 declare class BigEndianUnsignedShort {
@@ -17440,7 +17425,7 @@ declare class MachineLocation {
   constructor(init?: MachineLocation);
   latitude: number;
   longitude: number;
-  u: unnamed_10663552477967923722;
+  u: unnamed_15460841483433732365;
 }
 
 declare class FSSpec {
@@ -17729,6 +17714,16 @@ declare class OpaqueUnicodeToTextRunInfo {
   constructor(init?: OpaqueUnicodeToTextRunInfo);
 }
 
+declare class DeferredTask {
+  constructor(init?: DeferredTask);
+  qLink: interop.Pointer;
+  qType: number;
+  dtFlags: number;
+  dtAddr: (p1: number) => void | null;
+  dtParam: number;
+  dtReserved: number;
+}
+
 declare class RuleBasedTrslRecord {
   constructor(init?: RuleBasedTrslRecord);
   sourceType: number;
@@ -17743,6 +17738,20 @@ declare class UTCDateTime {
   highSeconds: number;
   lowSeconds: number;
   fraction: number;
+}
+
+declare class FSForkInfo {
+  constructor(init?: FSForkInfo);
+  flags: number;
+  permissions: number;
+  volume: number;
+  reserved2: number;
+  nodeID: number;
+  forkID: number;
+  currentPosition: number;
+  logicalEOF: number;
+  physicalEOF: number;
+  process: number;
 }
 
 declare class MPNotificationInfo {
@@ -17799,6 +17808,12 @@ declare class MarkerChunk {
   Markers: unknown /* const array */;
 }
 
+declare class unnamed_7878962774296405953 {
+  constructor(init?: unnamed_7878962774296405953);
+  lo: number;
+  hi: number;
+}
+
 declare class FSCatalogInfo {
   constructor(init?: FSCatalogInfo);
   nodeFlags: number;
@@ -17823,12 +17838,6 @@ declare class FSCatalogInfo {
   rsrcPhysicalSize: number;
   valence: number;
   textEncodingHint: number;
-}
-
-declare class unnamed_11058520404825886551 {
-  constructor(init?: unnamed_11058520404825886551);
-  pad: unknown /* const array */;
-  Delta: number;
 }
 
 declare class MPCriticalRegionInfo {
@@ -18017,13 +18026,6 @@ declare class FSRefParam {
   outName: interop.Pointer;
 }
 
-declare class unnamed_4624337271158547001 {
-  constructor(init?: unnamed_4624337271158547001);
-  length: number;
-  text: unknown /* const array */;
-  unused: number;
-}
-
 declare class ComponentRecord {
   constructor(init?: ComponentRecord);
   data: unknown /* const array */;
@@ -18040,23 +18042,61 @@ declare class UCKeyboardTypeHeader {
   keySequenceDataIndexOffset: number;
 }
 
-type unnamed_2517247322364165323Descriptor = 
+type AEArrayDataDescriptor = 
+  | { kAEDataArray: unknown /* const array */ }
+  | { kAEPackedArray: unknown /* const array */ }
+  | { kAEHandleArray: unknown /* const array */ }
+  | { kAEDescArray: unknown /* const array */ }
+  | { kAEKeyDescArray: unknown /* const array */ };
+
+declare class AEArrayData {
+  constructor(init?: AEArrayDataDescriptor);
+  kAEDataArray: unknown /* const array */;
+  kAEPackedArray: unknown /* const array */;
+  kAEHandleArray: unknown /* const array */;
+  kAEDescArray: unknown /* const array */;
+  kAEKeyDescArray: unknown /* const array */;
+}
+
+type LongDateRecDescriptor = 
+  | { ld: unnamed_1634512669767708102 }
+  | { list: unknown /* const array */ }
+  | { od: unnamed_13202748768273695021 };
+
+declare class LongDateRec {
+  constructor(init?: LongDateRecDescriptor);
+  ld: unnamed_1634512669767708102;
+  list: unknown /* const array */;
+  od: unnamed_13202748768273695021;
+}
+
+type unnamed_15460841483433732365Descriptor = 
+  | { gmtDelta: number }
+  | { dls: unnamed_4888091610255463706 };
+
+declare class unnamed_15460841483433732365 {
+  constructor(init?: unnamed_15460841483433732365Descriptor);
+  gmtDelta: number;
+  dls: unnamed_4888091610255463706;
+}
+
+type unnamed_13631383190721420215Descriptor = 
   | { fullHashWord: number }
   | { splitHashWord: PEFSplitHashWord };
 
-declare class unnamed_2517247322364165323 {
-  constructor(init?: unnamed_2517247322364165323Descriptor);
+declare class unnamed_13631383190721420215 {
+  constructor(init?: unnamed_13631383190721420215Descriptor);
   fullHashWord: number;
   splitHashWord: PEFSplitHashWord;
 }
 
 type WideCharDescriptor = 
-  | { a: unnamed_1422987458602596927 }
+  | { a: unnamed_7878962774296405953 }
   | { b: number };
 
 declare class WideChar {
   constructor(init?: WideCharDescriptor);
-  a: unnamed_1422987458602596927;
+  a: unnamed_7878962774296405953;
   b: number;
 }
 
@@ -18094,52 +18134,14 @@ declare class Vector128 {
   c: unknown /* const array */;
 }
 
-type unnamed_10663552477967923722Descriptor = 
-  | { gmtDelta: number }
-  | { dls: unnamed_11058520404825886551 };
-
-declare class unnamed_10663552477967923722 {
-  constructor(init?: unnamed_10663552477967923722Descriptor);
-  gmtDelta: number;
-  dls: unnamed_11058520404825886551;
-}
-
-type LongDateRecDescriptor = 
-  | { ld: unnamed_10828452723169173678 }
-  | { list: unknown /* const array */ }
-  | { od: unnamed_6160244313320354374 };
-
-declare class LongDateRec {
-  constructor(init?: LongDateRecDescriptor);
-  ld: unnamed_10828452723169173678;
-  list: unknown /* const array */;
-  od: unnamed_6160244313320354374;
-}
-
-type AEArrayDataDescriptor = 
-  | { kAEDataArray: unknown /* const array */ }
-  | { kAEPackedArray: unknown /* const array */ }
-  | { kAEHandleArray: unknown /* const array */ }
-  | { kAEDescArray: unknown /* const array */ }
-  | { kAEKeyDescArray: unknown /* const array */ };
-
-declare class AEArrayData {
-  constructor(init?: AEArrayDataDescriptor);
-  kAEDataArray: unknown /* const array */;
-  kAEPackedArray: unknown /* const array */;
-  kAEHandleArray: unknown /* const array */;
-  kAEDescArray: unknown /* const array */;
-  kAEKeyDescArray: unknown /* const array */;
-}
-
 type LongDateCvtDescriptor = 
   | { c: number }
-  | { hl: unnamed_13315157399081334721 };
+  | { hl: unnamed_10463458013166095202 };
 
 declare class LongDateCvt {
   constructor(init?: LongDateCvtDescriptor);
   c: number;
-  hl: unnamed_13315157399081334721;
+  hl: unnamed_10463458013166095202;
 }
 
 declare function FixRatio(numer: number, denom: number): number;

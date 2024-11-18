@@ -117,11 +117,15 @@ declare const kCAGravityTopLeft: string;
 
 declare const kCAGravityRight: string;
 
+declare const CAToneMapModeIfSupported: string;
+
 declare const kCAFillModeRemoved: string;
 
 declare const kCAFillModeBoth: string;
 
 declare const kCAFillModeBackwards: string;
+
+declare const CAToneMapModeNever: string;
 
 declare const kCAFillModeForwards: string;
 
@@ -194,6 +198,8 @@ declare const kCATransitionFromTop: string;
 declare const kCATransitionMoveIn: string;
 
 declare const kCAEmitterLayerOldestLast: string;
+
+declare const CAToneMapModeAutomatic: string;
 
 declare const kCAValueFunctionRotateX: string;
 
@@ -336,13 +342,6 @@ declare interface CALayerDelegate extends NSObjectProtocol {
 declare class CALayerDelegate extends NativeObject implements CALayerDelegate {
 }
 
-declare interface CAAction {
-  runActionForKeyObjectArguments(event: string, anObject: interop.Object, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): void;
-}
-
-declare class CAAction extends NativeObject implements CAAction {
-}
-
 declare interface CAAnimationDelegate extends NSObjectProtocol {
   animationDidStart?(anim: CAAnimation): void;
 
@@ -350,6 +349,13 @@ declare interface CAAnimationDelegate extends NSObjectProtocol {
 }
 
 declare class CAAnimationDelegate extends NativeObject implements CAAnimationDelegate {
+}
+
+declare interface CAAction {
+  runActionForKeyObjectArguments(event: string, anObject: interop.Object, dict: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): void;
+}
+
+declare class CAAction extends NativeObject implements CAAction {
 }
 
 declare class CAKeyframeAnimation extends CAPropertyAnimation {
@@ -377,6 +383,14 @@ declare class CAKeyframeAnimation extends CAPropertyAnimation {
   set biasValues(value: NSArray<interop.Object> | Array<interop.Object>);
 
   rotationMode: string;
+}
+
+declare class CABasicAnimation extends CAPropertyAnimation {
+  fromValue: interop.Object;
+
+  toValue: interop.Object;
+
+  byValue: interop.Object;
 }
 
 declare class CATextLayer extends CALayer {
@@ -407,6 +421,24 @@ declare class CATiledLayer extends CALayer {
   levelsOfDetailBias: number;
 
   tileSize: CGSize;
+}
+
+declare class CAMetalDisplayLink extends NSObject {
+  initWithMetalLayer(layer: CAMetalLayer): this;
+
+  addToRunLoopForMode(runloop: NSRunLoop, mode: string): void;
+
+  removeFromRunLoopForMode(runloop: NSRunLoop, mode: string): void;
+
+  invalidate(): void;
+
+  delegate: CAMetalDisplayLinkDelegate;
+
+  preferredFrameLatency: number;
+
+  preferredFrameRateRange: CAFrameRateRange;
+
+  isPaused: boolean;
 }
 
 declare class CATransformLayer extends CALayer {
@@ -455,6 +487,66 @@ declare class CATransition extends CAAnimation {
   endProgress: number;
 }
 
+declare class CATransaction extends NSObject {
+  static begin(): void;
+
+  static commit(): void;
+
+  static flush(): void;
+
+  static lock(): void;
+
+  static unlock(): void;
+
+  static animationDuration(): number;
+
+  static setAnimationDuration(dur: number): void;
+
+  static animationTimingFunction(): CAMediaTimingFunction;
+
+  static setAnimationTimingFunction(function$: CAMediaTimingFunction | null): void;
+
+  static disableActions(): boolean;
+
+  static setDisableActions(flag: boolean): void;
+
+  static completionBlock(): () => void;
+
+  static setCompletionBlock(block: () => void | null): void;
+
+  static valueForKey(key: string): interop.Object;
+
+  static setValueForKey(anObject: interop.Object | null, key: string): void;
+}
+
+declare class CAScrollLayer extends CALayer {
+  scrollToPoint(p: CGPoint): void;
+
+  scrollToRect(r: CGRect): void;
+
+  scrollMode: string;
+}
+
+declare class CASpringAnimation extends CABasicAnimation {
+  mass: number;
+
+  stiffness: number;
+
+  damping: number;
+
+  initialVelocity: number;
+
+  allowsOverdamping: boolean;
+
+  readonly settlingDuration: number;
+
+  initWithPerceptualDurationBounce(perceptualDuration: number, bounce: number): this;
+
+  readonly perceptualDuration: number;
+
+  readonly bounce: number;
+}
+
 declare class CADisplayLink extends NSObject {
   static displayLinkWithTargetSelector(target: interop.Object, sel: string): CADisplayLink;
 
@@ -491,35 +583,6 @@ declare class CAGradientLayer extends CALayer {
   endPoint: CGPoint;
 
   type: string;
-}
-
-declare class CAScrollLayer extends CALayer {
-  scrollToPoint(p: CGPoint): void;
-
-  scrollToRect(r: CGRect): void;
-
-  scrollMode: string;
-}
-
-declare class CAReplicatorLayer extends CALayer {
-  instanceCount: number;
-
-  preservesDepth: boolean;
-
-  instanceDelay: number;
-
-  instanceTransform: CATransform3D;
-
-  get instanceColor(): interop.Pointer;
-  set instanceColor(value: interop.PointerConvertible);
-
-  instanceRedOffset: number;
-
-  instanceGreenOffset: number;
-
-  instanceBlueOffset: number;
-
-  instanceAlphaOffset: number;
 }
 
 declare class CAEAGLLayer extends CALayer implements EAGLDrawable {
@@ -599,6 +662,27 @@ declare class CAShapeLayer extends CALayer {
 
   get lineDashPattern(): NSArray;
   set lineDashPattern(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
+declare class CAReplicatorLayer extends CALayer {
+  instanceCount: number;
+
+  preservesDepth: boolean;
+
+  instanceDelay: number;
+
+  instanceTransform: CATransform3D;
+
+  get instanceColor(): interop.Pointer;
+  set instanceColor(value: interop.PointerConvertible);
+
+  instanceRedOffset: number;
+
+  instanceGreenOffset: number;
+
+  instanceBlueOffset: number;
+
+  instanceAlphaOffset: number;
 }
 
 declare class CARenderer extends NSObject {
@@ -759,34 +843,6 @@ declare class CAAnimationGroup extends CAAnimation {
   set animations(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-declare class CASpringAnimation extends CABasicAnimation {
-  mass: number;
-
-  stiffness: number;
-
-  damping: number;
-
-  initialVelocity: number;
-
-  allowsOverdamping: boolean;
-
-  readonly settlingDuration: number;
-
-  initWithPerceptualDurationBounce(perceptualDuration: number, bounce: number): this;
-
-  readonly perceptualDuration: number;
-
-  readonly bounce: number;
-}
-
-declare class CABasicAnimation extends CAPropertyAnimation {
-  fromValue: interop.Object;
-
-  toValue: interop.Object;
-
-  byValue: interop.Object;
-}
-
 declare class CAPropertyAnimation extends CAAnimation {
   static animationWithKeyPath<This extends abstract new (...args: any) => any>(this: This, path: string | null): InstanceType<This>;
 
@@ -894,6 +950,8 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
   contentsFormat: string;
 
   wantsExtendedDynamicRangeContent: boolean;
+
+  toneMapMode: string;
 
   minificationFilter: string;
 
@@ -1032,24 +1090,6 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
   fillMode: string;
 }
 
-declare class CAMetalDisplayLink extends NSObject {
-  initWithMetalLayer(layer: CAMetalLayer): this;
-
-  addToRunLoopForMode(runloop: NSRunLoop, mode: string): void;
-
-  removeFromRunLoopForMode(runloop: NSRunLoop, mode: string): void;
-
-  invalidate(): void;
-
-  delegate: CAMetalDisplayLinkDelegate;
-
-  preferredFrameLatency: number;
-
-  preferredFrameRateRange: CAFrameRateRange;
-
-  isPaused: boolean;
-}
-
 declare class CAMediaTimingFunction extends NSObject implements NSSecureCoding {
   static functionWithName<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
 
@@ -1064,38 +1104,6 @@ declare class CAMediaTimingFunction extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class CATransaction extends NSObject {
-  static begin(): void;
-
-  static commit(): void;
-
-  static flush(): void;
-
-  static lock(): void;
-
-  static unlock(): void;
-
-  static animationDuration(): number;
-
-  static setAnimationDuration(dur: number): void;
-
-  static animationTimingFunction(): CAMediaTimingFunction;
-
-  static setAnimationTimingFunction(function$: CAMediaTimingFunction | null): void;
-
-  static disableActions(): boolean;
-
-  static setDisableActions(flag: boolean): void;
-
-  static completionBlock(): () => void;
-
-  static setCompletionBlock(block: () => void | null): void;
-
-  static valueForKey(key: string): interop.Object;
-
-  static setValueForKey(anObject: interop.Object | null, key: string): void;
 }
 
 declare class CAAnimation extends NSObject implements NSSecureCoding, NSCopying, CAMediaTiming, CAAction {

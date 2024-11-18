@@ -486,6 +486,8 @@ declare const kAudioClockDevicePropertyControlList: number;
 
 declare const kAudioPlugInClassID: number;
 
+declare const kAudioSubDevicePropertyDriftCompensationQuality: number;
+
 declare const kAudioSubTapPropertyExtraLatency: number;
 
 declare const kAudioTransportManagerDestroyEndPointDevice: number;
@@ -507,8 +509,6 @@ declare const kAudioObjectPropertyOwner: number;
 declare const kAudioDevicePropertyPreferredChannelLayout: number;
 
 declare const kAudioDeviceTransportTypeAVB: number;
-
-declare const kAudioSubDevicePropertyDriftCompensationQuality: number;
 
 declare const kAudioSoloControlClassID: number;
 

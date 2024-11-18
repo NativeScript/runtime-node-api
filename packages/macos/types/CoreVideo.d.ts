@@ -334,6 +334,8 @@ declare const kCVPixelFormatType_40ARGBLEWideGamut: number;
 
 declare const kCVMetalTextureCacheMaximumTextureAgeKey: interop.Pointer;
 
+declare const kCVImageBufferPostDecodeProcessingSequenceMetadataKey: interop.Pointer;
+
 declare const kCVPixelBufferMemoryAllocatorKey: interop.Pointer;
 
 declare const kCVPixelFormatBlockHorizontalAlignment: interop.Pointer;
@@ -403,6 +405,8 @@ declare const kCVPixelFormatType_444YpCbCr8BiPlanarVideoRange: number;
 declare const kCVPixelBufferProResRAWKey_GainFactor: interop.Pointer;
 
 declare const kCVPixelFormatComponentRange_FullRange: interop.Pointer;
+
+declare const kCVImageBufferPostDecodeProcessingFrameMetadataKey: interop.Pointer;
 
 declare const kCVPixelBufferVersatileBayerKey_BayerPattern: interop.Pointer;
 
@@ -653,6 +657,11 @@ declare class CVSMPTETime {
   frames: number;
 }
 
+declare class CVPlanarPixelBufferInfo {
+  constructor(init?: CVPlanarPixelBufferInfo);
+  componentInfo: unknown /* const array */;
+}
+
 declare class __CVMetalBufferCache {
   constructor(init?: __CVMetalBufferCache);
 }
@@ -674,11 +683,6 @@ declare class __CVMetalTextureCache {
 
 declare class __CVPixelBufferPool {
   constructor(init?: __CVPixelBufferPool);
-}
-
-declare class CVPlanarPixelBufferInfo {
-  constructor(init?: CVPlanarPixelBufferInfo);
-  componentInfo: unknown /* const array */;
 }
 
 declare class __CVOpenGLBufferPool {

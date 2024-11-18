@@ -2,13 +2,6 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./UIKit.d.ts" />
 
-declare const SKSceneScaleMode: {
-  Fill: 0,
-  AspectFill: 1,
-  AspectFit: 2,
-  ResizeFill: 3,
-};
-
 declare const SKTileAdjacencyMask: {
   AdjacencyUp: 1,
   AdjacencyUpperRight: 2,
@@ -88,6 +81,13 @@ declare const SKLabelVerticalAlignmentMode: {
   Center: 1,
   Top: 2,
   Bottom: 3,
+};
+
+declare const SKSceneScaleMode: {
+  Fill: 0,
+  AspectFill: 1,
+  AspectFit: 2,
+  ResizeFill: 3,
 };
 
 declare const SKBlendMode: {
@@ -189,32 +189,6 @@ declare interface SKPhysicsContactDelegate extends NSObjectProtocol {
 }
 
 declare class SKPhysicsContactDelegate extends NativeObject implements SKPhysicsContactDelegate {
-}
-
-declare class SKAttributeValue extends NSObject implements NSSecureCoding {
-  static valueWithFloat<This extends abstract new (...args: any) => any>(this: This, value: number): InstanceType<This>;
-
-  static valueWithVectorFloat2<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
-
-  static valueWithVectorFloat3<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
-
-  static valueWithVectorFloat4<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
-
-  init(): this;
-
-  floatValue: number;
-
-  vectorFloat2Value: unknown /* ext vector */;
-
-  vectorFloat3Value: unknown /* ext vector */;
-
-  vectorFloat4Value: unknown /* ext vector */;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
@@ -631,6 +605,252 @@ declare class SKWarpGeometry extends NSObject implements NSCopying, NSSecureCodi
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class SKShader extends NSObject implements NSCopying, NSSecureCoding {
+  initWithSource(source: string): this;
+
+  initWithSourceUniforms(source: string, uniforms: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  static shader<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static shaderWithSource<This extends abstract new (...args: any) => any>(this: This, source: string): InstanceType<This>;
+
+  static shaderWithSourceUniforms<This extends abstract new (...args: any) => any>(this: This, source: string, uniforms: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  static shaderWithFileNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
+
+  source: string;
+
+  get uniforms(): NSArray;
+  set uniforms(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  addUniform(uniform: SKUniform): void;
+
+  uniformNamed(name: string): SKUniform;
+
+  removeUniformNamed(name: string): void;
+
+  get attributes(): NSArray;
+  set attributes(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class SKNode extends UIResponder implements NSCopying, NSSecureCoding, UIFocusItem, UIFocusItemContainer, UICoordinateSpace {
+  init(): this;
+
+  initWithCoder(aDecoder: NSCoder): this;
+
+  static node<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static nodeWithFileNamed<This extends abstract new (...args: any) => any>(this: This, filename: string): InstanceType<This>;
+
+  static nodeWithFileNamedSecurelyWithClassesAndError<This extends abstract new (...args: any) => any>(this: This, filename: string, classes: NSSet, error: interop.PointerConvertible): InstanceType<This>;
+
+  readonly frame: CGRect;
+
+  calculateAccumulatedFrame(): CGRect;
+
+  position: CGPoint;
+
+  zPosition: number;
+
+  zRotation: number;
+
+  xScale: number;
+
+  yScale: number;
+
+  speed: number;
+
+  alpha: number;
+
+  isPaused: boolean;
+
+  isHidden: boolean;
+
+  isUserInteractionEnabled: boolean;
+
+  focusBehavior: interop.Enum<typeof SKNodeFocusBehavior>;
+
+  readonly parent: SKNode;
+
+  readonly children: NSArray;
+
+  name: string;
+
+  readonly scene: SKScene;
+
+  physicsBody: SKPhysicsBody;
+
+  userData: NSMutableDictionary;
+
+  reachConstraints: SKReachConstraints;
+
+  get constraints(): NSArray;
+  set constraints(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  get attributeValues(): NSDictionary;
+  set attributeValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  valueForAttributeNamed(key: string): SKAttributeValue;
+
+  setValueForAttributeNamed(value: SKAttributeValue, key: string): void;
+
+  setScale(scale: number): void;
+
+  addChild(node: SKNode): void;
+
+  insertChildAtIndex(node: SKNode, index: number): void;
+
+  removeChildrenInArray(nodes: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  removeAllChildren(): void;
+
+  removeFromParent(): void;
+
+  moveToParent(parent: SKNode): void;
+
+  childNodeWithName(name: string): SKNode;
+
+  enumerateChildNodesWithNameUsingBlock(name: string, block: (p1: SKNode, p2: interop.PointerConvertible) => void): void;
+
+  objectForKeyedSubscript(name: string): NSArray;
+
+  inParentHierarchy(parent: SKNode): boolean;
+
+  runAction(action: SKAction): void;
+
+  runActionCompletion(action: SKAction, block: () => void): void;
+
+  runActionWithKey(action: SKAction, key: string): void;
+
+  hasActions(): boolean;
+
+  actionForKey(key: string): SKAction;
+
+  removeActionForKey(key: string): void;
+
+  removeAllActions(): void;
+
+  containsPoint(p: CGPoint): boolean;
+
+  nodeAtPoint(p: CGPoint): SKNode;
+
+  nodesAtPoint(p: CGPoint): NSArray;
+
+  convertPointFromNode(point: CGPoint, node: SKNode): CGPoint;
+
+  convertPointToNode(point: CGPoint, node: SKNode): CGPoint;
+
+  intersectsNode(node: SKNode): boolean;
+
+  isEqualToNode(node: SKNode): boolean;
+
+  static obstaclesFromSpriteTexturesAccuracy(sprites: NSArray<interop.Object> | Array<interop.Object>, accuracy: number): NSArray;
+
+  static obstaclesFromNodeBounds(nodes: NSArray<interop.Object> | Array<interop.Object>): NSArray;
+
+  static obstaclesFromNodePhysicsBodies(nodes: NSArray<interop.Object> | Array<interop.Object>): NSArray;
+
+  entity: GKEntity;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  readonly canBecomeFocused: boolean;
+
+  readonly focusEffect: UIFocusEffect;
+
+  readonly focusGroupPriority: number;
+
+  readonly focusItemDeferralMode: interop.Enum<typeof UIFocusItemDeferralMode>;
+
+  readonly isTransparentFocusItem: boolean;
+
+  didHintFocusMovement(hint: UIFocusMovementHint): void;
+
+  readonly preferredFocusEnvironments: NSArray;
+
+  readonly parentFocusEnvironment: UIFocusEnvironment;
+
+  readonly focusItemContainer: UIFocusItemContainer;
+
+  setNeedsFocusUpdate(): void;
+
+  updateFocusIfNeeded(): void;
+
+  shouldUpdateFocusInContext(context: UIFocusUpdateContext): boolean;
+
+  didUpdateFocusInContextWithAnimationCoordinator(context: UIFocusUpdateContext, coordinator: UIFocusAnimationCoordinator): void;
+
+  readonly preferredFocusedView: UIView;
+
+  readonly focusGroupIdentifier: string;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  readonly coordinateSpace: UICoordinateSpace;
+
+  focusItemsInRect(rect: CGRect): NSArray;
+
+  convertPointToCoordinateSpace(point: CGPoint, coordinateSpace: UICoordinateSpace): CGPoint;
+
+  convertPointFromCoordinateSpace(point: CGPoint, coordinateSpace: UICoordinateSpace): CGPoint;
+
+  convertRectToCoordinateSpace(rect: CGRect, coordinateSpace: UICoordinateSpace): CGRect;
+
+  convertRectFromCoordinateSpace(rect: CGRect, coordinateSpace: UICoordinateSpace): CGRect;
+
+  readonly bounds: CGRect;
+}
+
 declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
   duration: number;
 
@@ -839,248 +1059,6 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class SKShader extends NSObject implements NSCopying, NSSecureCoding {
-  initWithSource(source: string): this;
-
-  initWithSourceUniforms(source: string, uniforms: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  static shader<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  static shaderWithSource<This extends abstract new (...args: any) => any>(this: This, source: string): InstanceType<This>;
-
-  static shaderWithSourceUniforms<This extends abstract new (...args: any) => any>(this: This, source: string, uniforms: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  static shaderWithFileNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
-
-  source: string;
-
-  get uniforms(): NSArray;
-  set uniforms(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  addUniform(uniform: SKUniform): void;
-
-  uniformNamed(name: string): SKUniform;
-
-  removeUniformNamed(name: string): void;
-
-  get attributes(): NSArray;
-  set attributes(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class SKNode extends UIResponder implements NSCopying, NSSecureCoding, UIFocusItem {
-  init(): this;
-
-  initWithCoder(aDecoder: NSCoder): this;
-
-  static node<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  static nodeWithFileNamed<This extends abstract new (...args: any) => any>(this: This, filename: string): InstanceType<This>;
-
-  static nodeWithFileNamedSecurelyWithClassesAndError<This extends abstract new (...args: any) => any>(this: This, filename: string, classes: NSSet, error: interop.PointerConvertible): InstanceType<This>;
-
-  readonly frame: CGRect;
-
-  calculateAccumulatedFrame(): CGRect;
-
-  position: CGPoint;
-
-  zPosition: number;
-
-  zRotation: number;
-
-  xScale: number;
-
-  yScale: number;
-
-  speed: number;
-
-  alpha: number;
-
-  isPaused: boolean;
-
-  isHidden: boolean;
-
-  isUserInteractionEnabled: boolean;
-
-  focusBehavior: interop.Enum<typeof SKNodeFocusBehavior>;
-
-  readonly parent: SKNode;
-
-  readonly children: NSArray;
-
-  name: string;
-
-  readonly scene: SKScene;
-
-  physicsBody: SKPhysicsBody;
-
-  userData: NSMutableDictionary;
-
-  reachConstraints: SKReachConstraints;
-
-  get constraints(): NSArray;
-  set constraints(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  get attributeValues(): NSDictionary;
-  set attributeValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  valueForAttributeNamed(key: string): SKAttributeValue;
-
-  setValueForAttributeNamed(value: SKAttributeValue, key: string): void;
-
-  setScale(scale: number): void;
-
-  addChild(node: SKNode): void;
-
-  insertChildAtIndex(node: SKNode, index: number): void;
-
-  removeChildrenInArray(nodes: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  removeAllChildren(): void;
-
-  removeFromParent(): void;
-
-  moveToParent(parent: SKNode): void;
-
-  childNodeWithName(name: string): SKNode;
-
-  enumerateChildNodesWithNameUsingBlock(name: string, block: (p1: SKNode, p2: interop.PointerConvertible) => void): void;
-
-  objectForKeyedSubscript(name: string): NSArray;
-
-  inParentHierarchy(parent: SKNode): boolean;
-
-  runAction(action: SKAction): void;
-
-  runActionCompletion(action: SKAction, block: () => void): void;
-
-  runActionWithKey(action: SKAction, key: string): void;
-
-  hasActions(): boolean;
-
-  actionForKey(key: string): SKAction;
-
-  removeActionForKey(key: string): void;
-
-  removeAllActions(): void;
-
-  containsPoint(p: CGPoint): boolean;
-
-  nodeAtPoint(p: CGPoint): SKNode;
-
-  nodesAtPoint(p: CGPoint): NSArray;
-
-  convertPointFromNode(point: CGPoint, node: SKNode): CGPoint;
-
-  convertPointToNode(point: CGPoint, node: SKNode): CGPoint;
-
-  intersectsNode(node: SKNode): boolean;
-
-  isEqualToNode(node: SKNode): boolean;
-
-  static obstaclesFromSpriteTexturesAccuracy(sprites: NSArray<interop.Object> | Array<interop.Object>, accuracy: number): NSArray;
-
-  static obstaclesFromNodeBounds(nodes: NSArray<interop.Object> | Array<interop.Object>): NSArray;
-
-  static obstaclesFromNodePhysicsBodies(nodes: NSArray<interop.Object> | Array<interop.Object>): NSArray;
-
-  entity: GKEntity;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  readonly canBecomeFocused: boolean;
-
-  readonly focusEffect: UIFocusEffect;
-
-  readonly focusGroupPriority: number;
-
-  readonly isTransparentFocusItem: boolean;
-
-  didHintFocusMovement(hint: UIFocusMovementHint): void;
-
-  readonly preferredFocusEnvironments: NSArray;
-
-  readonly parentFocusEnvironment: UIFocusEnvironment;
-
-  readonly focusItemContainer: UIFocusItemContainer;
-
-  setNeedsFocusUpdate(): void;
-
-  updateFocusIfNeeded(): void;
-
-  shouldUpdateFocusInContext(context: UIFocusUpdateContext): boolean;
-
-  didUpdateFocusInContextWithAnimationCoordinator(context: UIFocusUpdateContext, coordinator: UIFocusAnimationCoordinator): void;
-
-  readonly preferredFocusedView: UIView;
-
-  readonly focusGroupIdentifier: string;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class SKPhysicsContact extends NSObject {
-  readonly bodyA: SKPhysicsBody;
-
-  readonly bodyB: SKPhysicsBody;
-
-  readonly contactPoint: CGPoint;
-
-  readonly contactNormal: CGVector;
-
-  readonly collisionImpulse: number;
-}
-
 declare class SKRegion extends NSObject implements NSCopying, NSSecureCoding {
   readonly path: interop.Pointer;
 
@@ -1103,6 +1081,32 @@ declare class SKRegion extends NSObject implements NSCopying, NSSecureCoding {
   containsPoint(point: CGPoint): boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class SKAttributeValue extends NSObject implements NSSecureCoding {
+  static valueWithFloat<This extends abstract new (...args: any) => any>(this: This, value: number): InstanceType<This>;
+
+  static valueWithVectorFloat2<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
+
+  static valueWithVectorFloat3<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
+
+  static valueWithVectorFloat4<This extends abstract new (...args: any) => any>(this: This, value: unknown /* ext vector */): InstanceType<This>;
+
+  init(): this;
+
+  floatValue: number;
+
+  vectorFloat2Value: unknown /* ext vector */;
+
+  vectorFloat3Value: unknown /* ext vector */;
+
+  vectorFloat4Value: unknown /* ext vector */;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -1442,24 +1446,6 @@ declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class SKTransformNode extends SKNode {
-  xRotation: number;
-
-  yRotation: number;
-
-  setEulerAngles(euler: unknown /* ext vector */): void;
-
-  eulerAngles(): unknown /* ext vector */;
-
-  setRotationMatrix(rotationMatrix: simd_float3x3): void;
-
-  rotationMatrix(): simd_float3x3;
-
-  setQuaternion(quaternion: simd_quatf): void;
-
-  quaternion(): simd_quatf;
 }
 
 declare class SKTileGroupRule extends NSObject implements NSCopying, NSSecureCoding {
@@ -1854,26 +1840,22 @@ declare class SKEmitterNode extends SKNode {
   particleZPositionSpeed: number;
 }
 
-declare class SKTextureAtlas extends NSObject implements NSSecureCoding {
-  static atlasNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
+declare class SKTransformNode extends SKNode {
+  xRotation: number;
 
-  static atlasWithDictionary<This extends abstract new (...args: any) => any>(this: This, properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+  yRotation: number;
 
-  textureNamed(name: string): SKTexture;
+  setEulerAngles(euler: unknown /* ext vector */): void;
 
-  static preloadTextureAtlasesWithCompletionHandler(textureAtlases: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
+  eulerAngles(): unknown /* ext vector */;
 
-  static preloadTextureAtlasesNamedWithCompletionHandler(atlasNames: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError, p2: NSArray<interop.Object> | Array<interop.Object>) => void | null): void;
+  setRotationMatrix(rotationMatrix: simd_float3x3): void;
 
-  preloadWithCompletionHandler(completionHandler: () => void): void;
+  rotationMatrix(): simd_float3x3;
 
-  readonly textureNames: NSArray;
+  setQuaternion(quaternion: simd_quatf): void;
 
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
+  quaternion(): simd_quatf;
 }
 
 declare class SKFieldNode extends SKNode {
@@ -1958,6 +1940,18 @@ declare class SKPhysicsWorld extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class SKPhysicsContact extends NSObject {
+  readonly bodyA: SKPhysicsBody;
+
+  readonly bodyB: SKPhysicsBody;
+
+  readonly contactPoint: CGPoint;
+
+  readonly contactNormal: CGVector;
+
+  readonly collisionImpulse: number;
+}
+
 declare class SKShapeNode extends SKNode {
   static shapeNodeWithPath<This extends abstract new (...args: any) => any>(this: This, path: interop.PointerConvertible): InstanceType<This>;
 
@@ -2018,6 +2012,28 @@ declare class SKShapeNode extends SKNode {
   valueForAttributeNamed(key: string): SKAttributeValue;
 
   setValueForAttributeNamed(value: SKAttributeValue, key: string): void;
+}
+
+declare class SKTextureAtlas extends NSObject implements NSSecureCoding {
+  static atlasNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
+
+  static atlasWithDictionary<This extends abstract new (...args: any) => any>(this: This, properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
+
+  textureNamed(name: string): SKTexture;
+
+  static preloadTextureAtlasesWithCompletionHandler(textureAtlases: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
+
+  static preloadTextureAtlasesNamedWithCompletionHandler(atlasNames: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError, p2: NSArray<interop.Object> | Array<interop.Object>) => void | null): void;
+
+  preloadWithCompletionHandler(completionHandler: () => void): void;
+
+  readonly textureNames: NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class SKUniform extends NSObject implements NSCopying, NSSecureCoding {

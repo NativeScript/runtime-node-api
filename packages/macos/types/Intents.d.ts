@@ -103,9 +103,8 @@ declare const INPaymentMethodType: {
 
 declare const INMessageReactionType: {
   Unknown: 0,
-  EmojiReaction: 1,
-  Emoji: 2,
-  Generic: 3,
+  Emoji: 1,
+  Generic: 2,
 };
 
 declare const INUnsendMessagesIntentResponseCode: {
@@ -352,6 +351,21 @@ declare const INPersonHandleType: {
   PhoneNumber: 2,
 };
 
+declare interface INSpeakable extends NSObjectProtocol {
+  readonly spokenPhrase: string;
+
+  readonly pronunciationHint: string;
+
+  readonly vocabularyIdentifier: string;
+
+  readonly alternativeSpeakableMatches: NSArray;
+
+  readonly identifier?: string;
+}
+
+declare class INSpeakable extends NativeObject implements INSpeakable {
+}
+
 declare interface INUnsendMessagesIntentHandling extends NSObjectProtocol {
   handleUnsendMessagesCompletion(intent: INUnsendMessagesIntent, completion: (p1: INUnsendMessagesIntentResponse) => void): void;
 
@@ -433,21 +447,6 @@ declare interface INSendMessageIntentHandling extends NSObjectProtocol {
 }
 
 declare class INSendMessageIntentHandling extends NativeObject implements INSendMessageIntentHandling {
-}
-
-declare interface INSpeakable extends NSObjectProtocol {
-  readonly spokenPhrase: string;
-
-  readonly pronunciationHint: string;
-
-  readonly vocabularyIdentifier: string;
-
-  readonly alternativeSpeakableMatches: NSArray;
-
-  readonly identifier?: string;
-}
-
-declare class INSpeakable extends NativeObject implements INSpeakable {
 }
 
 declare interface INShareFocusStatusIntentHandling extends NSObjectProtocol {

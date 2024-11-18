@@ -1,8 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const CIDetectorTypeQRCode: string;
-
 declare const kCIFormatRGBX16: number;
 
 declare const kCISamplerWrapMode: string;
@@ -61,6 +59,8 @@ declare const kCIImageAutoAdjustEnhance: string;
 
 declare const kCICategoryInterlaced: string;
 
+declare const kCIFormatARGB8: number;
+
 declare const kCIInputDisparityImageKey: string;
 
 declare const kCIFormatRGB10: number;
@@ -68,8 +68,6 @@ declare const kCIFormatRGB10: number;
 declare const kCICategoryTransition: string;
 
 declare const kCIInputDepthImageKey: string;
-
-declare const CIDetectorAspectRatio: string;
 
 declare const CIDetectorImageOrientation: string;
 
@@ -223,6 +221,8 @@ declare const kCIImageApplyOrientationProperty: string;
 
 declare const kCIImageNearestSampling: string;
 
+declare const kCIImageContentHeadroom: string;
+
 declare const kCIImageColorSpace: string;
 
 declare const kCIPropertiesKey: string;
@@ -249,8 +249,6 @@ declare const kCIFormatLA8: number;
 
 declare const kCIInputNeutralTintKey: string;
 
-declare const kCIAttributeFilterCategories: string;
-
 declare const kCIInputBrightnessKey: string;
 
 declare const kCISamplerFilterMode: string;
@@ -264,6 +262,8 @@ declare const kCIImageAuxiliaryPortraitEffectsMatte: string;
 declare const kCIFormatLh: number;
 
 declare const kCIInputLocalToneMapAmountKey: string;
+
+declare const kCIImageRepresentationHDRGainMapImage: string;
 
 declare const kCIImageRepresentationAVDepthData: string;
 
@@ -289,6 +289,8 @@ declare const kCIUISetBasic: string;
 
 declare const kCIAttributeIdentity: string;
 
+declare const kCIAttributeFilterCategories: string;
+
 declare const kCIAttributeSliderMax: string;
 
 declare const kCIFormatR8: number;
@@ -313,17 +315,23 @@ declare const CIDetectorAccuracy: string;
 
 declare const CIFeatureTypeFace: string;
 
+declare const kCIImageRepresentationHDRImage: string;
+
 declare const kCIAttributeTypeColor: string;
 
 declare const CIDetectorAccuracyHigh: string;
 
 declare const kCIActiveKeys: string;
 
+declare const CIDetectorAspectRatio: string;
+
 declare const kCIContextWorkingFormat: string;
 
 declare const kCIInputBoostKey: string;
 
 declare const kCIAttributeTypeDistance: string;
+
+declare const CIDetectorTypeQRCode: string;
 
 declare const CIFeatureTypeQRCode: string;
 
@@ -390,8 +398,6 @@ declare const kCIInputNoiseReductionContrastAmountKey: string;
 declare const CIDetectorTracking: string;
 
 declare const kCICategoryFilterGenerator: string;
-
-declare const kCIFormatARGB8: number;
 
 declare const kCIInputIntensityKey: string;
 
@@ -489,31 +495,6 @@ declare const CIQRCodeErrorCorrectionLevel: {
   H: 72,
 };
 
-declare interface CIImageProcessorInput {
-  readonly region: CGRect;
-
-  readonly bytesPerRow: number;
-
-  readonly format: number;
-
-  readonly baseAddress: interop.Pointer;
-
-  readonly surface: interop.Pointer;
-
-  readonly pixelBuffer: interop.Pointer;
-
-  readonly metalTexture: MTLTexture;
-
-  readonly digest: number;
-
-  readonly roiTileIndex: number;
-
-  readonly roiTileCount: number;
-}
-
-declare class CIImageProcessorInput extends NativeObject implements CIImageProcessorInput {
-}
-
 declare interface CIFilterProtocol {
   readonly outputImage: CIImage;
 
@@ -544,6 +525,31 @@ declare interface CIImageProcessorOutput {
 }
 
 declare class CIImageProcessorOutput extends NativeObject implements CIImageProcessorOutput {
+}
+
+declare interface CIImageProcessorInput {
+  readonly region: CGRect;
+
+  readonly bytesPerRow: number;
+
+  readonly format: number;
+
+  readonly baseAddress: interop.Pointer;
+
+  readonly surface: interop.Pointer;
+
+  readonly pixelBuffer: interop.Pointer;
+
+  readonly metalTexture: MTLTexture;
+
+  readonly digest: number;
+
+  readonly roiTileIndex: number;
+
+  readonly roiTileCount: number;
+}
+
+declare class CIImageProcessorInput extends NativeObject implements CIImageProcessorInput {
 }
 
 declare interface CIFilterConstructor {
@@ -649,24 +655,6 @@ declare class CIColor extends NSObject implements NSSecureCoding, NSCopying {
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CIRenderTask extends NSObject {
-  waitUntilCompletedAndReturnError(error: interop.PointerConvertible): CIRenderInfo;
-}
-
-declare class CITextFeature extends CIFeature {
-  readonly bounds: CGRect;
-
-  readonly topLeft: CGPoint;
-
-  readonly topRight: CGPoint;
-
-  readonly bottomLeft: CGPoint;
-
-  readonly bottomRight: CGPoint;
-
-  readonly subFeatures: NSArray;
 }
 
 declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
@@ -804,7 +792,13 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   imageByInsertingIntermediate(): CIImage;
 
+  imageByApplyingGainMap(gainmap: CIImage): CIImage;
+
+  imageByApplyingGainMapHeadroom(gainmap: CIImage, headroom: number): CIImage;
+
   readonly extent: CGRect;
+
+  readonly isOpaque: boolean;
 
   readonly properties: NSDictionary;
 
@@ -812,9 +806,13 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly colorSpace: interop.Pointer;
 
+  readonly contentHeadroom: number;
+
   readonly pixelBuffer: interop.Pointer;
 
   readonly CGImage: interop.Pointer;
+
+  readonly metalTexture: MTLTexture;
 
   regionOfInterestForImageInRect(image: CIImage, rect: CGRect): CGRect;
 
@@ -893,6 +891,12 @@ declare class CIFilterShape extends NSObject implements NSCopying {
   readonly extent: CGRect;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CIFeature extends NSObject {
+  readonly type: string;
+
+  readonly bounds: CGRect;
 }
 
 declare class CIFaceFeature extends CIFeature {
@@ -995,94 +999,8 @@ declare class CIVector extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class CIBlendKernel extends CIColorKernel {
-  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
-
-  applyWithForegroundBackground(foreground: CIImage, background: CIImage): CIImage;
-
-  applyWithForegroundBackgroundColorSpace(foreground: CIImage, background: CIImage, colorSpace: interop.PointerConvertible): CIImage;
-
-  static readonly componentAdd: CIBlendKernel;
-
-  static readonly componentMultiply: CIBlendKernel;
-
-  static readonly componentMin: CIBlendKernel;
-
-  static readonly componentMax: CIBlendKernel;
-
-  static readonly clear: CIBlendKernel;
-
-  static readonly source: CIBlendKernel;
-
-  static readonly destination: CIBlendKernel;
-
-  static readonly sourceOver: CIBlendKernel;
-
-  static readonly destinationOver: CIBlendKernel;
-
-  static readonly sourceIn: CIBlendKernel;
-
-  static readonly destinationIn: CIBlendKernel;
-
-  static readonly sourceOut: CIBlendKernel;
-
-  static readonly destinationOut: CIBlendKernel;
-
-  static readonly sourceAtop: CIBlendKernel;
-
-  static readonly destinationAtop: CIBlendKernel;
-
-  static readonly exclusiveOr: CIBlendKernel;
-
-  static readonly multiply: CIBlendKernel;
-
-  static readonly screen: CIBlendKernel;
-
-  static readonly overlay: CIBlendKernel;
-
-  static readonly darken: CIBlendKernel;
-
-  static readonly lighten: CIBlendKernel;
-
-  static readonly colorDodge: CIBlendKernel;
-
-  static readonly colorBurn: CIBlendKernel;
-
-  static readonly hardLight: CIBlendKernel;
-
-  static readonly softLight: CIBlendKernel;
-
-  static readonly difference: CIBlendKernel;
-
-  static readonly exclusion: CIBlendKernel;
-
-  static readonly hue: CIBlendKernel;
-
-  static readonly saturation: CIBlendKernel;
-
-  static readonly color: CIBlendKernel;
-
-  static readonly luminosity: CIBlendKernel;
-
-  static readonly subtract: CIBlendKernel;
-
-  static readonly divide: CIBlendKernel;
-
-  static readonly linearBurn: CIBlendKernel;
-
-  static readonly linearDodge: CIBlendKernel;
-
-  static readonly vividLight: CIBlendKernel;
-
-  static readonly linearLight: CIBlendKernel;
-
-  static readonly pinLight: CIBlendKernel;
-
-  static readonly hardMix: CIBlendKernel;
-
-  static readonly darkerColor: CIBlendKernel;
-
-  static readonly lighterColor: CIBlendKernel;
+declare class CIRenderTask extends NSObject {
+  waitUntilCompletedAndReturnError(error: interop.PointerConvertible): CIRenderInfo;
 }
 
 declare class CIRenderInfo extends NSObject {
@@ -1095,10 +1013,16 @@ declare class CIRenderInfo extends NSObject {
   readonly pixelsProcessed: number;
 }
 
-declare class CIFeature extends NSObject {
-  readonly type: string;
-
+declare class CIRectangleFeature extends CIFeature {
   readonly bounds: CGRect;
+
+  readonly topLeft: CGPoint;
+
+  readonly topRight: CGPoint;
+
+  readonly bottomLeft: CGPoint;
+
+  readonly bottomRight: CGPoint;
 }
 
 declare class CIWarpKernel extends CIKernel {
@@ -1123,18 +1047,6 @@ declare class CIImageProcessorKernel extends NSObject {
   static readonly synchronizeInputs: boolean;
 
   static applyWithExtentInputsArgumentsError(extent: CGRect, inputs: NSArray<interop.Object> | Array<interop.Object> | null, args: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): CIImage;
-}
-
-declare class CIRectangleFeature extends CIFeature {
-  readonly bounds: CGRect;
-
-  readonly topLeft: CGPoint;
-
-  readonly topRight: CGPoint;
-
-  readonly bottomLeft: CGPoint;
-
-  readonly bottomRight: CGPoint;
 }
 
 declare class CIRenderDestination extends NSObject {
@@ -1214,18 +1126,26 @@ declare class CIBarcodeDescriptor extends NSObject implements NSSecureCoding, NS
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CITextFeature extends CIFeature {
+  readonly bounds: CGRect;
+
+  readonly topLeft: CGPoint;
+
+  readonly topRight: CGPoint;
+
+  readonly bottomLeft: CGPoint;
+
+  readonly bottomRight: CGPoint;
+
+  readonly subFeatures: NSArray;
+}
+
 declare class CIDetector extends NSObject {
   static detectorOfTypeContextOptions(type: string, context: CIContext | null, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): CIDetector;
 
   featuresInImage(image: CIImage): NSArray;
 
   featuresInImageOptions(image: CIImage, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
-}
-
-declare class CIColorKernel extends CIKernel {
-  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
-
-  applyWithExtentArguments(extent: CGRect, args: NSArray<interop.Object> | Array<interop.Object> | null): CIImage;
 }
 
 declare class CISampler extends NSObject implements NSCopying {
@@ -1364,6 +1284,96 @@ declare class CIImageAccumulator extends NSObject {
   setImageDirtyRect(image: CIImage, dirtyRect: CGRect): void;
 
   clear(): void;
+}
+
+declare class CIBlendKernel extends CIColorKernel {
+  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
+
+  applyWithForegroundBackground(foreground: CIImage, background: CIImage): CIImage;
+
+  applyWithForegroundBackgroundColorSpace(foreground: CIImage, background: CIImage, colorSpace: interop.PointerConvertible): CIImage;
+
+  static readonly componentAdd: CIBlendKernel;
+
+  static readonly componentMultiply: CIBlendKernel;
+
+  static readonly componentMin: CIBlendKernel;
+
+  static readonly componentMax: CIBlendKernel;
+
+  static readonly clear: CIBlendKernel;
+
+  static readonly source: CIBlendKernel;
+
+  static readonly destination: CIBlendKernel;
+
+  static readonly sourceOver: CIBlendKernel;
+
+  static readonly destinationOver: CIBlendKernel;
+
+  static readonly sourceIn: CIBlendKernel;
+
+  static readonly destinationIn: CIBlendKernel;
+
+  static readonly sourceOut: CIBlendKernel;
+
+  static readonly destinationOut: CIBlendKernel;
+
+  static readonly sourceAtop: CIBlendKernel;
+
+  static readonly destinationAtop: CIBlendKernel;
+
+  static readonly exclusiveOr: CIBlendKernel;
+
+  static readonly multiply: CIBlendKernel;
+
+  static readonly screen: CIBlendKernel;
+
+  static readonly overlay: CIBlendKernel;
+
+  static readonly darken: CIBlendKernel;
+
+  static readonly lighten: CIBlendKernel;
+
+  static readonly colorDodge: CIBlendKernel;
+
+  static readonly colorBurn: CIBlendKernel;
+
+  static readonly hardLight: CIBlendKernel;
+
+  static readonly softLight: CIBlendKernel;
+
+  static readonly difference: CIBlendKernel;
+
+  static readonly exclusion: CIBlendKernel;
+
+  static readonly hue: CIBlendKernel;
+
+  static readonly saturation: CIBlendKernel;
+
+  static readonly color: CIBlendKernel;
+
+  static readonly luminosity: CIBlendKernel;
+
+  static readonly subtract: CIBlendKernel;
+
+  static readonly divide: CIBlendKernel;
+
+  static readonly linearBurn: CIBlendKernel;
+
+  static readonly linearDodge: CIBlendKernel;
+
+  static readonly vividLight: CIBlendKernel;
+
+  static readonly linearLight: CIBlendKernel;
+
+  static readonly pinLight: CIBlendKernel;
+
+  static readonly hardMix: CIBlendKernel;
+
+  static readonly darkerColor: CIBlendKernel;
+
+  static readonly lighterColor: CIBlendKernel;
 }
 
 declare class CIRAWFilter extends CIFilter {
@@ -1550,5 +1560,11 @@ declare class CIFilter extends NSObject implements NSSecureCoding, NSCopying {
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CIColorKernel extends CIKernel {
+  static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
+
+  applyWithExtentArguments(extent: CGRect, args: NSArray<interop.Object> | Array<interop.Object> | null): CIImage;
 }
 

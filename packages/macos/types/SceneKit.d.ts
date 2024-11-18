@@ -1553,8 +1553,6 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   categoryBitMask: number;
 
-  focusBehavior: interop.Enum<typeof SCNNodeFocusBehavior>;
-
   static readonly localUp: SCNVector3;
 
   static readonly localRight: SCNVector3;
@@ -1630,6 +1628,8 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
   simdLocalRotateBy(rotation: simd_quatf): void;
 
   simdRotateByAroundTarget(worldRotation: simd_quatf, worldTarget: unknown /* ext vector */): void;
+
+  focusBehavior: interop.Enum<typeof SCNNodeFocusBehavior>;
 
   addParticleSystem(system: SCNParticleSystem): void;
 
