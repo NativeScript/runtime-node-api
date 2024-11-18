@@ -811,6 +811,16 @@ declare class MIDIIOErrorNotification {
   errorCode: number;
 }
 
+type MIDICIProfileIDDescriptor = 
+  | { standard: MIDICIProfileIDStandard }
+  | { manufacturerSpecific: MIDICIProfileIDManufacturerSpecific };
+
+declare class MIDICIProfileID {
+  constructor(init?: MIDICIProfileIDDescriptor);
+  standard: MIDICIProfileIDStandard;
+  manufacturerSpecific: MIDICIProfileIDManufacturerSpecific;
+}
+
 type unnamed_4650037939722593887Descriptor = 
   | { note: unnamed_1167971763423466675 }
   | { polyPressure: unnamed_5951379271759987891 }
@@ -905,16 +915,6 @@ declare class unnamed_8365503279436083931 {
   controller: unnamed_3513150066337071189;
   perNotePitchBend: unnamed_27631990401820716;
   perNoteManagement: unnamed_17626992351422690717;
-}
-
-type MIDICIProfileIDDescriptor = 
-  | { standard: MIDICIProfileIDStandard }
-  | { manufacturerSpecific: MIDICIProfileIDManufacturerSpecific };
-
-declare class MIDICIProfileID {
-  constructor(init?: MIDICIProfileIDDescriptor);
-  standard: MIDICIProfileIDStandard;
-  manufacturerSpecific: MIDICIProfileIDManufacturerSpecific;
 }
 
 declare function MIDIClientCreate(name: interop.PointerConvertible, notifyProc: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void, notifyRefCon: interop.PointerConvertible, outClient: interop.PointerConvertible): number;
@@ -1108,11 +1108,11 @@ declare function MIDIBluetoothDriverActivateAllConnections(): number;
 declare function MIDIBluetoothDriverDisconnect(uuid: interop.PointerConvertible): number;
 
 declare interface MIDICIProfileResponderDelegate extends NSObjectProtocol {
-  connectInitiatorWithDeviceInfo(initiatorMUID: NSNumber, deviceInfo: MIDICIDeviceInfo): number;
+  connectInitiatorWithDeviceInfo(initiatorMUID: NSNumber, deviceInfo: MIDICIDeviceInfo): boolean;
 
   initiatorDisconnected(initiatorMUID: NSNumber): this;
 
-  willSetProfileOnChannelEnabled?(aProfile: MIDICIProfile, channel: number, shouldEnable: number): number;
+  willSetProfileOnChannelEnabled?(aProfile: MIDICIProfile, channel: number, shouldEnable: boolean): boolean;
 
   handleDataForProfileOnChannelData?(aProfile: MIDICIProfile, channel: number, inData: NSData): void;
 }
@@ -1127,13 +1127,13 @@ declare class MIDICIResponder extends NSObject {
 
   readonly deviceInfo: MIDICIDeviceInfo;
 
-  initWithDeviceInfoProfileDelegateProfileStatesSupportProperties(deviceInfo: MIDICIDeviceInfo, delegate: MIDICIProfileResponderDelegate, profileList: NSArray<interop.Object> | Array<interop.Object>, propertiesSupported: number): this;
+  initWithDeviceInfoProfileDelegateProfileStatesSupportProperties(deviceInfo: MIDICIDeviceInfo, delegate: MIDICIProfileResponderDelegate, profileList: NSArray<interop.Object> | Array<interop.Object>, propertiesSupported: boolean): this;
 
-  notifyProfileOnChannelIsEnabled(aProfile: MIDICIProfile, channel: number, enabledState: number): number;
+  notifyProfileOnChannelIsEnabled(aProfile: MIDICIProfile, channel: number, enabledState: boolean): boolean;
 
-  sendProfileOnChannelProfileData(aProfile: MIDICIProfile, channel: number, profileSpecificData: NSData): number;
+  sendProfileOnChannelProfileData(aProfile: MIDICIProfile, channel: number, profileSpecificData: NSData): boolean;
 
-  start(): number;
+  start(): boolean;
 
   stop(): void;
 }
@@ -1149,13 +1149,13 @@ declare class MIDICIDiscoveredNode extends NSObject implements NSSecureCoding {
 
   readonly deviceInfo: MIDICIDeviceInfo;
 
-  readonly supportsProfiles: number;
+  readonly supportsProfiles: boolean;
 
-  readonly supportsProperties: number;
+  readonly supportsProperties: boolean;
 
   readonly maximumSysExSize: NSNumber;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1175,7 +1175,7 @@ declare class MIDICIDeviceInfo extends NSObject implements NSSecureCoding {
 
   initWithDestinationManufacturerFamilyModelRevision(midiDestination: number, manufacturer: NSData, family: NSData, modelNumber: NSData, revisionLevel: NSData): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1186,15 +1186,15 @@ declare class MIDIUMPMutableEndpoint extends MIDIUMPEndpoint {
   get mutableFunctionBlocks(): NSArray;
   set mutableFunctionBlocks(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  readonly isEnabled: number;
+  readonly isEnabled: boolean;
 
   initWithNameDeviceInfoProductInstanceIDMIDIProtocolDestinationCallback(name: string, deviceInfo: MIDI2DeviceInfo, productInstanceID: string, MIDIProtocol: interop.Enum<typeof MIDIProtocolID>, destinationCallback: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void): this;
 
-  setNameError(name: string, error: interop.PointerConvertible): number;
+  setNameError(name: string, error: interop.PointerConvertible): boolean;
 
-  registerFunctionBlocksMarkAsStaticError(functionBlocks: NSArray<interop.Object> | Array<interop.Object>, markAsStatic: number, error: interop.PointerConvertible): number;
+  registerFunctionBlocksMarkAsStaticError(functionBlocks: NSArray<interop.Object> | Array<interop.Object>, markAsStatic: boolean, error: interop.PointerConvertible): boolean;
 
-  setEnabledError(isEnabled: number, error: interop.PointerConvertible): number;
+  setEnabledError(isEnabled: boolean, error: interop.PointerConvertible): boolean;
 }
 
 declare class MIDIUMPEndpointManager extends NSObject {
@@ -1218,11 +1218,11 @@ declare class MIDIUMPEndpoint extends NSObject {
 
   readonly productInstanceID: string;
 
-  readonly hasStaticFunctionBlocks: number;
+  readonly hasStaticFunctionBlocks: boolean;
 
-  readonly hasJRTSReceiveCapability: number;
+  readonly hasJRTSReceiveCapability: boolean;
 
-  readonly hasJRTSTransmitCapability: number;
+  readonly hasJRTSTransmitCapability: boolean;
 
   readonly endpointType: interop.Enum<typeof MIDIUMPCIObjectBackingType>;
 
@@ -1233,7 +1233,7 @@ declare class MIDIUMPEndpoint extends NSObject {
 declare class MIDINetworkSession extends NSObject {
   static defaultSession(): MIDINetworkSession;
 
-  isEnabled: number;
+  isEnabled: boolean;
 
   readonly networkPort: number;
 
@@ -1245,15 +1245,15 @@ declare class MIDINetworkSession extends NSObject {
 
   contacts(): NSSet;
 
-  addContact(contact: MIDINetworkHost): number;
+  addContact(contact: MIDINetworkHost): boolean;
 
-  removeContact(contact: MIDINetworkHost): number;
+  removeContact(contact: MIDINetworkHost): boolean;
 
   connections(): NSSet;
 
-  addConnection(connection: MIDINetworkConnection): number;
+  addConnection(connection: MIDINetworkConnection): boolean;
 
-  removeConnection(connection: MIDINetworkConnection): number;
+  removeConnection(connection: MIDINetworkConnection): boolean;
 
   sourceEndpoint(): number;
 
@@ -1273,7 +1273,7 @@ declare class MIDINetworkHost extends NSObject {
 
   static hostWithNameNetServiceNameNetServiceDomain<This extends abstract new (...args: any) => any>(this: This, name: string, netServiceName: string, netServiceDomain: string): InstanceType<This>;
 
-  hasSameAddressAs(other: MIDINetworkHost): number;
+  hasSameAddressAs(other: MIDINetworkHost): boolean;
 
   readonly name: string;
 
@@ -1301,9 +1301,9 @@ declare class MIDIUMPCIProfile extends NSObject {
 
   readonly totalChannelCount: number;
 
-  readonly isEnabled: number;
+  readonly isEnabled: boolean;
 
-  setProfileStateEnabledChannelCountError(isEnabled: number, enabledChannelCount: number, error: interop.PointerConvertible): number;
+  setProfileStateEnabledChannelCountError(isEnabled: boolean, enabledChannelCount: number, error: interop.PointerConvertible): boolean;
 }
 
 declare class MIDICIDevice extends NSObject {
@@ -1311,13 +1311,13 @@ declare class MIDICIDevice extends NSObject {
 
   readonly MUID: number;
 
-  readonly supportsProtocolNegotiation: number;
+  readonly supportsProtocolNegotiation: boolean;
 
-  readonly supportsProfileConfiguration: number;
+  readonly supportsProfileConfiguration: boolean;
 
-  readonly supportsPropertyExchange: number;
+  readonly supportsPropertyExchange: boolean;
 
-  readonly supportsProcessInquiry: number;
+  readonly supportsProcessInquiry: boolean;
 
   readonly maxSysExSize: number;
 
@@ -1339,7 +1339,7 @@ declare class MIDICIProfileState extends NSObject implements NSSecureCoding {
 
   initWithEnabledProfilesDisabledProfiles(enabled: NSArray<interop.Object> | Array<interop.Object>, disabled: NSArray<interop.Object> | Array<interop.Object>): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1351,13 +1351,13 @@ declare class MIDIUMPMutableFunctionBlock extends MIDIUMPFunctionBlock {
   // @ts-ignore MemberDecl.tsIgnore
   readonly UMPEndpoint: MIDIUMPMutableEndpoint;
 
-  initWithNameDirectionFirstGroupTotalGroupsSpannedMaxSysEx8StreamsMIDI1InfoUIHintIsEnabled(name: string, direction: interop.Enum<typeof MIDIUMPFunctionBlockDirection>, firstGroup: number, totalGroupsSpanned: number, maxSysEx8Streams: number, MIDI1Info: interop.Enum<typeof MIDIUMPFunctionBlockMIDI1Info>, UIHint: interop.Enum<typeof MIDIUMPFunctionBlockUIHint>, isEnabled: number): this;
+  initWithNameDirectionFirstGroupTotalGroupsSpannedMaxSysEx8StreamsMIDI1InfoUIHintIsEnabled(name: string, direction: interop.Enum<typeof MIDIUMPFunctionBlockDirection>, firstGroup: number, totalGroupsSpanned: number, maxSysEx8Streams: number, MIDI1Info: interop.Enum<typeof MIDIUMPFunctionBlockMIDI1Info>, UIHint: interop.Enum<typeof MIDIUMPFunctionBlockUIHint>, isEnabled: boolean): this;
 
-  setEnabledError(isEnabled: number, error: interop.PointerConvertible): number;
+  setEnabledError(isEnabled: boolean, error: interop.PointerConvertible): boolean;
 
-  setNameError(name: string, error: interop.PointerConvertible): number;
+  setNameError(name: string, error: interop.PointerConvertible): boolean;
 
-  reconfigureWithFirstGroupDirectionMIDI1InfoUIHintError(firstGroup: number, direction: interop.Enum<typeof MIDIUMPFunctionBlockDirection>, MIDI1Info: interop.Enum<typeof MIDIUMPFunctionBlockMIDI1Info>, UIHint: interop.Enum<typeof MIDIUMPFunctionBlockUIHint>, error: interop.PointerConvertible): number;
+  reconfigureWithFirstGroupDirectionMIDI1InfoUIHintError(firstGroup: number, direction: interop.Enum<typeof MIDIUMPFunctionBlockDirection>, MIDI1Info: interop.Enum<typeof MIDIUMPFunctionBlockMIDI1Info>, UIHint: interop.Enum<typeof MIDIUMPFunctionBlockUIHint>, error: interop.PointerConvertible): boolean;
 }
 
 declare class MIDICISession extends NSObject {
@@ -1365,9 +1365,9 @@ declare class MIDICISession extends NSObject {
 
   readonly midiDestination: number;
 
-  readonly supportsProfileCapability: number;
+  readonly supportsProfileCapability: boolean;
 
-  readonly supportsPropertyCapability: number;
+  readonly supportsPropertyCapability: boolean;
 
   readonly deviceInfo: MIDICIDeviceInfo;
 
@@ -1377,13 +1377,13 @@ declare class MIDICISession extends NSObject {
 
   profileStateForChannel(channel: number): MIDICIProfileState;
 
-  enableProfileOnChannelError(profile: MIDICIProfile, channel: number, outError: interop.PointerConvertible): number;
+  enableProfileOnChannelError(profile: MIDICIProfile, channel: number, outError: interop.PointerConvertible): boolean;
 
-  disableProfileOnChannelError(profile: MIDICIProfile, channel: number, outError: interop.PointerConvertible): number;
+  disableProfileOnChannelError(profile: MIDICIProfile, channel: number, outError: interop.PointerConvertible): boolean;
 
-  sendProfileOnChannelProfileData(profile: MIDICIProfile, channel: number, profileSpecificData: NSData): number;
+  sendProfileOnChannelProfileData(profile: MIDICIProfile, channel: number, profileSpecificData: NSData): boolean;
 
-  profileChangedCallback: (p1: MIDICISession, p2: number, p3: MIDICIProfile, p4: number) => void;
+  profileChangedCallback: (p1: MIDICISession, p2: number, p3: MIDICIProfile, p4: boolean) => void;
 
   profileSpecificDataHandler: (p1: MIDICISession, p2: number, p3: MIDICIProfile, p4: NSData) => void;
 }
@@ -1409,7 +1409,7 @@ declare class MIDIUMPFunctionBlock extends NSObject {
 
   readonly midiCIDevice: MIDICIDevice;
 
-  readonly isEnabled: number;
+  readonly isEnabled: boolean;
 }
 
 declare class MIDICIProfile extends NSObject implements NSSecureCoding {
@@ -1421,7 +1421,7 @@ declare class MIDICIProfile extends NSObject implements NSSecureCoding {
 
   initWithDataName(data: NSData, inName: string): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

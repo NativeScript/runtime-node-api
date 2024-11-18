@@ -3774,6 +3774,40 @@ declare class INNote extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class INMediaSearch extends NSObject implements NSCopying, NSSecureCoding {
+  initWithMediaTypeSortOrderMediaNameArtistNameAlbumNameGenreNamesMoodNamesReleaseDateReferenceMediaIdentifier(mediaType: interop.Enum<typeof INMediaItemType>, sortOrder: interop.Enum<typeof INMediaSortOrder>, mediaName: string | null, artistName: string | null, albumName: string | null, genreNames: NSArray<interop.Object> | Array<interop.Object> | null, moodNames: NSArray<interop.Object> | Array<interop.Object> | null, releaseDate: INDateComponentsRange | null, reference: interop.Enum<typeof INMediaReference>, mediaIdentifier: string | null): this;
+
+  readonly mediaType: interop.Enum<typeof INMediaItemType>;
+
+  readonly sortOrder: interop.Enum<typeof INMediaSortOrder>;
+
+  readonly mediaName: string;
+
+  readonly artistName: string;
+
+  readonly albumName: string;
+
+  readonly genreNames: NSArray;
+
+  readonly moodNames: NSArray;
+
+  readonly releaseDate: INDateComponentsRange;
+
+  readonly reference: interop.Enum<typeof INMediaReference>;
+
+  readonly mediaIdentifier: string;
+
+  readonly activityNames: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class INLocationSearchTypeResolutionResult extends INIntentResolutionResult {
   static successWithResolvedLocationSearchType<This extends abstract new (...args: any) => any>(this: This, resolvedLocationSearchType: interop.Enum<typeof INLocationSearchType>): InstanceType<This>;
 
@@ -6352,40 +6386,6 @@ declare class INDateComponentsRange extends NSObject implements NSCopying, NSSec
   initWithEKRecurrenceRule(recurrenceRule: EKRecurrenceRule): this;
 
   EKRecurrenceRule(): EKRecurrenceRule;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class INMediaSearch extends NSObject implements NSCopying, NSSecureCoding {
-  initWithMediaTypeSortOrderMediaNameArtistNameAlbumNameGenreNamesMoodNamesReleaseDateReferenceMediaIdentifier(mediaType: interop.Enum<typeof INMediaItemType>, sortOrder: interop.Enum<typeof INMediaSortOrder>, mediaName: string | null, artistName: string | null, albumName: string | null, genreNames: NSArray<interop.Object> | Array<interop.Object> | null, moodNames: NSArray<interop.Object> | Array<interop.Object> | null, releaseDate: INDateComponentsRange | null, reference: interop.Enum<typeof INMediaReference>, mediaIdentifier: string | null): this;
-
-  readonly mediaType: interop.Enum<typeof INMediaItemType>;
-
-  readonly sortOrder: interop.Enum<typeof INMediaSortOrder>;
-
-  readonly mediaName: string;
-
-  readonly artistName: string;
-
-  readonly albumName: string;
-
-  readonly genreNames: NSArray;
-
-  readonly moodNames: NSArray;
-
-  readonly releaseDate: INDateComponentsRange;
-
-  readonly reference: interop.Enum<typeof INMediaReference>;
-
-  readonly mediaIdentifier: string;
-
-  readonly activityNames: NSArray;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 

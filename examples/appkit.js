@@ -2,6 +2,13 @@
 
 import "@nativescript/macos-node-api";
 
+console.log(
+  "NSTextAlignment.Center:",
+  NSTextAlignment.Center,
+  "arch:",
+  Deno.build.arch,
+);
+
 /**
  * @implements {NSApplicationDelegate}
  */
@@ -36,6 +43,9 @@ export class Window extends NSWindow {
     NativeClass(this);
   }
 
+  /**
+   * @override
+   */
   init() {
     const menu = NSMenu.new();
     NSApp.mainMenu = menu;

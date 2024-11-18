@@ -81,7 +81,7 @@ declare class NSSymbolMagicReplaceContentTransition extends NSSymbolContentTrans
 declare class NSSymbolContentTransition extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -107,7 +107,7 @@ declare class NSSymbolVariableColorEffect extends NSSymbolEffect {
 declare class NSSymbolEffect extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -139,7 +139,7 @@ declare class NSSymbolEffectOptions extends NSObject implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -159,7 +159,7 @@ declare class NSSymbolEffectOptionsRepeatBehavior extends NSObject implements NS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

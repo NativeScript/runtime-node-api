@@ -2510,6 +2510,8 @@ declare interface MTLResource extends MTLAllocation {
   makeAliasable(): void;
 
   isAliasable(): boolean;
+
+  setOwnerWithIdentity(task_id_token: number): number;
 }
 
 declare class MTLResource extends NativeObject implements MTLResource {
@@ -3140,6 +3142,12 @@ declare interface MTLFunctionLogDebugLocation extends NSObjectProtocol {
 declare class MTLFunctionLogDebugLocation extends NativeObject implements MTLFunctionLogDebugLocation {
 }
 
+declare class MTLBinaryArchiveDescriptor extends NSObject implements NSCopying {
+  url: NSURL;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class MTLRasterizationRateSampleArray extends NSObject {
   objectAtIndexedSubscript(index: number): NSNumber;
 
@@ -3319,12 +3327,6 @@ declare class MTLComputePassDescriptor extends NSObject implements NSCopying {
   dispatchType: interop.Enum<typeof MTLDispatchType>;
 
   readonly sampleBufferAttachments: MTLComputePassSampleBufferAttachmentDescriptorArray;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class MTLBinaryArchiveDescriptor extends NSObject implements NSCopying {
-  url: NSURL;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -4106,23 +4108,6 @@ declare class MTLIntersectionFunctionDescriptor extends MTLFunctionDescriptor im
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class MTLFunctionDescriptor extends NSObject implements NSCopying {
-  static functionDescriptor(): MTLFunctionDescriptor;
-
-  name: string;
-
-  specializedName: string;
-
-  constantValues: MTLFunctionConstantValues;
-
-  options: interop.Enum<typeof MTLFunctionOptions>;
-
-  get binaryArchives(): NSArray;
-  set binaryArchives(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class MTLFunctionConstantValues extends NSObject implements NSCopying {
   setConstantValueTypeAtIndex(value: interop.PointerConvertible, type: interop.Enum<typeof MTLDataType>, index: number): void;
 
@@ -4400,6 +4385,23 @@ declare class MTLResourceStatePassSampleBufferAttachmentDescriptor extends NSObj
   startOfEncoderSampleIndex: number;
 
   endOfEncoderSampleIndex: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class MTLFunctionDescriptor extends NSObject implements NSCopying {
+  static functionDescriptor(): MTLFunctionDescriptor;
+
+  name: string;
+
+  specializedName: string;
+
+  constantValues: MTLFunctionConstantValues;
+
+  options: interop.Enum<typeof MTLFunctionOptions>;
+
+  get binaryArchives(): NSArray;
+  set binaryArchives(value: NSArray<interop.Object> | Array<interop.Object>);
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

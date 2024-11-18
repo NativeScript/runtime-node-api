@@ -297,7 +297,7 @@ declare class GKLocalPlayerListener extends NativeObject implements GKLocalPlaye
 declare interface GKTurnBasedEventHandlerDelegate {
   handleInviteFromGameCenter(playersToInvite: NSArray<interop.Object> | Array<interop.Object>): void;
 
-  handleTurnEventForMatchDidBecomeActive(match: GKTurnBasedMatch, didBecomeActive: number): void;
+  handleTurnEventForMatchDidBecomeActive(match: GKTurnBasedMatch, didBecomeActive: boolean): void;
 
   handleTurnEventForMatch?(match: GKTurnBasedMatch): void;
 
@@ -310,7 +310,7 @@ declare class GKTurnBasedEventHandlerDelegate extends NativeObject implements GK
 declare interface GKTurnBasedEventListener {
   playerDidRequestMatchWithOtherPlayers?(player: GKPlayer, playersToInvite: NSArray<interop.Object> | Array<interop.Object>): void;
 
-  playerReceivedTurnEventForMatchDidBecomeActive?(player: GKPlayer, match: GKTurnBasedMatch, didBecomeActive: number): void;
+  playerReceivedTurnEventForMatchDidBecomeActive?(player: GKPlayer, match: GKTurnBasedMatch, didBecomeActive: boolean): void;
 
   playerMatchEnded?(player: GKPlayer, match: GKTurnBasedMatch): void;
 
@@ -361,15 +361,15 @@ declare class GKChallengeListener extends NativeObject implements GKChallengeLis
 declare interface GKChallengeEventHandlerDelegate extends NSObjectProtocol {
   localPlayerDidSelectChallenge?(challenge: GKChallenge): void;
 
-  shouldShowBannerForLocallyReceivedChallenge?(challenge: GKChallenge): number;
+  shouldShowBannerForLocallyReceivedChallenge?(challenge: GKChallenge): boolean;
 
   localPlayerDidReceiveChallenge?(challenge: GKChallenge): void;
 
-  shouldShowBannerForLocallyCompletedChallenge?(challenge: GKChallenge): number;
+  shouldShowBannerForLocallyCompletedChallenge?(challenge: GKChallenge): boolean;
 
   localPlayerDidCompleteChallenge?(challenge: GKChallenge): void;
 
-  shouldShowBannerForRemotelyCompletedChallenge?(challenge: GKChallenge): number;
+  shouldShowBannerForRemotelyCompletedChallenge?(challenge: GKChallenge): boolean;
 
   remotePlayerDidCompleteChallenge?(challenge: GKChallenge): void;
 }
@@ -415,13 +415,13 @@ declare interface GKMatchDelegate extends NSObjectProtocol {
 
   matchDidFailWithError?(match: GKMatch, error: NSError | null): void;
 
-  matchShouldReinviteDisconnectedPlayer?(match: GKMatch, player: GKPlayer): number;
+  matchShouldReinviteDisconnectedPlayer?(match: GKMatch, player: GKPlayer): boolean;
 
   matchDidReceiveDataFromPlayer?(match: GKMatch, data: NSData, playerID: string): void;
 
   matchPlayerDidChangeState?(match: GKMatch, playerID: string, state: interop.Enum<typeof GKPlayerConnectionState>): void;
 
-  matchShouldReinvitePlayer?(match: GKMatch, playerID: string): number;
+  matchShouldReinvitePlayer?(match: GKMatch, playerID: string): boolean;
 }
 
 declare class GKMatchDelegate extends NativeObject implements GKMatchDelegate {
@@ -494,7 +494,7 @@ declare class GKChallengesViewControllerDelegate extends NativeObject implements
 declare class GKTurnBasedMatchmakerViewController extends NSViewController implements GKViewController {
   turnBasedMatchmakerDelegate: GKTurnBasedMatchmakerViewControllerDelegate;
 
-  showExistingMatches: number;
+  showExistingMatches: boolean;
 
   matchmakingMode: interop.Enum<typeof GKMatchmakingMode>;
 
@@ -514,15 +514,15 @@ declare class GKSession extends NSObject {
 
   readonly peerID: string;
 
-  isAvailable: number;
+  isAvailable: boolean;
 
   disconnectTimeout: number;
 
   displayNameForPeer(peerID: string): string;
 
-  sendDataToPeersWithDataModeError(data: NSData, peers: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKSendDataMode>, error: interop.PointerConvertible): number;
+  sendDataToPeersWithDataModeError(data: NSData, peers: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKSendDataMode>, error: interop.PointerConvertible): boolean;
 
-  sendDataToAllPeersWithDataModeError(data: NSData, mode: interop.Enum<typeof GKSendDataMode>, error: interop.PointerConvertible): number;
+  sendDataToAllPeersWithDataModeError(data: NSData, mode: interop.Enum<typeof GKSendDataMode>, error: interop.PointerConvertible): boolean;
 
   setDataReceiveHandlerWithContext(handler: interop.Object, context: interop.PointerConvertible): void;
 
@@ -530,7 +530,7 @@ declare class GKSession extends NSObject {
 
   cancelConnectToPeer(peerID: string): void;
 
-  acceptConnectionFromPeerError(peerID: string, error: interop.PointerConvertible): number;
+  acceptConnectionFromPeerError(peerID: string, error: interop.PointerConvertible): boolean;
 
   denyConnectionFromPeer(peerID: string): void;
 
@@ -552,11 +552,11 @@ declare class GKMatchmakerViewController extends NSViewController implements GKV
 
   readonly matchRequest: GKMatchRequest;
 
-  isHosted: number;
+  isHosted: boolean;
 
   matchmakingMode: interop.Enum<typeof GKMatchmakingMode>;
 
-  canStartWithMinimumPlayers: number;
+  canStartWithMinimumPlayers: boolean;
 
   initWithMatchRequest(request: GKMatchRequest): this;
 
@@ -564,11 +564,11 @@ declare class GKMatchmakerViewController extends NSViewController implements GKV
 
   addPlayersToMatch(match: GKMatch): void;
 
-  setHostedPlayerDidConnect(player: GKPlayer, connected: number): void;
+  setHostedPlayerDidConnect(player: GKPlayer, connected: boolean): void;
 
   defaultInvitationMessage: string;
 
-  setHostedPlayerConnected(playerID: string, connected: number): void;
+  setHostedPlayerConnected(playerID: string, connected: boolean): void;
 }
 
 declare class GKMatch extends NSObject {
@@ -582,9 +582,9 @@ declare class GKMatch extends NSObject {
 
   readonly playerProperties: NSDictionary;
 
-  sendDataToPlayersDataModeError(data: NSData, players: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): number;
+  sendDataToPlayersDataModeError(data: NSData, players: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): boolean;
 
-  sendDataToAllPlayersWithDataModeError(data: NSData, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): number;
+  sendDataToAllPlayersWithDataModeError(data: NSData, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): boolean;
 
   disconnect(): void;
 
@@ -596,7 +596,7 @@ declare class GKMatch extends NSObject {
 
   chooseBestHostPlayerWithCompletionHandler(completionHandler: (p1: string) => void | null): void;
 
-  sendDataToPlayersWithDataModeError(data: NSData, playerIDs: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): number;
+  sendDataToPlayersWithDataModeError(data: NSData, playerIDs: NSArray<interop.Object> | Array<interop.Object>, mode: interop.Enum<typeof GKMatchSendDataMode>, error: interop.PointerConvertible): boolean;
 
   readonly playerIDs: NSArray;
 }
@@ -626,7 +626,7 @@ declare class GKMatchmaker extends NSObject {
 
   queryQueueActivityWithCompletionHandler(queueName: string, completionHandler: (p1: number, p2: NSError) => void | null): void;
 
-  startBrowsingForNearbyPlayersWithHandler(reachableHandler: (p1: GKPlayer, p2: number) => void | null): void;
+  startBrowsingForNearbyPlayersWithHandler(reachableHandler: (p1: GKPlayer, p2: boolean) => void | null): void;
 
   stopBrowsingForNearbyPlayers(): void;
 
@@ -636,7 +636,7 @@ declare class GKMatchmaker extends NSObject {
 
   inviteHandler: (p1: GKInvite, p2: NSArray<interop.Object> | Array<interop.Object>) => void | null;
 
-  startBrowsingForNearbyPlayersWithReachableHandler(reachableHandler: (p1: string, p2: number) => void | null): void;
+  startBrowsingForNearbyPlayersWithReachableHandler(reachableHandler: (p1: string, p2: boolean) => void | null): void;
 
   cancelInviteToPlayer(playerID: string): void;
 
@@ -702,7 +702,7 @@ declare class GKLeaderboardSet extends NSObject implements NSCoding, NSSecureCod
 
   initWithCoder(coder: NSCoder): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKGameSession extends NSObject {
@@ -742,7 +742,7 @@ declare class GKGameSession extends NSObject {
 
   sendDataWithTransportTypeCompletionHandler(data: NSData, transport: interop.Enum<typeof GKTransportType>, completionHandler: (p1: NSError) => void | null): void;
 
-  sendMessageWithLocalizedFormatKeyArgumentsDataToPlayersBadgePlayersCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, data: NSData | null, players: NSArray<interop.Object> | Array<interop.Object>, badgePlayers: number, completionHandler: (p1: NSError) => void | null): void;
+  sendMessageWithLocalizedFormatKeyArgumentsDataToPlayersBadgePlayersCompletionHandler(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object>, data: NSData | null, players: NSArray<interop.Object> | Array<interop.Object>, badgePlayers: boolean, completionHandler: (p1: NSError) => void | null): void;
 
   clearBadgeForPlayersCompletionHandler(players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
 
@@ -810,7 +810,7 @@ declare class GKChallenge extends NSObject implements NSCoding, NSSecureCoding {
 
   initWithCoder(coder: NSCoder): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKLeaderboardScore extends NSObject {
@@ -842,7 +842,7 @@ declare class GKScore extends NSObject implements NSCoding, NSSecureCoding {
 
   readonly rank: number;
 
-  shouldSetDefaultLeaderboard: number;
+  shouldSetDefaultLeaderboard: boolean;
 
   static reportScoresWithCompletionHandler(scores: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSError) => void | null): void;
 
@@ -862,15 +862,15 @@ declare class GKScore extends NSObject implements NSCoding, NSSecureCoding {
 
   issueChallengeToPlayersMessage(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, message: string | null): void;
 
-  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 
-  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKAchievementViewController extends GKGameCenterViewController {
@@ -926,7 +926,7 @@ declare class GKLeaderboard extends NSObject {
 
   readonly localPlayerScore: GKScore;
 
-  readonly isLoading: number;
+  readonly isLoading: boolean;
 
   init(): this;
 
@@ -940,7 +940,7 @@ declare class GKLeaderboard extends NSObject {
 }
 
 declare class GKPlayer extends GKBasePlayer {
-  scopedIDsArePersistent(): number;
+  scopedIDsArePersistent(): boolean;
 
   readonly gamePlayerID: string;
 
@@ -954,11 +954,11 @@ declare class GKPlayer extends GKBasePlayer {
 
   readonly guestIdentifier: string;
 
-  readonly isInvitable: number;
+  readonly isInvitable: boolean;
 
   loadPhotoForSizeWithCompletionHandler(size: interop.Enum<typeof GKPhotoSize>, completionHandler: (p1: NSImage, p2: NSError) => void | null): void;
 
-  readonly isFriend: number;
+  readonly isFriend: boolean;
 
   readonly playerID: string;
 
@@ -981,7 +981,7 @@ declare class GKMatchRequest extends NSObject {
 
   defaultNumberOfPlayers: number;
 
-  restrictToAutomatch: number;
+  restrictToAutomatch: boolean;
 
   recipientResponseHandler: (p1: GKPlayer, p2: interop.Enum<typeof GKInviteRecipientResponse>) => void;
 
@@ -1038,9 +1038,9 @@ declare class GKLeaderboardEntry extends NSObject {
 
   readonly date: NSDate;
 
-  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 
-  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 }
 
 declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
@@ -1058,9 +1058,9 @@ declare class GKAchievementDescription extends NSObject implements NSCoding, NSS
 
   readonly maximumPoints: number;
 
-  readonly isHidden: number;
+  readonly isHidden: boolean;
 
-  readonly isReplayable: number;
+  readonly isReplayable: boolean;
 
   readonly rarityPercent: NSNumber;
 
@@ -1076,13 +1076,13 @@ declare class GKAchievementDescription extends NSObject implements NSCoding, NSS
 
   initWithCoder(coder: NSCoder): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKInvite extends NSObject {
   readonly sender: GKPlayer;
 
-  readonly isHosted: number;
+  readonly isHosted: boolean;
 
   readonly playerGroup: number;
 
@@ -1106,17 +1106,17 @@ declare class GKAchievement extends NSObject implements NSCoding, NSSecureCoding
 
   percentComplete: number;
 
-  readonly isCompleted: number;
+  readonly isCompleted: boolean;
 
   readonly lastReportedDate: NSDate;
 
-  showsCompletionBanner: number;
+  showsCompletionBanner: boolean;
 
   readonly player: GKPlayer;
 
   reportAchievementWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
-  readonly isHidden: number;
+  readonly isHidden: boolean;
 
   initWithIdentifierForPlayer(identifier: string | null, playerID: string): this;
 
@@ -1130,15 +1130,15 @@ declare class GKAchievement extends NSObject implements NSCoding, NSSecureCoding
 
   selectChallengeablePlayerIDsWithCompletionHandler(playerIDs: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
-  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletionHandler(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 
-  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSViewController, p2: number, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
+  challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKTurnBasedEventHandler extends NSObject {
@@ -1158,25 +1158,25 @@ declare class GKVoiceChat extends NSObject {
 
   stop(): void;
 
-  setPlayerMuted(player: GKPlayer, isMuted: number): void;
+  setPlayerMuted(player: GKPlayer, isMuted: boolean): void;
 
   playerVoiceChatStateDidChangeHandler: (p1: GKPlayer, p2: interop.Enum<typeof GKVoiceChatPlayerState>) => void;
 
   readonly name: string;
 
-  isActive: number;
+  isActive: boolean;
 
   volume: number;
 
   readonly players: NSArray;
 
-  static isVoIPAllowed(): number;
+  static isVoIPAllowed(): boolean;
 
   playerStateUpdateHandler: (p1: string, p2: interop.Enum<typeof GKVoiceChatPlayerState>) => void;
 
   readonly playerIDs: NSArray;
 
-  setMuteForPlayer(isMuted: number, playerID: string): void;
+  setMuteForPlayer(isMuted: boolean, playerID: string): void;
 }
 
 declare class GKTurnBasedMatch extends NSObject {
@@ -1278,7 +1278,7 @@ declare class GKTurnBasedExchange extends NSObject {
 declare class GKDialogController extends NSResponder {
   parentWindow: NSWindow;
 
-  presentViewController(viewController: NSViewController): number;
+  presentViewController(viewController: NSViewController): boolean;
 
   dismiss(sender: interop.Object): void;
 
@@ -1292,13 +1292,13 @@ declare class GKAchievementChallenge extends GKChallenge {
 declare class GKAccessPoint extends NSObject {
   static readonly shared: GKAccessPoint;
 
-  isActive: number;
+  isActive: boolean;
 
-  readonly isVisible: number;
+  readonly isVisible: boolean;
 
-  readonly isPresentingGameCenter: number;
+  readonly isPresentingGameCenter: boolean;
 
-  showHighlights: number;
+  showHighlights: boolean;
 
   location: interop.Enum<typeof GKAccessPointLocation>;
 
@@ -1336,13 +1336,13 @@ declare class GKLocalPlayer extends GKPlayer {
 
   static readonly localPlayer: GKLocalPlayer;
 
-  readonly isAuthenticated: number;
+  readonly isAuthenticated: boolean;
 
-  readonly isUnderage: number;
+  readonly isUnderage: boolean;
 
-  readonly isMultiplayerGamingRestricted: number;
+  readonly isMultiplayerGamingRestricted: boolean;
 
-  readonly isPersonalizedCommunicationRestricted: number;
+  readonly isPersonalizedCommunicationRestricted: boolean;
 
   loadRecentPlayersWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
@@ -1382,9 +1382,9 @@ declare class GKLocalPlayer extends GKPlayer {
 
   authenticateHandler: (p1: NSViewController, p2: NSError) => void | null;
 
-  readonly isPresentingFriendRequestViewController: number;
+  readonly isPresentingFriendRequestViewController: boolean;
 
-  presentFriendRequestCreatorFromWindowError(window: NSWindow | null, error: interop.PointerConvertible): number;
+  presentFriendRequestCreatorFromWindowError(window: NSWindow | null, error: interop.PointerConvertible): boolean;
 
   fetchSavedGamesWithCompletionHandler(handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 

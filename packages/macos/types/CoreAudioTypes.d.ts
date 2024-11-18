@@ -1,15 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const AudioTimeStampFlags: {
-  Nothing: 0,
-  SampleTime: 1,
-  HostTime: 2,
-  RateScalar: 4,
-  WordClockTime: 8,
-  SMPTETime: 16,
-  SampleHostTime: 3,
-};
-
 declare const AudioChannelBitmap: {
   Left: 1,
   Right: 2,
@@ -38,6 +28,16 @@ declare const AudioChannelBitmap: {
   LeftTopRear: 16777216,
   CenterTopRear: 33554432,
   RightTopRear: 67108864,
+};
+
+declare const AudioTimeStampFlags: {
+  Nothing: 0,
+  SampleTime: 1,
+  HostTime: 2,
+  RateScalar: 4,
+  WordClockTime: 8,
+  SMPTETime: 16,
+  SampleHostTime: 3,
 };
 
 declare const SMPTETimeFlags: {
@@ -82,6 +82,17 @@ declare class AudioBuffer {
   mData: interop.Pointer;
 }
 
+declare class AudioTimeStamp {
+  constructor(init?: AudioTimeStamp);
+  mSampleTime: number;
+  mHostTime: number;
+  mRateScalar: number;
+  mWordClockTime: number;
+  mSMPTETime: SMPTETime;
+  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
+  mReserved: number;
+}
+
 declare class AudioValueRange {
   constructor(init?: AudioValueRange);
   mMinimum: number;
@@ -106,17 +117,6 @@ declare class AudioClassDescription {
   mType: number;
   mSubType: number;
   mManufacturer: number;
-}
-
-declare class AudioTimeStamp {
-  constructor(init?: AudioTimeStamp);
-  mSampleTime: number;
-  mHostTime: number;
-  mRateScalar: number;
-  mWordClockTime: number;
-  mSMPTETime: SMPTETime;
-  mFlags: interop.Enum<typeof AudioTimeStampFlags>;
-  mReserved: number;
 }
 
 declare class SMPTETime {

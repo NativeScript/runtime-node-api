@@ -104,7 +104,7 @@ declare class MTKMeshBufferAllocator extends NSObject implements MDLMeshBufferAl
 
   newBufferFromZoneDataType(zone: MDLMeshBufferZone | null, data: NSData, type: interop.Enum<typeof MDLMeshBufferType>): MDLMeshBuffer;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -120,15 +120,15 @@ declare class MTKMeshBufferAllocator extends NSObject implements MDLMeshBufferAl
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -156,13 +156,13 @@ declare class MTKView extends NSView implements NSCoding, CALayerDelegate {
 
   readonly currentDrawable: CAMetalDrawable;
 
-  framebufferOnly: number;
+  framebufferOnly: boolean;
 
   depthStencilAttachmentTextureUsage: interop.Enum<typeof MTLTextureUsage>;
 
   multisampleColorAttachmentTextureUsage: interop.Enum<typeof MTLTextureUsage>;
 
-  presentsWithTransaction: number;
+  presentsWithTransaction: boolean;
 
   colorPixelFormat: interop.Enum<typeof MTLPixelFormat>;
 
@@ -188,9 +188,9 @@ declare class MTKView extends NSView implements NSCoding, CALayerDelegate {
 
   preferredFramesPerSecond: number;
 
-  enableSetNeedsDisplay: number;
+  enableSetNeedsDisplay: boolean;
 
-  autoResizeDrawable: number;
+  autoResizeDrawable: boolean;
 
   drawableSize: CGSize;
 
@@ -198,7 +198,7 @@ declare class MTKView extends NSView implements NSCoding, CALayerDelegate {
 
   readonly preferredDevice: MTLDevice;
 
-  isPaused: number;
+  isPaused: boolean;
 
   get colorspace(): interop.Pointer;
   set colorspace(value: interop.PointerConvertible);
@@ -217,7 +217,7 @@ declare class MTKView extends NSView implements NSCoding, CALayerDelegate {
 
   actionForLayerForKey(layer: CALayer, event: string): CAAction;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -233,15 +233,15 @@ declare class MTKView extends NSView implements NSCoding, CALayerDelegate {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -315,7 +315,7 @@ declare class MTKMeshBuffer extends NSObject implements MDLMeshBuffer, MDLNamed 
 
   map(): MDLMeshBufferMap;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -331,15 +331,15 @@ declare class MTKMeshBuffer extends NSObject implements MDLMeshBuffer, MDLNamed 
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 

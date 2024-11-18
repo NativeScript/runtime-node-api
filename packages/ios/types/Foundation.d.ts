@@ -2812,7 +2812,7 @@ declare function NSGetSizeAndAlignment(typePtr: string, sizep: interop.PointerCo
 
 declare function NSLog(format: string): void;
 
-declare function NSLogv(format: string, args: unknown /* const array */): void;
+declare function NSLogv(format: string, args: string): void;
 
 declare function NSDefaultMallocZone(): interop.Pointer;
 
@@ -3633,7 +3633,7 @@ declare class NSExpression extends NSObject implements NSSecureCoding, NSCopying
 
   static expressionWithFormat(expressionFormat: string): NSExpression;
 
-  static expressionWithFormatArguments(expressionFormat: string, argList: unknown /* const array */): NSExpression;
+  static expressionWithFormatArguments(expressionFormat: string, argList: string): NSExpression;
 
   static expressionForConstantValue(obj: interop.Object | null): NSExpression;
 
@@ -4329,7 +4329,7 @@ declare class NSException extends NSObject implements NSCopying, NSSecureCoding 
 
   static raiseFormat(name: string, format: string): void;
 
-  static raiseFormatArguments(name: string, format: string, argList: unknown /* const array */): void;
+  static raiseFormatArguments(name: string, format: string, argList: string): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
@@ -5305,7 +5305,7 @@ declare class NSAttributedString extends NSObject implements NSCopying, NSMutabl
 
   initWithFormatOptionsLocale(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null): this;
 
-  initWithFormatOptionsLocaleArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, arguments$: unknown /* const array */): this;
+  initWithFormatOptionsLocaleArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, arguments$: string): this;
 
   static localizedAttributedStringWithFormat<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString): InstanceType<This>;
 
@@ -5313,7 +5313,7 @@ declare class NSAttributedString extends NSObject implements NSCopying, NSMutabl
 
   initWithFormatOptionsLocaleContext(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
 
-  initWithFormatOptionsLocaleContextArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, arguments$: unknown /* const array */): this;
+  initWithFormatOptionsLocaleContextArguments(format: NSAttributedString, options: interop.Enum<typeof NSAttributedStringFormattingOptions>, locale: NSLocale | null, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, arguments$: string): this;
 
   static localizedAttributedStringWithFormatContext<This extends abstract new (...args: any) => any>(this: This, format: NSAttributedString, context: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): InstanceType<This>;
 
@@ -7368,7 +7368,7 @@ declare class NSPredicate extends NSObject implements NSSecureCoding, NSCopying 
 
   static predicateWithFormat(predicateFormat: string): NSPredicate;
 
-  static predicateWithFormatArguments(predicateFormat: string, argList: unknown /* const array */): NSPredicate;
+  static predicateWithFormatArguments(predicateFormat: string, argList: string): NSPredicate;
 
   static predicateWithValue(value: boolean): NSPredicate;
 
@@ -8896,30 +8896,6 @@ declare class NSRegularExpression extends NSObject implements NSCopying, NSSecur
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class NSSocketPort extends NSPort {
-  init(): this;
-
-  initWithTCPPort(port: number): this;
-
-  initWithProtocolFamilySocketTypeProtocolAddress(family: number, type: number, protocol: number, address: NSData): this;
-
-  initWithProtocolFamilySocketTypeProtocolSocket(family: number, type: number, protocol: number, sock: number): this;
-
-  initRemoteWithTCPPortHost(port: number, hostName: string | null): this;
-
-  initRemoteWithProtocolFamilySocketTypeProtocolAddress(family: number, type: number, protocol: number, address: NSData): this;
-
-  readonly protocolFamily: number;
-
-  readonly socketType: number;
-
-  readonly protocol: number;
-
-  readonly address: NSData;
-
-  readonly socket: number;
 }
 
 declare class NSURLQueryItem extends NSObject implements NSSecureCoding, NSCopying {
@@ -11409,19 +11385,19 @@ declare class NSString extends NSObject implements NSCopying, NSMutableCopying, 
 
   initWithFormat(format: string): this;
 
-  initWithFormatArguments(format: string, argList: unknown /* const array */): this;
+  initWithFormatArguments(format: string, argList: string): this;
 
   initWithFormatLocale(format: string, locale: interop.Object | null): this;
 
-  initWithFormatLocaleArguments(format: string, locale: interop.Object | null, argList: unknown /* const array */): this;
+  initWithFormatLocaleArguments(format: string, locale: interop.Object | null, argList: string): this;
 
   initWithValidatedFormatValidFormatSpecifiersError(format: string, validFormatSpecifiers: string, error: interop.PointerConvertible): this;
 
   initWithValidatedFormatValidFormatSpecifiersLocaleError(format: string, validFormatSpecifiers: string, locale: interop.Object | null, error: interop.PointerConvertible): this;
 
-  initWithValidatedFormatValidFormatSpecifiersArgumentsError(format: string, validFormatSpecifiers: string, argList: unknown /* const array */, error: interop.PointerConvertible): this;
+  initWithValidatedFormatValidFormatSpecifiersArgumentsError(format: string, validFormatSpecifiers: string, argList: string, error: interop.PointerConvertible): this;
 
-  initWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format: string, validFormatSpecifiers: string, locale: interop.Object | null, argList: unknown /* const array */, error: interop.PointerConvertible): this;
+  initWithValidatedFormatValidFormatSpecifiersLocaleArgumentsError(format: string, validFormatSpecifiers: string, locale: interop.Object | null, argList: string, error: interop.PointerConvertible): this;
 
   initWithDataEncoding(data: NSData, encoding: number): this;
 
@@ -11595,7 +11571,7 @@ declare class NSString extends NSObject implements NSCopying, NSMutableCopying, 
 
   static deferredLocalizedIntentsStringWithFormatFromTable(format: string, table: string | null): string;
 
-  static deferredLocalizedIntentsStringWithFormatFromTableArguments(format: string, table: string | null, arguments$: unknown /* const array */): string;
+  static deferredLocalizedIntentsStringWithFormatFromTableArguments(format: string, table: string | null, arguments$: string): string;
 
   static localizedUserNotificationStringForKeyArguments(key: string, arguments$: NSArray<interop.Object> | Array<interop.Object> | null): string;
 

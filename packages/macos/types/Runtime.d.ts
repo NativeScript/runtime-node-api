@@ -29,6 +29,12 @@ declare class ProcessSerialNumber {
   lowLongOfPSN: number;
 }
 
+declare class HFSUniStr255 {
+  constructor(init?: HFSUniStr255);
+  length: number;
+  unicode: unknown /* const array */;
+}
+
 declare class __sFILE {
   constructor(init?: __sFILE);
   _p: interop.Pointer;
@@ -69,12 +75,6 @@ declare class Rect {
   left: number;
   bottom: number;
   right: number;
-}
-
-declare class HFSUniStr255 {
-  constructor(init?: HFSUniStr255);
-  length: number;
-  unicode: unknown /* const array */;
 }
 
 declare class _acl {
@@ -142,7 +142,7 @@ declare class Float80 {
 }
 
 declare interface NSObjectProtocol {
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -158,15 +158,15 @@ declare interface NSObjectProtocol {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -211,9 +211,9 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   static mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static instancesRespondToSelector(aSelector: string): number;
+  static instancesRespondToSelector(aSelector: string): boolean;
 
-  static conformsToProtocol(protocol: interop.PointerConvertible): number;
+  static conformsToProtocol(protocol: interop.PointerConvertible): boolean;
 
   methodForSelector(aSelector: string): () => void;
 
@@ -229,11 +229,11 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   static instanceMethodSignatureForSelector(aSelector: string): NSMethodSignature;
 
-  static isSubclassOfClass(aClass: interop.Object): number;
+  static isSubclassOfClass(aClass: interop.Object): boolean;
 
-  static resolveClassMethod(sel: string): number;
+  static resolveClassMethod(sel: string): boolean;
 
-  static resolveInstanceMethod(sel: string): number;
+  static resolveInstanceMethod(sel: string): boolean;
 
   static hash(): number;
 
@@ -259,7 +259,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   attemptRecoveryFromErrorOptionIndexDelegateDidRecoverSelectorContextInfo(error: NSError, recoveryOptionIndex: number, delegate: interop.Object | null, didRecoverSelector: string | null, contextInfo: interop.PointerConvertible): void;
 
-  attemptRecoveryFromErrorOptionIndex(error: NSError, recoveryOptionIndex: number): number;
+  attemptRecoveryFromErrorOptionIndex(error: NSError, recoveryOptionIndex: number): boolean;
 
   performSelectorWithObjectAfterDelayInModes(aSelector: string, anArgument: interop.Object | null, delay: number, modes: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -277,17 +277,17 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   URLResourceDidFailLoadingWithReason(sender: NSURL, reason: string): void;
 
-  fileManagerShouldProceedAfterError(fm: NSFileManager, errorInfo: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+  fileManagerShouldProceedAfterError(fm: NSFileManager, errorInfo: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): boolean;
 
   fileManagerWillProcessPath(fm: NSFileManager, path: string): void;
 
-  static readonly accessInstanceVariablesDirectly: number;
+  static readonly accessInstanceVariablesDirectly: boolean;
 
   valueForKey(key: string): interop.Object;
 
   setValueForKey(value: interop.Object | null, key: string): void;
 
-  validateValueForKeyError(ioValue: interop.PointerConvertible, inKey: string, outError: interop.PointerConvertible): number;
+  validateValueForKeyError(ioValue: interop.PointerConvertible, inKey: string, outError: interop.PointerConvertible): boolean;
 
   mutableArrayValueForKey(key: string): NSMutableArray;
 
@@ -299,7 +299,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   setValueForKeyPath(value: interop.Object | null, keyPath: string): void;
 
-  validateValueForKeyPathError(ioValue: interop.PointerConvertible, inKeyPath: string, outError: interop.PointerConvertible): number;
+  validateValueForKeyPathError(ioValue: interop.PointerConvertible, inKeyPath: string, outError: interop.PointerConvertible): boolean;
 
   mutableArrayValueForKeyPath(keyPath: string): NSMutableArray;
 
@@ -317,7 +317,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   setValuesForKeysWithDictionary(keyedValues: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
 
-  static useStoredAccessor(): number;
+  static useStoredAccessor(): boolean;
 
   storedValueForKey(key: string): interop.Object;
 
@@ -359,7 +359,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   static keyPathsForValuesAffectingValueForKey(key: string): NSSet;
 
-  static automaticallyNotifiesObserversForKey(key: string): number;
+  static automaticallyNotifiesObserversForKey(key: string): boolean;
 
   get observationInfo(): interop.Pointer;
   set observationInfo(value: interop.PointerConvertible);
@@ -376,13 +376,13 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   static classForKeyedUnarchiver(): interop.Object;
 
-  performSelectorOnMainThreadWithObjectWaitUntilDoneModes(aSelector: string, arg: interop.Object | null, wait: number, array: NSArray<interop.Object> | Array<interop.Object> | null): void;
+  performSelectorOnMainThreadWithObjectWaitUntilDoneModes(aSelector: string, arg: interop.Object | null, wait: boolean, array: NSArray<interop.Object> | Array<interop.Object> | null): void;
 
-  performSelectorOnMainThreadWithObjectWaitUntilDone(aSelector: string, arg: interop.Object | null, wait: number): void;
+  performSelectorOnMainThreadWithObjectWaitUntilDone(aSelector: string, arg: interop.Object | null, wait: boolean): void;
 
-  performSelectorOnThreadWithObjectWaitUntilDoneModes(aSelector: string, thr: NSThread, arg: interop.Object | null, wait: number, array: NSArray<interop.Object> | Array<interop.Object> | null): void;
+  performSelectorOnThreadWithObjectWaitUntilDoneModes(aSelector: string, thr: NSThread, arg: interop.Object | null, wait: boolean, array: NSArray<interop.Object> | Array<interop.Object> | null): void;
 
-  performSelectorOnThreadWithObjectWaitUntilDone(aSelector: string, thr: NSThread, arg: interop.Object | null, wait: number): void;
+  performSelectorOnThreadWithObjectWaitUntilDone(aSelector: string, thr: NSThread, arg: interop.Object | null, wait: boolean): void;
 
   performSelectorInBackgroundWithObject(aSelector: string, arg: interop.Object | null): void;
 
@@ -437,39 +437,39 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   indicesOfObjectsByEvaluatingObjectSpecifier(specifier: NSScriptObjectSpecifier): NSArray;
 
-  isEqualTo(object: interop.Object | null): number;
+  isEqualTo(object: interop.Object | null): boolean;
 
-  isLessThanOrEqualTo(object: interop.Object | null): number;
+  isLessThanOrEqualTo(object: interop.Object | null): boolean;
 
-  isLessThan(object: interop.Object | null): number;
+  isLessThan(object: interop.Object | null): boolean;
 
-  isGreaterThanOrEqualTo(object: interop.Object | null): number;
+  isGreaterThanOrEqualTo(object: interop.Object | null): boolean;
 
-  isGreaterThan(object: interop.Object | null): number;
+  isGreaterThan(object: interop.Object | null): boolean;
 
-  isNotEqualTo(object: interop.Object | null): number;
+  isNotEqualTo(object: interop.Object | null): boolean;
 
-  doesContain(object: interop.Object): number;
+  doesContain(object: interop.Object): boolean;
 
-  isLike(object: string): number;
+  isLike(object: string): boolean;
 
-  isCaseInsensitiveLike(object: string): number;
+  isCaseInsensitiveLike(object: string): boolean;
 
-  scriptingIsEqualTo(object: interop.Object): number;
+  scriptingIsEqualTo(object: interop.Object): boolean;
 
-  scriptingIsLessThanOrEqualTo(object: interop.Object): number;
+  scriptingIsLessThanOrEqualTo(object: interop.Object): boolean;
 
-  scriptingIsLessThan(object: interop.Object): number;
+  scriptingIsLessThan(object: interop.Object): boolean;
 
-  scriptingIsGreaterThanOrEqualTo(object: interop.Object): number;
+  scriptingIsGreaterThanOrEqualTo(object: interop.Object): boolean;
 
-  scriptingIsGreaterThan(object: interop.Object): number;
+  scriptingIsGreaterThan(object: interop.Object): boolean;
 
-  scriptingBeginsWith(object: interop.Object): number;
+  scriptingBeginsWith(object: interop.Object): boolean;
 
-  scriptingEndsWith(object: interop.Object): number;
+  scriptingEndsWith(object: interop.Object): boolean;
 
-  scriptingContains(object: interop.Object): number;
+  scriptingContains(object: interop.Object): boolean;
 
   provideImageDataBytesPerRowOriginSizeUserInfo(data: interop.PointerConvertible, rowbytes: number, x: number, y: number, width: number, height: number, info: interop.Object | null): void;
 
@@ -479,7 +479,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   namesOfPromisedFilesDroppedAtDestination(dropDestination: NSURL): NSArray;
 
-  draggingSourceOperationMaskForLocal(flag: number): interop.Enum<typeof NSDragOperation>;
+  draggingSourceOperationMaskForLocal(flag: boolean): interop.Enum<typeof NSDragOperation>;
 
   draggedImageBeganAt(image: NSImage, screenPoint: CGPoint): void;
 
@@ -487,17 +487,17 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   draggedImageMovedTo(image: NSImage, screenPoint: CGPoint): void;
 
-  ignoreModifierKeysWhileDragging(): number;
+  ignoreModifierKeysWhileDragging(): boolean;
 
-  draggedImageEndedAtDeposited(image: NSImage, screenPoint: CGPoint, flag: number): void;
+  draggedImageEndedAtDeposited(image: NSImage, screenPoint: CGPoint, flag: boolean): void;
 
-  layerShouldInheritContentsScaleFromWindow(layer: CALayer, newScale: number, window: NSWindow): number;
+  layerShouldInheritContentsScaleFromWindow(layer: CALayer, newScale: number, window: NSWindow): boolean;
 
   viewStringForToolTipPointUserData(view: NSView, tag: number, point: CGPoint, data: interop.PointerConvertible): string;
 
-  validateMenuItem(menuItem: NSMenuItem): number;
+  validateMenuItem(menuItem: NSMenuItem): boolean;
 
-  fontManagerWillIncludeFont(sender: interop.Object, fontName: string): number;
+  fontManagerWillIncludeFont(sender: interop.Object, fontName: string): boolean;
 
   changeFont(sender: interop.Object | null): void;
 
@@ -505,7 +505,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   accessibilityAttributeValue(attribute: string): interop.Object;
 
-  accessibilityIsAttributeSettable(attribute: string): number;
+  accessibilityIsAttributeSettable(attribute: string): boolean;
 
   accessibilitySetValueForAttribute(value: interop.Object | null, attribute: string): void;
 
@@ -519,7 +519,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   accessibilityPerformAction(action: string): void;
 
-  accessibilityIsIgnored(): number;
+  accessibilityIsIgnored(): boolean;
 
   accessibilityHitTest(point: CGPoint): interop.Object;
 
@@ -531,9 +531,9 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   accessibilityArrayAttributeValuesIndexMaxCount(attribute: string, index: number, maxCount: number): NSArray;
 
-  readonly accessibilityNotifiesWhenDestroyed: number;
+  readonly accessibilityNotifiesWhenDestroyed: boolean;
 
-  accessibilitySetOverrideValueForAttribute(value: interop.Object | null, attribute: string): number;
+  accessibilitySetOverrideValueForAttribute(value: interop.Object | null, attribute: string): boolean;
 
   static exposeBinding(binding: string): void;
 
@@ -555,11 +555,11 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   discardEditing(): void;
 
-  commitEditing(): number;
+  commitEditing(): boolean;
 
   commitEditingWithDelegateDidCommitSelectorContextInfo(delegate: interop.Object | null, didCommitSelector: string | null, contextInfo: interop.PointerConvertible): void;
 
-  commitEditingAndReturnError(error: interop.PointerConvertible): number;
+  commitEditingAndReturnError(error: interop.PointerConvertible): boolean;
 
   objectDidBeginEditing(editor: NSEditor): void;
 
@@ -579,31 +579,31 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   prepareForInterfaceBuilder(): void;
 
-  panelIsValidFilename(sender: interop.Object, filename: string): number;
+  panelIsValidFilename(sender: interop.Object, filename: string): boolean;
 
   panelDirectoryDidChange(sender: interop.Object, path: string): void;
 
-  panelCompareFilenameWithCaseSensitive(sender: interop.Object, name1: string, name2: string, caseSensitive: number): interop.Enum<typeof NSComparisonResult>;
+  panelCompareFilenameWithCaseSensitive(sender: interop.Object, name1: string, name2: string, caseSensitive: boolean): interop.Enum<typeof NSComparisonResult>;
 
-  panelShouldShowFilename(sender: interop.Object, filename: string): number;
+  panelShouldShowFilename(sender: interop.Object, filename: string): boolean;
 
   textStorageWillProcessEditing(notification: NSNotification): void;
 
   textStorageDidProcessEditing(notification: NSNotification): void;
 
-  validateToolbarItem(item: NSToolbarItem): number;
+  validateToolbarItem(item: NSToolbarItem): boolean;
 
-  tableViewWriteRowsToPasteboard(tableView: NSTableView, rows: NSArray<interop.Object> | Array<interop.Object>, pboard: NSPasteboard): number;
+  tableViewWriteRowsToPasteboard(tableView: NSTableView, rows: NSArray<interop.Object> | Array<interop.Object>, pboard: NSPasteboard): boolean;
 
-  applicationDelegateHandlesKey(sender: NSApplication, key: string): number;
+  applicationDelegateHandlesKey(sender: NSApplication, key: string): boolean;
 
   static webScriptNameForSelector(selector: string): string;
 
-  static isSelectorExcludedFromWebScript(selector: string): number;
+  static isSelectorExcludedFromWebScript(selector: string): boolean;
 
   static webScriptNameForKey(name: string): string;
 
-  static isKeyExcludedFromWebScript(name: string): number;
+  static isKeyExcludedFromWebScript(name: string): boolean;
 
   invokeUndefinedMethodFromWebScriptWithArguments(name: string, arguments$: NSArray<interop.Object> | Array<interop.Object>): interop.Object;
 
@@ -619,7 +619,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   webPlugInDestroy(): void;
 
-  webPlugInSetIsSelected(isSelected: number): void;
+  webPlugInSetIsSelected(isSelected: boolean): void;
 
   readonly objectForWebScript: interop.Object;
 
@@ -639,7 +639,7 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   readonly webFrame: WebFrame;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -655,15 +655,15 @@ declare class NSObject extends NativeObject implements NSObjectProtocol {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 

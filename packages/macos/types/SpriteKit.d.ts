@@ -179,7 +179,7 @@ declare class SKPhysicsContactDelegate extends NativeObject implements SKPhysics
 }
 
 declare interface SKViewDelegate extends NSObjectProtocol {
-  viewShouldRenderAtTime?(view: SKView, time: number): number;
+  viewShouldRenderAtTime?(view: SKView, time: number): boolean;
 }
 
 declare class SKViewDelegate extends NativeObject implements SKViewDelegate {
@@ -194,7 +194,7 @@ declare class SKPhysicsJointLimit extends SKPhysicsJoint {
 declare class SKPhysicsJointSliding extends SKPhysicsJoint {
   static jointWithBodyABodyBAnchorAxis(bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchor: CGPoint, axis: CGVector): SKPhysicsJointSliding;
 
-  shouldEnableLimits: number;
+  shouldEnableLimits: boolean;
 
   lowerDistanceLimit: number;
 
@@ -212,7 +212,7 @@ declare class SKPhysicsJointSpring extends SKPhysicsJoint {
 declare class SKPhysicsJointPin extends SKPhysicsJoint {
   static jointWithBodyABodyBAnchor(bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchor: CGPoint): SKPhysicsJointPin;
 
-  shouldEnableLimits: number;
+  shouldEnableLimits: boolean;
 
   lowerAngleLimit: number;
 
@@ -230,7 +230,7 @@ declare class SKReachConstraints extends NSObject implements NSSecureCoding {
 
   initWithLowerAngleLimitUpperAngleLimit(lowerAngleLimit: number, upperAngleLimit: number): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -238,7 +238,7 @@ declare class SKReachConstraints extends NSObject implements NSSecureCoding {
 }
 
 declare class SKConstraint extends NSObject implements NSSecureCoding, NSCopying {
-  enabled: number;
+  enabled: boolean;
 
   referenceNode: SKNode;
 
@@ -262,7 +262,7 @@ declare class SKConstraint extends NSObject implements NSSecureCoding, NSCopying
 
   static orientToPointInNodeOffset<This extends abstract new (...args: any) => any>(this: This, point: CGPoint, node: SKNode, radians: SKRange): InstanceType<This>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -299,7 +299,7 @@ declare class SKTileGroup extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -332,7 +332,7 @@ declare class SKTileSet extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -378,13 +378,13 @@ declare class SKTileDefinition extends NSObject implements NSCopying, NSSecureCo
 
   rotation: interop.Enum<typeof SKTileDefinitionRotation>;
 
-  flipVertically: number;
+  flipVertically: boolean;
 
-  flipHorizontally: number;
+  flipHorizontally: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -410,7 +410,7 @@ declare class SKAttributeValue extends NSObject implements NSSecureCoding {
 
   vectorFloat4Value: unknown /* ext vector */;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -426,7 +426,7 @@ declare class SKAttribute extends NSObject implements NSSecureCoding {
 
   readonly type: interop.Enum<typeof SKAttributeType>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -440,7 +440,7 @@ declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
 
   static textureVectorNoiseWithSmoothnessSize<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize): InstanceType<This>;
 
-  static textureNoiseWithSmoothnessSizeGrayscale<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize, grayscale: number): InstanceType<This>;
+  static textureNoiseWithSmoothnessSizeGrayscale<This extends abstract new (...args: any) => any>(this: This, smoothness: number, size: CGSize, grayscale: boolean): InstanceType<This>;
 
   static textureWithCGImage<This extends abstract new (...args: any) => any>(this: This, image: interop.PointerConvertible): InstanceType<This>;
 
@@ -448,7 +448,7 @@ declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
 
   static textureWithDataSize<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize): InstanceType<This>;
 
-  static textureWithDataSizeFlipped<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, flipped: number): InstanceType<This>;
+  static textureWithDataSizeFlipped<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, flipped: boolean): InstanceType<This>;
 
   static textureWithDataSizeRowLengthAlignment<This extends abstract new (...args: any) => any>(this: This, pixelData: NSData, size: CGSize, rowLength: number, alignment: number): InstanceType<This>;
 
@@ -464,7 +464,7 @@ declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
 
   filteringMode: interop.Enum<typeof SKTextureFilteringMode>;
 
-  usesMipmaps: number;
+  usesMipmaps: boolean;
 
   CGImage(): interop.Pointer;
 
@@ -476,7 +476,7 @@ declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -484,31 +484,31 @@ declare class SKTexture extends NSObject implements NSCopying, NSSecureCoding {
 }
 
 declare class SKView extends NSView implements NSSecureCoding {
-  isPaused: number;
+  isPaused: boolean;
 
-  showsFPS: number;
+  showsFPS: boolean;
 
-  showsDrawCount: number;
+  showsDrawCount: boolean;
 
-  showsNodeCount: number;
+  showsNodeCount: boolean;
 
-  showsQuadCount: number;
+  showsQuadCount: boolean;
 
-  showsPhysics: number;
+  showsPhysics: boolean;
 
-  showsFields: number;
+  showsFields: boolean;
 
-  isAsynchronous: number;
+  isAsynchronous: boolean;
 
-  allowsTransparency: number;
+  allowsTransparency: boolean;
 
-  ignoresSiblingOrder: number;
+  ignoresSiblingOrder: boolean;
 
-  shouldCullNonVisibleNodes: number;
+  shouldCullNonVisibleNodes: boolean;
 
   preferredFramesPerSecond: number;
 
-  disableDepthStencilBuffer: number;
+  disableDepthStencilBuffer: boolean;
 
   delegate: NSObject;
 
@@ -530,7 +530,7 @@ declare class SKView extends NSView implements NSSecureCoding {
 
   convertPointFromScene(point: CGPoint, scene: SKScene): CGPoint;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -538,7 +538,7 @@ declare class SKView extends NSView implements NSSecureCoding {
 }
 
 declare class SKCameraNode extends SKNode {
-  containsNode(node: SKNode): number;
+  containsNode(node: SKNode): boolean;
 
   containedNodeSet(): NSSet;
 }
@@ -582,13 +582,13 @@ declare class SK3DNode extends SKNode {
 
   unprojectPoint(point: unknown /* ext vector */): unknown /* ext vector */;
 
-  isPlaying: number;
+  isPlaying: boolean;
 
-  loops: number;
+  loops: boolean;
 
   pointOfView: SCNNode;
 
-  autoenablesDefaultLighting: number;
+  autoenablesDefaultLighting: boolean;
 }
 
 declare class SKCropNode extends SKNode {
@@ -632,7 +632,7 @@ declare class SKVideoNode extends SKNode {
 declare class SKShapeNode extends SKNode {
   static shapeNodeWithPath<This extends abstract new (...args: any) => any>(this: This, path: interop.PointerConvertible): InstanceType<This>;
 
-  static shapeNodeWithPathCentered<This extends abstract new (...args: any) => any>(this: This, path: interop.PointerConvertible, centered: number): InstanceType<This>;
+  static shapeNodeWithPathCentered<This extends abstract new (...args: any) => any>(this: This, path: interop.PointerConvertible, centered: boolean): InstanceType<This>;
 
   static shapeNodeWithRect<This extends abstract new (...args: any) => any>(this: This, rect: CGRect): InstanceType<This>;
 
@@ -661,7 +661,7 @@ declare class SKShapeNode extends SKNode {
 
   blendMode: interop.Enum<typeof SKBlendMode>;
 
-  isAntialiased: number;
+  isAntialiased: boolean;
 
   lineWidth: number;
 
@@ -766,7 +766,7 @@ declare class SKWarpGeometryGrid extends SKWarpGeometry implements NSSecureCodin
 
   gridByReplacingDestPositions(destPositions: interop.PointerConvertible): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 }
@@ -774,7 +774,7 @@ declare class SKWarpGeometryGrid extends SKWarpGeometry implements NSSecureCodin
 declare class SKWarpGeometry extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -812,11 +812,11 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   alpha: number;
 
-  isPaused: number;
+  isPaused: boolean;
 
-  isHidden: number;
+  isHidden: boolean;
 
-  isUserInteractionEnabled: number;
+  isUserInteractionEnabled: boolean;
 
   readonly parent: SKNode;
 
@@ -862,7 +862,7 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   objectForKeyedSubscript(name: string): NSArray;
 
-  inParentHierarchy(parent: SKNode): number;
+  inParentHierarchy(parent: SKNode): boolean;
 
   runAction(action: SKAction): void;
 
@@ -870,7 +870,7 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   runActionWithKey(action: SKAction, key: string): void;
 
-  hasActions(): number;
+  hasActions(): boolean;
 
   actionForKey(key: string): SKAction;
 
@@ -878,7 +878,7 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   removeAllActions(): void;
 
-  containsPoint(p: CGPoint): number;
+  containsPoint(p: CGPoint): boolean;
 
   nodeAtPoint(p: CGPoint): SKNode;
 
@@ -888,11 +888,11 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   convertPointToNode(point: CGPoint, node: SKNode): CGPoint;
 
-  intersectsNode(node: SKNode): number;
+  intersectsNode(node: SKNode): boolean;
 
-  isEqualToNode(node: SKNode): number;
+  isEqualToNode(node: SKNode): boolean;
 
-  isAccessibilityElement: number;
+  isAccessibilityElement: boolean;
 
   accessibilityRole: string;
 
@@ -911,7 +911,7 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   accessibilityLabel: string;
 
-  isAccessibilityEnabled: number;
+  isAccessibilityEnabled: boolean;
 
   accessibilityHitTest(point: CGPoint): interop.Object;
 
@@ -925,7 +925,7 @@ declare class SKNode extends NSResponder implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 }
@@ -940,7 +940,7 @@ declare class SKSpriteNode extends SKNode implements SKWarpable {
 
   static spriteNodeWithImageNamed<This extends abstract new (...args: any) => any>(this: This, name: string): InstanceType<This>;
 
-  static spriteNodeWithImageNamedNormalMapped<This extends abstract new (...args: any) => any>(this: This, name: string, generateNormalMap: number): InstanceType<This>;
+  static spriteNodeWithImageNamedNormalMapped<This extends abstract new (...args: any) => any>(this: This, name: string, generateNormalMap: boolean): InstanceType<This>;
 
   static spriteNodeWithColorSize<This extends abstract new (...args: any) => any>(this: This, color: NSColor, size: CGSize): InstanceType<This>;
 
@@ -992,7 +992,7 @@ declare class SKSpriteNode extends SKNode implements SKWarpable {
 
   subdivisionLevels: number;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1008,15 +1008,15 @@ declare class SKSpriteNode extends SKNode implements SKWarpable {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1052,11 +1052,11 @@ declare class SKRegion extends NSObject implements NSCopying, NSSecureCoding {
 
   regionByIntersectionWithRegion(region: SKRegion): this;
 
-  containsPoint(point: CGPoint): number;
+  containsPoint(point: CGPoint): boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1076,11 +1076,11 @@ declare class SKAudioNode extends SKNode implements NSSecureCoding {
 
   avAudioNode: AVAudioNode;
 
-  autoplayLooped: number;
+  autoplayLooped: boolean;
 
-  isPositional: number;
+  isPositional: boolean;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 }
@@ -1088,11 +1088,11 @@ declare class SKAudioNode extends SKNode implements NSSecureCoding {
 declare class SKEffectNode extends SKNode implements SKWarpable {
   filter: CIFilter;
 
-  shouldCenterFilter: number;
+  shouldCenterFilter: boolean;
 
-  shouldEnableEffects: number;
+  shouldEnableEffects: boolean;
 
-  shouldRasterize: number;
+  shouldRasterize: boolean;
 
   blendMode: interop.Enum<typeof SKBlendMode>;
 
@@ -1109,7 +1109,7 @@ declare class SKEffectNode extends SKNode implements SKWarpable {
 
   subdivisionLevels: number;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1125,15 +1125,15 @@ declare class SKEffectNode extends SKNode implements SKWarpable {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1199,7 +1199,7 @@ declare class SKKeyframeSequence extends NSObject implements NSSecureCoding, NSC
 
   repeatMode: interop.Enum<typeof SKRepeatMode>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1249,7 +1249,7 @@ declare class SKTileMapNode extends SKNode implements NSCopying, NSSecureCoding 
 
   lightingBitMask: number;
 
-  enableAutomapping: number;
+  enableAutomapping: boolean;
 
   fillWithTileGroup(tileGroup: SKTileGroup | null): void;
 
@@ -1271,7 +1271,7 @@ declare class SKTileMapNode extends SKNode implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1297,7 +1297,7 @@ declare class SKTileGroupRule extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1315,19 +1315,19 @@ declare class SKRenderer extends NSObject {
 
   scene: SKScene;
 
-  ignoresSiblingOrder: number;
+  ignoresSiblingOrder: boolean;
 
-  shouldCullNonVisibleNodes: number;
+  shouldCullNonVisibleNodes: boolean;
 
-  showsDrawCount: number;
+  showsDrawCount: boolean;
 
-  showsNodeCount: number;
+  showsNodeCount: boolean;
 
-  showsQuadCount: number;
+  showsQuadCount: boolean;
 
-  showsPhysics: number;
+  showsPhysics: boolean;
 
-  showsFields: number;
+  showsFields: boolean;
 }
 
 declare class SKLabelNode extends SKNode {
@@ -1391,15 +1391,15 @@ declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCodin
 
   static bodyWithBodies(bodies: NSArray<interop.Object> | Array<interop.Object>): SKPhysicsBody;
 
-  isDynamic: number;
+  isDynamic: boolean;
 
-  usesPreciseCollisionDetection: number;
+  usesPreciseCollisionDetection: boolean;
 
-  allowsRotation: number;
+  allowsRotation: boolean;
 
-  pinned: number;
+  pinned: boolean;
 
-  isResting: number;
+  isResting: boolean;
 
   friction: number;
 
@@ -1417,7 +1417,7 @@ declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCodin
 
   readonly area: number;
 
-  affectedByGravity: number;
+  affectedByGravity: boolean;
 
   fieldBitMask: number;
 
@@ -1451,7 +1451,7 @@ declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCodin
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1459,7 +1459,7 @@ declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCodin
 }
 
 declare class SKLightNode extends SKNode {
-  isEnabled: number;
+  isEnabled: boolean;
 
   lightColor: NSColor;
 
@@ -1501,7 +1501,7 @@ declare class SKShader extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1527,7 +1527,7 @@ declare class SKRange extends NSObject implements NSSecureCoding, NSCopying {
 
   upperLimit: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1575,7 +1575,7 @@ declare class SKPhysicsWorld extends NSObject implements NSSecureCoding {
 
   enumerateBodiesAlongRayStartEndUsingBlock(start: CGPoint, end: CGPoint, block: (p1: SKPhysicsBody, p2: CGPoint, p3: CGVector, p4: interop.PointerConvertible) => void): void;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1677,7 +1677,7 @@ declare class SKUniform extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1693,7 +1693,7 @@ declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
 
   readonly reactionTorque: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1834,7 +1834,7 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static rotateToAngleDuration(radians: number, duration: number): SKAction;
 
-  static rotateToAngleDurationShortestUnitArc(radians: number, duration: number, shortestUnitArc: number): SKAction;
+  static rotateToAngleDurationShortestUnitArc(radians: number, duration: number, shortestUnitArc: boolean): SKAction;
 
   static resizeByWidthHeightDuration(width: number, height: number, duration: number): SKAction;
 
@@ -1882,19 +1882,19 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static setNormalTexture(texture: SKTexture): SKAction;
 
-  static setTextureResize(texture: SKTexture, resize: number): SKAction;
+  static setTextureResize(texture: SKTexture, resize: boolean): SKAction;
 
-  static setNormalTextureResize(texture: SKTexture, resize: number): SKAction;
+  static setNormalTextureResize(texture: SKTexture, resize: boolean): SKAction;
 
   static animateWithTexturesTimePerFrame(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number): SKAction;
 
   static animateWithNormalTexturesTimePerFrame(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number): SKAction;
 
-  static animateWithTexturesTimePerFrameResizeRestore(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number, resize: number, restore: number): SKAction;
+  static animateWithTexturesTimePerFrameResizeRestore(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number, resize: boolean, restore: boolean): SKAction;
 
-  static animateWithNormalTexturesTimePerFrameResizeRestore(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number, resize: number, restore: number): SKAction;
+  static animateWithNormalTexturesTimePerFrameResizeRestore(textures: NSArray<interop.Object> | Array<interop.Object>, sec: number, resize: boolean, restore: boolean): SKAction;
 
-  static playSoundFileNamedWaitForCompletion(soundFile: string, wait: number): SKAction;
+  static playSoundFileNamedWaitForCompletion(soundFile: string, wait: boolean): SKAction;
 
   static colorizeWithColorColorBlendFactorDuration(color: NSColor, colorBlendFactor: number, duration: number): SKAction;
 
@@ -1906,11 +1906,11 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static followPathDuration(path: interop.PointerConvertible, duration: number): SKAction;
 
-  static followPathAsOffsetOrientToPathDuration(path: interop.PointerConvertible, offset: number, orient: number, duration: number): SKAction;
+  static followPathAsOffsetOrientToPathDuration(path: interop.PointerConvertible, offset: boolean, orient: boolean, duration: number): SKAction;
 
   static followPathSpeed(path: interop.PointerConvertible, speed: number): SKAction;
 
-  static followPathAsOffsetOrientToPathSpeed(path: interop.PointerConvertible, offset: number, orient: number, speed: number): SKAction;
+  static followPathAsOffsetOrientToPathSpeed(path: interop.PointerConvertible, offset: boolean, orient: boolean, speed: number): SKAction;
 
   static speedByDuration(speed: number, duration: number): SKAction;
 
@@ -1990,7 +1990,7 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static animateWithWarpsTimes(warps: NSArray<interop.Object> | Array<interop.Object>, times: NSArray<interop.Object> | Array<interop.Object>): SKAction;
 
-  static animateWithWarpsTimesRestore(warps: NSArray<interop.Object> | Array<interop.Object>, times: NSArray<interop.Object> | Array<interop.Object>, restore: number): SKAction;
+  static animateWithWarpsTimesRestore(warps: NSArray<interop.Object> | Array<interop.Object>, times: NSArray<interop.Object> | Array<interop.Object>, restore: boolean): SKAction;
 
   static stereoPanToDuration(v: number, duration: number): SKAction;
 
@@ -2010,7 +2010,7 @@ declare class SKAction extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2026,9 +2026,9 @@ declare class SKFieldNode extends SKNode {
 
   minimumRadius: number;
 
-  isEnabled: number;
+  isEnabled: boolean;
 
-  isExclusive: number;
+  isExclusive: boolean;
 
   categoryBitMask: number;
 
@@ -2080,7 +2080,7 @@ declare class SKTextureAtlas extends NSObject implements NSSecureCoding {
 
   readonly textureNames: NSArray;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2116,9 +2116,9 @@ declare class SKTransition extends NSObject implements NSCopying {
 
   static transitionWithCIFilterDuration(filter: CIFilter, sec: number): SKTransition;
 
-  pausesIncomingScene: number;
+  pausesIncomingScene: boolean;
 
-  pausesOutgoingScene: number;
+  pausesOutgoingScene: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

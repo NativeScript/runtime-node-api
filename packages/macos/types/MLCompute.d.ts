@@ -234,7 +234,7 @@ declare class MLCAdamOptimizer extends MLCOptimizer implements NSCopying {
 
   readonly epsilon: number;
 
-  readonly usesAMSGrad: number;
+  readonly usesAMSGrad: boolean;
 
   readonly timeStep: number;
 
@@ -242,7 +242,7 @@ declare class MLCAdamOptimizer extends MLCOptimizer implements NSCopying {
 
   static optimizerWithDescriptorBeta1Beta2EpsilonTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, timeStep: number): InstanceType<This>;
 
-  static optimizerWithDescriptorBeta1Beta2EpsilonUsesAMSGradTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, usesAMSGrad: number, timeStep: number): InstanceType<This>;
+  static optimizerWithDescriptorBeta1Beta2EpsilonUsesAMSGradTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, usesAMSGrad: boolean, timeStep: number): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -406,7 +406,7 @@ declare class MLCOptimizerDescriptor extends NSObject implements NSCopying {
 
   readonly gradientRescale: number;
 
-  readonly appliesGradientClipping: number;
+  readonly appliesGradientClipping: boolean;
 
   readonly gradientClipMax: number;
 
@@ -424,9 +424,9 @@ declare class MLCOptimizerDescriptor extends NSObject implements NSCopying {
 
   static descriptorWithLearningRateGradientRescaleRegularizationTypeRegularizationScale<This extends abstract new (...args: any) => any>(this: This, learningRate: number, gradientRescale: number, regularizationType: interop.Enum<typeof MLCRegularizationType>, regularizationScale: number): InstanceType<This>;
 
-  static descriptorWithLearningRateGradientRescaleAppliesGradientClippingGradientClipMaxGradientClipMinRegularizationTypeRegularizationScale<This extends abstract new (...args: any) => any>(this: This, learningRate: number, gradientRescale: number, appliesGradientClipping: number, gradientClipMax: number, gradientClipMin: number, regularizationType: interop.Enum<typeof MLCRegularizationType>, regularizationScale: number): InstanceType<This>;
+  static descriptorWithLearningRateGradientRescaleAppliesGradientClippingGradientClipMaxGradientClipMinRegularizationTypeRegularizationScale<This extends abstract new (...args: any) => any>(this: This, learningRate: number, gradientRescale: number, appliesGradientClipping: boolean, gradientClipMax: number, gradientClipMin: number, regularizationType: interop.Enum<typeof MLCRegularizationType>, regularizationScale: number): InstanceType<This>;
 
-  static descriptorWithLearningRateGradientRescaleAppliesGradientClippingGradientClippingTypeGradientClipMaxGradientClipMinMaximumClippingNormCustomGlobalNormRegularizationTypeRegularizationScale<This extends abstract new (...args: any) => any>(this: This, learningRate: number, gradientRescale: number, appliesGradientClipping: number, gradientClippingType: interop.Enum<typeof MLCGradientClippingType>, gradientClipMax: number, gradientClipMin: number, maximumClippingNorm: number, customGlobalNorm: number, regularizationType: interop.Enum<typeof MLCRegularizationType>, regularizationScale: number): InstanceType<This>;
+  static descriptorWithLearningRateGradientRescaleAppliesGradientClippingGradientClippingTypeGradientClipMaxGradientClipMinMaximumClippingNormCustomGlobalNormRegularizationTypeRegularizationScale<This extends abstract new (...args: any) => any>(this: This, learningRate: number, gradientRescale: number, appliesGradientClipping: boolean, gradientClippingType: interop.Enum<typeof MLCGradientClippingType>, gradientClipMax: number, gradientClipMin: number, maximumClippingNorm: number, customGlobalNorm: number, regularizationType: interop.Enum<typeof MLCRegularizationType>, regularizationScale: number): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -444,7 +444,7 @@ declare class MLCTensorDescriptor extends NSObject implements NSCopying {
 
   readonly sequenceLengths: NSArray;
 
-  readonly sortedSequences: number;
+  readonly sortedSequences: boolean;
 
   readonly batchSizePerSequenceStep: NSArray;
 
@@ -452,7 +452,7 @@ declare class MLCTensorDescriptor extends NSObject implements NSCopying {
 
   static descriptorWithShapeDataType<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>, dataType: interop.Enum<typeof MLCDataType>): InstanceType<This> | null;
 
-  static descriptorWithShapeSequenceLengthsSortedSequencesDataType<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: number, dataType: interop.Enum<typeof MLCDataType>): InstanceType<This> | null;
+  static descriptorWithShapeSequenceLengthsSortedSequencesDataType<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: boolean, dataType: interop.Enum<typeof MLCDataType>): InstanceType<This> | null;
 
   static descriptorWithWidthHeightFeatureChannelCountBatchSize<This extends abstract new (...args: any) => any>(this: This, width: number, height: number, featureChannels: number, batchSize: number): InstanceType<This> | null;
 
@@ -474,13 +474,13 @@ declare class MLCLSTMDescriptor extends NSObject implements NSCopying {
 
   readonly layerCount: number;
 
-  readonly usesBiases: number;
+  readonly usesBiases: boolean;
 
-  readonly batchFirst: number;
+  readonly batchFirst: boolean;
 
-  readonly isBidirectional: number;
+  readonly isBidirectional: boolean;
 
-  readonly returnsSequences: number;
+  readonly returnsSequences: boolean;
 
   readonly dropout: number;
 
@@ -488,13 +488,13 @@ declare class MLCLSTMDescriptor extends NSObject implements NSCopying {
 
   static descriptorWithInputSizeHiddenSizeLayerCount<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number): InstanceType<This>;
 
-  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesIsBidirectionalDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: number, isBidirectional: number, dropout: number): InstanceType<This>;
+  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesIsBidirectionalDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: boolean, isBidirectional: boolean, dropout: number): InstanceType<This>;
 
-  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: number, batchFirst: number, isBidirectional: number, dropout: number): InstanceType<This>;
+  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: boolean, batchFirst: boolean, isBidirectional: boolean, dropout: number): InstanceType<This>;
 
-  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalReturnsSequencesDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: number, batchFirst: number, isBidirectional: number, returnsSequences: number, dropout: number): InstanceType<This>;
+  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalReturnsSequencesDropout<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: boolean, batchFirst: boolean, isBidirectional: boolean, returnsSequences: boolean, dropout: number): InstanceType<This>;
 
-  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalReturnsSequencesDropoutResultMode<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: number, batchFirst: number, isBidirectional: number, returnsSequences: number, dropout: number, resultMode: interop.Enum<typeof MLCLSTMResultMode>): InstanceType<This>;
+  static descriptorWithInputSizeHiddenSizeLayerCountUsesBiasesBatchFirstIsBidirectionalReturnsSequencesDropoutResultMode<This extends abstract new (...args: any) => any>(this: This, inputSize: number, hiddenSize: number, layerCount: number, usesBiases: boolean, batchFirst: boolean, isBidirectional: boolean, returnsSequences: boolean, dropout: number, resultMode: interop.Enum<typeof MLCLSTMResultMode>): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -504,25 +504,25 @@ declare class MLCInferenceGraph extends MLCGraph {
 
   static graphWithGraphObjects<This extends abstract new (...args: any) => any>(this: This, graphObjects: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
 
-  addInputs(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+  addInputs(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): boolean;
 
-  addInputsLossLabelsLossLabelWeights(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeights: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): number;
+  addInputsLossLabelsLossLabelWeights(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeights: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
-  addOutputs(outputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+  addOutputs(outputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): boolean;
 
-  compileWithOptionsDevice(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice): number;
+  compileWithOptionsDevice(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice): boolean;
 
-  compileWithOptionsDeviceInputTensorsInputTensorsData(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, inputTensorsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): number;
+  compileWithOptionsDeviceInputTensorsInputTensorsData(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, inputTensorsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
-  linkWithGraphs(graphs: NSArray<interop.Object> | Array<interop.Object>): number;
+  linkWithGraphs(graphs: NSArray<interop.Object> | Array<interop.Object>): boolean;
 
-  executeWithInputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeWithInputsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeWithInputsDataLossLabelsDataLossLabelWeightsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataLossLabelsDataLossLabelWeightsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeWithInputsDataLossLabelsDataLossLabelWeightsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataLossLabelsDataLossLabelWeightsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 }
 
 declare class MLCTensor extends NSObject implements NSCopying {
@@ -576,21 +576,21 @@ declare class MLCTensor extends NSObject implements NSCopying {
 
   static tensorWithSequenceLengthFeatureChannelCountBatchSizeData<This extends abstract new (...args: any) => any>(this: This, sequenceLength: number, featureChannelCount: number, batchSize: number, data: MLCTensorData | null): InstanceType<This>;
 
-  static tensorWithSequenceLengthsSortedSequencesFeatureChannelCountBatchSizeRandomInitializerType<This extends abstract new (...args: any) => any>(this: This, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: number, featureChannelCount: number, batchSize: number, randomInitializerType: interop.Enum<typeof MLCRandomInitializerType>): InstanceType<This> | null;
+  static tensorWithSequenceLengthsSortedSequencesFeatureChannelCountBatchSizeRandomInitializerType<This extends abstract new (...args: any) => any>(this: This, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: boolean, featureChannelCount: number, batchSize: number, randomInitializerType: interop.Enum<typeof MLCRandomInitializerType>): InstanceType<This> | null;
 
-  static tensorWithSequenceLengthsSortedSequencesFeatureChannelCountBatchSizeData<This extends abstract new (...args: any) => any>(this: This, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: number, featureChannelCount: number, batchSize: number, data: MLCTensorData | null): InstanceType<This> | null;
+  static tensorWithSequenceLengthsSortedSequencesFeatureChannelCountBatchSizeData<This extends abstract new (...args: any) => any>(this: This, sequenceLengths: NSArray<interop.Object> | Array<interop.Object>, sortedSequences: boolean, featureChannelCount: number, batchSize: number, data: MLCTensorData | null): InstanceType<This> | null;
 
-  readonly hasValidNumerics: number;
+  readonly hasValidNumerics: boolean;
 
-  synchronizeData(): number;
+  synchronizeData(): boolean;
 
-  synchronizeOptimizerData(): number;
+  synchronizeOptimizerData(): boolean;
 
-  copyDataFromDeviceMemoryToBytesLengthSynchronizeWithDevice(bytes: interop.PointerConvertible, length: number, synchronizeWithDevice: number): number;
+  copyDataFromDeviceMemoryToBytesLengthSynchronizeWithDevice(bytes: interop.PointerConvertible, length: number, synchronizeWithDevice: boolean): boolean;
 
-  bindAndWriteDataToDevice(data: MLCTensorData, device: MLCDevice): number;
+  bindAndWriteDataToDevice(data: MLCTensorData, device: MLCDevice): boolean;
 
-  bindOptimizerDataDeviceData(data: NSArray<interop.Object> | Array<interop.Object>, deviceData: NSArray<interop.Object> | Array<interop.Object> | null): number;
+  bindOptimizerDataDeviceData(data: NSArray<interop.Object> | Array<interop.Object>, deviceData: NSArray<interop.Object> | Array<interop.Object> | null): boolean;
 
   tensorByQuantizingToTypeScaleBias(type: interop.Enum<typeof MLCDataType>, scale: number, bias: number): MLCTensor | null;
 
@@ -618,7 +618,7 @@ declare class MLCDevice extends NSObject implements NSCopying {
 
   static deviceWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLCDeviceType>): InstanceType<This> | null;
 
-  static deviceWithTypeSelectsMultipleComputeDevices<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLCDeviceType>, selectsMultipleComputeDevices: number): InstanceType<This> | null;
+  static deviceWithTypeSelectsMultipleComputeDevices<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof MLCDeviceType>, selectsMultipleComputeDevices: boolean): InstanceType<This> | null;
 
   static deviceWithGPUDevices<This extends abstract new (...args: any) => any>(this: This, gpus: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This> | null;
 
@@ -630,7 +630,7 @@ declare class MLCYOLOLossDescriptor extends NSObject implements NSCopying {
 
   readonly anchorBoxes: NSData;
 
-  shouldRescore: number;
+  shouldRescore: boolean;
 
   scaleSpatialPositionLoss: number;
 
@@ -654,11 +654,11 @@ declare class MLCYOLOLossDescriptor extends NSObject implements NSCopying {
 declare class MLCSGDOptimizer extends MLCOptimizer implements NSCopying {
   readonly momentumScale: number;
 
-  readonly usesNesterovMomentum: number;
+  readonly usesNesterovMomentum: boolean;
 
   static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
 
-  static optimizerWithDescriptorMomentumScaleUsesNesterovMomentum<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, usesNesterovMomentum: number): InstanceType<This>;
+  static optimizerWithDescriptorMomentumScaleUsesNesterovMomentum<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, usesNesterovMomentum: boolean): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -772,13 +772,13 @@ declare class MLCMultiheadAttentionDescriptor extends NSObject implements NSCopy
 
   readonly dropout: number;
 
-  readonly hasBiases: number;
+  readonly hasBiases: boolean;
 
-  readonly hasAttentionBiases: number;
+  readonly hasAttentionBiases: boolean;
 
-  readonly addsZeroAttention: number;
+  readonly addsZeroAttention: boolean;
 
-  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: number, hasAttentionBiases: number, addsZeroAttention: number): InstanceType<This> | null;
+  static descriptorWithModelDimensionKeyDimensionValueDimensionHeadCountDropoutHasBiasesHasAttentionBiasesAddsZeroAttention<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, keyDimension: number, valueDimension: number, headCount: number, dropout: number, hasBiases: boolean, hasAttentionBiases: boolean, addsZeroAttention: boolean): InstanceType<This> | null;
 
   static descriptorWithModelDimensionHeadCount<This extends abstract new (...args: any) => any>(this: This, modelDimension: number, headCount: number): InstanceType<This>;
 
@@ -846,9 +846,9 @@ declare class MLCConvolutionDescriptor extends NSObject implements NSCopying {
 
   readonly paddingSizeInY: number;
 
-  readonly isConvolutionTranspose: number;
+  readonly isConvolutionTranspose: boolean;
 
-  readonly usesDepthwiseConvolution: number;
+  readonly usesDepthwiseConvolution: boolean;
 
   static descriptorWithTypeKernelSizesInputFeatureChannelCountOutputFeatureChannelCountGroupCountStridesDilationRatesPaddingPolicyPaddingSizes<This extends abstract new (...args: any) => any>(this: This, convolutionType: interop.Enum<typeof MLCConvolutionType>, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, inputFeatureChannelCount: number, outputFeatureChannelCount: number, groupCount: number, strides: NSArray<interop.Object> | Array<interop.Object>, dilationRates: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
 
@@ -884,11 +884,11 @@ declare class MLCEmbeddingDescriptor extends NSObject implements NSCopying {
 
   readonly pNorm: NSNumber;
 
-  readonly scalesGradientByFrequency: number;
+  readonly scalesGradientByFrequency: boolean;
 
   static descriptorWithEmbeddingCountEmbeddingDimension<This extends abstract new (...args: any) => any>(this: This, embeddingCount: NSNumber, embeddingDimension: NSNumber): InstanceType<This> | null;
 
-  static descriptorWithEmbeddingCountEmbeddingDimensionPaddingIndexMaximumNormPNormScalesGradientByFrequency<This extends abstract new (...args: any) => any>(this: This, embeddingCount: NSNumber, embeddingDimension: NSNumber, paddingIndex: NSNumber | null, maximumNorm: NSNumber | null, pNorm: NSNumber | null, scalesGradientByFrequency: number): InstanceType<This> | null;
+  static descriptorWithEmbeddingCountEmbeddingDimensionPaddingIndexMaximumNormPNormScalesGradientByFrequency<This extends abstract new (...args: any) => any>(this: This, embeddingCount: NSNumber, embeddingDimension: NSNumber, paddingIndex: NSNumber | null, maximumNorm: NSNumber | null, pNorm: NSNumber | null, scalesGradientByFrequency: boolean): InstanceType<This> | null;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -938,7 +938,7 @@ declare class MLCPoolingDescriptor extends NSObject implements NSCopying {
 
   readonly paddingSizeInY: number;
 
-  readonly countIncludesPadding: number;
+  readonly countIncludesPadding: boolean;
 
   static poolingDescriptorWithTypeKernelSizeStride<This extends abstract new (...args: any) => any>(this: This, poolingType: interop.Enum<typeof MLCPoolingType>, kernelSize: number, stride: number): InstanceType<This>;
 
@@ -946,9 +946,9 @@ declare class MLCPoolingDescriptor extends NSObject implements NSCopying {
 
   static maxPoolingDescriptorWithKernelSizesStridesDilationRatesPaddingPolicyPaddingSizes<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, dilationRates: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
 
-  static averagePoolingDescriptorWithKernelSizesStridesPaddingPolicyPaddingSizesCountIncludesPadding<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null, countIncludesPadding: number): InstanceType<This>;
+  static averagePoolingDescriptorWithKernelSizesStridesPaddingPolicyPaddingSizesCountIncludesPadding<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null, countIncludesPadding: boolean): InstanceType<This>;
 
-  static averagePoolingDescriptorWithKernelSizesStridesDilationRatesPaddingPolicyPaddingSizesCountIncludesPadding<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, dilationRates: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null, countIncludesPadding: number): InstanceType<This>;
+  static averagePoolingDescriptorWithKernelSizesStridesDilationRatesPaddingPolicyPaddingSizesCountIncludesPadding<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, dilationRates: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null, countIncludesPadding: boolean): InstanceType<This>;
 
   static l2NormPoolingDescriptorWithKernelSizesStridesPaddingPolicyPaddingSizes<This extends abstract new (...args: any) => any>(this: This, kernelSizes: NSArray<interop.Object> | Array<interop.Object>, strides: NSArray<interop.Object> | Array<interop.Object>, paddingPolicy: interop.Enum<typeof MLCPaddingPolicy>, paddingSizes: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
 
@@ -962,11 +962,11 @@ declare class MLCUpsampleLayer extends MLCLayer {
 
   readonly sampleMode: interop.Enum<typeof MLCSampleMode>;
 
-  readonly alignsCorners: number;
+  readonly alignsCorners: boolean;
 
   static layerWithShape<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This> | null;
 
-  static layerWithShapeSampleModeAlignsCorners<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>, sampleMode: interop.Enum<typeof MLCSampleMode>, alignsCorners: number): InstanceType<This> | null;
+  static layerWithShapeSampleModeAlignsCorners<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>, sampleMode: interop.Enum<typeof MLCSampleMode>, alignsCorners: boolean): InstanceType<This> | null;
 }
 
 declare class MLCConvolutionLayer extends MLCLayer {
@@ -1062,7 +1062,7 @@ declare class MLCLossLayer extends MLCLayer {
 declare class MLCTensorParameter extends NSObject {
   readonly tensor: MLCTensor;
 
-  isUpdatable: number;
+  isUpdatable: boolean;
 
   static parameterWithTensor<This extends abstract new (...args: any) => any>(this: This, tensor: MLCTensor): InstanceType<This>;
 
@@ -1094,13 +1094,13 @@ declare class MLCAdamWOptimizer extends MLCOptimizer implements NSCopying {
 
   readonly epsilon: number;
 
-  readonly usesAMSGrad: number;
+  readonly usesAMSGrad: boolean;
 
   readonly timeStep: number;
 
   static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
 
-  static optimizerWithDescriptorBeta1Beta2EpsilonUsesAMSGradTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, usesAMSGrad: number, timeStep: number): InstanceType<This>;
+  static optimizerWithDescriptorBeta1Beta2EpsilonUsesAMSGradTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, usesAMSGrad: boolean, timeStep: number): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1112,11 +1112,11 @@ declare class MLCRMSPropOptimizer extends MLCOptimizer implements NSCopying {
 
   readonly epsilon: number;
 
-  readonly isCentered: number;
+  readonly isCentered: boolean;
 
   static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
 
-  static optimizerWithDescriptorMomentumScaleAlphaEpsilonIsCentered<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, alpha: number, epsilon: number, isCentered: number): InstanceType<This>;
+  static optimizerWithDescriptorMomentumScaleAlphaEpsilonIsCentered<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, alpha: number, epsilon: number, isCentered: boolean): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1126,9 +1126,9 @@ declare class MLCLayer extends NSObject {
 
   label: string;
 
-  isDebuggingEnabled: number;
+  isDebuggingEnabled: boolean;
 
-  static supportsDataTypeOnDevice(dataType: interop.Enum<typeof MLCDataType>, device: MLCDevice): number;
+  static supportsDataTypeOnDevice(dataType: interop.Enum<typeof MLCDataType>, device: MLCDevice): boolean;
 
   readonly deviceType: interop.Enum<typeof MLCDeviceType>;
 }
@@ -1168,7 +1168,7 @@ declare class MLCGraph extends NSObject {
 
   nodeWithLayerSources(layer: MLCLayer, sources: NSArray<interop.Object> | Array<interop.Object>): MLCTensor | null;
 
-  nodeWithLayerSourcesDisableUpdate(layer: MLCLayer, sources: NSArray<interop.Object> | Array<interop.Object>, disableUpdate: number): MLCTensor | null;
+  nodeWithLayerSourcesDisableUpdate(layer: MLCLayer, sources: NSArray<interop.Object> | Array<interop.Object>, disableUpdate: boolean): MLCTensor | null;
 
   nodeWithLayerSourcesLossLabels(layer: MLCLayer, sources: NSArray<interop.Object> | Array<interop.Object>, lossLabels: NSArray<interop.Object> | Array<interop.Object>): MLCTensor | null;
 
@@ -1188,9 +1188,9 @@ declare class MLCGraph extends NSObject {
 
   gatherWithDimensionSourceIndices(dimension: number, source: MLCTensor, indices: MLCTensor): MLCTensor | null;
 
-  bindAndWriteDataForInputsToDeviceBatchSizeSynchronous(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, device: MLCDevice, batchSize: number, synchronous: number): number;
+  bindAndWriteDataForInputsToDeviceBatchSizeSynchronous(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, device: MLCDevice, batchSize: number, synchronous: boolean): boolean;
 
-  bindAndWriteDataForInputsToDeviceSynchronous(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, device: MLCDevice, synchronous: number): number;
+  bindAndWriteDataForInputsToDeviceSynchronous(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, device: MLCDevice, synchronous: boolean): boolean;
 
   sourceTensorsForLayer(layer: MLCLayer): NSArray;
 
@@ -1230,21 +1230,21 @@ declare class MLCTrainingGraph extends MLCGraph {
 
   static graphWithGraphObjectsLossLayerOptimizer<This extends abstract new (...args: any) => any>(this: This, graphObjects: NSArray<interop.Object> | Array<interop.Object>, lossLayer: MLCLayer | null, optimizer: MLCOptimizer | null): InstanceType<This>;
 
-  addInputsLossLabels(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): number;
+  addInputsLossLabels(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
-  addInputsLossLabelsLossLabelWeights(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeights: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): number;
+  addInputsLossLabelsLossLabelWeights(inputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabels: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeights: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
-  addOutputs(outputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): number;
+  addOutputs(outputs: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): boolean;
 
-  stopGradientForTensors(tensors: NSArray<interop.Object> | Array<interop.Object>): number;
+  stopGradientForTensors(tensors: NSArray<interop.Object> | Array<interop.Object>): boolean;
 
-  compileWithOptionsDevice(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice): number;
+  compileWithOptionsDevice(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice): boolean;
 
-  compileWithOptionsDeviceInputTensorsInputTensorsData(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, inputTensorsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): number;
+  compileWithOptionsDeviceInputTensorsInputTensorsData(options: interop.Enum<typeof MLCGraphCompilationOptions>, device: MLCDevice, inputTensors: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, inputTensorsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): boolean;
 
-  compileOptimizer(optimizer: MLCOptimizer): number;
+  compileOptimizer(optimizer: MLCOptimizer): boolean;
 
-  linkWithGraphs(graphs: NSArray<interop.Object> | Array<interop.Object>): number;
+  linkWithGraphs(graphs: NSArray<interop.Object> | Array<interop.Object>): boolean;
 
   gradientTensorForInput(input: MLCTensor): MLCTensor | null;
 
@@ -1256,25 +1256,25 @@ declare class MLCTrainingGraph extends MLCGraph {
 
   allocateUserGradientForTensor(tensor: MLCTensor): MLCTensor | null;
 
-  executeWithInputsDataLossLabelsDataLossLabelWeightsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataLossLabelsDataLossLabelWeightsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeWithInputsDataLossLabelsDataLossLabelWeightsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeWithInputsDataLossLabelsDataLossLabelWeightsDataOutputsDataBatchSizeOptionsCompletionHandler(inputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, lossLabelsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, lossLabelWeightsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeForwardWithBatchSizeOptionsCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeForwardWithBatchSizeOptionsCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeForwardWithBatchSizeOptionsOutputsDataCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeForwardWithBatchSizeOptionsOutputsDataCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeGradientWithBatchSizeOptionsCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeGradientWithBatchSizeOptionsCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeGradientWithBatchSizeOptionsOutputsDataCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeGradientWithBatchSizeOptionsOutputsDataCompletionHandler(batchSize: number, options: interop.Enum<typeof MLCExecutionOptions>, outputsData: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
-  executeOptimizerUpdateWithOptionsCompletionHandler(options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): number;
+  executeOptimizerUpdateWithOptionsCompletionHandler(options: interop.Enum<typeof MLCExecutionOptions>, completionHandler: (p1: MLCTensor, p2: NSError, p3: number) => void | null): boolean;
 
   synchronizeUpdates(): void;
 
-  setTrainingTensorParameters(parameters: NSArray<interop.Object> | Array<interop.Object>): number;
+  setTrainingTensorParameters(parameters: NSArray<interop.Object> | Array<interop.Object>): boolean;
 
-  bindOptimizerDataDeviceDataWithTensor(data: NSArray<interop.Object> | Array<interop.Object>, deviceData: NSArray<interop.Object> | Array<interop.Object> | null, tensor: MLCTensor): number;
+  bindOptimizerDataDeviceDataWithTensor(data: NSArray<interop.Object> | Array<interop.Object>, deviceData: NSArray<interop.Object> | Array<interop.Object> | null, tensor: MLCTensor): boolean;
 }
 
 declare class MLCBatchNormalizationLayer extends MLCLayer {
@@ -1310,11 +1310,11 @@ declare class MLCPoolingLayer extends MLCLayer {
 declare class MLCMatMulDescriptor extends NSObject implements NSCopying {
   readonly alpha: number;
 
-  readonly transposesX: number;
+  readonly transposesX: boolean;
 
-  readonly transposesY: number;
+  readonly transposesY: boolean;
 
-  static descriptorWithAlphaTransposesXTransposesY<This extends abstract new (...args: any) => any>(this: This, alpha: number, transposesX: number, transposesY: number): InstanceType<This> | null;
+  static descriptorWithAlphaTransposesXTransposesY<This extends abstract new (...args: any) => any>(this: This, alpha: number, transposesX: boolean, transposesY: boolean): InstanceType<This> | null;
 
   static descriptor<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
@@ -1326,7 +1326,7 @@ declare class MLCOptimizer extends NSObject implements NSCopying {
 
   readonly gradientRescale: number;
 
-  appliesGradientClipping: number;
+  appliesGradientClipping: boolean;
 
   readonly gradientClipMax: number;
 

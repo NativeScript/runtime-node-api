@@ -407,6 +407,24 @@ declare interface MDLMeshBufferZone extends NSObjectProtocol {
 declare class MDLMeshBufferZone extends NativeObject implements MDLMeshBufferZone {
 }
 
+declare class MDLAnimatedQuaternion extends MDLAnimatedValue {
+  setFloatQuaternionAtTime(value: simd_quatf, time: number): void;
+
+  setDoubleQuaternionAtTime(value: simd_quatd, time: number): void;
+
+  floatQuaternionAtTime(time: number): simd_quatf;
+
+  doubleQuaternionAtTime(time: number): simd_quatd;
+
+  resetWithFloatQuaternionArrayAtTimesCount(valuesArray: interop.PointerConvertible, timesArray: interop.PointerConvertible, count: number): void;
+
+  resetWithDoubleQuaternionArrayAtTimesCount(valuesArray: interop.PointerConvertible, timesArray: interop.PointerConvertible, count: number): void;
+
+  getFloatQuaternionArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
+
+  getDoubleQuaternionArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
+}
+
 declare class MDLStereoscopicCamera extends MDLCamera {
   interPupillaryDistance: number;
 
@@ -1218,24 +1236,6 @@ declare class MDLAnimatedMatrix4x4 extends MDLAnimatedValue {
   getFloat4x4ArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
 
   getDouble4x4ArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
-}
-
-declare class MDLAnimatedQuaternion extends MDLAnimatedValue {
-  setFloatQuaternionAtTime(value: simd_quatf, time: number): void;
-
-  setDoubleQuaternionAtTime(value: simd_quatd, time: number): void;
-
-  floatQuaternionAtTime(time: number): simd_quatf;
-
-  doubleQuaternionAtTime(time: number): simd_quatd;
-
-  resetWithFloatQuaternionArrayAtTimesCount(valuesArray: interop.PointerConvertible, timesArray: interop.PointerConvertible, count: number): void;
-
-  resetWithDoubleQuaternionArrayAtTimesCount(valuesArray: interop.PointerConvertible, timesArray: interop.PointerConvertible, count: number): void;
-
-  getFloatQuaternionArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
-
-  getDoubleQuaternionArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
 }
 
 declare class MDLAnimatedVector3 extends MDLAnimatedValue {

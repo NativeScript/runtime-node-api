@@ -374,7 +374,7 @@ declare class CKSyncEngineConfiguration extends NSObject {
 
   delegate: CKSyncEngineDelegate | null;
 
-  automaticallySync: number;
+  automaticallySync: boolean;
 
   subscriptionID: string;
 }
@@ -411,13 +411,13 @@ declare class CKSyncEngineFetchChangesOptions extends NSObject implements NSCopy
 declare class CKSyncEngineRecordZoneChangeBatch extends NSObject {
   initWithPendingChangesRecordProvider(pendingChanges: NSArray<interop.Object> | Array<interop.Object>, recordProvider: (p1: CKRecordID) => CKRecord | null): this;
 
-  initWithRecordsToSaveRecordIDsToDeleteAtomicByZone(recordsToSave: NSArray<interop.Object> | Array<interop.Object> | null, recordIDsToDelete: NSArray<interop.Object> | Array<interop.Object> | null, atomicByZone: number): this;
+  initWithRecordsToSaveRecordIDsToDeleteAtomicByZone(recordsToSave: NSArray<interop.Object> | Array<interop.Object> | null, recordIDsToDelete: NSArray<interop.Object> | Array<interop.Object> | null, atomicByZone: boolean): this;
 
   readonly recordsToSave: NSArray;
 
   readonly recordIDsToDelete: NSArray;
 
-  atomicByZone: number;
+  atomicByZone: boolean;
 }
 
 declare class CKSyncEnginePendingDatabaseChange extends NSObject {
@@ -427,7 +427,7 @@ declare class CKSyncEnginePendingDatabaseChange extends NSObject {
 }
 
 declare class CKSyncEngineStateSerialization extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -474,7 +474,7 @@ declare class CKModifyRecordsOperation extends CKDatabaseOperation {
 
   clientChangeTokenData: NSData;
 
-  atomic: number;
+  atomic: boolean;
 
   perRecordProgressBlock: (p1: CKRecord, p2: number) => void;
 
@@ -510,7 +510,7 @@ declare class CKFetchRecordZoneChangesOptions extends NSObject implements NSSecu
   get desiredKeys(): NSArray;
   set desiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -537,7 +537,7 @@ declare class CKFetchRecordChangesOperation extends CKDatabaseOperation {
 
   recordWithIDWasDeletedBlock: (p1: CKRecordID) => void;
 
-  readonly moreComing: number;
+  readonly moreComing: boolean;
 
   fetchRecordChangesCompletionBlock: (p1: CKServerChangeToken, p2: NSData, p3: NSError) => void | null;
 }
@@ -574,7 +574,7 @@ declare class CKUserIdentityLookupInfo extends NSObject implements NSSecureCodin
 
   readonly userRecordID: CKRecordID;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -590,11 +590,11 @@ declare class CKUserIdentity extends NSObject implements NSSecureCoding, NSCopyi
 
   readonly nameComponents: NSPersonNameComponents;
 
-  readonly hasiCloudAccount: number;
+  readonly hasiCloudAccount: boolean;
 
   readonly contactIdentifiers: NSArray;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -626,7 +626,7 @@ declare class CKShareMetadata extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -658,7 +658,7 @@ declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
 
   removeParticipant(participant: CKShareParticipant): void;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -668,7 +668,7 @@ declare class CKShare extends CKRecord implements NSSecureCoding, NSCopying {
 declare class CKServerChangeToken extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -682,7 +682,7 @@ declare class CKRecordZoneID extends NSObject implements NSSecureCoding, NSCopyi
 
   readonly ownerName: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -704,7 +704,7 @@ declare class CKRecordZone extends NSObject implements NSSecureCoding, NSCopying
 
   readonly share: CKReference;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -725,7 +725,7 @@ declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
   get sortDescriptors(): NSArray;
   set sortDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -749,7 +749,7 @@ declare class CKOperationGroup extends NSObject implements NSSecureCoding {
 
   expectedReceiveSize: interop.Enum<typeof CKOperationGroupTransferSize>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 }
@@ -767,7 +767,7 @@ declare class CKQueryNotification extends CKNotification {
 declare class CKNotificationID extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -787,9 +787,9 @@ declare class CKOperation extends NSOperation {
 
   container: CKContainer;
 
-  allowsCellularAccess: number;
+  allowsCellularAccess: boolean;
 
-  isLongLived: number;
+  isLongLived: boolean;
 
   timeoutIntervalForRequest: number;
 
@@ -804,7 +804,7 @@ declare class CKFetchRecordZoneChangesConfiguration extends NSObject implements 
   get desiredKeys(): NSArray;
   set desiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -876,7 +876,7 @@ declare class CKDatabaseSubscription extends CKSubscription implements NSSecureC
 
   recordType: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -900,7 +900,7 @@ declare class CKQuerySubscription extends CKSubscription implements NSSecureCodi
 
   readonly querySubscriptionOptions: interop.Enum<typeof CKQuerySubscriptionOptions>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -922,7 +922,7 @@ declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSec
 
   readonly relativeLocation: CLLocation;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 }
@@ -930,7 +930,7 @@ declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSec
 declare class CKQueryCursor extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -962,7 +962,7 @@ declare class CKNotification extends NSObject {
 
   readonly subscriptionOwnerUserRecordID: CKRecordID;
 
-  readonly isPruned: number;
+  readonly isPruned: boolean;
 
   readonly subscriptionID: string;
 
@@ -1008,7 +1008,7 @@ declare class CKRecordZoneSubscription extends CKSubscription implements NSSecur
 
   recordType: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1020,7 +1020,7 @@ declare class CKSyncEngineState extends NSObject {
 
   readonly pendingDatabaseChanges: NSArray;
 
-  hasPendingUntrackedChanges: number;
+  hasPendingUntrackedChanges: boolean;
 
   readonly zoneIDsWithUnfetchedServerChanges: NSArray;
 
@@ -1040,7 +1040,7 @@ declare class CKSubscription extends NSObject implements NSSecureCoding, NSCopyi
 
   notificationInfo: CKNotificationInfo;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1065,7 +1065,7 @@ declare class CKFetchShareMetadataOperation extends CKOperation {
   get shareURLs(): NSArray;
   set shareURLs(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  shouldFetchRootRecord: number;
+  shouldFetchRootRecord: boolean;
 
   get rootRecordDesiredKeys(): NSArray;
   set rootRecordDesiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
@@ -1092,9 +1092,9 @@ declare class CKSyncEngineSendChangesScope extends NSObject implements NSCopying
 
   initWithRecordIDs(recordIDs: NSSet | null): this;
 
-  containsRecordID(recordID: CKRecordID): number;
+  containsRecordID(recordID: CKRecordID): boolean;
 
-  containsPendingRecordZoneChange(pendingRecordZoneChange: CKSyncEnginePendingRecordZoneChange): number;
+  containsPendingRecordZoneChange(pendingRecordZoneChange: CKSyncEnginePendingRecordZoneChange): boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1114,7 +1114,7 @@ declare class CKRecordID extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly zoneID: CKRecordZoneID;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1168,7 +1168,7 @@ declare class CKFetchDatabaseChangesOperation extends CKDatabaseOperation {
 
   resultsLimit: number;
 
-  fetchAllChanges: number;
+  fetchAllChanges: boolean;
 
   recordZoneWithIDChangedBlock: (p1: CKRecordZoneID) => void;
 
@@ -1180,7 +1180,7 @@ declare class CKFetchDatabaseChangesOperation extends CKDatabaseOperation {
 
   changeTokenUpdatedBlock: (p1: CKServerChangeToken) => void;
 
-  fetchDatabaseChangesCompletionBlock: (p1: CKServerChangeToken, p2: number, p3: NSError) => void | null;
+  fetchDatabaseChangesCompletionBlock: (p1: CKServerChangeToken, p2: boolean, p3: NSError) => void | null;
 }
 
 declare class CKDatabaseOperation extends CKOperation {
@@ -1263,7 +1263,7 @@ declare class CKAllowedSharingOptions extends NSObject implements NSSecureCoding
 
   static readonly standardOptions: CKAllowedSharingOptions;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1281,7 +1281,7 @@ declare class CKReference extends NSObject implements NSSecureCoding, NSCopying 
 
   readonly recordID: CKRecordID;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1318,7 +1318,7 @@ declare class CKShareParticipant extends NSObject implements NSSecureCoding, NSC
 
   readonly participantID: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1376,17 +1376,17 @@ declare class CKNotificationInfo extends NSObject implements NSSecureCoding, NSC
   get desiredKeys(): NSArray;
   set desiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  shouldBadge: number;
+  shouldBadge: boolean;
 
-  shouldSendContentAvailable: number;
+  shouldSendContentAvailable: boolean;
 
-  shouldSendMutableContent: number;
+  shouldSendMutableContent: boolean;
 
   category: string;
 
   collapseIDKey: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1454,7 +1454,7 @@ declare class CKFetchRecordZoneChangesOperation extends CKDatabaseOperation {
   get configurationsByRecordZoneID(): NSDictionary;
   set configurationsByRecordZoneID(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
-  fetchAllChanges: number;
+  fetchAllChanges: boolean;
 
   recordChangedBlock: (p1: CKRecord) => void;
 
@@ -1464,7 +1464,7 @@ declare class CKFetchRecordZoneChangesOperation extends CKDatabaseOperation {
 
   recordZoneChangeTokensUpdatedBlock: (p1: CKRecordZoneID, p2: CKServerChangeToken, p3: NSData) => void | null;
 
-  recordZoneFetchCompletionBlock: (p1: CKRecordZoneID, p2: CKServerChangeToken, p3: NSData, p4: number, p5: NSError) => void | null;
+  recordZoneFetchCompletionBlock: (p1: CKRecordZoneID, p2: CKServerChangeToken, p3: NSData, p4: boolean, p5: NSError) => void | null;
 
   fetchRecordZoneChangesCompletionBlock: (p1: NSError) => void | null;
 
@@ -1479,9 +1479,9 @@ declare class CKOperationConfiguration extends NSObject {
 
   qualityOfService: interop.Enum<typeof NSQualityOfService>;
 
-  allowsCellularAccess: number;
+  allowsCellularAccess: boolean;
 
-  isLongLived: number;
+  isLongLived: boolean;
 
   timeoutIntervalForRequest: number;
 
@@ -1535,7 +1535,7 @@ declare class CKRecord extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly encryptedValues: CKRecordKeyValueSetting;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1571,7 +1571,7 @@ declare class CKSyncEngineFetchChangesScope extends NSObject implements NSCopyin
 
   initWithExcludedZoneIDs(zoneIDs: NSSet): this;
 
-  containsZoneID(zoneID: CKRecordZoneID): number;
+  containsZoneID(zoneID: CKRecordZoneID): boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

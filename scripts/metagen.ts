@@ -72,24 +72,24 @@ const sdks: Record<string, SDK> = {
     path: getSDKPath("macosx"),
     frameworks: [...COMMON_FRAMEWORKS, ...MACOS_FRAMEWORKS],
     targets: {
-      arm64: "arm64-apple-macos11.0",
       x86_64: "x86_64-apple-macos11.0",
+      arm64: "arm64-apple-macos11.0",
     },
   },
   ios: {
     path: getSDKPath("iphoneos"),
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
     targets: {
-      arm64: "arm64-apple-ios13.0",
       x86_64: "x86_64-apple-ios13.0",
+      arm64: "arm64-apple-ios13.0",
     },
   },
   "ios-sim": {
     path: getSDKPath("iphonesimulator"),
     frameworks: [...COMMON_FRAMEWORKS, ...IOS_FRAMEWORKS],
     targets: {
-      arm64: "arm64-apple-ios13.0-simulator",
       x86_64: "x86_64-apple-ios13.0-simulator",
+      arm64: "arm64-apple-ios13.0-simulator",
     },
   },
 };

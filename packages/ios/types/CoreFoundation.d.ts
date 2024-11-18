@@ -2161,11 +2161,11 @@ declare function CFStringCreateCopy(alloc: interop.PointerConvertible, theString
 
 declare function CFStringCreateWithFormat(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible): interop.Pointer;
 
-declare function CFStringCreateWithFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */): interop.Pointer;
+declare function CFStringCreateWithFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string): interop.Pointer;
 
 declare function CFStringCreateStringWithValidatedFormat(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, errorPtr: interop.PointerConvertible): interop.Pointer;
 
-declare function CFStringCreateStringWithValidatedFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */, errorPtr: interop.PointerConvertible): interop.Pointer;
+declare function CFStringCreateStringWithValidatedFormatAndArguments(alloc: interop.PointerConvertible, formatOptions: interop.PointerConvertible, validFormatSpecifiers: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string, errorPtr: interop.PointerConvertible): interop.Pointer;
 
 declare function CFStringCreateMutable(alloc: interop.PointerConvertible, maxLength: number): interop.Pointer;
 
@@ -2257,7 +2257,7 @@ declare function CFStringAppendCString(theString: interop.PointerConvertible, cS
 
 declare function CFStringAppendFormat(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible): void;
 
-declare function CFStringAppendFormatAndArguments(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: unknown /* const array */): void;
+declare function CFStringAppendFormatAndArguments(theString: interop.PointerConvertible, formatOptions: interop.PointerConvertible, format: interop.PointerConvertible, arguments$: string): void;
 
 declare function CFStringInsert(str: interop.PointerConvertible, idx: number, insertedStr: interop.PointerConvertible): void;
 

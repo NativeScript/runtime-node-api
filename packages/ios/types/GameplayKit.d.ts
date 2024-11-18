@@ -180,6 +180,28 @@ declare class GKRidgedNoiseSource extends GKCoherentNoiseSource {
 declare class GKNoiseSource extends NSObject {
 }
 
+declare class GKDecisionTree extends NSObject implements NSSecureCoding {
+  readonly rootNode: GKDecisionNode;
+
+  randomSource: GKRandomSource;
+
+  initWithAttribute(attribute: NSObject): this;
+
+  initWithExamplesActionsAttributes(examples: NSArray<interop.Object> | Array<interop.Object>, actions: NSArray<interop.Object> | Array<interop.Object>, attributes: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  initWithURLError(url: NSURL, error: NSError | null): this;
+
+  exportToURLError(url: NSURL, error: NSError | null): boolean;
+
+  findActionForAnswers(answers: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSObject;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 declare class GKLinearCongruentialRandomSource extends GKRandomSource {
   seed: number;
 
@@ -639,28 +661,6 @@ declare class GKBillowNoiseSource extends GKCoherentNoiseSource {
   initWithFrequencyOctaveCountPersistenceLacunaritySeed(frequency: number, octaveCount: number, persistence: number, lacunarity: number, seed: number): this;
 }
 
-declare class GKDecisionTree extends NSObject implements NSSecureCoding {
-  readonly rootNode: GKDecisionNode;
-
-  randomSource: GKRandomSource;
-
-  initWithAttribute(attribute: NSObject): this;
-
-  initWithExamplesActionsAttributes(examples: NSArray<interop.Object> | Array<interop.Object>, actions: NSArray<interop.Object> | Array<interop.Object>, attributes: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  initWithURLError(url: NSURL, error: NSError | null): this;
-
-  exportToURLError(url: NSURL, error: NSError | null): boolean;
-
-  findActionForAnswers(answers: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSObject;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class GKCoherentNoiseSource extends GKNoiseSource {
   frequency: number;
 
@@ -683,28 +683,6 @@ declare class GKRule extends NSObject {
   static ruleWithPredicateRetractingFactGrade<This extends abstract new (...args: any) => any>(this: This, predicate: NSPredicate, fact: NSObject, grade: number): InstanceType<This>;
 
   static ruleWithBlockPredicateAction<This extends abstract new (...args: any) => any>(this: This, predicate: (p1: GKRuleSystem) => boolean, action: (p1: GKRuleSystem) => void): InstanceType<This>;
-}
-
-declare class GKAgent extends GKComponent implements NSSecureCoding {
-  delegate: GKAgentDelegate;
-
-  behavior: GKBehavior;
-
-  mass: number;
-
-  radius: number;
-
-  speed: number;
-
-  maxAcceleration: number;
-
-  maxSpeed: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GKCheckerboardNoiseSource extends GKNoiseSource {
@@ -853,6 +831,28 @@ declare class GKPath extends NSObject {
   float2AtIndex(index: number): unknown /* ext vector */;
 
   float3AtIndex(index: number): unknown /* ext vector */;
+}
+
+declare class GKAgent extends GKComponent implements NSSecureCoding {
+  delegate: GKAgentDelegate;
+
+  behavior: GKBehavior;
+
+  mass: number;
+
+  radius: number;
+
+  speed: number;
+
+  maxAcceleration: number;
+
+  maxSpeed: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GKVoronoiNoiseSource extends GKNoiseSource {

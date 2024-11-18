@@ -314,7 +314,7 @@ declare function CAFrameRateRangeIsEqualToRange(range: CAFrameRateRange, other: 
 declare interface CAAnimationDelegate extends NSObjectProtocol {
   animationDidStart?(anim: CAAnimation): void;
 
-  animationDidStopFinished?(anim: CAAnimation, flag: number): void;
+  animationDidStopFinished?(anim: CAAnimation, flag: boolean): void;
 }
 
 declare class CAAnimationDelegate extends NativeObject implements CAAnimationDelegate {
@@ -333,7 +333,7 @@ declare interface CAMediaTiming {
 
   repeatDuration: number;
 
-  autoreverses: number;
+  autoreverses: boolean;
 
   fillMode: string;
 }
@@ -471,7 +471,7 @@ declare class CAEmitterLayer extends CALayer {
 
   renderMode: string;
 
-  preservesDepth: number;
+  preservesDepth: boolean;
 
   velocity: number;
 
@@ -501,7 +501,7 @@ declare class CAConstraint extends NSObject implements NSSecureCoding {
 
   readonly offset: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -547,7 +547,7 @@ declare class CASpringAnimation extends CABasicAnimation {
 
   initialVelocity: number;
 
-  allowsOverdamping: number;
+  allowsOverdamping: boolean;
 
   readonly settlingDuration: number;
 
@@ -569,13 +569,13 @@ declare class CATextLayer extends CALayer {
   get foregroundColor(): interop.Pointer;
   set foregroundColor(value: interop.PointerConvertible);
 
-  isWrapped: number;
+  isWrapped: boolean;
 
   truncationMode: string;
 
   alignmentMode: string;
 
-  allowsFontSubpixelQuantization: number;
+  allowsFontSubpixelQuantization: boolean;
 }
 
 declare class CAMetalLayer extends CALayer {
@@ -585,7 +585,7 @@ declare class CAMetalLayer extends CALayer {
 
   pixelFormat: interop.Enum<typeof MTLPixelFormat>;
 
-  framebufferOnly: number;
+  framebufferOnly: boolean;
 
   drawableSize: CGSize;
 
@@ -593,18 +593,18 @@ declare class CAMetalLayer extends CALayer {
 
   maximumDrawableCount: number;
 
-  presentsWithTransaction: number;
+  presentsWithTransaction: boolean;
 
   get colorspace(): interop.Pointer;
   set colorspace(value: interop.PointerConvertible);
 
-  wantsExtendedDynamicRangeContent: number;
+  wantsExtendedDynamicRangeContent: boolean;
 
   EDRMetadata: CAEDRMetadata;
 
-  displaySyncEnabled: number;
+  displaySyncEnabled: boolean;
 
-  allowsNextDrawableTimeout: number;
+  allowsNextDrawableTimeout: boolean;
 
   get developerHUDProperties(): NSDictionary;
   set developerHUDProperties(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
@@ -616,7 +616,7 @@ declare class CATransformLayer extends CALayer {
 declare class CAReplicatorLayer extends CALayer {
   instanceCount: number;
 
-  preservesDepth: number;
+  preservesDepth: boolean;
 
   instanceDelay: number;
 
@@ -663,11 +663,11 @@ declare class CAEmitterCell extends NSObject implements NSSecureCoding, CAMediaT
 
   static defaultValueForKey(key: string): interop.Object;
 
-  shouldArchiveValueForKey(key: string): number;
+  shouldArchiveValueForKey(key: string): boolean;
 
   name: string;
 
-  isEnabled: number;
+  isEnabled: boolean;
 
   birthRate: number;
 
@@ -738,7 +738,7 @@ declare class CAEmitterCell extends NSObject implements NSSecureCoding, CAMediaT
   get style(): NSDictionary;
   set style(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -756,7 +756,7 @@ declare class CAEmitterCell extends NSObject implements NSSecureCoding, CAMediaT
 
   repeatDuration: number;
 
-  autoreverses: number;
+  autoreverses: boolean;
 
   fillMode: string;
 }
@@ -778,11 +778,11 @@ declare class CAEDRMetadata extends NSObject implements NSCopying, NSSecureCodin
 
   static readonly HLGMetadata: CAEDRMetadata;
 
-  static readonly isAvailable: number;
+  static readonly isAvailable: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -802,7 +802,7 @@ declare class CADisplayLink extends NSObject {
 
   readonly targetTimestamp: number;
 
-  isPaused: number;
+  isPaused: boolean;
 
   preferredFrameRateRange: CAFrameRateRange;
 }
@@ -829,9 +829,9 @@ declare class CAPropertyAnimation extends CAAnimation {
 
   keyPath: string;
 
-  isAdditive: number;
+  isAdditive: boolean;
 
-  isCumulative: number;
+  isCumulative: boolean;
 
   valueFunction: CAValueFunction;
 }
@@ -849,9 +849,9 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   static defaultValueForKey(key: string): interop.Object;
 
-  static needsDisplayForKey(key: string): number;
+  static needsDisplayForKey(key: string): boolean;
 
-  shouldArchiveValueForKey(key: string): number;
+  shouldArchiveValueForKey(key: string): boolean;
 
   bounds: CGRect;
 
@@ -871,13 +871,13 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   frame: CGRect;
 
-  isHidden: number;
+  isHidden: boolean;
 
-  isDoubleSided: number;
+  isDoubleSided: boolean;
 
-  isGeometryFlipped: number;
+  isGeometryFlipped: boolean;
 
-  contentsAreFlipped(): number;
+  contentsAreFlipped(): boolean;
 
   readonly superlayer: CALayer;
 
@@ -900,7 +900,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   mask: CALayer;
 
-  masksToBounds: number;
+  masksToBounds: boolean;
 
   convertPointFromLayer(p: CGPoint, l: CALayer | null): CGPoint;
 
@@ -916,7 +916,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   hitTest(p: CGPoint): CALayer;
 
-  containsPoint(p: CGPoint): number;
+  containsPoint(p: CGPoint): boolean;
 
   contents: interop.Object;
 
@@ -930,7 +930,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   contentsFormat: string;
 
-  wantsExtendedDynamicRangeContent: number;
+  wantsExtendedDynamicRangeContent: boolean;
 
   toneMapMode: string;
 
@@ -940,7 +940,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   minificationFilterBias: number;
 
-  isOpaque: number;
+  isOpaque: boolean;
 
   display(): void;
 
@@ -948,13 +948,13 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   setNeedsDisplayInRect(r: CGRect): void;
 
-  needsDisplay(): number;
+  needsDisplay(): boolean;
 
   displayIfNeeded(): void;
 
-  needsDisplayOnBoundsChange: number;
+  needsDisplayOnBoundsChange: boolean;
 
-  drawsAsynchronously: number;
+  drawsAsynchronously: boolean;
 
   drawInContext(ctx: interop.PointerConvertible): void;
 
@@ -962,7 +962,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   edgeAntialiasingMask: interop.Enum<typeof CAEdgeAntialiasingMask>;
 
-  allowsEdgeAntialiasing: number;
+  allowsEdgeAntialiasing: boolean;
 
   get backgroundColor(): interop.Pointer;
   set backgroundColor(value: interop.PointerConvertible);
@@ -982,7 +982,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   opacity: number;
 
-  allowsGroupOpacity: number;
+  allowsGroupOpacity: boolean;
 
   compositingFilter: interop.Object;
 
@@ -992,7 +992,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
   get backgroundFilters(): NSArray;
   set backgroundFilters(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  shouldRasterize: number;
+  shouldRasterize: boolean;
 
   rasterizationScale: number;
 
@@ -1016,7 +1016,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   setNeedsLayout(): void;
 
-  needsLayout(): number;
+  needsLayout(): boolean;
 
   layoutIfNeeded(): void;
 
@@ -1063,7 +1063,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   readonly visibleRect: CGRect;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1081,7 +1081,7 @@ declare class CALayer extends NSObject implements NSSecureCoding, CAMediaTiming 
 
   repeatDuration: number;
 
-  autoreverses: number;
+  autoreverses: boolean;
 
   fillMode: string;
 }
@@ -1091,7 +1091,7 @@ declare class CAValueFunction extends NSObject implements NSSecureCoding {
 
   readonly name: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1117,9 +1117,9 @@ declare class CATransaction extends NSObject {
 
   static setAnimationTimingFunction(function$: CAMediaTimingFunction | null): void;
 
-  static disableActions(): number;
+  static disableActions(): boolean;
 
-  static setDisableActions(flag: number): void;
+  static setDisableActions(flag: boolean): void;
 
   static completionBlock(): () => void;
 
@@ -1155,13 +1155,13 @@ declare class CAMetalDisplayLink extends NSObject {
 
   preferredFrameRateRange: CAFrameRateRange;
 
-  isPaused: number;
+  isPaused: boolean;
 }
 
 declare class CAOpenGLLayer extends CALayer {
-  isAsynchronous: number;
+  isAsynchronous: boolean;
 
-  canDrawInCGLContextPixelFormatForLayerTimeDisplayTime(ctx: interop.PointerConvertible, pf: interop.PointerConvertible, t: number, ts: interop.PointerConvertible): number;
+  canDrawInCGLContextPixelFormatForLayerTimeDisplayTime(ctx: interop.PointerConvertible, pf: interop.PointerConvertible, t: number, ts: interop.PointerConvertible): boolean;
 
   drawInCGLContextPixelFormatForLayerTimeDisplayTime(ctx: interop.PointerConvertible, pf: interop.PointerConvertible, t: number, ts: interop.PointerConvertible): void;
 
@@ -1176,7 +1176,7 @@ declare class CAOpenGLLayer extends CALayer {
   get colorspace(): interop.Pointer;
   set colorspace(value: interop.PointerConvertible);
 
-  wantsExtendedDynamicRangeContent: number;
+  wantsExtendedDynamicRangeContent: boolean;
 }
 
 declare class CAScrollLayer extends CALayer {
@@ -1198,19 +1198,19 @@ declare class CAAnimation extends NSObject implements NSSecureCoding, NSCopying,
 
   static defaultValueForKey(key: string): interop.Object;
 
-  shouldArchiveValueForKey(key: string): number;
+  shouldArchiveValueForKey(key: string): boolean;
 
   timingFunction: CAMediaTimingFunction;
 
   delegate: CAAnimationDelegate;
 
-  isRemovedOnCompletion: number;
+  isRemovedOnCompletion: boolean;
 
   preferredFrameRateRange: CAFrameRateRange;
 
   static animationWithSCNAnimation(animation: SCNAnimation): CAAnimation;
 
-  usesSceneTimeBase: number;
+  usesSceneTimeBase: boolean;
 
   fadeInDuration: number;
 
@@ -1219,7 +1219,7 @@ declare class CAAnimation extends NSObject implements NSSecureCoding, NSCopying,
   get animationEvents(): NSArray;
   set animationEvents(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1239,7 +1239,7 @@ declare class CAAnimation extends NSObject implements NSSecureCoding, NSCopying,
 
   repeatDuration: number;
 
-  autoreverses: number;
+  autoreverses: boolean;
 
   fillMode: string;
 
@@ -1255,7 +1255,7 @@ declare class CAConstraintLayoutManager extends NSObject implements CALayoutMana
 
   layoutSublayersOfLayer(layer: CALayer): void;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1271,15 +1271,15 @@ declare class CAConstraintLayoutManager extends NSObject implements CALayoutMana
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1305,7 +1305,7 @@ declare class CAMediaTimingFunction extends NSObject implements NSSecureCoding {
 
   getControlPointAtIndexValues(idx: number, ptr: interop.PointerConvertible): void;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

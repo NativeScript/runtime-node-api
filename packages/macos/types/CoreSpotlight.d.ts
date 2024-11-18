@@ -78,7 +78,7 @@ declare interface CSSearchableIndexDelegate extends NSObjectProtocol {
 
   dataForSearchableIndexItemIdentifierTypeIdentifierError?(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, outError: interop.PointerConvertible): NSData;
 
-  fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError?(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: number, outError: interop.PointerConvertible): NSURL;
+  fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError?(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: boolean, outError: interop.PointerConvertible): NSURL;
 }
 
 declare class CSSearchableIndexDelegate extends NativeObject implements CSSearchableIndexDelegate {
@@ -109,9 +109,9 @@ declare class CSUserQueryContext extends CSSearchQueryContext {
 
   static userQueryContextWithCurrentSuggestion(currentSuggestion: CSSuggestion | null): CSUserQueryContext;
 
-  enableRankedResults: number;
+  enableRankedResults: boolean;
 
-  disableSemanticSearch: number;
+  disableSemanticSearch: boolean;
 
   maxResultCount: number;
 
@@ -125,7 +125,7 @@ declare class CSSearchQuery extends NSObject {
 
   initWithQueryStringAttributes(queryString: string, attributes: NSArray<interop.Object> | Array<interop.Object> | null): this;
 
-  readonly isCancelled: number;
+  readonly isCancelled: boolean;
 
   readonly foundItemCount: number;
 
@@ -144,7 +144,7 @@ declare class CSSearchQuery extends NSObject {
 declare class CSIndexExtensionRequestHandler extends NSObject implements NSExtensionRequestHandling, CSSearchableIndexDelegate {
   beginRequestWithExtensionContext(context: NSExtensionContext): void;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -160,15 +160,15 @@ declare class CSIndexExtensionRequestHandler extends NSObject implements NSExten
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -194,13 +194,13 @@ declare class CSIndexExtensionRequestHandler extends NSObject implements NSExten
 
   dataForSearchableIndexItemIdentifierTypeIdentifierError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, outError: interop.PointerConvertible): NSData;
 
-  fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: number, outError: interop.PointerConvertible): NSURL;
+  fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: boolean, outError: interop.PointerConvertible): NSURL;
 }
 
 declare class CSSearchableIndex extends NSObject {
   indexDelegate: CSSearchableIndexDelegate;
 
-  static isIndexingAvailable(): number;
+  static isIndexingAvailable(): boolean;
 
   static defaultSearchableIndex<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
@@ -240,9 +240,9 @@ declare class CSSearchableItem extends NSObject implements NSSecureCoding, NSCop
 
   attributeSet: CSSearchableItemAttributeSet;
 
-  isUpdate: number;
+  isUpdate: boolean;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -254,21 +254,21 @@ declare class CSSearchableItem extends NSObject implements NSSecureCoding, NSCop
 declare class CSCustomAttributeKey extends NSObject implements NSCopying, NSSecureCoding {
   initWithKeyName(keyName: string): this;
 
-  initWithKeyNameSearchableSearchableByDefaultUniqueMultiValued(keyName: string, searchable: number, searchableByDefault: number, unique: number, multiValued: number): this;
+  initWithKeyNameSearchableSearchableByDefaultUniqueMultiValued(keyName: string, searchable: boolean, searchableByDefault: boolean, unique: boolean, multiValued: boolean): this;
 
   readonly keyName: string;
 
-  readonly isSearchable: number;
+  readonly isSearchable: boolean;
 
-  readonly isSearchableByDefault: number;
+  readonly isSearchableByDefault: boolean;
 
-  readonly isUnique: number;
+  readonly isUnique: boolean;
 
-  readonly isMultiValued: number;
+  readonly isMultiValued: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -286,7 +286,7 @@ declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, N
 
   sourceOptions: interop.Enum<typeof CSSearchQuerySourceOptions>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -302,11 +302,11 @@ declare class CSLocalizedString extends NSString {
 }
 
 declare class CSImportExtension extends NSObject implements NSExtensionRequestHandling {
-  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): number;
+  updateAttributesForFileAtURLError(attributes: CSSearchableItemAttributeSet, contentURL: NSURL, error: interop.PointerConvertible): boolean;
 
   beginRequestWithExtensionContext(context: NSExtensionContext): void;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -322,15 +322,15 @@ declare class CSImportExtension extends NSObject implements NSExtensionRequestHa
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -358,7 +358,7 @@ declare class CSPerson extends NSObject implements NSSecureCoding, NSCopying {
 
   contactIdentifier: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -376,7 +376,7 @@ declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying
 
   compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -806,7 +806,7 @@ declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

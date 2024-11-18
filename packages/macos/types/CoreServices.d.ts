@@ -15875,26 +15875,6 @@ declare class OpaqueAreaID {
   constructor(init?: OpaqueAreaID);
 }
 
-declare class RegisterInformationIntel64 {
-  constructor(init?: RegisterInformationIntel64);
-  RAX: number;
-  RBX: number;
-  RCX: number;
-  RDX: number;
-  RDI: number;
-  RSI: number;
-  RBP: number;
-  RSP: number;
-  R8: number;
-  R9: number;
-  R10: number;
-  R11: number;
-  R12: number;
-  R13: number;
-  R14: number;
-  R15: number;
-}
-
 declare class DateCacheRecord {
   constructor(init?: DateCacheRecord);
   hidden: unknown /* const array */;
@@ -16034,6 +16014,16 @@ declare class FSEventStreamContext {
   retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
   release: (p1: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+}
+
+declare class RegisterInformation {
+  constructor(init?: RegisterInformation);
+  __unusedRegisterInformationField: interop.Pointer;
+}
+
+declare class VectorInformation {
+  constructor(init?: VectorInformation);
+  __unusedVectorInformationField: interop.Pointer;
 }
 
 declare class LocalDateTime {
@@ -16515,6 +16505,12 @@ declare class ContainerChunk {
   formType: number;
 }
 
+declare class ChunkHeader {
+  constructor(init?: ChunkHeader);
+  ckID: number;
+  ckSize: number;
+}
+
 declare class PEFExportedSymbol {
   constructor(init?: PEFExportedSymbol);
   classAndName: number;
@@ -16721,54 +16717,17 @@ declare class UCKeyStateEntryRange {
   nextState: number;
 }
 
-declare class ChunkHeader {
-  constructor(init?: ChunkHeader);
-  ckID: number;
-  ckSize: number;
+declare class DInfo {
+  constructor(init?: DInfo);
+  frRect: Rect;
+  frFlags: number;
+  frLocation: Point;
+  frView: number;
 }
 
-declare class FPUInformationIntel64 {
-  constructor(init?: FPUInformationIntel64);
-  Registers: unknown /* const array */;
-  Control: number;
-  Status: number;
-  Tag: number;
-  Opcode: number;
-  IP: number;
-  DP: number;
-  DS: number;
-}
-
-declare class AFPXVolMountInfo {
-  constructor(init?: AFPXVolMountInfo);
-  length: number;
-  media: number;
-  flags: number;
-  nbpInterval: number;
-  nbpCount: number;
-  uamType: number;
-  zoneNameOffset: number;
-  serverNameOffset: number;
-  volNameOffset: number;
-  userNameOffset: number;
-  userPasswordOffset: number;
-  volPasswordOffset: number;
-  extendedFlags: number;
-  uamNameOffset: number;
-  alternateAddressOffset: number;
-  AFPData: unknown /* const array */;
-}
-
-declare class MachineInformationIntel64 {
-  constructor(init?: MachineInformationIntel64);
-  CS: number;
-  FS: number;
-  GS: number;
-  RFLAGS: number;
-  RIP: number;
-  ExceptTrap: number;
-  ExceptErr: number;
-  ExceptAddr: number;
+declare class FPUInformation {
+  constructor(init?: FPUInformation);
+  __unusedFPUInformationField: interop.Pointer;
 }
 
 declare class OpaqueMPCriticalRegionID {
@@ -16808,15 +16767,6 @@ declare class LocaleAndVariant {
 
 declare class OpaqueLocaleRef {
   constructor(init?: OpaqueLocaleRef);
-}
-
-declare class __MDQuery {
-  constructor(init?: __MDQuery);
-}
-
-declare class VectorInformationIntel64 {
-  constructor(init?: VectorInformationIntel64);
-  Registers: unknown /* const array */;
 }
 
 declare class FSAliasInfo {
@@ -17506,6 +17456,26 @@ declare class OpaqueMPOpaqueID {
   constructor(init?: OpaqueMPOpaqueID);
 }
 
+declare class AFPXVolMountInfo {
+  constructor(init?: AFPXVolMountInfo);
+  length: number;
+  media: number;
+  flags: number;
+  nbpInterval: number;
+  nbpCount: number;
+  uamType: number;
+  zoneNameOffset: number;
+  serverNameOffset: number;
+  volNameOffset: number;
+  userNameOffset: number;
+  userPasswordOffset: number;
+  volPasswordOffset: number;
+  extendedFlags: number;
+  uamNameOffset: number;
+  alternateAddressOffset: number;
+  AFPData: unknown /* const array */;
+}
+
 declare class ItlbExtRecord {
   constructor(init?: ItlbExtRecord);
   base: ItlbRecord;
@@ -17524,6 +17494,10 @@ declare class ItlbExtRecord {
   itlbHelpSize: number;
   itlbValidStyles: number;
   itlbAliasStyle: number;
+}
+
+declare class __MDQuery {
+  constructor(init?: __MDQuery);
 }
 
 declare class Itl4Rec {
@@ -17624,14 +17598,6 @@ declare class OpaqueMPCoherenceID {
   constructor(init?: OpaqueMPCoherenceID);
 }
 
-declare class DInfo {
-  constructor(init?: DInfo);
-  frRect: Rect;
-  frFlags: number;
-  frLocation: Point;
-  frView: number;
-}
-
 declare class FXInfo {
   constructor(init?: FXInfo);
   fdIconID: number;
@@ -17640,6 +17606,11 @@ declare class FXInfo {
   fdXFlags: number;
   fdComment: number;
   fdPutAway: number;
+}
+
+declare class MachineInformation {
+  constructor(init?: MachineInformation);
+  __unusedMachineInformationField: interop.Pointer;
 }
 
 declare class FSFileOperationClientContext {
@@ -18042,6 +18013,16 @@ declare class UCKeyboardTypeHeader {
   keySequenceDataIndexOffset: number;
 }
 
+type LongDateCvtDescriptor = 
+  | { c: number }
+  | { hl: unnamed_10463458013166095202 };
+
+declare class LongDateCvt {
+  constructor(init?: LongDateCvtDescriptor);
+  c: number;
+  hl: unnamed_10463458013166095202;
+}
+
 type AEArrayDataDescriptor = 
   | { kAEDataArray: unknown /* const array */ }
   | { kAEPackedArray: unknown /* const array */ }
@@ -18100,20 +18081,6 @@ declare class WideChar {
   b: number;
 }
 
-type Vector128IntelDescriptor = 
-  | { s: unknown /* vector */ }
-  | { si: unknown /* vector */ }
-  | { sd: unknown /* vector */ }
-  | { c: unknown /* const array */ };
-
-declare class Vector128Intel {
-  constructor(init?: Vector128IntelDescriptor);
-  s: unknown /* vector */;
-  si: unknown /* vector */;
-  sd: unknown /* vector */;
-  c: unknown /* const array */;
-}
-
 type ExceptionInfoDescriptor = 
   | { memoryInfo: interop.PointerConvertible };
 
@@ -18132,16 +18099,6 @@ declare class Vector128 {
   l: unknown /* const array */;
   s: unknown /* const array */;
   c: unknown /* const array */;
-}
-
-type LongDateCvtDescriptor = 
-  | { c: number }
-  | { hl: unnamed_10463458013166095202 };
-
-declare class LongDateCvt {
-  constructor(init?: LongDateCvtDescriptor);
-  c: number;
-  hl: unnamed_10463458013166095202;
 }
 
 declare function FixRatio(numer: number, denom: number): number;
@@ -20034,15 +19991,15 @@ declare function AECallObjectAccessor(desiredClass: number, containerToken: inte
 
 declare function AEBuildDesc(dst: interop.PointerConvertible, error: interop.PointerConvertible, src: string): number;
 
-declare function vAEBuildDesc(dst: interop.PointerConvertible, error: interop.PointerConvertible, src: string, args: unknown /* const array */): number;
+declare function vAEBuildDesc(dst: interop.PointerConvertible, error: interop.PointerConvertible, src: string, args: string): number;
 
 declare function AEBuildParameters(event: interop.PointerConvertible, error: interop.PointerConvertible, format: string): number;
 
-declare function vAEBuildParameters(event: interop.PointerConvertible, error: interop.PointerConvertible, format: string, args: unknown /* const array */): number;
+declare function vAEBuildParameters(event: interop.PointerConvertible, error: interop.PointerConvertible, format: string, args: string): number;
 
 declare function AEBuildAppleEvent(theClass: number, theID: number, addressType: number, addressData: interop.PointerConvertible, addressLength: number, returnID: number, transactionID: number, result: interop.PointerConvertible, error: interop.PointerConvertible, paramsFmt: string): number;
 
-declare function vAEBuildAppleEvent(theClass: number, theID: number, addressType: number, addressData: interop.PointerConvertible, addressLength: number, returnID: number, transactionID: number, resultEvt: interop.PointerConvertible, error: interop.PointerConvertible, paramsFmt: string, args: unknown /* const array */): number;
+declare function vAEBuildAppleEvent(theClass: number, theID: number, addressType: number, addressData: interop.PointerConvertible, addressLength: number, returnID: number, transactionID: number, resultEvt: interop.PointerConvertible, error: interop.PointerConvertible, paramsFmt: string, args: string): number;
 
 declare function AEPrintDescToHandle(desc: interop.PointerConvertible, result: interop.PointerConvertible): number;
 

@@ -414,7 +414,7 @@ declare class JSContext extends NSObject {
 
   name: string;
 
-  isInspectable: number;
+  isInspectable: boolean;
 
   objectForKeyedSubscript(key: interop.Object): JSValue;
 
@@ -430,7 +430,7 @@ declare class JSValue extends NSObject {
 
   static valueWithObjectInContext(value: interop.Object, context: JSContext): JSValue;
 
-  static valueWithBoolInContext(value: number, context: JSContext): JSValue;
+  static valueWithBoolInContext(value: boolean, context: JSContext): JSValue;
 
   static valueWithDoubleInContext(value: number, context: JSContext): JSValue;
 
@@ -470,7 +470,7 @@ declare class JSValue extends NSObject {
 
   toObjectOfClass(expectedClass: interop.Object): interop.Object;
 
-  toBool(): number;
+  toBool(): boolean;
 
   toDouble(): number;
 
@@ -492,31 +492,31 @@ declare class JSValue extends NSObject {
 
   toDictionary(): NSDictionary;
 
-  readonly isUndefined: number;
+  readonly isUndefined: boolean;
 
-  readonly isNull: number;
+  readonly isNull: boolean;
 
-  readonly isBoolean: number;
+  readonly isBoolean: boolean;
 
-  readonly isNumber: number;
+  readonly isNumber: boolean;
 
-  readonly isString: number;
+  readonly isString: boolean;
 
-  readonly isObject: number;
+  readonly isObject: boolean;
 
-  readonly isArray: number;
+  readonly isArray: boolean;
 
-  readonly isDate: number;
+  readonly isDate: boolean;
 
-  readonly isSymbol: number;
+  readonly isSymbol: boolean;
 
-  readonly isBigInt: number;
+  readonly isBigInt: boolean;
 
-  isInstanceOf(value: interop.Object): number;
+  isInstanceOf(value: interop.Object): boolean;
 
-  isEqualToObject(value: interop.Object): number;
+  isEqualToObject(value: interop.Object): boolean;
 
-  isEqualWithTypeCoercionToObject(value: interop.Object): number;
+  isEqualWithTypeCoercionToObject(value: interop.Object): boolean;
 
   compareJSValue(other: JSValue): interop.Enum<typeof JSRelationCondition>;
 
@@ -552,9 +552,9 @@ declare class JSValue extends NSObject {
 
   setValueForProperty(value: interop.Object, property: interop.Object): void;
 
-  deleteProperty(property: interop.Object): number;
+  deleteProperty(property: interop.Object): boolean;
 
-  hasProperty(property: interop.Object): number;
+  hasProperty(property: interop.Object): boolean;
 
   definePropertyDescriptor(property: interop.Object, descriptor: interop.Object): void;
 

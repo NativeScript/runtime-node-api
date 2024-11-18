@@ -16,9 +16,9 @@ declare const IOSurfacePurgeabilityState: {
 declare class IOSurface extends NSObject implements NSSecureCoding {
   initWithProperties(properties: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): this;
 
-  lockWithOptionsSeed(options: interop.Enum<typeof IOSurfaceLockOptions>, seed: interop.PointerConvertible): interop.Object;
+  lockWithOptionsSeed(options: interop.Enum<typeof IOSurfaceLockOptions>, seed: interop.PointerConvertible): number;
 
-  unlockWithOptionsSeed(options: interop.Enum<typeof IOSurfaceLockOptions>, seed: interop.PointerConvertible): interop.Object;
+  unlockWithOptionsSeed(options: interop.Enum<typeof IOSurfaceLockOptions>, seed: interop.PointerConvertible): number;
 
   readonly allocationSize: number;
 
@@ -80,7 +80,7 @@ declare class IOSurface extends NSObject implements NSSecureCoding {
 
   readonly allowsPixelSizeCasting: boolean;
 
-  setPurgeableOldState(newState: interop.Enum<typeof IOSurfacePurgeabilityState>, oldState: interop.PointerConvertible): interop.Object;
+  setPurgeableOldState(newState: interop.Enum<typeof IOSurfacePurgeabilityState>, oldState: interop.PointerConvertible): number;
 
   static readonly supportsSecureCoding: boolean;
 

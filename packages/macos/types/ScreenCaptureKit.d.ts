@@ -160,7 +160,7 @@ declare class SCContentSharingPickerConfiguration<NSCopying = interop.Object> ex
   get excludedBundleIDs(): NSArray;
   set excludedBundleIDs(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  allowsChangingSelectedContent: number;
+  allowsChangingSelectedContent: boolean;
 }
 
 declare class SCStream extends NSObject {
@@ -168,9 +168,9 @@ declare class SCStream extends NSObject {
 
   initWithFilterConfigurationDelegate(contentFilter: SCContentFilter, streamConfig: SCStreamConfiguration, delegate: SCStreamDelegate | null): this;
 
-  addStreamOutputTypeSampleHandlerQueueError(output: SCStreamOutput, type: interop.Enum<typeof SCStreamOutputType>, sampleHandlerQueue: NSObject | null, error: interop.PointerConvertible): number;
+  addStreamOutputTypeSampleHandlerQueueError(output: SCStreamOutput, type: interop.Enum<typeof SCStreamOutputType>, sampleHandlerQueue: NSObject | null, error: interop.PointerConvertible): boolean;
 
-  removeStreamOutputTypeError(output: SCStreamOutput, type: interop.Enum<typeof SCStreamOutputType>, error: interop.PointerConvertible): number;
+  removeStreamOutputTypeError(output: SCStreamOutput, type: interop.Enum<typeof SCStreamOutputType>, error: interop.PointerConvertible): boolean;
 
   updateContentFilterCompletionHandler(contentFilter: SCContentFilter, completionHandler: (p1: NSError) => void | null): void;
 
@@ -180,9 +180,9 @@ declare class SCStream extends NSObject {
 
   stopCaptureWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
-  addRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): number;
+  addRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): boolean;
 
-  removeRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): number;
+  removeRecordingOutputError(recordingOutput: SCRecordingOutput, error: interop.PointerConvertible): boolean;
 }
 
 declare class SCRecordingOutput extends NSObject {
@@ -228,7 +228,7 @@ declare class SCContentFilter extends NSObject {
 
   readonly contentRect: CGRect;
 
-  includeMenuBar: number;
+  includeMenuBar: boolean;
 
   initWithDesktopIndependentWindow(window: SCWindow): this;
 
@@ -264,9 +264,9 @@ declare class SCWindow extends NSObject {
 
   readonly owningApplication: SCRunningApplication;
 
-  readonly isOnScreen: number;
+  readonly isOnScreen: boolean;
 
-  readonly isActive: number;
+  readonly isActive: boolean;
 }
 
 declare class SCStreamConfiguration extends NSObject {
@@ -278,15 +278,15 @@ declare class SCStreamConfiguration extends NSObject {
 
   pixelFormat: number;
 
-  scalesToFit: number;
+  scalesToFit: boolean;
 
-  preservesAspectRatio: number;
+  preservesAspectRatio: boolean;
 
   streamName: string;
 
-  showsCursor: number;
+  showsCursor: boolean;
 
-  showMouseClicks: number;
+  showMouseClicks: boolean;
 
   get backgroundColor(): interop.Pointer;
   set backgroundColor(value: interop.PointerConvertible);
@@ -303,33 +303,33 @@ declare class SCStreamConfiguration extends NSObject {
   get colorSpaceName(): interop.Pointer;
   set colorSpaceName(value: interop.PointerConvertible);
 
-  capturesAudio: number;
+  capturesAudio: boolean;
 
   sampleRate: number;
 
   channelCount: number;
 
-  excludesCurrentProcessAudio: number;
+  excludesCurrentProcessAudio: boolean;
 
-  ignoreShadowsDisplay: number;
+  ignoreShadowsDisplay: boolean;
 
-  ignoreShadowsSingleWindow: number;
+  ignoreShadowsSingleWindow: boolean;
 
   captureResolution: interop.Enum<typeof SCCaptureResolutionType>;
 
-  capturesShadowsOnly: number;
+  capturesShadowsOnly: boolean;
 
-  shouldBeOpaque: number;
+  shouldBeOpaque: boolean;
 
-  ignoreGlobalClipDisplay: number;
+  ignoreGlobalClipDisplay: boolean;
 
-  ignoreGlobalClipSingleWindow: number;
+  ignoreGlobalClipSingleWindow: boolean;
 
   presenterOverlayPrivacyAlertSetting: interop.Enum<typeof SCPresenterOverlayAlertSetting>;
 
-  includeChildWindows: number;
+  includeChildWindows: boolean;
 
-  captureMicrophone: number;
+  captureMicrophone: boolean;
 
   microphoneCaptureDeviceID: string;
 
@@ -343,11 +343,11 @@ declare class SCShareableContent extends NSObject {
 
   static getCurrentProcessShareableContentWithCompletionHandler(completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
 
-  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyCompletionHandler(excludeDesktopWindows: number, onScreenWindowsOnly: number, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
+  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyCompletionHandler(excludeDesktopWindows: boolean, onScreenWindowsOnly: boolean, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
 
-  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyBelowWindowCompletionHandler(excludeDesktopWindows: number, window: SCWindow, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
+  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyBelowWindowCompletionHandler(excludeDesktopWindows: boolean, window: SCWindow, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
 
-  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyAboveWindowCompletionHandler(excludeDesktopWindows: number, window: SCWindow, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
+  static getShareableContentExcludingDesktopWindowsOnScreenWindowsOnlyAboveWindowCompletionHandler(excludeDesktopWindows: boolean, window: SCWindow, completionHandler: (p1: SCShareableContent, p2: NSError) => void | null): void;
 
   static infoForFilter(filter: SCContentFilter): SCShareableContentInfo;
 
@@ -365,7 +365,7 @@ declare class SCContentSharingPicker extends NSObject {
 
   maximumStreamCount: NSNumber;
 
-  isActive: number;
+  isActive: boolean;
 
   addObserver(observer: SCContentSharingPickerObserver): void;
 

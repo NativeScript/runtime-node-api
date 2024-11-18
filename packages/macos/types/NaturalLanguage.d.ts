@@ -401,13 +401,13 @@ declare class NLContextualEmbedding extends NSObject {
 
   readonly maximumSequenceLength: number;
 
-  loadWithError(error: interop.PointerConvertible): number;
+  loadWithError(error: interop.PointerConvertible): boolean;
 
   unload(): void;
 
   embeddingResultForStringLanguageError(string: string, language: string | null, error: interop.PointerConvertible): NLContextualEmbeddingResult;
 
-  readonly hasAvailableAssets: number;
+  readonly hasAvailableAssets: boolean;
 
   requestEmbeddingAssetsWithCompletionHandler(completionHandler: (p1: interop.Enum<typeof NLContextualEmbeddingAssetsResult>, p2: NSError) => void | null): void;
 }
@@ -427,7 +427,7 @@ declare class NLGazetteer extends NSObject {
 
   readonly data: NSData;
 
-  static writeGazetteerForDictionaryLanguageToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, url: NSURL, error: interop.PointerConvertible): number;
+  static writeGazetteerForDictionaryLanguageToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, url: NSURL, error: interop.PointerConvertible): boolean;
 }
 
 declare class NLEmbedding extends NSObject {
@@ -441,7 +441,7 @@ declare class NLEmbedding extends NSObject {
 
   static embeddingWithContentsOfURLError<This extends abstract new (...args: any) => any>(this: This, url: NSURL, error: interop.PointerConvertible): InstanceType<This>;
 
-  containsString(string: string): number;
+  containsString(string: string): boolean;
 
   distanceBetweenStringAndStringDistanceType(firstString: string, secondString: string, distanceType: interop.Enum<typeof NLDistanceType>): number;
 
@@ -455,7 +455,7 @@ declare class NLEmbedding extends NSObject {
 
   vectorForString(string: string): NSArray;
 
-  getVectorForString(vector: interop.PointerConvertible, string: string): number;
+  getVectorForString(vector: interop.PointerConvertible, string: string): boolean;
 
   enumerateNeighborsForVectorMaximumCountDistanceTypeUsingBlock(vector: NSArray<interop.Object> | Array<interop.Object>, maxCount: number, distanceType: interop.Enum<typeof NLDistanceType>, block: (p1: string, p2: number, p3: interop.PointerConvertible) => void): void;
 
@@ -481,7 +481,7 @@ declare class NLEmbedding extends NSObject {
 
   static currentSentenceEmbeddingRevisionForLanguage(language: string): number;
 
-  static writeEmbeddingForDictionaryLanguageRevisionToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, revision: number, url: NSURL, error: interop.PointerConvertible): number;
+  static writeEmbeddingForDictionaryLanguageRevisionToURLError(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, language: string | null, revision: number, url: NSURL, error: interop.PointerConvertible): boolean;
 }
 
 declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {
@@ -497,7 +497,7 @@ declare class NLModelConfiguration extends NSObject implements NSCopying, NSSecu
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

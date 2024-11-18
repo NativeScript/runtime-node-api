@@ -581,9 +581,9 @@ declare class SCNCameraControllerDelegate extends NativeObject implements SCNCam
 }
 
 declare interface SCNCameraControlConfiguration extends NSObjectProtocol {
-  autoSwitchToFreeCamera: number;
+  autoSwitchToFreeCamera: boolean;
 
-  allowsTranslation: number;
+  allowsTranslation: boolean;
 
   flyModeVelocity: number;
 
@@ -598,13 +598,13 @@ declare class SCNCameraControlConfiguration extends NativeObject implements SCNC
 }
 
 declare interface SCNProgramDelegate extends NSObjectProtocol {
-  programBindValueForSymbolAtLocationProgramIDRenderer?(program: SCNProgram, symbol: string, location: number, programID: number, renderer: SCNRenderer): number;
+  programBindValueForSymbolAtLocationProgramIDRenderer?(program: SCNProgram, symbol: string, location: number, programID: number, renderer: SCNRenderer): boolean;
 
   programUnbindValueForSymbolAtLocationProgramIDRenderer?(program: SCNProgram, symbol: string, location: number, programID: number, renderer: SCNRenderer): void;
 
   programHandleError?(program: SCNProgram, error: NSError): void;
 
-  programIsOpaque?(program: SCNProgram): number;
+  programIsOpaque?(program: SCNProgram): boolean;
 }
 
 declare class SCNProgramDelegate extends NativeObject implements SCNProgramDelegate {
@@ -651,7 +651,7 @@ declare interface SCNSceneRenderer extends NSObjectProtocol {
 
   hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
 
-  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): number;
+  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
 
   nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
 
@@ -659,23 +659,23 @@ declare interface SCNSceneRenderer extends NSObjectProtocol {
 
   unprojectPoint(point: SCNVector3): SCNVector3;
 
-  isPlaying: number;
+  isPlaying: boolean;
 
-  loops: number;
+  loops: boolean;
 
   pointOfView: SCNNode;
 
-  autoenablesDefaultLighting: number;
+  autoenablesDefaultLighting: boolean;
 
-  isJitteringEnabled: number;
+  isJitteringEnabled: boolean;
 
-  isTemporalAntialiasingEnabled: number;
+  isTemporalAntialiasingEnabled: boolean;
 
-  prepareObjectShouldAbortBlock(object: interop.Object, block: () => number | null): number;
+  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
 
-  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: number) => void | null): void;
+  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
 
-  showsStatistics: number;
+  showsStatistics: boolean;
 
   debugOptions: interop.Enum<typeof SCNDebugOptions>;
 
@@ -711,7 +711,7 @@ declare interface SCNSceneRenderer extends NSObjectProtocol {
 
   currentTime: number;
 
-  usesReverseZ: number;
+  usesReverseZ: boolean;
 }
 
 declare class SCNSceneRenderer extends NativeObject implements SCNSceneRenderer {
@@ -751,7 +751,7 @@ declare interface SCNAnimatable extends NSObjectProtocol {
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 }
 
 declare class SCNAnimatable extends NativeObject implements SCNAnimatable {
@@ -776,11 +776,11 @@ declare class SCNPhysicsContactDelegate extends NativeObject implements SCNPhysi
 }
 
 declare interface SCNBoundingVolume extends NSObjectProtocol {
-  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): number;
+  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): boolean;
 
   setBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): void;
 
-  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): number;
+  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): boolean;
 }
 
 declare class SCNBoundingVolume extends NativeObject implements SCNBoundingVolume {
@@ -795,7 +795,7 @@ declare interface SCNActionable extends NSObjectProtocol {
 
   runActionForKeyCompletionHandler(action: SCNAction, key: string | null, block: () => void | null): void;
 
-  readonly hasActions: number;
+  readonly hasActions: boolean;
 
   actionForKey(key: string): SCNAction;
 
@@ -810,7 +810,7 @@ declare class SCNActionable extends NativeObject implements SCNActionable {
 }
 
 declare interface SCNAvoidOccluderConstraintDelegate extends NSObjectProtocol {
-  avoidOccluderConstraintShouldAvoidOccluderForNode?(constraint: SCNAvoidOccluderConstraint, occluder: SCNNode, node: SCNNode): number;
+  avoidOccluderConstraintShouldAvoidOccluderForNode?(constraint: SCNAvoidOccluderConstraint, occluder: SCNNode, node: SCNNode): boolean;
 
   avoidOccluderConstraintDidAvoidOccluderForNode?(constraint: SCNAvoidOccluderConstraint, occluder: SCNNode, node: SCNNode): void;
 }
@@ -894,7 +894,7 @@ declare class SCNPhysicsWorld extends NSObject implements NSSecureCoding {
 
   updateCollisionPairs(): void;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -916,7 +916,7 @@ declare class SCNPhysicsShape extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -930,13 +930,13 @@ declare class SCNPhysicsField extends NSObject implements NSCopying, NSSecureCod
 
   minimumDistance: number;
 
-  isActive: number;
+  isActive: boolean;
 
-  isExclusive: number;
+  isExclusive: boolean;
 
   halfExtent: SCNVector3;
 
-  usesEllipsoidalExtent: number;
+  usesEllipsoidalExtent: boolean;
 
   scope: interop.Enum<typeof SCNPhysicsFieldScope>;
 
@@ -968,7 +968,7 @@ declare class SCNPhysicsField extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -990,7 +990,7 @@ declare class SCNParticlePropertyController extends NSObject implements NSSecure
 
   inputProperty: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1012,7 +1012,7 @@ declare class SCNLevelOfDetail extends NSObject implements NSCopying, NSSecureCo
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1046,19 +1046,19 @@ declare class SCNLookAtConstraint extends SCNConstraint {
 
   worldUp: SCNVector3;
 
-  gimbalLockEnabled: number;
+  gimbalLockEnabled: boolean;
 }
 
 declare class SCNConstraint extends NSObject implements NSCopying, NSSecureCoding, SCNAnimatable {
-  isEnabled: number;
+  isEnabled: boolean;
 
   influenceFactor: number;
 
-  isIncremental: number;
+  isIncremental: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1090,9 +1090,9 @@ declare class SCNConstraint extends NSObject implements NSCopying, NSSecureCodin
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1108,15 +1108,15 @@ declare class SCNConstraint extends NSObject implements NSCopying, NSSecureCodin
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1150,7 +1150,7 @@ declare class SCNSkinner extends NSObject implements NSSecureCoding {
 
   readonly boneIndices: SCNGeometrySource;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1180,7 +1180,7 @@ declare class SCNText extends SCNGeometry {
 
   font: NSFont;
 
-  isWrapped: number;
+  isWrapped: boolean;
 
   containerFrame: CGRect;
 
@@ -1264,7 +1264,7 @@ declare class SCNPlane extends SCNGeometry {
 }
 
 declare class SCNGeometrySource extends NSObject implements NSSecureCoding {
-  static geometrySourceWithDataSemanticVectorCountFloatComponentsComponentsPerVectorBytesPerComponentDataOffsetDataStride<This extends abstract new (...args: any) => any>(this: This, data: NSData, semantic: string, vectorCount: number, floatComponents: number, componentsPerVector: number, bytesPerComponent: number, offset: number, stride: number): InstanceType<This>;
+  static geometrySourceWithDataSemanticVectorCountFloatComponentsComponentsPerVectorBytesPerComponentDataOffsetDataStride<This extends abstract new (...args: any) => any>(this: This, data: NSData, semantic: string, vectorCount: number, floatComponents: boolean, componentsPerVector: number, bytesPerComponent: number, offset: number, stride: number): InstanceType<This>;
 
   static geometrySourceWithVerticesCount<This extends abstract new (...args: any) => any>(this: This, vertices: interop.PointerConvertible, count: number): InstanceType<This>;
 
@@ -1280,7 +1280,7 @@ declare class SCNGeometrySource extends NSObject implements NSSecureCoding {
 
   readonly vectorCount: number;
 
-  readonly floatComponents: number;
+  readonly floatComponents: boolean;
 
   readonly componentsPerVector: number;
 
@@ -1290,7 +1290,7 @@ declare class SCNGeometrySource extends NSObject implements NSSecureCoding {
 
   readonly dataStride: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1340,9 +1340,9 @@ declare class SCNMaterial extends NSObject implements SCNAnimatable, SCNShadable
 
   lightingModelName: string;
 
-  isLitPerPixel: number;
+  isLitPerPixel: boolean;
 
-  isDoubleSided: number;
+  isDoubleSided: boolean;
 
   fillMode: interop.Enum<typeof SCNFillMode>;
 
@@ -1350,13 +1350,13 @@ declare class SCNMaterial extends NSObject implements SCNAnimatable, SCNShadable
 
   transparencyMode: interop.Enum<typeof SCNTransparencyMode>;
 
-  locksAmbientWithDiffuse: number;
+  locksAmbientWithDiffuse: boolean;
 
-  writesToDepthBuffer: number;
+  writesToDepthBuffer: boolean;
 
   colorBufferWriteMask: interop.Enum<typeof SCNColorMask>;
 
-  readsFromDepthBuffer: number;
+  readsFromDepthBuffer: boolean;
 
   fresnelExponent: number;
 
@@ -1388,9 +1388,9 @@ declare class SCNMaterial extends NSObject implements SCNAnimatable, SCNShadable
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1406,15 +1406,15 @@ declare class SCNMaterial extends NSObject implements SCNAnimatable, SCNShadable
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1443,7 +1443,7 @@ declare class SCNMaterial extends NSObject implements SCNAnimatable, SCNShadable
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1491,13 +1491,13 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   pivot: CATransform3D;
 
-  isHidden: number;
+  isHidden: boolean;
 
   opacity: number;
 
   renderingOrder: number;
 
-  castsShadow: number;
+  castsShadow: boolean;
 
   movabilityHint: interop.Enum<typeof SCNMovabilityHint>;
 
@@ -1513,9 +1513,9 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   replaceChildNodeWith(oldChild: SCNNode, newChild: SCNNode): void;
 
-  childNodeWithNameRecursively(name: string, recursively: number): SCNNode;
+  childNodeWithNameRecursively(name: string, recursively: boolean): SCNNode;
 
-  childNodesPassingTest(predicate: (p1: SCNNode, p2: interop.PointerConvertible) => number): NSArray;
+  childNodesPassingTest(predicate: (p1: SCNNode, p2: interop.PointerConvertible) => boolean): NSArray;
 
   enumerateChildNodesUsingBlock(block: (p1: SCNNode, p2: interop.PointerConvertible) => void): void;
 
@@ -1545,7 +1545,7 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   readonly presentationNode: SCNNode;
 
-  isPaused: number;
+  isPaused: boolean;
 
   rendererDelegate: SCNNodeRendererDelegate;
 
@@ -1651,7 +1651,7 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1683,9 +1683,9 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1701,15 +1701,15 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1733,7 +1733,7 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   runActionForKeyCompletionHandler(action: SCNAction, key: string | null, block: () => void | null): void;
 
-  readonly hasActions: number;
+  readonly hasActions: boolean;
 
   actionForKey(key: string): SCNAction;
 
@@ -1743,11 +1743,11 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   readonly actionKeys: NSArray;
 
-  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): number;
+  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): boolean;
 
   setBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): void;
 
-  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): number;
+  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): boolean;
 }
 
 declare class SCNAction extends NSObject implements NSCopying, NSSecureCoding {
@@ -1771,7 +1771,7 @@ declare class SCNAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static rotateToXYZDuration(xAngle: number, yAngle: number, zAngle: number, duration: number): SCNAction;
 
-  static rotateToXYZDurationShortestUnitArc(xAngle: number, yAngle: number, zAngle: number, duration: number, shortestUnitArc: number): SCNAction;
+  static rotateToXYZDurationShortestUnitArc(xAngle: number, yAngle: number, zAngle: number, duration: number, shortestUnitArc: boolean): SCNAction;
 
   static rotateByAngleAroundAxisDuration(angle: number, axis: SCNVector3, duration: number): SCNAction;
 
@@ -1815,11 +1815,11 @@ declare class SCNAction extends NSObject implements NSCopying, NSSecureCoding {
 
   static customActionWithDurationActionBlock(seconds: number, block: (p1: SCNNode, p2: number) => void): SCNAction;
 
-  static playAudioSourceWaitForCompletion(source: SCNAudioSource, wait: number): SCNAction;
+  static playAudioSourceWaitForCompletion(source: SCNAudioSource, wait: boolean): SCNAction;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1847,7 +1847,7 @@ declare class SCNScene extends NSObject implements NSSecureCoding {
 
   static sceneWithURLOptionsError<This extends abstract new (...args: any) => any>(this: This, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): InstanceType<This>;
 
-  writeToURLOptionsDelegateProgressHandler(url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, delegate: SCNSceneExportDelegate | null, progressHandler: (p1: number, p2: NSError, p3: interop.PointerConvertible) => void | null): number;
+  writeToURLOptionsDelegateProgressHandler(url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, delegate: SCNSceneExportDelegate | null, progressHandler: (p1: number, p2: NSError, p3: interop.PointerConvertible) => void | null): boolean;
 
   fogStartDistance: number;
 
@@ -1857,7 +1857,7 @@ declare class SCNScene extends NSObject implements NSSecureCoding {
 
   fogColor: interop.Object;
 
-  wantsScreenSpaceReflection: number;
+  wantsScreenSpaceReflection: boolean;
 
   screenSpaceReflectionSampleCount: number;
 
@@ -1865,7 +1865,7 @@ declare class SCNScene extends NSObject implements NSSecureCoding {
 
   screenSpaceReflectionStride: number;
 
-  isPaused: number;
+  isPaused: boolean;
 
   addParticleSystemWithTransform(system: SCNParticleSystem, transform: CATransform3D): void;
 
@@ -1875,7 +1875,7 @@ declare class SCNScene extends NSObject implements NSSecureCoding {
 
   readonly particleSystems: NSArray;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1891,7 +1891,7 @@ declare class SCNAnimationPlayer extends NSObject implements SCNAnimatable, NSCo
 
   blendFactor: number;
 
-  paused: number;
+  paused: boolean;
 
   play(): void;
 
@@ -1925,9 +1925,9 @@ declare class SCNAnimationPlayer extends NSObject implements SCNAnimatable, NSCo
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1943,15 +1943,15 @@ declare class SCNAnimationPlayer extends NSObject implements SCNAnimatable, NSCo
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1969,7 +1969,7 @@ declare class SCNAnimationPlayer extends NSObject implements SCNAnimatable, NSCo
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1993,36 +1993,36 @@ declare class SCNAnimation extends NSObject implements SCNAnimationProtocol, NSC
 
   blendOutDuration: number;
 
-  isRemovedOnCompletion: number;
+  isRemovedOnCompletion: boolean;
 
-  isAppliedOnCompletion: number;
+  isAppliedOnCompletion: boolean;
 
   repeatCount: number;
 
-  autoreverses: number;
+  autoreverses: boolean;
 
   startDelay: number;
 
   timeOffset: number;
 
-  fillsForward: number;
+  fillsForward: boolean;
 
-  fillsBackward: number;
+  fillsBackward: boolean;
 
-  usesSceneTimeBase: number;
+  usesSceneTimeBase: boolean;
 
   animationDidStart: (p1: SCNAnimation, p2: SCNAnimatable) => void;
 
-  animationDidStop: (p1: SCNAnimation, p2: SCNAnimatable, p3: number) => void;
+  animationDidStop: (p1: SCNAnimation, p2: SCNAnimatable, p3: boolean) => void;
 
   get animationEvents(): NSArray;
   set animationEvents(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  isAdditive: number;
+  isAdditive: boolean;
 
-  isCumulative: number;
+  isCumulative: boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -2038,15 +2038,15 @@ declare class SCNAnimation extends NSObject implements SCNAnimationProtocol, NSC
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -2064,7 +2064,7 @@ declare class SCNAnimation extends NSObject implements SCNAnimationProtocol, NSC
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2102,7 +2102,7 @@ declare class SCNProgram extends NSObject implements NSCopying, NSSecureCoding {
 
   handleBindingOfBufferNamedFrequencyUsingBlock(name: string, frequency: interop.Enum<typeof SCNBufferFrequency>, block: (p1: SCNBufferStream, p2: SCNNode, p3: SCNShadable, p4: SCNRenderer) => void): void;
 
-  isOpaque: number;
+  isOpaque: boolean;
 
   setSemanticForSymbolOptions(semantic: string | null, symbol: string, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): void;
 
@@ -2114,7 +2114,7 @@ declare class SCNProgram extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2122,7 +2122,7 @@ declare class SCNProgram extends NSObject implements NSCopying, NSSecureCoding {
 }
 
 declare class SCNAnimationEvent extends NSObject {
-  static animationEventWithKeyTimeBlock<This extends abstract new (...args: any) => any>(this: This, time: number, eventBlock: (p1: SCNAnimation, p2: interop.Object, p3: number) => void): InstanceType<This>;
+  static animationEventWithKeyTimeBlock<This extends abstract new (...args: any) => any>(this: This, time: number, eventBlock: (p1: SCNAnimation, p2: interop.Object, p3: boolean) => void): InstanceType<This>;
 }
 
 declare class SCNFloor extends SCNGeometry {
@@ -2158,7 +2158,7 @@ declare class SCNPhysicsBody extends NSObject implements NSCopying, NSSecureCodi
 
   momentOfInertia: SCNVector3;
 
-  usesDefaultMomentOfInertia: number;
+  usesDefaultMomentOfInertia: boolean;
 
   charge: number;
 
@@ -2170,9 +2170,9 @@ declare class SCNPhysicsBody extends NSObject implements NSCopying, NSSecureCodi
 
   physicsShape: SCNPhysicsShape;
 
-  readonly isResting: number;
+  readonly isResting: boolean;
 
-  allowsResting: number;
+  allowsResting: boolean;
 
   velocity: SCNVector3;
 
@@ -2192,19 +2192,19 @@ declare class SCNPhysicsBody extends NSObject implements NSCopying, NSSecureCodi
 
   contactTestBitMask: number;
 
-  isAffectedByGravity: number;
+  isAffectedByGravity: boolean;
 
-  applyForceImpulse(direction: SCNVector3, impulse: number): void;
+  applyForceImpulse(direction: SCNVector3, impulse: boolean): void;
 
-  applyForceAtPositionImpulse(direction: SCNVector3, position: SCNVector3, impulse: number): void;
+  applyForceAtPositionImpulse(direction: SCNVector3, position: SCNVector3, impulse: boolean): void;
 
-  applyTorqueImpulse(torque: SCNVector4, impulse: number): void;
+  applyTorqueImpulse(torque: SCNVector4, impulse: boolean): void;
 
   clearAllForces(): void;
 
   resetTransform(): void;
 
-  setResting(resting: number): void;
+  setResting(resting: boolean): void;
 
   continuousCollisionDetectionThreshold: number;
 
@@ -2216,7 +2216,7 @@ declare class SCNPhysicsBody extends NSObject implements NSCopying, NSSecureCodi
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2226,11 +2226,11 @@ declare class SCNPhysicsBody extends NSObject implements NSCopying, NSSecureCodi
 declare class SCNGeometryElement extends NSObject implements NSSecureCoding {
   static geometryElementWithDataPrimitiveTypePrimitiveCountBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, data: NSData | null, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, bytesPerIndex: number): InstanceType<This>;
 
-  static geometryElementWithDataPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, data: NSData | null, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: number, bytesPerIndex: number): InstanceType<This>;
+  static geometryElementWithDataPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, data: NSData | null, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: boolean, bytesPerIndex: number): InstanceType<This>;
 
   static geometryElementWithBufferPrimitiveTypePrimitiveCountBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, buffer: MTLBuffer, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, bytesPerIndex: number): InstanceType<This>;
 
-  static geometryElementWithBufferPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, buffer: MTLBuffer, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: number, bytesPerIndex: number): InstanceType<This>;
+  static geometryElementWithBufferPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, buffer: MTLBuffer, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: boolean, bytesPerIndex: number): InstanceType<This>;
 
   readonly data: NSData;
 
@@ -2238,7 +2238,7 @@ declare class SCNGeometryElement extends NSObject implements NSSecureCoding {
 
   readonly primitiveCount: number;
 
-  readonly hasInterleavedIndicesChannels: number;
+  readonly hasInterleavedIndicesChannels: boolean;
 
   readonly indicesChannelCount: number;
 
@@ -2252,7 +2252,7 @@ declare class SCNGeometryElement extends NSObject implements NSSecureCoding {
 
   maximumPointScreenSpaceRadius: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2264,7 +2264,7 @@ declare class SCNTimingFunction extends NSObject implements NSSecureCoding {
 
   static functionWithCAMediaTimingFunction(caTimingFunction: CAMediaTimingFunction): SCNTimingFunction;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2284,7 +2284,7 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   idleDurationVariation: number;
 
-  loops: number;
+  loops: boolean;
 
   birthRate: number;
 
@@ -2306,7 +2306,7 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   acceleration: SCNVector3;
 
-  isLocal: number;
+  isLocal: boolean;
 
   particleAngle: number;
 
@@ -2360,19 +2360,19 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   blendMode: interop.Enum<typeof SCNParticleBlendMode>;
 
-  isBlackPassEnabled: number;
+  isBlackPassEnabled: boolean;
 
   orientationMode: interop.Enum<typeof SCNParticleOrientationMode>;
 
   sortingMode: interop.Enum<typeof SCNParticleSortingMode>;
 
-  isLightingEnabled: number;
+  isLightingEnabled: boolean;
 
-  affectedByGravity: number;
+  affectedByGravity: boolean;
 
-  affectedByPhysicsFields: number;
+  affectedByPhysicsFields: boolean;
 
-  particleDiesOnCollision: number;
+  particleDiesOnCollision: boolean;
 
   get colliderNodes(): NSArray;
   set colliderNodes(value: NSArray<interop.Object> | Array<interop.Object>);
@@ -2401,7 +2401,7 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   fresnelExponent: number;
 
-  writesToDepthBuffer: number;
+  writesToDepthBuffer: boolean;
 
   get propertyControllers(): NSDictionary;
   set propertyControllers(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
@@ -2418,7 +2418,7 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2450,9 +2450,9 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -2468,15 +2468,15 @@ declare class SCNParticleSystem extends NSObject implements NSCopying, NSSecureC
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -2498,7 +2498,7 @@ declare class SCNSphere extends SCNGeometry {
 
   radius: number;
 
-  isGeodesic: number;
+  isGeodesic: boolean;
 
   segmentCount: number;
 }
@@ -2544,9 +2544,9 @@ declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying,
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -2562,15 +2562,15 @@ declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying,
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -2588,7 +2588,7 @@ declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying,
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2626,7 +2626,7 @@ declare class SCNRenderer extends NSObject implements SCNSceneRenderer, SCNTechn
 
   hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
 
-  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): number;
+  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
 
   nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
 
@@ -2634,23 +2634,23 @@ declare class SCNRenderer extends NSObject implements SCNSceneRenderer, SCNTechn
 
   unprojectPoint(point: SCNVector3): SCNVector3;
 
-  isPlaying: number;
+  isPlaying: boolean;
 
-  loops: number;
+  loops: boolean;
 
   pointOfView: SCNNode;
 
-  autoenablesDefaultLighting: number;
+  autoenablesDefaultLighting: boolean;
 
-  isJitteringEnabled: number;
+  isJitteringEnabled: boolean;
 
-  isTemporalAntialiasingEnabled: number;
+  isTemporalAntialiasingEnabled: boolean;
 
-  prepareObjectShouldAbortBlock(object: interop.Object, block: () => number | null): number;
+  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
 
-  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: number) => void | null): void;
+  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
 
-  showsStatistics: number;
+  showsStatistics: boolean;
 
   debugOptions: interop.Enum<typeof SCNDebugOptions>;
 
@@ -2686,9 +2686,9 @@ declare class SCNRenderer extends NSObject implements SCNSceneRenderer, SCNTechn
 
   currentTime: number;
 
-  usesReverseZ: number;
+  usesReverseZ: boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -2704,15 +2704,15 @@ declare class SCNRenderer extends NSObject implements SCNSceneRenderer, SCNTechn
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -2774,15 +2774,15 @@ declare class SCNCameraController extends NSObject {
 
   target: SCNVector3;
 
-  automaticTarget: number;
+  automaticTarget: boolean;
 
   worldUp: SCNVector3;
 
-  inertiaEnabled: number;
+  inertiaEnabled: boolean;
 
   inertiaFriction: number;
 
-  readonly isInertiaRunning: number;
+  readonly isInertiaRunning: boolean;
 
   minimumVerticalAngle: number;
 
@@ -2868,7 +2868,7 @@ declare class SCNAudioSource extends NSObject implements NSCopying, NSSecureCodi
 
   static audioSourceNamed<This extends abstract new (...args: any) => any>(this: This, fileName: string): InstanceType<This>;
 
-  isPositional: number;
+  isPositional: boolean;
 
   volume: number;
 
@@ -2876,15 +2876,15 @@ declare class SCNAudioSource extends NSObject implements NSCopying, NSSecureCodi
 
   reverbBlend: number;
 
-  loops: number;
+  loops: boolean;
 
-  shouldStream: number;
+  shouldStream: boolean;
 
   load(): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -2950,9 +2950,9 @@ declare class SCNMaterialProperty extends NSObject implements SCNAnimatable, NSS
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -2968,15 +2968,15 @@ declare class SCNMaterialProperty extends NSObject implements SCNAnimatable, NSS
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -2992,7 +2992,7 @@ declare class SCNMaterialProperty extends NSObject implements SCNAnimatable, NSS
 
   readonly debugDescription: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3060,7 +3060,7 @@ declare class SCNReferenceNode extends SCNNode {
 
   unload(): void;
 
-  readonly isLoaded: number;
+  readonly isLoaded: boolean;
 }
 
 declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBoundingVolume, SCNShadable, NSCopying, NSSecureCoding {
@@ -3104,7 +3104,7 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   subdivisionLevel: number;
 
-  wantsAdaptiveSubdivision: number;
+  wantsAdaptiveSubdivision: boolean;
 
   edgeCreasesElement: SCNGeometryElement;
 
@@ -3136,9 +3136,9 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -3154,15 +3154,15 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -3178,11 +3178,11 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   readonly debugDescription: string;
 
-  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): number;
+  getBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): boolean;
 
   setBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): void;
 
-  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): number;
+  getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): boolean;
 
   program: SCNProgram;
 
@@ -3197,7 +3197,7 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3221,7 +3221,7 @@ declare class SCNMorpher extends NSObject implements SCNAnimatable, NSSecureCodi
 
   calculationMode: interop.Enum<typeof SCNMorpherCalculationMode>;
 
-  unifiesNormals: number;
+  unifiesNormals: boolean;
 
   addAnimationForKey(animation: SCNAnimation, key: string | null): void;
 
@@ -3249,9 +3249,9 @@ declare class SCNMorpher extends NSObject implements SCNAnimatable, NSSecureCodi
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -3267,15 +3267,15 @@ declare class SCNMorpher extends NSObject implements SCNAnimatable, NSSecureCodi
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -3291,7 +3291,7 @@ declare class SCNMorpher extends NSObject implements SCNAnimatable, NSSecureCodi
 
   readonly debugDescription: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3303,11 +3303,11 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   scene: SCNScene;
 
-  rendersContinuously: number;
+  rendersContinuously: boolean;
 
   backgroundColor: NSColor;
 
-  allowsCameraControl: number;
+  allowsCameraControl: boolean;
 
   readonly cameraControlConfiguration: SCNCameraControlConfiguration;
 
@@ -3323,7 +3323,7 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   preferredFramesPerSecond: number;
 
-  drawableResizesAsynchronously: number;
+  drawableResizesAsynchronously: boolean;
 
   openGLContext: NSOpenGLContext;
 
@@ -3339,7 +3339,7 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
 
-  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): number;
+  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
 
   nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
 
@@ -3347,23 +3347,23 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   unprojectPoint(point: SCNVector3): SCNVector3;
 
-  isPlaying: number;
+  isPlaying: boolean;
 
-  loops: number;
+  loops: boolean;
 
   pointOfView: SCNNode;
 
-  autoenablesDefaultLighting: number;
+  autoenablesDefaultLighting: boolean;
 
-  isJitteringEnabled: number;
+  isJitteringEnabled: boolean;
 
-  isTemporalAntialiasingEnabled: number;
+  isTemporalAntialiasingEnabled: boolean;
 
-  prepareObjectShouldAbortBlock(object: interop.Object, block: () => number | null): number;
+  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
 
-  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: number) => void | null): void;
+  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
 
-  showsStatistics: number;
+  showsStatistics: boolean;
 
   debugOptions: interop.Enum<typeof SCNDebugOptions>;
 
@@ -3399,9 +3399,9 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   currentTime: number;
 
-  usesReverseZ: number;
+  usesReverseZ: boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -3417,15 +3417,15 @@ declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSu
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -3457,7 +3457,7 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 
   hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
 
-  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): number;
+  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
 
   nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
 
@@ -3465,23 +3465,23 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 
   unprojectPoint(point: SCNVector3): SCNVector3;
 
-  isPlaying: number;
+  isPlaying: boolean;
 
-  loops: number;
+  loops: boolean;
 
   pointOfView: SCNNode;
 
-  autoenablesDefaultLighting: number;
+  autoenablesDefaultLighting: boolean;
 
-  isJitteringEnabled: number;
+  isJitteringEnabled: boolean;
 
-  isTemporalAntialiasingEnabled: number;
+  isTemporalAntialiasingEnabled: boolean;
 
-  prepareObjectShouldAbortBlock(object: interop.Object, block: () => number | null): number;
+  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
 
-  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: number) => void | null): void;
+  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
 
-  showsStatistics: number;
+  showsStatistics: boolean;
 
   debugOptions: interop.Enum<typeof SCNDebugOptions>;
 
@@ -3517,9 +3517,9 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 
   currentTime: number;
 
-  usesReverseZ: number;
+  usesReverseZ: boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -3535,15 +3535,15 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -3563,7 +3563,7 @@ declare class SCNLayer extends CAOpenGLLayer implements SCNSceneRenderer, SCNTec
 }
 
 declare class SCNPhysicsBehavior extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3587,9 +3587,9 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   zFar: number;
 
-  automaticallyAdjustsZRange: number;
+  automaticallyAdjustsZRange: boolean;
 
-  usesOrthographicProjection: number;
+  usesOrthographicProjection: boolean;
 
   orthographicScale: number;
 
@@ -3597,7 +3597,7 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   projectionTransformWithViewportSize(viewportSize: CGSize): CATransform3D;
 
-  wantsDepthOfField: number;
+  wantsDepthOfField: boolean;
 
   focusDistance: number;
 
@@ -3619,7 +3619,7 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   screenSpaceAmbientOcclusionNormalThreshold: number;
 
-  wantsHDR: number;
+  wantsHDR: boolean;
 
   exposureOffset: number;
 
@@ -3627,7 +3627,7 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   whitePoint: number;
 
-  wantsExposureAdaptation: number;
+  wantsExposureAdaptation: boolean;
 
   exposureAdaptationBrighteningSpeedFactor: number;
 
@@ -3663,7 +3663,7 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   grainScale: number;
 
-  grainIsColored: number;
+  grainIsColored: boolean;
 
   whiteBalanceTemperature: number;
 
@@ -3711,9 +3711,9 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -3729,15 +3729,15 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -3757,7 +3757,7 @@ declare class SCNCamera extends NSObject implements SCNAnimatable, SCNTechniqueS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3813,7 +3813,7 @@ declare class SCNTransaction extends NSObject {
 
   static animationTimingFunction: CAMediaTimingFunction;
 
-  static disableActions: number;
+  static disableActions: boolean;
 
   static completionBlock: () => void;
 
@@ -3839,11 +3839,11 @@ declare class SCNPyramid extends SCNGeometry {
 }
 
 declare class SCNTransformConstraint extends SCNConstraint {
-  static transformConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: number, block: (p1: SCNNode, p2: CATransform3D) => CATransform3D): InstanceType<This>;
+  static transformConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: boolean, block: (p1: SCNNode, p2: CATransform3D) => CATransform3D): InstanceType<This>;
 
-  static positionConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: number, block: (p1: SCNNode, p2: SCNVector3) => SCNVector3): InstanceType<This>;
+  static positionConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: boolean, block: (p1: SCNNode, p2: SCNVector3) => SCNVector3): InstanceType<This>;
 
-  static orientationConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: number, block: (p1: SCNNode, p2: SCNVector4) => SCNVector4): InstanceType<This>;
+  static orientationConstraintInWorldSpaceWithBlock<This extends abstract new (...args: any) => any>(this: This, world: boolean, block: (p1: SCNNode, p2: SCNVector4) => SCNVector4): InstanceType<This>;
 }
 
 declare class SCNPhysicsVehicleWheel extends NSObject implements NSCopying, NSSecureCoding {
@@ -3875,7 +3875,7 @@ declare class SCNPhysicsVehicleWheel extends NSObject implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -3895,7 +3895,7 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   name: string;
 
-  castsShadow: number;
+  castsShadow: boolean;
 
   shadowColor: interop.Object;
 
@@ -3909,13 +3909,13 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   shadowBias: number;
 
-  automaticallyAdjustsShadowProjection: number;
+  automaticallyAdjustsShadowProjection: boolean;
 
   maximumShadowDistance: number;
 
-  forcesBackFaceCasters: number;
+  forcesBackFaceCasters: boolean;
 
-  sampleDistributedShadowMaps: number;
+  sampleDistributedShadowMaps: boolean;
 
   shadowCascadeCount: number;
 
@@ -3949,7 +3949,7 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   probeOffset: unknown /* ext vector */;
 
-  parallaxCorrectionEnabled: number;
+  parallaxCorrectionEnabled: boolean;
 
   parallaxExtentsFactor: unknown /* ext vector */;
 
@@ -3964,9 +3964,9 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
   get areaPolygonVertices(): NSArray;
   set areaPolygonVertices(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  drawsArea: number;
+  drawsArea: boolean;
 
-  doubleSided: number;
+  doubleSided: boolean;
 
   readonly gobo: SCNMaterialProperty;
 
@@ -4002,9 +4002,9 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   setSpeedForAnimationKey(speed: number, key: string): void;
 
-  isAnimationForKeyPaused(key: string): number;
+  isAnimationForKeyPaused(key: string): boolean;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -4020,15 +4020,15 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -4046,7 +4046,7 @@ declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4058,9 +4058,9 @@ declare class SCNGeometryTessellator extends NSObject implements NSCopying, NSSe
 
   tessellationPartitionMode: interop.Enum<typeof MTLTessellationPartitionMode>;
 
-  isAdaptive: number;
+  isAdaptive: boolean;
 
-  isScreenSpace: number;
+  isScreenSpace: boolean;
 
   edgeTessellationFactor: number;
 
@@ -4072,7 +4072,7 @@ declare class SCNGeometryTessellator extends NSObject implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -4126,7 +4126,7 @@ declare class SCNSceneSource extends NSObject {
 
   identifiersOfEntriesWithClass(entryClass: interop.Object): NSArray;
 
-  entriesPassingTest(predicate: (p1: interop.Object, p2: string, p3: interop.PointerConvertible) => number): NSArray;
+  entriesPassingTest(predicate: (p1: interop.Object, p2: string, p3: interop.PointerConvertible) => boolean): NSArray;
 }
 
 declare class SCNCapsule extends SCNGeometry {
@@ -4164,11 +4164,11 @@ declare class SCNReplicatorConstraint extends SCNConstraint {
 
   target: SCNNode;
 
-  replicatesOrientation: number;
+  replicatesOrientation: boolean;
 
-  replicatesPosition: number;
+  replicatesPosition: boolean;
 
-  replicatesScale: number;
+  replicatesScale: boolean;
 
   orientationOffset: SCNVector4;
 

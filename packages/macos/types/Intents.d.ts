@@ -477,7 +477,7 @@ declare class INShortcut extends NSObject implements NSSecureCoding, NSCopying {
 
   initWithUserActivity(userActivity: NSUserActivity): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -495,7 +495,7 @@ declare class INBusReservation extends INReservation implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -513,7 +513,7 @@ declare class INTicketedEventReservation extends INReservation implements NSCopy
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -533,7 +533,7 @@ declare class INRestaurantReservation extends INReservation implements NSCopying
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -555,7 +555,7 @@ declare class INLodgingReservation extends INReservation implements NSCopying, N
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -573,7 +573,7 @@ declare class INReservationAction extends NSObject implements NSCopying, NSSecur
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -597,7 +597,7 @@ declare class INReservation extends NSObject implements NSCopying, NSSecureCodin
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -667,11 +667,11 @@ declare class INPerson extends NSObject implements NSCopying, NSSecureCoding {
 
   initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierRelationship(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, relationship: string | null): this;
 
-  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsMe(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isMe: number): this;
+  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsMe(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isMe: boolean): this;
 
-  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsMeSuggestionType(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isMe: number, suggestionType: interop.Enum<typeof INPersonSuggestionType>): this;
+  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsMeSuggestionType(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isMe: boolean, suggestionType: interop.Enum<typeof INPersonSuggestionType>): this;
 
-  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsContactSuggestionSuggestionType(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isContactSuggestion: number, suggestionType: interop.Enum<typeof INPersonSuggestionType>): this;
+  initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierIsContactSuggestionSuggestionType(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, isContactSuggestion: boolean, suggestionType: interop.Enum<typeof INPersonSuggestionType>): this;
 
   readonly personHandle: INPersonHandle;
 
@@ -687,7 +687,7 @@ declare class INPerson extends NSObject implements NSCopying, NSSecureCoding {
 
   readonly relationship: string;
 
-  readonly isContactSuggestion: number;
+  readonly isContactSuggestion: boolean;
 
   readonly aliases: NSArray;
 
@@ -695,7 +695,7 @@ declare class INPerson extends NSObject implements NSCopying, NSSecureCoding {
 
   initWithPersonHandleNameComponentsDisplayNameImageContactIdentifierCustomIdentifierAliasesSuggestionType(personHandle: INPersonHandle, nameComponents: NSPersonNameComponents | null, displayName: string | null, image: INImage | null, contactIdentifier: string | null, customIdentifier: string | null, aliases: NSArray<interop.Object> | Array<interop.Object> | null, suggestionType: interop.Enum<typeof INPersonSuggestionType>): this;
 
-  readonly isMe: number;
+  readonly isMe: boolean;
 
   readonly handle: string;
 
@@ -707,7 +707,7 @@ declare class INPerson extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -740,7 +740,7 @@ declare class INObject extends NSObject implements INSpeakable, NSCopying, NSSec
 
   readonly vocabularyIdentifier: string;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -756,15 +756,15 @@ declare class INObject extends NSObject implements INSpeakable, NSCopying, NSSec
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -782,7 +782,7 @@ declare class INObject extends NSObject implements INSpeakable, NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -798,7 +798,7 @@ declare class INCurrencyAmount extends NSObject implements NSCopying, NSSecureCo
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -808,7 +808,7 @@ declare class INCurrencyAmount extends NSObject implements NSCopying, NSSecureCo
 declare class INIntentDonationMetadata extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -828,7 +828,7 @@ declare class INTicketedEvent extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -844,7 +844,7 @@ declare class INSticker extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -870,7 +870,7 @@ declare class INSeat extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -906,7 +906,7 @@ declare class INPaymentMethod extends NSObject implements NSCopying, NSSecureCod
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -920,7 +920,7 @@ declare class INFocusStatus extends NSObject implements NSCopying, NSSecureCodin
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -946,7 +946,7 @@ declare class INCallRecordFilter extends NSObject implements NSCopying, NSSecure
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -986,7 +986,7 @@ declare class INCallRecord extends NSObject implements NSCopying, NSSecureCoding
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1016,7 +1016,7 @@ declare class INBoatTrip extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1034,7 +1034,7 @@ declare class INAirportGate extends NSObject implements NSCopying, NSSecureCodin
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1052,7 +1052,7 @@ declare class INAirport extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1085,7 +1085,7 @@ declare class INObjectCollection<ObjectType = interop.Object> extends NSObject i
 
   readonly allItems: NSArray;
 
-  usesIndexedCollation: number;
+  usesIndexedCollation: boolean;
 
   initWithSections(sections: NSArray<interop.Object> | Array<interop.Object>): this;
 
@@ -1093,7 +1093,7 @@ declare class INObjectCollection<ObjectType = interop.Object> extends NSObject i
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1109,7 +1109,7 @@ declare class INObjectSection<ObjectType = interop.Object> extends NSObject impl
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1141,7 +1141,7 @@ declare class INInteraction extends NSObject implements NSSecureCoding, NSCopyin
 
   groupIdentifier: string;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1209,7 +1209,7 @@ declare class INIntentResponse extends NSObject implements NSCopying, NSSecureCo
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1233,7 +1233,7 @@ declare class INIntent extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1261,7 +1261,7 @@ declare class INPersonHandle extends NSObject implements NSCopying, NSSecureCodi
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1283,7 +1283,7 @@ declare class INRentalCarReservation extends INReservation implements NSCopying,
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1299,7 +1299,7 @@ declare class INEditMessageIntent extends INIntent {
 }
 
 declare class INBooleanResolutionResult extends INIntentResolutionResult {
-  static successWithResolvedValue<This extends abstract new (...args: any) => any>(this: This, resolvedValue: number): InstanceType<This>;
+  static successWithResolvedValue<This extends abstract new (...args: any) => any>(this: This, resolvedValue: boolean): InstanceType<This>;
 
   static confirmationRequiredWithValueToConfirm<This extends abstract new (...args: any) => any>(this: This, valueToConfirm: NSNumber | null): InstanceType<This>;
 }
@@ -1325,7 +1325,7 @@ declare class INBusTrip extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1358,7 +1358,7 @@ declare class INCallGroup extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1389,7 +1389,7 @@ declare class INMessageLinkMetadata extends NSObject implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1423,7 +1423,7 @@ declare class INMessageReaction extends NSObject implements NSCopying, NSSecureC
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1445,7 +1445,7 @@ declare class INSpeakableString extends NSObject implements INSpeakable, NSCopyi
 
   readonly identifier: string;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1461,15 +1461,15 @@ declare class INSpeakableString extends NSObject implements INSpeakable, NSCopyi
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1487,7 +1487,7 @@ declare class INSpeakableString extends NSObject implements INSpeakable, NSCopyi
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1523,7 +1523,7 @@ declare class INTrainTrip extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1547,7 +1547,7 @@ declare class INFlight extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1577,7 +1577,7 @@ declare class INRentalCar extends NSObject implements NSCopying, NSSecureCoding 
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1613,7 +1613,7 @@ declare class INBoatReservation extends INReservation implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1631,7 +1631,7 @@ declare class INImage extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1649,7 +1649,7 @@ declare class INTrainReservation extends INReservation implements NSCopying, NSS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1691,7 +1691,7 @@ declare class INVoiceShortcut extends NSObject implements NSSecureCoding, NSCopy
 
   readonly shortcut: INShortcut;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1741,9 +1741,9 @@ declare class INFile extends NSObject implements NSSecureCoding {
 
   readonly fileURL: NSURL;
 
-  removedOnCompletion: number;
+  removedOnCompletion: boolean;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1787,7 +1787,7 @@ declare class INDateComponentsRange extends NSObject implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1805,7 +1805,7 @@ declare class INFlightReservation extends INReservation implements NSCopying, NS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1829,7 +1829,7 @@ declare class INAirline extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1849,7 +1849,7 @@ declare class INFocusStatusCenter extends NSObject {
 declare class INExtension extends NSObject implements INIntentHandlerProviding {
   handlerForIntent(intent: INIntent): interop.Object;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -1865,15 +1865,15 @@ declare class INExtension extends NSObject implements INIntentHandlerProviding {
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -1897,11 +1897,11 @@ declare class INEditMessageIntentResponse extends INIntentResponse {
 }
 
 declare class INSendMessageIntentDonationMetadata extends INIntentDonationMetadata {
-  mentionsCurrentUser: number;
+  mentionsCurrentUser: boolean;
 
-  isReplyToCurrentUser: number;
+  isReplyToCurrentUser: boolean;
 
-  notifyRecipientAnyway: number;
+  notifyRecipientAnyway: boolean;
 
   recipientCount: number;
 

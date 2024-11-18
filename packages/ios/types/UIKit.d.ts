@@ -1787,7 +1787,7 @@ declare const UISplitViewControllerColumn: {
 declare const UICollisionBehaviorMode: {
   Items: 1,
   Boundaries: 2,
-  Everything: 3,
+  Everything: -1,
 };
 
 declare const UISplitViewControllerStyle: {
@@ -2079,7 +2079,7 @@ declare const UIDataDetectorTypes: {
   Money: 128,
   PhysicalValue: 256,
   None: 0,
-  All: 1,
+  All: -1,
 };
 
 declare const UIKeyboardHIDUsage: {
@@ -2506,7 +2506,7 @@ declare const UIGuidedAccessRestrictionState: {
 
 declare const UIGuidedAccessErrorCode: {
   PermissionDenied: 0,
-  Failed: 1,
+  Failed: 9223372036854775807,
 };
 
 declare const UIAlertControllerSeverity: {
@@ -3369,7 +3369,7 @@ declare const UIPopoverArrowDirection: {
   Left: 4,
   Right: 8,
   Any: 15,
-  Unknown: 16,
+  Unknown: -1,
 };
 
 declare const UIFocusHeading: {

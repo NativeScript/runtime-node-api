@@ -514,7 +514,7 @@ declare const CIDataMatrixCodeECCVersion: {
 };
 
 declare interface CIPlugInRegistration {
-  load(host: interop.PointerConvertible): number;
+  load(host: interop.PointerConvertible): boolean;
 }
 
 declare class CIPlugInRegistration extends NativeObject implements CIPlugInRegistration {
@@ -601,15 +601,15 @@ declare class CIDataMatrixCodeDescriptor extends CIBarcodeDescriptor {
 declare class CIPDF417CodeDescriptor extends CIBarcodeDescriptor {
   readonly errorCorrectedPayload: NSData;
 
-  readonly isCompact: number;
+  readonly isCompact: boolean;
 
   readonly rowCount: number;
 
   readonly columnCount: number;
 
-  initWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload: NSData, isCompact: number, rowCount: number, columnCount: number): this;
+  initWithPayloadIsCompactRowCountColumnCount(errorCorrectedPayload: NSData, isCompact: boolean, rowCount: number, columnCount: number): this;
 
-  static descriptorWithPayloadIsCompactRowCountColumnCount<This extends abstract new (...args: any) => any>(this: This, errorCorrectedPayload: NSData, isCompact: number, rowCount: number, columnCount: number): InstanceType<This>;
+  static descriptorWithPayloadIsCompactRowCountColumnCount<This extends abstract new (...args: any) => any>(this: This, errorCorrectedPayload: NSData, isCompact: boolean, rowCount: number, columnCount: number): InstanceType<This>;
 }
 
 declare class CIColor extends NSObject implements NSSecureCoding, NSCopying {
@@ -673,7 +673,7 @@ declare class CIColor extends NSObject implements NSSecureCoding, NSCopying {
 
   initWithColor(color: NSColor): this;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -683,7 +683,7 @@ declare class CIColor extends NSObject implements NSSecureCoding, NSCopying {
 }
 
 declare class CIImageProcessorKernel extends NSObject {
-  static processWithInputsArgumentsOutputError(inputs: NSArray<interop.Object> | Array<interop.Object> | null, arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, output: CIImageProcessorOutput, error: interop.PointerConvertible): number;
+  static processWithInputsArgumentsOutputError(inputs: NSArray<interop.Object> | Array<interop.Object> | null, arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, output: CIImageProcessorOutput, error: interop.PointerConvertible): boolean;
 
   static roiForInputArgumentsOutputRect(input: number, arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, outputRect: CGRect): CGRect;
 
@@ -717,9 +717,9 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   static imageWithBitmapDataBytesPerRowSizeFormatColorSpace(data: NSData, bytesPerRow: number, size: CGSize, format: number, colorSpace: interop.PointerConvertible): CIImage;
 
-  static imageWithTextureSizeFlippedColorSpace(name: number, size: CGSize, flipped: number, colorSpace: interop.PointerConvertible): CIImage;
+  static imageWithTextureSizeFlippedColorSpace(name: number, size: CGSize, flipped: boolean, colorSpace: interop.PointerConvertible): CIImage;
 
-  static imageWithTextureSizeFlippedOptions(name: number, size: CGSize, flipped: number, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): CIImage;
+  static imageWithTextureSizeFlippedOptions(name: number, size: CGSize, flipped: boolean, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): CIImage;
 
   static imageWithMTLTextureOptions(texture: MTLTexture, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): CIImage;
 
@@ -783,9 +783,9 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   initWithBitmapDataBytesPerRowSizeFormatColorSpace(data: NSData, bytesPerRow: number, size: CGSize, format: number, colorSpace: interop.PointerConvertible): this;
 
-  initWithTextureSizeFlippedColorSpace(name: number, size: CGSize, flipped: number, colorSpace: interop.PointerConvertible): this;
+  initWithTextureSizeFlippedColorSpace(name: number, size: CGSize, flipped: boolean, colorSpace: interop.PointerConvertible): this;
 
-  initWithTextureSizeFlippedOptions(name: number, size: CGSize, flipped: number, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
+  initWithTextureSizeFlippedOptions(name: number, size: CGSize, flipped: boolean, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
 
   initWithMTLTextureOptions(texture: MTLTexture, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
 
@@ -811,7 +811,7 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   imageByApplyingTransform(matrix: CGAffineTransform): CIImage;
 
-  imageByApplyingTransformHighQualityDownsample(matrix: CGAffineTransform, highQualityDownsample: number): CIImage;
+  imageByApplyingTransformHighQualityDownsample(matrix: CGAffineTransform, highQualityDownsample: boolean): CIImage;
 
   imageByApplyingOrientation(orientation: number): CIImage;
 
@@ -859,7 +859,7 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   readonly extent: CGRect;
 
-  readonly isOpaque: number;
+  readonly isOpaque: boolean;
 
   readonly properties: NSDictionary;
 
@@ -927,7 +927,7 @@ declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
 
   drawAtPointFromRectOperationFraction(point: CGPoint, fromRect: CGRect, op: interop.Enum<typeof NSCompositingOperation>, delta: number): void;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -959,35 +959,35 @@ declare class CIKernel extends NSObject {
 declare class CIFaceFeature extends CIFeature {
   readonly bounds: CGRect;
 
-  readonly hasLeftEyePosition: number;
+  readonly hasLeftEyePosition: boolean;
 
   readonly leftEyePosition: CGPoint;
 
-  readonly hasRightEyePosition: number;
+  readonly hasRightEyePosition: boolean;
 
   readonly rightEyePosition: CGPoint;
 
-  readonly hasMouthPosition: number;
+  readonly hasMouthPosition: boolean;
 
   readonly mouthPosition: CGPoint;
 
-  readonly hasTrackingID: number;
+  readonly hasTrackingID: boolean;
 
   readonly trackingID: number;
 
-  readonly hasTrackingFrameCount: number;
+  readonly hasTrackingFrameCount: boolean;
 
   readonly trackingFrameCount: number;
 
-  readonly hasFaceAngle: number;
+  readonly hasFaceAngle: boolean;
 
   readonly faceAngle: number;
 
-  readonly hasSmile: number;
+  readonly hasSmile: boolean;
 
-  readonly leftEyeClosed: number;
+  readonly leftEyeClosed: boolean;
 
-  readonly rightEyeClosed: number;
+  readonly rightEyeClosed: boolean;
 }
 
 declare class CIRenderDestination extends NSObject {
@@ -1009,32 +1009,32 @@ declare class CIRenderDestination extends NSObject {
 
   alphaMode: interop.Enum<typeof CIRenderDestinationAlphaMode>;
 
-  isFlipped: number;
+  isFlipped: boolean;
 
-  isDithered: number;
+  isDithered: boolean;
 
-  isClamped: number;
+  isClamped: boolean;
 
   get colorSpace(): interop.Pointer;
   set colorSpace(value: interop.PointerConvertible);
 
   blendKernel: CIBlendKernel;
 
-  blendsInDestinationColorSpace: number;
+  blendsInDestinationColorSpace: boolean;
 }
 
 declare class CIAztecCodeDescriptor extends CIBarcodeDescriptor {
   readonly errorCorrectedPayload: NSData;
 
-  readonly isCompact: number;
+  readonly isCompact: boolean;
 
   readonly layerCount: number;
 
   readonly dataCodewordCount: number;
 
-  initWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload: NSData, isCompact: number, layerCount: number, dataCodewordCount: number): this;
+  initWithPayloadIsCompactLayerCountDataCodewordCount(errorCorrectedPayload: NSData, isCompact: boolean, layerCount: number, dataCodewordCount: number): this;
 
-  static descriptorWithPayloadIsCompactLayerCountDataCodewordCount<This extends abstract new (...args: any) => any>(this: This, errorCorrectedPayload: NSData, isCompact: number, layerCount: number, dataCodewordCount: number): InstanceType<This>;
+  static descriptorWithPayloadIsCompactLayerCountDataCodewordCount<This extends abstract new (...args: any) => any>(this: This, errorCorrectedPayload: NSData, isCompact: boolean, layerCount: number, dataCodewordCount: number): InstanceType<This>;
 }
 
 declare class CIQRCodeDescriptor extends CIBarcodeDescriptor {
@@ -1052,7 +1052,7 @@ declare class CIQRCodeDescriptor extends CIBarcodeDescriptor {
 }
 
 declare class CIBarcodeDescriptor extends NSObject implements NSSecureCoding, NSCopying {
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1142,7 +1142,7 @@ declare class CIVector extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1154,9 +1154,9 @@ declare class CIPlugIn extends NSObject {
 
   static loadNonExecutablePlugIns(): void;
 
-  static loadPlugInAllowNonExecutable(url: NSURL, allowNonExecutable: number): void;
+  static loadPlugInAllowNonExecutable(url: NSURL, allowNonExecutable: boolean): void;
 
-  static loadPlugInAllowExecutableCode(url: NSURL, allowExecutableCode: number): void;
+  static loadPlugInAllowExecutableCode(url: NSURL, allowExecutableCode: boolean): void;
 
   static loadNonExecutablePlugIn(url: NSURL): void;
 }
@@ -1197,9 +1197,9 @@ declare class CIFilterGenerator extends NSObject implements NSSecureCoding, NSCo
 
   registerFilterName(name: string): void;
 
-  writeToURLAtomically(aURL: NSURL, flag: number): number;
+  writeToURLAtomically(aURL: NSURL, flag: boolean): boolean;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1315,7 +1315,7 @@ declare class CIContext extends NSObject {
 
   createCGImageFromRectFormatColorSpace(image: CIImage, fromRect: CGRect, format: number, colorSpace: interop.PointerConvertible): interop.Pointer;
 
-  createCGImageFromRectFormatColorSpaceDeferred(image: CIImage, fromRect: CGRect, format: number, colorSpace: interop.PointerConvertible, deferred: number): interop.Pointer;
+  createCGImageFromRectFormatColorSpaceDeferred(image: CIImage, fromRect: CGRect, format: number, colorSpace: interop.PointerConvertible, deferred: boolean): interop.Pointer;
 
   static offlineGPUCount(): number;
 
@@ -1335,17 +1335,17 @@ declare class CIContext extends NSObject {
 
   OpenEXRRepresentationOfImageOptionsError(image: CIImage, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): NSData;
 
-  writeTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writeTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
-  writePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
-  writeJPEGRepresentationOfImageToURLColorSpaceOptionsError(image: CIImage, url: NSURL, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writeJPEGRepresentationOfImageToURLColorSpaceOptionsError(image: CIImage, url: NSURL, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
-  writeHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writeHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image: CIImage, url: NSURL, format: number, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
-  writeHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image: CIImage, url: NSURL, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writeHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image: CIImage, url: NSURL, colorSpace: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
-  writeOpenEXRRepresentationOfImageToURLOptionsError(image: CIImage, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): number;
+  writeOpenEXRRepresentationOfImageToURLOptionsError(image: CIImage, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, errorPtr: interop.PointerConvertible): boolean;
 
   depthBlurEffectFilterForImageURLOptions(url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): CIFilter;
 
@@ -1361,7 +1361,7 @@ declare class CIContext extends NSObject {
 
   startTaskToRenderToDestinationError(image: CIImage, destination: CIRenderDestination, error: interop.PointerConvertible): CIRenderTask;
 
-  prepareRenderFromRectToDestinationAtPointError(image: CIImage, fromRect: CGRect, destination: CIRenderDestination, atPoint: CGPoint, error: interop.PointerConvertible): number;
+  prepareRenderFromRectToDestinationAtPointError(image: CIImage, fromRect: CGRect, destination: CIRenderDestination, atPoint: CGPoint, error: interop.PointerConvertible): boolean;
 
   startTaskToClearError(destination: CIRenderDestination, error: interop.PointerConvertible): CIRenderTask;
 }
@@ -1467,7 +1467,7 @@ declare class CIRAWFilter extends CIFilter {
 
   orientation: interop.Enum<typeof CGImagePropertyOrientation>;
 
-  isDraftModeEnabled: number;
+  isDraftModeEnabled: boolean;
 
   decoderVersion: string;
 
@@ -1483,37 +1483,37 @@ declare class CIRAWFilter extends CIFilter {
 
   boostShadowAmount: number;
 
-  isGamutMappingEnabled: number;
+  isGamutMappingEnabled: boolean;
 
-  readonly isLensCorrectionSupported: number;
+  readonly isLensCorrectionSupported: boolean;
 
-  isLensCorrectionEnabled: number;
+  isLensCorrectionEnabled: boolean;
 
-  readonly isLuminanceNoiseReductionSupported: number;
+  readonly isLuminanceNoiseReductionSupported: boolean;
 
   luminanceNoiseReductionAmount: number;
 
-  readonly isColorNoiseReductionSupported: number;
+  readonly isColorNoiseReductionSupported: boolean;
 
   colorNoiseReductionAmount: number;
 
-  readonly isSharpnessSupported: number;
+  readonly isSharpnessSupported: boolean;
 
   sharpnessAmount: number;
 
-  readonly isContrastSupported: number;
+  readonly isContrastSupported: boolean;
 
   contrastAmount: number;
 
-  readonly isDetailSupported: number;
+  readonly isDetailSupported: boolean;
 
   detailAmount: number;
 
-  readonly isMoireReductionSupported: number;
+  readonly isMoireReductionSupported: boolean;
 
   moireReductionAmount: number;
 
-  readonly isLocalToneMapSupported: number;
+  readonly isLocalToneMapSupported: boolean;
 
   localToneMapAmount: number;
 
@@ -1565,7 +1565,7 @@ declare class CIQRCodeFeature extends CIFeature implements NSSecureCoding, NSCop
 
   readonly symbolDescriptor: CIQRCodeDescriptor;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -1585,7 +1585,7 @@ declare class CIFilterShape extends NSObject implements NSCopying {
 
   initWithRect(r: CGRect): this;
 
-  transformByInterior(m: CGAffineTransform, flag: number): CIFilterShape;
+  transformByInterior(m: CGAffineTransform, flag: boolean): CIFilterShape;
 
   insetByXY(dx: number, dy: number): CIFilterShape;
 
@@ -1607,7 +1607,7 @@ declare class CIFilter extends NSObject implements NSSecureCoding, NSCopying {
 
   name: string;
 
-  isEnabled: number;
+  isEnabled: boolean;
 
   readonly inputKeys: NSArray;
 
@@ -1653,7 +1653,7 @@ declare class CIFilter extends NSObject implements NSSecureCoding, NSCopying {
 
   static supportedRawCameraModels(): NSArray;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

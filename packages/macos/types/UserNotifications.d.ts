@@ -121,11 +121,11 @@ declare class UNUserNotificationCenterDelegate extends NativeObject implements U
 declare class UNUserNotificationCenter extends NSObject {
   delegate: UNUserNotificationCenterDelegate;
 
-  readonly supportsContentExtensions: number;
+  readonly supportsContentExtensions: boolean;
 
   static currentNotificationCenter(): UNUserNotificationCenter;
 
-  requestAuthorizationWithOptionsCompletionHandler(options: interop.Enum<typeof UNAuthorizationOptions>, completionHandler: (p1: number, p2: NSError) => void | null): void;
+  requestAuthorizationWithOptionsCompletionHandler(options: interop.Enum<typeof UNAuthorizationOptions>, completionHandler: (p1: boolean, p2: NSError) => void | null): void;
 
   setNotificationCategories(categories: NSSet): void;
 
@@ -153,7 +153,7 @@ declare class UNUserNotificationCenter extends NSObject {
 declare class UNTimeIntervalNotificationTrigger extends UNNotificationTrigger {
   readonly timeInterval: number;
 
-  static triggerWithTimeIntervalRepeats<This extends abstract new (...args: any) => any>(this: This, timeInterval: number, repeats: number): InstanceType<This>;
+  static triggerWithTimeIntervalRepeats<This extends abstract new (...args: any) => any>(this: This, timeInterval: number, repeats: boolean): InstanceType<This>;
 
   nextTriggerDate(): NSDate;
 }
@@ -162,11 +162,11 @@ declare class UNPushNotificationTrigger extends UNNotificationTrigger {
 }
 
 declare class UNNotificationTrigger extends NSObject implements NSCopying, NSSecureCoding {
-  readonly repeats: number;
+  readonly repeats: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -188,7 +188,7 @@ declare class UNNotificationSound extends NSObject implements NSCopying, NSSecur
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -208,7 +208,7 @@ declare class UNNotificationResponse extends NSObject implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -226,7 +226,7 @@ declare class UNNotificationRequest extends NSObject implements NSCopying, NSSec
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -254,7 +254,7 @@ declare class UNNotificationCategory extends NSObject implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -268,7 +268,7 @@ declare class UNNotification extends NSObject implements NSCopying, NSSecureCodi
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -282,7 +282,7 @@ declare class UNNotificationActionIcon extends NSObject implements NSCopying, NS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -292,7 +292,7 @@ declare class UNNotificationActionIcon extends NSObject implements NSCopying, NS
 declare class UNNotificationAttributedMessageContext extends NSObject implements UNNotificationContentProviding {
   static contextWithSendMessageIntentAttributedContent<This extends abstract new (...args: any) => any>(this: This, sendMessageIntent: INSendMessageIntent, attributedContent: NSAttributedString): InstanceType<This>;
 
-  isEqual(object: interop.Object): number;
+  isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
 
@@ -308,15 +308,15 @@ declare class UNNotificationAttributedMessageContext extends NSObject implements
 
   performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
 
-  readonly isProxy: number;
+  readonly isProxy: boolean;
 
-  isKindOfClass(aClass: interop.Object): number;
+  isKindOfClass(aClass: interop.Object): boolean;
 
-  isMemberOfClass(aClass: interop.Object): number;
+  isMemberOfClass(aClass: interop.Object): boolean;
 
-  conformsToProtocol(aProtocol: interop.PointerConvertible): number;
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
 
-  respondsToSelector(aSelector: string): number;
+  respondsToSelector(aSelector: string): boolean;
 
   retain(): this;
 
@@ -348,7 +348,7 @@ declare class UNNotificationAction extends NSObject implements NSCopying, NSSecu
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -414,7 +414,7 @@ declare class UNMutableNotificationContent extends UNNotificationContent {
 declare class UNCalendarNotificationTrigger extends UNNotificationTrigger {
   readonly dateComponents: NSDateComponents;
 
-  static triggerWithDateMatchingComponentsRepeats<This extends abstract new (...args: any) => any>(this: This, dateComponents: NSDateComponents, repeats: number): InstanceType<This>;
+  static triggerWithDateMatchingComponentsRepeats<This extends abstract new (...args: any) => any>(this: This, dateComponents: NSDateComponents, repeats: boolean): InstanceType<This>;
 
   nextTriggerDate(): NSDate;
 }
@@ -456,7 +456,7 @@ declare class UNNotificationContent extends NSObject implements NSCopying, NSMut
 
   mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -474,7 +474,7 @@ declare class UNNotificationAttachment extends NSObject implements NSCopying, NS
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -500,7 +500,7 @@ declare class UNNotificationSettings extends NSObject implements NSCopying, NSSe
 
   readonly criticalAlertSetting: interop.Enum<typeof UNNotificationSetting>;
 
-  readonly providesAppNotificationSettings: number;
+  readonly providesAppNotificationSettings: boolean;
 
   readonly timeSensitiveSetting: interop.Enum<typeof UNNotificationSetting>;
 
@@ -510,7 +510,7 @@ declare class UNNotificationSettings extends NSObject implements NSCopying, NSSe
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

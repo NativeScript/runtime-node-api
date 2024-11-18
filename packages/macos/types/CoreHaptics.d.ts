@@ -132,19 +132,19 @@ declare const CHHapticEngineStoppedReason: {
 };
 
 declare interface CHHapticAdvancedPatternPlayer extends CHHapticPatternPlayer {
-  pauseAtTimeError(time: number, outError: interop.PointerConvertible): number;
+  pauseAtTimeError(time: number, outError: interop.PointerConvertible): boolean;
 
-  resumeAtTimeError(time: number, outError: interop.PointerConvertible): number;
+  resumeAtTimeError(time: number, outError: interop.PointerConvertible): boolean;
 
-  seekToOffsetError(offsetTime: number, outError: interop.PointerConvertible): number;
+  seekToOffsetError(offsetTime: number, outError: interop.PointerConvertible): boolean;
 
-  loopEnabled: number;
+  loopEnabled: boolean;
 
   loopEnd: number;
 
   playbackRate: number;
 
-  isMuted: number;
+  isMuted: boolean;
 
   completionHandler: (p1: NSError) => void;
 }
@@ -153,17 +153,17 @@ declare class CHHapticAdvancedPatternPlayer extends NativeObject implements CHHa
 }
 
 declare interface CHHapticPatternPlayer extends NSObjectProtocol {
-  startAtTimeError(time: number, outError: interop.PointerConvertible): number;
+  startAtTimeError(time: number, outError: interop.PointerConvertible): boolean;
 
-  stopAtTimeError(time: number, outError: interop.PointerConvertible): number;
+  stopAtTimeError(time: number, outError: interop.PointerConvertible): boolean;
 
-  sendParametersAtTimeError(parameters: NSArray<interop.Object> | Array<interop.Object>, time: number, outError: interop.PointerConvertible): number;
+  sendParametersAtTimeError(parameters: NSArray<interop.Object> | Array<interop.Object>, time: number, outError: interop.PointerConvertible): boolean;
 
-  scheduleParameterCurveAtTimeError(parameterCurve: CHHapticParameterCurve, time: number, outError: interop.PointerConvertible): number;
+  scheduleParameterCurveAtTimeError(parameterCurve: CHHapticParameterCurve, time: number, outError: interop.PointerConvertible): boolean;
 
-  cancelAndReturnError(outError: interop.PointerConvertible): number;
+  cancelAndReturnError(outError: interop.PointerConvertible): boolean;
 
-  isMuted: number;
+  isMuted: boolean;
 }
 
 declare class CHHapticPatternPlayer extends NativeObject implements CHHapticPatternPlayer {
@@ -181,9 +181,9 @@ declare class CHHapticParameterAttributes extends NativeObject implements CHHapt
 }
 
 declare interface CHHapticDeviceCapability {
-  readonly supportsHaptics: number;
+  readonly supportsHaptics: boolean;
 
-  readonly supportsAudio: number;
+  readonly supportsAudio: boolean;
 
   attributesForEventParameterEventTypeError(inParameter: string, type: string, outError: interop.PointerConvertible): CHHapticParameterAttributes;
 
@@ -270,15 +270,15 @@ declare class CHHapticEngine extends NSObject {
 
   resetHandler: () => void;
 
-  playsHapticsOnly: number;
+  playsHapticsOnly: boolean;
 
-  playsAudioOnly: number;
+  playsAudioOnly: boolean;
 
-  isMutedForAudio: number;
+  isMutedForAudio: boolean;
 
-  isMutedForHaptics: number;
+  isMutedForHaptics: boolean;
 
-  isAutoShutdownEnabled: number;
+  isAutoShutdownEnabled: boolean;
 
   initAndReturnError(error: interop.PointerConvertible): this;
 
@@ -286,7 +286,7 @@ declare class CHHapticEngine extends NSObject {
 
   startWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
-  startAndReturnError(outError: interop.PointerConvertible): number;
+  startAndReturnError(outError: interop.PointerConvertible): boolean;
 
   stopWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
 
@@ -298,10 +298,10 @@ declare class CHHapticEngine extends NSObject {
 
   registerAudioResourceOptionsError(resourceURL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, outError: interop.PointerConvertible): number;
 
-  unregisterAudioResourceError(resourceID: number, outError: interop.PointerConvertible): number;
+  unregisterAudioResourceError(resourceID: number, outError: interop.PointerConvertible): boolean;
 
-  playPatternFromURLError(fileURL: NSURL, outError: interop.PointerConvertible): number;
+  playPatternFromURLError(fileURL: NSURL, outError: interop.PointerConvertible): boolean;
 
-  playPatternFromDataError(data: NSData, outError: interop.PointerConvertible): number;
+  playPatternFromDataError(data: NSData, outError: interop.PointerConvertible): boolean;
 }
 

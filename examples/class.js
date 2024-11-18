@@ -7,6 +7,9 @@ class MyClass extends NSObject {
     NativeClass(this);
   }
 
+  /**
+   * @override
+   */
   init() {
     super.init();
     console.log("MyClass.init()", this);

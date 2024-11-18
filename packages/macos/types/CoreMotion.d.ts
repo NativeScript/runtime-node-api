@@ -158,7 +158,7 @@ declare class CMPedometerEvent extends NSObject implements NSSecureCoding, NSCop
 
   readonly type: interop.Enum<typeof CMPedometerEventType>;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -172,15 +172,15 @@ declare class CMMotionActivity extends CMLogItem {
 
   readonly startDate: NSDate;
 
-  readonly unknown: number;
+  readonly unknown: boolean;
 
-  readonly stationary: number;
+  readonly stationary: boolean;
 
-  readonly walking: number;
+  readonly walking: boolean;
 
-  readonly running: number;
+  readonly running: boolean;
 
-  readonly automotive: number;
+  readonly automotive: boolean;
 }
 
 declare class CMGyroData extends CMLogItem {
@@ -202,7 +202,7 @@ declare class CMAttitude extends NSObject implements NSCopying, NSSecureCoding {
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -222,13 +222,13 @@ declare class CMAmbientPressureData extends CMLogItem {
 declare class CMHeadphoneActivityManager extends NSObject {
   static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
 
-  readonly isActivityAvailable: number;
+  readonly isActivityAvailable: boolean;
 
-  readonly isActivityActive: number;
+  readonly isActivityActive: boolean;
 
-  readonly isStatusAvailable: number;
+  readonly isStatusAvailable: boolean;
 
-  readonly isStatusActive: number;
+  readonly isStatusActive: boolean;
 
   startActivityUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMMotionActivity, p2: NSError) => void): void;
 
@@ -242,7 +242,7 @@ declare class CMHeadphoneActivityManager extends NSObject {
 declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
   readonly timestamp: number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -256,11 +256,11 @@ declare class CMHeadphoneMotionManager extends NSObject {
 
   delegate: CMHeadphoneMotionManagerDelegate;
 
-  readonly isConnectionStatusActive: number;
+  readonly isConnectionStatusActive: boolean;
 
-  readonly isDeviceMotionAvailable: number;
+  readonly isDeviceMotionAvailable: boolean;
 
-  readonly isDeviceMotionActive: number;
+  readonly isDeviceMotionActive: boolean;
 
   readonly deviceMotion: CMDeviceMotion;
 
@@ -296,13 +296,13 @@ declare class CMDeviceMotion extends CMLogItem {
 }
 
 declare class CMPedometer extends NSObject {
-  static isStepCountingAvailable(): number;
+  static isStepCountingAvailable(): boolean;
 
-  static isDistanceAvailable(): number;
+  static isDistanceAvailable(): boolean;
 
-  static isFloorCountingAvailable(): number;
+  static isFloorCountingAvailable(): boolean;
 
-  static isPaceAvailable(): number;
+  static isPaceAvailable(): boolean;
 
   queryPedometerDataFromDateToDateWithHandler(start: NSDate, end: NSDate, handler: (p1: CMPedometerData, p2: NSError) => void): void;
 
@@ -336,7 +336,7 @@ declare class CMOdometerData extends NSObject implements NSSecureCoding, NSCopyi
 
   readonly maxAbsSlope: NSNumber;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 
@@ -368,7 +368,7 @@ declare class CMPedometerData extends NSObject implements NSSecureCoding, NSCopy
 
   readonly averageActivePace: NSNumber;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

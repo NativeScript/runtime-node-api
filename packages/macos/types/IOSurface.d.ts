@@ -70,7 +70,7 @@ declare class IOSurface extends NSObject implements NSSecureCoding {
 
   removeAllAttachments(): void;
 
-  readonly isInUse: number;
+  readonly isInUse: boolean;
 
   incrementUseCount(): void;
 
@@ -78,11 +78,11 @@ declare class IOSurface extends NSObject implements NSSecureCoding {
 
   readonly localUseCount: number;
 
-  readonly allowsPixelSizeCasting: number;
+  readonly allowsPixelSizeCasting: boolean;
 
   setPurgeableOldState(newState: interop.Enum<typeof IOSurfacePurgeabilityState>, oldState: interop.PointerConvertible): number;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

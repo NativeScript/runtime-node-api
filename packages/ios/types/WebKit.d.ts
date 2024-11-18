@@ -46,7 +46,7 @@ declare const WKAudiovisualMediaTypes: {
   None: 0,
   Audio: 1,
   Video: 2,
-  All: 3,
+  All: -1,
 };
 
 declare const WKDialogResult: {
@@ -163,7 +163,7 @@ declare const WKDataDetectorTypes: {
   TrackingNumber: 16,
   FlightNumber: 32,
   LookupSuggestion: 64,
-  All: 65,
+  All: -1,
   SpotlightSuggestion: 64,
 };
 

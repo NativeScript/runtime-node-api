@@ -2608,14 +2608,6 @@ declare class LcarCaretTable {
   lookup: SFNTLookupTable;
 }
 
-declare class STXHeader {
-  constructor(init?: STXHeader);
-  nClasses: number;
-  classTableOffset: number;
-  stateArrayOffset: number;
-  entryTableOffset: number;
-}
-
 declare class STEntryOne {
   constructor(init?: STEntryOne);
   newState: number;
@@ -3033,6 +3025,14 @@ declare class ALMXHeader {
   lookup: SFNTLookupTable;
 }
 
+declare class STXHeader {
+  constructor(init?: STXHeader);
+  nClasses: number;
+  classTableOffset: number;
+  stateArrayOffset: number;
+  entryTableOffset: number;
+}
+
 declare class LtagStringRange {
   constructor(init?: LtagStringRange);
   offset: number;
@@ -3101,6 +3101,22 @@ declare class KerxFormatSpecificHeader {
   controlPoint: KerxControlPointHeader;
 }
 
+type MorxSpecificSubtableDescriptor = 
+  | { rearrangement: MorxRearrangementSubtable }
+  | { contextual: MorxContextualSubtable }
+  | { ligature: MorxLigatureSubtable }
+  | { swash: MortSwashSubtable }
+  | { insertion: MorxInsertionSubtable };
+
+declare class MorxSpecificSubtable {
+  constructor(init?: MorxSpecificSubtableDescriptor);
+  rearrangement: MorxRearrangementSubtable;
+  contextual: MorxContextualSubtable;
+  ligature: MorxLigatureSubtable;
+  swash: MortSwashSubtable;
+  insertion: MorxInsertionSubtable;
+}
+
 type KernFormatSpecificHeaderDescriptor = 
   | { orderedList: KernOrderedListHeader }
   | { stateTable: KernStateHeader }
@@ -3129,22 +3145,6 @@ declare class SFNTLookupFormatSpecificHeader {
   single: SFNTLookupSingleHeader;
   trimmedArray: SFNTLookupTrimmedArrayHeader;
   vector: SFNTLookupVectorHeader;
-}
-
-type MorxSpecificSubtableDescriptor = 
-  | { rearrangement: MorxRearrangementSubtable }
-  | { contextual: MorxContextualSubtable }
-  | { ligature: MorxLigatureSubtable }
-  | { swash: MortSwashSubtable }
-  | { insertion: MorxInsertionSubtable };
-
-declare class MorxSpecificSubtable {
-  constructor(init?: MorxSpecificSubtableDescriptor);
-  rearrangement: MorxRearrangementSubtable;
-  contextual: MorxContextualSubtable;
-  ligature: MorxLigatureSubtable;
-  swash: MortSwashSubtable;
-  insertion: MorxInsertionSubtable;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

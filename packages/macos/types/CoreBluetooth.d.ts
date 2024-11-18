@@ -274,7 +274,7 @@ declare interface CBCentralManagerDelegate extends NSObjectProtocol {
 
   centralManagerDidDisconnectPeripheralError?(central: CBCentralManager, peripheral: CBPeripheral, error: NSError | null): void;
 
-  centralManagerDidDisconnectPeripheralTimestampIsReconnectingError?(central: CBCentralManager, peripheral: CBPeripheral, timestamp: number, isReconnecting: number, error: NSError | null): void;
+  centralManagerDidDisconnectPeripheralTimestampIsReconnectingError?(central: CBCentralManager, peripheral: CBPeripheral, timestamp: number, isReconnecting: boolean, error: NSError | null): void;
 }
 
 declare class CBCentralManagerDelegate extends NativeObject implements CBCentralManagerDelegate {
@@ -315,15 +315,15 @@ declare class CBCharacteristic extends CBAttribute {
 
   readonly descriptors: NSArray;
 
-  readonly isBroadcasted: number;
+  readonly isBroadcasted: boolean;
 
-  readonly isNotifying: number;
+  readonly isNotifying: boolean;
 }
 
 declare class CBService extends CBAttribute {
   readonly peripheral: CBPeripheral | null;
 
-  readonly isPrimary: number;
+  readonly isPrimary: boolean;
 
   readonly includedServices: NSArray;
 
@@ -345,7 +345,7 @@ declare class CBPeripheral extends CBPeer {
 
   readonly services: NSArray;
 
-  readonly canSendWriteWithoutResponse: number;
+  readonly canSendWriteWithoutResponse: boolean;
 
   readRSSI(): void;
 
@@ -361,7 +361,7 @@ declare class CBPeripheral extends CBPeer {
 
   writeValueForCharacteristicType(data: NSData, characteristic: CBCharacteristic, type: interop.Enum<typeof CBCharacteristicWriteType>): void;
 
-  setNotifyValueForCharacteristic(enabled: number, characteristic: CBCharacteristic): void;
+  setNotifyValueForCharacteristic(enabled: boolean, characteristic: CBCharacteristic): void;
 
   discoverDescriptorsForCharacteristic(characteristic: CBCharacteristic): void;
 
@@ -419,7 +419,7 @@ declare class CBATTRequest extends NSObject {
 declare class CBCentralManager extends CBManager {
   delegate: CBCentralManagerDelegate;
 
-  readonly isScanning: number;
+  readonly isScanning: boolean;
 
   init(): this;
 
@@ -456,13 +456,13 @@ declare class CBMutableService extends CBService {
   // @ts-ignore MemberDecl.tsIgnore
   set characteristics(value: NSArray<interop.Object> | Array<interop.Object>);
 
-  initWithTypePrimary(UUID: CBUUID, isPrimary: number): this;
+  initWithTypePrimary(UUID: CBUUID, isPrimary: boolean): this;
 }
 
 declare class CBPeripheralManager extends CBManager {
   delegate: CBPeripheralManagerDelegate;
 
-  readonly isAdvertising: number;
+  readonly isAdvertising: boolean;
 
   static authorizationStatus(): interop.Enum<typeof CBPeripheralManagerAuthorizationStatus>;
 
@@ -486,9 +486,9 @@ declare class CBPeripheralManager extends CBManager {
 
   respondToRequestWithResult(request: CBATTRequest, result: interop.Enum<typeof CBATTError>): void;
 
-  updateValueForCharacteristicOnSubscribedCentrals(value: NSData, characteristic: CBMutableCharacteristic, centrals: NSArray<interop.Object> | Array<interop.Object> | null): number;
+  updateValueForCharacteristicOnSubscribedCentrals(value: NSData, characteristic: CBMutableCharacteristic, centrals: NSArray<interop.Object> | Array<interop.Object> | null): boolean;
 
-  publishL2CAPChannelWithEncryption(encryptionRequired: number): void;
+  publishL2CAPChannelWithEncryption(encryptionRequired: boolean): void;
 
   unpublishL2CAPChannel(PSM: number): void;
 }

@@ -1541,7 +1541,7 @@ declare function CGColorConversionInfoCreateWithOptions(src: interop.PointerConv
 
 declare function CGColorConversionInfoCreateFromList(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>): interop.Pointer;
 
-declare function CGColorConversionInfoCreateFromListWithArguments(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>, p5: unknown /* const array */): interop.Pointer;
+declare function CGColorConversionInfoCreateFromListWithArguments(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>, p5: string): interop.Pointer;
 
 declare function CGColorConversionInfoCreateForToneMapping(from: interop.PointerConvertible, source_headroom: number, to: interop.PointerConvertible, target_headroom: number, method: interop.Enum<typeof CGToneMapping>, options: interop.PointerConvertible, error: interop.PointerConvertible): interop.Pointer;
 

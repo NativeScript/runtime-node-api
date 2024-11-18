@@ -24,15 +24,15 @@ declare class UTType extends NSObject implements NSCopying, NSSecureCoding {
 
   readonly referenceURL: NSURL;
 
-  readonly isDynamic: number;
+  readonly isDynamic: boolean;
 
-  readonly isDeclared: number;
+  readonly isDeclared: boolean;
 
-  readonly isPublicType: number;
+  readonly isPublicType: boolean;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
-  static readonly supportsSecureCoding: number;
+  static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
 

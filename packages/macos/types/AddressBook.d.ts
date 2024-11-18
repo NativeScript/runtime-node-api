@@ -312,37 +312,37 @@ declare class ABMutableMultiValue extends ABMultiValue {
 
   insertValueWithLabelAtIndex(value: interop.Object, label: string, index: number): string;
 
-  removeValueAndLabelAtIndex(index: number): number;
+  removeValueAndLabelAtIndex(index: number): boolean;
 
-  replaceValueAtIndexWithValue(index: number, value: interop.Object): number;
+  replaceValueAtIndexWithValue(index: number, value: interop.Object): boolean;
 
-  replaceLabelAtIndexWithLabel(index: number, label: string): number;
+  replaceLabelAtIndexWithLabel(index: number, label: string): boolean;
 
-  setPrimaryIdentifier(identifier: string): number;
+  setPrimaryIdentifier(identifier: string): boolean;
 }
 
 declare class ABSearchElement extends NSObject {
   static searchElementForConjunctionChildren(conjuction: number, children: NSArray<interop.Object> | Array<interop.Object>): ABSearchElement;
 
-  matchesRecord(record: ABRecord): number;
+  matchesRecord(record: ABRecord): boolean;
 }
 
 declare class ABGroup extends ABRecord {
   members(): NSArray;
 
-  addMember(person: ABPerson): number;
+  addMember(person: ABPerson): boolean;
 
-  removeMember(person: ABPerson): number;
+  removeMember(person: ABPerson): boolean;
 
   subgroups(): NSArray;
 
-  addSubgroup(group: ABGroup): number;
+  addSubgroup(group: ABGroup): boolean;
 
-  removeSubgroup(group: ABGroup): number;
+  removeSubgroup(group: ABGroup): boolean;
 
   parentGroups(): NSArray;
 
-  setDistributionIdentifierForPropertyPerson(identifier: string, property: string, person: ABPerson): number;
+  setDistributionIdentifierForPropertyPerson(identifier: string, property: string, person: ABPerson): boolean;
 
   distributionIdentifierForPropertyPerson(property: string, person: ABPerson): string;
 
@@ -376,7 +376,7 @@ declare class ABPerson extends ABRecord {
 
   vCardRepresentation(): NSData;
 
-  setImageData(data: NSData): number;
+  setImageData(data: NSData): boolean;
 
   imageData(): NSData;
 
@@ -392,11 +392,11 @@ declare class ABAddressBook extends NSObject {
 
   recordsMatchingSearchElement(search: ABSearchElement): NSArray;
 
-  save(): number;
+  save(): boolean;
 
-  saveAndReturnError(error: interop.PointerConvertible): number;
+  saveAndReturnError(error: interop.PointerConvertible): boolean;
 
-  hasUnsavedChanges(): number;
+  hasUnsavedChanges(): boolean;
 
   me(): ABPerson;
 
@@ -404,13 +404,13 @@ declare class ABAddressBook extends NSObject {
 
   recordForUniqueId(uniqueId: string): ABRecord;
 
-  addRecordError(record: ABRecord, error: interop.PointerConvertible): number;
+  addRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
 
-  addRecord(record: ABRecord): number;
+  addRecord(record: ABRecord): boolean;
 
-  removeRecordError(record: ABRecord, error: interop.PointerConvertible): number;
+  removeRecordError(record: ABRecord, error: interop.PointerConvertible): boolean;
 
-  removeRecord(record: ABRecord): number;
+  removeRecord(record: ABRecord): boolean;
 
   people(): NSArray;
 
@@ -461,13 +461,13 @@ declare class ABRecord extends NSObject {
 
   valueForProperty(property: string): interop.Object;
 
-  setValueForPropertyError(value: interop.Object, property: string, error: interop.PointerConvertible): number;
+  setValueForPropertyError(value: interop.Object, property: string, error: interop.PointerConvertible): boolean;
 
-  setValueForProperty(value: interop.Object, property: string): number;
+  setValueForProperty(value: interop.Object, property: string): boolean;
 
-  removeValueForProperty(property: string): number;
+  removeValueForProperty(property: string): boolean;
 
-  isReadOnly(): number;
+  isReadOnly(): boolean;
 
   readonly uniqueId: string;
 
