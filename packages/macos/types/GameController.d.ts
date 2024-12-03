@@ -838,6 +838,13 @@ declare class GCQuaternion {
   w: number;
 }
 
+declare class GCAcceleration {
+  constructor(init?: GCAcceleration);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class GCDualSenseAdaptiveTriggerPositionalResistiveStrengths {
   constructor(init?: GCDualSenseAdaptiveTriggerPositionalResistiveStrengths);
   values: unknown /* const array */;
@@ -856,13 +863,6 @@ declare class GCPoint2 {
 
 declare class GCRotationRate {
   constructor(init?: GCRotationRate);
-  x: number;
-  y: number;
-  z: number;
-}
-
-declare class GCAcceleration {
-  constructor(init?: GCAcceleration);
   x: number;
   y: number;
   z: number;

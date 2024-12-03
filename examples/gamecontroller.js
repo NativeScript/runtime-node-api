@@ -16,6 +16,9 @@ class Observer extends NSObject {
     NativeClass(this);
   }
 
+  /**
+   * @override
+   */
   init() {
     super.init();
     NSNotificationCenter.defaultCenter.addObserverSelectorNameObject(

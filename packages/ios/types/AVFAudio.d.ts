@@ -8,15 +8,14 @@ declare const AVAudio3DMixingSourceMode: {
   AmbienceBed: 3,
 };
 
-declare const AVAudioSessionCategoryOptions: {
-  MixWithOthers: 1,
-  DuckOthers: 2,
-  AllowBluetooth: 4,
-  DefaultToSpeaker: 8,
-  InterruptSpokenAudioAndMixWithOthers: 17,
-  AllowBluetoothA2DP: 32,
-  AllowAirPlay: 64,
-  OverrideMutedMicrophoneInterruption: 128,
+declare const AVAudio3DMixingRenderingAlgorithm: {
+  EqualPowerPanning: 0,
+  SphericalHead: 1,
+  HRTF: 2,
+  SoundField: 3,
+  StereoPassThrough: 5,
+  HRTFHQ: 6,
+  Auto: 7,
 };
 
 declare const AVAudioEnvironmentOutputType: {
@@ -26,14 +25,15 @@ declare const AVAudioEnvironmentOutputType: {
   ExternalSpeakers: 3,
 };
 
-declare const AVAudio3DMixingRenderingAlgorithm: {
-  EqualPowerPanning: 0,
-  SphericalHead: 1,
-  HRTF: 2,
-  SoundField: 3,
-  StereoPassThrough: 5,
-  HRTFHQ: 6,
-  Auto: 7,
+declare const AVAudioSessionCategoryOptions: {
+  MixWithOthers: 1,
+  DuckOthers: 2,
+  AllowBluetooth: 4,
+  DefaultToSpeaker: 8,
+  InterruptSpokenAudioAndMixWithOthers: 17,
+  AllowBluetoothA2DP: 32,
+  AllowAirPlay: 64,
+  OverrideMutedMicrophoneInterruption: 128,
 };
 
 declare const AVAudioSessionPortOverride: {
@@ -601,36 +601,6 @@ declare class AVAudioChannelLayout extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class AVAudioNode extends NSObject {
-  reset(): void;
-
-  inputFormatForBus(bus: number): AVAudioFormat;
-
-  outputFormatForBus(bus: number): AVAudioFormat;
-
-  nameForInputBus(bus: number): string;
-
-  nameForOutputBus(bus: number): string;
-
-  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
-
-  removeTapOnBus(bus: number): void;
-
-  readonly engine: AVAudioEngine;
-
-  readonly numberOfInputs: number;
-
-  readonly numberOfOutputs: number;
-
-  readonly lastRenderTime: AVAudioTime;
-
-  readonly AUAudioUnit: AUAudioUnit;
-
-  readonly latency: number;
-
-  readonly outputPresentationLatency: number;
-}
-
 declare class AVAudioEngine extends NSObject {
   init(): this;
 
@@ -762,24 +732,6 @@ declare class AVAudioFormat extends NSObject implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class AVAudioSessionDataSourceDescription extends NSObject {
-  readonly dataSourceID: NSNumber;
-
-  readonly dataSourceName: string;
-
-  readonly location: string;
-
-  readonly orientation: string;
-
-  readonly supportedPolarPatterns: NSArray;
-
-  readonly selectedPolarPattern: string;
-
-  readonly preferredPolarPattern: string;
-
-  setPreferredPolarPatternError(pattern: string | null, outError: interop.PointerConvertible): boolean;
-}
-
 declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixing {
   init(): this;
 
@@ -800,6 +752,8 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
   readonly reverbParameters: AVAudioEnvironmentReverbParameters;
 
   readonly applicableRenderingAlgorithms: NSArray;
+
+  isListenerHeadTrackingEnabled: boolean;
 
   destinationForMixerBus(mixer: AVAudioNode, bus: number): AVAudioMixingDestination;
 
@@ -862,6 +816,54 @@ declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixin
   occlusion: number;
 
   position: AVAudio3DPoint;
+}
+
+declare class AVAudioNode extends NSObject {
+  reset(): void;
+
+  inputFormatForBus(bus: number): AVAudioFormat;
+
+  outputFormatForBus(bus: number): AVAudioFormat;
+
+  nameForInputBus(bus: number): string;
+
+  nameForOutputBus(bus: number): string;
+
+  installTapOnBusBufferSizeFormatBlock(bus: number, bufferSize: number, format: AVAudioFormat | null, tapBlock: (p1: AVAudioPCMBuffer, p2: AVAudioTime) => void): void;
+
+  removeTapOnBus(bus: number): void;
+
+  readonly engine: AVAudioEngine;
+
+  readonly numberOfInputs: number;
+
+  readonly numberOfOutputs: number;
+
+  readonly lastRenderTime: AVAudioTime;
+
+  readonly AUAudioUnit: AUAudioUnit;
+
+  readonly latency: number;
+
+  readonly outputPresentationLatency: number;
+}
+
+declare class AVAudioSessionDataSourceDescription extends NSObject {
+  readonly dataSourceID: NSNumber;
+
+  readonly dataSourceName: string;
+
+  readonly location: string;
+
+  readonly orientation: string;
+
+  readonly supportedPolarPatterns: NSArray;
+
+  readonly selectedPolarPattern: string;
+
+  readonly preferredPolarPattern: string;
+
+  setPreferredPolarPatternError(pattern: string | null, outError: interop.PointerConvertible): boolean;
 }
 
 declare class AVAudioSessionPortDescription extends NSObject {

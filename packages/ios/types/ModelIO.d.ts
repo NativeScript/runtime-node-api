@@ -443,6 +443,55 @@ declare class MDLStereoscopicCamera extends MDLCamera {
   readonly rightProjectionMatrix: simd_float4x4;
 }
 
+declare class MDLMaterial extends NSObject implements MDLNamed, NSFastEnumeration {
+  initWithNameScatteringFunction(name: string, scatteringFunction: MDLScatteringFunction): this;
+
+  setProperty(property: MDLMaterialProperty): void;
+
+  removeProperty(property: MDLMaterialProperty): void;
+
+  propertyNamed(name: string): MDLMaterialProperty;
+
+  propertyWithSemantic(semantic: interop.Enum<typeof MDLMaterialSemantic>): MDLMaterialProperty;
+
+  propertiesWithSemantic(semantic: interop.Enum<typeof MDLMaterialSemantic>): NSArray;
+
+  removeAllProperties(): void;
+
+  resolveTexturesWithResolver(resolver: MDLAssetResolver): void;
+
+  loadTexturesUsingResolver(resolver: MDLAssetResolver): void;
+
+  readonly scatteringFunction: MDLScatteringFunction;
+
+  name: string;
+
+  baseMaterial: MDLMaterial;
+
+  objectAtIndexedSubscript(idx: number): MDLMaterialProperty;
+
+  objectForKeyedSubscript(name: string): MDLMaterialProperty;
+
+  readonly count: number;
+
+  materialFace: interop.Enum<typeof MDLMaterialFace>;
+
+  countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
+
+  readonly [Symbol.iterator]: () => Iterator<any>;
+
+}
+
+declare class MDLLight extends MDLObject {
+  irradianceAtPoint(point: unknown /* ext vector */): interop.Pointer;
+
+  irradianceAtPointColorSpace(point: unknown /* ext vector */, colorSpace: interop.PointerConvertible): interop.Pointer;
+
+  lightType: interop.Enum<typeof MDLLightType>;
+
+  colorSpace: string;
+}
+
 declare class MDLVoxelArray extends MDLObject {
   initWithAssetDivisionsPatchRadius(asset: MDLAsset, divisions: number, patchRadius: number): this;
 
@@ -568,6 +617,10 @@ declare class MDLTransformRotateYOp extends NSObject implements MDLTransformOp {
   double4x4AtTime(time: number): simd_double4x4;
 
   IsInverseOp(): boolean;
+}
+
+declare class MDLUtility extends NSObject {
+  static convertToUSDZWriteToURL(inputURL: NSURL, outputURL: NSURL): void;
 }
 
 declare class MDLTransformStack extends NSObject implements NSCopying, MDLTransformComponent {
@@ -899,65 +952,6 @@ declare class MDLSubmeshTopology extends NSObject {
   holeCount: number;
 }
 
-declare class MDLMaterial extends NSObject implements MDLNamed, NSFastEnumeration {
-  initWithNameScatteringFunction(name: string, scatteringFunction: MDLScatteringFunction): this;
-
-  setProperty(property: MDLMaterialProperty): void;
-
-  removeProperty(property: MDLMaterialProperty): void;
-
-  propertyNamed(name: string): MDLMaterialProperty;
-
-  propertyWithSemantic(semantic: interop.Enum<typeof MDLMaterialSemantic>): MDLMaterialProperty;
-
-  propertiesWithSemantic(semantic: interop.Enum<typeof MDLMaterialSemantic>): NSArray;
-
-  removeAllProperties(): void;
-
-  resolveTexturesWithResolver(resolver: MDLAssetResolver): void;
-
-  loadTexturesUsingResolver(resolver: MDLAssetResolver): void;
-
-  readonly scatteringFunction: MDLScatteringFunction;
-
-  name: string;
-
-  baseMaterial: MDLMaterial;
-
-  objectAtIndexedSubscript(idx: number): MDLMaterialProperty;
-
-  objectForKeyedSubscript(name: string): MDLMaterialProperty;
-
-  readonly count: number;
-
-  materialFace: interop.Enum<typeof MDLMaterialFace>;
-
-  countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
-
-  readonly [Symbol.iterator]: () => Iterator<any>;
-
-}
-
-declare class MDLScatteringFunction extends NSObject implements MDLNamed {
-  name: string;
-
-  readonly baseColor: MDLMaterialProperty;
-
-  readonly emission: MDLMaterialProperty;
-
-  readonly specular: MDLMaterialProperty;
-
-  readonly materialIndexOfRefraction: MDLMaterialProperty;
-
-  readonly interfaceIndexOfRefraction: MDLMaterialProperty;
-
-  readonly normal: MDLMaterialProperty;
-
-  readonly ambientOcclusion: MDLMaterialProperty;
-
-  readonly ambientOcclusionScale: MDLMaterialProperty;
-}
-
 declare class MDLMaterialPropertyNode extends NSObject implements MDLNamed {
   initWithInputsOutputsEvaluationFunction(inputs: NSArray<interop.Object> | Array<interop.Object>, outputs: NSArray<interop.Object> | Array<interop.Object>, function$: (p1: MDLMaterialPropertyNode) => void): this;
 
@@ -1071,16 +1065,6 @@ declare class MDLAreaLight extends MDLPhysicallyPlausibleLight {
   superEllipticPower: unknown /* ext vector */;
 
   aspect: number;
-}
-
-declare class MDLLight extends MDLObject {
-  irradianceAtPoint(point: unknown /* ext vector */): interop.Pointer;
-
-  irradianceAtPointColorSpace(point: unknown /* ext vector */, colorSpace: interop.PointerConvertible): interop.Pointer;
-
-  lightType: interop.Enum<typeof MDLLightType>;
-
-  colorSpace: string;
 }
 
 declare class MDLCamera extends MDLObject {
@@ -1390,14 +1374,6 @@ declare class MDLVertexAttribute extends NSObject implements NSCopying {
   time: number;
 
   initializationValue: unknown /* ext vector */;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class MDLVertexBufferLayout extends NSObject implements NSCopying {
-  initWithStride(stride: number): this;
-
-  stride: number;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1803,6 +1779,64 @@ declare class MDLAnimationBindComponent extends NSObject implements NSCopying, M
   readonly debugDescription: string;
 }
 
+declare class MDLVertexBufferLayout extends NSObject implements NSCopying {
+  initWithStride(stride: number): this;
+
+  stride: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class MDLRelativeAssetResolver extends NSObject implements MDLAssetResolver {
+  initWithAsset(asset: MDLAsset): this;
+
+  asset: MDLAsset | null;
+
+  canResolveAssetNamed(name: string): boolean;
+
+  resolveAssetNamed(name: string): NSURL;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class MDLBundleAssetResolver extends NSObject implements MDLAssetResolver {
   initWithBundle(path: string): this;
 
@@ -1999,20 +2033,6 @@ declare class MDLTexture extends NSObject implements MDLNamed {
   name: string;
 }
 
-declare class MDLTextureFilter extends NSObject {
-  sWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
-
-  tWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
-
-  rWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
-
-  minFilter: interop.Enum<typeof MDLMaterialTextureFilterMode>;
-
-  magFilter: interop.Enum<typeof MDLMaterialTextureFilterMode>;
-
-  mipFilter: interop.Enum<typeof MDLMaterialMipMapFilterMode>;
-}
-
 declare class MDLPhysicallyPlausibleScatteringFunction extends MDLScatteringFunction {
   readonly version: number;
 
@@ -2087,6 +2107,20 @@ declare class MDLAnimatedVector4 extends MDLAnimatedValue {
   getDouble4ArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
 }
 
+declare class MDLTextureFilter extends NSObject {
+  sWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
+
+  tWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
+
+  rWrapMode: interop.Enum<typeof MDLMaterialTextureWrapMode>;
+
+  minFilter: interop.Enum<typeof MDLMaterialTextureFilterMode>;
+
+  magFilter: interop.Enum<typeof MDLMaterialTextureFilterMode>;
+
+  mipFilter: interop.Enum<typeof MDLMaterialMipMapFilterMode>;
+}
+
 declare class MDLObjectContainer extends NSObject implements MDLObjectContainerComponent {
   addObject(object: MDLObject): void;
 
@@ -2141,53 +2175,23 @@ declare class MDLObjectContainer extends NSObject implements MDLObjectContainerC
   countByEnumeratingWithStateObjectsCount(state: interop.PointerConvertible, buffer: interop.PointerConvertible, len: number): number;
 }
 
-declare class MDLRelativeAssetResolver extends NSObject implements MDLAssetResolver {
-  initWithAsset(asset: MDLAsset): this;
+declare class MDLScatteringFunction extends NSObject implements MDLNamed {
+  name: string;
 
-  asset: MDLAsset | null;
+  readonly baseColor: MDLMaterialProperty;
 
-  canResolveAssetNamed(name: string): boolean;
+  readonly emission: MDLMaterialProperty;
 
-  resolveAssetNamed(name: string): NSURL;
+  readonly specular: MDLMaterialProperty;
 
-  isEqual(object: interop.Object): boolean;
+  readonly materialIndexOfRefraction: MDLMaterialProperty;
 
-  readonly hash: number;
+  readonly interfaceIndexOfRefraction: MDLMaterialProperty;
 
-  readonly superclass: interop.Object;
+  readonly normal: MDLMaterialProperty;
 
-  class(): interop.Object;
+  readonly ambientOcclusion: MDLMaterialProperty;
 
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
+  readonly ambientOcclusionScale: MDLMaterialProperty;
 }
 

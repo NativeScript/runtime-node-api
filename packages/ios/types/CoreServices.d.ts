@@ -84,8 +84,6 @@ declare const kUTTypeAppleICNS: interop.Pointer;
 
 declare const kUTTypeGIF: interop.Pointer;
 
-declare const kUTTypePICT: interop.Pointer;
-
 declare const kUTTypeTIFF: interop.Pointer;
 
 declare const kUTTypeImage: interop.Pointer;
@@ -170,7 +168,7 @@ declare const kUTTypeRubyScript: interop.Pointer;
 
 declare const kUTTypeMPEG2Video: interop.Pointer;
 
-declare const kUTTypeQuickTimeImage: interop.Pointer;
+declare const kUTTypeRTF: interop.Pointer;
 
 declare const kUTTypeZipArchive: interop.Pointer;
 
@@ -230,6 +228,8 @@ declare const kUTTypeCompositeContent: interop.Pointer;
 
 declare const kUTTypeJPEG: interop.Pointer;
 
+declare const kUTTypePICT: interop.Pointer;
+
 declare const kUTTypeToDoItem: interop.Pointer;
 
 declare const kUTTypeCommaSeparatedText: interop.Pointer;
@@ -241,8 +241,6 @@ declare const kUTTypeShellScript: interop.Pointer;
 declare const kUTTypeAppleProtectedMPEG4Audio: interop.Pointer;
 
 declare const kUTTypeIdentifierKey: interop.Pointer;
-
-declare const kUTTypeExecutable: interop.Pointer;
 
 declare const kUTTypeAliasRecord: interop.Pointer;
 
@@ -257,6 +255,8 @@ declare const kUTTypeVersionKey: interop.Pointer;
 declare const kUTTypeObjectiveCSource: interop.Pointer;
 
 declare const kUTTypeMP3: interop.Pointer;
+
+declare const kUTTypeExecutable: interop.Pointer;
 
 declare const kUTTypeQuickTimeMovie: interop.Pointer;
 
@@ -276,7 +276,7 @@ declare const kUTTypeSwiftSource: interop.Pointer;
 
 declare const kUTTypeDatabase: interop.Pointer;
 
-declare const kUTTypeRTF: interop.Pointer;
+declare const kUTTypeQuickTimeImage: interop.Pointer;
 
 declare function UTTypeCreatePreferredIdentifierForTag(inTagClass: interop.PointerConvertible, inTag: interop.PointerConvertible, inConformingToUTI: interop.PointerConvertible): interop.Pointer;
 

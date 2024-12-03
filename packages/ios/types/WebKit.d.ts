@@ -312,16 +312,6 @@ declare interface WKPreviewActionItem extends UIPreviewActionItem {
 declare class WKPreviewActionItem extends NativeObject implements WKPreviewActionItem {
 }
 
-declare class WKFindConfiguration extends NSObject implements NSCopying {
-  backwards: boolean;
-
-  caseSensitive: boolean;
-
-  wraps: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class WKFindResult extends NSObject implements NSCopying {
   readonly matchFound: boolean;
 
@@ -378,6 +368,8 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
   setURLSchemeHandlerForURLScheme(urlSchemeHandler: WKURLSchemeHandler | null, urlScheme: string): void;
 
   urlSchemeHandlerForURLScheme(urlScheme: string): WKURLSchemeHandler;
+
+  supportsAdaptiveImageGlyph: boolean;
 
   mediaPlaybackRequiresUserAction: boolean;
 
@@ -589,6 +581,104 @@ declare class WKContentRuleListStore extends NSObject {
   getAvailableContentRuleListIdentifiers(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
 }
 
+declare class WKBackForwardList extends NSObject {
+  readonly currentItem: WKBackForwardListItem;
+
+  readonly backItem: WKBackForwardListItem;
+
+  readonly forwardItem: WKBackForwardListItem;
+
+  itemAtIndex(index: number): WKBackForwardListItem;
+
+  readonly backList: NSArray;
+
+  readonly forwardList: NSArray;
+}
+
+declare class WKWindowFeatures extends NSObject {
+  readonly menuBarVisibility: NSNumber;
+
+  readonly statusBarVisibility: NSNumber;
+
+  readonly toolbarsVisibility: NSNumber;
+
+  readonly allowsResizing: NSNumber;
+
+  readonly x: NSNumber;
+
+  readonly y: NSNumber;
+
+  readonly width: NSNumber;
+
+  readonly height: NSNumber;
+}
+
+declare class WKContentRuleList extends NSObject {
+  readonly identifier: string;
+}
+
+declare class WKContentWorld extends NSObject {
+  static readonly pageWorld: WKContentWorld;
+
+  static readonly defaultClientWorld: WKContentWorld;
+
+  static worldWithName(name: string): WKContentWorld;
+
+  readonly name: string;
+}
+
+declare class WKFindConfiguration extends NSObject implements NSCopying {
+  backwards: boolean;
+
+  caseSensitive: boolean;
+
+  wraps: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class WKUserContentController extends NSObject implements NSSecureCoding {
+  readonly userScripts: NSArray;
+
+  addUserScript(userScript: WKUserScript): void;
+
+  removeAllUserScripts(): void;
+
+  addScriptMessageHandlerContentWorldName(scriptMessageHandler: WKScriptMessageHandler, world: WKContentWorld, name: string): void;
+
+  addScriptMessageHandlerWithReplyContentWorldName(scriptMessageHandlerWithReply: WKScriptMessageHandlerWithReply, contentWorld: WKContentWorld, name: string): void;
+
+  addScriptMessageHandlerName(scriptMessageHandler: WKScriptMessageHandler, name: string): void;
+
+  removeScriptMessageHandlerForNameContentWorld(name: string, contentWorld: WKContentWorld): void;
+
+  removeScriptMessageHandlerForName(name: string): void;
+
+  removeAllScriptMessageHandlersFromContentWorld(contentWorld: WKContentWorld): void;
+
+  removeAllScriptMessageHandlers(): void;
+
+  addContentRuleList(contentRuleList: WKContentRuleList): void;
+
+  removeContentRuleList(contentRuleList: WKContentRuleList): void;
+
+  removeAllContentRuleLists(): void;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class WKSecurityOrigin extends NSObject {
+  readonly protocol: string;
+
+  readonly host: string;
+
+  readonly port: number;
+}
+
 declare class WKDownload extends NSObject implements NSProgressReporting {
   readonly originalRequest: NSURLRequest;
 
@@ -639,94 +729,6 @@ declare class WKDownload extends NSObject implements NSProgressReporting {
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class WKBackForwardList extends NSObject {
-  readonly currentItem: WKBackForwardListItem;
-
-  readonly backItem: WKBackForwardListItem;
-
-  readonly forwardItem: WKBackForwardListItem;
-
-  itemAtIndex(index: number): WKBackForwardListItem;
-
-  readonly backList: NSArray;
-
-  readonly forwardList: NSArray;
-}
-
-declare class WKWindowFeatures extends NSObject {
-  readonly menuBarVisibility: NSNumber;
-
-  readonly statusBarVisibility: NSNumber;
-
-  readonly toolbarsVisibility: NSNumber;
-
-  readonly allowsResizing: NSNumber;
-
-  readonly x: NSNumber;
-
-  readonly y: NSNumber;
-
-  readonly width: NSNumber;
-
-  readonly height: NSNumber;
-}
-
-declare class WKContentWorld extends NSObject {
-  static readonly pageWorld: WKContentWorld;
-
-  static readonly defaultClientWorld: WKContentWorld;
-
-  static worldWithName(name: string): WKContentWorld;
-
-  readonly name: string;
-}
-
-declare class WKUserContentController extends NSObject implements NSSecureCoding {
-  readonly userScripts: NSArray;
-
-  addUserScript(userScript: WKUserScript): void;
-
-  removeAllUserScripts(): void;
-
-  addScriptMessageHandlerContentWorldName(scriptMessageHandler: WKScriptMessageHandler, world: WKContentWorld, name: string): void;
-
-  addScriptMessageHandlerWithReplyContentWorldName(scriptMessageHandlerWithReply: WKScriptMessageHandlerWithReply, contentWorld: WKContentWorld, name: string): void;
-
-  addScriptMessageHandlerName(scriptMessageHandler: WKScriptMessageHandler, name: string): void;
-
-  removeScriptMessageHandlerForNameContentWorld(name: string, contentWorld: WKContentWorld): void;
-
-  removeScriptMessageHandlerForName(name: string): void;
-
-  removeAllScriptMessageHandlersFromContentWorld(contentWorld: WKContentWorld): void;
-
-  removeAllScriptMessageHandlers(): void;
-
-  addContentRuleList(contentRuleList: WKContentRuleList): void;
-
-  removeContentRuleList(contentRuleList: WKContentRuleList): void;
-
-  removeAllContentRuleLists(): void;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class WKSecurityOrigin extends NSObject {
-  readonly protocol: string;
-
-  readonly host: string;
-
-  readonly port: number;
-}
-
-declare class WKContentRuleList extends NSObject {
-  readonly identifier: string;
 }
 
 declare class WKContextMenuElementInfo extends NSObject {
@@ -869,6 +871,8 @@ declare class WKWebView extends UIView {
   readonly findInteraction: UIFindInteraction;
 
   isInspectable: boolean;
+
+  readonly isWritingToolsActive: boolean;
 
   readonly certificateChain: NSArray;
 }

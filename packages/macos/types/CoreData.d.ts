@@ -24,6 +24,8 @@ declare const NSPersistentStoreUbiquitousTransitionTypeKey: string;
 
 declare const NSPersistentStoreUbiquitousContentURLKey: string;
 
+declare const NSPersistentStoreModelVersionChecksumKey: string;
+
 declare const NSPersistentHistoryTokenKey: string;
 
 declare const NSPersistentStoreURLKey: string;
@@ -1688,6 +1690,8 @@ declare class NSPersistentStoreCoordinator extends NSObject implements NSLocking
   finishDeferredLightweightMigration(error: interop.PointerConvertible): boolean;
 
   finishDeferredLightweightMigrationTask(error: interop.PointerConvertible): boolean;
+
+  managedObjectIDFromUTF8StringLength(utf8string: string, len: number): NSManagedObjectID;
 
   static metadataForPersistentStoreWithURLError(url: NSURL, error: interop.PointerConvertible): NSDictionary;
 

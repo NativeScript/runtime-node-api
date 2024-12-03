@@ -2,10 +2,6 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./UIKit.d.ts" />
 
-declare const SCNParticlePropertyColor: string;
-
-declare const SCNModelViewTransform: string;
-
 declare const SCNParticlePropertyPosition: string;
 
 declare const SCNHitTestClipToZRangeKey: string;
@@ -17,6 +13,8 @@ declare const SCNLightTypeDirectional: string;
 declare const SCNConsistencyInvalidURIError: number;
 
 declare const SCNHitTestOptionIgnoreLightArea: string;
+
+declare const SCNLightTypeAmbient: string;
 
 declare const SCNSceneSourceAssetDirectoryURLsKey: string;
 
@@ -42,9 +40,9 @@ declare const SCNParticlePropertyBounce: string;
 
 declare const SCNParticlePropertyOpacity: string;
 
-declare const SCNParticlePropertyLife: string;
+declare const SCNParticlePropertyColor: string;
 
-declare const SCNParticlePropertyAngularVelocity: string;
+declare const SCNParticlePropertyLife: string;
 
 declare const SCNParticlePropertyVelocity: string;
 
@@ -73,8 +71,6 @@ declare const SCNLightTypeArea: string;
 declare const SCNLightTypeIES: string;
 
 declare const SCNLightTypeSpot: string;
-
-declare const SCNLightTypeAmbient: string;
 
 declare const SCNViewTransform: string;
 
@@ -124,11 +120,7 @@ declare const SCNProgramMappingChannelKey: string;
 
 declare const SCNHitTestSortResultsKey: string;
 
-declare const SCNHitTestOptionCategoryBitMask: string;
-
 declare const SCNHitTestRootNodeKey: string;
-
-declare const SCNHitTestIgnoreChildNodesKey: string;
 
 declare const SCNHitTestBoundingBoxOnlyKey: string;
 
@@ -140,19 +132,25 @@ declare const SCNMatrix4Identity: SCNMatrix4;
 
 declare const SCNVector3Zero: SCNVector3;
 
+declare const SCNModelViewTransform: string;
+
+declare const SCNParticlePropertyAngularVelocity: string;
+
+declare const SCNHitTestIgnoreChildNodesKey: string;
+
 declare const SCNSceneSourceStrictConformanceKey: string;
 
 declare const SCNShaderModifierEntryPointLightingModel: string;
 
 declare const SCNLightingModelPhysicallyBased: string;
 
+declare const SCNVector4Zero: SCNVector4;
+
 declare const SCNShaderModifierEntryPointGeometry: string;
 
 declare const SCNLightTypeOmni: string;
 
 declare const SCNGeometrySourceSemanticTexcoord: string;
-
-declare const SCNVector4Zero: SCNVector4;
 
 declare const SCNConsistencyElementTypeErrorKey: string;
 
@@ -206,6 +204,8 @@ declare const SCNHitTestIgnoreHiddenNodesKey: string;
 
 declare const SCNConsistencyInvalidArgumentError: number;
 
+declare const SCNHitTestOptionCategoryBitMask: string;
+
 declare const SCNGeometrySourceSemanticNormal: string;
 
 declare const SCNPhysicsTestSearchModeKey: string;
@@ -241,6 +241,21 @@ declare const SCNHitTestOptionSearchMode: string;
 declare const SCNPhysicsShapeKeepAsCompoundKey: string;
 
 declare const SCNHitTestFirstFoundOnlyKey: string;
+
+declare const SCNInteractionMode: {
+  Fly: 0,
+  OrbitTurntable: 1,
+  OrbitAngleMapping: 2,
+  OrbitCenteredArcball: 3,
+  OrbitArcball: 4,
+  Pan: 5,
+  Truck: 6,
+};
+
+declare const SCNReferenceLoadingPolicy: {
+  Immediate: 0,
+  OnDemand: 1,
+};
 
 declare const SCNPhysicsFieldScope: {
   Inside: 0,
@@ -421,11 +436,6 @@ declare const SCNHitTestSearchMode: {
   Any: 2,
 };
 
-declare const SCNReferenceLoadingPolicy: {
-  Immediate: 0,
-  OnDemand: 1,
-};
-
 declare const SCNParticleBlendMode: {
   Additive: 0,
   Subtract: 1,
@@ -433,16 +443,6 @@ declare const SCNParticleBlendMode: {
   Screen: 3,
   Alpha: 4,
   Replace: 5,
-};
-
-declare const SCNInteractionMode: {
-  Fly: 0,
-  OrbitTurntable: 1,
-  OrbitAngleMapping: 2,
-  OrbitCenteredArcball: 3,
-  OrbitArcball: 4,
-  Pan: 5,
-  Truck: 6,
 };
 
 declare const SCNBlendMode: {
@@ -478,12 +478,6 @@ declare const SCNColorMask: {
   All: 15,
 };
 
-declare const SCNPhysicsCollisionCategory: {
-  Default: 1,
-  Static: 2,
-  All: -1,
-};
-
 declare const SCNGeometryPrimitiveType: {
   Triangles: 0,
   TriangleStrip: 1,
@@ -498,6 +492,12 @@ declare const SCNSceneSourceStatus: {
   Validating: 8,
   Processing: 12,
   Complete: 16,
+};
+
+declare const SCNPhysicsCollisionCategory: {
+  Default: 1,
+  Static: 2,
+  All: -1,
 };
 
 declare const SCNActionTimingMode: {
@@ -1013,7 +1013,11 @@ declare class SCNPhysicsField extends NSObject implements NSCopying, NSSecureCod
 declare class SCNGeometryElement extends NSObject implements NSSecureCoding {
   static geometryElementWithDataPrimitiveTypePrimitiveCountBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, data: NSData | null, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, bytesPerIndex: number): InstanceType<This>;
 
+  static geometryElementWithDataPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, data: NSData | null, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: boolean, bytesPerIndex: number): InstanceType<This>;
+
   static geometryElementWithBufferPrimitiveTypePrimitiveCountBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, buffer: MTLBuffer, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, bytesPerIndex: number): InstanceType<This>;
+
+  static geometryElementWithBufferPrimitiveTypePrimitiveCountIndicesChannelCountInterleavedIndicesChannelsBytesPerIndex<This extends abstract new (...args: any) => any>(this: This, buffer: MTLBuffer, primitiveType: interop.Enum<typeof SCNGeometryPrimitiveType>, primitiveCount: number, indicesChannelCount: number, interleavedIndicesChannels: boolean, bytesPerIndex: number): InstanceType<This>;
 
   readonly data: NSData;
 
@@ -1021,9 +1025,13 @@ declare class SCNGeometryElement extends NSObject implements NSSecureCoding {
 
   readonly primitiveCount: number;
 
-  primitiveRange: _NSRange;
+  readonly hasInterleavedIndicesChannels: boolean;
+
+  readonly indicesChannelCount: number;
 
   readonly bytesPerIndex: number;
+
+  primitiveRange: _NSRange;
 
   pointSize: number;
 
@@ -1482,6 +1490,8 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
 
   static geometryWithSourcesElements<This extends abstract new (...args: any) => any>(this: This, sources: NSArray<interop.Object> | Array<interop.Object>, elements: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
 
+  static geometryWithSourcesElementsSourceChannels<This extends abstract new (...args: any) => any>(this: This, sources: NSArray<interop.Object> | Array<interop.Object>, elements: NSArray<interop.Object> | Array<interop.Object> | null, sourceChannels: NSArray<interop.Object> | Array<interop.Object> | null): InstanceType<This>;
+
   readonly geometrySources: NSArray;
 
   geometrySourcesForSemantic(semantic: string): NSArray;
@@ -1491,6 +1501,8 @@ declare class SCNGeometry extends NSObject implements SCNAnimatable, SCNBounding
   readonly geometryElementCount: number;
 
   geometryElementAtIndex(elementIndex: number): SCNGeometryElement;
+
+  readonly geometrySourceChannels: NSArray;
 
   get levelsOfDetail(): NSArray;
   set levelsOfDetail(value: NSArray<interop.Object> | Array<interop.Object>);
@@ -2904,6 +2916,12 @@ declare class SCNMaterialProperty extends NSObject implements SCNAnimatable, NSS
 
   maxAnisotropy: number;
 
+  static precomputedLightingEnvironmentContentsWithURLError(url: NSURL, error: interop.PointerConvertible): interop.Object;
+
+  static precomputedLightingEnvironmentContentsWithDataError(data: NSData, error: interop.PointerConvertible): interop.Object;
+
+  static precomputedLightingEnvironmentDataForContentsDeviceError(contents: interop.Object, device: MTLDevice | null, error: interop.PointerConvertible): NSData;
+
   borderColor: interop.Object;
 
   addAnimationForKey(animation: SCNAnimation, key: string | null): void;
@@ -3013,7 +3031,7 @@ declare class SCNReferenceNode extends SCNNode {
   readonly isLoaded: boolean;
 }
 
-declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCNAnimatable, SCNActionable, SCNBoundingVolume, UIFocusItem {
+declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCNAnimatable, SCNActionable, SCNBoundingVolume {
   static node<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
   static nodeWithGeometry(geometry: SCNGeometry | null): SCNNode;
@@ -3116,8 +3134,6 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
 
   categoryBitMask: number;
 
-  focusBehavior: interop.Enum<typeof SCNNodeFocusBehavior>;
-
   static readonly localUp: SCNVector3;
 
   static readonly localRight: SCNVector3;
@@ -3193,6 +3209,8 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
   simdLocalRotateBy(rotation: simd_quatf): void;
 
   simdRotateByAroundTarget(worldRotation: simd_quatf, worldTarget: unknown /* ext vector */): void;
+
+  focusBehavior: interop.Enum<typeof SCNNodeFocusBehavior>;
 
   addParticleSystem(system: SCNParticleSystem): void;
 
@@ -3311,36 +3329,6 @@ declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCN
   setBoundingBoxMinMax(min: interop.PointerConvertible, max: interop.PointerConvertible): void;
 
   getBoundingSphereCenterRadius(center: interop.PointerConvertible, radius: interop.PointerConvertible): boolean;
-
-  readonly canBecomeFocused: boolean;
-
-  readonly frame: CGRect;
-
-  readonly focusEffect: UIFocusEffect;
-
-  readonly focusGroupPriority: number;
-
-  readonly isTransparentFocusItem: boolean;
-
-  didHintFocusMovement(hint: UIFocusMovementHint): void;
-
-  readonly preferredFocusEnvironments: NSArray;
-
-  readonly parentFocusEnvironment: UIFocusEnvironment;
-
-  readonly focusItemContainer: UIFocusItemContainer;
-
-  setNeedsFocusUpdate(): void;
-
-  updateFocusIfNeeded(): void;
-
-  shouldUpdateFocusInContext(context: UIFocusUpdateContext): boolean;
-
-  didUpdateFocusInContextWithAnimationCoordinator(context: UIFocusUpdateContext, coordinator: UIFocusAnimationCoordinator): void;
-
-  readonly preferredFocusedView: UIView;
-
-  readonly focusGroupIdentifier: string;
 }
 
 declare class SCNPhysicsContact extends NSObject {
@@ -3403,6 +3391,173 @@ declare class SCNSphere extends SCNGeometry {
   isGeodesic: boolean;
 
   segmentCount: number;
+}
+
+declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
+  static light<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  type: string;
+
+  color: interop.Object;
+
+  temperature: number;
+
+  intensity: number;
+
+  name: string;
+
+  castsShadow: boolean;
+
+  shadowColor: interop.Object;
+
+  shadowRadius: number;
+
+  shadowMapSize: CGSize;
+
+  shadowSampleCount: number;
+
+  shadowMode: interop.Enum<typeof SCNShadowMode>;
+
+  shadowBias: number;
+
+  automaticallyAdjustsShadowProjection: boolean;
+
+  maximumShadowDistance: number;
+
+  forcesBackFaceCasters: boolean;
+
+  sampleDistributedShadowMaps: boolean;
+
+  shadowCascadeCount: number;
+
+  shadowCascadeSplittingFactor: number;
+
+  orthographicScale: number;
+
+  zNear: number;
+
+  zFar: number;
+
+  attenuationStartDistance: number;
+
+  attenuationEndDistance: number;
+
+  attenuationFalloffExponent: number;
+
+  spotInnerAngle: number;
+
+  spotOuterAngle: number;
+
+  IESProfileURL: NSURL;
+
+  readonly sphericalHarmonicsCoefficients: NSData;
+
+  probeType: interop.Enum<typeof SCNLightProbeType>;
+
+  probeUpdateType: interop.Enum<typeof SCNLightProbeUpdateType>;
+
+  probeExtents: unknown /* ext vector */;
+
+  probeOffset: unknown /* ext vector */;
+
+  parallaxCorrectionEnabled: boolean;
+
+  parallaxExtentsFactor: unknown /* ext vector */;
+
+  parallaxCenterOffset: unknown /* ext vector */;
+
+  readonly probeEnvironment: SCNMaterialProperty;
+
+  areaType: interop.Enum<typeof SCNLightAreaType>;
+
+  areaExtents: unknown /* ext vector */;
+
+  get areaPolygonVertices(): NSArray;
+  set areaPolygonVertices(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  drawsArea: boolean;
+
+  doubleSided: boolean;
+
+  readonly gobo: SCNMaterialProperty;
+
+  categoryBitMask: number;
+
+  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
+
+  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
+
+  removeAllAnimations(): void;
+
+  removeAllAnimationsWithBlendOutDuration(duration: number): void;
+
+  removeAnimationForKey(key: string): void;
+
+  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
+
+  readonly animationKeys: NSArray;
+
+  animationPlayerForKey(key: string): SCNAnimationPlayer;
+
+  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
+
+  animationForKey(key: string): CAAnimation;
+
+  pauseAnimationForKey(key: string): void;
+
+  resumeAnimationForKey(key: string): void;
+
+  setSpeedForAnimationKey(speed: number, key: string): void;
+
+  isAnimationForKeyPaused(key: string): boolean;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class SCNAudioSource extends NSObject implements NSCopying, NSSecureCoding {
@@ -3695,173 +3850,6 @@ declare class SCNGeometryTessellator extends NSObject implements NSCopying, NSSe
   maximumEdgeLength: number;
 
   smoothingMode: interop.Enum<typeof SCNTessellationSmoothingMode>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
-  static light<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  type: string;
-
-  color: interop.Object;
-
-  temperature: number;
-
-  intensity: number;
-
-  name: string;
-
-  castsShadow: boolean;
-
-  shadowColor: interop.Object;
-
-  shadowRadius: number;
-
-  shadowMapSize: CGSize;
-
-  shadowSampleCount: number;
-
-  shadowMode: interop.Enum<typeof SCNShadowMode>;
-
-  shadowBias: number;
-
-  automaticallyAdjustsShadowProjection: boolean;
-
-  maximumShadowDistance: number;
-
-  forcesBackFaceCasters: boolean;
-
-  sampleDistributedShadowMaps: boolean;
-
-  shadowCascadeCount: number;
-
-  shadowCascadeSplittingFactor: number;
-
-  orthographicScale: number;
-
-  zNear: number;
-
-  zFar: number;
-
-  attenuationStartDistance: number;
-
-  attenuationEndDistance: number;
-
-  attenuationFalloffExponent: number;
-
-  spotInnerAngle: number;
-
-  spotOuterAngle: number;
-
-  IESProfileURL: NSURL;
-
-  readonly sphericalHarmonicsCoefficients: NSData;
-
-  probeType: interop.Enum<typeof SCNLightProbeType>;
-
-  probeUpdateType: interop.Enum<typeof SCNLightProbeUpdateType>;
-
-  probeExtents: unknown /* ext vector */;
-
-  probeOffset: unknown /* ext vector */;
-
-  parallaxCorrectionEnabled: boolean;
-
-  parallaxExtentsFactor: unknown /* ext vector */;
-
-  parallaxCenterOffset: unknown /* ext vector */;
-
-  readonly probeEnvironment: SCNMaterialProperty;
-
-  areaType: interop.Enum<typeof SCNLightAreaType>;
-
-  areaExtents: unknown /* ext vector */;
-
-  get areaPolygonVertices(): NSArray;
-  set areaPolygonVertices(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  drawsArea: boolean;
-
-  doubleSided: boolean;
-
-  readonly gobo: SCNMaterialProperty;
-
-  categoryBitMask: number;
-
-  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
-
-  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
-
-  removeAllAnimations(): void;
-
-  removeAllAnimationsWithBlendOutDuration(duration: number): void;
-
-  removeAnimationForKey(key: string): void;
-
-  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
-
-  readonly animationKeys: NSArray;
-
-  animationPlayerForKey(key: string): SCNAnimationPlayer;
-
-  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
-
-  animationForKey(key: string): CAAnimation;
-
-  pauseAnimationForKey(key: string): void;
-
-  resumeAnimationForKey(key: string): void;
-
-  setSpeedForAnimationKey(speed: number, key: string): void;
-
-  isAnimationForKeyPaused(key: string): boolean;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 

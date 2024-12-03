@@ -51,6 +51,14 @@ declare const JSType: {
   String: 4,
   Object: 5,
   Symbol: 6,
+  BigInt: 7,
+};
+
+declare const JSRelationCondition: {
+  Undefined: 0,
+  Equal: 1,
+  GreaterThan: 2,
+  LessThan: 3,
 };
 
 declare class JSStaticFunction {
@@ -137,6 +145,8 @@ declare function JSValueIsString(ctx: interop.PointerConvertible, value: interop
 
 declare function JSValueIsSymbol(ctx: interop.PointerConvertible, value: interop.PointerConvertible): boolean;
 
+declare function JSValueIsBigInt(ctx: interop.PointerConvertible, value: interop.PointerConvertible): boolean;
+
 declare function JSValueIsObject(ctx: interop.PointerConvertible, value: interop.PointerConvertible): boolean;
 
 declare function JSValueIsObjectOfClass(ctx: interop.PointerConvertible, value: interop.PointerConvertible, jsClass: interop.PointerConvertible): boolean;
@@ -153,6 +163,14 @@ declare function JSValueIsStrictEqual(ctx: interop.PointerConvertible, a: intero
 
 declare function JSValueIsInstanceOfConstructor(ctx: interop.PointerConvertible, value: interop.PointerConvertible, constructor: interop.PointerConvertible, exception: interop.PointerConvertible): boolean;
 
+declare function JSValueCompare(ctx: interop.PointerConvertible, left: interop.PointerConvertible, right: interop.PointerConvertible, exception: interop.PointerConvertible): interop.Enum<typeof JSRelationCondition>;
+
+declare function JSValueCompareInt64(ctx: interop.PointerConvertible, left: interop.PointerConvertible, right: number, exception: interop.PointerConvertible): interop.Enum<typeof JSRelationCondition>;
+
+declare function JSValueCompareUInt64(ctx: interop.PointerConvertible, left: interop.PointerConvertible, right: number, exception: interop.PointerConvertible): interop.Enum<typeof JSRelationCondition>;
+
+declare function JSValueCompareDouble(ctx: interop.PointerConvertible, left: interop.PointerConvertible, right: number, exception: interop.PointerConvertible): interop.Enum<typeof JSRelationCondition>;
+
 declare function JSValueMakeUndefined(ctx: interop.PointerConvertible): interop.Pointer;
 
 declare function JSValueMakeNull(ctx: interop.PointerConvertible): interop.Pointer;
@@ -165,6 +183,14 @@ declare function JSValueMakeString(ctx: interop.PointerConvertible, string: inte
 
 declare function JSValueMakeSymbol(ctx: interop.PointerConvertible, description: interop.PointerConvertible): interop.Pointer;
 
+declare function JSBigIntCreateWithDouble(ctx: interop.PointerConvertible, value: number, exception: interop.PointerConvertible): interop.Pointer;
+
+declare function JSBigIntCreateWithInt64(ctx: interop.PointerConvertible, integer: number, exception: interop.PointerConvertible): interop.Pointer;
+
+declare function JSBigIntCreateWithUInt64(ctx: interop.PointerConvertible, integer: number, exception: interop.PointerConvertible): interop.Pointer;
+
+declare function JSBigIntCreateWithString(ctx: interop.PointerConvertible, string: interop.PointerConvertible, exception: interop.PointerConvertible): interop.Pointer;
+
 declare function JSValueMakeFromJSONString(ctx: interop.PointerConvertible, string: interop.PointerConvertible): interop.Pointer;
 
 declare function JSValueCreateJSONString(ctx: interop.PointerConvertible, value: interop.PointerConvertible, indent: number, exception: interop.PointerConvertible): interop.Pointer;
@@ -172,6 +198,14 @@ declare function JSValueCreateJSONString(ctx: interop.PointerConvertible, value:
 declare function JSValueToBoolean(ctx: interop.PointerConvertible, value: interop.PointerConvertible): boolean;
 
 declare function JSValueToNumber(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): number;
+
+declare function JSValueToInt32(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): number;
+
+declare function JSValueToUInt32(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): number;
+
+declare function JSValueToInt64(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): number;
+
+declare function JSValueToUInt64(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): number;
 
 declare function JSValueToStringCopy(ctx: interop.PointerConvertible, value: interop.PointerConvertible, exception: interop.PointerConvertible): interop.Pointer;
 
@@ -420,6 +454,14 @@ declare class JSValue extends NSObject {
 
   static valueWithNewSymbolFromDescriptionInContext(description: string, context: JSContext): JSValue;
 
+  static valueWithNewBigIntFromStringInContext(string: string, context: JSContext): JSValue;
+
+  static valueWithNewBigIntFromInt64InContext(int64: number, context: JSContext): JSValue;
+
+  static valueWithNewBigIntFromUInt64InContext(uint64: number, context: JSContext): JSValue;
+
+  static valueWithNewBigIntFromDoubleInContext(value: number, context: JSContext): JSValue;
+
   static valueWithNullInContext(context: JSContext): JSValue;
 
   static valueWithUndefinedInContext(context: JSContext): JSValue;
@@ -435,6 +477,10 @@ declare class JSValue extends NSObject {
   toInt32(): number;
 
   toUInt32(): number;
+
+  toInt64(): number;
+
+  toUInt64(): number;
 
   toNumber(): NSNumber;
 
@@ -464,11 +510,21 @@ declare class JSValue extends NSObject {
 
   readonly isSymbol: boolean;
 
+  readonly isBigInt: boolean;
+
+  isInstanceOf(value: interop.Object): boolean;
+
   isEqualToObject(value: interop.Object): boolean;
 
   isEqualWithTypeCoercionToObject(value: interop.Object): boolean;
 
-  isInstanceOf(value: interop.Object): boolean;
+  compareJSValue(other: JSValue): interop.Enum<typeof JSRelationCondition>;
+
+  compareInt64(other: number): interop.Enum<typeof JSRelationCondition>;
+
+  compareUInt64(other: number): interop.Enum<typeof JSRelationCondition>;
+
+  compareDouble(other: number): interop.Enum<typeof JSRelationCondition>;
 
   callWithArguments(arguments$: NSArray<interop.Object> | Array<interop.Object>): JSValue;
 

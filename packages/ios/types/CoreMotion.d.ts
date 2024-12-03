@@ -46,12 +46,6 @@ declare const CMMagneticFieldCalibrationAccuracy: {
   High: 2,
 };
 
-declare const CMDeviceMotionSensorLocation: {
-  Default: 0,
-  HeadphoneLeft: 1,
-  HeadphoneRight: 2,
-};
-
 declare const CMHighFrequencyHeartRateDataConfidence: {
   Low: 0,
   Medium: 1,
@@ -64,6 +58,12 @@ declare const CMAuthorizationStatus: {
   Restricted: 1,
   Denied: 2,
   Authorized: 3,
+};
+
+declare const CMDeviceMotionSensorLocation: {
+  Default: 0,
+  HeadphoneLeft: 1,
+  HeadphoneRight: 2,
 };
 
 declare const CMAttitudeReferenceFrame: {
@@ -92,6 +92,11 @@ declare const CMOdometerOriginDevice: {
 declare const CMPedometerEventType: {
   Pause: 0,
   Resume: 1,
+};
+
+declare const CMHeadphoneActivityStatus: {
+  Disconnected: 0,
+  Connected: 1,
 };
 
 declare class CMQuaternion {
@@ -495,6 +500,26 @@ declare class CMWaterSubmersionEvent extends NSObject implements NSSecureCoding,
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CMHeadphoneActivityManager extends NSObject {
+  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
+
+  readonly isActivityAvailable: boolean;
+
+  readonly isActivityActive: boolean;
+
+  readonly isStatusAvailable: boolean;
+
+  readonly isStatusActive: boolean;
+
+  startActivityUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMMotionActivity, p2: NSError) => void): void;
+
+  stopActivityUpdates(): void;
+
+  startStatusUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: interop.Enum<typeof CMHeadphoneActivityStatus>, p2: NSError) => void): void;
+
+  stopStatusUpdates(): void;
+}
+
 declare class CMSensorRecorder extends NSObject {
   static isAccelerometerRecordingAvailable(): boolean;
 
@@ -537,78 +562,6 @@ declare class CMAltimeter extends NSObject {
   stopAbsoluteAltitudeUpdates(): void;
 }
 
-declare class CMMotionActivity extends CMLogItem {
-  readonly confidence: interop.Enum<typeof CMMotionActivityConfidence>;
-
-  readonly startDate: NSDate;
-
-  readonly unknown: boolean;
-
-  readonly stationary: boolean;
-
-  readonly walking: boolean;
-
-  readonly running: boolean;
-
-  readonly automotive: boolean;
-
-  readonly cycling: boolean;
-}
-
-declare class CMRecordedRotationRateData extends CMRotationRateData {
-  readonly startDate: NSDate;
-}
-
-declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
-  readonly timestamp: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class CMHeadphoneMotionManager extends NSObject {
-  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
-
-  delegate: CMHeadphoneMotionManagerDelegate;
-
-  readonly isDeviceMotionAvailable: boolean;
-
-  readonly isDeviceMotionActive: boolean;
-
-  readonly deviceMotion: CMDeviceMotion;
-
-  startDeviceMotionUpdates(): void;
-
-  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
-
-  stopDeviceMotionUpdates(): void;
-}
-
-declare class CMGyroData extends CMLogItem {
-  readonly rotationRate: CMRotationRate;
-}
-
-declare class CMWaterTemperature extends NSObject implements NSSecureCoding, NSCopying {
-  readonly date: NSDate;
-
-  readonly temperature: NSMeasurement;
-
-  readonly temperatureUncertainty: NSMeasurement;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class CMPedometerData extends NSObject implements NSSecureCoding, NSCopying {
   readonly startDate: NSDate;
 
@@ -635,6 +588,84 @@ declare class CMPedometerData extends NSObject implements NSSecureCoding, NSCopy
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMRecordedRotationRateData extends CMRotationRateData {
+  readonly startDate: NSDate;
+}
+
+declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
+  readonly timestamp: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMHeadphoneMotionManager extends NSObject {
+  static authorizationStatus(): interop.Enum<typeof CMAuthorizationStatus>;
+
+  delegate: CMHeadphoneMotionManagerDelegate;
+
+  readonly isConnectionStatusActive: boolean;
+
+  readonly isDeviceMotionAvailable: boolean;
+
+  readonly isDeviceMotionActive: boolean;
+
+  readonly deviceMotion: CMDeviceMotion;
+
+  startDeviceMotionUpdates(): void;
+
+  startDeviceMotionUpdatesToQueueWithHandler(queue: NSOperationQueue, handler: (p1: CMDeviceMotion, p2: NSError) => void): void;
+
+  stopDeviceMotionUpdates(): void;
+
+  startConnectionStatusUpdates(): void;
+
+  stopConnectionStatusUpdates(): void;
+}
+
+declare class CMGyroData extends CMLogItem {
+  readonly rotationRate: CMRotationRate;
+}
+
+declare class CMWaterTemperature extends NSObject implements NSSecureCoding, NSCopying {
+  readonly date: NSDate;
+
+  readonly temperature: NSMeasurement;
+
+  readonly temperatureUncertainty: NSMeasurement;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CMMotionActivity extends CMLogItem {
+  readonly confidence: interop.Enum<typeof CMMotionActivityConfidence>;
+
+  readonly startDate: NSDate;
+
+  readonly unknown: boolean;
+
+  readonly stationary: boolean;
+
+  readonly walking: boolean;
+
+  readonly running: boolean;
+
+  readonly automotive: boolean;
+
+  readonly cycling: boolean;
 }
 
 declare class CMWaterSubmersionManager extends NSObject {

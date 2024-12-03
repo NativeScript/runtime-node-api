@@ -1381,6 +1381,14 @@ declare class CFXMLParserCallBacks {
   handleError: (p1: interop.PointerConvertible, p2: interop.Enum<typeof CFXMLParserStatusCode>, p3: interop.PointerConvertible) => number | null;
 }
 
+declare class CFXMLEntityInfo {
+  constructor(init?: CFXMLEntityInfo);
+  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
+  replacementText: interop.Pointer;
+  entityID: CFXMLExternalID;
+  notationName: interop.Pointer;
+}
+
 declare class __CFBoolean {
   constructor(init?: __CFBoolean);
 }
@@ -1529,14 +1537,6 @@ declare class __CFBitVector {
   constructor(init?: __CFBitVector);
 }
 
-declare class CFXMLEntityInfo {
-  constructor(init?: CFXMLEntityInfo);
-  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
-  replacementText: interop.Pointer;
-  entityID: CFXMLExternalID;
-  notationName: interop.Pointer;
-}
-
 declare class CFXMLParserContext {
   constructor(init?: CFXMLParserContext);
   version: number;
@@ -1553,6 +1553,20 @@ declare class CFArrayCallBacks {
   release: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => void | null;
   copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+}
+
+declare class CFRunLoopSourceContext {
+  constructor(init?: CFRunLoopSourceContext);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  hash: (p1: interop.PointerConvertible) => number | null;
+  schedule: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
+  cancel: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
+  perform: (p1: interop.PointerConvertible) => void | null;
 }
 
 declare class CFSocketSignature {
@@ -1802,20 +1816,6 @@ declare class __CFSocket {
   constructor(init?: __CFSocket);
 }
 
-declare class CFRunLoopSourceContext {
-  constructor(init?: CFRunLoopSourceContext);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  hash: (p1: interop.PointerConvertible) => number | null;
-  schedule: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
-  cancel: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
-  perform: (p1: interop.PointerConvertible) => void | null;
-}
-
 declare class __CFWriteStream {
   constructor(init?: __CFWriteStream);
 }
@@ -1945,6 +1945,14 @@ declare function CFAllocatorSetDefault(allocator: interop.PointerConvertible): v
 declare function CFAllocatorGetDefault(): interop.Pointer;
 
 declare function CFAllocatorCreate(allocator: interop.PointerConvertible, context: interop.PointerConvertible): interop.Pointer;
+
+declare function CFAllocatorAllocateTyped(allocator: interop.PointerConvertible, size: number, descriptor: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorReallocateTyped(allocator: interop.PointerConvertible, ptr: interop.PointerConvertible, newsize: number, descriptor: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorAllocateBytes(allocator: interop.PointerConvertible, size: number, hint: number): interop.Pointer;
+
+declare function CFAllocatorReallocateBytes(allocator: interop.PointerConvertible, ptr: interop.PointerConvertible, newsize: number, hint: number): interop.Pointer;
 
 declare function CFAllocatorAllocate(allocator: interop.PointerConvertible, size: number, hint: number): interop.Pointer;
 

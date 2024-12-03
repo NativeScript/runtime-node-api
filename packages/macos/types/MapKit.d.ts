@@ -144,11 +144,11 @@ declare const MKLaunchOptionsMapTypeKey: string;
 
 declare const MKPointOfInterestCategoryPostOffice: string;
 
+declare const MKPointOfInterestCategoryLaundry: string;
+
 declare const MKPointOfInterestCategoryCafe: string;
 
 declare const MKPointOfInterestCategoryCarRental: string;
-
-declare const MKPointOfInterestCategoryLaundry: string;
 
 declare const MKPointOfInterestCategoryHotel: string;
 
@@ -355,14 +355,6 @@ declare class MKCoordinateSpan {
   longitudeDelta: number;
 }
 
-declare class MKTileOverlayPath {
-  constructor(init?: MKTileOverlayPath);
-  x: number;
-  y: number;
-  z: number;
-  contentScaleFactor: number;
-}
-
 declare class MKCoordinateRegion {
   constructor(init?: MKCoordinateRegion);
   center: CLLocationCoordinate2D;
@@ -373,6 +365,14 @@ declare class MKMapRect {
   constructor(init?: MKMapRect);
   origin: MKMapPoint;
   size: MKMapSize;
+}
+
+declare class MKTileOverlayPath {
+  constructor(init?: MKTileOverlayPath);
+  x: number;
+  y: number;
+  z: number;
+  contentScaleFactor: number;
 }
 
 declare function MKCoordinateRegionMakeWithDistance(centerCoordinate: CLLocationCoordinate2D, latitudinalMeters: number, longitudinalMeters: number): MKCoordinateRegion;

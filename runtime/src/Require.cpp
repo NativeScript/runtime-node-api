@@ -3,6 +3,7 @@
 #include <dlfcn.h>
 #include <iostream>
 #include <string>
+#include <dlfcn.h>
 
 napi_value Require::createRequire(napi_env env, std::string &path,
                                   std::string &tilde, Require **pRequire) {

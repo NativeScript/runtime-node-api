@@ -61,9 +61,11 @@ declare const CBCentralManagerRestoredStateScanServicesKey: string;
 
 declare const CBAdvertisementDataIsConnectable: string;
 
+declare const CBAdvertisementDataOverflowServiceUUIDsKey: string;
+
 declare const CBUUIDL2CAPPSMCharacteristicString: string;
 
-declare const CBAdvertisementDataOverflowServiceUUIDsKey: string;
+declare const CBUUIDCharacteristicObservationScheduleString: string;
 
 declare const CBConnectPeripheralOptionNotifyOnDisconnectionKey: string;
 
@@ -195,11 +197,6 @@ declare const CBATTError: {
   InsufficientResources: 17,
 };
 
-declare const CBCharacteristicWriteType: {
-  With: 0,
-  Without: 1,
-};
-
 declare const CBManagerState: {
   Unknown: 0,
   Resetting: 1,
@@ -207,6 +204,11 @@ declare const CBManagerState: {
   Unauthorized: 3,
   PoweredOff: 4,
   PoweredOn: 5,
+};
+
+declare const CBCharacteristicWriteType: {
+  With: 0,
+  Without: 1,
 };
 
 declare interface CBPeripheralManagerDelegate extends NSObjectProtocol {

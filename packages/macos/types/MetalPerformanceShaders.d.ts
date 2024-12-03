@@ -657,8 +657,8 @@ declare class MPSStateTextureInfo {
   _reserved: unknown /* const array */;
 }
 
-declare class unnamed_18379404311370609386 {
-  constructor(init?: unnamed_18379404311370609386);
+declare class unnamed_17574962502922786599 {
+  constructor(init?: unnamed_17574962502922786599);
   x: number;
   y: number;
   z: number;
@@ -711,11 +711,11 @@ declare class MPSDimensionSlice {
   length: number;
 }
 
-type unnamed_2914138788253009773Descriptor = 
+type unnamed_449473443384412501Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_2914138788253009773 {
-  constructor(init?: unnamed_2914138788253009773Descriptor);
+declare class unnamed_449473443384412501 {
+  constructor(init?: unnamed_449473443384412501Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -770,35 +770,6 @@ declare interface MPSHandle extends NSSecureCoding, NSObjectProtocol {
 }
 
 declare class MPSHandle extends NativeObject implements MPSHandle {
-}
-
-declare interface MPSCNNGroupNormalizationDataSource extends NSObjectProtocol, NSCopying {
-  gamma(): interop.Pointer;
-
-  beta(): interop.Pointer;
-
-  readonly numberOfFeatureChannels: number;
-
-  numberOfGroups: number;
-
-  label(): string | null;
-
-  updateGammaAndBetaWithCommandBufferGroupNormalizationStateBatch?(commandBuffer: MTLCommandBuffer, groupNormalizationStateBatch: NSArray<interop.Object> | Array<interop.Object>): MPSCNNNormalizationGammaAndBetaState | null;
-
-  updateGammaAndBetaWithGroupNormalizationStateBatch?(groupNormalizationStateBatch: NSArray<interop.Object> | Array<interop.Object>): boolean;
-
-  epsilon?(): number;
-
-  encodeWithCoder?(aCoder: NSCoder): void;
-
-  initWithCoder?(aDecoder: NSCoder): this;
-
-  copyWithZoneDevice?(zone: interop.PointerConvertible, device: MTLDevice | null): this;
-}
-
-declare class MPSCNNGroupNormalizationDataSource extends NativeObject implements MPSCNNGroupNormalizationDataSource {
-  static readonly supportsSecureCoding: boolean;
-
 }
 
 declare interface MPSCNNInstanceNormalizationDataSource extends NSObjectProtocol, NSCopying {
@@ -948,6 +919,35 @@ declare interface MPSNNGramMatrixCallback extends NSObjectProtocol, NSSecureCodi
 }
 
 declare class MPSNNGramMatrixCallback extends NativeObject implements MPSNNGramMatrixCallback {
+}
+
+declare interface MPSCNNGroupNormalizationDataSource extends NSObjectProtocol, NSCopying {
+  gamma(): interop.Pointer;
+
+  beta(): interop.Pointer;
+
+  readonly numberOfFeatureChannels: number;
+
+  numberOfGroups: number;
+
+  label(): string | null;
+
+  updateGammaAndBetaWithCommandBufferGroupNormalizationStateBatch?(commandBuffer: MTLCommandBuffer, groupNormalizationStateBatch: NSArray<interop.Object> | Array<interop.Object>): MPSCNNNormalizationGammaAndBetaState | null;
+
+  updateGammaAndBetaWithGroupNormalizationStateBatch?(groupNormalizationStateBatch: NSArray<interop.Object> | Array<interop.Object>): boolean;
+
+  epsilon?(): number;
+
+  encodeWithCoder?(aCoder: NSCoder): void;
+
+  initWithCoder?(aDecoder: NSCoder): this;
+
+  copyWithZoneDevice?(zone: interop.PointerConvertible, device: MTLDevice | null): this;
+}
+
+declare class MPSCNNGroupNormalizationDataSource extends NativeObject implements MPSCNNGroupNormalizationDataSource {
+  static readonly supportsSecureCoding: boolean;
+
 }
 
 declare interface MPSImageTransformProvider extends NSSecureCoding, NSObjectProtocol {
@@ -1550,6 +1550,8 @@ declare class MPSNDArrayMultiaryKernel extends MPSNDArrayMultiaryBase {
   encodeToCommandBufferSourceArraysResultStateOutputStateIsTemporary(cmdBuf: MTLCommandBuffer, sourceArrays: NSArray<interop.Object> | Array<interop.Object>, outGradientState: interop.PointerConvertible, outputStateIsTemporary: boolean): MPSNDArray;
 
   encodeToCommandBufferSourceArraysResultStateDestinationArray(cmdBuf: MTLCommandBuffer, sourceArrays: NSArray<interop.Object> | Array<interop.Object>, outGradientState: MPSState | null, destination: MPSNDArray): void;
+
+  encodeToCommandEncoderCommandBufferSourceArraysDestinationArray(encoder: MTLComputeCommandEncoder | null, commandBuffer: MTLCommandBuffer, sourceArrays: NSArray<interop.Object> | Array<interop.Object>, destination: MPSNDArray): void;
 }
 
 declare class MPSNNReductionColumnMinNode extends MPSNNUnaryReductionNode {
@@ -4870,6 +4872,8 @@ declare class MPSNDArrayAffineQuantizationDescriptor extends MPSNDArrayQuantizat
   hasZeroPoint: boolean;
 
   hasMinValue: boolean;
+
+  implicitZeroPoint: boolean;
 
   init(): this;
 

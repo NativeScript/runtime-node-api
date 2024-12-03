@@ -30,6 +30,12 @@ declare const AudioChannelBitmap: {
   RightTopRear: 67108864,
 };
 
+declare const SMPTETimeFlags: {
+  Unknown: 0,
+  Valid: 1,
+  Running: 2,
+};
+
 declare const SMPTETimeType: {
   Type24: 0,
   Type25: 1,
@@ -43,12 +49,6 @@ declare const SMPTETimeType: {
   Type5994Drop: 9,
   Type50: 10,
   Type2398: 11,
-};
-
-declare const SMPTETimeFlags: {
-  Unknown: 0,
-  Valid: 1,
-  Running: 2,
 };
 
 declare const AudioTimeStampFlags: {

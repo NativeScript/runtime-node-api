@@ -456,6 +456,7 @@ declare const MTLPatchType: {
 declare const MTLFunctionOptions: {
   None: 0,
   CompileToBinary: 1,
+  StoreFunctionInMetalPipelinesScript: 2,
   StoreFunctionInMetalScript: 2,
   FailOnBinaryArchiveMiss: 4,
 };
@@ -763,7 +764,7 @@ declare const MTLColorWriteMask: {
 declare const MTLStitchedLibraryOptions: {
   None: 0,
   FailOnBinaryArchiveMiss: 1,
-  StoreLibraryInMetalScript: 2,
+  StoreLibraryInMetalPipelinesScript: 2,
 };
 
 declare const MTLBindingAccess: {
@@ -1172,6 +1173,26 @@ declare class MTLOrigin {
   z: number;
 }
 
+declare class MTLCounterResultStatistic {
+  constructor(init?: MTLCounterResultStatistic);
+  tessellationInputPatches: number;
+  vertexInvocations: number;
+  postTessellationVertexInvocations: number;
+  clipperInvocations: number;
+  clipperPrimitivesOut: number;
+  fragmentInvocations: number;
+  fragmentsPassed: number;
+  computeKernelInvocations: number;
+}
+
+declare class MTLScissorRect {
+  constructor(init?: MTLScissorRect);
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 declare class MTLIndirectCommandBufferExecutionRange {
   constructor(init?: MTLIndirectCommandBufferExecutionRange);
   location: number;
@@ -1371,26 +1392,6 @@ declare class MTLDrawPrimitivesIndirectArguments {
   baseInstance: number;
 }
 
-declare class MTLCounterResultStatistic {
-  constructor(init?: MTLCounterResultStatistic);
-  tessellationInputPatches: number;
-  vertexInvocations: number;
-  postTessellationVertexInvocations: number;
-  clipperInvocations: number;
-  clipperPrimitivesOut: number;
-  fragmentInvocations: number;
-  fragmentsPassed: number;
-  computeKernelInvocations: number;
-}
-
-declare class MTLScissorRect {
-  constructor(init?: MTLScissorRect);
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
 declare class MTLDrawPatchIndirectArguments {
   constructor(init?: MTLDrawPatchIndirectArguments);
   patchCount: number;
@@ -1417,6 +1418,13 @@ declare class MTLVertexAmplificationViewMapping {
   renderTargetArrayIndexOffset: number;
 }
 
+declare class unnamed_1027306668930069009 {
+  constructor(init?: unnamed_1027306668930069009);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class MTLSamplePosition {
   constructor(init?: MTLSamplePosition);
   x: number;
@@ -1428,23 +1436,16 @@ declare class _MTLPackedFloat4x3 {
   columns: unknown /* const array */;
 }
 
-declare class unnamed_9798313610955507347 {
-  constructor(init?: unnamed_9798313610955507347);
-  x: number;
-  y: number;
-  z: number;
-}
-
 declare class MTLDispatchThreadgroupsIndirectArguments {
   constructor(init?: MTLDispatchThreadgroupsIndirectArguments);
   threadgroupsPerGrid: unknown /* const array */;
 }
 
-type unnamed_3966924471934950210Descriptor = 
+type unnamed_8292664355892592979Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_3966924471934950210 {
-  constructor(init?: unnamed_3966924471934950210Descriptor);
+declare class unnamed_8292664355892592979 {
+  constructor(init?: unnamed_8292664355892592979Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -2770,12 +2771,6 @@ declare interface MTLIndirectComputeCommand extends NSObjectProtocol {
 declare class MTLIndirectComputeCommand extends NativeObject implements MTLIndirectComputeCommand {
 }
 
-declare interface MTLFunctionStitchingAttribute extends NSObjectProtocol {
-}
-
-declare class MTLFunctionStitchingAttribute extends NativeObject implements MTLFunctionStitchingAttribute {
-}
-
 declare interface MTLDrawable extends NSObjectProtocol {
   present(): void;
 
@@ -2797,6 +2792,12 @@ declare interface MTLLogContainer extends NSObjectProtocol, NSFastEnumeration {
 }
 
 declare class MTLLogContainer extends NativeObject implements MTLLogContainer {
+}
+
+declare interface MTLFunctionStitchingAttribute extends NSObjectProtocol {
+}
+
+declare class MTLFunctionStitchingAttribute extends NativeObject implements MTLFunctionStitchingAttribute {
 }
 
 declare interface MTLIOCommandQueue extends NSObjectProtocol {

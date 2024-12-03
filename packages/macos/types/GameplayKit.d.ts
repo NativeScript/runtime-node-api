@@ -18,15 +18,15 @@ declare const GKMeshGraphTriangulationMode: {
   EdgeMidpoints: 4,
 };
 
-declare class GKTriangle {
-  constructor(init?: GKTriangle);
-  points: unknown /* const array */;
-}
-
 declare class GKBox {
   constructor(init?: GKBox);
   boxMin: unknown /* ext vector */;
   boxMax: unknown /* ext vector */;
+}
+
+declare class GKTriangle {
+  constructor(init?: GKTriangle);
+  points: unknown /* const array */;
 }
 
 declare class GKQuad {

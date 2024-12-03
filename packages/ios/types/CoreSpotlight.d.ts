@@ -34,6 +34,12 @@ declare const CoreSpotlightVersionString: interop.Pointer;
 
 declare const CoreSpotlightVersionNumber: number;
 
+declare const CSUserInteraction: {
+  Select: 0,
+  Default: 0,
+  Focus: 1,
+};
+
 declare const CSSuggestionKind: {
   None: 0,
   Custom: 1,
@@ -55,6 +61,7 @@ declare const CSIndexErrorCode: {
   RemoteConnectionError: -1003,
   QuotaExceeded: -1004,
   IndexingUnsupported: -1005,
+  MismatchedClientState: -1006,
 };
 
 declare const CSSearchQuerySourceOptions: {
@@ -80,11 +87,19 @@ declare class CSSearchableIndexDelegate extends NativeObject implements CSSearch
 }
 
 declare class CSUserQuery extends CSSearchQuery {
+  static prepare(): void;
+
+  static prepareProtectionClasses(protectionClasses: NSArray<interop.Object> | Array<interop.Object>): void;
+
   initWithUserQueryStringUserQueryContext(userQueryString: string | null, userQueryContext: CSUserQueryContext | null): this;
 
   readonly foundSuggestionCount: number;
 
   foundSuggestionsHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void;
+
+  userEngagedWithItemVisibleItemsUserInteractionType(item: CSSearchableItem, visibleItems: NSArray<interop.Object> | Array<interop.Object>, userInteractionType: interop.Enum<typeof CSUserInteraction>): void;
+
+  userEngagedWithSuggestionVisibleSuggestionsUserInteractionType(suggestion: CSSuggestion, visibleSuggestions: NSArray<interop.Object> | Array<interop.Object>, userInteractionType: interop.Enum<typeof CSUserInteraction>): void;
 
   start(): void;
 
@@ -98,9 +113,13 @@ declare class CSUserQueryContext extends CSSearchQueryContext {
 
   enableRankedResults: boolean;
 
+  disableSemanticSearch: boolean;
+
   maxResultCount: number;
 
   maxSuggestionCount: number;
+
+  maxRankedResultCount: number;
 }
 
 declare class CSIndexExtensionRequestHandler extends NSObject implements NSExtensionRequestHandling, CSSearchableIndexDelegate {
@@ -180,6 +199,8 @@ declare class CSSearchableIndex extends NSObject {
 
   beginIndexBatch(): void;
 
+  endIndexBatchWithExpectedClientStateNewClientStateCompletionHandler(expectedClientState: NSData | null, newClientState: NSData, completionHandler: (p1: NSError) => void | null): void;
+
   endIndexBatchWithClientStateCompletionHandler(clientState: NSData, completionHandler: (p1: NSError) => void | null): void;
 
   fetchLastClientStateWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
@@ -199,6 +220,8 @@ declare class CSSearchableItem extends NSObject implements NSSecureCoding, NSCop
   expirationDate: NSDate;
 
   attributeSet: CSSearchableItemAttributeSet;
+
+  isUpdate: boolean;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -322,6 +345,24 @@ declare class CSSearchQueryContext extends NSObject implements NSSecureCoding, N
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
+  readonly localizedAttributedSuggestion: NSAttributedString;
+
+  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
+
+  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class CSCustomAttributeKey extends NSObject implements NSCopying, NSSecureCoding {
   initWithKeyName(keyName: string): this;
 
@@ -344,24 +385,6 @@ declare class CSCustomAttributeKey extends NSObject implements NSCopying, NSSecu
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class CSSuggestion extends NSObject implements NSSecureCoding, NSCopying {
-  readonly localizedAttributedSuggestion: NSAttributedString;
-
-  readonly suggestionKind: interop.Enum<typeof CSSuggestionKind>;
-
-  compareByRank(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  compare(other: CSSuggestion): interop.Enum<typeof NSComparisonResult>;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying, NSSecureCoding {

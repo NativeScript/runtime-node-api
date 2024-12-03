@@ -132,15 +132,6 @@ declare interface MLBatchProvider {
 declare class MLBatchProvider extends NativeObject implements MLBatchProvider {
 }
 
-declare interface MLFeatureProvider {
-  readonly featureNames: NSSet;
-
-  featureValueForName(featureName: string): MLFeatureValue;
-}
-
-declare class MLFeatureProvider extends NativeObject implements MLFeatureProvider {
-}
-
 declare interface MLCustomLayer {
   initWithParameterDictionaryError(parameters: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, error: interop.PointerConvertible): this;
 
@@ -154,6 +145,15 @@ declare interface MLCustomLayer {
 }
 
 declare class MLCustomLayer extends NativeObject implements MLCustomLayer {
+}
+
+declare interface MLFeatureProvider {
+  readonly featureNames: NSSet;
+
+  featureValueForName(featureName: string): MLFeatureValue;
+}
+
+declare class MLFeatureProvider extends NativeObject implements MLFeatureProvider {
 }
 
 declare class MLComputePlanCost extends NSObject {
@@ -336,6 +336,8 @@ declare class MLModelAsset extends NSObject {
   modelDescriptionWithCompletionHandler(handler: (p1: MLModelDescription, p2: NSError) => void | null): void;
 
   modelDescriptionOfFunctionNamedCompletionHandler(functionName: string, handler: (p1: MLModelDescription, p2: NSError) => void | null): void;
+
+  functionNamesWithCompletionHandler(handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 }
 
 declare class MLModelConfiguration extends NSObject implements NSCopying, NSSecureCoding {

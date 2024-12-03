@@ -19,7 +19,7 @@ if (typeof interop === "undefined") {
   if (!metaURL.includes("://")) {
     metaURL = "file://" + metaURL;
   }
-
+  
   const module = { exports: {} };
 
   // deno-lint-ignore no-process-globals

@@ -1,4 +1,7 @@
 #include "Runtime.h"
+#ifdef __APPLE__
+#include "App.h"
+#endif // __APPLE__
 #include "Console.h"
 #include "Performance.h"
 #include "Require.h"
@@ -51,6 +54,11 @@ Runtime::Runtime(std::string &mainPath) : mainPath(mainPath) {
 
   const char *metadata_path = std::getenv("METADATA_PATH");
   objc_bridge_init(env, metadata_path);
+
+#ifdef __APPLE__
+  App *app = App::init(env);
+  app->runtime = this->runtime;
+#endif // __APPLE__
 }
 
 napi_value Runtime::evaluateModule(std::string &spec) {

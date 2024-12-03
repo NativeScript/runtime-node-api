@@ -5,12 +5,8 @@
 #include <clang-c/Index.h>
 #include <cstdio>
 #include <cstdlib>
-#include <functional>
 #include <iostream>
-#include <memory>
-#include <set>
 #include <string>
-#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -84,6 +80,10 @@ int main(int argc, char **argv) {
       outputFile = arg.substr(7);
     } else if (arg.find("types=") == 0) {
       outputTypesDir = arg.substr(6);
+    } else if (arg.find("arch=") == 0) {
+      std::string arch = arg.substr(5);
+      args.emplace_back("-arch");
+      args.emplace_back(arch);
     } else {
       std::cout << "Unknown argument: " << arg << std::endl;
       std::exit(1);

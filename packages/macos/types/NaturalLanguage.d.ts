@@ -79,8 +79,6 @@ declare const NLScriptArabic: string;
 
 declare const NLScriptUndetermined: string;
 
-declare const NLLanguageUkrainian: string;
-
 declare const NLLanguageTurkish: string;
 
 declare const NLLanguageTraditionalChinese: string;
@@ -150,6 +148,8 @@ declare const NLLanguageItalian: string;
 declare const NLScriptMyanmar: string;
 
 declare const NLTagSchemeNameType: string;
+
+declare const NLLanguageUkrainian: string;
 
 declare const NLLanguageTelugu: string;
 

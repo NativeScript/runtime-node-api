@@ -150,6 +150,8 @@ declare const kCGPDFOutlineChildren: interop.Pointer;
 
 declare const kCGWindowOwnerName: interop.Pointer;
 
+declare const kCGUseLegacyHDREcosystem: interop.Pointer;
+
 declare const kCGPDFTagPropertyTitleText: interop.Pointer;
 
 declare const kCGColorSpaceExtendedLinearDisplayP3: interop.Pointer;
@@ -578,12 +580,6 @@ declare const CGWindowSharingType: {
   ReadWrite: 2,
 };
 
-declare const CGLineJoin: {
-  Miter: 0,
-  Round: 1,
-  Bevel: 2,
-};
-
 declare const CGInterpolationQuality: {
   Default: 0,
   None: 1,
@@ -603,6 +599,12 @@ declare const CGPathDrawingMode: {
   Stroke: 2,
   FillStroke: 3,
   EOFillStroke: 4,
+};
+
+declare const CGLineJoin: {
+  Miter: 0,
+  Round: 1,
+  Bevel: 2,
 };
 
 declare const CGPDFObjectType: {
@@ -824,10 +826,6 @@ declare class CGLayer {
   constructor(init?: CGLayer);
 }
 
-declare class CGDisplayMode {
-  constructor(init?: CGDisplayMode);
-}
-
 declare class CGDataConsumerCallbacks {
   constructor(init?: CGDataConsumerCallbacks);
   putBytes: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: number) => number | null;
@@ -836,6 +834,15 @@ declare class CGDataConsumerCallbacks {
 
 declare class CGDisplayStreamUpdate {
   constructor(init?: CGDisplayStreamUpdate);
+}
+
+declare class CGColorBufferFormat {
+  constructor(init?: CGColorBufferFormat);
+  version: number;
+  bitmapInfo: interop.Enum<typeof CGBitmapInfo>;
+  bitsPerComponent: number;
+  bitsPerPixel: number;
+  bytesPerRow: number;
 }
 
 declare class CGColorDataFormat {
@@ -847,10 +854,6 @@ declare class CGColorDataFormat {
   bytes_per_row: number;
   intent: interop.Enum<typeof CGColorRenderingIntent>;
   decode: interop.Pointer;
-}
-
-declare class CGDataProvider {
-  constructor(init?: CGDataProvider);
 }
 
 declare class CGPSConverter {
@@ -871,10 +874,6 @@ declare class __CGEventTapProxy {
 
 declare class __CGEvent {
   constructor(init?: __CGEvent);
-}
-
-declare class CGDisplayStream {
-  constructor(init?: CGDisplayStream);
 }
 
 declare class _CGDisplayConfigRef {
@@ -914,6 +913,10 @@ declare class CGPDFArray {
 
 declare class CGPDFDocument {
   constructor(init?: CGPDFDocument);
+}
+
+declare class CGDisplayMode {
+  constructor(init?: CGDisplayMode);
 }
 
 declare class CGGradient {
@@ -956,6 +959,14 @@ declare class CGColor {
 
 declare class CGContext {
   constructor(init?: CGContext);
+}
+
+declare class CGDisplayStream {
+  constructor(init?: CGDisplayStream);
+}
+
+declare class CGDataProvider {
+  constructor(init?: CGDataProvider);
 }
 
 declare class CGPDFPage {
@@ -1199,6 +1210,8 @@ declare function CGColorSpaceGetNumberOfComponents(space: interop.PointerConvert
 declare function CGColorSpaceGetModel(space: interop.PointerConvertible): interop.Enum<typeof CGColorSpaceModel>;
 
 declare function CGColorSpaceGetBaseColorSpace(space: interop.PointerConvertible): interop.Pointer;
+
+declare function CGColorSpaceCopyBaseColorSpace(space: interop.PointerConvertible): interop.Pointer;
 
 declare function CGColorSpaceGetColorTableCount(space: interop.PointerConvertible): number;
 
@@ -1943,6 +1956,10 @@ declare function CGColorConversionInfoCreateWithOptions(src: interop.PointerConv
 declare function CGColorConversionInfoCreateFromList(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>): interop.Pointer;
 
 declare function CGColorConversionInfoCreateFromListWithArguments(options: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.Enum<typeof CGColorConversionInfoTransformType>, p4: interop.Enum<typeof CGColorRenderingIntent>, p5: string): interop.Pointer;
+
+declare function CGColorConversionInfoCreateForToneMapping(from: interop.PointerConvertible, source_headroom: number, to: interop.PointerConvertible, target_headroom: number, method: interop.Enum<typeof CGToneMapping>, options: interop.PointerConvertible, error: interop.PointerConvertible): interop.Pointer;
+
+declare function CGColorConversionInfoConvertData(info: interop.PointerConvertible, width: number, height: number, dst_data: interop.PointerConvertible, dst_format: CGColorBufferFormat, src_data: interop.PointerConvertible, src_format: CGColorBufferFormat, options: interop.PointerConvertible): boolean;
 
 declare function CGConvertColorDataWithFormat(width: number, height: number, dst_data: interop.PointerConvertible, dst_format: CGColorDataFormat, src_data: interop.PointerConvertible, src_format: CGColorDataFormat, options: interop.PointerConvertible): boolean;
 

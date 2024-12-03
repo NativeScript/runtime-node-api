@@ -32,6 +32,7 @@ declare const kCLDistanceFilterNone: number;
 declare const CLServiceSessionAuthorizationRequirement: {
   None: 0,
   WhenInUse: 1,
+  Always: 2,
 };
 
 declare const CLAccuracyAuthorization: {

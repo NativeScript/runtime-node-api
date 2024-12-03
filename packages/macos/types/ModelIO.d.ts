@@ -340,12 +340,6 @@ declare interface MDLLightProbeIrradianceDataSource extends NSObjectProtocol {
 declare class MDLLightProbeIrradianceDataSource extends NativeObject implements MDLLightProbeIrradianceDataSource {
 }
 
-declare interface MDLComponent extends NSObjectProtocol {
-}
-
-declare class MDLComponent extends NativeObject implements MDLComponent {
-}
-
 declare interface MDLMeshBufferZone extends NSObjectProtocol {
   readonly capacity: number;
 
@@ -353,6 +347,12 @@ declare interface MDLMeshBufferZone extends NSObjectProtocol {
 }
 
 declare class MDLMeshBufferZone extends NativeObject implements MDLMeshBufferZone {
+}
+
+declare interface MDLComponent extends NSObjectProtocol {
+}
+
+declare class MDLComponent extends NativeObject implements MDLComponent {
 }
 
 // @ts-ignore ProtocolDecl.tsIgnore

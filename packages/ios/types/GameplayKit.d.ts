@@ -5,17 +5,17 @@ declare const GKGameModelMinScore: number;
 
 declare const GKGameModelMaxScore: number;
 
-declare const GKMeshGraphTriangulationMode: {
-  Vertices: 1,
-  Centers: 2,
-  EdgeMidpoints: 4,
-};
-
 declare const GKRTreeSplitStrategy: {
   Halve: 0,
   Linear: 1,
   Quadratic: 2,
   ReduceOverlap: 3,
+};
+
+declare const GKMeshGraphTriangulationMode: {
+  Vertices: 1,
+  Centers: 2,
+  EdgeMidpoints: 4,
 };
 
 declare class GKTriangle {
@@ -35,21 +35,17 @@ declare class GKQuad {
   quadMax: unknown /* ext vector */;
 }
 
-declare interface GKStrategist extends NSObjectProtocol {
-  gameModel: GKGameModel;
+declare interface GKRandom {
+  nextInt(): number;
 
-  randomSource: GKRandom;
+  nextIntWithUpperBound(upperBound: number): number;
 
-  bestMoveForActivePlayer(): GKGameModelUpdate;
+  nextUniform(): number;
+
+  nextBool(): boolean;
 }
 
-declare class GKStrategist extends NativeObject implements GKStrategist {
-}
-
-declare interface GKSceneRootNodeType extends NSObjectProtocol {
-}
-
-declare class GKSceneRootNodeType extends NativeObject implements GKSceneRootNodeType {
+declare class GKRandom extends NativeObject implements GKRandom {
 }
 
 declare interface GKGameModelUpdate extends NSObjectProtocol {
@@ -66,6 +62,23 @@ declare interface GKAgentDelegate extends NSObjectProtocol {
 }
 
 declare class GKAgentDelegate extends NativeObject implements GKAgentDelegate {
+}
+
+declare interface GKSceneRootNodeType extends NSObjectProtocol {
+}
+
+declare class GKSceneRootNodeType extends NativeObject implements GKSceneRootNodeType {
+}
+
+declare interface GKStrategist extends NSObjectProtocol {
+  gameModel: GKGameModel;
+
+  randomSource: GKRandom;
+
+  bestMoveForActivePlayer(): GKGameModelUpdate;
+}
+
+declare class GKStrategist extends NativeObject implements GKStrategist {
 }
 
 declare interface GKGameModel extends NSObjectProtocol, NSCopying {
@@ -96,19 +109,6 @@ declare interface GKGameModelPlayer extends NSObjectProtocol {
 }
 
 declare class GKGameModelPlayer extends NativeObject implements GKGameModelPlayer {
-}
-
-declare interface GKRandom {
-  nextInt(): number;
-
-  nextIntWithUpperBound(upperBound: number): number;
-
-  nextUniform(): number;
-
-  nextBool(): boolean;
-}
-
-declare class GKRandom extends NativeObject implements GKRandom {
 }
 
 declare class GKState extends NSObject {
@@ -725,20 +725,6 @@ declare class GKGraphNode3D extends GKGraphNode {
   initWithPoint(point: unknown /* ext vector */): this;
 }
 
-declare class GKVoronoiNoiseSource extends GKNoiseSource {
-  frequency: number;
-
-  displacement: number;
-
-  isDistanceEnabled: boolean;
-
-  seed: number;
-
-  static voronoiNoiseWithFrequencyDisplacementDistanceEnabledSeed<This extends abstract new (...args: any) => any>(this: This, frequency: number, displacement: number, distanceEnabled: boolean, seed: number): InstanceType<This>;
-
-  initWithFrequencyDisplacementDistanceEnabledSeed(frequency: number, displacement: number, distanceEnabled: boolean, seed: number): this;
-}
-
 declare class GKRuleSystem extends NSObject {
   init(): this;
 
@@ -845,6 +831,42 @@ declare class GKPath extends NSObject {
   float2AtIndex(index: number): unknown /* ext vector */;
 
   float3AtIndex(index: number): unknown /* ext vector */;
+}
+
+declare class GKAgent extends GKComponent implements NSSecureCoding {
+  delegate: GKAgentDelegate;
+
+  behavior: GKBehavior;
+
+  mass: number;
+
+  radius: number;
+
+  speed: number;
+
+  maxAcceleration: number;
+
+  maxSpeed: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class GKVoronoiNoiseSource extends GKNoiseSource {
+  frequency: number;
+
+  displacement: number;
+
+  isDistanceEnabled: boolean;
+
+  seed: number;
+
+  static voronoiNoiseWithFrequencyDisplacementDistanceEnabledSeed<This extends abstract new (...args: any) => any>(this: This, frequency: number, displacement: number, distanceEnabled: boolean, seed: number): InstanceType<This>;
+
+  initWithFrequencyDisplacementDistanceEnabledSeed(frequency: number, displacement: number, distanceEnabled: boolean, seed: number): this;
 }
 
 declare class GKGridGraphNode extends GKGraphNode {
@@ -1125,28 +1147,6 @@ declare class GKRandomSource extends NSObject implements GKRandom, NSSecureCodin
   encodeWithCoder(coder: NSCoder): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class GKAgent extends GKComponent implements NSSecureCoding {
-  delegate: GKAgentDelegate;
-
-  behavior: GKBehavior;
-
-  mass: number;
-
-  radius: number;
-
-  speed: number;
-
-  maxAcceleration: number;
-
-  maxSpeed: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GKObstacleGraph<NodeType = interop.Object> extends GKGraph {

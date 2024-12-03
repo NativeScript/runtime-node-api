@@ -31,6 +31,12 @@ declare const kCLLocationAccuracyKilometer: number;
 
 declare const kCLLocationAccuracyHundredMeters: number;
 
+declare const CLServiceSessionAuthorizationRequirement: {
+  None: 0,
+  WhenInUse: 1,
+  Always: 2,
+};
+
 declare const CLAccuracyAuthorization: {
   Full: 0,
   Reduced: 1,
@@ -186,10 +192,44 @@ declare interface CLLocationManagerDelegate extends NSObjectProtocol {
 declare class CLLocationManagerDelegate extends NativeObject implements CLLocationManagerDelegate {
 }
 
+declare class CLServiceSessionDiagnostic extends NSObject {
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly fullAccuracyDenied: boolean;
+
+  readonly alwaysAuthorizationDenied: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
+}
+
 declare class CLBackgroundActivitySession extends NSObject {
   invalidate(): void;
 
   static backgroundActivitySession<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static backgroundActivitySessionWithQueueHandler<This extends abstract new (...args: any) => any>(this: This, queue: NSObject, handler: (p1: CLBackgroundActivitySessionDiagnostic) => void): InstanceType<This>;
+}
+
+declare class CLBackgroundActivitySessionDiagnostic extends NSObject {
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
 }
 
 declare class CLLocationManager extends NSObject {
@@ -353,6 +393,26 @@ declare class CLMonitoringEvent extends NSObject implements NSSecureCoding {
 
   readonly date: NSDate;
 
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly accuracyLimited: boolean;
+
+  readonly conditionUnsupported: boolean;
+
+  readonly conditionLimitExceeded: boolean;
+
+  readonly persistenceUnavailable: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
+
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
@@ -373,7 +433,25 @@ declare class CLLocationUpdater extends NSObject {
 }
 
 declare class CLUpdate extends NSObject {
+  readonly authorizationDenied: boolean;
+
+  readonly authorizationDeniedGlobally: boolean;
+
+  readonly authorizationRestricted: boolean;
+
   readonly isStationary: boolean;
+
+  readonly stationary: boolean;
+
+  readonly insufficientlyInUse: boolean;
+
+  readonly locationUnavailable: boolean;
+
+  readonly accuracyLimited: boolean;
+
+  readonly serviceSessionRequired: boolean;
+
+  readonly authorizationRequestInProgress: boolean;
 
   readonly location: CLLocation | null;
 }
@@ -608,6 +686,18 @@ declare class CLBeaconIdentityCondition extends CLCondition implements NSCopying
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class CLServiceSession extends NSObject {
+  static sessionRequiringAuthorization(authorizationRequirement: interop.Enum<typeof CLServiceSessionAuthorizationRequirement>): CLServiceSession;
+
+  static sessionRequiringAuthorizationQueueHandler(authorizationRequirement: interop.Enum<typeof CLServiceSessionAuthorizationRequirement>, queue: NSObject, handler: (p1: CLServiceSessionDiagnostic) => void): CLServiceSession;
+
+  static sessionRequiringAuthorizationFullAccuracyPurposeKey(authorizationRequirement: interop.Enum<typeof CLServiceSessionAuthorizationRequirement>, purposeKey: string): CLServiceSession;
+
+  static sessionRequiringAuthorizationFullAccuracyPurposeKeyQueueHandler(authorizationRequirement: interop.Enum<typeof CLServiceSessionAuthorizationRequirement>, purposeKey: string, queue: NSObject, handler: (p1: CLServiceSessionDiagnostic) => void): CLServiceSession;
+
+  invalidate(): void;
 }
 
 declare class CLGeocoder extends NSObject {

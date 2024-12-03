@@ -163,6 +163,8 @@ declare const kCIAttributeReferenceDocumentation: string;
 
 declare const kCIAttributeFilterDisplayName: string;
 
+declare const kCIImageRepresentationHDRGainMapImage: string;
+
 declare const kCIImageRepresentationSemanticSegmentationSkyMatteImage: string;
 
 declare const kCIImageRepresentationSemanticSegmentationTeethMatteImage: string;

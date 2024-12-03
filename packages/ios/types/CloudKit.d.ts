@@ -28,13 +28,13 @@ declare const CKRecordTypeUserRecord: string;
 
 declare const CKRecordNameZoneWideShare: string;
 
-declare const CKRecordShareKey: string;
-
 declare const CKOwnerDefaultName: string;
 
 declare const CKRecordZoneDefaultName: string;
 
 declare const CKRecordCreatorUserRecordIDKey: string;
+
+declare const CKRecordShareKey: string;
 
 declare const CKErrorRetryAfterKey: string;
 
@@ -287,14 +287,16 @@ declare interface CKRecordKeyValueSetting extends NSObjectProtocol {
 declare class CKRecordKeyValueSetting extends NativeObject implements CKRecordKeyValueSetting {
 }
 
+declare class CKSyncEngineFetchedZoneDeletion extends NSObject {
+  readonly zoneID: CKRecordZoneID;
+
+  readonly reason: interop.Enum<typeof CKSyncEngineZoneDeletionReason>;
+}
+
 declare class CKSyncEngineFetchedRecordDeletion extends NSObject {
   readonly recordID: CKRecordID;
 
   readonly recordType: string;
-}
-
-declare class CKSyncEngineDidSendChangesEvent extends CKSyncEngineEvent {
-  readonly context: CKSyncEngineSendChangesContext;
 }
 
 declare class CKSyncEngineWillSendChangesEvent extends CKSyncEngineEvent {
@@ -391,16 +393,6 @@ declare class CKSyncEngineFetchChangesContext extends NSObject {
   readonly options: CKSyncEngineFetchChangesOptions;
 }
 
-declare class CKSyncEngineSendChangesOptions extends NSObject implements NSCopying {
-  scope: CKSyncEngineSendChangesScope;
-
-  operationGroup: CKOperationGroup;
-
-  initWithScope(scope: CKSyncEngineSendChangesScope | null): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class CKSyncEngineFetchChangesOptions extends NSObject implements NSCopying {
   scope: CKSyncEngineFetchChangesScope;
 
@@ -424,10 +416,6 @@ declare class CKSyncEngineRecordZoneChangeBatch extends NSObject {
   readonly recordIDsToDelete: NSArray;
 
   atomicByZone: boolean;
-}
-
-declare class CKSyncEnginePendingZoneDelete extends CKSyncEnginePendingDatabaseChange {
-  initWithZoneID(zoneID: CKRecordZoneID): this;
 }
 
 declare class CKSyncEnginePendingDatabaseChange extends NSObject {
@@ -505,23 +493,6 @@ declare class CKModifyRecordsOperation extends CKDatabaseOperation {
   modifyRecordsCompletionBlock: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSArray<interop.Object> | Array<interop.Object>, p3: NSError) => void | null;
 }
 
-declare class CKSyncEngineFetchedZoneDeletion extends NSObject {
-  readonly zoneID: CKRecordZoneID;
-
-  readonly reason: interop.Enum<typeof CKSyncEngineZoneDeletionReason>;
-}
-
-declare class CKMarkNotificationsReadOperation extends CKOperation {
-  init(): this;
-
-  initWithNotificationIDsToMarkRead(notificationIDs: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  get notificationIDs(): NSArray;
-  set notificationIDs(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  markNotificationsReadCompletionBlock: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null;
-}
-
 declare class CKFetchSubscriptionsOperation extends CKDatabaseOperation {
   static fetchAllSubscriptionsOperation<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
@@ -535,21 +506,6 @@ declare class CKFetchSubscriptionsOperation extends CKDatabaseOperation {
   perSubscriptionCompletionBlock: (p1: string, p2: CKSubscription, p3: NSError) => void | null;
 
   fetchSubscriptionCompletionBlock: (p1: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, p2: NSError) => void | null;
-}
-
-declare class CKFetchShareParticipantsOperation extends CKOperation {
-  init(): this;
-
-  initWithUserIdentityLookupInfos(userIdentityLookupInfos: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  get userIdentityLookupInfos(): NSArray;
-  set userIdentityLookupInfos(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  shareParticipantFetchedBlock: (p1: CKShareParticipant) => void;
-
-  perShareParticipantCompletionBlock: (p1: CKUserIdentityLookupInfo, p2: CKShareParticipant, p3: NSError) => void | null;
-
-  fetchShareParticipantsCompletionBlock: (p1: NSError) => void | null;
 }
 
 declare class CKFetchRecordZonesOperation extends CKDatabaseOperation {
@@ -613,45 +569,6 @@ declare class CKFetchRecordZoneChangesOperation extends CKDatabaseOperation {
 
   get optionsByRecordZoneID(): NSDictionary;
   set optionsByRecordZoneID(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-}
-
-declare class CKFetchRecordChangesOperation extends CKDatabaseOperation {
-  init(): this;
-
-  initWithRecordZoneIDPreviousServerChangeToken(recordZoneID: CKRecordZoneID, previousServerChangeToken: CKServerChangeToken | null): this;
-
-  recordZoneID: CKRecordZoneID;
-
-  previousServerChangeToken: CKServerChangeToken;
-
-  resultsLimit: number;
-
-  get desiredKeys(): NSArray;
-  set desiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  recordChangedBlock: (p1: CKRecord) => void;
-
-  recordWithIDWasDeletedBlock: (p1: CKRecordID) => void;
-
-  readonly moreComing: boolean;
-
-  fetchRecordChangesCompletionBlock: (p1: CKServerChangeToken, p2: NSData, p3: NSError) => void | null;
-}
-
-declare class CKFetchNotificationChangesOperation extends CKOperation {
-  init(): this;
-
-  initWithPreviousServerChangeToken(previousServerChangeToken: CKServerChangeToken | null): this;
-
-  previousServerChangeToken: CKServerChangeToken;
-
-  resultsLimit: number;
-
-  readonly moreComing: boolean;
-
-  notificationChangedBlock: (p1: CKNotification) => void;
-
-  fetchNotificationChangesCompletionBlock: (p1: CKServerChangeToken, p2: NSError) => void | null;
 }
 
 declare class CKFetchDatabaseChangesOperation extends CKDatabaseOperation {
@@ -720,15 +637,15 @@ declare class CKUserIdentityLookupInfo extends NSObject implements NSSecureCodin
 }
 
 declare class CKUserIdentity extends NSObject implements NSSecureCoding, NSCopying {
+  readonly userRecordID: CKRecordID;
+
   readonly lookupInfo: CKUserIdentityLookupInfo;
 
   readonly nameComponents: NSPersonNameComponents;
 
-  readonly userRecordID: CKRecordID;
+  readonly hasiCloudAccount: boolean;
 
   readonly contactIdentifiers: NSArray;
-
-  readonly hasiCloudAccount: boolean;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -1021,6 +938,39 @@ declare class CKSyncEngineSendChangesContext extends NSObject {
   readonly options: CKSyncEngineSendChangesOptions;
 }
 
+declare class CKSyncEngineSendChangesOptions extends NSObject implements NSCopying {
+  scope: CKSyncEngineSendChangesScope;
+
+  operationGroup: CKOperationGroup;
+
+  initWithScope(scope: CKSyncEngineSendChangesScope | null): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CKFetchRecordChangesOperation extends CKDatabaseOperation {
+  init(): this;
+
+  initWithRecordZoneIDPreviousServerChangeToken(recordZoneID: CKRecordZoneID, previousServerChangeToken: CKServerChangeToken | null): this;
+
+  recordZoneID: CKRecordZoneID;
+
+  previousServerChangeToken: CKServerChangeToken;
+
+  resultsLimit: number;
+
+  get desiredKeys(): NSArray;
+  set desiredKeys(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  recordChangedBlock: (p1: CKRecord) => void;
+
+  recordWithIDWasDeletedBlock: (p1: CKRecordID) => void;
+
+  readonly moreComing: boolean;
+
+  fetchRecordChangesCompletionBlock: (p1: CKServerChangeToken, p2: NSData, p3: NSError) => void | null;
+}
+
 declare class CKSubscription extends NSObject implements NSSecureCoding, NSCopying {
   readonly subscriptionID: string;
 
@@ -1153,6 +1103,8 @@ declare class CKShareParticipant extends NSObject implements NSSecureCoding, NSC
 
   permission: interop.Enum<typeof CKShareParticipantPermission>;
 
+  readonly participantID: string;
+
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
@@ -1174,26 +1126,6 @@ declare class CKDiscoverAllUserIdentitiesOperation extends CKOperation {
   userIdentityDiscoveredBlock: (p1: CKUserIdentity) => void;
 
   discoverAllUserIdentitiesCompletionBlock: (p1: NSError) => void | null;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class CKRecordZoneSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
-  initWithZoneID(zoneID: CKRecordZoneID): this;
-
-  initWithZoneIDSubscriptionID(zoneID: CKRecordZoneID, subscriptionID: string): this;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  initWithCoder(aDecoder: NSCoder): this;
-
-  readonly zoneID: CKRecordZoneID;
-
-  recordType: string;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CKSyncEngineState extends NSObject {
@@ -1240,6 +1172,10 @@ declare class CKFetchShareMetadataOperation extends CKOperation {
   fetchShareMetadataCompletionBlock: (p1: NSError) => void | null;
 }
 
+declare class CKDatabaseNotification extends CKNotification {
+  readonly databaseScope: interop.Enum<typeof CKDatabaseScope>;
+}
+
 declare class CKSyncEngineSendChangesScope extends NSObject implements NSCopying {
   readonly zoneIDs: NSSet;
 
@@ -1279,10 +1215,45 @@ declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CKFetchShareParticipantsOperation extends CKOperation {
+  init(): this;
+
+  initWithUserIdentityLookupInfos(userIdentityLookupInfos: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  get userIdentityLookupInfos(): NSArray;
+  set userIdentityLookupInfos(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  shareParticipantFetchedBlock: (p1: CKShareParticipant) => void;
+
+  perShareParticipantCompletionBlock: (p1: CKUserIdentityLookupInfo, p2: CKShareParticipant, p3: NSError) => void | null;
+
+  fetchShareParticipantsCompletionBlock: (p1: NSError) => void | null;
+}
+
 declare class CKSyncEngineFailedZoneSave extends NSObject {
   readonly recordZone: CKRecordZone;
 
   readonly error: NSError;
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class CKRecordZoneSubscription extends CKSubscription implements NSSecureCoding, NSCopying {
+  initWithZoneID(zoneID: CKRecordZoneID): this;
+
+  initWithZoneIDSubscriptionID(zoneID: CKRecordZoneID, subscriptionID: string): this;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  initWithCoder(aDecoder: NSCoder): this;
+
+  readonly zoneID: CKRecordZoneID;
+
+  recordType: string;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CKSyncEngineDidFetchRecordZoneChangesEvent extends CKSyncEngineEvent {
@@ -1291,14 +1262,8 @@ declare class CKSyncEngineDidFetchRecordZoneChangesEvent extends CKSyncEngineEve
   readonly error: NSError;
 }
 
-declare class CKModifyBadgeOperation extends CKOperation {
-  init(): this;
-
-  initWithBadgeValue(badgeValue: number): this;
-
-  badgeValue: number;
-
-  modifyBadgeCompletionBlock: (p1: NSError) => void | null;
+declare class CKSyncEngineDidSendChangesEvent extends CKSyncEngineEvent {
+  readonly context: CKSyncEngineSendChangesContext;
 }
 
 declare class CKRecord extends NSObject implements NSSecureCoding, NSCopying {
@@ -1383,6 +1348,10 @@ declare class CKModifySubscriptionsOperation extends CKDatabaseOperation {
   modifySubscriptionsCompletionBlock: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSArray<interop.Object> | Array<interop.Object>, p3: NSError) => void | null;
 }
 
+declare class CKSyncEnginePendingZoneDelete extends CKSyncEnginePendingDatabaseChange {
+  initWithZoneID(zoneID: CKRecordZoneID): this;
+}
+
 declare class CKSyncEngineWillFetchRecordZoneChangesEvent extends CKSyncEngineEvent {
   readonly zoneID: CKRecordZoneID;
 }
@@ -1449,10 +1418,6 @@ declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSec
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class CKDatabaseNotification extends CKNotification {
-  readonly databaseScope: interop.Enum<typeof CKDatabaseScope>;
 }
 
 declare class CKSyncEngineStateUpdateEvent extends CKSyncEngineEvent {

@@ -25,8 +25,6 @@ declare const CoreHapticsErrorDomain: string;
 
 declare const CHHapticDynamicParameterIDAudioReleaseTimeControl: string;
 
-declare const CHHapticDynamicParameterIDAudioDecayTimeControl: string;
-
 declare const CHHapticDynamicParameterIDAudioAttackTimeControl: string;
 
 declare const CHHapticDynamicParameterIDAudioBrightnessControl: string;
@@ -54,6 +52,8 @@ declare const CHHapticEventParameterIDAttackTime: string;
 declare const CHHapticEventParameterIDHapticSharpness: string;
 
 declare const CHHapticEventParameterIDHapticIntensity: string;
+
+declare const CHHapticDynamicParameterIDAudioDecayTimeControl: string;
 
 declare const CHHapticEventTypeHapticContinuous: string;
 
@@ -169,17 +169,6 @@ declare interface CHHapticPatternPlayer extends NSObjectProtocol {
 declare class CHHapticPatternPlayer extends NativeObject implements CHHapticPatternPlayer {
 }
 
-declare interface CHHapticParameterAttributes extends NSObjectProtocol {
-  readonly minValue: number;
-
-  readonly maxValue: number;
-
-  readonly defaultValue: number;
-}
-
-declare class CHHapticParameterAttributes extends NativeObject implements CHHapticParameterAttributes {
-}
-
 declare interface CHHapticDeviceCapability {
   readonly supportsHaptics: boolean;
 
@@ -191,6 +180,17 @@ declare interface CHHapticDeviceCapability {
 }
 
 declare class CHHapticDeviceCapability extends NativeObject implements CHHapticDeviceCapability {
+}
+
+declare interface CHHapticParameterAttributes extends NSObjectProtocol {
+  readonly minValue: number;
+
+  readonly maxValue: number;
+
+  readonly defaultValue: number;
+}
+
+declare class CHHapticParameterAttributes extends NativeObject implements CHHapticParameterAttributes {
 }
 
 declare class CHHapticPattern extends NSObject {
@@ -243,6 +243,24 @@ declare class CHHapticEventParameter extends NSObject {
   initWithParameterIDValue(parameterID: string, value: number): this;
 }
 
+declare class CHHapticEvent extends NSObject {
+  readonly type: string;
+
+  readonly eventParameters: NSArray;
+
+  relativeTime: number;
+
+  duration: number;
+
+  initWithEventTypeParametersRelativeTime(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
+
+  initWithEventTypeParametersRelativeTimeDuration(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
+
+  initWithAudioResourceIDParametersRelativeTime(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
+
+  initWithAudioResourceIDParametersRelativeTimeDuration(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
+}
+
 declare class CHHapticEngine extends NSObject {
   static capabilitiesForHardware(): CHHapticDeviceCapability;
 
@@ -285,23 +303,5 @@ declare class CHHapticEngine extends NSObject {
   playPatternFromURLError(fileURL: NSURL, outError: interop.PointerConvertible): boolean;
 
   playPatternFromDataError(data: NSData, outError: interop.PointerConvertible): boolean;
-}
-
-declare class CHHapticEvent extends NSObject {
-  readonly type: string;
-
-  readonly eventParameters: NSArray;
-
-  relativeTime: number;
-
-  duration: number;
-
-  initWithEventTypeParametersRelativeTime(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
-
-  initWithEventTypeParametersRelativeTimeDuration(type: string, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
-
-  initWithAudioResourceIDParametersRelativeTime(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number): this;
-
-  initWithAudioResourceIDParametersRelativeTimeDuration(resID: number, eventParams: NSArray<interop.Object> | Array<interop.Object>, time: number, duration: number): this;
 }
 

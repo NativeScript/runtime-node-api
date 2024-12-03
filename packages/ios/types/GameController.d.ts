@@ -2,15 +2,7 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./UIKit.d.ts" />
 
-declare const GCKeyF3: string;
-
-declare const GCKeyPause: string;
-
-declare const GCKeyCodeF8: number;
-
 declare const GCKeyRightControl: string;
-
-declare const GCInputRightThumbstick: string;
 
 declare const GCKeyCodeKeypadNumLock: number;
 
@@ -40,6 +32,8 @@ declare const GCInputMicroGamepadButtonMenu: string;
 
 declare const GCKeyF7: string;
 
+declare const GCInputRightThumbstick: string;
+
 declare const GCKeyLANG9: string;
 
 declare const GCKeyCodeDownArrow: number;
@@ -49,6 +43,8 @@ declare const GCInputDirectionalDpad: string;
 declare const GCKeyApplication: string;
 
 declare const GCKeyB: string;
+
+declare const GCKeyPause: string;
 
 declare const GCKeyCodeNine: number;
 
@@ -165,6 +161,8 @@ declare const GCKeyF10: string;
 declare const GCKeyF9: string;
 
 declare const GCKeyF6: string;
+
+declare const GCKeyF3: string;
 
 declare const GCKeyF1: string;
 
@@ -296,6 +294,8 @@ declare const GCKeyCodeF10: number;
 
 declare const GCKeyCodeF9: number;
 
+declare const GCKeyCodeF8: number;
+
 declare const GCKeyCodeF5: number;
 
 declare const GCKeyCodeF1: number;
@@ -402,15 +402,17 @@ declare const GCKeyF12: string;
 
 declare const GCKeyCodeKeyT: number;
 
-declare const GCKeyTwo: string;
-
 declare const GCKeyCodeLeftArrow: number;
 
 declare const GCKeyKeypad8: string;
 
 declare const GCKeyCodeInternational6: number;
 
-declare const GCKeyCodeReturnOrEnter: number;
+declare const GCKeyTwo: string;
+
+declare const GCKeyCodeSix: number;
+
+declare const GCKeyCodeSemicolon: number;
 
 declare const GCKeyCodeKeypadSlash: number;
 
@@ -423,8 +425,6 @@ declare const GCKeyCodeFive: number;
 declare const GCKeyCodeDeleteForward: number;
 
 declare const GCHapticsLocalityLeftHandle: string;
-
-declare const GCInputDirectionPad: string;
 
 declare const GCKeyF16: string;
 
@@ -522,6 +522,8 @@ declare const GCKeyCodeKeypad9: number;
 
 declare const GCInputXboxPaddleTwo: string;
 
+declare const GCKeyCodeReturnOrEnter: number;
+
 declare const GCKeyF4: string;
 
 declare const GCKeyCodeKeypad0: number;
@@ -536,6 +538,8 @@ declare const GCKeyKeypadPlus: string;
 
 declare const GCKeyEscape: string;
 
+declare const GCInputDirectionPad: string;
+
 declare const GCInputButtonY: string;
 
 declare const GCKeyLeftAlt: string;
@@ -547,8 +551,6 @@ declare const GCKeyCodeTwo: number;
 declare const GCInputLeftThumbstickButton: string;
 
 declare const GCKeyF18: string;
-
-declare const GCKeyCodeSemicolon: number;
 
 declare const GCKeyCodeRightArrow: number;
 
@@ -577,8 +579,6 @@ declare const GCKeyKeypadHyphen: string;
 declare const GCKeyF19: string;
 
 declare const GCKeyInternational8: string;
-
-declare const GCKeyCodeSix: number;
 
 declare const GCKeyInternational2: string;
 
@@ -680,62 +680,9 @@ declare const GCKeyF8: string;
 
 declare const GCKeyCodeInternational7: number;
 
-declare const GCControllerPlayerIndex: {
-  IndexUnset: -1,
-  Index1: 0,
-  Index2: 1,
-  Index3: 2,
-  Index4: 3,
-};
-
-declare const GCMicroGamepadSnapshotDataVersion: {
-  GCMicroGamepadSnapshotDataVersion1: 256,
-};
-
 declare const GCExtendedGamepadSnapshotDataVersion: {
   Version1: 256,
   Version2: 257,
-};
-
-declare const GCDeviceBatteryState: {
-  Unknown: -1,
-  Discharging: 0,
-  Charging: 1,
-  Full: 2,
-};
-
-declare const GCPhysicalInputSourceDirection: {
-  NotApplicable: 0,
-  Up: 1,
-  Right: 2,
-  Down: 4,
-  Left: 8,
-};
-
-declare const GCSystemGestureState: {
-  Enabled: 0,
-  AlwaysReceive: 1,
-  Disabled: 2,
-};
-
-declare const GCDualSenseAdaptiveTriggerMode: {
-  Off: 0,
-  Feedback: 1,
-  Weapon: 2,
-  Vibration: 3,
-  SlopeFeedback: 4,
-};
-
-declare const GCTouchState: {
-  Up: 0,
-  Down: 1,
-  Moving: 2,
-};
-
-declare const GCDevicePhysicalInputElementChange: {
-  UnknownChange: -1,
-  NoChange: 0,
-  Changed: 1,
 };
 
 declare const GCDualSenseAdaptiveTriggerStatus: {
@@ -750,6 +697,64 @@ declare const GCDualSenseAdaptiveTriggerStatus: {
   SlopeFeedbackReady: 7,
   SlopeFeedbackApplyingLoad: 8,
   SlopeFeedbackFinished: 9,
+};
+
+declare const GCTouchState: {
+  Up: 0,
+  Down: 1,
+  Moving: 2,
+};
+
+declare const GCSystemGestureState: {
+  Enabled: 0,
+  AlwaysReceive: 1,
+  Disabled: 2,
+};
+
+declare const GCDeviceBatteryState: {
+  Unknown: -1,
+  Discharging: 0,
+  Charging: 1,
+  Full: 2,
+};
+
+declare const GCDevicePhysicalInputElementChange: {
+  UnknownChange: -1,
+  NoChange: 0,
+  Changed: 1,
+};
+
+declare const GCPhysicalInputSourceDirection: {
+  NotApplicable: 0,
+  Up: 1,
+  Right: 2,
+  Down: 4,
+  Left: 8,
+};
+
+declare const GCUIEventTypes: {
+  None: 0,
+  Gamepad: 1,
+};
+
+declare const GCDualSenseAdaptiveTriggerMode: {
+  Off: 0,
+  Feedback: 1,
+  Weapon: 2,
+  Vibration: 3,
+  SlopeFeedback: 4,
+};
+
+declare const GCMicroGamepadSnapshotDataVersion: {
+  GCMicroGamepadSnapshotDataVersion1: 256,
+};
+
+declare const GCControllerPlayerIndex: {
+  IndexUnset: -1,
+  Index1: 0,
+  Index2: 1,
+  Index3: 2,
+  Index4: 3,
 };
 
 declare class GCMicroGamepadSnapshotData {
@@ -1145,6 +1150,13 @@ declare interface GCDevicePhysicalInputStateDiff extends NSObjectProtocol {
 declare class GCDevicePhysicalInputStateDiff extends NativeObject implements GCDevicePhysicalInputStateDiff {
 }
 
+declare interface GCGameControllerSceneDelegate extends NSObjectProtocol {
+  sceneDidActivateGameControllerWithContext(scene: UIScene, context: GCGameControllerActivationContext): void;
+}
+
+declare class GCGameControllerSceneDelegate extends NativeObject implements GCGameControllerSceneDelegate {
+}
+
 declare interface GCAxisInput extends NSObjectProtocol {
   valueDidChangeHandler: (p1: GCPhysicalInputElement, p2: GCAxisInput, p3: number) => void;
 
@@ -1205,6 +1217,58 @@ declare class GCVirtualController extends NSObject {
   setValueForButtonElement(value: number, element: string): void;
 
   setPositionForDirectionPadElement(position: CGPoint, element: string): void;
+}
+
+declare class GCEventInteraction extends NSObject implements UIInteraction {
+  init(): this;
+
+  handledEventTypes: interop.Enum<typeof GCUIEventTypes>;
+
+  readonly view: UIView;
+
+  willMoveToView(view: UIView | null): void;
+
+  didMoveToView(view: UIView | null): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
 }
 
 declare class GCEventViewController extends UIViewController {
@@ -1406,6 +1470,10 @@ declare class GCKeyboardInput extends GCPhysicalInputProfile {
   readonly isAnyKeyPressed: boolean;
 
   buttonForKeyCode(code: number): GCControllerButtonInput | null;
+}
+
+declare class GCGameControllerActivationContext extends NSObject {
+  readonly previousApplicationBundleID: string;
 }
 
 declare class GCMouse extends NSObject implements GCDevice {
@@ -1618,10 +1686,22 @@ declare class GCXboxGamepad extends GCExtendedGamepad {
   readonly buttonShare: GCControllerButtonInput;
 }
 
-declare class GCDeviceHaptics extends NSObject {
-  readonly supportedLocalities: NSSet;
+declare class GCColor extends NSObject implements NSCopying, NSSecureCoding {
+  initWithRedGreenBlue(red: number, green: number, blue: number): this;
 
-  createEngineWithLocality(locality: string): CHHapticEngine | null;
+  readonly red: number;
+
+  readonly green: number;
+
+  readonly blue: number;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GCDeviceLight extends NSObject {
@@ -1681,6 +1761,12 @@ declare class GCControllerButtonInput extends GCControllerElement {
 }
 
 declare class GCDeviceCursor extends GCControllerDirectionPad {
+}
+
+declare class GCDeviceHaptics extends NSObject {
+  readonly supportedLocalities: NSSet;
+
+  createEngineWithLocality(locality: string): CHHapticEngine | null;
 }
 
 declare class GCVirtualControllerElementConfiguration extends NSObject {
@@ -1855,24 +1941,6 @@ declare class GCGamepad extends GCPhysicalInputProfile {
   readonly leftShoulder: GCControllerButtonInput;
 
   readonly rightShoulder: GCControllerButtonInput;
-}
-
-declare class GCColor extends NSObject implements NSCopying, NSSecureCoding {
-  initWithRedGreenBlue(red: number, green: number, blue: number): this;
-
-  readonly red: number;
-
-  readonly green: number;
-
-  readonly blue: number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
 }
 
 declare class GCControllerLiveInput extends GCControllerInputState implements GCDevicePhysicalInput {
