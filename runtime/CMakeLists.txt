@@ -83,6 +83,7 @@ set(RT_SOURCE_FILES
   src/Performance.cpp
   src/Bundle.mm
   src/Timers.mm
+  src/App.mm
 )
 
 # Define targets
@@ -134,24 +135,30 @@ target_link_options(
 )
 
 if (TARGET_PLATFORM_MACOS)
-  set(BRIDGE_BIN "-lNativeScript")
-
   target_link_options(
     NativeScriptRuntime
     PRIVATE
     -L${NS_BRIDGE_PATH}
   )
-else()
-  set(BRIDGE_BIN "-framework NativeScript")
-endif()
 
-target_link_libraries(
-  NativeScriptRuntime
-  PRIVATE
-  ${BRIDGE_BIN}
-  "-framework hermes"
-  "-framework CoreFoundation"
-)
+  target_link_libraries(
+    NativeScriptRuntime
+    PRIVATE
+    "-lNativeScript"
+    "-framework AppKit"
+    "-framework hermes"
+    "-framework CoreFoundation"
+  )
+else()
+  target_link_libraries(
+    NativeScriptRuntime
+    PRIVATE
+    "-framework NativeScript"
+    "-framework hermes"
+    "-framework CoreFoundation"
+    "-framework UIKit"
+  )
+endif()
 
 # 2. charon: the executable/CLI that uses the runtime framework on macOS.
 
