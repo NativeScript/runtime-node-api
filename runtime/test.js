@@ -16,13 +16,10 @@ const int = setInterval(() => {
 
 setTimeout(() => {
     clearInterval(int);
+
+    NSApplication.sharedApplication.terminate(null);
 }, 5000);
 
 console.log(new Error().stack);
 
 NSApplicationMain(0, null);
-
-// const timer = NSTimer.scheduledTimerWithTimeIntervalRepeatsBlock(1, true, () => {
-//     console.log("timer");
-//     timer.invalidate();
-// });

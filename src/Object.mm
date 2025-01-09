@@ -7,14 +7,17 @@
 #import <Foundation/Foundation.h>
 #include <objc/runtime.h>
 
-static SEL JSWrapperObjectAssociationKey = @selector(JSWrapperObjectAssociationKey);
+static SEL JSWrapperObjectAssociationKey =
+    @selector(JSWrapperObjectAssociationKey);
 
 @interface JSWrapperObjectAssociation : NSObject
 
-@property (nonatomic) napi_env env;
-@property (nonatomic) napi_ref ref;
+@property(nonatomic) napi_env env;
+@property(nonatomic) napi_ref ref;
 
-+ (void)transferOwnership:(napi_env)env of:(napi_value)value toNative:(id)object;
++ (void)transferOwnership:(napi_env)env
+                       of:(napi_value)value
+                 toNative:(id)object;
 
 + (instancetype)associationFor:(id)object;
 
@@ -33,10 +36,14 @@ static SEL JSWrapperObjectAssociationKey = @selector(JSWrapperObjectAssociationK
   return self;
 }
 
-+ (void)transferOwnership:(napi_env)env of:(napi_value)value toNative:(id)object {
++ (void)transferOwnership:(napi_env)env
+                       of:(napi_value)value
+                 toNative:(id)object {
   napi_ref ref = objc_bridge::make_ref(env, value);
-  JSWrapperObjectAssociation *association = [[JSWrapperObjectAssociation alloc] initWithEnv:env ref:ref];
-  objc_setAssociatedObject(object, JSWrapperObjectAssociationKey, association, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  JSWrapperObjectAssociation *association =
+      [[JSWrapperObjectAssociation alloc] initWithEnv:env ref:ref];
+  objc_setAssociatedObject(object, JSWrapperObjectAssociationKey, association,
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 + (instancetype)associationFor:(id)object {
@@ -50,14 +57,15 @@ static SEL JSWrapperObjectAssociationKey = @selector(JSWrapperObjectAssociationK
 
 @end
 
-napi_value JS_transferOwnershipToNative(napi_env env, napi_callback_info cbinfo) {
+napi_value JS_transferOwnershipToNative(napi_env env,
+                                        napi_callback_info cbinfo) {
   size_t argc = 1;
   napi_value arg;
   napi_get_cb_info(env, cbinfo, &argc, &arg, nullptr, nullptr);
 
   id obj = nil;
   napi_unwrap(env, arg, (void **)&obj);
-  
+
   [JSWrapperObjectAssociation transferOwnership:env of:arg toNative:obj];
 
   return nullptr;
@@ -113,7 +121,9 @@ void initProxyFactory(napi_env env, ObjCBridgeState *state) {
   state->createNativeProxy = make_ref(env, result);
 
   napi_value transferOwnershipToNative;
-  napi_create_function(env, "transferOwnershipToNative", NAPI_AUTO_LENGTH, JS_transferOwnershipToNative, nullptr, &transferOwnershipToNative);
+  napi_create_function(env, "transferOwnershipToNative", NAPI_AUTO_LENGTH,
+                       JS_transferOwnershipToNative, nullptr,
+                       &transferOwnershipToNative);
   state->transferOwnershipToNative = make_ref(env, transferOwnershipToNative);
 }
 
@@ -142,7 +152,8 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
     unregisterObject(obj);
   }
 
-  JSWrapperObjectAssociation *association = [JSWrapperObjectAssociation associationFor:obj];
+  JSWrapperObjectAssociation *association =
+      [JSWrapperObjectAssociation associationFor:obj];
   if (association != nil) {
     napi_value jsObject = get_ref_value(env, association.ref);
     [obj retain];
@@ -172,6 +183,8 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
       return nullptr;
     }
 
+    incrementCounter(env);
+
     NAPI_GUARD(napi_wrap(env, result, obj, nullptr, nullptr, nullptr)) {
       NAPI_THROW_LAST_ERROR
       return nullptr;
@@ -185,7 +198,7 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
 
     result = proxyNativeObject(env, result, obj);
 
-// #if DEBUG
+    // #if DEBUG
     // napi_value global, Error, error, stack;
     // napi_get_global(env, &global);
     // napi_get_named_property(env, global, "Error", &Error);
@@ -197,12 +210,13 @@ napi_value ObjCBridgeState::getObject(napi_env env, id obj,
     // char *stackStr = new char[stackSize + 1];
     // napi_get_value_string_utf8(env, stack, stackStr, stackSize + 1, nullptr);
 
-    // NSString *str = [NSString stringWithFormat:@"Wrapped object <%s: %p> @ %ld # %s",
+    // NSString *str = [NSString stringWithFormat:@"Wrapped object <%s: %p> @
+    // %ld # %s",
     //       class_getName(cls), obj, [obj retainCount], stackStr];
     // dbglog([str UTF8String]);
 
     // delete[] stackStr;
-// #endif
+    // #endif
   }
 
   return result;
@@ -358,13 +372,14 @@ ObjCBridgeState::getObject(napi_env env, id obj, ObjectOwnership ownership,
 }
 
 void ObjCBridgeState::unregisterObject(id object) noexcept {
-// #if DEBUG
-  // NSString *string = [NSString stringWithFormat: @"Unregistering object <%s: %p> @ %ld # success: %d, finalized: %d",
+  // #if DEBUG
+  // NSString *string = [NSString stringWithFormat: @"Unregistering object <%s:
+  // %p> @ %ld # success: %d, finalized: %d",
   //     class_getName(object_getClass(object)), object, [object retainCount],
   //     (int)objectRefs.contains(object), (int)finalized];
-  
+
   // dbglog([string UTF8String]);
-// #endif
+  // #endif
 
   if (objectRefs.contains(object)) {
     objectRefs.erase(object);

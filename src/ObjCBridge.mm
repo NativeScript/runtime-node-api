@@ -22,6 +22,7 @@
 #include <mach-o/dyld.h>
 #include <mach-o/getsect.h>
 #include <objc/runtime.h>
+#include <mach/mach.h>
 
 #ifdef EMBED_METADATA_SIZE
 const unsigned char __attribute__((section("__objc_metadata,__objc_metadata")))
@@ -119,6 +120,28 @@ napi_value ObjCBridgeState::proxyNativeObject(napi_env env, napi_value object,
   objectRefs[nativeObject] = ref;
 
   return result;
+}
+
+void ObjCBridgeState::reportMemoryUsage(napi_env env) {
+  return;
+  
+  int64_t timestamp = [[NSDate date] timeIntervalSince1970];
+  if ((timestamp - lastReportedTimestamp) < 500) {
+    return;
+  }
+
+  struct task_basic_info info;
+  mach_msg_type_number_t size = TASK_BASIC_INFO_COUNT;
+  kern_return_t kerr =
+      task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+  if (kerr == KERN_SUCCESS) {
+    int64_t changeInBytes = info.resident_size - lastReportedMemoryUsage;
+    int64_t total;
+    napi_adjust_external_memory(
+        env, changeInBytes == 0 ? info.resident_size : changeInBytes, &total);
+    lastReportedMemoryUsage = total;
+    lastReportedTimestamp = timestamp;
+  }
 }
 
 } // namespace objc_bridge

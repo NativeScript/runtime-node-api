@@ -12,6 +12,7 @@
 #include "js_native_api.h"
 #include "NativeScript.h"
 #include "objc/runtime.h"
+#include <atomic>
 #include <dlfcn.h>
 #include <map>
 #include <objc/runtime.h>
@@ -109,8 +110,23 @@ public:
     return structInfo;
   }
 
+  void reportMemoryUsage(napi_env env);
+
+  inline void incrementCounter(napi_env env) {
+    allocCounter++;
+
+    if (allocCounter >= 10) {
+      allocCounter = 0;
+      reportMemoryUsage(env);
+    }
+  }
+
 public:
   std::unordered_map<id, napi_ref> objectRefs;
+
+  std::atomic_int8_t allocCounter = 0;
+  std::atomic_int64_t lastReportedMemoryUsage = 0;
+  std::atomic_int64_t lastReportedTimestamp = 0;
 
   napi_ref pointerClass;
   napi_ref referenceClass;
