@@ -7,25 +7,21 @@ Deno.chdir(new URL("./", import.meta.url));
 
 // Process arguments and environment variables
 
-const VALID_PLATFORMS = [
-  "macos",
-  "ios",
-  "ios-sim",
-  "ios-universal",
-];
+const VALID_PLATFORMS = ["macos", "ios", "ios-sim", "ios-universal"];
 const targetPlatform = Deno.args[0] ?? "macos";
 
 if (!VALID_PLATFORMS.includes(targetPlatform)) {
   throw new Error(
-    `Invalid platform: ${targetPlatform}. Valid platforms are: ${
-      VALID_PLATFORMS.join(
-        ", ",
-      )
-    }`,
+    `Invalid platform: ${targetPlatform}. Valid platforms are: ${VALID_PLATFORMS.join(
+      ", "
+    )}`
   );
 }
 
 const buildConfig = Deno.args.includes("debug") ? "Debug" : "Release";
+
+const isV8 = Deno.args.includes("v8");
+const isHermes = Deno.args.includes("hermes");
 
 // Ensure we have a build directory
 await Deno.mkdir(`../runtime/build`).catch(() => {});
@@ -43,14 +39,16 @@ async function build(targetPlatform: string) {
   await ensureTargetDir(targetPlatform);
 
   // Generate the build files
-  await $`cmake -S=../runtime -B=../runtime/build/${targetPlatform} -GXcode -DTARGET_PLATFORM=${targetPlatform} -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`;
+  await $`cmake -S=../runtime -B=../runtime/build/${targetPlatform} -GXcode -DTARGET_PLATFORM=${targetPlatform} -DTARGET_ENGINE=${
+    isV8 ? "v8" : isHermes ? "hermes" : "v8"
+  } -DCMAKE_EXPORT_COMPILE_COMMANDS=ON`;
 
   // Build the project
   await $`cmake --build ../runtime/build/${targetPlatform} --config ${buildConfig}`;
 }
 
 const TARGET_RELEASE_FOLDERS: Record<string, string> = {
-  "ios": `${buildConfig}-iphoneos`,
+  ios: `${buildConfig}-iphoneos`,
   "ios-sim": `${buildConfig}-iphonesimulator`,
 };
 
@@ -65,19 +63,15 @@ if (import.meta.main) {
 
     await Deno.remove(
       `../runtime/build/${targetPlatform}/NativeScriptRuntime.xcframework`,
-      { recursive: true },
+      { recursive: true }
     ).catch(() => {});
 
-    await $`xcodebuild -create-xcframework ${
-      targets.map((
-        targetPlatform,
-      ) => [
+    await $`xcodebuild -create-xcframework ${targets
+      .map((targetPlatform) => [
         `-framework`,
-        `../runtime/build/${targetPlatform}/${
-          TARGET_RELEASE_FOLDERS[targetPlatform]
-        }/NativeScriptRuntime.framework`,
-      ]).flat()
-    } -output ../runtime/build/${targetPlatform}/NativeScriptRuntime.xcframework`;
+        `../runtime/build/${targetPlatform}/${TARGET_RELEASE_FOLDERS[targetPlatform]}/NativeScriptRuntime.framework`,
+      ])
+      .flat()} -output ../runtime/build/${targetPlatform}/NativeScriptRuntime.xcframework`;
   } else {
     await build(targetPlatform);
   }

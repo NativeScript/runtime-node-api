@@ -130,8 +130,14 @@ for (const arch in sdk.targets) {
   // TODO: commit these files to the repo
   // These are needed to make it work with NativeScriptCore on iOS apps (compat with old NativeScript runtime)
   const TNS_WIDGETS_FRAMEWORK = Deno.env.get("TNS_WIDGETS_FRAMEWORK");
-  if (TNS_WIDGETS_FRAMEWORK) {
-    const customFrameworks = [TNS_WIDGETS_FRAMEWORK];
+  if (TNS_WIDGETS_FRAMEWORK === "1") {
+    const basePath = new URL(
+      "../node_modules/@nativescript/core/platforms/ios/",
+      import.meta.url
+    ).pathname;
+    const framework = `${basePath}/TNSWidgets.xcframework/${sdkName}-${arch}/TNSWidgets.framework`;
+
+    const customFrameworks = [framework];
 
     for (const framework of customFrameworks) {
       args.push(`include=${framework}`);
@@ -139,12 +145,8 @@ for (const arch in sdk.targets) {
       args.push(`import="TNSWidgets.h"`);
     }
 
-    args.push(
-      "include=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src"
-    );
-    args.push(
-      "headers=/Users/dj/Projects/NativeScript/packages/core/platforms/ios/src"
-    );
+    args.push(`include=${basePath}/src`);
+    args.push(`headers=${basePath}/src`);
     args.push('import="NativeScriptEmbedder.h"');
     args.push('import="NativeScriptUtils.h"');
     args.push('import="UIView+NativeScript.h"');

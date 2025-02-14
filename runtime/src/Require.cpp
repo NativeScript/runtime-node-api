@@ -1,12 +1,15 @@
 #include "Require.h"
 #include "NapiUtil.h"
+#include "js_native_api.h"
+#include "jsr.h"
 #include <dlfcn.h>
 #include <iostream>
 #include <string>
-#include <dlfcn.h>
 
 napi_value Require::createRequire(napi_env env, std::string &path,
                                   std::string &tilde, Require **pRequire) {
+  // NapiScope scope(env);
+
   Require *require = new Require(path, tilde);
   if (pRequire) {
     *pRequire = require;
@@ -15,11 +18,14 @@ napi_value Require::createRequire(napi_env env, std::string &path,
   napi_create_function(env, "require", NAPI_AUTO_LENGTH,
                        Require::requireCallback, require, &result);
   napi_ref ref;
-  napi_wrap(env, result, require, Require::finalize, nullptr, &ref);
+  // napi_wrap(env, result, require, Require::finalize, nullptr, &ref);
+  napi_add_finalizer(env, result, require, Require::finalize, nullptr, &ref);
   return result;
 }
 
 Require *Require::init(napi_env env, std::string &path, std::string &tilde) {
+  // NapiScope scope(env);
+
   napi_value global;
   napi_get_global(env, &global);
 
@@ -81,6 +87,8 @@ void finalize_dlobject(napi_env env, void *finalize_data, void *finalize_hint) {
 typedef napi_value napi_module_register_fn(napi_env env, napi_value exports);
 
 napi_value Require::require(napi_env env, std::string &spec) {
+  NapiScope scope(env);
+
   std::string path = resolve(spec);
 
   if (path.ends_with(".node") || path.ends_with(".dylib") ||
@@ -138,14 +146,14 @@ napi_value Require::require(napi_env env, std::string &spec) {
   }
 
   std::string bootstrap;
-  bootstrap = "let cjsModule; try { cjsModule = function c(exports, "
+  bootstrap = "(() => { let cjsModule; try { cjsModule = function c(exports, "
               "require, module, __filename, __dirname) {";
   bootstrap += source;
   bootstrap += "\n};\n"
                "Object.defineProperty(cjsModule, \"name\", { value: `" +
                path +
                "` });\n} catch (e) { throw new Error(`Failed to evaluate "
-               "module: ${e.stack}`); }\n cjsModule";
+               "module: ${e.stack}`); }\n return cjsModule; })()";
 
   napi_status status;
   napi_value func, script, module, exports, require, __filename, __dirname,
@@ -178,7 +186,7 @@ napi_value Require::require(napi_env env, std::string &spec) {
   napi_create_string_utf8(env, dirname.c_str(), NAPI_AUTO_LENGTH, &__dirname);
 
   napi_value argv[5] = {exports, require, module, __filename, __dirname};
-  
+
   status = napi_call_function(env, global, func, 5, argv, &result);
 
   if (status != napi_ok) {
@@ -195,6 +203,7 @@ napi_value Require::require(napi_env env, std::string &spec) {
 }
 
 napi_value Require::requireCallback(napi_env env, napi_callback_info cbinfo) {
+  NapiScope scope(env);
   napi_value arg;
   Require *require;
   size_t argc = 1;

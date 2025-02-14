@@ -1,28 +1,29 @@
-console.log("hello world", NSObject.new());
+try {
+  console.log("hello world 1");
+  NSObject.new();
+  console.log("hello world 2");
 
-const { test } = require("./mod.js");
+  const { test } = require("./mod.js");
 
-test();
+  test();
 
-const id = setTimeout(() => {
+  const id = setTimeout(() => {
     console.log("timeout");
-}, 1000);
+  }, 1000);
 
-clearTimeout(id);
+  clearTimeout(id);
 
-const int = setInterval(() => {
+  const int = setInterval(() => {
     console.log("interval");
-}, 1000);
+  }, 1000);
 
-setTimeout(() => {
+  setTimeout(() => {
     clearInterval(int);
-}, 5000);
+  }, 5000);
 
-console.log(new Error().stack);
+  console.log(new Error().stack);
 
-NSApplicationMain(0, null);
-
-// const timer = NSTimer.scheduledTimerWithTimeIntervalRepeatsBlock(1, true, () => {
-//     console.log("timer");
-//     timer.invalidate();
-// });
+  NSApplicationMain(0, null);
+} catch (e) {
+  console.log(e.stack);
+}

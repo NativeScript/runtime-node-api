@@ -37,7 +37,7 @@ napi_value App::run(napi_env env, napi_callback_info cbinfo) {
                                dequeue:YES];
     if (event) {
       [app sendEvent:event];
-      appInst->runtime->drainMicrotasks();
+      // appInst->runtime->drainMicrotasks();
     }
   }
 

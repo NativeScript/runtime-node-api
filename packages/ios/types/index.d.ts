@@ -17,6 +17,7 @@
 /// <reference path="./QuartzCore.d.ts" />
 /// <reference path="./ModelIO.d.ts" />
 /// <reference path="./MetalKit.d.ts" />
+/// <reference path="./TNSWidgets.d.ts" />
 /// <reference path="./WebKit.d.ts" />
 /// <reference path="./CoreServices.d.ts" />
 /// <reference path="./Security.d.ts" />

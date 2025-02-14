@@ -8,6 +8,8 @@ set(BUNDLE_IDENTIFIER "org.nativescript.hermes-runtime")
 
 project(${NAME} VERSION ${VERSION} LANGUAGES CXX)
 
+add_link_options("-fuse-ld=/opt/homebrew/opt/llvm/bin/ld64.lld")
+
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -16,6 +18,18 @@ set(CMAKE_CXX_STANDARD 20)
 # Platform selection based on the value of TARGET_PLATFORM
 
 set(TARGET_PLATFORM "macos" CACHE STRING "Target platform for the NativeScriptRuntime")
+set(TARGET_ENGINE "v8" CACHE STRING "Target JS engine for the NativeScriptRuntime")
+
+if (TARGET_ENGINE STREQUAL "hermes")
+  set(TARGET_ENGINE_HERMES TRUE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -std=c++20 -DTARGET_ENGINE_HERMES")
+elseif (TARGET_ENGINE STREQUAL "v8")
+  set(TARGET_ENGINE_V8 TRUE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -stdlib=libc++ -std=c++20 -DV8_COMPRESS_POINTERS -DV8_ENABLE_SANDBOX -DTARGET_ENGINE_V8")
+else()
+  message(FATAL_ERROR "Unknown target engine: ${TARGET_ENGINE}")
+  return()
+endif()
 
 if(TARGET_PLATFORM STREQUAL "ios")
   set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "13.0")
@@ -43,7 +57,7 @@ elseif(TARGET_PLATFORM STREQUAL "macos")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
   set(TARGET_PLATFORM_MACOS TRUE)
   set(SDK_NAME "macosx")
-  set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+  set(CMAKE_OSX_ARCHITECTURES "arm64")
   set(NS_BRIDGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../packages/macos/build/macos/Release)
   set(TARGET_PLATFORM_SPEC "macos-arm64_x86_64")
 else()
@@ -73,8 +87,23 @@ message(STATUS "SDK = ${CMAKE_OSX_SYSROOT}")
 # Project sources
 
 include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ./include
+  napi/common
 )
+
+if (TARGET_ENGINE_V8)
+  include_directories(
+    napi/v8
+    napi/v8/include
+    napi/v8/v8_inspector
+  )
+elseif(TARGET_ENGINE_HERMES)
+  include_directories(
+    napi/hermes
+    napi/hermes/hermes
+    napi/hermes/jsi
+  )
+endif()
 
 set(RT_SOURCE_FILES
   src/Console.cpp
@@ -85,6 +114,20 @@ set(RT_SOURCE_FILES
   src/Timers.mm
   src/App.mm
 )
+
+if (TARGET_ENGINE_V8)
+  set(RT_SOURCE_FILES
+    ${RT_SOURCE_FILES}
+    napi/v8/v8-api.cpp
+    napi/v8/jsr.cpp
+    napi/v8/SimpleAllocator.cpp
+  )
+elseif(TARGET_ENGINE_HERMES)
+  set(RT_SOURCE_FILES
+    ${RT_SOURCE_FILES}
+    napi/hermes/jsr.cpp
+  )
+endif()
 
 # Define targets
 
@@ -100,11 +143,11 @@ add_library(
 set(PUBLIC_HEADERS
   "include/Runtime.h"
   "include/Require.h"
-  "include/hermes"
-  "include/jsi"
-  "include/js_native_api.h"
-  "include/js_native_api_types.h"
-  "include/js_runtime_api.h"
+  "napi/hermes/hermes"
+  "napi/hermes/jsi"
+  "napi/hermes/js_runtime_api.h"
+  "napi/hermes/js_native_api.h"
+  "napi/hermes/js_native_api_types.h"
 )
 
 target_sources(
@@ -138,15 +181,16 @@ if (TARGET_PLATFORM_MACOS)
   target_link_options(
     NativeScriptRuntime
     PRIVATE
+    -L${CMAKE_CURRENT_SOURCE_DIR}/deps
     -L${NS_BRIDGE_PATH}
+    -L${CMAKE_CURRENT_SOURCE_DIR}/Frameworks
   )
 
   target_link_libraries(
     NativeScriptRuntime
     PRIVATE
-    "-lNativeScript"
+    NativeScript
     "-framework AppKit"
-    "-framework hermes"
     "-framework CoreFoundation"
   )
 else()
@@ -154,9 +198,26 @@ else()
     NativeScriptRuntime
     PRIVATE
     "-framework NativeScript"
-    "-framework hermes"
     "-framework CoreFoundation"
     "-framework UIKit"
+  )
+endif()
+
+if (TARGET_ENGINE_V8)
+  target_link_libraries(
+    NativeScriptRuntime
+    PRIVATE
+    "-pthread"
+    dl
+    v8_monolith
+    v8_libbase
+    v8_libplatform
+  )
+elseif(TARGET_ENGINE_HERMES)
+  target_link_libraries(
+    NativeScriptRuntime
+    PRIVATE
+    "-framework hermes"
   )
 endif()
 
@@ -173,8 +234,9 @@ if(TARGET_PLATFORM_MACOS)
   target_link_options(
     charon
     PRIVATE
+    -L${CMAKE_CURRENT_SOURCE_DIR}/deps
     -Wl,-rpath,@executable_path/../Frameworks
-    -Wl,-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
+    #-Wl,-rpath,${CMAKE_CURRENT_SOURCE_DIR}/Frameworks/hermes.xcframework/${TARGET_PLATFORM_SPEC}
     -Wl,-rpath,${NS_BRIDGE_PATH}
     -undefined dynamic_lookup
   )
@@ -182,6 +244,6 @@ if(TARGET_PLATFORM_MACOS)
   target_link_libraries(
     charon
     PRIVATE
-    "NativeScriptRuntime"
+    NativeScriptRuntime
   )
 endif()

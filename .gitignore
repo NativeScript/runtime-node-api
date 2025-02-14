@@ -16,3 +16,4 @@ compile_commands.json
 .cache/
 runtime/Frameworks/hermes.xcframework
 dist/
+runtime/deps
