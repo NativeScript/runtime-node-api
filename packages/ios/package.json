@@ -10,7 +10,7 @@
   "typings": "index.d.ts",
   "type": "module",
   "files": [
-    "dist/ios-universal/NativeScript.xcframework",
+    "build/Release/NativeScript.apple.node",
     "index.d.ts",
     "NativeScript.podspec",
     "types"
@@ -44,7 +44,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@nativescript/objc-node-api": ">=1.0.0-alpha.5"
+    "@nativescript/objc-node-api": ">=1.0.0-alpha.5",
+    "bindings": "^1.5.0"
   },
   "devDependencies": {
     "rimraf": "^6.0.0"

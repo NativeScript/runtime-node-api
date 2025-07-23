@@ -143,6 +143,12 @@ if(TARGET_PLATFORM_MACOS)
 
   set(METADATA_FILE "metadata.macos.nsmd")
 elseif(TARGET_PLATFORM_IOS)
+  # Convert the Info.plist from binary format to XML format.
+  # This seemed to unblock a build error when using in React Native.
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND plutil -convert xml1 $<TARGET_FILE_DIR:${NAME}>/Info.plist
+  )
+
   set(METADATA_FILE "metadata.ios.nsmd")
 endif()
 

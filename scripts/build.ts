@@ -1,6 +1,11 @@
+import path from "node:path";
+import process from "node:process";
+import { createXCframework } from "react-native-node-api";
 import { $ } from "./deps.ts";
 
 $.setPrintCommand(true);
+
+const monorepoRoot = path.resolve(import.meta.dirname!, "..");
 
 // CWD is scripts/
 Deno.chdir(new URL("./", import.meta.url));
@@ -90,21 +95,36 @@ if (import.meta.main) {
       await build(target);
     }
 
-    await Deno.mkdir(`../packages/${platformDir}/dist`, {
-      recursive: true,
-    }).catch(() => {});
+    const frameworkPaths = targets.map((targetPlatform) =>
+      path.resolve(
+        monorepoRoot,
+        `packages/${platformDir}/build/${targetPlatform}/${TARGET_RELEASE_FOLDERS[targetPlatform]}/NativeScript.framework`
+      )
+    );
 
-    await Deno.remove(
-      `../packages/${platformDir}/dist/${targetPlatform}/NativeScript.xcframework`,
-      { recursive: true }
-    ).catch(() => {});
+    const xcframeworkOutputPath = path.resolve(
+      monorepoRoot,
+      `packages/${platformDir}/build/${buildConfig}/NativeScript.apple.node`
+    );
 
-    await $`xcodebuild -create-xcframework ${targets
-      .map((targetPlatform) => [
-        `-framework`,
-        `../packages/${platformDir}/build/${targetPlatform}/${TARGET_RELEASE_FOLDERS[targetPlatform]}/NativeScript.framework`,
-      ])
-      .flat()} -output ../packages/${platformDir}/dist/${targetPlatform}/NativeScript.xcframework`;
+    try {
+      await createXCframework({
+        outputPath: xcframeworkOutputPath,
+        frameworkPaths,
+        autoLink: true,
+      });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "<unknown>";
+      console.error(`Failed to assemble XCFramework: ${errorMessage}`);
+      process.exit(1);
+    }
+
+    console.log(
+      `\x1b[32m✔\x1b[0m XCFramework assembled into \x1b[2m${path.relative(
+        monorepoRoot,
+        xcframeworkOutputPath
+      )}\x1b[22m`
+    );
   } else {
     await build(targetPlatform);
   }
