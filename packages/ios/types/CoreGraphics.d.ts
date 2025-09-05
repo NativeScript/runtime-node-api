@@ -96,10 +96,6 @@ declare const kCGPDFContextTrimBox: interop.Pointer;
 
 declare const kCGColorConversionBlackPointCompensation: interop.Pointer;
 
-declare const kCGEXRToneMappingGammaExposure: interop.Pointer;
-
-declare const kCGEXRToneMappingGammaDefog: interop.Pointer;
-
 declare const kCGUseLegacyHDREcosystem: interop.Pointer;
 
 declare const kCGSkipBoostToHDR: interop.Pointer;
@@ -107,6 +103,10 @@ declare const kCGSkipBoostToHDR: interop.Pointer;
 declare const kCGFontVariationAxisMinValue: interop.Pointer;
 
 declare const kCGPDFTagPropertyAlternativeText: interop.Pointer;
+
+declare const kCGEXRToneMappingGammaExposure: interop.Pointer;
+
+declare const kCGEXRToneMappingGammaDefog: interop.Pointer;
 
 declare const kCGPDFOutlineTitle: interop.Pointer;
 
@@ -219,6 +219,12 @@ declare const CGToneMapping: {
   ITURecommended: 3,
   EXRGamma: 4,
   None: 5,
+};
+
+declare const CGColorConversionInfoTransformType: {
+  From: 0,
+  To: 1,
+  Apply: 2,
 };
 
 declare const CGLineJoin: {
@@ -439,12 +445,6 @@ declare const CGBitmapInfo: {
   ByteOrder32Little: 8192,
   ByteOrder16Big: 12288,
   ByteOrder32Big: 16384,
-};
-
-declare const CGColorConversionInfoTransformType: {
-  From: 0,
-  To: 1,
-  Apply: 2,
 };
 
 declare const CGFontPostScriptFormat: {

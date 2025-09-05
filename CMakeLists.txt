@@ -43,7 +43,7 @@ elseif(TARGET_PLATFORM STREQUAL "macos")
   set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
   set(LIBFFI_BUILD "macosx-universal")
   set(TARGET_PLATFORM_MACOS TRUE)
-  unset(BUILD_FRAMEWORK)
+  # unset(BUILD_FRAMEWORK)
   set(SDK_NAME "macosx")
   set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
 else()
@@ -135,11 +135,16 @@ if (BUILD_FRAMEWORK)
 endif()
 
 if(TARGET_PLATFORM_MACOS)
+  # Convert the Info.plist from binary format to XML format.
+  # This seemed to unblock a build error when using in React Native.
+  add_custom_command(TARGET ${NAME} POST_BUILD
+    COMMAND plutil -convert xml1 $<TARGET_FILE_DIR:${NAME}>/Resources/Info.plist
+  )
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DTARGET_PLATFORM_MACOS")
 
-  add_custom_command(TARGET ${NAME} POST_BUILD
-    COMMAND /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string ${CMAKE_OSX_DEPLOYMENT_TARGET}" $<TARGET_FILE_DIR:${NAME}>/Resources/Info.plist
-  )
+  # add_custom_command(TARGET ${NAME} POST_BUILD
+  #   COMMAND /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string ${CMAKE_OSX_DEPLOYMENT_TARGET}" $<TARGET_FILE_DIR:${NAME}>/Resources/Info.plist
+  # )
 
   set(METADATA_FILE "metadata.macos.nsmd")
 elseif(TARGET_PLATFORM_IOS)

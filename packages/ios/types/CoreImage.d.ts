@@ -657,6 +657,40 @@ declare class CIColor extends NSObject implements NSSecureCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CIFaceFeature extends CIFeature {
+  readonly bounds: CGRect;
+
+  readonly hasLeftEyePosition: boolean;
+
+  readonly leftEyePosition: CGPoint;
+
+  readonly hasRightEyePosition: boolean;
+
+  readonly rightEyePosition: CGPoint;
+
+  readonly hasMouthPosition: boolean;
+
+  readonly mouthPosition: CGPoint;
+
+  readonly hasTrackingID: boolean;
+
+  readonly trackingID: number;
+
+  readonly hasTrackingFrameCount: boolean;
+
+  readonly trackingFrameCount: number;
+
+  readonly hasFaceAngle: boolean;
+
+  readonly faceAngle: number;
+
+  readonly hasSmile: boolean;
+
+  readonly leftEyeClosed: boolean;
+
+  readonly rightEyeClosed: boolean;
+}
+
 declare class CIImage extends NSObject implements NSSecureCoding, NSCopying {
   static imageWithCGImage(image: interop.PointerConvertible): CIImage;
 
@@ -899,40 +933,6 @@ declare class CIFeature extends NSObject {
   readonly bounds: CGRect;
 }
 
-declare class CIFaceFeature extends CIFeature {
-  readonly bounds: CGRect;
-
-  readonly hasLeftEyePosition: boolean;
-
-  readonly leftEyePosition: CGPoint;
-
-  readonly hasRightEyePosition: boolean;
-
-  readonly rightEyePosition: CGPoint;
-
-  readonly hasMouthPosition: boolean;
-
-  readonly mouthPosition: CGPoint;
-
-  readonly hasTrackingID: boolean;
-
-  readonly trackingID: number;
-
-  readonly hasTrackingFrameCount: boolean;
-
-  readonly trackingFrameCount: number;
-
-  readonly hasFaceAngle: boolean;
-
-  readonly faceAngle: number;
-
-  readonly hasSmile: boolean;
-
-  readonly leftEyeClosed: boolean;
-
-  readonly rightEyeClosed: boolean;
-}
-
 declare class CIVector extends NSObject implements NSCopying, NSSecureCoding {
   static vectorWithValuesCount<This extends abstract new (...args: any) => any>(this: This, values: interop.PointerConvertible, count: number): InstanceType<This>;
 
@@ -1013,18 +1013,6 @@ declare class CIRenderInfo extends NSObject {
   readonly pixelsProcessed: number;
 }
 
-declare class CIRectangleFeature extends CIFeature {
-  readonly bounds: CGRect;
-
-  readonly topLeft: CGPoint;
-
-  readonly topRight: CGPoint;
-
-  readonly bottomLeft: CGPoint;
-
-  readonly bottomRight: CGPoint;
-}
-
 declare class CIWarpKernel extends CIKernel {
   static kernelWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
 
@@ -1047,6 +1035,18 @@ declare class CIImageProcessorKernel extends NSObject {
   static readonly synchronizeInputs: boolean;
 
   static applyWithExtentInputsArgumentsError(extent: CGRect, inputs: NSArray<interop.Object> | Array<interop.Object> | null, args: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null, error: interop.PointerConvertible): CIImage;
+}
+
+declare class CIRectangleFeature extends CIFeature {
+  readonly bounds: CGRect;
+
+  readonly topLeft: CGPoint;
+
+  readonly topRight: CGPoint;
+
+  readonly bottomLeft: CGPoint;
+
+  readonly bottomRight: CGPoint;
 }
 
 declare class CIRenderDestination extends NSObject {

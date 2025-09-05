@@ -252,13 +252,6 @@ declare const CACornerMask: {
   MaxXMax: 8,
 };
 
-declare class CAFrameRateRange {
-  constructor(init?: CAFrameRateRange);
-  minimum: number;
-  maximum: number;
-  preferred: number;
-}
-
 declare class CATransform3D {
   constructor(init?: CATransform3D);
   m11: number;
@@ -277,6 +270,13 @@ declare class CATransform3D {
   m42: number;
   m43: number;
   m44: number;
+}
+
+declare class CAFrameRateRange {
+  constructor(init?: CAFrameRateRange);
+  minimum: number;
+  maximum: number;
+  preferred: number;
 }
 
 declare function CACurrentMediaTime(): number;
@@ -439,16 +439,6 @@ declare class CAGradientLayer extends CALayer {
   type: string;
 }
 
-declare class CATiledLayer extends CALayer {
-  static fadeDuration(): number;
-
-  levelsOfDetail: number;
-
-  levelsOfDetailBias: number;
-
-  tileSize: CGSize;
-}
-
 declare class CAEmitterLayer extends CALayer {
   get emitterCells(): NSArray;
   set emitterCells(value: NSArray<interop.Object> | Array<interop.Object>);
@@ -480,6 +470,16 @@ declare class CAEmitterLayer extends CALayer {
   spin: number;
 
   seed: number;
+}
+
+declare class CATiledLayer extends CALayer {
+  static fadeDuration(): number;
+
+  levelsOfDetail: number;
+
+  levelsOfDetailBias: number;
+
+  tileSize: CGSize;
 }
 
 declare class CAConstraint extends NSObject implements NSSecureCoding {

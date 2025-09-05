@@ -100,6 +100,8 @@ declare const kCFURLFileSecurityKey: interop.Pointer;
 
 declare const kCFURLFileExists: interop.Pointer;
 
+declare const kCFDateFormatterDefaultFormat: interop.Pointer;
+
 declare const kCFStreamPropertySocketSecurityLevel: interop.Pointer;
 
 declare const kCFLocaleIdentifier: interop.Pointer;
@@ -113,8 +115,6 @@ declare const kCFMessagePortTransportError: number;
 declare const kCFNumberFormatterGroupingSeparator: interop.Pointer;
 
 declare const kCFNumberFormatterInternationalCurrencySymbol: interop.Pointer;
-
-declare const kCFNumberFormatterNegativePrefix: interop.Pointer;
 
 declare const kCFDateFormatterStandaloneWeekdaySymbols: interop.Pointer;
 
@@ -264,8 +264,6 @@ declare const kCFStreamPropertySOCKSPassword: interop.Pointer;
 
 declare const kCFDateFormatterShortQuarterSymbols: interop.Pointer;
 
-declare const kCFStringTransformLatinKatakana: interop.Pointer;
-
 declare const kCFNumberFormatterMinFractionDigits: interop.Pointer;
 
 declare const kCFGregorianCalendar: interop.Pointer;
@@ -316,9 +314,9 @@ declare const kCFDateFormatterPMSymbol: interop.Pointer;
 
 declare const kCFURLIsPurgeableKey: interop.Pointer;
 
-declare const kCFCalendarComponentsWrap: number;
-
 declare const kCFURLVolumeIsEncryptedKey: interop.Pointer;
+
+declare const kCFCalendarComponentsWrap: number;
 
 declare const kCFIslamicUmmAlQuraCalendar: interop.Pointer;
 
@@ -396,6 +394,8 @@ declare const kCFLocaleGroupingSeparator: interop.Pointer;
 
 declare const kCFURLVolumeIsRootFileSystemKey: interop.Pointer;
 
+declare const kCFStringTransformLatinKatakana: interop.Pointer;
+
 declare const kCFStringTransformLatinHiragana: interop.Pointer;
 
 declare const kCFURLIsReadableKey: interop.Pointer;
@@ -403,8 +403,6 @@ declare const kCFURLIsReadableKey: interop.Pointer;
 declare const kCFLocaleUsesMetricSystem: interop.Pointer;
 
 declare const kCFURLUbiquitousItemDownloadingErrorKey: interop.Pointer;
-
-declare const kCFDateFormatterDefaultFormat: interop.Pointer;
 
 declare const kCFCoreFoundationVersionNumber: number;
 
@@ -423,6 +421,8 @@ declare const kCFDateFormatterLongEraSymbols: interop.Pointer;
 declare const kCFErrorFilePathKey: interop.Pointer;
 
 declare const kCFPlugInFactoriesKey: interop.Pointer;
+
+declare const kCFURLVolumeSupportsAccessPermissionsKey: interop.Pointer;
 
 declare const kCFURLVolumeSubtypeKey: interop.Pointer;
 
@@ -455,8 +455,6 @@ declare const kCFURLVolumeLocalizedFormatDescriptionKey: interop.Pointer;
 declare const kCFBundleExecutableArchitectureARM64: number;
 
 declare const kCFURLIsUbiquitousItemKey: interop.Pointer;
-
-declare const kCFURLVolumeSupportsAccessPermissionsKey: interop.Pointer;
 
 declare const kCFStreamPropertyAppendToFile: interop.Pointer;
 
@@ -540,6 +538,8 @@ declare const kCFStreamSocketSecurityLevelSSLv2: interop.Pointer;
 
 declare const kCFNumberFormatterCurrencySymbol: interop.Pointer;
 
+declare const kCFBooleanFalse: interop.Pointer;
+
 declare const kCFDateFormatterVeryShortStandaloneWeekdaySymbols: interop.Pointer;
 
 declare const kCFURLCreationDateKey: interop.Pointer;
@@ -573,8 +573,6 @@ declare const kCFPlugInUnloadFunctionKey: interop.Pointer;
 declare const kCFMessagePortBecameInvalidError: number;
 
 declare const kCFMessagePortIsInvalid: number;
-
-declare const kCFBooleanFalse: interop.Pointer;
 
 declare const kCFMessagePortSendTimeout: number;
 
@@ -688,6 +686,8 @@ declare const kCFURLMayShareFileContentKey: interop.Pointer;
 
 declare const kCFURLFileProtectionCompleteUntilFirstUserAuthentication: interop.Pointer;
 
+declare const kCFNumberFormatterNegativePrefix: interop.Pointer;
+
 declare const kCFStringTransformLatinArabic: interop.Pointer;
 
 declare const kCFNotificationPostToAllSessions: number;
@@ -763,14 +763,6 @@ declare const CFURLPathStyle: {
   POSIX: 0,
   HFS: 1,
   Windows: 2,
-};
-
-declare const CFDateFormatterStyle: {
-  No: 0,
-  Short: 1,
-  Medium: 2,
-  Long: 3,
-  Full: 4,
 };
 
 declare const __CFByteOrder: {
@@ -1180,6 +1172,14 @@ declare const CFStreamErrorDomain: {
   Custom: -1,
   POSIX: 1,
   MacOSStatus: 2,
+};
+
+declare const CFDateFormatterStyle: {
+  No: 0,
+  Short: 1,
+  Medium: 2,
+  Long: 3,
+  Full: 4,
 };
 
 declare const CFURLComponentType: {
@@ -3018,6 +3018,8 @@ declare function CFBundleCopyResourceURL(bundle: interop.PointerConvertible, res
 declare function CFBundleCopyResourceURLsOfType(bundle: interop.PointerConvertible, resourceType: interop.PointerConvertible, subDirName: interop.PointerConvertible): interop.Pointer;
 
 declare function CFBundleCopyLocalizedString(bundle: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, tableName: interop.PointerConvertible): interop.Pointer;
+
+declare function CFBundleCopyLocalizedStringForLocalizations(bundle: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, tableName: interop.PointerConvertible, localizations: interop.PointerConvertible): interop.Pointer;
 
 declare function CFBundleCopyResourceURLInDirectory(bundleURL: interop.PointerConvertible, resourceName: interop.PointerConvertible, resourceType: interop.PointerConvertible, subDirName: interop.PointerConvertible): interop.Pointer;
 

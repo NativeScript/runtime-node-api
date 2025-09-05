@@ -1,15 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const kMPIterationEndErr: number;
-
-declare const kNSpAlreadyAdvertisingErr: number;
-
-declare const kStartupItemsFolderIcon: number;
-
-declare const smHebrew: number;
-
-declare const pSocket: number;
-
 declare const keyAEXMLRequestData: number;
 
 declare const kForkInfoFlagsLargeFileMask: number;
@@ -236,6 +226,10 @@ declare const kPreMacOS91ApplicationsFolderType: number;
 
 declare const _MixedModeMagic: number;
 
+declare const interruptsMaskedErr: number;
+
+declare const kMDItemOrganizations: interop.Pointer;
+
 declare const kCollectionAllAttributes: number;
 
 declare const fsSBUserID: number;
@@ -370,8 +364,6 @@ declare const urlDataHFTPServerErr: number;
 
 declare const kISpDeviceActiveErr: number;
 
-declare const kAEISContentType: number;
-
 declare const kOTNoDataErr: number;
 
 declare const cIntlWritingCode: number;
@@ -452,6 +444,8 @@ declare const enumTransferMode: number;
 
 declare const kPEFHashSlotFirstKeyMask: number;
 
+declare const verNetherlandsComma: number;
+
 declare const propertyNotSupportedByNodeErr: number;
 
 declare const kMDLabelIconData: interop.Pointer;
@@ -508,6 +502,10 @@ declare const langGalician: number;
 
 declare const gestaltSquareMenuBar: number;
 
+declare const kAEISContentType: number;
+
+declare const kFAIndexParam: number;
+
 declare const kSleepNow: number;
 
 declare const itlcDisableKeyScriptSyncMask: number;
@@ -537,6 +535,8 @@ declare const keyHighLevelID: number;
 declare const kUTTypeJavaSource: interop.Pointer;
 
 declare const smSystemScript: number;
+
+declare const telValidateFailed: number;
 
 declare const kFSVolFlagJournalingActiveMask: number;
 
@@ -1045,10 +1045,6 @@ declare const kUTTypeContent: interop.Pointer;
 declare const telBadStateErr: number;
 
 declare const numberFormattingUnOrdredCurrencyRangeErr: number;
-
-declare const interruptsMaskedErr: number;
-
-declare const kMDItemOrganizations: interop.Pointer;
 
 declare const kOTProtocolErr: number;
 
@@ -2378,10 +2374,6 @@ declare const kUCKeyStateEntryTerminalFormat: number;
 
 declare const kCertUsageRootAskAndAdd: number;
 
-declare const smUnExBusErr: number;
-
-declare const kGenericEditionFileIcon: number;
-
 declare const kCollectionUser10Mask: number;
 
 declare const kAESpecialClassProperties: number;
@@ -2471,6 +2463,10 @@ declare const typeProperty: number;
 declare const kPathKCItemAttr: number;
 
 declare const kAuthTypeKCItemAttr: number;
+
+declare const smUnExBusErr: number;
+
+declare const kGenericEditionFileIcon: number;
 
 declare const tokenDivide: number;
 
@@ -2842,6 +2838,8 @@ declare const gestaltTSMTEVersion: number;
 
 declare const eDeleteKey: number;
 
+declare const rcDBBadSessID: number;
+
 declare const kPOSIXErrorENOEXEC: number;
 
 declare const eKeyKind: number;
@@ -3043,8 +3041,6 @@ declare const kAEISWebStarSuite: number;
 declare const kMPTimeIsDeltaMask: number;
 
 declare const kAEInternetSuite: number;
-
-declare const kFAIndexParam: number;
 
 declare const kFAFileParam: number;
 
@@ -3621,6 +3617,8 @@ declare const kAEReplace: number;
 declare const kAEReopenApplication: number;
 
 declare const kAERegular: number;
+
+declare const kStartupItemsFolderIcon: number;
 
 declare const kAERedo: number;
 
@@ -5134,12 +5132,6 @@ declare const kMPAllocateNoCreateMask: number;
 
 declare const gestaltFSSupportsDirectIO: number;
 
-declare const kColorSyncFolderType: number;
-
-declare const dsNoPk7: number;
-
-declare const kAudioSupportFolderType: number;
-
 declare const errOSASourceNotAvailable: number;
 
 declare const invalidViewStateErr: number;
@@ -6411,8 +6403,6 @@ declare const gestaltHasHWClosedCaptioning: number;
 declare const gestaltTSMdoesTSMTEBit: number;
 
 declare const gestaltTSMgr23: number;
-
-declare const midiNameLenErr: number;
 
 declare const gestaltTSMgr22: number;
 
@@ -8072,8 +8062,6 @@ declare const kRegisterD1: number;
 
 declare const gestaltPortableUSBJISKbd: number;
 
-declare const kTextEncodingDOSNordic: number;
-
 declare const kX86RTA: number;
 
 declare const fsSBDrBkDatBit: number;
@@ -8656,6 +8644,8 @@ declare const kTrueTypeMultiFlatFontIcon: number;
 
 declare const kTextEncodingDOSLatin1: number;
 
+declare const pSocket: number;
+
 declare const kAEDrag: number;
 
 declare const kTextEncodingDOSLatinUS: number;
@@ -8841,6 +8831,8 @@ declare const kTextEncodingMacChineseTrad: number;
 declare const kTextEncodingMacJapanese: number;
 
 declare const mapChangedBit: number;
+
+declare const kTextEncodingDOSNordic: number;
 
 declare const kUTCDefaultOptions: number;
 
@@ -9154,6 +9146,10 @@ declare const negZcbFreeErr: number;
 
 declare const pSelection: number;
 
+declare const kAudioSupportFolderType: number;
+
+declare const dsNoPk7: number;
+
 declare const dsNoPk5: number;
 
 declare const afpPwdExpiredErr: number;
@@ -9466,10 +9462,6 @@ declare const kDSpFrameRateNotReadyErr: number;
 
 declare const kDSpContextNotFoundErr: number;
 
-declare const kWSNetworkStreamFaultString: interop.Pointer;
-
-declare const kAFPTagLengthIPPort: number;
-
 declare const kDSpContextAlreadyReservedErr: number;
 
 declare const kRAOutOfMemory: number;
@@ -9531,6 +9523,8 @@ declare const smfNameTagEnab: number;
 declare const kUnicodeTextRunBit: number;
 
 declare const kNSpNotAdvertisingErr: number;
+
+declare const kNSpAlreadyAdvertisingErr: number;
 
 declare const kTextEncodingNextStepJapanese: number;
 
@@ -9667,6 +9661,8 @@ declare const verLithuania: number;
 declare const gestaltCPU603: number;
 
 declare const kISpInternalErr: number;
+
+declare const kMPIterationEndErr: number;
 
 declare const kUCTokenizerIterationFinished: number;
 
@@ -10655,12 +10651,6 @@ declare const kSysSWTooOld: number;
 declare const kDMCantBlock: number;
 
 declare const pUserSelection: number;
-
-declare const telPBErr: number;
-
-declare const kIconServicesCatalogInfoMask: number;
-
-declare const pictureDataErr: number;
 
 declare const verBrittany: number;
 
@@ -12118,8 +12108,6 @@ declare const kATSUCoordinateOverflowErr: number;
 
 declare const afpBadDirIDType: number;
 
-declare const telValidateFailed: number;
-
 declare const aspBufTooSmall: number;
 
 declare const nbpDuplicate: number;
@@ -12433,8 +12421,6 @@ declare const kCustomBadgeResourceID: number;
 declare const kTextEncodingDefaultFormat: number;
 
 declare const kTECTextRunBitClearFixMask: number;
-
-declare const rcDBBadSessID: number;
 
 declare const notLockedErr: number;
 
@@ -12848,6 +12834,8 @@ declare const kCertSearchVerifyDisallowed: number;
 
 declare const kExcludedMemoryException: number;
 
+declare const telPBErr: number;
+
 declare const telBadProcErr: number;
 
 declare const gestaltHasEnhancedLtalk: number;
@@ -12883,6 +12871,10 @@ declare const noDataHandler: number;
 declare const sectNFErr: number;
 
 declare const dsShutDownOrRestart: number;
+
+declare const kIconServicesCatalogInfoMask: number;
+
+declare const pictureDataErr: number;
 
 declare const gestaltPowerPCHasGraphicsInstructions: number;
 
@@ -14104,6 +14096,8 @@ declare const kDMDisplayAlreadyInstalledErr: number;
 
 declare const gestaltPowerBook5300: number;
 
+declare const kColorSyncFolderType: number;
+
 declare const afpCantMountMoreSrvre: number;
 
 declare const duplicateScrapFlavorErr: number;
@@ -14193,6 +14187,8 @@ declare const langGeorgian: number;
 declare const gestaltSlotAttr: number;
 
 declare const typeCString: number;
+
+declare const smHebrew: number;
 
 declare const smcClassMask: number;
 
@@ -15386,6 +15382,8 @@ declare const kForkInfoFlagsSharedWriteBit: number;
 
 declare const smNoBoardId: number;
 
+declare const midiNameLenErr: number;
+
 declare const kUnicode32BitFormat: number;
 
 declare const langGujarati: number;
@@ -15477,8 +15475,6 @@ declare const verSpain: number;
 declare const kPEFGlobalShare: number;
 
 declare const kUCGenlCatNumberOther: number;
-
-declare const verNetherlandsComma: number;
 
 declare const errASTerminologyNestingTooDeep: number;
 
@@ -15666,6 +15662,10 @@ declare const kKCAuthTypeDefault: number;
 
 declare const gestaltTSMDisplayMgrAwareBit: number;
 
+declare const kWSNetworkStreamFaultString: interop.Pointer;
+
+declare const kAFPTagLengthIPPort: number;
+
 declare const kOTBadSequenceErr: number;
 
 declare const fsRtParID: number;
@@ -15798,13 +15798,15 @@ declare class TECEncodingPairs {
   speed: number;
 }
 
-declare class ComponentParameters {
-  constructor(init?: ComponentParameters);
-  flags: number;
-  paramSize: number;
-  what: number;
-  padding: number;
-  params: unknown /* const array */;
+declare class BigEndianFixed {
+  constructor(init?: BigEndianFixed);
+  bigEndianValue: number;
+}
+
+declare class unnamed_7994584717718899728 {
+  constructor(init?: unnamed_7994584717718899728);
+  lLow: number;
+  lHigh: number;
 }
 
 declare class DateTimeRec {
@@ -15818,11 +15820,13 @@ declare class DateTimeRec {
   dayOfWeek: number;
 }
 
-declare class unnamed_1414740728148256445 {
-  constructor(init?: unnamed_1414740728148256445);
-  length: number;
-  text: unknown /* const array */;
-  unused: number;
+declare class ComponentParameters {
+  constructor(init?: ComponentParameters);
+  flags: number;
+  paramSize: number;
+  what: number;
+  padding: number;
+  params: unknown /* const array */;
 }
 
 declare class LSApplicationParameters {
@@ -15884,6 +15888,18 @@ declare class AEBuildError {
   constructor(init?: AEBuildError);
   fError: number;
   fErrorPos: number;
+}
+
+declare class unnamed_17663518117199877425 {
+  constructor(init?: unnamed_17663518117199877425);
+  eraAlt: number;
+  oldDate: DateTimeRec;
+}
+
+declare class unnamed_10063595179712342448 {
+  constructor(init?: unnamed_10063595179712342448);
+  pad: unknown /* const array */;
+  Delta: number;
 }
 
 declare class TokenRec {
@@ -16019,6 +16035,13 @@ declare class FSEventStreamContext {
 declare class RegisterInformation {
   constructor(init?: RegisterInformation);
   __unusedRegisterInformationField: interop.Pointer;
+}
+
+declare class unnamed_92125956774180753 {
+  constructor(init?: unnamed_92125956774180753);
+  length: number;
+  text: unknown /* const array */;
+  unused: number;
 }
 
 declare class VectorInformation {
@@ -16345,19 +16368,6 @@ declare class Comment {
   text: unknown /* const array */;
 }
 
-declare class FPUInformationPowerPC {
-  constructor(init?: FPUInformationPowerPC);
-  Registers: unknown /* const array */;
-  FPSCR: number;
-  Reserved: number;
-}
-
-declare class unnamed_10463458013166095202 {
-  constructor(init?: unnamed_10463458013166095202);
-  lLow: number;
-  lHigh: number;
-}
-
 declare class __SKSearchResults {
   constructor(init?: __SKSearchResults);
 }
@@ -16655,18 +16665,12 @@ declare class decform {
   digits: number;
 }
 
-declare class unnamed_13202748768273695021 {
-  constructor(init?: unnamed_13202748768273695021);
-  eraAlt: number;
-  oldDate: DateTimeRec;
-}
-
 declare class decimal {
   constructor(init?: decimal);
   sgn: number;
   unused: number;
   exp: number;
-  sig: unnamed_1414740728148256445;
+  sig: unnamed_92125956774180753;
 }
 
 declare class OpaqueUCTypeSelectRef {
@@ -16742,6 +16746,13 @@ declare class ExceptionInformationPowerPC {
   FPUImage: interop.Pointer;
   info: ExceptionInfo;
   vectorImage: interop.Pointer;
+}
+
+declare class FPUInformationPowerPC {
+  constructor(init?: FPUInformationPowerPC);
+  Registers: unknown /* const array */;
+  FPSCR: number;
+  Reserved: number;
 }
 
 declare class MachineInformationPowerPC {
@@ -16883,10 +16894,6 @@ declare class UCKeyLayoutFeatureInfo {
 
 declare class OpaqueMPTimerID {
   constructor(init?: OpaqueMPTimerID);
-}
-
-declare class OpaqueMPQueueID {
-  constructor(init?: OpaqueMPQueueID);
 }
 
 declare class OpaqueMPTaskID {
@@ -17077,6 +17084,24 @@ declare class XLibExportedSymbol {
   bpOffset: number;
 }
 
+declare class unnamed_15470629821266774340 {
+  constructor(init?: unnamed_15470629821266774340);
+  era: number;
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
+  dayOfWeek: number;
+  dayOfYear: number;
+  weekOfYear: number;
+  pm: number;
+  res1: number;
+  res2: number;
+  res3: number;
+}
+
 declare class RoutineRecord {
   constructor(init?: RoutineRecord);
   procInfo: number;
@@ -17227,37 +17252,38 @@ declare class __FSFileSecurity {
   constructor(init?: __FSFileSecurity);
 }
 
-declare class unnamed_4888091610255463706 {
-  constructor(init?: unnamed_4888091610255463706);
-  pad: unknown /* const array */;
-  Delta: number;
+declare class FSRefParam {
+  constructor(init?: FSRefParam);
+  qLink: interop.Pointer;
+  qType: number;
+  ioTrap: number;
+  ioCmdAddr: string | null;
+  ioCompletion: (p1: interop.PointerConvertible) => void | null;
+  ioResult: number;
+  ioNamePtr: interop.Pointer;
+  ioVRefNum: number;
+  reserved1: number;
+  reserved2: number;
+  reserved3: number;
+  ref: interop.Pointer;
+  whichInfo: number;
+  catInfo: interop.Pointer;
+  nameLength: number;
+  name: interop.Pointer;
+  ioDirID: number;
+  spec: interop.Pointer;
+  parentRef: interop.Pointer;
+  newRef: interop.Pointer;
+  textEncodingHint: number;
+  outName: interop.Pointer;
 }
 
-declare class unnamed_1634512669767708102 {
-  constructor(init?: unnamed_1634512669767708102);
-  era: number;
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number;
-  second: number;
-  dayOfWeek: number;
-  dayOfYear: number;
-  weekOfYear: number;
-  pm: number;
-  res1: number;
-  res2: number;
-  res3: number;
+declare class OpaqueMPQueueID {
+  constructor(init?: OpaqueMPQueueID);
 }
 
 declare class __SKSearchGroup {
   constructor(init?: __SKSearchGroup);
-}
-
-declare class BigEndianFixed {
-  constructor(init?: BigEndianFixed);
-  bigEndianValue: number;
 }
 
 declare class MPTaskInfo {
@@ -17290,7 +17316,7 @@ declare class BigEndianUInt32 {
 
 declare class PEFExportedSymbolKey {
   constructor(init?: PEFExportedSymbolKey);
-  u: unnamed_13631383190721420215;
+  u: unnamed_16551389789329836630;
 }
 
 declare class BigEndianUnsignedShort {
@@ -17375,7 +17401,7 @@ declare class MachineLocation {
   constructor(init?: MachineLocation);
   latitude: number;
   longitude: number;
-  u: unnamed_15460841483433732365;
+  u: unnamed_1065555818574495266;
 }
 
 declare class FSSpec {
@@ -17558,6 +17584,12 @@ declare class OffPair {
   constructor(init?: OffPair);
   offFirst: number;
   offSecond: number;
+}
+
+declare class unnamed_796733774800138574 {
+  constructor(init?: unnamed_796733774800138574);
+  lo: number;
+  hi: number;
 }
 
 declare class NumberParts {
@@ -17779,12 +17811,6 @@ declare class MarkerChunk {
   Markers: unknown /* const array */;
 }
 
-declare class unnamed_7878962774296405953 {
-  constructor(init?: unnamed_7878962774296405953);
-  lo: number;
-  hi: number;
-}
-
 declare class FSCatalogInfo {
   constructor(init?: FSCatalogInfo);
   nodeFlags: number;
@@ -17971,32 +17997,6 @@ declare class ComponentPlatformInfo {
   platformType: number;
 }
 
-declare class FSRefParam {
-  constructor(init?: FSRefParam);
-  qLink: interop.Pointer;
-  qType: number;
-  ioTrap: number;
-  ioCmdAddr: string | null;
-  ioCompletion: (p1: interop.PointerConvertible) => void | null;
-  ioResult: number;
-  ioNamePtr: interop.Pointer;
-  ioVRefNum: number;
-  reserved1: number;
-  reserved2: number;
-  reserved3: number;
-  ref: interop.Pointer;
-  whichInfo: number;
-  catInfo: interop.Pointer;
-  nameLength: number;
-  name: interop.Pointer;
-  ioDirID: number;
-  spec: interop.Pointer;
-  parentRef: interop.Pointer;
-  newRef: interop.Pointer;
-  textEncodingHint: number;
-  outName: interop.Pointer;
-}
-
 declare class ComponentRecord {
   constructor(init?: ComponentRecord);
   data: unknown /* const array */;
@@ -18015,12 +18015,20 @@ declare class UCKeyboardTypeHeader {
 
 type LongDateCvtDescriptor = 
   | { c: number }
-  | { hl: unnamed_10463458013166095202 };
+  | { hl: unnamed_7994584717718899728 };
 
 declare class LongDateCvt {
   constructor(init?: LongDateCvtDescriptor);
   c: number;
-  hl: unnamed_10463458013166095202;
+  hl: unnamed_7994584717718899728;
+}
+
+type ExceptionInfoDescriptor = 
+  | { memoryInfo: interop.PointerConvertible };
+
+declare class ExceptionInfo {
+  constructor(init?: ExceptionInfoDescriptor);
+  memoryInfo: interop.Pointer;
 }
 
 type AEArrayDataDescriptor = 
@@ -18039,56 +18047,6 @@ declare class AEArrayData {
   kAEKeyDescArray: unknown /* const array */;
 }
 
-type LongDateRecDescriptor = 
-  | { ld: unnamed_1634512669767708102 }
-  | { list: unknown /* const array */ }
-  | { od: unnamed_13202748768273695021 };
-
-declare class LongDateRec {
-  constructor(init?: LongDateRecDescriptor);
-  ld: unnamed_1634512669767708102;
-  list: unknown /* const array */;
-  od: unnamed_13202748768273695021;
-}
-
-type unnamed_15460841483433732365Descriptor = 
-  | { gmtDelta: number }
-  | { dls: unnamed_4888091610255463706 };
-
-declare class unnamed_15460841483433732365 {
-  constructor(init?: unnamed_15460841483433732365Descriptor);
-  gmtDelta: number;
-  dls: unnamed_4888091610255463706;
-}
-
-type unnamed_13631383190721420215Descriptor = 
-  | { fullHashWord: number }
-  | { splitHashWord: PEFSplitHashWord };
-
-declare class unnamed_13631383190721420215 {
-  constructor(init?: unnamed_13631383190721420215Descriptor);
-  fullHashWord: number;
-  splitHashWord: PEFSplitHashWord;
-}
-
-type WideCharDescriptor = 
-  | { a: unnamed_7878962774296405953 }
-  | { b: number };
-
-declare class WideChar {
-  constructor(init?: WideCharDescriptor);
-  a: unnamed_7878962774296405953;
-  b: number;
-}
-
-type ExceptionInfoDescriptor = 
-  | { memoryInfo: interop.PointerConvertible };
-
-declare class ExceptionInfo {
-  constructor(init?: ExceptionInfoDescriptor);
-  memoryInfo: interop.Pointer;
-}
-
 type Vector128Descriptor = 
   | { l: unknown /* const array */ }
   | { s: unknown /* const array */ }
@@ -18099,6 +18057,48 @@ declare class Vector128 {
   l: unknown /* const array */;
   s: unknown /* const array */;
   c: unknown /* const array */;
+}
+
+type unnamed_1065555818574495266Descriptor = 
+  | { gmtDelta: number }
+  | { dls: unnamed_10063595179712342448 };
+
+declare class unnamed_1065555818574495266 {
+  constructor(init?: unnamed_1065555818574495266Descriptor);
+  gmtDelta: number;
+  dls: unnamed_10063595179712342448;
+}
+
+type LongDateRecDescriptor = 
+  | { ld: unnamed_15470629821266774340 }
+  | { list: unknown /* const array */ }
+  | { od: unnamed_17663518117199877425 };
+
+declare class LongDateRec {
+  constructor(init?: LongDateRecDescriptor);
+  ld: unnamed_15470629821266774340;
+  list: unknown /* const array */;
+  od: unnamed_17663518117199877425;
+}
+
+type unnamed_16551389789329836630Descriptor = 
+  | { fullHashWord: number }
+  | { splitHashWord: PEFSplitHashWord };
+
+declare class unnamed_16551389789329836630 {
+  constructor(init?: unnamed_16551389789329836630Descriptor);
+  fullHashWord: number;
+  splitHashWord: PEFSplitHashWord;
+}
+
+type WideCharDescriptor = 
+  | { a: unnamed_796733774800138574 }
+  | { b: number };
+
+declare class WideChar {
+  constructor(init?: WideCharDescriptor);
+  a: unnamed_796733774800138574;
+  b: number;
 }
 
 declare function FixRatio(numer: number, denom: number): number;
@@ -20488,6 +20488,8 @@ declare function MDItemCopyAttributeList(item: interop.PointerConvertible): inte
 declare function MDItemCopyAttributeNames(item: interop.PointerConvertible): interop.Pointer;
 
 declare function MDItemsCopyAttributes(items: interop.PointerConvertible, names: interop.PointerConvertible): interop.Pointer;
+
+declare function MDItemGetCacheFileDescriptors(items: interop.PointerConvertible, completionHandler: (p1: interop.PointerConvertible) => void): void;
 
 declare function __MDItemCopyAttributesEllipsis1(item: interop.PointerConvertible): interop.Pointer;
 

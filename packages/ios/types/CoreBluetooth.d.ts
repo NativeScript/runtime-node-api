@@ -167,6 +167,15 @@ declare const CBPeripheralState: {
   Disconnecting: 3,
 };
 
+declare const CBManagerState: {
+  Unknown: 0,
+  Resetting: 1,
+  Unsupported: 2,
+  Unauthorized: 3,
+  PoweredOff: 4,
+  PoweredOn: 5,
+};
+
 declare const CBCentralManagerState: {
   Unknown: 0,
   Resetting: 1,
@@ -195,15 +204,6 @@ declare const CBATTError: {
   InsufficientEncryption: 15,
   UnsupportedGroupType: 16,
   InsufficientResources: 17,
-};
-
-declare const CBManagerState: {
-  Unknown: 0,
-  Resetting: 1,
-  Unsupported: 2,
-  Unauthorized: 3,
-  PoweredOff: 4,
-  PoweredOn: 5,
 };
 
 declare const CBCharacteristicWriteType: {
@@ -435,12 +435,6 @@ declare class CBPeripheralManager extends CBManager {
   unpublishL2CAPChannel(PSM: number): void;
 }
 
-declare class CBPeer extends NSObject implements NSCopying {
-  readonly identifier: NSUUID;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class CBDescriptor extends CBAttribute {
   readonly characteristic: CBCharacteristic | null;
 
@@ -521,6 +515,12 @@ declare class CBManager extends NSObject {
   readonly authorization: interop.Enum<typeof CBManagerAuthorization>;
 
   static readonly authorization: interop.Enum<typeof CBManagerAuthorization>;
+}
+
+declare class CBPeer extends NSObject implements NSCopying {
+  readonly identifier: NSUUID;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CBAttribute extends NSObject {

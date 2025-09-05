@@ -33,11 +33,28 @@ declare const SKTextureFilteringMode: {
   Linear: 1,
 };
 
+declare const SKLabelHorizontalAlignmentMode: {
+  Center: 0,
+  Left: 1,
+  Right: 2,
+};
+
 declare const SKLabelVerticalAlignmentMode: {
   Baseline: 0,
   Center: 1,
   Top: 2,
   Bottom: 3,
+};
+
+declare const SKRepeatMode: {
+  Clamp: 1,
+  Loop: 2,
+};
+
+declare const SKInterpolationMode: {
+  Linear: 1,
+  Spline: 2,
+  Step: 3,
 };
 
 declare const SKActionTimingMode: {
@@ -56,19 +73,6 @@ declare const SKBlendMode: {
   Screen: 5,
   Replace: 6,
   MultiplyAlpha: 7,
-};
-
-declare const SKParticleRenderOrder: {
-  OldestLast: 0,
-  OldestFirst: 1,
-  DontCare: 2,
-};
-
-declare const SKSceneScaleMode: {
-  Fill: 0,
-  AspectFill: 1,
-  AspectFit: 2,
-  ResizeFill: 3,
 };
 
 declare const SKTransitionDirection: {
@@ -116,12 +120,6 @@ declare const SKTileAdjacencyMask: {
   AdjacencyUpperLeftCorner: 247,
 };
 
-declare const SKInterpolationMode: {
-  Linear: 1,
-  Spline: 2,
-  Step: 3,
-};
-
 declare const SKUniformType: {
   None: 0,
   Float: 1,
@@ -134,15 +132,17 @@ declare const SKUniformType: {
   Texture: 8,
 };
 
-declare const SKRepeatMode: {
-  Clamp: 1,
-  Loop: 2,
+declare const SKSceneScaleMode: {
+  Fill: 0,
+  AspectFill: 1,
+  AspectFit: 2,
+  ResizeFill: 3,
 };
 
-declare const SKLabelHorizontalAlignmentMode: {
-  Center: 0,
-  Left: 1,
-  Right: 2,
+declare const SKParticleRenderOrder: {
+  OldestLast: 0,
+  OldestFirst: 1,
+  DontCare: 2,
 };
 
 declare interface SKSceneDelegate extends NSObjectProtocol {

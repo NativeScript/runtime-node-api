@@ -44,8 +44,6 @@ declare const kCFErrorLocalizedDescriptionKey: interop.Pointer;
 
 declare const kCFURLVolumeMaximumFileSizeKey: interop.Pointer;
 
-declare const kCFErrorFilePathKey: interop.Pointer;
-
 declare const kCFStreamSocketSecurityLevelNegotiatedSSL: interop.Pointer;
 
 declare const kCFLocaleCurrentLocaleDidChangeNotification: interop.Pointer;
@@ -238,6 +236,8 @@ declare const kCFURLContentModificationDateKey: interop.Pointer;
 
 declare const kCFURLUbiquitousItemIsDownloadedKey: interop.Pointer;
 
+declare const kCFUserNotificationTextFieldValuesKey: interop.Pointer;
+
 declare const kCFErrorDomainCocoa: interop.Pointer;
 
 declare const kCFURLVolumeSupportsCaseSensitiveNamesKey: interop.Pointer;
@@ -295,10 +295,6 @@ declare const kCFURLUbiquitousItemPercentUploadedKey: interop.Pointer;
 declare const kCFLocaleDecimalSeparator: interop.Pointer;
 
 declare const kCFStringTransformMandarinLatin: interop.Pointer;
-
-declare const kCFURLFileResourceTypeSocket: interop.Pointer;
-
-declare const kCFURLUbiquitousItemDownloadingStatusCurrent: interop.Pointer;
 
 declare const kCFBundleDevelopmentRegionKey: interop.Pointer;
 
@@ -368,6 +364,8 @@ declare const kCFStringTransformLatinThai: interop.Pointer;
 
 declare const kCFDateFormatterShortStandaloneMonthSymbols: interop.Pointer;
 
+declare const kCFErrorFilePathKey: interop.Pointer;
+
 declare const kCFURLFileResourceTypeRegular: interop.Pointer;
 
 declare const kCFURLFileDirectoryContents: interop.Pointer;
@@ -408,6 +406,10 @@ declare const kCFDateFormatterStandaloneQuarterSymbols: interop.Pointer;
 
 declare const kCFURLVolumeSupportsCasePreservedNamesKey: interop.Pointer;
 
+declare const kCFURLUbiquitousItemDownloadingStatusCurrent: interop.Pointer;
+
+declare const kCFURLFileResourceTypeSocket: interop.Pointer;
+
 declare const kCFStringTransformLatinHebrew: interop.Pointer;
 
 declare const kCFLocaleVariantCode: interop.Pointer;
@@ -419,8 +421,6 @@ declare const kCFNotFound: number;
 declare const kCFURLVolumeLocalizedFormatDescriptionKey: interop.Pointer;
 
 declare const kCFURLFileExists: interop.Pointer;
-
-declare const kCFUserNotificationTextFieldValuesKey: interop.Pointer;
 
 declare const kCFLocaleIdentifier: interop.Pointer;
 
@@ -806,24 +806,6 @@ declare const kCFGregorianCalendar: interop.Pointer;
 
 declare const kCFDateFormatterShortQuarterSymbols: interop.Pointer;
 
-declare const CFXMLNodeTypeCode: {
-  Document: 1,
-  Element: 2,
-  Attribute: 3,
-  ProcessingInstruction: 4,
-  Comment: 5,
-  Text: 6,
-  CDATASection: 7,
-  DocumentFragment: 8,
-  Entity: 9,
-  EntityReference: 10,
-  DocumentType: 11,
-  Whitespace: 12,
-  Notation: 13,
-  ElementTypeDeclaration: 14,
-  AttributeListDeclaration: 15,
-};
-
 declare const CFLocaleLanguageDirection: {
   Unknown: 0,
   LeftToRight: 1,
@@ -838,15 +820,6 @@ declare const CFXMLEntityTypeCode: {
   ParsedExternal: 2,
   Unparsed: 3,
   Character: 4,
-};
-
-declare const CFTimeZoneNameStyle: {
-  Standard: 0,
-  ShortStandard: 1,
-  DaylightSaving: 2,
-  ShortDaylightSaving: 3,
-  Generic: 4,
-  ShortGeneric: 5,
 };
 
 declare const CFXMLParserStatusCode: {
@@ -879,6 +852,24 @@ declare const CFStreamStatus: {
   AtEnd: 5,
   Closed: 6,
   Error: 7,
+};
+
+declare const CFXMLNodeTypeCode: {
+  Document: 1,
+  Element: 2,
+  Attribute: 3,
+  ProcessingInstruction: 4,
+  Comment: 5,
+  Text: 6,
+  CDATASection: 7,
+  DocumentFragment: 8,
+  Entity: 9,
+  EntityReference: 10,
+  DocumentType: 11,
+  Whitespace: 12,
+  Notation: 13,
+  ElementTypeDeclaration: 14,
+  AttributeListDeclaration: 15,
 };
 
 declare const CFNumberFormatterStyle: {
@@ -1065,6 +1056,15 @@ declare const CFNumberType: {
   NSInteger: 15,
   CGFloat: 16,
   Max: 16,
+};
+
+declare const CFTimeZoneNameStyle: {
+  Standard: 0,
+  ShortStandard: 1,
+  DaylightSaving: 2,
+  ShortDaylightSaving: 3,
+  Generic: 4,
+  ShortGeneric: 5,
 };
 
 declare const CFPropertyListMutabilityOptions: {
@@ -1381,14 +1381,6 @@ declare class CFXMLParserCallBacks {
   handleError: (p1: interop.PointerConvertible, p2: interop.Enum<typeof CFXMLParserStatusCode>, p3: interop.PointerConvertible) => number | null;
 }
 
-declare class CFXMLEntityInfo {
-  constructor(init?: CFXMLEntityInfo);
-  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
-  replacementText: interop.Pointer;
-  entityID: CFXMLExternalID;
-  notationName: interop.Pointer;
-}
-
 declare class __CFBoolean {
   constructor(init?: __CFBoolean);
 }
@@ -1537,6 +1529,14 @@ declare class __CFBitVector {
   constructor(init?: __CFBitVector);
 }
 
+declare class CFXMLEntityInfo {
+  constructor(init?: CFXMLEntityInfo);
+  entityType: interop.Enum<typeof CFXMLEntityTypeCode>;
+  replacementText: interop.Pointer;
+  entityID: CFXMLExternalID;
+  notationName: interop.Pointer;
+}
+
 declare class CFXMLParserContext {
   constructor(init?: CFXMLParserContext);
   version: number;
@@ -1555,18 +1555,10 @@ declare class CFArrayCallBacks {
   equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
 }
 
-declare class CFRunLoopSourceContext {
-  constructor(init?: CFRunLoopSourceContext);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  hash: (p1: interop.PointerConvertible) => number | null;
-  schedule: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
-  cancel: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
-  perform: (p1: interop.PointerConvertible) => void | null;
+declare class CFXMLExternalID {
+  constructor(init?: CFXMLExternalID);
+  systemID: interop.Pointer;
+  publicID: interop.Pointer;
 }
 
 declare class CFSocketSignature {
@@ -1593,6 +1585,19 @@ declare class __CFUserNotification {
 
 declare class __CFDateFormatter {
   constructor(init?: __CFDateFormatter);
+}
+
+declare class CFRunLoopSourceContext1 {
+  constructor(init?: CFRunLoopSourceContext1);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  hash: (p1: interop.PointerConvertible) => number | null;
+  getPort: (p1: interop.PointerConvertible) => number | null;
+  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
 declare class __CFBundle {
@@ -1739,12 +1744,6 @@ declare class CFXMLElementTypeDeclarationInfo {
   contentDescription: interop.Pointer;
 }
 
-declare class CFXMLExternalID {
-  constructor(init?: CFXMLExternalID);
-  systemID: interop.Pointer;
-  publicID: interop.Pointer;
-}
-
 declare class CFXMLDocumentInfo {
   constructor(init?: CFXMLDocumentInfo);
   sourceURL: interop.Pointer;
@@ -1814,6 +1813,20 @@ declare class __CFSet {
 
 declare class __CFSocket {
   constructor(init?: __CFSocket);
+}
+
+declare class CFRunLoopSourceContext {
+  constructor(init?: CFRunLoopSourceContext);
+  version: number;
+  info: interop.Pointer;
+  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  release: (p1: interop.PointerConvertible) => void | null;
+  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
+  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
+  hash: (p1: interop.PointerConvertible) => number | null;
+  schedule: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
+  cancel: (p1: interop.PointerConvertible, p2: interop.PointerConvertible, p3: interop.PointerConvertible) => void | null;
+  perform: (p1: interop.PointerConvertible) => void | null;
 }
 
 declare class __CFWriteStream {
@@ -1906,19 +1919,6 @@ declare class CFStreamError {
   constructor(init?: CFStreamError);
   domain: number;
   error: number;
-}
-
-declare class CFRunLoopSourceContext1 {
-  constructor(init?: CFRunLoopSourceContext1);
-  version: number;
-  info: interop.Pointer;
-  retain: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  release: (p1: interop.PointerConvertible) => void | null;
-  copyDescription: (p1: interop.PointerConvertible) => interop.Pointer | null;
-  equal: (p1: interop.PointerConvertible, p2: interop.PointerConvertible) => number | null;
-  hash: (p1: interop.PointerConvertible) => number | null;
-  getPort: (p1: interop.PointerConvertible) => number | null;
-  perform: (p1: interop.PointerConvertible, p2: number, p3: interop.PointerConvertible, p4: interop.PointerConvertible) => interop.Pointer | null;
 }
 
 declare class __CFAllocator {
@@ -3231,6 +3231,8 @@ declare function CFBundleCopyResourceURL(bundle: interop.PointerConvertible, res
 declare function CFBundleCopyResourceURLsOfType(bundle: interop.PointerConvertible, resourceType: interop.PointerConvertible, subDirName: interop.PointerConvertible): interop.Pointer;
 
 declare function CFBundleCopyLocalizedString(bundle: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, tableName: interop.PointerConvertible): interop.Pointer;
+
+declare function CFBundleCopyLocalizedStringForLocalizations(bundle: interop.PointerConvertible, key: interop.PointerConvertible, value: interop.PointerConvertible, tableName: interop.PointerConvertible, localizations: interop.PointerConvertible): interop.Pointer;
 
 declare function CFBundleCopyResourceURLInDirectory(bundleURL: interop.PointerConvertible, resourceName: interop.PointerConvertible, resourceType: interop.PointerConvertible, subDirName: interop.PointerConvertible): interop.Pointer;
 

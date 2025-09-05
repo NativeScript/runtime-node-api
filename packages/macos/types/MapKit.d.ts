@@ -44,8 +44,6 @@ declare const MKPointOfInterestCategoryStore: string;
 
 declare const MKPointOfInterestCategorySpa: string;
 
-declare const MKPointOfInterestCategorySkating: string;
-
 declare const MKPointOfInterestCategorySkatePark: string;
 
 declare const MKPointOfInterestCategorySchool: string;
@@ -129,6 +127,8 @@ declare const MKPointOfInterestCategoryPolice: string;
 declare const MKPointOfInterestCategoryFishing: string;
 
 declare const MKMapCameraZoomDefault: number;
+
+declare const MKPointOfInterestCategorySkating: string;
 
 declare const MKPointOfInterestCategoryNightlife: string;
 
@@ -355,6 +355,14 @@ declare class MKCoordinateSpan {
   longitudeDelta: number;
 }
 
+declare class MKTileOverlayPath {
+  constructor(init?: MKTileOverlayPath);
+  x: number;
+  y: number;
+  z: number;
+  contentScaleFactor: number;
+}
+
 declare class MKCoordinateRegion {
   constructor(init?: MKCoordinateRegion);
   center: CLLocationCoordinate2D;
@@ -365,14 +373,6 @@ declare class MKMapRect {
   constructor(init?: MKMapRect);
   origin: MKMapPoint;
   size: MKMapSize;
-}
-
-declare class MKTileOverlayPath {
-  constructor(init?: MKTileOverlayPath);
-  x: number;
-  y: number;
-  z: number;
-  contentScaleFactor: number;
 }
 
 declare function MKCoordinateRegionMakeWithDistance(centerCoordinate: CLLocationCoordinate2D, latitudinalMeters: number, longitudinalMeters: number): MKCoordinateRegion;
@@ -1855,9 +1855,6 @@ declare class MKPinAnnotationView extends MKAnnotationView {
   pinColor: interop.Enum<typeof MKPinAnnotationColor>;
 }
 
-declare class MKUserLocationView extends MKAnnotationView {
-}
-
 declare class MKLocalSearchCompletion extends NSObject {
   readonly title: string;
 
@@ -1902,6 +1899,9 @@ declare class MKZoomControl extends NSView {
   mapView: MKMapView;
 }
 
+declare class MKUserLocationView extends MKAnnotationView {
+}
+
 declare class MKLookAroundSnapshotOptions extends NSObject {
   pointOfInterestFilter: MKPointOfInterestFilter;
 
@@ -1930,6 +1930,14 @@ declare class MKTileOverlayRenderer extends MKOverlayRenderer {
   initWithTileOverlay(overlay: MKTileOverlay): this;
 
   reloadData(): void;
+}
+
+declare class MKMapSnapshot extends NSObject {
+  readonly image: NSImage;
+
+  readonly appearance: NSAppearance;
+
+  pointForCoordinate(coordinate: CLLocationCoordinate2D): CGPoint;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -2094,18 +2102,6 @@ declare class MKLocalSearchRequest extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class MKGeoJSONDecoder extends NSObject {
-  geoJSONObjectsWithDataError(data: NSData, errorPtr: interop.PointerConvertible): NSArray | null;
-}
-
-declare class MKMapSnapshot extends NSObject {
-  readonly image: NSImage;
-
-  readonly appearance: NSAppearance;
-
-  pointForCoordinate(coordinate: CLLocationCoordinate2D): CGPoint;
-}
-
 declare class MKDirections extends NSObject {
   initWithRequest(request: MKDirectionsRequest): this;
 
@@ -2152,6 +2148,10 @@ declare class MKCompassButton extends NSView {
   mapView: MKMapView;
 
   compassVisibility: interop.Enum<typeof MKFeatureVisibility>;
+}
+
+declare class MKGeoJSONDecoder extends NSObject {
+  geoJSONObjectsWithDataError(data: NSData, errorPtr: interop.PointerConvertible): NSArray | null;
 }
 
 declare class MKLocalSearchResponse extends NSObject {

@@ -2,8 +2,6 @@
 /// <reference path="./Runtime.d.ts" />
 /// <reference path="./Foundation.d.ts" />
 
-declare const UITableViewIndexSearch: string;
-
 declare const UIPasteboardTypeAutomatic: string;
 
 declare const UIActivityItemsConfigurationMetadataKeyCollaborationModeRestrictions: string;
@@ -24,13 +22,9 @@ declare const UIStackViewSpacingUseDefault: number;
 
 declare const UITableViewSelectionDidChangeNotification: string;
 
-declare const UIDeviceOrientationDidChangeNotification: string;
-
 declare const UIPointerAccessoryPositionTop: UIPointerAccessoryPosition;
 
 declare const UINibProxiedObjectsKey: string;
-
-declare const UIImagePickerControllerOriginalImage: string;
 
 declare const UIActivityTypeMessage: string;
 
@@ -430,6 +424,8 @@ declare const UIListSeparatorAutomaticInsets: NSDirectionalEdgeInsets;
 
 declare const UITableViewAutomaticDimension: number;
 
+declare const UITableViewIndexSearch: string;
+
 declare const UICellAccessoryStandardDimension: number;
 
 declare const UICollectionLayoutSectionOrthogonalScrollingDecelerationRateNormal: number;
@@ -484,7 +480,13 @@ declare const UISceneDidActivateNotification: string;
 
 declare const UISceneDidDisconnectNotification: string;
 
-declare const UIApplicationStateRestorationSystemVersionKey: string;
+declare const UIApplicationStateRestorationTimestampKey: string;
+
+declare const UIApplicationStateRestorationBundleVersionKey: string;
+
+declare const NSUnderlineByWord: interop.Enum<typeof NSUnderlineStyle>;
+
+declare const UIStateRestorationViewControllerStoryboardKey: string;
 
 declare const UIApplicationOpenExternalURLOptionsEventAttributionKey: string;
 
@@ -523,6 +525,10 @@ declare const UIApplicationWillChangeStatusBarFrameNotification: string;
 declare const UIApplicationDidReceiveMemoryWarningNotification: string;
 
 declare const UIApplicationWillResignActiveNotification: string;
+
+declare const UIApplicationCategoryDefaultRetryAvailabilityDateErrorKey: string;
+
+declare const UIApplicationCategoryDefaultErrorDomain: string;
 
 declare const UIApplicationBackgroundFetchIntervalMinimum: number;
 
@@ -680,6 +686,8 @@ declare const UIFontDescriptorTraitsAttribute: string;
 
 declare const UIFontWidthCompressed: number;
 
+declare const UIImagePickerControllerOriginalImage: string;
+
 declare const UIFontWidthCondensed: number;
 
 declare const UIFontWeightBlack: number;
@@ -721,6 +729,8 @@ declare const UIMenuStandardEdit: string;
 declare const UIMenuSubstitutions: string;
 
 declare const UIPointerAccessoryPositionTopRight: UIPointerAccessoryPosition;
+
+declare const UIApplicationOpenDefaultApplicationsSettingsURLString: string;
 
 declare const UISceneErrorDomain: string;
 
@@ -908,6 +918,8 @@ declare const NSTextHighlightColorSchemeBlue: string;
 
 declare const NSTextHighlightColorSchemePink: string;
 
+declare const NSWritingToolsExclusionAttributeName: string;
+
 declare const NSTextHighlightStyleAttributeName: string;
 
 declare const UIAccessibilityTraitButton: number;
@@ -1022,6 +1034,8 @@ declare const UIMenuSpeech: string;
 
 declare const UIContentSizeCategoryExtraSmall: string;
 
+declare const UIApplicationCategoryDefaultStatusLastProvidedDateErrorKey: string;
+
 declare const UIFontFeatureSelectorIdentifierKey: string;
 
 declare const NSStrikethroughStyleAttributeName: string;
@@ -1057,10 +1071,6 @@ declare const UIFontWidthStandard: number;
 declare const UIMenuFind: string;
 
 declare const UIMenuBringAllToFront: string;
-
-declare const UIApplicationStateRestorationTimestampKey: string;
-
-declare const NSAdaptiveImageGlyphAttributeName: string;
 
 declare const UITextFormattingViewControllerFontSizeChangeType: string;
 
@@ -1124,9 +1134,9 @@ declare const UIMenuLearn: string;
 
 declare const NSControlCharacterContainerBreakAction: number;
 
-declare const NSDefaultAttributesDocumentAttribute: string;
-
 declare const UIAccessibilityTraitHeader: number;
+
+declare const NSDefaultAttributesDocumentAttribute: string;
 
 declare const UIKeyInputF2: string;
 
@@ -1174,10 +1184,6 @@ declare const NSVerticalGlyphFormAttributeName: string;
 
 declare const UIFontWeightThin: number;
 
-declare const NSUnderlineByWord: interop.Enum<typeof NSUnderlineStyle>;
-
-declare const UIStateRestorationViewControllerStoryboardKey: string;
-
 declare const UIKeyInputEnd: string;
 
 declare const UIScreenDidDisconnectNotification: string;
@@ -1193,6 +1199,8 @@ declare const UITextFormattingViewControllerTextColorChangeType: string;
 declare const UIMenuView: string;
 
 declare const UIFontTextStyleTitle2: string;
+
+declare const NSAdaptiveImageGlyphAttributeName: string;
 
 declare const UIContentSizeCategoryAccessibilityExtraLarge: string;
 
@@ -1272,17 +1280,17 @@ declare const NSTextHighlightColorSchemeAttributeName: string;
 
 declare const UIMenuOpenRecent: string;
 
+declare const UIMenuFormat: string;
+
 declare const UIImagePickerControllerLivePhoto: string;
+
+declare const UIDeviceOrientationDidChangeNotification: string;
 
 declare const UIMenuNewScene: string;
 
 declare const UIAccessibilityVoiceOverStatusDidChangeNotification: string;
 
 declare const NSStrokeColorAttributeName: string;
-
-declare const UIApplicationStateRestorationBundleVersionKey: string;
-
-declare const UIMenuFormat: string;
 
 declare const UIMenuWindow: string;
 
@@ -1322,6 +1330,8 @@ declare const UIFocusGroupPriorityPrioritized: number;
 
 declare const UITextFormattingViewControllerFontPointSizeComponentKey: string;
 
+declare const UIApplicationStateRestorationSystemVersionKey: string;
+
 declare const NSBaselineOffsetAttributeName: string;
 
 declare const UIAccessibilityTraitLink: number;
@@ -1335,42 +1345,6 @@ declare const UIDeviceBatteryStateDidChangeNotification: string;
 declare const NSSourceTextScalingDocumentOption: string;
 
 declare const UIMenuHide: string;
-
-declare const UIContentInsetsReference: {
-  Automatic: 0,
-  None: 1,
-  SafeArea: 2,
-  LayoutMargins: 3,
-  ReadableContent: 4,
-};
-
-declare const UIPasteControlDisplayMode: {
-  IconAndLabel: 0,
-  IconOnly: 1,
-  LabelOnly: 2,
-  ArrowAndLabel: 3,
-};
-
-declare const UIImagePickerControllerImageURLExportPreset: {
-  Compatible: 0,
-  Current: 1,
-};
-
-declare const UISceneCaptureState: {
-  Unspecified: -1,
-  Inactive: 0,
-  Active: 1,
-};
-
-declare const UIViewAutoresizing: {
-  None: 0,
-  FlexibleLeftMargin: 1,
-  FlexibleWidth: 2,
-  FlexibleRightMargin: 4,
-  FlexibleTopMargin: 8,
-  FlexibleHeight: 16,
-  FlexibleBottomMargin: 32,
-};
 
 declare const UIInterfaceOrientationMask: {
   Portrait: 2,
@@ -1417,6 +1391,13 @@ declare const UIModalPresentationStyle: {
   Popover: 7,
   None: -1,
   Automatic: -2,
+};
+
+declare const UIPasteControlDisplayMode: {
+  IconAndLabel: 0,
+  IconOnly: 1,
+  LabelOnly: 2,
+  ArrowAndLabel: 3,
 };
 
 declare const UICellAccessoryPlacement: {
@@ -1493,6 +1474,17 @@ declare const UIWebViewNavigationType: {
   Reload: 3,
   FormResubmitted: 4,
   Other: 5,
+};
+
+declare const UIContentUnavailableAlignment: {
+  Center: 0,
+  Natural: 1,
+};
+
+declare const UINavigationItemBackButtonDisplayMode: {
+  Default: 0,
+  Generic: 1,
+  Minimal: 2,
 };
 
 declare const UITextGranularity: {
@@ -1583,6 +1575,36 @@ declare const NSTextSelectionGranularity: {
 
 declare const NSTextListOptions: {
   NSTextListPrependEnclosingMarker: 1,
+};
+
+declare const UIWritingToolsCoordinatorContextScope: {
+  UserSelection: 0,
+  FullDocument: 1,
+  VisibleArea: 2,
+};
+
+declare const UIAccessibilityHearingDeviceEar: {
+  None: 0,
+  Left: 2,
+  Right: 4,
+  Both: 6,
+};
+
+declare const UIWritingToolsCoordinatorTextReplacementReason: {
+  Interactive: 0,
+  Noninteractive: 1,
+};
+
+declare const UIWritingToolsCoordinatorState: {
+  Inactive: 0,
+  Noninteractive: 1,
+  InteractiveResting: 2,
+  InteractiveStreaming: 3,
+};
+
+declare const UIWritingToolsCoordinatorTextUpdateReason: {
+  Typing: 0,
+  UndoRedo: 1,
 };
 
 declare const UITextFormattingViewControllerComponentSize: {
@@ -1701,6 +1723,7 @@ declare const UIBarButtonSystemItem: {
   Redo: 22,
   PageCurl: 23,
   Close: 24,
+  WritingTools: 25,
 };
 
 declare const UIWebPaginationBreakingMode: {
@@ -1902,11 +1925,6 @@ declare const UICornerCurve: {
   Automatic: 0,
   Circular: 1,
   Continuous: 2,
-};
-
-declare const UIUserNotificationActionContext: {
-  Default: 0,
-  Minimal: 1,
 };
 
 declare const UIRectEdge: {
@@ -2387,11 +2405,23 @@ declare const UICollectionLayoutSectionOrthogonalScrollingBehavior: {
   GroupPagingCentered: 5,
 };
 
-declare const UIAccessibilityHearingDeviceEar: {
-  None: 0,
-  Left: 2,
-  Right: 4,
-  Both: 6,
+declare const UIContentInsetsReference: {
+  Automatic: 0,
+  None: 1,
+  SafeArea: 2,
+  LayoutMargins: 3,
+  ReadableContent: 4,
+};
+
+declare const NSTextSelectionAffinity: {
+  Upstream: 0,
+  Downstream: 1,
+};
+
+declare const UICollectionElementCategory: {
+  Cell: 0,
+  SupplementaryView: 1,
+  DecorationView: 2,
 };
 
 declare const UICollectionViewCellDragState: {
@@ -2852,6 +2882,15 @@ declare const UIControlEvents: {
   AllEvents: 4294967295,
 };
 
+declare const UIMailConversationEntryKind: {
+  None: 0,
+  Personal: 1,
+  Promotion: 2,
+  Social: 3,
+  Transaction: 4,
+  News: 5,
+};
+
 declare const UIContextMenuConfigurationElementOrder: {
   Automatic: 0,
   Priority: 1,
@@ -2948,12 +2987,6 @@ declare const UIFocusItemDeferralMode: {
   Never: 2,
 };
 
-declare const UINavigationItemBackButtonDisplayMode: {
-  Default: 0,
-  Generic: 1,
-  Minimal: 2,
-};
-
 declare const UITouchProperties: {
   Force: 1,
   Azimuth: 2,
@@ -2970,6 +3003,17 @@ declare const UIListEnvironment: {
   InsetGrouped: 4,
   Sidebar: 5,
   SidebarPlain: 6,
+};
+
+declare const UIImagePickerControllerImageURLExportPreset: {
+  Compatible: 0,
+  Current: 1,
+};
+
+declare const UISceneCaptureState: {
+  Unspecified: -1,
+  Inactive: 0,
+  Active: 1,
 };
 
 declare const UISwipeGestureRecognizerDirection: {
@@ -2991,6 +3035,12 @@ declare const UISceneActivationState: {
   ForegroundActive: 0,
   ForegroundInactive: 1,
   Background: 2,
+};
+
+declare const UIApplicationCategoryDefaultStatus: {
+  Unavailable: 0,
+  IsDefault: 1,
+  NotDefault: 2,
 };
 
 declare const UITouchType: {
@@ -3047,6 +3097,10 @@ declare const NSLayoutRelation: {
   LessThanOr: -1,
   NSLayoutRelationEqual: 0,
   GreaterThanOr: 1,
+};
+
+declare const UIApplicationCategory: {
+  UIApplicationCategoryWebBrowser: 1,
 };
 
 declare const UIControlContentHorizontalAlignment: {
@@ -3144,17 +3198,6 @@ declare const UIEventType: {
   Scroll: 10,
   Hover: 11,
   Transform: 14,
-};
-
-declare const UICollectionElementCategory: {
-  Cell: 0,
-  SupplementaryView: 1,
-  DecorationView: 2,
-};
-
-declare const NSTextSelectionAffinity: {
-  Upstream: 0,
-  Downstream: 1,
 };
 
 declare const UIMenuOptions: {
@@ -3346,6 +3389,16 @@ declare const UITextItemInteraction: {
   InvokeDefaultAction: 0,
   PresentActions: 1,
   Preview: 2,
+};
+
+declare const UIViewAutoresizing: {
+  None: 0,
+  FlexibleLeftMargin: 1,
+  FlexibleWidth: 2,
+  FlexibleRightMargin: 4,
+  FlexibleTopMargin: 8,
+  FlexibleHeight: 16,
+  FlexibleBottomMargin: 32,
 };
 
 declare const UIWritingToolsResultOptions: {
@@ -3751,11 +3804,6 @@ declare const UITableViewDropIntent: {
   Automatic: 3,
 };
 
-declare const UIContentUnavailableAlignment: {
-  Center: 0,
-  Natural: 1,
-};
-
 declare const UICalendarViewDecorationSize: {
   Small: 0,
   Medium: 1,
@@ -3902,11 +3950,23 @@ declare const UIWindowScenePresentationStyle: {
   Prominent: 2,
 };
 
+declare const UIMessageConversationEntryDataKind: {
+  Text: 0,
+  Attachment: 1,
+  Other: 2,
+};
+
 declare const UIButtonConfigurationSize: {
   Medium: 0,
   Small: 1,
   Mini: 2,
   Large: 3,
+};
+
+declare const UIWritingToolsCoordinatorTextAnimation: {
+  Anticipate: 0,
+  Remove: 1,
+  Insert: 2,
 };
 
 declare const UIEventButtonMask: {
@@ -3968,18 +4028,21 @@ declare const UIVibrancyEffectStyle: {
   Separator: 7,
 };
 
+declare const UIUserNotificationActionContext: {
+  Default: 0,
+  Minimal: 1,
+};
+
+declare const UIApplicationCategoryDefaultErrorCode: {
+  UIApplicationCategoryDefaultErrorRateLimited: 1,
+};
+
 declare const UISpringLoadedInteractionEffectState: {
   Inactive: 0,
   Possible: 1,
   Activating: 2,
   Activated: 3,
 };
-
-declare class UIPointerAccessoryPosition {
-  constructor(init?: UIPointerAccessoryPosition);
-  offset: number;
-  angle: number;
-}
 
 declare class UIFloatRange {
   constructor(init?: UIFloatRange);
@@ -3993,6 +4056,12 @@ declare class UIEdgeInsets {
   left: number;
   bottom: number;
   right: number;
+}
+
+declare class UIPointerAccessoryPosition {
+  constructor(init?: UIPointerAccessoryPosition);
+  offset: number;
+  angle: number;
 }
 
 declare class UIOffset {
@@ -4179,6 +4248,8 @@ declare function UISaveVideoAtPathToSavedPhotosAlbum(videoPath: string, completi
 
 declare function UIFloatRangeIsInfinite(range: UIFloatRange): boolean;
 
+declare function UIWritingToolsCoordinatorTextAnimationDebugDescription(animationType: interop.Enum<typeof UIWritingToolsCoordinatorTextAnimation>): string;
+
 declare interface UIDragDropSession extends NSObjectProtocol {
   readonly items: NSArray;
 
@@ -4251,17 +4322,6 @@ declare interface UIContextMenuInteractionDelegate extends NSObjectProtocol {
 }
 
 declare class UIContextMenuInteractionDelegate extends NativeObject implements UIContextMenuInteractionDelegate {
-}
-
-declare interface UICollectionViewDropItem extends NSObjectProtocol {
-  readonly dragItem: UIDragItem;
-
-  readonly sourceIndexPath: NSIndexPath;
-
-  readonly previewSize: CGSize;
-}
-
-declare class UICollectionViewDropItem extends NativeObject implements UICollectionViewDropItem {
 }
 
 declare interface UIScrollViewDelegate extends NSObjectProtocol {
@@ -5045,6 +5105,8 @@ declare interface UITextViewDelegate extends NSObjectProtocol, UIScrollViewDeleg
   textViewWillEndFormattingWithViewController?(textView: UITextView, viewController: UITextFormattingViewController): void;
 
   textViewDidEndFormattingWithViewController?(textView: UITextView, viewController: UITextFormattingViewController): void;
+
+  textViewInsertInputSuggestion?(textView: UITextView, inputSuggestion: UIInputSuggestion): void;
 }
 
 declare class UITextViewDelegate extends NativeObject implements UITextViewDelegate {
@@ -5362,6 +5424,8 @@ declare interface UITextFieldDelegate extends NSObjectProtocol {
   textFieldWillPresentEditMenuWithAnimator?(textField: UITextField, animator: UIEditMenuInteractionAnimating): void;
 
   textFieldWillDismissEditMenuWithAnimator?(textField: UITextField, animator: UIEditMenuInteractionAnimating): void;
+
+  textFieldInsertInputSuggestion?(textField: UITextField, inputSuggestion: UIInputSuggestion): void;
 }
 
 declare class UITextFieldDelegate extends NativeObject implements UITextFieldDelegate {
@@ -5905,6 +5969,14 @@ declare interface UITabBarControllerSidebarDelegate extends NSObjectProtocol {
   tabBarControllerSidebarTrailingSwipeActionsConfigurationForTab?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, tab: UITab): UISwipeActionsConfiguration;
 
   tabBarControllerSidebarContextMenuConfigurationForTab?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, tab: UITab): UIContextMenuConfiguration;
+
+  tabBarControllerSidebarItemsForBeginningDragSessionTab?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, dragSession: UIDragSession, tab: UITab): NSArray;
+
+  tabBarControllerSidebarItemsForAddingToDragSessionTab?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, dragSession: UIDragSession, tab: UITab): NSArray;
+
+  tabBarControllerSidebarSidebarActionGroupOperationForAcceptingItemsFromDropSession?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, sidebarAction: UIAction, group: UITabGroup, session: UIDropSession): interop.Enum<typeof UIDropOperation>;
+
+  tabBarControllerSidebarSidebarActionGroupAcceptItemsFromDropSession?(tabBarController: UITabBarController, sidebar: UITabBarControllerSidebar, sidebarAction: UIAction, group: UITabGroup, session: UIDropSession): void;
 }
 
 declare class UITabBarControllerSidebarDelegate extends NativeObject implements UITabBarControllerSidebarDelegate {
@@ -6426,6 +6498,17 @@ declare interface UIContentSizeCategoryAdjusting extends NSObjectProtocol {
 declare class UIContentSizeCategoryAdjusting extends NativeObject implements UIContentSizeCategoryAdjusting {
 }
 
+declare interface UICollectionViewDropItem extends NSObjectProtocol {
+  readonly dragItem: UIDragItem;
+
+  readonly sourceIndexPath: NSIndexPath;
+
+  readonly previewSize: CGSize;
+}
+
+declare class UICollectionViewDropItem extends NativeObject implements UICollectionViewDropItem {
+}
+
 declare interface UITextInputTraits extends NSObjectProtocol {
   autocapitalizationType?: interop.Enum<typeof UITextAutocapitalizationType>;
 
@@ -6460,6 +6543,8 @@ declare interface UITextInputTraits extends NSObjectProtocol {
   writingToolsBehavior?: interop.Enum<typeof UIWritingToolsBehavior>;
 
   allowedWritingToolsResultOptions?: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  conversationContext?: UIConversationContext;
 }
 
 declare class UITextInputTraits extends NativeObject implements UITextInputTraits {
@@ -6652,6 +6737,8 @@ declare interface UITextInputDelegate extends NSObjectProtocol {
   textWillChange(textInput: UITextInput | null): void;
 
   textDidChange(textInput: UITextInput | null): void;
+
+  conversationContextDidChange(context: UIConversationContext | null, textInput: UITextInput | null): void;
 }
 
 declare class UITextInputDelegate extends NativeObject implements UITextInputDelegate {
@@ -6894,6 +6981,8 @@ declare interface UIResponderStandardEditActions extends NSObjectProtocol {
   move?(sender: interop.Object | null): void;
 
   export?(sender: interop.Object | null): void;
+
+  showWritingTools?(sender: interop.Object): void;
 }
 
 declare class UIResponderStandardEditActions extends NativeObject implements UIResponderStandardEditActions {
@@ -7143,6 +7232,8 @@ declare interface UITextInput extends UIKeyInput {
   willPresentWritingTools?(): void;
 
   didDismissWritingTools?(): void;
+
+  insertInputSuggestion?(inputSuggestion: UIInputSuggestion): void;
 }
 
 declare class UITextInput extends NativeObject implements UITextInput {
@@ -7596,18 +7687,33 @@ declare interface NSTextElementProvider extends NSObjectProtocol {
 declare class NSTextElementProvider extends NativeObject implements NSTextElementProvider {
 }
 
-declare class UILexiconEntry extends NSObject implements NSCopying {
-  readonly documentText: string;
+declare interface UIWritingToolsCoordinatorDelegate extends NSObjectProtocol {
+  writingToolsCoordinatorRequestsContextsForScopeCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, scope: interop.Enum<typeof UIWritingToolsCoordinatorContextScope>, completion: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
 
-  readonly userInput: string;
+  writingToolsCoordinatorReplaceRangeInContextProposedTextReasonAnimationParametersCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, range: _NSRange, context: UIWritingToolsCoordinatorContext, replacementText: NSAttributedString, reason: interop.Enum<typeof UIWritingToolsCoordinatorTextReplacementReason>, animationParameters: UIWritingToolsCoordinatorAnimationParameters | null, completion: (p1: NSAttributedString) => void | null): void;
 
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  writingToolsCoordinatorSelectRangesInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, ranges: NSArray<interop.Object> | Array<interop.Object>, context: UIWritingToolsCoordinatorContext, completion: () => void): void;
+
+  writingToolsCoordinatorRequestsBoundingBezierPathsForRangeInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  writingToolsCoordinatorRequestsUnderlinePathsForRangeInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  writingToolsCoordinatorPrepareForTextAnimationForRangeInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, textAnimation: interop.Enum<typeof UIWritingToolsCoordinatorTextAnimation>, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: () => void): void;
+
+  writingToolsCoordinatorRequestsPreviewForTextAnimationOfRangeInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, textAnimation: interop.Enum<typeof UIWritingToolsCoordinatorTextAnimation>, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: (p1: UITargetedPreview) => void | null): void;
+
+  writingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion(writingToolsCoordinator: UIWritingToolsCoordinator, textAnimation: interop.Enum<typeof UIWritingToolsCoordinatorTextAnimation>, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: () => void): void;
+
+  writingToolsCoordinatorRequestsSingleContainerSubrangesOfRangeInContextCompletion?(writingToolsCoordinator: UIWritingToolsCoordinator, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  writingToolsCoordinatorRequestsDecorationContainerViewForRangeInContextCompletion?(writingToolsCoordinator: UIWritingToolsCoordinator, range: _NSRange, context: UIWritingToolsCoordinatorContext, completion: (p1: UIView) => void): void;
+
+  writingToolsCoordinatorWillChangeToStateCompletion?(writingToolsCoordinator: UIWritingToolsCoordinator, newState: interop.Enum<typeof UIWritingToolsCoordinatorState>, completion: () => void): void;
+
+  writingToolsCoordinatorRequestsRangeInContextWithIdentifierForPointCompletion?(writingToolsCoordinator: UIWritingToolsCoordinator, point: CGPoint, completion: (p1: _NSRange, p2: NSUUID) => void): void;
 }
 
-declare class UIDeferredMenuElement extends UIMenuElement {
-  static elementWithProvider<This extends abstract new (...args: any) => any>(this: This, elementProvider: (p1: (p1: NSArray<interop.Object> | Array<interop.Object>) => void) => void): InstanceType<This>;
-
-  static elementWithUncachedProvider<This extends abstract new (...args: any) => any>(this: This, elementProvider: (p1: (p1: NSArray<interop.Object> | Array<interop.Object>) => void) => void): InstanceType<This>;
+declare class UIWritingToolsCoordinatorDelegate extends NativeObject implements UIWritingToolsCoordinatorDelegate {
 }
 
 declare class UITextSelectionRect extends NSObject {
@@ -7622,62 +7728,6 @@ declare class UITextSelectionRect extends NSObject {
   readonly isVertical: boolean;
 
   readonly transform: CGAffineTransform;
-}
-
-declare class UIScribbleInteraction extends NSObject implements UIInteraction {
-  initWithDelegate(delegate: UIScribbleInteractionDelegate): this;
-
-  readonly delegate: UIScribbleInteractionDelegate;
-
-  readonly isHandlingWriting: boolean;
-
-  static readonly isPencilInputExpected: boolean;
-
-  readonly view: UIView;
-
-  willMoveToView(view: UIView | null): void;
-
-  didMoveToView(view: UIView | null): void;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
 }
 
 declare class UICollectionViewCell extends UICollectionReusableView {
@@ -8631,12 +8681,6 @@ declare class UISlider extends UIControl implements NSCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class UIVibrancyEffect extends UIVisualEffect {
-  static effectForBlurEffect(blurEffect: UIBlurEffect): UIVibrancyEffect;
-
-  static effectForBlurEffectStyle(blurEffect: UIBlurEffect, style: interop.Enum<typeof UIVibrancyEffectStyle>): UIVibrancyEffect;
-}
-
 declare class NSCollectionLayoutItem extends NSObject implements NSCopying {
   static itemWithLayoutSize<This extends abstract new (...args: any) => any>(this: This, layoutSize: NSCollectionLayoutSize): InstanceType<This>;
 
@@ -8893,6 +8937,12 @@ declare class UIStackView extends UIView {
   isBaselineRelativeArrangement: boolean;
 
   isLayoutMarginsRelativeArrangement: boolean;
+}
+
+declare class UIMessageConversationEntry extends UIConversationEntry {
+  dataKind: interop.Enum<typeof UIMessageConversationEntryDataKind>;
+
+  wasSentBySelf: boolean;
 }
 
 declare class UITextDragPreviewRenderer extends NSObject {
@@ -9215,6 +9265,20 @@ declare class UIPercentDrivenInteractiveTransition extends NSObject implements U
   readonly description: string;
 
   readonly debugDescription: string;
+}
+
+declare class UILexiconEntry extends NSObject implements NSCopying {
+  readonly documentText: string;
+
+  readonly userInput: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UIDeferredMenuElement extends UIMenuElement {
+  static elementWithProvider<This extends abstract new (...args: any) => any>(this: This, elementProvider: (p1: (p1: NSArray<interop.Object> | Array<interop.Object>) => void) => void): InstanceType<This>;
+
+  static elementWithUncachedProvider<This extends abstract new (...args: any) => any>(this: This, elementProvider: (p1: (p1: NSArray<interop.Object> | Array<interop.Object>) => void) => void): InstanceType<This>;
 }
 
 declare class NSCollectionLayoutSupplementaryItem extends NSCollectionLayoutItem implements NSCopying {
@@ -9699,36 +9763,80 @@ declare class UIActivityItemProvider extends NSOperation implements UIActivityIt
   readonly debugDescription: string;
 }
 
-declare class UITextCursorDropPositionAnimator extends NSObject {
-  readonly cursorView: UIView;
+declare class UISearchContainerViewController extends UIViewController {
+  readonly searchController: UISearchController;
 
-  readonly textInput: UIView;
-
-  initWithTextCursorViewTextInput(cursorView: UIView, textInput: UIView): this;
-
-  setCursorVisibleAnimated(visible: boolean, animated: boolean): void;
-
-  placeCursorAtPositionAnimated(position: UITextPosition, animated: boolean): void;
-
-  animateAlongsideChangesCompletion(animation: () => void | null, completion: () => void | null): void;
+  initWithSearchController(searchController: UISearchController): this;
 }
 
-declare class UIPreviewInteraction extends NSObject {
-  initWithView(view: UIView): this;
+declare class UIScribbleInteraction extends NSObject implements UIInteraction {
+  initWithDelegate(delegate: UIScribbleInteractionDelegate): this;
 
-  readonly view: UIView | null;
+  readonly delegate: UIScribbleInteractionDelegate;
 
-  delegate: UIPreviewInteractionDelegate;
+  readonly isHandlingWriting: boolean;
 
-  locationInCoordinateSpace(coordinateSpace: UICoordinateSpace | null): CGPoint;
+  static readonly isPencilInputExpected: boolean;
 
-  cancelInteraction(): void;
+  readonly view: UIView;
+
+  willMoveToView(view: UIView | null): void;
+
+  didMoveToView(view: UIView | null): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
 }
 
-declare class UISwipeGestureRecognizer extends UIGestureRecognizer {
-  numberOfTouchesRequired: number;
+declare class UIVibrancyEffect extends UIVisualEffect {
+  static effectForBlurEffect(blurEffect: UIBlurEffect): UIVibrancyEffect;
 
-  direction: interop.Enum<typeof UISwipeGestureRecognizerDirection>;
+  static effectForBlurEffectStyle(blurEffect: UIBlurEffect, style: interop.Enum<typeof UIVibrancyEffectStyle>): UIVibrancyEffect;
+}
+
+declare class UICollectionViewUpdateItem extends NSObject {
+  readonly indexPathBeforeUpdate: NSIndexPath;
+
+  readonly indexPathAfterUpdate: NSIndexPath;
+
+  readonly updateAction: interop.Enum<typeof UICollectionUpdateAction>;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -9757,6 +9865,10 @@ declare class UITraitListEnvironment extends NSObject implements UINSIntegerTrai
   static readonly name: string;
 
   static readonly affectsColorAppearance: boolean;
+}
+
+declare class UISmartReplySuggestion extends UIInputSuggestion {
+  readonly smartReply: string;
 }
 
 declare class UIPrintPageRenderer extends NSObject {
@@ -10100,6 +10212,30 @@ declare class NSTextContentStorage extends NSTextContentManager implements NSTex
   readonly description: string;
 
   readonly debugDescription: string;
+}
+
+declare class UIMailConversationEntry extends UIConversationEntry {
+  kind: interop.Enum<typeof UIMailConversationEntryKind>;
+
+  responseSecondaryRecipientIdentifiers: NSSet;
+}
+
+declare class UIApplicationShortcutIcon extends NSObject implements NSCopying {
+  static iconWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof UIApplicationShortcutIconType>): InstanceType<This>;
+
+  static iconWithTemplateImageName<This extends abstract new (...args: any) => any>(this: This, templateImageName: string): InstanceType<This>;
+
+  static iconWithSystemImageName<This extends abstract new (...args: any) => any>(this: This, systemImageName: string): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UIMailConversationContext extends UIConversationContext {
+  responseSubject: string;
+
+  responseHasCustomSignature: boolean;
+
+  responseSecondaryRecipientIdentifiers: NSSet;
 }
 
 declare class UIColorWell extends UIControl {
@@ -10565,6 +10701,8 @@ declare class NSLayoutXAxisAnchor extends NSLayoutAnchor {
 declare class UITab extends NSObject {
   readonly identifier: string;
 
+  isEnabled: boolean;
+
   title: string;
 
   image: UIImage;
@@ -10590,6 +10728,8 @@ declare class UITab extends NSObject {
   isHiddenByDefault: boolean;
 
   allowsHiding: boolean;
+
+  readonly hasVisiblePlacement: boolean;
 
   initWithTitleImageIdentifierViewControllerProvider(title: string, image: UIImage | null, identifier: string, viewControllerProvider: (p1: UITab) => UIViewController | null): this;
 }
@@ -10744,6 +10884,292 @@ declare class UIContentUnavailableConfiguration extends NSObject implements UICo
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class UITextField extends UIControl implements UITextInput, NSCoding, UIContentSizeCategoryAdjusting, UILetterformAwareAdjusting {
+  text: string;
+
+  attributedText: NSAttributedString;
+
+  textColor: UIColor;
+
+  font: UIFont;
+
+  textAlignment: interop.Enum<typeof NSTextAlignment>;
+
+  borderStyle: interop.Enum<typeof UITextBorderStyle>;
+
+  get defaultTextAttributes(): NSDictionary;
+  set defaultTextAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  placeholder: string;
+
+  attributedPlaceholder: NSAttributedString;
+
+  clearsOnBeginEditing: boolean;
+
+  adjustsFontSizeToFitWidth: boolean;
+
+  minimumFontSize: number;
+
+  delegate: UITextFieldDelegate;
+
+  background: UIImage;
+
+  disabledBackground: UIImage;
+
+  readonly isEditing: boolean;
+
+  allowsEditingTextAttributes: boolean;
+
+  get typingAttributes(): NSDictionary;
+  set typingAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  clearButtonMode: interop.Enum<typeof UITextFieldViewMode>;
+
+  leftView: UIView;
+
+  leftViewMode: interop.Enum<typeof UITextFieldViewMode>;
+
+  rightView: UIView;
+
+  rightViewMode: interop.Enum<typeof UITextFieldViewMode>;
+
+  borderRectForBounds(bounds: CGRect): CGRect;
+
+  textRectForBounds(bounds: CGRect): CGRect;
+
+  placeholderRectForBounds(bounds: CGRect): CGRect;
+
+  editingRectForBounds(bounds: CGRect): CGRect;
+
+  clearButtonRectForBounds(bounds: CGRect): CGRect;
+
+  leftViewRectForBounds(bounds: CGRect): CGRect;
+
+  rightViewRectForBounds(bounds: CGRect): CGRect;
+
+  drawTextInRect(rect: CGRect): void;
+
+  drawPlaceholderInRect(rect: CGRect): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  inputView: UIView;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  inputAccessoryView: UIView;
+
+  clearsOnInsertion: boolean;
+
+  interactionState: interop.Object;
+
+  textInRange(range: UITextRange): string;
+
+  replaceRangeWithText(range: UITextRange, text: string): void;
+
+  selectedTextRange: UITextRange;
+
+  readonly markedTextRange: UITextRange;
+
+  get markedTextStyle(): NSDictionary;
+  set markedTextStyle(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  setMarkedTextSelectedRange(markedText: string | null, selectedRange: _NSRange): void;
+
+  unmarkText(): void;
+
+  readonly beginningOfDocument: UITextPosition;
+
+  readonly endOfDocument: UITextPosition;
+
+  textRangeFromPositionToPosition(fromPosition: UITextPosition, toPosition: UITextPosition): UITextRange;
+
+  positionFromPositionOffset(position: UITextPosition, offset: number): UITextPosition;
+
+  positionFromPositionInDirectionOffset(position: UITextPosition, direction: interop.Enum<typeof UITextLayoutDirection>, offset: number): UITextPosition;
+
+  comparePositionToPosition(position: UITextPosition, other: UITextPosition): interop.Enum<typeof NSComparisonResult>;
+
+  offsetFromPositionToPosition(from: UITextPosition, toPosition: UITextPosition): number;
+
+  inputDelegate: UITextInputDelegate;
+
+  readonly tokenizer: UITextInputTokenizer;
+
+  positionWithinRangeFarthestInDirection(range: UITextRange, direction: interop.Enum<typeof UITextLayoutDirection>): UITextPosition;
+
+  characterRangeByExtendingPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextLayoutDirection>): UITextRange;
+
+  baseWritingDirectionForPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextStorageDirection>): interop.Enum<typeof NSWritingDirection>;
+
+  setBaseWritingDirectionForRange(writingDirection: interop.Enum<typeof NSWritingDirection>, range: UITextRange): void;
+
+  firstRectForRange(range: UITextRange): CGRect;
+
+  caretRectForPosition(position: UITextPosition): CGRect;
+
+  selectionRectsForRange(range: UITextRange): NSArray;
+
+  closestPositionToPoint(point: CGPoint): UITextPosition;
+
+  closestPositionToPointWithinRange(point: CGPoint, range: UITextRange): UITextPosition;
+
+  characterRangeAtPoint(point: CGPoint): UITextRange;
+
+  shouldChangeTextInRangeReplacementText(range: UITextRange, text: string): boolean;
+
+  textStylingAtPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextStorageDirection>): NSDictionary;
+
+  positionWithinRangeAtCharacterOffset(range: UITextRange, offset: number): UITextPosition;
+
+  characterOffsetOfPositionWithinRange(position: UITextPosition, range: UITextRange): number;
+
+  readonly textInputView: UIView;
+
+  selectionAffinity: interop.Enum<typeof UITextStorageDirection>;
+
+  insertDictationResult(dictationResult: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  dictationRecordingDidEnd(): void;
+
+  dictationRecognitionFailed(): void;
+
+  readonly insertDictationResultPlaceholder: interop.Object;
+
+  frameForDictationResultPlaceholder(placeholder: interop.Object): CGRect;
+
+  removeDictationResultPlaceholderWillInsertResult(placeholder: interop.Object, willInsertResult: boolean): void;
+
+  insertTextAlternativesStyle(text: string, alternatives: NSArray<interop.Object> | Array<interop.Object>, style: interop.Enum<typeof UITextAlternativeStyle>): void;
+
+  setAttributedMarkedTextSelectedRange(markedText: NSAttributedString | null, selectedRange: _NSRange): void;
+
+  insertTextPlaceholderWithSize(size: CGSize): UITextPlaceholder;
+
+  removeTextPlaceholder(textPlaceholder: UITextPlaceholder): void;
+
+  beginFloatingCursorAtPoint(point: CGPoint): void;
+
+  updateFloatingCursorAtPoint(point: CGPoint): void;
+
+  endFloatingCursor(): void;
+
+  caretTransformForPosition(position: UITextPosition): CGAffineTransform;
+
+  editMenuForTextRangeSuggestedActions(textRange: UITextRange, suggestedActions: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
+
+  willPresentEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
+
+  willDismissEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
+
+  supportsAdaptiveImageGlyph: boolean;
+
+  insertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph: NSAdaptiveImageGlyph, replacementRange: UITextRange): void;
+
+  readonly isEditable: boolean;
+
+  insertAttributedText(string: NSAttributedString): void;
+
+  attributedTextInRange(range: UITextRange): NSAttributedString;
+
+  replaceRangeWithAttributedText(range: UITextRange, attributedText: NSAttributedString): void;
+
+  willPresentWritingTools(): void;
+
+  didDismissWritingTools(): void;
+
+  insertInputSuggestion(inputSuggestion: UIInputSuggestion): void;
+
+  readonly hasText: boolean;
+
+  insertText(text: string): void;
+
+  deleteBackward(): void;
+
+  autocapitalizationType: interop.Enum<typeof UITextAutocapitalizationType>;
+
+  autocorrectionType: interop.Enum<typeof UITextAutocorrectionType>;
+
+  spellCheckingType: interop.Enum<typeof UITextSpellCheckingType>;
+
+  smartQuotesType: interop.Enum<typeof UITextSmartQuotesType>;
+
+  smartDashesType: interop.Enum<typeof UITextSmartDashesType>;
+
+  smartInsertDeleteType: interop.Enum<typeof UITextSmartInsertDeleteType>;
+
+  inlinePredictionType: interop.Enum<typeof UITextInlinePredictionType>;
+
+  mathExpressionCompletionType: interop.Enum<typeof UITextMathExpressionCompletionType>;
+
+  keyboardType: interop.Enum<typeof UIKeyboardType>;
+
+  keyboardAppearance: interop.Enum<typeof UIKeyboardAppearance>;
+
+  returnKeyType: interop.Enum<typeof UIReturnKeyType>;
+
+  enablesReturnKeyAutomatically: boolean;
+
+  isSecureTextEntry: boolean;
+
+  textContentType: string;
+
+  passwordRules: UITextInputPasswordRules;
+
+  writingToolsBehavior: interop.Enum<typeof UIWritingToolsBehavior>;
+
+  allowedWritingToolsResultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  conversationContext: UIConversationContext;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  adjustsFontForContentSizeCategory: boolean;
+
+  sizingRule: interop.Enum<typeof UILetterformAwareSizingRule>;
 }
 
 declare class NSCollectionLayoutGroupCustomItem extends NSObject implements NSCopying {
@@ -10923,14 +11349,6 @@ declare class UIFocusHaloEffect extends UIFocusEffect {
   referenceView: UIView;
 
   position: interop.Enum<typeof UIFocusHaloEffectPosition>;
-}
-
-declare class UICollectionViewUpdateItem extends NSObject {
-  readonly indexPathBeforeUpdate: NSIndexPath;
-
-  readonly indexPathAfterUpdate: NSIndexPath;
-
-  readonly updateAction: interop.Enum<typeof UICollectionUpdateAction>;
 }
 
 declare class UIWindowSceneDragInteraction extends NSObject implements UIInteraction {
@@ -11543,12 +11961,6 @@ declare class UIMenuSystem extends NSObject {
   setNeedsRebuild(): void;
 
   setNeedsRevalidate(): void;
-}
-
-declare class UISearchContainerViewController extends UIViewController {
-  readonly searchController: UISearchController;
-
-  initWithSearchController(searchController: UISearchController): this;
 }
 
 declare class NSDataAsset extends NSObject implements NSCopying {
@@ -12423,6 +12835,24 @@ declare class UISheetPresentationController extends UIPresentationController {
   animateChanges(changes: () => void): void;
 }
 
+declare class UISwipeGestureRecognizer extends UIGestureRecognizer {
+  numberOfTouchesRequired: number;
+
+  direction: interop.Enum<typeof UISwipeGestureRecognizerDirection>;
+}
+
+declare class UIPreviewInteraction extends NSObject {
+  initWithView(view: UIView): this;
+
+  readonly view: UIView | null;
+
+  delegate: UIPreviewInteractionDelegate;
+
+  locationInCoordinateSpace(coordinateSpace: UICoordinateSpace | null): CGPoint;
+
+  cancelInteraction(): void;
+}
+
 declare class NSTextSelectionNavigation extends NSObject {
   initWithDataSource(dataSource: NSTextSelectionDataSource): this;
 
@@ -12877,127 +13307,6 @@ declare class UIDragItem extends NSObject {
   setNeedsDropPreviewUpdate(): void;
 }
 
-declare class UIHoverAutomaticEffect extends NSObject implements UIHoverEffect {
-  static effect<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class UIToolbar extends UIView implements UIBarPositioning {
-  barStyle: interop.Enum<typeof UIBarStyle>;
-
-  get items(): NSArray;
-  set items(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  isTranslucent: boolean;
-
-  setItemsAnimated(items: NSArray<interop.Object> | Array<interop.Object> | null, animated: boolean): void;
-
-  tintColor: UIColor;
-
-  barTintColor: UIColor;
-
-  setBackgroundImageForToolbarPositionBarMetrics(backgroundImage: UIImage | null, topOrBottom: interop.Enum<typeof UIBarPosition>, barMetrics: interop.Enum<typeof UIBarMetrics>): void;
-
-  backgroundImageForToolbarPositionBarMetrics(topOrBottom: interop.Enum<typeof UIBarPosition>, barMetrics: interop.Enum<typeof UIBarMetrics>): UIImage;
-
-  setShadowImageForToolbarPosition(shadowImage: UIImage | null, topOrBottom: interop.Enum<typeof UIBarPosition>): void;
-
-  shadowImageForToolbarPosition(topOrBottom: interop.Enum<typeof UIBarPosition>): UIImage;
-
-  standardAppearance: UIToolbarAppearance;
-
-  compactAppearance: UIToolbarAppearance;
-
-  scrollEdgeAppearance: UIToolbarAppearance;
-
-  compactScrollEdgeAppearance: UIToolbarAppearance;
-
-  delegate: UIToolbarDelegate;
-
-  readonly barPosition: interop.Enum<typeof UIBarPosition>;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class UIZoomTransitionOptions extends NSObject implements NSCopying {
   interactiveDismissShouldBegin: (p1: UIZoomTransitionInteractionContext) => boolean;
 
@@ -13093,6 +13402,10 @@ declare class UITextView extends UIScrollView implements UITextInput, UIContentS
   writingToolsBehavior: interop.Enum<typeof UIWritingToolsBehavior>;
 
   allowedWritingToolsResultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  readonly subclassForWritingToolsCoordinator: interop.Object;
+
+  readonly writingToolsCoordinator: UIWritingToolsCoordinator;
 
   textFormattingConfiguration: UITextFormattingViewControllerConfiguration;
 
@@ -13211,6 +13524,8 @@ declare class UITextView extends UIScrollView implements UITextInput, UIContentS
 
   didDismissWritingTools(): void;
 
+  insertInputSuggestion(inputSuggestion: UIInputSuggestion): void;
+
   readonly hasText: boolean;
 
   insertText(text: string): void;
@@ -13246,6 +13561,8 @@ declare class UITextView extends UIScrollView implements UITextInput, UIContentS
   textContentType: string;
 
   passwordRules: UITextInputPasswordRules;
+
+  conversationContext: UIConversationContext;
 
   isEqual(object: interop.Object): boolean;
 
@@ -13467,6 +13784,20 @@ declare class UIPointerRegion extends NSObject implements NSCopying {
   static regionWithRectIdentifier<This extends abstract new (...args: any) => any>(this: This, rect: CGRect, identifier: NSObject | null): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UITextCursorDropPositionAnimator extends NSObject {
+  readonly cursorView: UIView;
+
+  readonly textInput: UIView;
+
+  initWithTextCursorViewTextInput(cursorView: UIView, textInput: UIView): this;
+
+  setCursorVisibleAnimated(visible: boolean, animated: boolean): void;
+
+  placeCursorAtPositionAnimated(position: UITextPosition, animated: boolean): void;
+
+  animateAlongsideChangesCompletion(animation: () => void | null, completion: () => void | null): void;
 }
 
 declare class UITextChecker extends NSObject {
@@ -14451,6 +14782,8 @@ declare class UIInputViewController extends UIViewController implements UITextIn
   textWillChange(textInput: UITextInput | null): void;
 
   textDidChange(textInput: UITextInput | null): void;
+
+  conversationContextDidChange(context: UIConversationContext | null, textInput: UITextInput | null): void;
 
   isEqual(object: interop.Object): boolean;
 
@@ -15761,6 +16094,8 @@ declare class UIResponder extends NSObject implements UIResponderStandardEditAct
 
   export(sender: interop.Object | null): void;
 
+  showWritingTools(sender: interop.Object): void;
+
   isEqual(object: interop.Object): boolean;
 
   readonly hash: number;
@@ -15990,6 +16325,8 @@ declare class UISearchBar extends UIView implements UIBarPositioning, UITextInpu
   writingToolsBehavior: interop.Enum<typeof UIWritingToolsBehavior>;
 
   allowedWritingToolsResultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  conversationContext: UIConversationContext;
 }
 
 declare class UIDocument extends NSObject implements NSFilePresenter, NSProgressReporting {
@@ -16317,6 +16654,20 @@ declare class UICollectionLayoutListConfiguration extends NSObject implements NS
   contentHuggingElements: interop.Enum<typeof UICollectionLayoutListContentHuggingElements>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UIMessageConversationContext extends UIConversationContext {
+  isJunk: boolean;
+}
+
+declare class UIWritingToolsCoordinatorAnimationParameters extends NSObject {
+  readonly duration: number;
+
+  readonly delay: number;
+
+  progressHandler: (p1: number) => void;
+
+  completionHandler: () => void;
 }
 
 declare class UIAccelerometer extends NSObject {
@@ -17439,20 +17790,6 @@ declare class UIListContentView extends UIView implements UIContentView {
   readonly debugDescription: string;
 }
 
-declare class UICollectionReusableView extends UIView {
-  readonly reuseIdentifier: string;
-
-  prepareForReuse(): void;
-
-  applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes): void;
-
-  willTransitionFromLayoutToLayout(oldLayout: UICollectionViewLayout, newLayout: UICollectionViewLayout): void;
-
-  didTransitionFromLayoutToLayout(oldLayout: UICollectionViewLayout, newLayout: UICollectionViewLayout): void;
-
-  preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes): UICollectionViewLayoutAttributes;
-}
-
 declare class UICollectionViewPlaceholder extends NSObject {
   initWithInsertionIndexPathReuseIdentifier(insertionIndexPath: NSIndexPath, reuseIdentifier: string): this;
 
@@ -18124,6 +18461,8 @@ declare class UITabBarControllerSidebar extends NSObject {
 
   preferredLayout: interop.Enum<typeof UITabBarControllerSidebarLayout>;
 
+  navigationOverflowItems: UIDeferredMenuElement;
+
   headerContentConfiguration: UIContentConfiguration;
 
   footerContentConfiguration: UIContentConfiguration;
@@ -18453,6 +18792,8 @@ declare class UIApplication extends UIResponder {
 
   static registerObjectForStateRestorationRestorationIdentifier(object: UIStateRestoring, restorationIdentifier: string): void;
 
+  defaultStatusForCategoryError(category: interop.Enum<typeof UIApplicationCategory>, error: interop.PointerConvertible): interop.Enum<typeof UIApplicationCategoryDefaultStatus>;
+
   isProximitySensingEnabled: boolean;
 
   setStatusBarHiddenAnimated(hidden: boolean, animated: boolean): void;
@@ -18528,6 +18869,19 @@ declare class UIToolTipInteraction extends NSObject implements UIInteraction {
 
 declare class UISearchTab extends UITab {
   initWithViewControllerProvider(viewControllerProvider: (p1: UITab) => UIViewController | null): this;
+}
+
+declare class UIColorPickerViewController extends UIViewController {
+  delegate: UIColorPickerViewControllerDelegate;
+
+  selectedColor: UIColor;
+
+  supportsAlpha: boolean;
+
+  init(): this;
+}
+
+declare class UIInputSuggestion extends NSObject {
 }
 
 declare class UIPasteConfiguration extends NSObject implements NSSecureCoding, NSCopying {
@@ -19098,6 +19452,155 @@ declare class UITextInputAssistantItem extends NSObject {
   set trailingBarButtonGroups(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
+declare class UIConversationContext extends NSObject {
+  threadIdentifier: string;
+
+  get entries(): NSArray;
+  set entries(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  selfIdentifiers: NSSet;
+
+  responsePrimaryRecipientIdentifiers: NSSet;
+
+  get participantNameByIdentifier(): NSDictionary;
+  set participantNameByIdentifier(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+}
+
+declare class UIHoverAutomaticEffect extends NSObject implements UIHoverEffect {
+  static effect<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class UIToolbar extends UIView implements UIBarPositioning {
+  barStyle: interop.Enum<typeof UIBarStyle>;
+
+  get items(): NSArray;
+  set items(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  isTranslucent: boolean;
+
+  setItemsAnimated(items: NSArray<interop.Object> | Array<interop.Object> | null, animated: boolean): void;
+
+  tintColor: UIColor;
+
+  barTintColor: UIColor;
+
+  setBackgroundImageForToolbarPositionBarMetrics(backgroundImage: UIImage | null, topOrBottom: interop.Enum<typeof UIBarPosition>, barMetrics: interop.Enum<typeof UIBarMetrics>): void;
+
+  backgroundImageForToolbarPositionBarMetrics(topOrBottom: interop.Enum<typeof UIBarPosition>, barMetrics: interop.Enum<typeof UIBarMetrics>): UIImage;
+
+  setShadowImageForToolbarPosition(shadowImage: UIImage | null, topOrBottom: interop.Enum<typeof UIBarPosition>): void;
+
+  shadowImageForToolbarPosition(topOrBottom: interop.Enum<typeof UIBarPosition>): UIImage;
+
+  standardAppearance: UIToolbarAppearance;
+
+  compactAppearance: UIToolbarAppearance;
+
+  scrollEdgeAppearance: UIToolbarAppearance;
+
+  compactScrollEdgeAppearance: UIToolbarAppearance;
+
+  delegate: UIToolbarDelegate;
+
+  readonly barPosition: interop.Enum<typeof UIBarPosition>;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class UIConversationEntry extends NSObject {
+  text: string;
+
+  senderIdentifier: string;
+
+  sentDate: NSDate;
+
+  entryIdentifier: string;
+
+  replyThreadIdentifier: string;
+
+  primaryRecipientIdentifiers: NSSet;
+}
+
 declare class UIAccessibilityCustomAction extends NSObject {
   initWithNameTargetSelector(name: string, target: interop.Object | null, selector: string): this;
 
@@ -19320,16 +19823,6 @@ declare class UIFocusUpdateContext extends NSObject {
   readonly nextFocusedView: UIView;
 
   readonly focusHeading: interop.Enum<typeof UIFocusHeading>;
-}
-
-declare class UIApplicationShortcutIcon extends NSObject implements NSCopying {
-  static iconWithType<This extends abstract new (...args: any) => any>(this: This, type: interop.Enum<typeof UIApplicationShortcutIconType>): InstanceType<This>;
-
-  static iconWithTemplateImageName<This extends abstract new (...args: any) => any>(this: This, templateImageName: string): InstanceType<This>;
-
-  static iconWithSystemImageName<This extends abstract new (...args: any) => any>(this: This, systemImageName: string): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class UITouch extends NSObject {
@@ -20070,16 +20563,6 @@ declare class UIListSeparatorConfiguration extends NSObject implements NSCopying
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class UIColorPickerViewController extends UIViewController {
-  delegate: UIColorPickerViewControllerDelegate;
-
-  selectedColor: UIColor;
-
-  supportsAlpha: boolean;
-
-  init(): this;
-}
-
 declare class UINavigationBarAppearance extends UIBarAppearance {
   get titleTextAttributes(): NSDictionary;
   set titleTextAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
@@ -20618,288 +21101,6 @@ declare class UILocalNotification extends NSObject implements NSCopying, NSCodin
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   encodeWithCoder(coder: NSCoder): void;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class UITextField extends UIControl implements UITextInput, NSCoding, UIContentSizeCategoryAdjusting, UILetterformAwareAdjusting {
-  text: string;
-
-  attributedText: NSAttributedString;
-
-  textColor: UIColor;
-
-  font: UIFont;
-
-  textAlignment: interop.Enum<typeof NSTextAlignment>;
-
-  borderStyle: interop.Enum<typeof UITextBorderStyle>;
-
-  get defaultTextAttributes(): NSDictionary;
-  set defaultTextAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  placeholder: string;
-
-  attributedPlaceholder: NSAttributedString;
-
-  clearsOnBeginEditing: boolean;
-
-  adjustsFontSizeToFitWidth: boolean;
-
-  minimumFontSize: number;
-
-  delegate: UITextFieldDelegate;
-
-  background: UIImage;
-
-  disabledBackground: UIImage;
-
-  readonly isEditing: boolean;
-
-  allowsEditingTextAttributes: boolean;
-
-  get typingAttributes(): NSDictionary;
-  set typingAttributes(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  clearButtonMode: interop.Enum<typeof UITextFieldViewMode>;
-
-  leftView: UIView;
-
-  leftViewMode: interop.Enum<typeof UITextFieldViewMode>;
-
-  rightView: UIView;
-
-  rightViewMode: interop.Enum<typeof UITextFieldViewMode>;
-
-  borderRectForBounds(bounds: CGRect): CGRect;
-
-  textRectForBounds(bounds: CGRect): CGRect;
-
-  placeholderRectForBounds(bounds: CGRect): CGRect;
-
-  editingRectForBounds(bounds: CGRect): CGRect;
-
-  clearButtonRectForBounds(bounds: CGRect): CGRect;
-
-  leftViewRectForBounds(bounds: CGRect): CGRect;
-
-  rightViewRectForBounds(bounds: CGRect): CGRect;
-
-  drawTextInRect(rect: CGRect): void;
-
-  drawPlaceholderInRect(rect: CGRect): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  inputView: UIView;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  inputAccessoryView: UIView;
-
-  clearsOnInsertion: boolean;
-
-  interactionState: interop.Object;
-
-  textInRange(range: UITextRange): string;
-
-  replaceRangeWithText(range: UITextRange, text: string): void;
-
-  selectedTextRange: UITextRange;
-
-  readonly markedTextRange: UITextRange;
-
-  get markedTextStyle(): NSDictionary;
-  set markedTextStyle(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  setMarkedTextSelectedRange(markedText: string | null, selectedRange: _NSRange): void;
-
-  unmarkText(): void;
-
-  readonly beginningOfDocument: UITextPosition;
-
-  readonly endOfDocument: UITextPosition;
-
-  textRangeFromPositionToPosition(fromPosition: UITextPosition, toPosition: UITextPosition): UITextRange;
-
-  positionFromPositionOffset(position: UITextPosition, offset: number): UITextPosition;
-
-  positionFromPositionInDirectionOffset(position: UITextPosition, direction: interop.Enum<typeof UITextLayoutDirection>, offset: number): UITextPosition;
-
-  comparePositionToPosition(position: UITextPosition, other: UITextPosition): interop.Enum<typeof NSComparisonResult>;
-
-  offsetFromPositionToPosition(from: UITextPosition, toPosition: UITextPosition): number;
-
-  inputDelegate: UITextInputDelegate;
-
-  readonly tokenizer: UITextInputTokenizer;
-
-  positionWithinRangeFarthestInDirection(range: UITextRange, direction: interop.Enum<typeof UITextLayoutDirection>): UITextPosition;
-
-  characterRangeByExtendingPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextLayoutDirection>): UITextRange;
-
-  baseWritingDirectionForPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextStorageDirection>): interop.Enum<typeof NSWritingDirection>;
-
-  setBaseWritingDirectionForRange(writingDirection: interop.Enum<typeof NSWritingDirection>, range: UITextRange): void;
-
-  firstRectForRange(range: UITextRange): CGRect;
-
-  caretRectForPosition(position: UITextPosition): CGRect;
-
-  selectionRectsForRange(range: UITextRange): NSArray;
-
-  closestPositionToPoint(point: CGPoint): UITextPosition;
-
-  closestPositionToPointWithinRange(point: CGPoint, range: UITextRange): UITextPosition;
-
-  characterRangeAtPoint(point: CGPoint): UITextRange;
-
-  shouldChangeTextInRangeReplacementText(range: UITextRange, text: string): boolean;
-
-  textStylingAtPositionInDirection(position: UITextPosition, direction: interop.Enum<typeof UITextStorageDirection>): NSDictionary;
-
-  positionWithinRangeAtCharacterOffset(range: UITextRange, offset: number): UITextPosition;
-
-  characterOffsetOfPositionWithinRange(position: UITextPosition, range: UITextRange): number;
-
-  readonly textInputView: UIView;
-
-  selectionAffinity: interop.Enum<typeof UITextStorageDirection>;
-
-  insertDictationResult(dictationResult: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  dictationRecordingDidEnd(): void;
-
-  dictationRecognitionFailed(): void;
-
-  readonly insertDictationResultPlaceholder: interop.Object;
-
-  frameForDictationResultPlaceholder(placeholder: interop.Object): CGRect;
-
-  removeDictationResultPlaceholderWillInsertResult(placeholder: interop.Object, willInsertResult: boolean): void;
-
-  insertTextAlternativesStyle(text: string, alternatives: NSArray<interop.Object> | Array<interop.Object>, style: interop.Enum<typeof UITextAlternativeStyle>): void;
-
-  setAttributedMarkedTextSelectedRange(markedText: NSAttributedString | null, selectedRange: _NSRange): void;
-
-  insertTextPlaceholderWithSize(size: CGSize): UITextPlaceholder;
-
-  removeTextPlaceholder(textPlaceholder: UITextPlaceholder): void;
-
-  beginFloatingCursorAtPoint(point: CGPoint): void;
-
-  updateFloatingCursorAtPoint(point: CGPoint): void;
-
-  endFloatingCursor(): void;
-
-  caretTransformForPosition(position: UITextPosition): CGAffineTransform;
-
-  editMenuForTextRangeSuggestedActions(textRange: UITextRange, suggestedActions: NSArray<interop.Object> | Array<interop.Object>): UIMenu;
-
-  willPresentEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
-
-  willDismissEditMenuWithAnimator(animator: UIEditMenuInteractionAnimating): void;
-
-  supportsAdaptiveImageGlyph: boolean;
-
-  insertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph: NSAdaptiveImageGlyph, replacementRange: UITextRange): void;
-
-  readonly isEditable: boolean;
-
-  insertAttributedText(string: NSAttributedString): void;
-
-  attributedTextInRange(range: UITextRange): NSAttributedString;
-
-  replaceRangeWithAttributedText(range: UITextRange, attributedText: NSAttributedString): void;
-
-  willPresentWritingTools(): void;
-
-  didDismissWritingTools(): void;
-
-  readonly hasText: boolean;
-
-  insertText(text: string): void;
-
-  deleteBackward(): void;
-
-  autocapitalizationType: interop.Enum<typeof UITextAutocapitalizationType>;
-
-  autocorrectionType: interop.Enum<typeof UITextAutocorrectionType>;
-
-  spellCheckingType: interop.Enum<typeof UITextSpellCheckingType>;
-
-  smartQuotesType: interop.Enum<typeof UITextSmartQuotesType>;
-
-  smartDashesType: interop.Enum<typeof UITextSmartDashesType>;
-
-  smartInsertDeleteType: interop.Enum<typeof UITextSmartInsertDeleteType>;
-
-  inlinePredictionType: interop.Enum<typeof UITextInlinePredictionType>;
-
-  mathExpressionCompletionType: interop.Enum<typeof UITextMathExpressionCompletionType>;
-
-  keyboardType: interop.Enum<typeof UIKeyboardType>;
-
-  keyboardAppearance: interop.Enum<typeof UIKeyboardAppearance>;
-
-  returnKeyType: interop.Enum<typeof UIReturnKeyType>;
-
-  enablesReturnKeyAutomatically: boolean;
-
-  isSecureTextEntry: boolean;
-
-  textContentType: string;
-
-  passwordRules: UITextInputPasswordRules;
-
-  writingToolsBehavior: interop.Enum<typeof UIWritingToolsBehavior>;
-
-  allowedWritingToolsResultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  adjustsFontForContentSizeCategory: boolean;
-
-  sizingRule: interop.Enum<typeof UILetterformAwareSizingRule>;
 }
 
 declare class UIPickerView extends UIView implements NSCoding {
@@ -21561,6 +21762,20 @@ declare class UIFocusAnimationCoordinator extends NSObject {
   addCoordinatedUnfocusingAnimationsCompletion(animations: (p1: UIFocusAnimationContext) => void | null, completion: () => void | null): void;
 }
 
+declare class UICollectionReusableView extends UIView {
+  readonly reuseIdentifier: string;
+
+  prepareForReuse(): void;
+
+  applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes): void;
+
+  willTransitionFromLayoutToLayout(oldLayout: UICollectionViewLayout, newLayout: UICollectionViewLayout): void;
+
+  didTransitionFromLayoutToLayout(oldLayout: UICollectionViewLayout, newLayout: UICollectionViewLayout): void;
+
+  preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes): UICollectionViewLayoutAttributes;
+}
+
 declare class UITextDropProposal extends UIDropProposal implements NSCopying {
   dropAction: interop.Enum<typeof UITextDropAction>;
 
@@ -21855,12 +22070,98 @@ declare class UISheetPresentationControllerDetent extends NSObject {
   resolvedValueInContext(context: UISheetPresentationControllerDetentResolutionContext): number;
 }
 
+declare class UIWritingToolsCoordinator extends NSObject implements UIInteraction {
+  static readonly isWritingToolsAvailable: boolean;
+
+  initWithDelegate(delegate: UIWritingToolsCoordinatorDelegate | null): this;
+
+  readonly delegate: UIWritingToolsCoordinatorDelegate;
+
+  effectContainerView: UIView;
+
+  decorationContainerView: UIView;
+
+  readonly state: interop.Enum<typeof UIWritingToolsCoordinatorState>;
+
+  stopWritingTools(): void;
+
+  preferredBehavior: interop.Enum<typeof UIWritingToolsBehavior>;
+
+  readonly behavior: interop.Enum<typeof UIWritingToolsBehavior>;
+
+  preferredResultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  readonly resultOptions: interop.Enum<typeof UIWritingToolsResultOptions>;
+
+  updateRangeWithTextReasonForContextWithIdentifier(range: _NSRange, replacementText: NSAttributedString, reason: interop.Enum<typeof UIWritingToolsCoordinatorTextUpdateReason>, contextID: NSUUID): void;
+
+  updateForReflowedTextInContextWithIdentifier(contextID: NSUUID): void;
+
+  readonly view: UIView;
+
+  willMoveToView(view: UIView | null): void;
+
+  didMoveToView(view: UIView | null): void;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class UIReferenceLibraryViewController extends UIViewController {
   static dictionaryHasDefinitionForTerm(term: string): boolean;
 
   initWithTerm(term: string): this;
 
   initWithCoder(coder: NSCoder): this;
+}
+
+declare class UIWritingToolsCoordinatorContext extends NSObject {
+  initWithAttributedStringRange(attributedString: NSAttributedString, range: _NSRange): this;
+
+  readonly attributedString: NSAttributedString;
+
+  readonly range: _NSRange;
+
+  readonly identifier: NSUUID;
+
+  readonly resolvedRange: _NSRange;
 }
 
 declare class UICollectionViewFlowLayout extends UICollectionViewLayout {

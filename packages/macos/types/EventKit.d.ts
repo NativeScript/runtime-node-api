@@ -127,6 +127,14 @@ declare const EKRecurrenceFrequency: {
   Yearly: 3,
 };
 
+declare const EKEventAvailability: {
+  NotSupported: -1,
+  Busy: 0,
+  Free: 1,
+  Tentative: 2,
+  Unavailable: 3,
+};
+
 declare const EKSourceType: {
   Local: 0,
   Exchange: 1,
@@ -183,14 +191,6 @@ declare const EKErrorCode: {
   NotificationSavedWithoutCollection: 35,
   ReminderAlarmContainsEmailOrUrl: 36,
   Last: 37,
-};
-
-declare const EKEventAvailability: {
-  NotSupported: -1,
-  Busy: 0,
-  Free: 1,
-  Tentative: 2,
-  Unavailable: 3,
 };
 
 declare class EKVirtualConferenceProvider extends NSObject implements NSExtensionRequestHandling {

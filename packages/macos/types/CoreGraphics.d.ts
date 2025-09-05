@@ -4,6 +4,8 @@ declare const kCGColorSpaceDisplayP3_HLG: interop.Pointer;
 
 declare const kCGDisplayStreamMinimumFrameTime: interop.Pointer;
 
+declare const kCGColorSpaceExtendedSRGB: interop.Pointer;
+
 declare const kCGColorSpaceITUR_2020_PQ: interop.Pointer;
 
 declare const kCGColorSpaceExtendedDisplayP3: interop.Pointer;
@@ -62,15 +64,15 @@ declare const kCGPDFContextArtBox: interop.Pointer;
 
 declare const kCGPDFContextTrimBox: interop.Pointer;
 
+declare const kCGSkipBoostToHDR: interop.Pointer;
+
+declare const kCGUse100nitsHLGOOTF: interop.Pointer;
+
 declare const kCGEXRToneMappingGammaKneeHigh: interop.Pointer;
 
 declare const kCGEXRToneMappingGammaKneeLow: interop.Pointer;
 
 declare const kCGEXRToneMappingGammaExposure: interop.Pointer;
-
-declare const kCGSkipBoostToHDR: interop.Pointer;
-
-declare const kCGUse100nitsHLGOOTF: interop.Pointer;
 
 declare const kCGPDFOutlineDestination: interop.Pointer;
 
@@ -97,8 +99,6 @@ declare const kCGColorSpaceExtendedLinearGray: interop.Pointer;
 declare const kCGColorSpaceExtendedGray: interop.Pointer;
 
 declare const kCGColorSpaceExtendedLinearSRGB: interop.Pointer;
-
-declare const kCGColorSpaceExtendedSRGB: interop.Pointer;
 
 declare const kCGColorSpaceITUR_2020_PQ_EOTF: interop.Pointer;
 
@@ -265,6 +265,12 @@ declare const CGEventSuppressionState: {
 declare const CGEventTapOptions: {
   Default: 0,
   ListenOnly: 1,
+};
+
+declare const CGColorConversionInfoTransformType: {
+  From: 0,
+  To: 1,
+  Apply: 2,
 };
 
 declare const CGColorRenderingIntent: {
@@ -751,12 +757,6 @@ declare const CGBitmapInfo: {
   ByteOrder32Big: 16384,
 };
 
-declare const CGColorConversionInfoTransformType: {
-  From: 0,
-  To: 1,
-  Apply: 2,
-};
-
 declare const CGPDFAccessPermissions: {
   LowQualityPrinting: 1,
   HighQualityPrinting: 2,
@@ -885,10 +885,6 @@ declare class CGDeviceColor {
   red: number;
   green: number;
   blue: number;
-}
-
-declare class CGPDFContentStream {
-  constructor(init?: CGPDFContentStream);
 }
 
 declare class CGDataConsumer {
@@ -1022,6 +1018,10 @@ declare class CGPathElement {
 
 declare class CGFunction {
   constructor(init?: CGFunction);
+}
+
+declare class CGPDFContentStream {
+  constructor(init?: CGPDFContentStream);
 }
 
 declare class CGPSConverterCallbacks {

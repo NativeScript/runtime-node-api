@@ -313,39 +313,47 @@ declare const NSPersistentCloudKitContainerEventResultType: {
   Count: 1,
 };
 
-declare const NSBatchDeleteRequestResultType: {
+declare const NSPersistentHistoryResultType: {
   StatusOnly: 0,
   ObjectIDs: 1,
   Count: 2,
+  TransactionsOnly: 3,
+  ChangesOnly: 4,
+  TransactionsAndChanges: 5,
 };
 
-declare const NSSnapshotEventType: {
-  UndoInsertion: 2,
-  UndoDeletion: 4,
-  UndoUpdate: 8,
-  Rollback: 16,
-  Refresh: 32,
-  MergePolicy: 64,
+declare const NSBatchUpdateRequestResultType: {
+  StatusOnly: 0,
+  UpdatedObjectIDs: 1,
+  UpdatedObjectsCount: 2,
 };
 
-declare const NSPersistentStoreRequestType: {
-  Fetch: 1,
-  Save: 2,
-  BatchInsert: 5,
-  BatchUpdate: 6,
-  BatchDelete: 7,
+declare const NSEntityMappingType: {
+  Undefined: 0,
+  Custom: 1,
+  Add: 2,
+  Remove: 3,
+  Copy: 4,
+  Transform: 5,
+};
+
+declare const NSPersistentStoreUbiquitousTransitionType: {
+  AccountAdded: 1,
+  AccountRemoved: 2,
+  ContentRemoved: 3,
+  InitialImportCompleted: 4,
+};
+
+declare const NSFetchRequestResultType: {
+  ManagedObject: 0,
+  ManagedObjectID: 1,
+  Dictionary: 2,
+  Count: 4,
 };
 
 declare const NSFetchIndexElementType: {
   Binary: 0,
   RTree: 1,
-};
-
-declare const NSDeleteRule: {
-  NoAction: 0,
-  Nullify: 1,
-  Cascade: 2,
-  Deny: 3,
 };
 
 declare const NSAttributeType: {
@@ -367,41 +375,32 @@ declare const NSAttributeType: {
   Composite: 2100,
 };
 
-declare const NSPersistentHistoryResultType: {
+declare const NSSnapshotEventType: {
+  UndoInsertion: 2,
+  UndoDeletion: 4,
+  UndoUpdate: 8,
+  Rollback: 16,
+  Refresh: 32,
+  MergePolicy: 64,
+};
+
+declare const NSDeleteRule: {
+  NoAction: 0,
+  Nullify: 1,
+  Cascade: 2,
+  Deny: 3,
+};
+
+declare const NSBatchDeleteRequestResultType: {
   StatusOnly: 0,
   ObjectIDs: 1,
   Count: 2,
-  TransactionsOnly: 3,
-  ChangesOnly: 4,
-  TransactionsAndChanges: 5,
-};
-
-declare const NSPersistentStoreUbiquitousTransitionType: {
-  AccountAdded: 1,
-  AccountRemoved: 2,
-  ContentRemoved: 3,
-  InitialImportCompleted: 4,
 };
 
 declare const NSPersistentCloudKitContainerSchemaInitializationOptions: {
   None: 0,
   DryRun: 2,
   PrintSchema: 4,
-};
-
-declare const NSBatchUpdateRequestResultType: {
-  StatusOnly: 0,
-  UpdatedObjectIDs: 1,
-  UpdatedObjectsCount: 2,
-};
-
-declare const NSEntityMappingType: {
-  Undefined: 0,
-  Custom: 1,
-  Add: 2,
-  Remove: 3,
-  Copy: 4,
-  Transform: 5,
 };
 
 declare const NSBatchInsertRequestResultType: {
@@ -416,11 +415,12 @@ declare const NSManagedObjectContextConcurrencyType: {
   MainQueue: 2,
 };
 
-declare const NSFetchRequestResultType: {
-  ManagedObject: 0,
-  ManagedObjectID: 1,
-  Dictionary: 2,
-  Count: 4,
+declare const NSPersistentStoreRequestType: {
+  Fetch: 1,
+  Save: 2,
+  BatchInsert: 5,
+  BatchUpdate: 6,
+  BatchDelete: 7,
 };
 
 declare const NSPersistentHistoryChangeType: {
@@ -472,40 +472,6 @@ declare interface NSFetchRequestResult extends NSObjectProtocol {
 }
 
 declare class NSFetchRequestResult extends NativeObject implements NSFetchRequestResult {
-}
-
-declare class NSPersistentStoreDescription extends NSObject implements NSCopying {
-  static persistentStoreDescriptionWithURL<This extends abstract new (...args: any) => any>(this: This, URL: NSURL): InstanceType<This>;
-
-  type: string;
-
-  configuration: string;
-
-  URL: NSURL;
-
-  readonly options: NSDictionary;
-
-  setOptionForKey(option: NSObject | null, key: string): void;
-
-  isReadOnly: boolean;
-
-  timeout: number;
-
-  readonly sqlitePragmas: NSDictionary;
-
-  setValueForPragmaNamed(value: NSObject | null, name: string): void;
-
-  shouldAddStoreAsynchronously: boolean;
-
-  shouldMigrateStoreAutomatically: boolean;
-
-  shouldInferMappingModelAutomatically: boolean;
-
-  initWithURL(url: NSURL): this;
-
-  cloudKitContainerOptions: NSPersistentCloudKitContainerOptions;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class NSPersistentCloudKitContainerOptions extends NSObject {
@@ -906,16 +872,6 @@ declare class NSCompositeAttributeDescription extends NSAttributeDescription {
   set elements(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-declare class NSPersistentHistoryToken extends NSObject implements NSCopying, NSSecureCoding {
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class NSAttributeDescription extends NSPropertyDescription {
   attributeType: interop.Enum<typeof NSAttributeType>;
 
@@ -932,34 +888,6 @@ declare class NSAttributeDescription extends NSPropertyDescription {
   preservesValueInHistoryOnDeletion: boolean;
 
   allowsCloudEncryption: boolean;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class NSAtomicStore extends NSPersistentStore {
-  // @ts-ignore MemberDecl.tsIgnore
-  initWithPersistentStoreCoordinatorConfigurationNameURLOptions(coordinator: NSPersistentStoreCoordinator | null, configurationName: string | null, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
-
-  load(error: interop.PointerConvertible): boolean;
-
-  save(error: interop.PointerConvertible): boolean;
-
-  newCacheNodeForManagedObject(managedObject: NSManagedObject): NSAtomicStoreCacheNode;
-
-  updateCacheNodeFromManagedObject(node: NSAtomicStoreCacheNode, managedObject: NSManagedObject): void;
-
-  cacheNodes(): NSSet;
-
-  addCacheNodes(cacheNodes: NSSet): void;
-
-  willRemoveCacheNodes(cacheNodes: NSSet): void;
-
-  cacheNodeForObjectID(objectID: NSManagedObjectID): NSAtomicStoreCacheNode;
-
-  objectIDForEntityReferenceObject(entity: NSEntityDescription, data: interop.Object): NSManagedObjectID;
-
-  newReferenceObjectForManagedObject(managedObject: NSManagedObject): interop.Object;
-
-  referenceObjectForObjectID(objectID: NSManagedObjectID): interop.Object;
 }
 
 declare class NSIncrementalStore extends NSPersistentStore {
@@ -1002,6 +930,68 @@ declare class NSPersistentHistoryChange extends NSObject implements NSCopying {
   readonly transaction: NSPersistentHistoryTransaction;
 
   readonly updatedProperties: NSSet;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class NSIncrementalStoreNode extends NSObject {
+  initWithObjectIDWithValuesVersion(objectID: NSManagedObjectID, values: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, version: number): this;
+
+  updateWithValuesVersion(values: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, version: number): void;
+
+  readonly objectID: NSManagedObjectID;
+
+  readonly version: number;
+
+  valueForPropertyDescription(prop: NSPropertyDescription): interop.Object;
+}
+
+declare class NSBatchUpdateResult extends NSPersistentStoreResult {
+  readonly result: interop.Object;
+
+  readonly resultType: interop.Enum<typeof NSBatchUpdateRequestResultType>;
+}
+
+declare class NSFetchRequestExpression extends NSExpression {
+  static expressionForFetchContextCountOnly(fetch: NSExpression, context: NSExpression, countFlag: boolean): NSExpression;
+
+  readonly requestExpression: NSExpression;
+
+  readonly contextExpression: NSExpression;
+
+  readonly isCountOnlyRequest: boolean;
+}
+
+declare class NSPersistentStoreDescription extends NSObject implements NSCopying {
+  static persistentStoreDescriptionWithURL<This extends abstract new (...args: any) => any>(this: This, URL: NSURL): InstanceType<This>;
+
+  type: string;
+
+  configuration: string;
+
+  URL: NSURL;
+
+  readonly options: NSDictionary;
+
+  setOptionForKey(option: NSObject | null, key: string): void;
+
+  isReadOnly: boolean;
+
+  timeout: number;
+
+  readonly sqlitePragmas: NSDictionary;
+
+  setValueForPragmaNamed(value: NSObject | null, name: string): void;
+
+  shouldAddStoreAsynchronously: boolean;
+
+  shouldMigrateStoreAutomatically: boolean;
+
+  shouldInferMappingModelAutomatically: boolean;
+
+  initWithURL(url: NSURL): this;
+
+  cloudKitContainerOptions: NSPersistentCloudKitContainerOptions;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -1071,34 +1061,6 @@ declare class NSEntityDescription extends NSObject implements NSCoding, NSCopyin
 
 }
 
-declare class NSIncrementalStoreNode extends NSObject {
-  initWithObjectIDWithValuesVersion(objectID: NSManagedObjectID, values: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, version: number): this;
-
-  updateWithValuesVersion(values: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, version: number): void;
-
-  readonly objectID: NSManagedObjectID;
-
-  readonly version: number;
-
-  valueForPropertyDescription(prop: NSPropertyDescription): interop.Object;
-}
-
-declare class NSBatchUpdateResult extends NSPersistentStoreResult {
-  readonly result: interop.Object;
-
-  readonly resultType: interop.Enum<typeof NSBatchUpdateRequestResultType>;
-}
-
-declare class NSFetchRequestExpression extends NSExpression {
-  static expressionForFetchContextCountOnly(fetch: NSExpression, context: NSExpression, countFlag: boolean): NSExpression;
-
-  readonly requestExpression: NSExpression;
-
-  readonly contextExpression: NSExpression;
-
-  readonly isCountOnlyRequest: boolean;
-}
-
 declare class NSBatchInsertResult extends NSPersistentStoreResult {
   readonly result: interop.Object;
 
@@ -1162,30 +1124,6 @@ declare class NSFetchRequest<ResultType = interop.Object> extends NSPersistentSt
   initWithCoder(coder: NSCoder): this;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class NSCoreDataCoreSpotlightDelegate extends NSObject {
-  readonly isIndexingEnabled: boolean;
-
-  domainIdentifier(): string;
-
-  indexName(): string;
-
-  initForStoreWithDescriptionCoordinator(description: NSPersistentStoreDescription, psc: NSPersistentStoreCoordinator): this;
-
-  initForStoreWithDescriptionModel(description: NSPersistentStoreDescription, model: NSManagedObjectModel): this;
-
-  startSpotlightIndexing(): void;
-
-  stopSpotlightIndexing(): void;
-
-  deleteSpotlightIndexWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
-
-  attributeSetForObject(object: NSManagedObject): CSSearchableItemAttributeSet;
-
-  searchableIndexReindexAllSearchableItemsWithAcknowledgementHandler(searchableIndex: CSSearchableIndex, acknowledgementHandler: () => void): void;
-
-  searchableIndexReindexSearchableItemsWithIdentifiersAcknowledgementHandler(searchableIndex: CSSearchableIndex, identifiers: NSArray<interop.Object> | Array<interop.Object>, acknowledgementHandler: () => void): void;
 }
 
 declare class NSManagedObjectContext extends NSObject implements NSCoding, NSLocking {
@@ -1421,6 +1359,34 @@ declare class NSFetchIndexElementDescription extends NSObject implements NSCodin
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class NSAtomicStore extends NSPersistentStore {
+  // @ts-ignore MemberDecl.tsIgnore
+  initWithPersistentStoreCoordinatorConfigurationNameURLOptions(coordinator: NSPersistentStoreCoordinator | null, configurationName: string | null, url: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
+
+  load(error: interop.PointerConvertible): boolean;
+
+  save(error: interop.PointerConvertible): boolean;
+
+  newCacheNodeForManagedObject(managedObject: NSManagedObject): NSAtomicStoreCacheNode;
+
+  updateCacheNodeFromManagedObject(node: NSAtomicStoreCacheNode, managedObject: NSManagedObject): void;
+
+  cacheNodes(): NSSet;
+
+  addCacheNodes(cacheNodes: NSSet): void;
+
+  willRemoveCacheNodes(cacheNodes: NSSet): void;
+
+  cacheNodeForObjectID(objectID: NSManagedObjectID): NSAtomicStoreCacheNode;
+
+  objectIDForEntityReferenceObject(entity: NSEntityDescription, data: interop.Object): NSManagedObjectID;
+
+  newReferenceObjectForManagedObject(managedObject: NSManagedObject): interop.Object;
+
+  referenceObjectForObjectID(objectID: NSManagedObjectID): interop.Object;
+}
+
 declare class NSPersistentCloudKitContainerEvent extends NSObject implements NSCopying {
   readonly identifier: NSUUID;
 
@@ -1583,6 +1549,30 @@ declare class NSManagedObjectModel extends NSObject implements NSCoding, NSCopyi
 
 }
 
+declare class NSCoreDataCoreSpotlightDelegate extends NSObject {
+  readonly isIndexingEnabled: boolean;
+
+  domainIdentifier(): string;
+
+  indexName(): string;
+
+  initForStoreWithDescriptionCoordinator(description: NSPersistentStoreDescription, psc: NSPersistentStoreCoordinator): this;
+
+  initForStoreWithDescriptionModel(description: NSPersistentStoreDescription, model: NSManagedObjectModel): this;
+
+  startSpotlightIndexing(): void;
+
+  stopSpotlightIndexing(): void;
+
+  deleteSpotlightIndexWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  attributeSetForObject(object: NSManagedObject): CSSearchableItemAttributeSet;
+
+  searchableIndexReindexAllSearchableItemsWithAcknowledgementHandler(searchableIndex: CSSearchableIndex, acknowledgementHandler: () => void): void;
+
+  searchableIndexReindexSearchableItemsWithIdentifiersAcknowledgementHandler(searchableIndex: CSSearchableIndex, identifiers: NSArray<interop.Object> | Array<interop.Object>, acknowledgementHandler: () => void): void;
+}
+
 declare class NSMigrationManager extends NSObject {
   initWithSourceModelDestinationModel(sourceModel: NSManagedObjectModel, destinationModel: NSManagedObjectModel): this;
 
@@ -1625,6 +1615,16 @@ declare class NSMigrationManager extends NSObject {
 declare class NSQueryGenerationToken extends NSObject implements NSCopying, NSSecureCoding {
   static readonly currentQueryGenerationToken: NSQueryGenerationToken;
 
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class NSPersistentHistoryToken extends NSObject implements NSCopying, NSSecureCoding {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
@@ -1777,20 +1777,6 @@ declare class NSBatchInsertRequest extends NSPersistentStoreRequest {
   initWithEntityNameManagedObjectHandler(entityName: string, handler: (p1: NSManagedObject) => boolean): this;
 }
 
-declare class NSManagedObjectModelReference extends NSObject {
-  readonly resolvedModel: NSManagedObjectModel;
-
-  readonly versionChecksum: string;
-
-  initWithModelVersionChecksum(model: NSManagedObjectModel, versionChecksum: string): this;
-
-  initWithFileURLVersionChecksum(fileURL: NSURL, versionChecksum: string): this;
-
-  initWithEntityVersionHashesInBundleVersionChecksum(versionHash: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, bundle: NSBundle | null, versionChecksum: string): this;
-
-  initWithNameInBundleVersionChecksum(modelName: string, bundle: NSBundle | null, versionChecksum: string): this;
-}
-
 declare class NSPersistentHistoryChangeRequest extends NSPersistentStoreRequest {
   static fetchHistoryAfterDate<This extends abstract new (...args: any) => any>(this: This, date: NSDate): InstanceType<This>;
 
@@ -1811,5 +1797,19 @@ declare class NSPersistentHistoryChangeRequest extends NSPersistentStoreRequest 
   readonly token: NSPersistentHistoryToken;
 
   fetchRequest: NSFetchRequest;
+}
+
+declare class NSManagedObjectModelReference extends NSObject {
+  readonly resolvedModel: NSManagedObjectModel;
+
+  readonly versionChecksum: string;
+
+  initWithModelVersionChecksum(model: NSManagedObjectModel, versionChecksum: string): this;
+
+  initWithFileURLVersionChecksum(fileURL: NSURL, versionChecksum: string): this;
+
+  initWithEntityVersionHashesInBundleVersionChecksum(versionHash: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>, bundle: NSBundle | null, versionChecksum: string): this;
+
+  initWithNameInBundleVersionChecksum(modelName: string, bundle: NSBundle | null, versionChecksum: string): this;
 }
 

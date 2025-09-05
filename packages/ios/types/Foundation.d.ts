@@ -1,10 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
 /// <reference path="./Runtime.d.ts" />
 
-declare const NSURLAuthenticationMethodDefault: string;
-
-declare const NSURLVolumeIsRootFileSystemKey: string;
-
 declare const NSStringEncodingDetectionLikelyLanguageKey: string;
 
 declare const NSProgressFileCompletedCountKey: string;
@@ -206,6 +202,10 @@ declare const NSURLErrorNotConnectedToInternet: number;
 declare const NSFileImmutable: string;
 
 declare const NSURLProtectionSpaceHTTPSProxy: string;
+
+declare const NSLinguisticTagPlaceName: string;
+
+declare const NSURLErrorCannotDecodeContentData: number;
 
 declare const NSURLErrorAppTransportSecurityRequiresSecureConnection: number;
 
@@ -677,10 +677,6 @@ declare const NSURLErrorCannotMoveFile: number;
 
 declare const NSFileHandleNotificationMonitorModes: string;
 
-declare const NSPropertyListReadUnknownVersionError: number;
-
-declare const NSStringTransformToUnicodeName: string;
-
 declare const NSStringTransformLatinToKatakana: string;
 
 declare const NSFileBusy: string;
@@ -688,6 +684,12 @@ declare const NSFileBusy: string;
 declare const NSURLUbiquitousItemIsSharedKey: string;
 
 declare const NSFileWriteInvalidFileNameError: number;
+
+declare const NSMetadataUbiquitousSharedItemRoleOwner: string;
+
+declare const NSPropertyListReadUnknownVersionError: number;
+
+declare const NSStringTransformToUnicodeName: string;
 
 declare const NSAssertionHandlerKey: string;
 
@@ -755,8 +757,6 @@ declare const NSMetadataUbiquitousSharedItemPermissionsReadOnly: string;
 
 declare const NSLinguisticTagNoun: string;
 
-declare const NSMetadataUbiquitousSharedItemRoleOwner: string;
-
 declare const NSPortDidBecomeInvalidNotification: string;
 
 declare const NSMetadataUbiquitousSharedItemCurrentUserRoleKey: string;
@@ -798,8 +798,6 @@ declare const NSMetadataItemPathKey: string;
 declare const NSMetadataItemURLKey: string;
 
 declare const NSLinguisticTagOrganizationName: string;
-
-declare const NSLinguisticTagPlaceName: string;
 
 declare const NSInflectionAgreementArgumentAttributeName: string;
 
@@ -953,8 +951,6 @@ declare const NSURLErrorServerCertificateNotYetValid: number;
 
 declare const NSURLErrorServerCertificateHasBadDate: number;
 
-declare const NSURLErrorCannotDecodeContentData: number;
-
 declare const NSURLErrorResourceUnavailable: number;
 
 declare const NSBundleExecutableArchitecturePPC: number;
@@ -1058,6 +1054,8 @@ declare const NSKeyedArchiveRootObjectKey: string;
 declare const NSKeyValueChangeNotificationIsPriorKey: string;
 
 declare const NSKeyValueChangeIndexesKey: string;
+
+declare const NSURLVolumeCreationDateKey: string;
 
 declare const NSStringEncodingErrorKey: string;
 
@@ -1177,13 +1175,13 @@ declare const NSURLVolumeAvailableCapacityForOpportunisticUsageKey: string;
 
 declare const NSURLIsReadableKey: string;
 
+declare const NSURLVolumeIsRootFileSystemKey: string;
+
 declare const NSFileSystemSize: string;
 
 declare const NSURLVolumeSupportsCompressionKey: string;
 
 declare const NSHTTPCookiePort: string;
-
-declare const NSURLVolumeCreationDateKey: string;
 
 declare const NSCalendarIdentifierIndian: string;
 
@@ -1228,6 +1226,8 @@ declare const NSFileProtectionCompleteWhenUserInactive: string;
 declare const NSURLFileResourceTypeDirectory: string;
 
 declare const NSLocaleVariantCode: string;
+
+declare const NSURLAuthenticationMethodDefault: string;
 
 declare const NSURLAuthenticationMethodHTTPBasic: string;
 
@@ -1413,6 +1413,8 @@ declare const NSURLVolumeSupportsImmutableFilesKey: string;
 
 declare const NSBundleDidLoadNotification: string;
 
+declare const NSHTTPCookieSetByJavaScript: string;
+
 declare const NSBundleExecutableArchitectureARM64: number;
 
 declare const NSProgressFileOperationKindUploading: string;
@@ -1587,13 +1589,6 @@ declare const NSURLLinkCountKey: string;
 
 declare const NSMetadataQueryUbiquitousDataScope: string;
 
-declare const NSByteCountFormatterCountStyle: {
-  File: 0,
-  Memory: 1,
-  Decimal: 2,
-  Binary: 3,
-};
-
 declare const NSStringCompareOptions: {
   CaseInsensitive: 1,
   Literal: 2,
@@ -1604,10 +1599,6 @@ declare const NSStringCompareOptions: {
   WidthInsensitive: 256,
   ForcedOrdering: 512,
   RegularExpression: 1024,
-};
-
-declare const NSXPCConnectionOptions: {
-  NSXPCConnectionPrivileged: 4096,
 };
 
 declare const NSNetServiceOptions: {
@@ -1655,13 +1646,6 @@ declare const NSMatchingFlags: {
   HitEnd: 4,
   RequiredEnd: 8,
   InternalError: 16,
-};
-
-declare const NSKeyValueObservingOptions: {
-  New: 1,
-  Old: 2,
-  Initial: 4,
-  Prior: 8,
 };
 
 declare const NSItemProviderFileOptions: {
@@ -2323,6 +2307,13 @@ declare const NSURLCredentialPersistence: {
   Synchronizable: 3,
 };
 
+declare const NSByteCountFormatterCountStyle: {
+  File: 0,
+  Memory: 1,
+  Decimal: 2,
+  Binary: 3,
+};
+
 declare const NSFormattingContext: {
   Unknown: 0,
   Dynamic: 1,
@@ -2502,6 +2493,10 @@ declare const NSCollectionChangeType: {
   Remove: 1,
 };
 
+declare const NSXPCConnectionOptions: {
+  NSXPCConnectionPrivileged: 4096,
+};
+
 declare const NSLengthFormatterUnit: {
   Millimeter: 8,
   Centimeter: 9,
@@ -2659,6 +2654,13 @@ declare const NSStreamEvent: {
   HasSpaceAvailable: 4,
   ErrorOccurred: 8,
   EndEncountered: 16,
+};
+
+declare const NSKeyValueObservingOptions: {
+  New: 1,
+  Old: 2,
+  Initial: 4,
+  Prior: 8,
 };
 
 declare const NSLinguisticTaggerUnit: {
@@ -3528,10 +3530,6 @@ declare interface NSExtensionRequestHandling extends NSObjectProtocol {
 }
 
 declare class NSExtensionRequestHandling extends NativeObject implements NSExtensionRequestHandling {
-}
-
-declare class NSSecureUnarchiveFromDataTransformer extends NSValueTransformer {
-  static readonly allowedTopLevelClasses: NSArray;
 }
 
 declare class NSSortDescriptor extends NSObject implements NSSecureCoding, NSCopying {
@@ -4449,6 +4447,10 @@ declare class NSLinguisticTagger extends NSObject {
   possibleTagsAtIndexSchemeTokenRangeSentenceRangeScores(charIndex: number, tagScheme: string, tokenRange: interop.PointerConvertible, sentenceRange: interop.PointerConvertible, scores: interop.PointerConvertible): NSArray;
 }
 
+declare class NSSecureUnarchiveFromDataTransformer extends NSValueTransformer {
+  static readonly allowedTopLevelClasses: NSArray;
+}
+
 declare class NSSet<ObjectType = interop.Object> extends NSObject implements NSCopying, NSMutableCopying, NSSecureCoding, NSFastEnumeration {
   readonly count: number;
 
@@ -5124,144 +5126,6 @@ declare class NSUnitMass extends NSDimension implements NSSecureCoding {
   static readonly ouncesTroy: NSUnitMass;
 
   static readonly slugs: NSUnitMass;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class NSCalendar extends NSObject implements NSCopying, NSSecureCoding {
-  static readonly currentCalendar: NSCalendar;
-
-  static readonly autoupdatingCurrentCalendar: NSCalendar;
-
-  static calendarWithIdentifier(calendarIdentifierConstant: string): NSCalendar;
-
-  initWithCalendarIdentifier(ident: string): this;
-
-  readonly calendarIdentifier: string;
-
-  locale: NSLocale;
-
-  timeZone: NSTimeZone;
-
-  firstWeekday: number;
-
-  minimumDaysInFirstWeek: number;
-
-  readonly eraSymbols: NSArray;
-
-  readonly longEraSymbols: NSArray;
-
-  readonly monthSymbols: NSArray;
-
-  readonly shortMonthSymbols: NSArray;
-
-  readonly veryShortMonthSymbols: NSArray;
-
-  readonly standaloneMonthSymbols: NSArray;
-
-  readonly shortStandaloneMonthSymbols: NSArray;
-
-  readonly veryShortStandaloneMonthSymbols: NSArray;
-
-  readonly weekdaySymbols: NSArray;
-
-  readonly shortWeekdaySymbols: NSArray;
-
-  readonly veryShortWeekdaySymbols: NSArray;
-
-  readonly standaloneWeekdaySymbols: NSArray;
-
-  readonly shortStandaloneWeekdaySymbols: NSArray;
-
-  readonly veryShortStandaloneWeekdaySymbols: NSArray;
-
-  readonly quarterSymbols: NSArray;
-
-  readonly shortQuarterSymbols: NSArray;
-
-  readonly standaloneQuarterSymbols: NSArray;
-
-  readonly shortStandaloneQuarterSymbols: NSArray;
-
-  readonly AMSymbol: string;
-
-  readonly PMSymbol: string;
-
-  minimumRangeOfUnit(unit: interop.Enum<typeof NSCalendarUnit>): _NSRange;
-
-  maximumRangeOfUnit(unit: interop.Enum<typeof NSCalendarUnit>): _NSRange;
-
-  rangeOfUnitInUnitForDate(smaller: interop.Enum<typeof NSCalendarUnit>, larger: interop.Enum<typeof NSCalendarUnit>, date: NSDate): _NSRange;
-
-  ordinalityOfUnitInUnitForDate(smaller: interop.Enum<typeof NSCalendarUnit>, larger: interop.Enum<typeof NSCalendarUnit>, date: NSDate): number;
-
-  rangeOfUnitStartDateIntervalForDate(unit: interop.Enum<typeof NSCalendarUnit>, datep: interop.PointerConvertible, tip: interop.PointerConvertible, date: NSDate): boolean;
-
-  dateFromComponents(comps: NSDateComponents): NSDate;
-
-  componentsFromDate(unitFlags: interop.Enum<typeof NSCalendarUnit>, date: NSDate): NSDateComponents;
-
-  dateByAddingComponentsToDateOptions(comps: NSDateComponents, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  componentsFromDateToDateOptions(unitFlags: interop.Enum<typeof NSCalendarUnit>, startingDate: NSDate, resultDate: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDateComponents;
-
-  getEraYearMonthDayFromDate(eraValuePointer: interop.PointerConvertible, yearValuePointer: interop.PointerConvertible, monthValuePointer: interop.PointerConvertible, dayValuePointer: interop.PointerConvertible, date: NSDate): void;
-
-  getEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer: interop.PointerConvertible, yearValuePointer: interop.PointerConvertible, weekValuePointer: interop.PointerConvertible, weekdayValuePointer: interop.PointerConvertible, date: NSDate): void;
-
-  getHourMinuteSecondNanosecondFromDate(hourValuePointer: interop.PointerConvertible, minuteValuePointer: interop.PointerConvertible, secondValuePointer: interop.PointerConvertible, nanosecondValuePointer: interop.PointerConvertible, date: NSDate): void;
-
-  componentFromDate(unit: interop.Enum<typeof NSCalendarUnit>, date: NSDate): number;
-
-  dateWithEraYearMonthDayHourMinuteSecondNanosecond(eraValue: number, yearValue: number, monthValue: number, dayValue: number, hourValue: number, minuteValue: number, secondValue: number, nanosecondValue: number): NSDate;
-
-  dateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecondNanosecond(eraValue: number, yearValue: number, weekValue: number, weekdayValue: number, hourValue: number, minuteValue: number, secondValue: number, nanosecondValue: number): NSDate;
-
-  startOfDayForDate(date: NSDate): NSDate;
-
-  componentsInTimeZoneFromDate(timezone: NSTimeZone, date: NSDate): NSDateComponents;
-
-  compareDateToDateToUnitGranularity(date1: NSDate, date2: NSDate, unit: interop.Enum<typeof NSCalendarUnit>): interop.Enum<typeof NSComparisonResult>;
-
-  isDateEqualToDateToUnitGranularity(date1: NSDate, date2: NSDate, unit: interop.Enum<typeof NSCalendarUnit>): boolean;
-
-  isDateInSameDayAsDate(date1: NSDate, date2: NSDate): boolean;
-
-  isDateInToday(date: NSDate): boolean;
-
-  isDateInYesterday(date: NSDate): boolean;
-
-  isDateInTomorrow(date: NSDate): boolean;
-
-  isDateInWeekend(date: NSDate): boolean;
-
-  rangeOfWeekendStartDateIntervalContainingDate(datep: interop.PointerConvertible, tip: interop.PointerConvertible, date: NSDate): boolean;
-
-  nextWeekendStartDateIntervalOptionsAfterDate(datep: interop.PointerConvertible, tip: interop.PointerConvertible, options: interop.Enum<typeof NSCalendarOptions>, date: NSDate): boolean;
-
-  componentsFromDateComponentsToDateComponentsOptions(unitFlags: interop.Enum<typeof NSCalendarUnit>, startingDateComp: NSDateComponents, resultDateComp: NSDateComponents, options: interop.Enum<typeof NSCalendarOptions>): NSDateComponents;
-
-  dateByAddingUnitValueToDateOptions(unit: interop.Enum<typeof NSCalendarUnit>, value: number, date: NSDate, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  enumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start: NSDate, comps: NSDateComponents, opts: interop.Enum<typeof NSCalendarOptions>, block: (p1: NSDate, p2: boolean, p3: interop.PointerConvertible) => void | null): void;
-
-  nextDateAfterDateMatchingComponentsOptions(date: NSDate, comps: NSDateComponents, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  nextDateAfterDateMatchingUnitValueOptions(date: NSDate, unit: interop.Enum<typeof NSCalendarUnit>, value: number, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  nextDateAfterDateMatchingHourMinuteSecondOptions(date: NSDate, hourValue: number, minuteValue: number, secondValue: number, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  dateBySettingUnitValueOfDateOptions(unit: interop.Enum<typeof NSCalendarUnit>, v: number, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  dateBySettingHourMinuteSecondOfDateOptions(h: number, m: number, s: number, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
-
-  dateMatchesComponents(date: NSDate, components: NSDateComponents): boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -6129,46 +5993,6 @@ declare class NSRunLoop extends NSObject {
   cancelPerformSelectorsWithTarget(target: interop.Object): void;
 }
 
-// @ts-ignore ClassDecl.tsIgnore
-declare class NSMutableDictionary<KeyType = interop.Object, ObjectType = interop.Object> extends NSDictionary {
-  removeObjectForKey(aKey: KeyType): void;
-
-  setObjectForKey(anObject: ObjectType, aKey: NSCopying): void;
-
-  init(): this;
-
-  initWithCapacity(numItems: number): this;
-
-  initWithCoder(coder: NSCoder): this;
-
-  addEntriesFromDictionary(otherDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
-
-  removeAllObjects(): void;
-
-  removeObjectsForKeys(keyArray: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  setDictionary(otherDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
-
-  setObjectForKeyedSubscript(obj: ObjectType | null, key: NSCopying): void;
-
-  static dictionaryWithCapacity<KeyType, ObjectType, This extends abstract new (...args: any) => any>(this: This, numItems: number): InstanceType<This>;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  static dictionaryWithContentsOfFile<KeyType, ObjectType>(path: string): NSMutableDictionary;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  static dictionaryWithContentsOfURL<KeyType, ObjectType>(url: NSURL): NSMutableDictionary;
-
-  initWithContentsOfFile(path: string): this;
-
-  initWithContentsOfURL(url: NSURL): this;
-
-  static dictionaryWithSharedKeySet<KeyType, ObjectType>(keyset: interop.Object): NSMutableDictionary;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  setValueForKey(value: ObjectType | null, key: string): void;
-}
-
 declare class NSFileSecurity extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 
@@ -6452,6 +6276,8 @@ declare class NSURLRequest extends NSObject implements NSSecureCoding, NSCopying
   readonly requiresDNSSECValidation: boolean;
 
   readonly allowsPersistentDNS: boolean;
+
+  readonly cookiePartitionIdentifier: string;
 
   readonly HTTPMethod: string;
 
@@ -6954,6 +6780,14 @@ declare class NSOrderedSet<ObjectType = interop.Object> extends NSObject impleme
 
 }
 
+declare class NSAssertionHandler extends NSObject {
+  static readonly currentHandler: NSAssertionHandler;
+
+  handleFailureInMethodObjectFileLineNumberDescription(selector: string, object: interop.Object, fileName: string, line: number, format: string | null): void;
+
+  handleFailureInFunctionFileLineNumberDescription(functionName: string, fileName: string, line: number, format: string | null): void;
+}
+
 declare class NSPersonNameComponents extends NSObject implements NSCopying, NSSecureCoding {
   namePrefix: string;
 
@@ -7028,6 +6862,144 @@ declare class NSKeyedArchiver extends NSCoder {
 
   // @ts-ignore MemberDecl.tsIgnore
   requiresSecureCoding: boolean;
+}
+
+declare class NSCalendar extends NSObject implements NSCopying, NSSecureCoding {
+  static readonly currentCalendar: NSCalendar;
+
+  static readonly autoupdatingCurrentCalendar: NSCalendar;
+
+  static calendarWithIdentifier(calendarIdentifierConstant: string): NSCalendar;
+
+  initWithCalendarIdentifier(ident: string): this;
+
+  readonly calendarIdentifier: string;
+
+  locale: NSLocale;
+
+  timeZone: NSTimeZone;
+
+  firstWeekday: number;
+
+  minimumDaysInFirstWeek: number;
+
+  readonly eraSymbols: NSArray;
+
+  readonly longEraSymbols: NSArray;
+
+  readonly monthSymbols: NSArray;
+
+  readonly shortMonthSymbols: NSArray;
+
+  readonly veryShortMonthSymbols: NSArray;
+
+  readonly standaloneMonthSymbols: NSArray;
+
+  readonly shortStandaloneMonthSymbols: NSArray;
+
+  readonly veryShortStandaloneMonthSymbols: NSArray;
+
+  readonly weekdaySymbols: NSArray;
+
+  readonly shortWeekdaySymbols: NSArray;
+
+  readonly veryShortWeekdaySymbols: NSArray;
+
+  readonly standaloneWeekdaySymbols: NSArray;
+
+  readonly shortStandaloneWeekdaySymbols: NSArray;
+
+  readonly veryShortStandaloneWeekdaySymbols: NSArray;
+
+  readonly quarterSymbols: NSArray;
+
+  readonly shortQuarterSymbols: NSArray;
+
+  readonly standaloneQuarterSymbols: NSArray;
+
+  readonly shortStandaloneQuarterSymbols: NSArray;
+
+  readonly AMSymbol: string;
+
+  readonly PMSymbol: string;
+
+  minimumRangeOfUnit(unit: interop.Enum<typeof NSCalendarUnit>): _NSRange;
+
+  maximumRangeOfUnit(unit: interop.Enum<typeof NSCalendarUnit>): _NSRange;
+
+  rangeOfUnitInUnitForDate(smaller: interop.Enum<typeof NSCalendarUnit>, larger: interop.Enum<typeof NSCalendarUnit>, date: NSDate): _NSRange;
+
+  ordinalityOfUnitInUnitForDate(smaller: interop.Enum<typeof NSCalendarUnit>, larger: interop.Enum<typeof NSCalendarUnit>, date: NSDate): number;
+
+  rangeOfUnitStartDateIntervalForDate(unit: interop.Enum<typeof NSCalendarUnit>, datep: interop.PointerConvertible, tip: interop.PointerConvertible, date: NSDate): boolean;
+
+  dateFromComponents(comps: NSDateComponents): NSDate;
+
+  componentsFromDate(unitFlags: interop.Enum<typeof NSCalendarUnit>, date: NSDate): NSDateComponents;
+
+  dateByAddingComponentsToDateOptions(comps: NSDateComponents, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  componentsFromDateToDateOptions(unitFlags: interop.Enum<typeof NSCalendarUnit>, startingDate: NSDate, resultDate: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDateComponents;
+
+  getEraYearMonthDayFromDate(eraValuePointer: interop.PointerConvertible, yearValuePointer: interop.PointerConvertible, monthValuePointer: interop.PointerConvertible, dayValuePointer: interop.PointerConvertible, date: NSDate): void;
+
+  getEraYearForWeekOfYearWeekOfYearWeekdayFromDate(eraValuePointer: interop.PointerConvertible, yearValuePointer: interop.PointerConvertible, weekValuePointer: interop.PointerConvertible, weekdayValuePointer: interop.PointerConvertible, date: NSDate): void;
+
+  getHourMinuteSecondNanosecondFromDate(hourValuePointer: interop.PointerConvertible, minuteValuePointer: interop.PointerConvertible, secondValuePointer: interop.PointerConvertible, nanosecondValuePointer: interop.PointerConvertible, date: NSDate): void;
+
+  componentFromDate(unit: interop.Enum<typeof NSCalendarUnit>, date: NSDate): number;
+
+  dateWithEraYearMonthDayHourMinuteSecondNanosecond(eraValue: number, yearValue: number, monthValue: number, dayValue: number, hourValue: number, minuteValue: number, secondValue: number, nanosecondValue: number): NSDate;
+
+  dateWithEraYearForWeekOfYearWeekOfYearWeekdayHourMinuteSecondNanosecond(eraValue: number, yearValue: number, weekValue: number, weekdayValue: number, hourValue: number, minuteValue: number, secondValue: number, nanosecondValue: number): NSDate;
+
+  startOfDayForDate(date: NSDate): NSDate;
+
+  componentsInTimeZoneFromDate(timezone: NSTimeZone, date: NSDate): NSDateComponents;
+
+  compareDateToDateToUnitGranularity(date1: NSDate, date2: NSDate, unit: interop.Enum<typeof NSCalendarUnit>): interop.Enum<typeof NSComparisonResult>;
+
+  isDateEqualToDateToUnitGranularity(date1: NSDate, date2: NSDate, unit: interop.Enum<typeof NSCalendarUnit>): boolean;
+
+  isDateInSameDayAsDate(date1: NSDate, date2: NSDate): boolean;
+
+  isDateInToday(date: NSDate): boolean;
+
+  isDateInYesterday(date: NSDate): boolean;
+
+  isDateInTomorrow(date: NSDate): boolean;
+
+  isDateInWeekend(date: NSDate): boolean;
+
+  rangeOfWeekendStartDateIntervalContainingDate(datep: interop.PointerConvertible, tip: interop.PointerConvertible, date: NSDate): boolean;
+
+  nextWeekendStartDateIntervalOptionsAfterDate(datep: interop.PointerConvertible, tip: interop.PointerConvertible, options: interop.Enum<typeof NSCalendarOptions>, date: NSDate): boolean;
+
+  componentsFromDateComponentsToDateComponentsOptions(unitFlags: interop.Enum<typeof NSCalendarUnit>, startingDateComp: NSDateComponents, resultDateComp: NSDateComponents, options: interop.Enum<typeof NSCalendarOptions>): NSDateComponents;
+
+  dateByAddingUnitValueToDateOptions(unit: interop.Enum<typeof NSCalendarUnit>, value: number, date: NSDate, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  enumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start: NSDate, comps: NSDateComponents, opts: interop.Enum<typeof NSCalendarOptions>, block: (p1: NSDate, p2: boolean, p3: interop.PointerConvertible) => void | null): void;
+
+  nextDateAfterDateMatchingComponentsOptions(date: NSDate, comps: NSDateComponents, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  nextDateAfterDateMatchingUnitValueOptions(date: NSDate, unit: interop.Enum<typeof NSCalendarUnit>, value: number, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  nextDateAfterDateMatchingHourMinuteSecondOptions(date: NSDate, hourValue: number, minuteValue: number, secondValue: number, options: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  dateBySettingUnitValueOfDateOptions(unit: interop.Enum<typeof NSCalendarUnit>, v: number, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  dateBySettingHourMinuteSecondOfDateOptions(h: number, m: number, s: number, date: NSDate, opts: interop.Enum<typeof NSCalendarOptions>): NSDate;
+
+  dateMatchesComponents(date: NSDate, components: NSDateComponents): boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class NSMapTable<KeyType = interop.Object, ObjectType = interop.Object> extends NSObject implements NSCopying, NSSecureCoding, NSFastEnumeration {
@@ -8103,6 +8075,8 @@ declare class NSURLSessionConfiguration extends NSObject implements NSCopying {
   set protocolClasses(value: NSArray<interop.Object> | Array<interop.Object>);
 
   multipathServiceType: interop.Enum<typeof NSURLSessionMultipathServiceType>;
+
+  usesClassicLoadingMode: boolean;
 
   init(): this;
 
@@ -9282,6 +9256,46 @@ declare class NSNotificationQueue extends NSObject {
   dequeueNotificationsMatchingCoalesceMask(notification: NSNotification, coalesceMask: number): void;
 }
 
+// @ts-ignore ClassDecl.tsIgnore
+declare class NSMutableDictionary<KeyType = interop.Object, ObjectType = interop.Object> extends NSDictionary {
+  removeObjectForKey(aKey: KeyType): void;
+
+  setObjectForKey(anObject: ObjectType, aKey: NSCopying): void;
+
+  init(): this;
+
+  initWithCapacity(numItems: number): this;
+
+  initWithCoder(coder: NSCoder): this;
+
+  addEntriesFromDictionary(otherDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
+
+  removeAllObjects(): void;
+
+  removeObjectsForKeys(keyArray: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  setDictionary(otherDictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): void;
+
+  setObjectForKeyedSubscript(obj: ObjectType | null, key: NSCopying): void;
+
+  static dictionaryWithCapacity<KeyType, ObjectType, This extends abstract new (...args: any) => any>(this: This, numItems: number): InstanceType<This>;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  static dictionaryWithContentsOfFile<KeyType, ObjectType>(path: string): NSMutableDictionary;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  static dictionaryWithContentsOfURL<KeyType, ObjectType>(url: NSURL): NSMutableDictionary;
+
+  initWithContentsOfFile(path: string): this;
+
+  initWithContentsOfURL(url: NSURL): this;
+
+  static dictionaryWithSharedKeySet<KeyType, ObjectType>(keyset: interop.Object): NSMutableDictionary;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  setValueForKey(value: ObjectType | null, key: string): void;
+}
+
 declare class NSURLCredential extends NSObject implements NSSecureCoding, NSCopying {
   readonly persistence: interop.Enum<typeof NSURLCredentialPersistence>;
 
@@ -9867,14 +9881,6 @@ declare class NSFileHandle extends NSObject implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 }
 
-declare class NSAssertionHandler extends NSObject {
-  static readonly currentHandler: NSAssertionHandler;
-
-  handleFailureInMethodObjectFileLineNumberDescription(selector: string, object: interop.Object, fileName: string, line: number, format: string | null): void;
-
-  handleFailureInFunctionFileLineNumberDescription(functionName: string, fileName: string, line: number, format: string | null): void;
-}
-
 declare class NSBundle extends NSObject {
   static readonly mainBundle: NSBundle;
 
@@ -9969,6 +9975,8 @@ declare class NSBundle extends NSObject {
   localizedStringForKeyValueTable(key: string, value: string | null, tableName: string | null): string;
 
   localizedAttributedStringForKeyValueTable(key: string, value: string | null, tableName: string | null): NSAttributedString;
+
+  localizedStringForKeyValueTableLocalizations(key: string, value: string | null, tableName: string | null, localizations: NSArray<interop.Object> | Array<interop.Object>): string;
 
   readonly bundleIdentifier: string;
 
@@ -10113,143 +10121,6 @@ declare class NSUnitLength extends NSDimension implements NSSecureCoding {
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class NSNumberFormatter extends NSFormatter {
-  formattingContext: interop.Enum<typeof NSFormattingContext>;
-
-  getObjectValueForStringRangeError(obj: interop.PointerConvertible, string: string, rangep: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
-
-  stringFromNumber(number: NSNumber): string;
-
-  numberFromString(string: string): NSNumber;
-
-  static localizedStringFromNumberNumberStyle(num: NSNumber, nstyle: interop.Enum<typeof NSNumberFormatterStyle>): string;
-
-  static defaultFormatterBehavior(): interop.Enum<typeof NSNumberFormatterBehavior>;
-
-  static setDefaultFormatterBehavior(behavior: interop.Enum<typeof NSNumberFormatterBehavior>): void;
-
-  minimumGroupingDigits: number;
-
-  numberStyle: interop.Enum<typeof NSNumberFormatterStyle>;
-
-  locale: NSLocale;
-
-  generatesDecimalNumbers: boolean;
-
-  formatterBehavior: interop.Enum<typeof NSNumberFormatterBehavior>;
-
-  negativeFormat: string;
-
-  get textAttributesForNegativeValues(): NSDictionary;
-  set textAttributesForNegativeValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  positiveFormat: string;
-
-  get textAttributesForPositiveValues(): NSDictionary;
-  set textAttributesForPositiveValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  allowsFloats: boolean;
-
-  decimalSeparator: string;
-
-  alwaysShowsDecimalSeparator: boolean;
-
-  currencyDecimalSeparator: string;
-
-  usesGroupingSeparator: boolean;
-
-  groupingSeparator: string;
-
-  zeroSymbol: string;
-
-  get textAttributesForZero(): NSDictionary;
-  set textAttributesForZero(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  nilSymbol: string;
-
-  get textAttributesForNil(): NSDictionary;
-  set textAttributesForNil(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  notANumberSymbol: string;
-
-  get textAttributesForNotANumber(): NSDictionary;
-  set textAttributesForNotANumber(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  positiveInfinitySymbol: string;
-
-  get textAttributesForPositiveInfinity(): NSDictionary;
-  set textAttributesForPositiveInfinity(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  negativeInfinitySymbol: string;
-
-  get textAttributesForNegativeInfinity(): NSDictionary;
-  set textAttributesForNegativeInfinity(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
-
-  positivePrefix: string;
-
-  positiveSuffix: string;
-
-  negativePrefix: string;
-
-  negativeSuffix: string;
-
-  currencyCode: string;
-
-  currencySymbol: string;
-
-  internationalCurrencySymbol: string;
-
-  percentSymbol: string;
-
-  perMillSymbol: string;
-
-  minusSign: string;
-
-  plusSign: string;
-
-  exponentSymbol: string;
-
-  groupingSize: number;
-
-  secondaryGroupingSize: number;
-
-  multiplier: NSNumber;
-
-  formatWidth: number;
-
-  paddingCharacter: string;
-
-  paddingPosition: interop.Enum<typeof NSNumberFormatterPadPosition>;
-
-  roundingMode: interop.Enum<typeof NSNumberFormatterRoundingMode>;
-
-  roundingIncrement: NSNumber;
-
-  minimumIntegerDigits: number;
-
-  maximumIntegerDigits: number;
-
-  minimumFractionDigits: number;
-
-  maximumFractionDigits: number;
-
-  minimum: NSNumber;
-
-  maximum: NSNumber;
-
-  currencyGroupingSeparator: string;
-
-  isLenient: boolean;
-
-  usesSignificantDigits: boolean;
-
-  minimumSignificantDigits: number;
-
-  maximumSignificantDigits: number;
-
-  isPartialStringValidationEnabled: boolean;
 }
 
 declare class NSDate extends NSObject implements NSCopying, NSSecureCoding {
@@ -10673,6 +10544,143 @@ declare class NSDimension extends NSUnit implements NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
+declare class NSNumberFormatter extends NSFormatter {
+  formattingContext: interop.Enum<typeof NSFormattingContext>;
+
+  getObjectValueForStringRangeError(obj: interop.PointerConvertible, string: string, rangep: interop.PointerConvertible, error: interop.PointerConvertible): boolean;
+
+  stringFromNumber(number: NSNumber): string;
+
+  numberFromString(string: string): NSNumber;
+
+  static localizedStringFromNumberNumberStyle(num: NSNumber, nstyle: interop.Enum<typeof NSNumberFormatterStyle>): string;
+
+  static defaultFormatterBehavior(): interop.Enum<typeof NSNumberFormatterBehavior>;
+
+  static setDefaultFormatterBehavior(behavior: interop.Enum<typeof NSNumberFormatterBehavior>): void;
+
+  minimumGroupingDigits: number;
+
+  numberStyle: interop.Enum<typeof NSNumberFormatterStyle>;
+
+  locale: NSLocale;
+
+  generatesDecimalNumbers: boolean;
+
+  formatterBehavior: interop.Enum<typeof NSNumberFormatterBehavior>;
+
+  negativeFormat: string;
+
+  get textAttributesForNegativeValues(): NSDictionary;
+  set textAttributesForNegativeValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  positiveFormat: string;
+
+  get textAttributesForPositiveValues(): NSDictionary;
+  set textAttributesForPositiveValues(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  allowsFloats: boolean;
+
+  decimalSeparator: string;
+
+  alwaysShowsDecimalSeparator: boolean;
+
+  currencyDecimalSeparator: string;
+
+  usesGroupingSeparator: boolean;
+
+  groupingSeparator: string;
+
+  zeroSymbol: string;
+
+  get textAttributesForZero(): NSDictionary;
+  set textAttributesForZero(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  nilSymbol: string;
+
+  get textAttributesForNil(): NSDictionary;
+  set textAttributesForNil(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  notANumberSymbol: string;
+
+  get textAttributesForNotANumber(): NSDictionary;
+  set textAttributesForNotANumber(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  positiveInfinitySymbol: string;
+
+  get textAttributesForPositiveInfinity(): NSDictionary;
+  set textAttributesForPositiveInfinity(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  negativeInfinitySymbol: string;
+
+  get textAttributesForNegativeInfinity(): NSDictionary;
+  set textAttributesForNegativeInfinity(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  positivePrefix: string;
+
+  positiveSuffix: string;
+
+  negativePrefix: string;
+
+  negativeSuffix: string;
+
+  currencyCode: string;
+
+  currencySymbol: string;
+
+  internationalCurrencySymbol: string;
+
+  percentSymbol: string;
+
+  perMillSymbol: string;
+
+  minusSign: string;
+
+  plusSign: string;
+
+  exponentSymbol: string;
+
+  groupingSize: number;
+
+  secondaryGroupingSize: number;
+
+  multiplier: NSNumber;
+
+  formatWidth: number;
+
+  paddingCharacter: string;
+
+  paddingPosition: interop.Enum<typeof NSNumberFormatterPadPosition>;
+
+  roundingMode: interop.Enum<typeof NSNumberFormatterRoundingMode>;
+
+  roundingIncrement: NSNumber;
+
+  minimumIntegerDigits: number;
+
+  maximumIntegerDigits: number;
+
+  minimumFractionDigits: number;
+
+  maximumFractionDigits: number;
+
+  minimum: NSNumber;
+
+  maximum: NSNumber;
+
+  currencyGroupingSeparator: string;
+
+  isLenient: boolean;
+
+  usesSignificantDigits: boolean;
+
+  minimumSignificantDigits: number;
+
+  maximumSignificantDigits: number;
+
+  isPartialStringValidationEnabled: boolean;
+}
+
 declare class NSISO8601DateFormatter extends NSFormatter implements NSSecureCoding {
   timeZone: NSTimeZone;
 
@@ -10759,6 +10767,9 @@ declare class NSMutableURLRequest extends NSURLRequest {
 
   // @ts-ignore MemberDecl.tsIgnore
   allowsPersistentDNS: boolean;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  cookiePartitionIdentifier: string;
 
   // @ts-ignore MemberDecl.tsIgnore
   HTTPMethod: string;
@@ -11043,6 +11054,10 @@ declare class NSCoder extends NSObject {
   decodeDoubleForKey(key: string): number;
 
   decodeBytesForKeyReturnedLength(key: string, lengthp: interop.PointerConvertible): interop.Pointer;
+
+  decodeBytesWithMinimumLength(length: number): interop.Pointer;
+
+  decodeBytesForKeyMinimumLength(key: string, length: number): interop.Pointer;
 
   encodeIntegerForKey(value: number, key: string): void;
 

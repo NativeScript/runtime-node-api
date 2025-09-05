@@ -142,8 +142,6 @@ declare const kCMBufferQueueError_InvalidBuffer: number;
 
 declare const kCMBufferQueueError_EnqueueAfterEndOfData: number;
 
-declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
-
 declare const kCMSoundDescriptionFlavor_QuickTimeMovieV2: interop.Pointer;
 
 declare const kCMSoundDescriptionFlavor_QuickTimeMovie: interop.Pointer;
@@ -179,10 +177,6 @@ declare const kCMClockError_UnsupportedOperation: number;
 declare const kCMClockError_InvalidParameter: number;
 
 declare const kCMClockError_MissingRequiredParameter: number;
-
-declare const kCMFormatDescriptionKey_CleanApertureHorizontalOffsetRational: interop.Pointer;
-
-declare const kCMClosedCaptionFormatType_CEA708: number;
 
 declare const kCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: number;
 
@@ -269,8 +263,6 @@ declare const kCMTagStereoLeftEye: CMTag;
 declare const kCMTagMediaTypeVideo: CMTag;
 
 declare const kCMFormatDescriptionExtension_FullRangeVideo: interop.Pointer;
-
-declare const kCMBufferQueueError_AllocationFailed: number;
 
 declare const kCMSampleBufferConduitNotification_UpcomingOutputPTSRangeChanged: interop.Pointer;
 
@@ -464,6 +456,8 @@ declare const kCMSampleBufferLensStabilizationInfo_Unavailable: interop.Pointer;
 
 declare const kCMClosedCaptionFormatType_ATSC: number;
 
+declare const kCMClosedCaptionFormatType_CEA708: number;
+
 declare const kCMClosedCaptionFormatType_CEA608: number;
 
 declare const kCMMuxedStreamType_EmbeddedDeviceScreenRecording: number;
@@ -477,6 +471,8 @@ declare const kCMMuxedStreamType_MPEG1System: number;
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
 
 declare const kCMFormatDescriptionViewPackingKind_SideBySide: interop.Pointer;
+
+declare const kCMFormatDescriptionProjectionKind_HalfEquirectangular: interop.Pointer;
 
 declare const kCMFormatDescriptionProjectionKind_Rectilinear: interop.Pointer;
 
@@ -605,6 +601,8 @@ declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineLate: interop.Poin
 declare const kCMFormatDescriptionFieldDetail_TemporalBottomFirst: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_CleanApertureVerticalOffsetRational: interop.Pointer;
+
+declare const kCMFormatDescriptionKey_CleanApertureHorizontalOffsetRational: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_CleanApertureHeightRational: interop.Pointer;
 
@@ -756,6 +754,8 @@ declare const kCMMPEG2VideoProfile_XDCAM_HD_540p: number;
 
 declare const kCMFormatDescriptionFieldDetail_SpatialFirstLineEarly: interop.Pointer;
 
+declare const kCMFormatDescriptionProjectionKind_Equirectangular: interop.Pointer;
+
 declare const kCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35: number;
 
 declare const kCMTimeEpochKey: interop.Pointer;
@@ -771,6 +771,8 @@ declare const kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions: interop.Po
 declare const kCMBlockBufferBadLengthParameterErr: number;
 
 declare const kCMFormatDescriptionColorPrimaries_SMPTE_C: interop.Pointer;
+
+declare const kCMBufferQueueError_AllocationFailed: number;
 
 declare const kCMTagProjectionTypeHalfEquirectangular: CMTag;
 
@@ -1098,6 +1100,8 @@ declare const kCMTextMarkupCharacterEdgeStyle_Raised: interop.Pointer;
 
 declare const kCMSampleBufferError_InvalidMediaFormat: number;
 
+declare const kCMBufferQueueError_InvalidCMBufferCallbacksStruct: number;
+
 declare const kCMTextMarkupAlignmentType_Middle: interop.Pointer;
 
 declare const kCMPixelFormat_422YpCbCr10: number;
@@ -1199,12 +1203,6 @@ declare const CMTagCollectionError: {
   NotYetImplemented: -15749,
 };
 
-declare const CMPackingType: {
-  None: 1852796517,
-  SideBySide: 1936286821,
-  OverUnder: 1870030194,
-};
-
 declare const CMStereoViewComponents: {
   None: 0,
   LeftEye: 1,
@@ -1268,6 +1266,12 @@ declare const CMProjectionType: {
   Equirectangular: 1701934441,
   HalfEquirectangular: 1751478645,
   Fisheye: 1718186856,
+};
+
+declare const CMPackingType: {
+  None: 1852796517,
+  SideBySide: 1936286821,
+  OverUnder: 1870030194,
 };
 
 declare class OpaqueCMMemoryPool {

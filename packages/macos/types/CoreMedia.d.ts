@@ -38,8 +38,6 @@ declare const kCMMetadataIdentifier_QuickTimeMetadataSceneIlluminance: interop.P
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataVideoOrientation: interop.Pointer;
 
-declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
-
 declare const kCMMetadataKeySpace_HLSDateRange: interop.Pointer;
 
 declare const kCMMetadataKeySpace_QuickTimeMetadata: interop.Pointer;
@@ -95,8 +93,6 @@ declare const kCMTextMarkupAttribute_RelativeFontSize: interop.Pointer;
 declare const kCMTextMarkupAttribute_BaseFontSizePercentageRelativeToVideoHeight: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_SmallCapital: interop.Pointer;
-
-declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_Casual: interop.Pointer;
 
@@ -400,6 +396,8 @@ declare const kCMMuxedStreamType_MPEG1System: number;
 
 declare const kCMTaggedBufferGroupFormatType_TaggedBufferGroup: number;
 
+declare const kCMFormatDescriptionProjectionKind_HalfEquirectangular: interop.Pointer;
+
 declare const kCMFormatDescriptionProjectionKind_Rectilinear: interop.Pointer;
 
 declare const kCMFormatDescriptionExtension_ProjectionKind: interop.Pointer;
@@ -696,9 +694,13 @@ declare const kCMTagPackingTypeNone: CMTag;
 
 declare const kCMClosedCaptionFormatType_ATSC: number;
 
+declare const kCMTextMarkupGenericFontName_Fantasy: interop.Pointer;
+
 declare const kCMMetadataBaseDataType_SInt16: interop.Pointer;
 
 declare const kCMMetadataIdentifier_QuickTimeMetadataLivePhotoStillImageTransformReferenceDimensions: interop.Pointer;
+
+declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
 
 declare const kCMVideoCodecType_SorensonVideo3: number;
 
@@ -714,6 +716,8 @@ declare const kCMMPEG2VideoProfile_HDV_720p50: number;
 
 declare const kCMTextFormatDescriptionExtension_DefaultFontName: interop.Pointer;
 
+declare const kCMPixelFormat_422YpCbCr10: number;
+
 declare const kCMMetadataKeySpace_QuickTimeUserData: interop.Pointer;
 
 declare const kCMTextMarkupGenericFontName_Default: interop.Pointer;
@@ -723,6 +727,8 @@ declare const kCMMetadataBaseDataType_UInt8: interop.Pointer;
 declare const kCMSampleAttachmentKey_DependsOnOthers: interop.Pointer;
 
 declare const kCMTimebaseError_InvalidParameter: number;
+
+declare const kCMMetadataIdentifier_QuickTimeMetadataLocation_ISO6709: interop.Pointer;
 
 declare const kCMTextMarkupAttribute_CharacterBackgroundColorARGB: interop.Pointer;
 
@@ -761,8 +767,6 @@ declare const kCMVideoCodecType_AppleProRes4444: number;
 declare const kCMMetadataFormatDescription_StructuralDependencyKey_DependencyIsInvalidFlag: interop.Pointer;
 
 declare const kCMMetadataIdentifierError_BadKey: number;
-
-declare const kCMPixelFormat_422YpCbCr10: number;
 
 declare const kCMFormatDescriptionExtension_Vendor: interop.Pointer;
 
@@ -813,8 +817,6 @@ declare const kCMFormatDescriptionColorPrimaries_ITU_R_709_2: interop.Pointer;
 declare const kCMFormatDescriptionTransferFunction_ITU_R_2100_HLG: interop.Pointer;
 
 declare const kCMFormatDescriptionKey_CleanApertureWidth: interop.Pointer;
-
-declare const kCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: number;
 
 declare const kCMTextFormatDescriptionStyle_FontSize: interop.Pointer;
 
@@ -913,6 +915,8 @@ declare const kCMVideoCodecType_DVCPro50PAL: number;
 declare const kCMFormatDescriptionExtension_OriginalCompressionSettings: interop.Pointer;
 
 declare const kCMTextDisplayFlag_scrollDirection_leftToRight: number;
+
+declare const kCMFormatDescriptionProjectionKind_Equirectangular: interop.Pointer;
 
 declare const kCMMetadataKeySpace_Icy: interop.Pointer;
 

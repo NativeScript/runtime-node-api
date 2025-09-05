@@ -146,6 +146,12 @@ declare const GKLeaderboardTimeScope: {
   AllTime: 2,
 };
 
+declare const GKReleaseState: {
+  Unknown: 0,
+  Released: 1,
+  Prereleased: 2,
+};
+
 declare const GKPhotoSize: {
   Small: 0,
   Normal: 1,
@@ -189,6 +195,7 @@ declare const GKErrorCode: {
   ICloudUnavailable: 35,
   LockdownMode: 36,
   AppUnlisted: 37,
+  DebugMode: 38,
   FriendListDescriptionMissing: 100,
   FriendListRestricted: 101,
   FriendListDenied: 102,
@@ -1303,14 +1310,14 @@ declare class GKInvite extends NSObject {
   readonly inviter: string;
 }
 
-declare class GKCloudPlayer extends GKBasePlayer {
-  static getCurrentSignedInPlayerForContainerCompletionHandler(containerName: string | null, handler: (p1: GKCloudPlayer, p2: NSError) => void | null): void;
-}
-
 declare class GKTurnBasedEventHandler extends NSObject {
   static sharedTurnBasedEventHandler(): GKTurnBasedEventHandler;
 
   delegate: NSObject;
+}
+
+declare class GKCloudPlayer extends GKBasePlayer {
+  static getCurrentSignedInPlayerForContainerCompletionHandler(containerName: string | null, handler: (p1: GKCloudPlayer, p2: NSError) => void | null): void;
 }
 
 declare class GKGameCenterViewController extends UINavigationController {
@@ -1335,18 +1342,6 @@ declare class GKGameCenterViewController extends UINavigationController {
   leaderboardIdentifier: string;
 
   leaderboardCategory: string;
-}
-
-declare class GKSavedGame extends NSObject implements NSCopying {
-  readonly name: string;
-
-  readonly deviceName: string;
-
-  readonly modificationDate: NSDate;
-
-  loadDataWithCompletionHandler(handler: (p1: NSData, p2: NSError) => void | null): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class GKLeaderboardSet extends NSObject implements NSCoding, NSSecureCoding {
@@ -1439,6 +1434,18 @@ declare class GKLocalPlayer extends GKPlayer {
   resolveConflictingSavedGamesWithDataCompletionHandler(conflictingSavedGames: NSArray<interop.Object> | Array<interop.Object>, data: NSData, handler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 }
 
+declare class GKSavedGame extends NSObject implements NSCopying {
+  readonly name: string;
+
+  readonly deviceName: string;
+
+  readonly modificationDate: NSDate;
+
+  loadDataWithCompletionHandler(handler: (p1: NSData, p2: NSError) => void | null): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
   static loadAchievementDescriptionsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
 
@@ -1459,6 +1466,8 @@ declare class GKAchievementDescription extends NSObject implements NSCoding, NSS
   readonly isReplayable: boolean;
 
   readonly rarityPercent: NSNumber;
+
+  readonly releaseState: interop.Enum<typeof GKReleaseState>;
 
   readonly image: UIImage;
 

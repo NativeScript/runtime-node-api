@@ -46,13 +46,6 @@ declare const CMMagneticFieldCalibrationAccuracy: {
   High: 2,
 };
 
-declare const CMHighFrequencyHeartRateDataConfidence: {
-  Low: 0,
-  Medium: 1,
-  High: 2,
-  Highest: 3,
-};
-
 declare const CMAuthorizationStatus: {
   NotDetermined: 0,
   Restricted: 1,
@@ -64,6 +57,13 @@ declare const CMDeviceMotionSensorLocation: {
   Default: 0,
   HeadphoneLeft: 1,
   HeadphoneRight: 2,
+};
+
+declare const CMHighFrequencyHeartRateDataConfidence: {
+  Low: 0,
+  Medium: 1,
+  High: 2,
+  Highest: 3,
 };
 
 declare const CMAttitudeReferenceFrame: {
@@ -532,6 +532,18 @@ declare class CMSensorRecorder extends NSObject {
   recordAccelerometerForDuration(duration: number): void;
 }
 
+declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
+  readonly timestamp: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class CMMagnetometerData extends CMLogItem {
   readonly magneticField: CMMagneticField;
 }
@@ -592,18 +604,6 @@ declare class CMPedometerData extends NSObject implements NSSecureCoding, NSCopy
 
 declare class CMRecordedRotationRateData extends CMRotationRateData {
   readonly startDate: NSDate;
-}
-
-declare class CMLogItem extends NSObject implements NSSecureCoding, NSCopying {
-  readonly timestamp: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class CMHeadphoneMotionManager extends NSObject {

@@ -26,12 +26,6 @@ declare const MPSPolygonType: {
   Quadrilateral: 1,
 };
 
-declare const MPSRNNBidirectionalCombineMode: {
-  None: 0,
-  Add: 1,
-  Concatenate: 2,
-};
-
 declare const MPSCNNReductionType: {
   None: 0,
   Sum: 1,
@@ -172,6 +166,34 @@ declare const MPSFloatDataTypeBit: {
   Mantissa: 261120,
 };
 
+declare const MPSRNNBidirectionalCombineMode: {
+  None: 0,
+  Add: 1,
+  Concatenate: 2,
+};
+
+declare const MPSNNPaddingMethod: {
+  AlignCentered: 0,
+  AlignTopLeft: 1,
+  AlignBottomRight: 2,
+  Align_reserved: 3,
+  AlignMask: 3,
+  AddRemainderToTopLeft: 0,
+  AddRemainderToTopRight: 4,
+  AddRemainderToBottomLeft: 8,
+  AddRemainderToBottomRight: 12,
+  AddRemainderToMask: 12,
+  SizeValidOnly: 0,
+  SizeSame: 16,
+  SizeFull: 32,
+  Size_reserved: 48,
+  CustomWhitelistForNodeFusion: 8192,
+  CustomAllowForNodeFusion: 8192,
+  Custom: 16384,
+  SizeMask: 2032,
+  ExcludeEdges: 32768,
+};
+
 declare const MPSRayMaskOperator: {
   And: 0,
   NotAnd: 1,
@@ -201,11 +223,13 @@ declare const MPSDataType: {
   ComplexFloat16: 285212704,
   SignedBit: 536870912,
   IntBit: 536870912,
+  Int2: 536870914,
   Int4: 536870916,
   Int8: 536870920,
   Int16: 536870928,
   Int32: 536870944,
   Int64: 536870976,
+  UInt2: 2,
   UInt4: 4,
   UInt8: 8,
   UInt16: 16,
@@ -222,28 +246,6 @@ declare const MPSDataType: {
 declare const MPSTriangleIntersectionTestType: {
   Default: 0,
   Watertight: 1,
-};
-
-declare const MPSNNPaddingMethod: {
-  AlignCentered: 0,
-  AlignTopLeft: 1,
-  AlignBottomRight: 2,
-  Align_reserved: 3,
-  AlignMask: 3,
-  AddRemainderToTopLeft: 0,
-  AddRemainderToTopRight: 4,
-  AddRemainderToBottomLeft: 8,
-  AddRemainderToBottomRight: 12,
-  AddRemainderToMask: 12,
-  SizeValidOnly: 0,
-  SizeSame: 16,
-  SizeFull: 32,
-  Size_reserved: 48,
-  CustomWhitelistForNodeFusion: 8192,
-  CustomAllowForNodeFusion: 8192,
-  Custom: 16384,
-  SizeMask: 2032,
-  ExcludeEdges: 32768,
 };
 
 declare const MPSStateResourceType: {
@@ -506,6 +508,13 @@ declare class _MPSAxisAlignedBoundingBox {
   max: unknown /* ext vector */;
 }
 
+declare class unnamed_11048884918246252815 {
+  constructor(init?: unnamed_11048884918246252815);
+  x: number;
+  y: number;
+  z: number;
+}
+
 declare class _MPSPackedFloat3 {
   constructor(init?: _MPSPackedFloat3);
 }
@@ -645,6 +654,12 @@ declare class MPSImageHistogramInfo {
   maxPixelValue: unknown /* ext vector */;
 }
 
+declare class MPSDimensionSlice {
+  constructor(init?: MPSDimensionSlice);
+  start: number;
+  length: number;
+}
+
 declare class MPSStateTextureInfo {
   constructor(init?: MPSStateTextureInfo);
   width: number;
@@ -655,13 +670,6 @@ declare class MPSStateTextureInfo {
   textureType: interop.Enum<typeof MTLTextureType>;
   usage: interop.Enum<typeof MTLTextureUsage>;
   _reserved: unknown /* const array */;
-}
-
-declare class unnamed_17574962502922786599 {
-  constructor(init?: unnamed_17574962502922786599);
-  x: number;
-  y: number;
-  z: number;
 }
 
 declare class MPSIntersectionDistancePrimitiveIndexBufferIndexInstanceIndexCoordinates {
@@ -705,17 +713,11 @@ declare class MPSImageKeypointData {
   keypointColorValue: number;
 }
 
-declare class MPSDimensionSlice {
-  constructor(init?: MPSDimensionSlice);
-  start: number;
-  length: number;
-}
-
-type unnamed_449473443384412501Descriptor = 
+type unnamed_4922578754689838722Descriptor = 
   | { elements: unknown /* const array */ };
 
-declare class unnamed_449473443384412501 {
-  constructor(init?: unnamed_449473443384412501Descriptor);
+declare class unnamed_4922578754689838722 {
+  constructor(init?: unnamed_4922578754689838722Descriptor);
   elements: unknown /* const array */;
 }
 
@@ -973,9 +975,6 @@ declare interface MPSImageSizeEncodingState extends NSObjectProtocol {
 }
 
 declare class MPSImageSizeEncodingState extends NativeObject implements MPSImageSizeEncodingState {
-}
-
-declare class MPSCNNConvolutionGradientStateNode extends MPSNNGradientStateNode {
 }
 
 declare class MPSCNNDropoutGradient extends MPSCNNGradientKernel {
@@ -1843,9 +1842,6 @@ declare class MPSNNReductionSpatialMeanNode extends MPSNNUnaryReductionNode {
 declare class MPSNNReductionColumnMeanNode extends MPSNNUnaryReductionNode {
 }
 
-declare class MPSNNReductionFeatureChannelsMaxNode extends MPSNNUnaryReductionNode {
-}
-
 declare class MPSNNReductionColumnMaxNode extends MPSNNUnaryReductionNode {
 }
 
@@ -2072,6 +2068,9 @@ declare class MPSNNBinaryGradientStateNode extends MPSNNStateNode {
 declare class MPSCNNConvolutionTransposeGradientStateNode extends MPSCNNConvolutionGradientStateNode {
 }
 
+declare class MPSCNNConvolutionGradientStateNode extends MPSNNGradientStateNode {
+}
+
 declare class MPSNNSlice extends MPSCNNKernel {
   initWithDevice(device: MTLDevice): this;
 
@@ -2271,37 +2270,6 @@ declare class MPSMatrixFullyConnectedGradient extends MPSMatrixBinaryKernel {
   encodeGradientForDataToCommandBufferGradientMatrixWeightMatrixResultGradientForDataMatrix(commandBuffer: MTLCommandBuffer, gradientMatrix: MPSMatrix, weightMatrix: MPSMatrix, resultGradientForDataMatrix: MPSMatrix): void;
 
   encodeGradientForWeightsAndBiasToCommandBufferGradientMatrixInputMatrixResultGradientForWeightMatrixResultGradientForBiasVector(commandBuffer: MTLCommandBuffer, gradientMatrix: MPSMatrix, inputMatrix: MPSMatrix, resultGradientForWeightMatrix: MPSMatrix, resultGradientForBiasVector: MPSVector | null): void;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-
-  copyWithZoneDevice(zone: interop.PointerConvertible, device: MTLDevice | null): this;
-}
-
-declare class MPSNNReductionFeatureChannelsArgumentMaxNode extends MPSNNUnaryReductionNode {
-}
-
-declare class MPSMatrixNeuron extends MPSMatrixUnaryKernel {
-  sourceNumberOfFeatureVectors: number;
-
-  sourceInputFeatureChannels: number;
-
-  alpha: number;
-
-  setNeuronTypeParameterAParameterBParameterC(neuronType: interop.Enum<typeof MPSCNNNeuronType>, parameterA: number, parameterB: number, parameterC: number): void;
-
-  neuronType(): interop.Enum<typeof MPSCNNNeuronType>;
-
-  neuronParameterA(): number;
-
-  neuronParameterB(): number;
-
-  neuronParameterC(): number;
-
-  setNeuronToPReLUWithParametersA(A: NSData): void;
-
-  initWithDevice(device: MTLDevice): this;
-
-  encodeToCommandBufferInputMatrixBiasVectorResultMatrix(commandBuffer: MTLCommandBuffer, inputMatrix: MPSMatrix, biasVector: MPSVector | null, resultMatrix: MPSMatrix): void;
 
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
 
@@ -2881,16 +2849,6 @@ declare class MPSCNNPoolingMax extends MPSCNNPooling {
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
 }
 
-declare class MPSNNGramMatrixCalculation extends MPSCNNKernel {
-  alpha: number;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-
-  initWithDeviceAlpha(device: MTLDevice, alpha: number): this;
-
-  initWithDevice(device: MTLDevice): this;
-}
-
 // @ts-ignore ClassDecl.tsIgnore
 declare class MPSCNNConvolutionTranspose extends MPSCNNKernel {
   readonly inputFeatureChannels: number;
@@ -3050,6 +3008,37 @@ declare class MPSCNNDepthWiseConvolutionDescriptor extends MPSCNNConvolutionDesc
 
 declare class MPSCNNSubPixelConvolutionDescriptor extends MPSCNNConvolutionDescriptor {
   subPixelScaleFactor: number;
+}
+
+declare class MPSMatrixNeuron extends MPSMatrixUnaryKernel {
+  sourceNumberOfFeatureVectors: number;
+
+  sourceInputFeatureChannels: number;
+
+  alpha: number;
+
+  setNeuronTypeParameterAParameterBParameterC(neuronType: interop.Enum<typeof MPSCNNNeuronType>, parameterA: number, parameterB: number, parameterC: number): void;
+
+  neuronType(): interop.Enum<typeof MPSCNNNeuronType>;
+
+  neuronParameterA(): number;
+
+  neuronParameterB(): number;
+
+  neuronParameterC(): number;
+
+  setNeuronToPReLUWithParametersA(A: NSData): void;
+
+  initWithDevice(device: MTLDevice): this;
+
+  encodeToCommandBufferInputMatrixBiasVectorResultMatrix(commandBuffer: MTLCommandBuffer, inputMatrix: MPSMatrix, biasVector: MPSVector | null, resultMatrix: MPSMatrix): void;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+
+  copyWithZoneDevice(zone: interop.PointerConvertible, device: MTLDevice | null): this;
+}
+
+declare class MPSNNReductionFeatureChannelsArgumentMaxNode extends MPSNNUnaryReductionNode {
 }
 
 declare class MPSCNNNeuronELU extends MPSCNNNeuron {
@@ -4105,16 +4094,6 @@ declare class MPSCNNBinaryConvolution extends MPSCNNKernel {
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
 }
 
-declare class MPSNNReduceFeatureChannelsMin extends MPSNNReduceUnary {
-  initWithDevice(device: MTLDevice): this;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-}
-
-declare class MPSImageLaplacian extends MPSUnaryImageKernel {
-  bias: number;
-}
-
 declare class MPSImageConversion extends MPSUnaryImageKernel {
   readonly sourceAlpha: interop.Enum<typeof MPSAlphaType>;
 
@@ -4323,10 +4302,59 @@ declare class MPSCNNConvolutionTransposeGradient extends MPSCNNGradientKernel {
   reloadWeightsAndBiasesWithCommandBufferState(commandBuffer: MTLCommandBuffer, state: MPSCNNConvolutionWeightsAndBiasesState): void;
 }
 
-declare class MPSNNReduceRowMin extends MPSNNReduceUnary {
+declare class MPSNDArrayAffineQuantizationDescriptor extends MPSNDArrayQuantizationDescriptor {
+  hasZeroPoint: boolean;
+
+  hasMinValue: boolean;
+
+  implicitZeroPoint: boolean;
+
+  init(): this;
+
+  initWithDataTypeHasZeroPointHasMinValue(quantizationDataType: interop.Enum<typeof MPSDataType>, hasZeroPoint: boolean, hasMinValue: boolean): this;
+}
+
+declare class MPSNNGradientStateNode extends MPSNNStateNode {
+}
+
+declare class MPSNNReduceColumnMean extends MPSNNReduceUnary {
   initWithDevice(device: MTLDevice): this;
 
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+}
+
+declare class MPSCNNLoss extends MPSCNNKernel {
+  readonly lossType: interop.Enum<typeof MPSCNNLossType>;
+
+  readonly reductionType: interop.Enum<typeof MPSCNNReductionType>;
+
+  readonly weight: number;
+
+  readonly labelSmoothing: number;
+
+  readonly numberOfClasses: number;
+
+  readonly epsilon: number;
+
+  readonly delta: number;
+
+  readonly reduceAcrossBatch: boolean;
+
+  initWithDeviceLossDescriptor(device: MTLDevice, lossDescriptor: MPSCNNLossDescriptor): this;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+
+  encodeToCommandBufferSourceImageLabelsDestinationImage(commandBuffer: MTLCommandBuffer, sourceImage: MPSImage, labels: MPSCNNLossLabels, destinationImage: MPSImage): void;
+
+  encodeToCommandBufferSourceImageLabels(commandBuffer: MTLCommandBuffer, sourceImage: MPSImage, labels: MPSCNNLossLabels): MPSImage;
+
+  encodeBatchToCommandBufferSourceImagesLabelsDestinationImages(commandBuffer: MTLCommandBuffer, sourceImage: NSArray<interop.Object> | Array<interop.Object>, labels: NSArray<interop.Object> | Array<interop.Object>, destinationImage: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  encodeBatchToCommandBufferSourceImagesLabels(commandBuffer: MTLCommandBuffer, sourceImage: NSArray<interop.Object> | Array<interop.Object>, labels: NSArray<interop.Object> | Array<interop.Object>): NSArray;
+}
+
+declare class MPSCNNAdd extends MPSCNNArithmetic {
+  initWithDevice(device: MTLDevice): this;
 }
 
 declare class MPSImagePyramid extends MPSUnaryImageKernel {
@@ -4365,6 +4393,16 @@ declare class MPSNNOptimizerStochasticGradientDescent extends MPSNNOptimizer {
   encodeToCommandBufferBatchNormalizationStateInputMomentumVectorsResultState(commandBuffer: MTLCommandBuffer, batchNormalizationState: MPSCNNBatchNormalizationState, inputMomentumVectors: NSArray<interop.Object> | Array<interop.Object> | null, resultState: MPSCNNNormalizationGammaAndBetaState): void;
 
   encodeToCommandBufferBatchNormalizationGradientStateBatchNormalizationSourceStateInputMomentumVectorsResultState(commandBuffer: MTLCommandBuffer, batchNormalizationGradientState: MPSCNNBatchNormalizationState, batchNormalizationSourceState: MPSCNNBatchNormalizationState, inputMomentumVectors: NSArray<interop.Object> | Array<interop.Object> | null, resultState: MPSCNNNormalizationGammaAndBetaState): void;
+}
+
+declare class MPSNNReduceFeatureChannelsMin extends MPSNNReduceUnary {
+  initWithDevice(device: MTLDevice): this;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+}
+
+declare class MPSImageLaplacian extends MPSUnaryImageKernel {
+  bias: number;
 }
 
 declare class MPSNNReductionColumnSumNode extends MPSNNUnaryReductionNode {
@@ -4406,9 +4444,6 @@ declare class MPSMatrixDescriptor extends NSObject {
   static rowBytesFromColumnsDataType(columns: number, dataType: interop.Enum<typeof MPSDataType>): number;
 
   static rowBytesForColumnsDataType(columns: number, dataType: interop.Enum<typeof MPSDataType>): number;
-}
-
-declare class MPSNNGradientStateNode extends MPSNNStateNode {
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -4740,6 +4775,12 @@ declare class MPSCNNPoolingL2NormGradient extends MPSCNNPoolingGradient {
 declare class MPSImageTent extends MPSImageBox {
 }
 
+declare class MPSNNReduceRowMin extends MPSNNReduceUnary {
+  initWithDevice(device: MTLDevice): this;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+}
+
 declare class MPSCNNNeuronSoftSign extends MPSCNNNeuron {
   initWithDevice(device: MTLDevice): this;
 }
@@ -4772,12 +4813,6 @@ declare class MPSImageCopyToMatrix extends MPSKernel {
   encodeToCommandBufferSourceImageDestinationMatrix(commandBuffer: MTLCommandBuffer, sourceImage: MPSImage, destinationMatrix: MPSMatrix): void;
 
   encodeBatchToCommandBufferSourceImagesDestinationMatrix(commandBuffer: MTLCommandBuffer, sourceImages: NSArray<interop.Object> | Array<interop.Object>, destinationMatrix: MPSMatrix): void;
-}
-
-declare class MPSCNNLogSoftMaxGradient extends MPSCNNGradientKernel {
-  initWithDevice(device: MTLDevice): this;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
 }
 
 declare class MPSImageHistogram extends MPSKernel {
@@ -4866,52 +4901,6 @@ declare class MPSCNNSoftMaxGradient extends MPSCNNGradientKernel {
   initWithDevice(device: MTLDevice): this;
 
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-}
-
-declare class MPSNDArrayAffineQuantizationDescriptor extends MPSNDArrayQuantizationDescriptor {
-  hasZeroPoint: boolean;
-
-  hasMinValue: boolean;
-
-  implicitZeroPoint: boolean;
-
-  init(): this;
-
-  initWithDataTypeHasZeroPointHasMinValue(quantizationDataType: interop.Enum<typeof MPSDataType>, hasZeroPoint: boolean, hasMinValue: boolean): this;
-}
-
-declare class MPSCNNLoss extends MPSCNNKernel {
-  readonly lossType: interop.Enum<typeof MPSCNNLossType>;
-
-  readonly reductionType: interop.Enum<typeof MPSCNNReductionType>;
-
-  readonly weight: number;
-
-  readonly labelSmoothing: number;
-
-  readonly numberOfClasses: number;
-
-  readonly epsilon: number;
-
-  readonly delta: number;
-
-  readonly reduceAcrossBatch: boolean;
-
-  initWithDeviceLossDescriptor(device: MTLDevice, lossDescriptor: MPSCNNLossDescriptor): this;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-
-  encodeToCommandBufferSourceImageLabelsDestinationImage(commandBuffer: MTLCommandBuffer, sourceImage: MPSImage, labels: MPSCNNLossLabels, destinationImage: MPSImage): void;
-
-  encodeToCommandBufferSourceImageLabels(commandBuffer: MTLCommandBuffer, sourceImage: MPSImage, labels: MPSCNNLossLabels): MPSImage;
-
-  encodeBatchToCommandBufferSourceImagesLabelsDestinationImages(commandBuffer: MTLCommandBuffer, sourceImage: NSArray<interop.Object> | Array<interop.Object>, labels: NSArray<interop.Object> | Array<interop.Object>, destinationImage: NSArray<interop.Object> | Array<interop.Object>): void;
-
-  encodeBatchToCommandBufferSourceImagesLabels(commandBuffer: MTLCommandBuffer, sourceImage: NSArray<interop.Object> | Array<interop.Object>, labels: NSArray<interop.Object> | Array<interop.Object>): NSArray;
-}
-
-declare class MPSCNNAdd extends MPSCNNArithmetic {
-  initWithDevice(device: MTLDevice): this;
 }
 
 declare class MPSCNNNormalizationGammaAndBetaState extends MPSState {
@@ -5447,6 +5436,9 @@ declare class MPSCNNUpsamplingBilinearNode extends MPSNNFilterNode {
   readonly alignCorners: boolean;
 }
 
+declare class MPSNNReductionFeatureChannelsMaxNode extends MPSNNUnaryReductionNode {
+}
+
 declare class MPSImageReduceRowMean extends MPSImageReduceUnary {
   initWithDevice(device: MTLDevice): this;
 }
@@ -5832,6 +5824,12 @@ declare class MPSCNNNeuron extends MPSCNNKernel {
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
 }
 
+declare class MPSCNNLogSoftMaxGradient extends MPSCNNGradientKernel {
+  initWithDevice(device: MTLDevice): this;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+}
+
 declare class MPSNNOptimizerRMSProp extends MPSNNOptimizer {
   readonly decay: number;
 
@@ -5910,6 +5908,16 @@ declare class MPSNNReduceFeatureChannelsMax extends MPSNNReduceUnary {
   initWithDevice(device: MTLDevice): this;
 
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+}
+
+declare class MPSNNGramMatrixCalculation extends MPSCNNKernel {
+  alpha: number;
+
+  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
+
+  initWithDeviceAlpha(device: MTLDevice, alpha: number): this;
+
+  initWithDevice(device: MTLDevice): this;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -6089,12 +6097,6 @@ declare class MPSNDArrayMultiaryGradientKernel extends MPSNDArrayMultiaryBase {
 }
 
 declare class MPSNNReduceFeatureChannelsAndWeightsMean extends MPSNNReduceBinary {
-  initWithDevice(device: MTLDevice): this;
-
-  initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;
-}
-
-declare class MPSNNReduceColumnMean extends MPSNNReduceUnary {
   initWithDevice(device: MTLDevice): this;
 
   initWithCoderDevice(aDecoder: NSCoder, device: MTLDevice): this;

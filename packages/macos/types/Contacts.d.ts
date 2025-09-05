@@ -280,8 +280,6 @@ declare const CNLabelContactRelationGrandsonSonsSon: string;
 
 declare const CNLabelContactRelationGrandsonDaughtersSon: string;
 
-declare const CNLabelContactRelationGrandson: string;
-
 declare const CNLabelContactRelationGranddaughterSonsDaughter: string;
 
 declare const CNLabelContactRelationGranddaughterDaughtersDaughter: string;
@@ -393,6 +391,8 @@ declare const CNLabelContactRelationWife: string;
 declare const CNContactPropertyAttribute: string;
 
 declare const CNLabelPhoneNumberAppleWatch: string;
+
+declare const CNLabelContactRelationGrandson: string;
 
 declare const CNLabelContactRelationBrotherInLawWifesBrother: string;
 
@@ -620,13 +620,6 @@ declare const CNContactNoteKey: string;
 
 declare const CNLabelContactRelationYoungerCousinFathersSistersDaughter: string;
 
-declare const CNContainerType: {
-  Unassigned: 0,
-  Local: 1,
-  Exchange: 2,
-  CardDAV: 3,
-};
-
 declare const CNEntityType: {
   CNEntityTypeContacts: 0,
 };
@@ -694,6 +687,13 @@ declare const CNPostalAddressFormatterStyle: {
 declare const CNContactFormatterStyle: {
   CNContactFormatterStyleFullName: 0,
   Phonetic: 1,
+};
+
+declare const CNContainerType: {
+  Unassigned: 0,
+  Local: 1,
+  Exchange: 2,
+  CardDAV: 3,
 };
 
 declare interface CNChangeHistoryEventVisitor extends NSObjectProtocol {
@@ -1188,6 +1188,47 @@ declare class CNChangeHistoryUpdateGroupEvent extends CNChangeHistoryEvent {
   readonly group: CNGroup;
 }
 
+declare class CNChangeHistoryDropEverythingEvent extends CNChangeHistoryEvent {
+}
+
+declare class CNSaveRequest extends NSObject {
+  addContactToContainerWithIdentifier(contact: CNMutableContact, identifier: string | null): void;
+
+  updateContact(contact: CNMutableContact): void;
+
+  deleteContact(contact: CNMutableContact): void;
+
+  addGroupToContainerWithIdentifier(group: CNMutableGroup, identifier: string | null): void;
+
+  updateGroup(group: CNMutableGroup): void;
+
+  deleteGroup(group: CNMutableGroup): void;
+
+  addSubgroupToGroup(subgroup: CNGroup, group: CNGroup): void;
+
+  removeSubgroupFromGroup(subgroup: CNGroup, group: CNGroup): void;
+
+  addMemberToGroup(contact: CNContact, group: CNGroup): void;
+
+  removeMemberFromGroup(contact: CNContact, group: CNGroup): void;
+
+  transactionAuthor: string;
+
+  shouldRefetchContacts: boolean;
+}
+
+declare class CNChangeHistoryRemoveMemberFromGroupEvent extends CNChangeHistoryEvent {
+  readonly member: CNContact;
+
+  readonly group: CNGroup;
+}
+
+declare class CNChangeHistoryAddMemberToGroupEvent extends CNChangeHistoryEvent {
+  readonly member: CNContact;
+
+  readonly group: CNGroup;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class CNMutableContact extends CNContact {
   // @ts-ignore MemberDecl.tsIgnore
@@ -1288,40 +1329,12 @@ declare class CNMutableContact extends CNContact {
   set dates(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
-declare class CNSaveRequest extends NSObject {
-  addContactToContainerWithIdentifier(contact: CNMutableContact, identifier: string | null): void;
-
-  updateContact(contact: CNMutableContact): void;
-
-  deleteContact(contact: CNMutableContact): void;
-
-  addGroupToContainerWithIdentifier(group: CNMutableGroup, identifier: string | null): void;
-
-  updateGroup(group: CNMutableGroup): void;
-
-  deleteGroup(group: CNMutableGroup): void;
-
-  addSubgroupToGroup(subgroup: CNGroup, group: CNGroup): void;
-
-  removeSubgroupFromGroup(subgroup: CNGroup, group: CNGroup): void;
-
-  addMemberToGroup(contact: CNContact, group: CNGroup): void;
-
-  removeMemberFromGroup(contact: CNContact, group: CNGroup): void;
-
-  transactionAuthor: string;
-
-  shouldRefetchContacts: boolean;
+declare class CNChangeHistoryDeleteContactEvent extends CNChangeHistoryEvent {
+  readonly contactIdentifier: string;
 }
 
-declare class CNChangeHistoryRemoveMemberFromGroupEvent extends CNChangeHistoryEvent {
-  readonly member: CNContact;
-
-  readonly group: CNGroup;
-}
-
-declare class CNChangeHistoryAddMemberToGroupEvent extends CNChangeHistoryEvent {
-  readonly member: CNContact;
+declare class CNChangeHistoryAddSubgroupToGroupEvent extends CNChangeHistoryEvent {
+  readonly subgroup: CNGroup;
 
   readonly group: CNGroup;
 }
@@ -1336,19 +1349,6 @@ declare class CNPostalAddressFormatter extends NSFormatter {
   stringFromPostalAddress(postalAddress: CNPostalAddress): string;
 
   attributedStringFromPostalAddressWithDefaultAttributes(postalAddress: CNPostalAddress, attributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSAttributedString;
-}
-
-declare class CNChangeHistoryDeleteContactEvent extends CNChangeHistoryEvent {
-  readonly contactIdentifier: string;
-}
-
-declare class CNChangeHistoryAddSubgroupToGroupEvent extends CNChangeHistoryEvent {
-  readonly subgroup: CNGroup;
-
-  readonly group: CNGroup;
-}
-
-declare class CNChangeHistoryDropEverythingEvent extends CNChangeHistoryEvent {
 }
 
 declare class CNSocialProfile extends NSObject implements NSCopying, NSSecureCoding {

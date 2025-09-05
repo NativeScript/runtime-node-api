@@ -200,6 +200,8 @@ declare const NSPersistentStoreDeferredLightweightMigrationOptionKey: string;
 
 declare const NSPersistentHistoryTokenKey: string;
 
+declare const NSInferMappingModelAutomaticallyOption: string;
+
 declare const NSPersistentStoreCoordinatorWillRemoveStoreNotification: string;
 
 declare const NSSQLiteStoreType: string;
@@ -265,8 +267,6 @@ declare const NSValidationNumberTooSmallError: number;
 declare const NSBinaryStoreInsecureDecodingCompatibilityOption: string;
 
 declare const NSPersistentStoreRemoteChangeNotification: string;
-
-declare const NSInferMappingModelAutomaticallyOption: string;
 
 declare const NSStagedMigrationBackwardMigrationError: number;
 
@@ -1210,6 +1210,11 @@ declare class NSManagedObjectModel extends NSObject implements NSCoding, NSCopyi
 
 }
 
+declare class NSCompositeAttributeDescription extends NSAttributeDescription {
+  get elements(): NSArray;
+  set elements(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
 declare class NSFetchIndexDescription extends NSObject implements NSCoding, NSCopying {
   initWithNameElements(name: string, elements: NSArray<interop.Object> | Array<interop.Object> | null): this;
 
@@ -1436,11 +1441,6 @@ declare class NSFetchRequestExpression extends NSExpression {
   readonly contextExpression: NSExpression;
 
   readonly isCountOnlyRequest: boolean;
-}
-
-declare class NSCompositeAttributeDescription extends NSAttributeDescription {
-  get elements(): NSArray;
-  set elements(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
 declare class NSEntityDescription extends NSObject implements NSCoding, NSCopying, NSFastEnumeration {
@@ -1687,34 +1687,6 @@ declare class NSPersistentHistoryChangeRequest extends NSPersistentStoreRequest 
   fetchRequest: NSFetchRequest;
 }
 
-declare class NSBatchDeleteResult extends NSPersistentStoreResult {
-  readonly result: interop.Object;
-
-  readonly resultType: interop.Enum<typeof NSBatchDeleteRequestResultType>;
-}
-
-declare class NSLightweightMigrationStage extends NSMigrationStage {
-  readonly versionChecksums: NSArray;
-
-  initWithVersionChecksums(versionChecksums: NSArray<interop.Object> | Array<interop.Object>): this;
-}
-
-declare class NSAtomicStoreCacheNode extends NSObject {
-  initWithObjectID(moid: NSManagedObjectID): this;
-
-  readonly objectID: NSManagedObjectID;
-
-  propertyCache: NSMutableDictionary;
-
-  valueForKey(key: string): interop.Object;
-
-  setValueForKey(value: interop.Object | null, key: string): void;
-}
-
-declare class NSDerivedAttributeDescription extends NSAttributeDescription {
-  derivationExpression: NSExpression;
-}
-
 declare class NSPersistentHistoryTransaction extends NSObject implements NSCopying {
   static entityDescriptionWithContext(context: NSManagedObjectContext): NSEntityDescription;
 
@@ -1743,6 +1715,34 @@ declare class NSPersistentHistoryTransaction extends NSObject implements NSCopyi
   objectIDNotification(): NSNotification;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class NSBatchDeleteResult extends NSPersistentStoreResult {
+  readonly result: interop.Object;
+
+  readonly resultType: interop.Enum<typeof NSBatchDeleteRequestResultType>;
+}
+
+declare class NSLightweightMigrationStage extends NSMigrationStage {
+  readonly versionChecksums: NSArray;
+
+  initWithVersionChecksums(versionChecksums: NSArray<interop.Object> | Array<interop.Object>): this;
+}
+
+declare class NSAtomicStoreCacheNode extends NSObject {
+  initWithObjectID(moid: NSManagedObjectID): this;
+
+  readonly objectID: NSManagedObjectID;
+
+  propertyCache: NSMutableDictionary;
+
+  valueForKey(key: string): interop.Object;
+
+  setValueForKey(value: interop.Object | null, key: string): void;
+}
+
+declare class NSDerivedAttributeDescription extends NSAttributeDescription {
+  derivationExpression: NSExpression;
 }
 
 declare class NSPersistentContainer extends NSObject {

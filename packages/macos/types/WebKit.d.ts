@@ -1,6 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
-/// <reference path="./AppKit.d.ts" />
 /// <reference path="./Runtime.d.ts" />
+/// <reference path="./AppKit.d.ts" />
 /// <reference path="./Foundation.d.ts" />
 
 declare const WebViewDidChangeSelectionNotification: string;
@@ -243,6 +243,50 @@ declare const WKWebsiteDataTypeMemoryCache: string;
 
 declare const WKWebsiteDataTypeFetchCache: string;
 
+declare const WKWebExtensionMessagePortErrorDomain: string;
+
+declare const WKWebExtensionDataTypeSynchronized: string;
+
+declare const WKWebExtensionDataTypeSession: string;
+
+declare const WKWebExtensionContextNotificationUserInfoKeyPermissions: string;
+
+declare const WKWebExtensionContextDeniedPermissionMatchPatternsWereRemovedNotification: string;
+
+declare const WKWebExtensionContextGrantedPermissionMatchPatternsWereRemovedNotification: string;
+
+declare const WKWebExtensionContextPermissionMatchPatternsWereDeniedNotification: string;
+
+declare const WKWebExtensionContextDeniedPermissionsWereRemovedNotification: string;
+
+declare const WKWebExtensionContextGrantedPermissionsWereRemovedNotification: string;
+
+declare const WKWebExtensionContextPermissionsWereDeniedNotification: string;
+
+declare const WKWebExtensionContextPermissionsWereGrantedNotification: string;
+
+declare const WKWebExtensionContextErrorsDidUpdateNotification: string;
+
+declare const WKWebExtensionErrorDomain: string;
+
+declare const WKWebExtensionPermissionWebRequest: string;
+
+declare const WKWebExtensionPermissionTabs: string;
+
+declare const WKWebExtensionPermissionStorage: string;
+
+declare const WKWebExtensionPermissionScripting: string;
+
+declare const WKWebExtensionPermissionDeclarativeNetRequestWithHostAccess: string;
+
+declare const WKWebExtensionPermissionDeclarativeNetRequestFeedback: string;
+
+declare const WKWebExtensionPermissionCookies: string;
+
+declare const WKWebExtensionPermissionClipboardWrite: string;
+
+declare const WKWebExtensionPermissionActiveTab: string;
+
 declare const WebMenuItemTagStop: number;
 
 declare const DOM_NOTATION_NODE: number;
@@ -287,6 +331,8 @@ declare const WebKitErrorPlugInPageURLStringKey: string;
 
 declare const DOM_END_TO_START: number;
 
+declare const WKWebExtensionPermissionContextMenus: string;
+
 declare const DOM_CSS_VMIN: number;
 
 declare const DOM_REMOVAL: number;
@@ -311,7 +357,11 @@ declare const DOM_DOCUMENT_POSITION_FOLLOWING: number;
 
 declare const WebKitErrorCannotShowURL: number;
 
+declare const WKWebExtensionPermissionNativeMessaging: string;
+
 declare const DOM_WEBKIT_REGION_RULE: number;
+
+declare const WKWebExtensionPermissionUnlimitedStorage: string;
 
 declare const DOM_DOM_DELTA_PIXEL: number;
 
@@ -333,6 +383,8 @@ declare const WebMenuItemTagCopy: number;
 
 declare const WKWebsiteDataTypeOfflineWebApplicationCache: string;
 
+declare const WKWebExtensionPermissionDeclarativeNetRequest: string;
+
 declare const WebPreferencesChangedNotification: string;
 
 declare const DOM_FILTER_ACCEPT: number;
@@ -342,6 +394,8 @@ declare const DOM_WEBKIT_KEYFRAMES_RULE: number;
 declare const WebHistorySavedNotification: string;
 
 declare const DOM_CSS_UNKNOWN: number;
+
+declare const WKWebExtensionContextPermissionMatchPatternsWereGrantedNotification: string;
 
 declare const DOM_ATTRIBUTE_NODE: number;
 
@@ -377,6 +431,8 @@ declare const WebPlugInContainerKey: string;
 
 declare const WebElementLinkLabelKey: string;
 
+declare const WKWebExtensionDataTypeLocal: string;
+
 declare const DOM_ANY_TYPE: number;
 
 declare const WebElementImageAltStringKey: string;
@@ -389,11 +445,19 @@ declare const DOM_ELEMENT_NODE: number;
 
 declare const WKWebsiteDataTypeServiceWorkerRegistrations: string;
 
+declare const WKWebExtensionPermissionAlarms: string;
+
+declare const WKWebExtensionMatchPatternErrorDomain: string;
+
 declare const WebKitErrorJavaUnavailable: number;
+
+declare const WKWebExtensionDataRecordErrorDomain: string;
 
 declare const DOM_NODE_BEFORE: number;
 
 declare const WebMenuItemTagSpellingGuess: number;
+
+declare const WKWebExtensionPermissionMenus: string;
 
 declare const DOM_CSS_NUMBER: number;
 
@@ -404,6 +468,8 @@ declare const DOM_NUMBER_TYPE: number;
 declare const WebMenuItemPDFFacingPages: number;
 
 declare const DOMXPathException: string;
+
+declare const WKWebExtensionContextNotificationUserInfoKeyMatchPatterns: string;
 
 declare const DOM_KEYFRAME_RULE: number;
 
@@ -420,6 +486,8 @@ declare const WebMenuItemTagCopyLinkToClipboard: number;
 declare const DOM_CSS_IN: number;
 
 declare const WebMenuItemTagGoBack: number;
+
+declare const WKWebExtensionPermissionWebNavigation: string;
 
 declare const WebArchivePboardType: string;
 
@@ -438,6 +506,8 @@ declare const DOM_SHOW_ELEMENT: number;
 declare const DOM_DOM_DELTA_LINE: number;
 
 declare const WebElementLinkTitleKey: string;
+
+declare const WKWebExtensionContextErrorDomain: string;
 
 declare const WebKitErrorPlugInNameKey: string;
 
@@ -514,6 +584,66 @@ declare const WKUserInterfaceDirectionPolicy: {
   System: 1,
 };
 
+declare const WKWebExtensionMessagePortError: {
+  Unknown: 1,
+  NotConnected: 2,
+  MessageInvalid: 3,
+};
+
+declare const WKWebExtensionDataRecordError: {
+  Unknown: 1,
+  LocalStorageFailed: 2,
+  SessionStorageFailed: 3,
+  SynchronizedStorageFailed: 4,
+};
+
+declare const WKWebExtensionWindowType: {
+  Normal: 0,
+  Popup: 1,
+};
+
+declare const WKWebExtensionContextPermissionStatus: {
+  DeniedExplicitly: -3,
+  DeniedImplicitly: -2,
+  RequestedImplicitly: -1,
+  Unknown: 0,
+  RequestedExplicitly: 1,
+  GrantedImplicitly: 2,
+  GrantedExplicitly: 3,
+};
+
+declare const WKWebExtensionTabChangedProperties: {
+  None: 0,
+  Loading: 2,
+  Muted: 4,
+  Pinned: 8,
+  PlayingAudio: 16,
+  ReaderMode: 32,
+  Size: 64,
+  Title: 128,
+  URL: 256,
+  ZoomFactor: 512,
+};
+
+declare const WKWebExtensionError: {
+  Unknown: 1,
+  ResourceNotFound: 2,
+  InvalidResourceCodeSignature: 3,
+  InvalidManifest: 4,
+  UnsupportedManifestVersion: 5,
+  InvalidManifestEntry: 6,
+  InvalidDeclarativeNetRequestEntry: 7,
+  InvalidBackgroundPersistence: 8,
+  InvalidArchive: 9,
+};
+
+declare const WKWebExtensionMatchPatternOptions: {
+  None: 0,
+  IgnoreSchemes: 1,
+  IgnorePaths: 2,
+  MatchBidirectionally: 4,
+};
+
 declare const WKDialogResult: {
   ShowDefault: 1,
   AskAgain: 2,
@@ -544,6 +674,13 @@ declare const WKNavigationActionPolicy: {
   Download: 2,
 };
 
+declare const WKWebpagePreferencesUpgradeToHTTPSPolicy: {
+  KeepAsRequested: 0,
+  AutomaticFallbackToHTTP: 1,
+  UserMediatedFallbackToHTTP: 2,
+  ErrorOnFailure: 3,
+};
+
 declare const WKUserScriptInjectionTime: {
   Start: 0,
   End: 1,
@@ -554,6 +691,13 @@ declare const WKFullscreenState: {
   Entering: 1,
   In: 2,
   Exiting: 3,
+};
+
+declare const WKWebExtensionWindowState: {
+  Normal: 0,
+  Minimized: 1,
+  Maximized: 2,
+  Fullscreen: 3,
 };
 
 declare const WKCookiePolicy: {
@@ -579,6 +723,13 @@ declare const WebDragSourceAction: {
   Link: 4,
   Selection: 8,
   Any: 4294967295,
+};
+
+declare const WKWebExtensionMatchPatternError: {
+  Unknown: 1,
+  InvalidScheme: 2,
+  InvalidHost: 3,
+  InvalidPath: 4,
 };
 
 declare const WKMediaPlaybackState: {
@@ -623,10 +774,24 @@ declare const WKMediaCaptureState: {
   Muted: 2,
 };
 
+declare const WKWebExtensionContextError: {
+  Unknown: 1,
+  AlreadyLoaded: 2,
+  NotLoaded: 3,
+  BaseURLAlreadyInUse: 4,
+  NoBackgroundContent: 5,
+  BackgroundContentFailedToLoad: 6,
+};
+
 declare const WKMediaCaptureType: {
   Camera: 0,
   Microphone: 1,
   CameraAndMicrophone: 2,
+};
+
+declare const WKDownloadPlaceholderPolicy: {
+  Disable: 0,
+  Enable: 1,
 };
 
 declare class DOMObjectInternal {
@@ -661,6 +826,33 @@ declare interface WebPlugInViewFactory extends NSObjectProtocol {
 
 declare class WebPlugInViewFactory extends NativeObject implements WebPlugInViewFactory {
   static plugInViewWithArguments(arguments$: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): NSView;
+}
+
+declare interface WKWebExtensionWindow extends NSObjectProtocol {
+  tabsForWebExtensionContext?(context: WKWebExtensionContext): NSArray;
+
+  activeTabForWebExtensionContext?(context: WKWebExtensionContext): WKWebExtensionTab;
+
+  windowTypeForWebExtensionContext?(context: WKWebExtensionContext): interop.Enum<typeof WKWebExtensionWindowType>;
+
+  windowStateForWebExtensionContext?(context: WKWebExtensionContext): interop.Enum<typeof WKWebExtensionWindowState>;
+
+  setWindowStateForWebExtensionContextCompletionHandler?(state: interop.Enum<typeof WKWebExtensionWindowState>, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  isPrivateForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  screenFrameForWebExtensionContext?(context: WKWebExtensionContext): CGRect;
+
+  frameForWebExtensionContext?(context: WKWebExtensionContext): CGRect;
+
+  setFrameForWebExtensionContextCompletionHandler?(frame: CGRect, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  focusForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  closeForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+}
+
+declare class WKWebExtensionWindow extends NativeObject implements WKWebExtensionWindow {
 }
 
 declare interface WebDownloadDelegate extends NSURLDownloadDelegate {
@@ -823,6 +1015,35 @@ declare interface DOMEventTarget extends NSObjectProtocol, NSCopying {
 declare class DOMEventTarget extends NativeObject implements DOMEventTarget {
 }
 
+declare interface WKWebExtensionControllerDelegate extends NSObjectProtocol {
+  webExtensionControllerOpenWindowsForExtensionContext?(controller: WKWebExtensionController, extensionContext: WKWebExtensionContext): NSArray;
+
+  webExtensionControllerFocusedWindowForExtensionContext?(controller: WKWebExtensionController, extensionContext: WKWebExtensionContext): WKWebExtensionWindow;
+
+  webExtensionControllerOpenNewWindowUsingConfigurationForExtensionContextCompletionHandler?(controller: WKWebExtensionController, configuration: WKWebExtensionWindowConfiguration, extensionContext: WKWebExtensionContext, completionHandler: (p1: WKWebExtensionWindow, p2: NSError) => void | null): void;
+
+  webExtensionControllerOpenNewTabUsingConfigurationForExtensionContextCompletionHandler?(controller: WKWebExtensionController, configuration: WKWebExtensionTabConfiguration, extensionContext: WKWebExtensionContext, completionHandler: (p1: WKWebExtensionTab, p2: NSError) => void | null): void;
+
+  webExtensionControllerOpenOptionsPageForExtensionContextCompletionHandler?(controller: WKWebExtensionController, extensionContext: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  webExtensionControllerPromptForPermissionsInTabForExtensionContextCompletionHandler?(controller: WKWebExtensionController, permissions: NSSet, tab: WKWebExtensionTab | null, extensionContext: WKWebExtensionContext, completionHandler: (p1: NSSet, p2: NSDate) => void | null): void;
+
+  webExtensionControllerPromptForPermissionToAccessURLsInTabForExtensionContextCompletionHandler?(controller: WKWebExtensionController, urls: NSSet, tab: WKWebExtensionTab | null, extensionContext: WKWebExtensionContext, completionHandler: (p1: NSSet, p2: NSDate) => void | null): void;
+
+  webExtensionControllerPromptForPermissionMatchPatternsInTabForExtensionContextCompletionHandler?(controller: WKWebExtensionController, matchPatterns: NSSet, tab: WKWebExtensionTab | null, extensionContext: WKWebExtensionContext, completionHandler: (p1: NSSet, p2: NSDate) => void | null): void;
+
+  webExtensionControllerDidUpdateActionForExtensionContext?(controller: WKWebExtensionController, action: WKWebExtensionAction, context: WKWebExtensionContext): void;
+
+  webExtensionControllerPresentPopupForActionForExtensionContextCompletionHandler?(controller: WKWebExtensionController, action: WKWebExtensionAction, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  webExtensionControllerSendMessageToApplicationWithIdentifierForExtensionContextReplyHandler?(controller: WKWebExtensionController, message: interop.Object, applicationIdentifier: string | null, extensionContext: WKWebExtensionContext, replyHandler: (p1: interop.Object, p2: NSError) => void | null): void;
+
+  webExtensionControllerConnectUsingMessagePortForExtensionContextCompletionHandler?(controller: WKWebExtensionController, port: WKWebExtensionMessagePort, extensionContext: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+}
+
+declare class WKWebExtensionControllerDelegate extends NativeObject implements WKWebExtensionControllerDelegate {
+}
+
 declare interface WKURLSchemeTask extends NSObjectProtocol {
   readonly request: NSURLRequest;
 
@@ -892,6 +1113,8 @@ declare interface WKNavigationDelegate extends NSObjectProtocol {
   webViewNavigationActionDidBecomeDownload?(webView: WKWebView, navigationAction: WKNavigationAction, download: WKDownload): void;
 
   webViewNavigationResponseDidBecomeDownload?(webView: WKWebView, navigationResponse: WKNavigationResponse, download: WKDownload): void;
+
+  webViewShouldGoToBackForwardListItemWillUseInstantBackCompletionHandler?(webView: WKWebView, backForwardListItem: WKBackForwardListItem, willUseInstantBack: boolean, completionHandler: (p1: boolean) => void): void;
 }
 
 declare class WKNavigationDelegate extends NativeObject implements WKNavigationDelegate {
@@ -1005,6 +1228,12 @@ declare interface WKDownloadDelegate extends NSObjectProtocol {
   downloadDidFinish?(download: WKDownload): void;
 
   downloadDidFailWithErrorResumeData?(download: WKDownload, error: NSError, resumeData: NSData | null): void;
+
+  downloadDecidePlaceholderPolicy?(download: WKDownload, completionHandler: (p1: interop.Enum<typeof WKDownloadPlaceholderPolicy>, p2: NSURL) => void | null): void;
+
+  downloadDidReceivePlaceholderURLCompletionHandler?(download: WKDownload, url: NSURL, completionHandler: () => void): void;
+
+  downloadDidReceiveFinalURL?(download: WKDownload, url: NSURL): void;
 }
 
 declare class WKDownloadDelegate extends NativeObject implements WKDownloadDelegate {
@@ -1073,11 +1302,154 @@ declare interface WebResourceLoadDelegate extends NSObjectProtocol {
 declare class WebResourceLoadDelegate extends NativeObject implements WebResourceLoadDelegate {
 }
 
+declare interface WKWebExtensionTab extends NSObjectProtocol {
+  windowForWebExtensionContext?(context: WKWebExtensionContext): WKWebExtensionWindow;
+
+  indexInWindowForWebExtensionContext?(context: WKWebExtensionContext): number;
+
+  parentTabForWebExtensionContext?(context: WKWebExtensionContext): WKWebExtensionTab;
+
+  setParentTabForWebExtensionContextCompletionHandler?(parentTab: WKWebExtensionTab | null, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  webViewForWebExtensionContext?(context: WKWebExtensionContext): WKWebView;
+
+  titleForWebExtensionContext?(context: WKWebExtensionContext): string;
+
+  isPinnedForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  setPinnedForWebExtensionContextCompletionHandler?(pinned: boolean, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  isReaderModeAvailableForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  isReaderModeActiveForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  setReaderModeActiveForWebExtensionContextCompletionHandler?(active: boolean, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  isPlayingAudioForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  isMutedForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  setMutedForWebExtensionContextCompletionHandler?(muted: boolean, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  sizeForWebExtensionContext?(context: WKWebExtensionContext): CGSize;
+
+  zoomFactorForWebExtensionContext?(context: WKWebExtensionContext): number;
+
+  setZoomFactorForWebExtensionContextCompletionHandler?(zoomFactor: number, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  urlForWebExtensionContext?(context: WKWebExtensionContext): NSURL;
+
+  pendingURLForWebExtensionContext?(context: WKWebExtensionContext): NSURL;
+
+  isLoadingCompleteForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  detectWebpageLocaleForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSLocale, p2: NSError) => void | null): void;
+
+  takeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler?(configuration: WKSnapshotConfiguration, context: WKWebExtensionContext, completionHandler: (p1: NSImage, p2: NSError) => void | null): void;
+
+  loadURLForWebExtensionContextCompletionHandler?(url: NSURL, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  reloadFromOriginForWebExtensionContextCompletionHandler?(fromOrigin: boolean, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  goBackForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  goForwardForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  activateForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  isSelectedForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  setSelectedForWebExtensionContextCompletionHandler?(selected: boolean, context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  duplicateUsingConfigurationForWebExtensionContextCompletionHandler?(configuration: WKWebExtensionTabConfiguration, context: WKWebExtensionContext, completionHandler: (p1: WKWebExtensionTab, p2: NSError) => void | null): void;
+
+  closeForWebExtensionContextCompletionHandler?(context: WKWebExtensionContext, completionHandler: (p1: NSError) => void | null): void;
+
+  shouldGrantPermissionsOnUserGestureForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+
+  shouldBypassPermissionsForWebExtensionContext?(context: WKWebExtensionContext): boolean;
+}
+
+declare class WKWebExtensionTab extends NativeObject implements WKWebExtensionTab {
+}
+
 declare interface WebDocumentSearching extends NSObjectProtocol {
   searchForDirectionCaseSensitiveWrap(string: string, forward: boolean, caseFlag: boolean, wrapFlag: boolean): boolean;
 }
 
 declare class WebDocumentSearching extends NativeObject implements WebDocumentSearching {
+}
+
+declare class DOMHTMLSelectElement extends DOMHTMLElement {
+  autofocus: boolean;
+
+  disabled: boolean;
+
+  readonly form: DOMHTMLFormElement;
+
+  multiple: boolean;
+
+  name: string;
+
+  size: number;
+
+  readonly type: string;
+
+  readonly options: DOMHTMLOptionsCollection;
+
+  readonly length: number;
+
+  selectedIndex: number;
+
+  value: string;
+
+  readonly willValidate: boolean;
+
+  item(index: number): DOMNode;
+
+  namedItem(name: string): DOMNode;
+
+  addBefore(element: DOMHTMLElement, before: DOMHTMLElement): void;
+
+  remove(index: number): void;
+
+  add(element: DOMHTMLElement, before: DOMHTMLElement): void;
+}
+
+declare class DOMMediaList extends DOMObject {
+  mediaText: string;
+
+  readonly length: number;
+
+  item(index: number): string;
+
+  deleteMedium(oldMedium: string): void;
+
+  appendMedium(newMedium: string): void;
+}
+
+declare class DOMStyleSheetList extends DOMObject {
+  readonly length: number;
+
+  item(index: number): DOMStyleSheet;
+}
+
+declare class WKProcessPool extends NSObject implements NSSecureCoding {
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class WKFindResult extends NSObject implements NSCopying {
+  readonly matchFound: boolean;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class DOMHTMLFieldSetElement extends DOMHTMLElement {
+  readonly form: DOMHTMLFormElement;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -1312,76 +1684,32 @@ declare class WebView extends NSView {
   overWrite(sender: interop.Object): void;
 }
 
-declare class DOMHTMLSelectElement extends DOMHTMLElement {
-  autofocus: boolean;
+declare class WKWebExtensionAction extends NSObject {
+  readonly webExtensionContext: WKWebExtensionContext | null;
 
-  disabled: boolean;
+  readonly associatedTab: WKWebExtensionTab;
 
-  readonly form: DOMHTMLFormElement;
+  iconForSize(size: CGSize): NSImage;
 
-  multiple: boolean;
+  readonly label: string;
 
-  name: string;
+  readonly badgeText: string;
 
-  size: number;
+  hasUnreadBadgeText: boolean;
 
-  readonly type: string;
+  inspectionName: string;
 
-  readonly options: DOMHTMLOptionsCollection;
+  readonly isEnabled: boolean;
 
-  readonly length: number;
+  readonly menuItems: NSArray;
 
-  selectedIndex: number;
+  readonly presentsPopup: boolean;
 
-  value: string;
+  readonly popupPopover: NSPopover;
 
-  readonly willValidate: boolean;
+  readonly popupWebView: WKWebView;
 
-  item(index: number): DOMNode;
-
-  namedItem(name: string): DOMNode;
-
-  addBefore(element: DOMHTMLElement, before: DOMHTMLElement): void;
-
-  remove(index: number): void;
-
-  add(element: DOMHTMLElement, before: DOMHTMLElement): void;
-}
-
-declare class DOMMediaList extends DOMObject {
-  mediaText: string;
-
-  readonly length: number;
-
-  item(index: number): string;
-
-  deleteMedium(oldMedium: string): void;
-
-  appendMedium(newMedium: string): void;
-}
-
-declare class DOMStyleSheetList extends DOMObject {
-  readonly length: number;
-
-  item(index: number): DOMStyleSheet;
-}
-
-declare class WKProcessPool extends NSObject implements NSSecureCoding {
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class WKFindResult extends NSObject implements NSCopying {
-  readonly matchFound: boolean;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class DOMHTMLFieldSetElement extends DOMHTMLElement {
-  readonly form: DOMHTMLFormElement;
+  closePopup(): void;
 }
 
 declare class DOMHTMLHtmlElement extends DOMHTMLElement {
@@ -1494,6 +1822,10 @@ declare class WKDownload extends NSObject implements NSProgressReporting {
   readonly webView: WKWebView | null;
 
   delegate: WKDownloadDelegate | null;
+
+  readonly isUserInitiated: boolean;
+
+  readonly originatingFrame: WKFrameInfo;
 
   cancel(completionHandler: (p1: NSData) => void | null): void;
 
@@ -1837,78 +2169,158 @@ declare class WebFrameView extends NSView {
 declare class WebDownload extends NSURLDownload {
 }
 
-declare class DOMXPathResult extends DOMObject {
-  readonly resultType: number;
+declare class WebBackForwardList extends NSObject {
+  addItem(item: WebHistoryItem): void;
 
-  readonly numberValue: number;
+  goBack(): void;
 
-  readonly stringValue: string;
+  goForward(): void;
 
-  readonly booleanValue: boolean;
+  goToItem(item: WebHistoryItem): void;
 
-  readonly singleNodeValue: DOMNode;
+  readonly backItem: WebHistoryItem;
 
-  readonly invalidIteratorState: boolean;
+  readonly currentItem: WebHistoryItem;
 
-  readonly snapshotLength: number;
+  readonly forwardItem: WebHistoryItem;
 
-  iterateNext(): DOMNode;
+  backListWithLimit(limit: number): NSArray;
 
-  snapshotItem(index: number): DOMNode;
+  forwardListWithLimit(limit: number): NSArray;
+
+  capacity: number;
+
+  readonly backListCount: number;
+
+  readonly forwardListCount: number;
+
+  containsItem(item: WebHistoryItem): boolean;
+
+  itemAtIndex(index: number): WebHistoryItem;
+
+  setPageCacheSize(size: number): void;
+
+  pageCacheSize(): number;
 }
 
-declare class DOMHTMLTableCellElement extends DOMHTMLElement {
-  readonly cellIndex: number;
+declare class DOMTreeWalker extends DOMObject {
+  readonly root: DOMNode;
 
-  align: string;
+  readonly whatToShow: number;
 
-  axis: string;
+  readonly filter: DOMNodeFilter;
 
-  bgColor: string;
+  readonly expandEntityReferences: boolean;
 
-  ch: string;
+  currentNode: DOMNode;
 
-  chOff: string;
+  parentNode(): DOMNode;
 
-  colSpan: number;
+  firstChild(): DOMNode;
 
-  rowSpan: number;
+  lastChild(): DOMNode;
 
-  headers: string;
+  previousSibling(): DOMNode;
 
-  height: string;
+  nextSibling(): DOMNode;
 
-  noWrap: boolean;
+  previousNode(): DOMNode;
 
-  vAlign: string;
-
-  width: string;
-
-  abbr: string;
-
-  scope: string;
+  nextNode(): DOMNode;
 }
 
-declare class DOMXPathExpression extends DOMObject {
-  evaluateTypeInResult(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+declare class DOMNodeIterator extends DOMObject {
+  readonly root: DOMNode;
 
-  evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+  readonly whatToShow: number;
+
+  readonly filter: DOMNodeFilter;
+
+  readonly expandEntityReferences: boolean;
+
+  readonly referenceNode: DOMNode;
+
+  readonly pointerBeforeReferenceNode: boolean;
+
+  nextNode(): DOMNode;
+
+  previousNode(): DOMNode;
+
+  detach(): void;
 }
 
-declare class DOMMutationEvent extends DOMEvent {
-  readonly relatedNode: DOMNode;
+declare class DOMWheelEvent extends DOMMouseEvent {
+  readonly wheelDeltaX: number;
 
-  readonly prevValue: string;
+  readonly wheelDeltaY: number;
 
-  readonly newValue: string;
+  readonly wheelDelta: number;
 
-  readonly attrName: string;
+  readonly isHorizontal: boolean;
 
-  readonly attrChange: number;
+  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+}
 
-  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+declare class DOMKeyboardEvent extends DOMUIEvent {
+  readonly keyIdentifier: string;
 
-  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+  readonly location: number;
+
+  readonly keyLocation: number;
+
+  readonly ctrlKey: boolean;
+
+  readonly shiftKey: boolean;
+
+  readonly altKey: boolean;
+
+  readonly metaKey: boolean;
+
+  readonly altGraphKey: boolean;
+
+  readonly keyCode: number;
+
+  readonly charCode: number;
+
+  getModifierState(keyIdentifierArg: string): boolean;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
+
+  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+}
+
+declare class DOMEvent extends DOMObject {
+  readonly type: string;
+
+  readonly target: DOMEventTarget;
+
+  readonly currentTarget: DOMEventTarget;
+
+  readonly eventPhase: number;
+
+  readonly bubbles: boolean;
+
+  readonly cancelable: boolean;
+
+  readonly timeStamp: number;
+
+  readonly srcElement: DOMEventTarget;
+
+  returnValue: boolean;
+
+  cancelBubble: boolean;
+
+  stopPropagation(): void;
+
+  preventDefault(): void;
+
+  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
+
+  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
 }
 
 declare class DOMHTMLTextAreaElement extends DOMHTMLElement {
@@ -2027,6 +2439,44 @@ declare class DOMHTMLTableElement extends DOMHTMLElement {
   insertRow(index: number): DOMHTMLElement;
 
   deleteRow(index: number): void;
+}
+
+declare class DOMXPathExpression extends DOMObject {
+  evaluateTypeInResult(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+
+  evaluate(contextNode: DOMNode, type: number, inResult: DOMXPathResult): DOMXPathResult;
+}
+
+declare class DOMHTMLTableCellElement extends DOMHTMLElement {
+  readonly cellIndex: number;
+
+  align: string;
+
+  axis: string;
+
+  bgColor: string;
+
+  ch: string;
+
+  chOff: string;
+
+  colSpan: number;
+
+  rowSpan: number;
+
+  headers: string;
+
+  height: string;
+
+  noWrap: boolean;
+
+  vAlign: string;
+
+  width: string;
+
+  abbr: string;
+
+  scope: string;
 }
 
 declare class DOMHTMLStyleElement extends DOMHTMLElement {
@@ -2191,32 +2641,6 @@ declare class DOMHTMLIFrameElement extends DOMHTMLElement {
 
 declare class DOMHTMLHeadElement extends DOMHTMLElement {
   profile: string;
-}
-
-declare class DOMTreeWalker extends DOMObject {
-  readonly root: DOMNode;
-
-  readonly whatToShow: number;
-
-  readonly filter: DOMNodeFilter;
-
-  readonly expandEntityReferences: boolean;
-
-  currentNode: DOMNode;
-
-  parentNode(): DOMNode;
-
-  firstChild(): DOMNode;
-
-  lastChild(): DOMNode;
-
-  previousSibling(): DOMNode;
-
-  nextSibling(): DOMNode;
-
-  previousNode(): DOMNode;
-
-  nextNode(): DOMNode;
 }
 
 declare class WKPDFConfiguration extends NSObject implements NSCopying {
@@ -2560,9 +2984,6 @@ declare class DOMNamedNodeMap extends DOMObject {
 declare class DOMEntityReference extends DOMNode {
 }
 
-declare class DOMCDATASection extends DOMText {
-}
-
 declare class WebUndefined extends NSObject implements NSCoding, NSCopying {
   static undefined(): WebUndefined;
 
@@ -2641,6 +3062,79 @@ declare class WKWindowFeatures extends NSObject {
   readonly width: NSNumber;
 
   readonly height: NSNumber;
+}
+
+declare class WKWebExtensionDataRecord extends NSObject {
+  readonly displayName: string;
+
+  readonly uniqueIdentifier: string;
+
+  readonly containedDataTypes: NSSet;
+
+  readonly errors: NSArray;
+
+  readonly totalSizeInBytes: number;
+
+  sizeInBytesOfTypes(dataTypes: NSSet): number;
+}
+
+declare class DOMCDATASection extends DOMText {
+}
+
+declare class WKWebExtension extends NSObject {
+  static extensionWithAppExtensionBundleCompletionHandler(appExtensionBundle: NSBundle, completionHandler: (p1: WKWebExtension, p2: NSError) => void | null): void;
+
+  static extensionWithResourceBaseURLCompletionHandler(resourceBaseURL: NSURL, completionHandler: (p1: WKWebExtension, p2: NSError) => void | null): void;
+
+  readonly errors: NSArray;
+
+  readonly manifest: NSDictionary;
+
+  readonly manifestVersion: number;
+
+  supportsManifestVersion(manifestVersion: number): boolean;
+
+  readonly defaultLocale: NSLocale;
+
+  readonly displayName: string;
+
+  readonly displayShortName: string;
+
+  readonly displayVersion: string;
+
+  readonly displayDescription: string;
+
+  readonly displayActionLabel: string;
+
+  readonly version: string;
+
+  iconForSize(size: CGSize): NSImage;
+
+  actionIconForSize(size: CGSize): NSImage;
+
+  readonly requestedPermissions: NSSet;
+
+  readonly optionalPermissions: NSSet;
+
+  readonly requestedPermissionMatchPatterns: NSSet;
+
+  readonly optionalPermissionMatchPatterns: NSSet;
+
+  readonly allRequestedMatchPatterns: NSSet;
+
+  readonly hasBackgroundContent: boolean;
+
+  readonly hasPersistentBackgroundContent: boolean;
+
+  readonly hasInjectedContent: boolean;
+
+  readonly hasOptionsPage: boolean;
+
+  readonly hasOverrideNewTabPage: boolean;
+
+  readonly hasCommands: boolean;
+
+  readonly hasContentModificationRules: boolean;
 }
 
 declare class WKUserScript extends NSObject implements NSCopying {
@@ -2803,32 +3297,44 @@ declare class WKNavigation extends NSObject {
   readonly effectiveContentMode: interop.Enum<typeof WKContentMode>;
 }
 
+declare class WKWebExtensionCommand extends NSObject {
+  readonly webExtensionContext: WKWebExtensionContext | null;
+
+  readonly identifier: string;
+
+  readonly title: string;
+
+  activationKey: string;
+
+  modifierFlags: interop.Enum<typeof NSEventModifierFlags>;
+
+  readonly menuItem: NSMenuItem;
+}
+
 declare class WKWebpagePreferences extends NSObject {
   preferredContentMode: interop.Enum<typeof WKContentMode>;
 
   allowsContentJavaScript: boolean;
 
   isLockdownModeEnabled: boolean;
+
+  preferredHTTPSNavigationPolicy: interop.Enum<typeof WKWebpagePreferencesUpgradeToHTTPSPolicy>;
 }
 
-declare class WebArchive extends NSObject implements NSCoding, NSCopying {
-  initWithMainResourceSubresourcesSubframeArchives(mainResource: WebResource, subresources: NSArray<interop.Object> | Array<interop.Object>, subframeArchives: NSArray<interop.Object> | Array<interop.Object>): this;
+declare class WKWebExtensionWindowConfiguration extends NSObject {
+  readonly windowType: interop.Enum<typeof WKWebExtensionWindowType>;
 
-  initWithData(data: NSData): this;
+  readonly windowState: interop.Enum<typeof WKWebExtensionWindowState>;
 
-  readonly mainResource: WebResource;
+  readonly frame: CGRect;
 
-  readonly subresources: NSArray;
+  readonly tabURLs: NSArray;
 
-  readonly subframeArchives: NSArray;
+  readonly tabs: NSArray;
 
-  readonly data: NSData;
+  readonly shouldBeFocused: boolean;
 
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+  readonly shouldBePrivate: boolean;
 }
 
 declare class DOMNode extends DOMObject implements DOMEventTarget {
@@ -3036,36 +3542,24 @@ declare class WKFrameInfo extends NSObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class DOMKeyboardEvent extends DOMUIEvent {
-  readonly keyIdentifier: string;
+declare class WKWebExtensionTabConfiguration extends NSObject {
+  readonly window: WKWebExtensionWindow;
 
-  readonly location: number;
+  readonly index: number;
 
-  readonly keyLocation: number;
+  readonly parentTab: WKWebExtensionTab;
 
-  readonly ctrlKey: boolean;
+  readonly url: NSURL;
 
-  readonly shiftKey: boolean;
+  readonly shouldBeActive: boolean;
 
-  readonly altKey: boolean;
+  readonly shouldAddToSelection: boolean;
 
-  readonly metaKey: boolean;
+  readonly shouldBePinned: boolean;
 
-  readonly altGraphKey: boolean;
+  readonly shouldBeMuted: boolean;
 
-  readonly keyCode: number;
-
-  readonly charCode: number;
-
-  getModifierState(keyIdentifierArg: string): boolean;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, location: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKeyAltGraphKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean, altGraphKey: boolean): this;
-
-  initKeyboardEventCanBubbleCancelableViewKeyIdentifierKeyLocationCtrlKeyAltKeyShiftKeyMetaKey(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, keyIdentifier: string, keyLocation: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
+  readonly shouldReaderModeBeActive: boolean;
 }
 
 declare class DOMHTMLButtonElement extends DOMHTMLElement {
@@ -3094,28 +3588,146 @@ declare class DOMNodeList extends DOMObject {
   item(index: number): DOMNode;
 }
 
-declare class DOMUIEvent extends DOMEvent {
-  readonly view: DOMAbstractView;
+declare class WKWebExtensionContext extends NSObject {
+  static contextForExtension<This extends abstract new (...args: any) => any>(this: This, extension: WKWebExtension): InstanceType<This>;
 
-  readonly detail: number;
+  initForExtension(extension: WKWebExtension): this;
 
-  readonly keyCode: number;
+  readonly webExtension: WKWebExtension;
 
-  readonly charCode: number;
+  readonly webExtensionController: WKWebExtensionController;
 
-  readonly layerX: number;
+  readonly isLoaded: boolean;
 
-  readonly layerY: number;
+  readonly errors: NSArray;
 
-  readonly pageX: number;
+  baseURL: NSURL;
 
-  readonly pageY: number;
+  uniqueIdentifier: string;
 
-  readonly which: number;
+  isInspectable: boolean;
 
-  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
+  inspectionName: string;
 
-  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
+  unsupportedAPIs: NSSet;
+
+  readonly webViewConfiguration: WKWebViewConfiguration;
+
+  readonly optionsPageURL: NSURL;
+
+  readonly overrideNewTabPageURL: NSURL;
+
+  get grantedPermissions(): NSDictionary;
+  set grantedPermissions(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  get grantedPermissionMatchPatterns(): NSDictionary;
+  set grantedPermissionMatchPatterns(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  get deniedPermissions(): NSDictionary;
+  set deniedPermissions(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  get deniedPermissionMatchPatterns(): NSDictionary;
+  set deniedPermissionMatchPatterns(value: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>);
+
+  hasRequestedOptionalAccessToAllHosts: boolean;
+
+  hasAccessToPrivateData: boolean;
+
+  readonly currentPermissions: NSSet;
+
+  readonly currentPermissionMatchPatterns: NSSet;
+
+  hasPermission(permission: string): boolean;
+
+  hasPermissionInTab(permission: string, tab: WKWebExtensionTab | null): boolean;
+
+  hasAccessToURL(url: NSURL): boolean;
+
+  hasAccessToURLInTab(url: NSURL, tab: WKWebExtensionTab | null): boolean;
+
+  readonly hasAccessToAllURLs: boolean;
+
+  readonly hasAccessToAllHosts: boolean;
+
+  readonly hasInjectedContent: boolean;
+
+  hasInjectedContentForURL(url: NSURL): boolean;
+
+  readonly hasContentModificationRules: boolean;
+
+  permissionStatusForPermission(permission: string): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  permissionStatusForPermissionInTab(permission: string, tab: WKWebExtensionTab | null): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  setPermissionStatusForPermission(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, permission: string): void;
+
+  setPermissionStatusForPermissionExpirationDate(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, permission: string, expirationDate: NSDate | null): void;
+
+  permissionStatusForURL(url: NSURL): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  permissionStatusForURLInTab(url: NSURL, tab: WKWebExtensionTab | null): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  setPermissionStatusForURL(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, url: NSURL): void;
+
+  setPermissionStatusForURLExpirationDate(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, url: NSURL, expirationDate: NSDate | null): void;
+
+  permissionStatusForMatchPattern(pattern: WKWebExtensionMatchPattern): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  permissionStatusForMatchPatternInTab(pattern: WKWebExtensionMatchPattern, tab: WKWebExtensionTab | null): interop.Enum<typeof WKWebExtensionContextPermissionStatus>;
+
+  setPermissionStatusForMatchPattern(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, pattern: WKWebExtensionMatchPattern): void;
+
+  setPermissionStatusForMatchPatternExpirationDate(status: interop.Enum<typeof WKWebExtensionContextPermissionStatus>, pattern: WKWebExtensionMatchPattern, expirationDate: NSDate | null): void;
+
+  loadBackgroundContentWithCompletionHandler(completionHandler: (p1: NSError) => void | null): void;
+
+  actionForTab(tab: WKWebExtensionTab | null): WKWebExtensionAction;
+
+  performActionForTab(tab: WKWebExtensionTab | null): void;
+
+  readonly commands: NSArray;
+
+  performCommand(command: WKWebExtensionCommand): void;
+
+  performCommandForEvent(event: NSEvent): boolean;
+
+  commandForEvent(event: NSEvent): WKWebExtensionCommand;
+
+  menuItemsForTab(tab: WKWebExtensionTab): NSArray;
+
+  userGesturePerformedInTab(tab: WKWebExtensionTab): void;
+
+  hasActiveUserGestureInTab(tab: WKWebExtensionTab): boolean;
+
+  clearUserGestureInTab(tab: WKWebExtensionTab): void;
+
+  readonly openWindows: NSArray;
+
+  readonly focusedWindow: WKWebExtensionWindow;
+
+  readonly openTabs: NSSet;
+
+  didOpenWindow(newWindow: WKWebExtensionWindow): void;
+
+  didCloseWindow(closedWindow: WKWebExtensionWindow): void;
+
+  didFocusWindow(focusedWindow: WKWebExtensionWindow | null): void;
+
+  didOpenTab(newTab: WKWebExtensionTab): void;
+
+  didCloseTabWindowIsClosing(closedTab: WKWebExtensionTab, windowIsClosing: boolean): void;
+
+  didActivateTabPreviousActiveTab(activatedTab: WKWebExtensionTab, previousTab: WKWebExtensionTab | null): void;
+
+  didSelectTabs(selectedTabs: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  didDeselectTabs(deselectedTabs: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  didMoveTabFromIndexInWindow(movedTab: WKWebExtensionTab, index: number, oldWindow: WKWebExtensionWindow | null): void;
+
+  didReplaceTabWithTab(oldTab: WKWebExtensionTab, newTab: WKWebExtensionTab): void;
+
+  didChangeTabPropertiesForTab(properties: interop.Enum<typeof WKWebExtensionTabChangedProperties>, changedTab: WKWebExtensionTab): void;
 }
 
 declare class WebResource extends NSObject implements NSCoding, NSCopying {
@@ -3138,6 +3750,22 @@ declare class WebResource extends NSObject implements NSCoding, NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class DOMMutationEvent extends DOMEvent {
+  readonly relatedNode: DOMNode;
+
+  readonly prevValue: string;
+
+  readonly newValue: string;
+
+  readonly attrName: string;
+
+  readonly attrChange: number;
+
+  initMutationEventCanBubbleCancelableRelatedNodePrevValueNewValueAttrNameAttrChange(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+
+  initMutationEvent(type: string, canBubble: boolean, cancelable: boolean, relatedNode: DOMNode, prevValue: string, newValue: string, attrName: string, attrChange: number): this;
+}
+
 declare class WKHTTPCookieStore extends NSObject {
   getAllCookies(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
 
@@ -3154,16 +3782,6 @@ declare class WKHTTPCookieStore extends NSObject {
   getCookiePolicy(completionHandler: (p1: interop.Enum<typeof WKCookiePolicy>) => void): void;
 }
 
-declare class DOMOverflowEvent extends DOMEvent {
-  readonly orient: number;
-
-  readonly horizontalOverflow: boolean;
-
-  readonly verticalOverflow: boolean;
-
-  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): this;
-}
-
 declare class DOMHTMLCollection extends DOMObject {
   readonly length: number;
 
@@ -3172,52 +3790,6 @@ declare class DOMHTMLCollection extends DOMObject {
   namedItem(name: string): DOMNode;
 
   tags(name: string): DOMNodeList;
-}
-
-declare class WebBackForwardList extends NSObject {
-  addItem(item: WebHistoryItem): void;
-
-  goBack(): void;
-
-  goForward(): void;
-
-  goToItem(item: WebHistoryItem): void;
-
-  readonly backItem: WebHistoryItem;
-
-  readonly currentItem: WebHistoryItem;
-
-  readonly forwardItem: WebHistoryItem;
-
-  backListWithLimit(limit: number): NSArray;
-
-  forwardListWithLimit(limit: number): NSArray;
-
-  capacity: number;
-
-  readonly backListCount: number;
-
-  readonly forwardListCount: number;
-
-  containsItem(item: WebHistoryItem): boolean;
-
-  itemAtIndex(index: number): WebHistoryItem;
-
-  setPageCacheSize(size: number): void;
-
-  pageCacheSize(): number;
-}
-
-declare class DOMWheelEvent extends DOMMouseEvent {
-  readonly wheelDeltaX: number;
-
-  readonly wheelDeltaY: number;
-
-  readonly wheelDelta: number;
-
-  readonly isHorizontal: boolean;
-
-  initWheelEventWheelDeltaYViewScreenXScreenYClientXClientYCtrlKeyAltKeyShiftKeyMetaKey(wheelDeltaX: number, wheelDeltaY: number, view: DOMAbstractView, screenX: number, screenY: number, clientX: number, clientY: number, ctrlKey: boolean, altKey: boolean, shiftKey: boolean, metaKey: boolean): this;
 }
 
 declare class DOMStyleSheet extends DOMObject {
@@ -3980,6 +4552,26 @@ declare class DOMHTMLPreElement extends DOMHTMLElement {
   wrap: boolean;
 }
 
+declare class WebArchive extends NSObject implements NSCoding, NSCopying {
+  initWithMainResourceSubresourcesSubframeArchives(mainResource: WebResource, subresources: NSArray<interop.Object> | Array<interop.Object>, subframeArchives: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  initWithData(data: NSData): this;
+
+  readonly mainResource: WebResource;
+
+  readonly subresources: NSArray;
+
+  readonly subframeArchives: NSArray;
+
+  readonly data: NSData;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class DOMCharacterData extends DOMNode {
   data: string;
 
@@ -4221,7 +4813,7 @@ declare class WKWebView extends NSView {
 
   createPDFWithConfigurationCompletionHandler(pdfConfiguration: WKPDFConfiguration | null, completionHandler: (p1: NSData, p2: NSError) => void | null): void;
 
-  createWebArchiveDataWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void): void;
+  createWebArchiveDataWithCompletionHandler(completionHandler: (p1: NSData, p2: NSError) => void | null): void;
 
   allowsBackForwardNavigationGestures: boolean;
 
@@ -4326,6 +4918,26 @@ declare class WKContentRuleListStore extends NSObject {
   getAvailableContentRuleListIdentifiers(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
 }
 
+declare class DOMXPathResult extends DOMObject {
+  readonly resultType: number;
+
+  readonly numberValue: number;
+
+  readonly stringValue: string;
+
+  readonly booleanValue: boolean;
+
+  readonly singleNodeValue: DOMNode;
+
+  readonly invalidIteratorState: boolean;
+
+  readonly snapshotLength: number;
+
+  iterateNext(): DOMNode;
+
+  snapshotItem(index: number): DOMNode;
+}
+
 declare class DOMFile extends DOMBlob {
   readonly name: string;
 }
@@ -4394,12 +5006,32 @@ declare class WKContentWorld extends NSObject {
   readonly name: string;
 }
 
-declare class DOMBlob extends DOMObject {
-  readonly size: number;
+declare class DOMUIEvent extends DOMEvent {
+  readonly view: DOMAbstractView;
+
+  readonly detail: number;
+
+  readonly keyCode: number;
+
+  readonly charCode: number;
+
+  readonly layerX: number;
+
+  readonly layerY: number;
+
+  readonly pageX: number;
+
+  readonly pageY: number;
+
+  readonly which: number;
+
+  initUIEventCanBubbleCancelableViewDetail(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
+
+  initUIEvent(type: string, canBubble: boolean, cancelable: boolean, view: DOMAbstractView, detail: number): this;
 }
 
-declare class DOMAbstractView extends DOMObject {
-  readonly document: DOMDocument;
+declare class DOMBlob extends DOMObject {
+  readonly size: number;
 }
 
 declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding, NSCopying {
@@ -4408,6 +5040,8 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
   preferences: WKPreferences;
 
   userContentController: WKUserContentController;
+
+  webExtensionController: WKWebExtensionController;
 
   websiteDataStore: WKWebsiteDataStore;
 
@@ -4434,6 +5068,8 @@ declare class WKWebViewConfiguration extends NSObject implements NSSecureCoding,
   urlSchemeHandlerForURLScheme(urlScheme: string): WKURLSchemeHandler;
 
   supportsAdaptiveImageGlyph: boolean;
+
+  writingToolsBehavior: interop.Enum<typeof NSWritingToolsBehavior>;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -4522,6 +5158,34 @@ declare class DOMCSSCharsetRule extends DOMCSSRule {
   readonly encoding: string;
 }
 
+declare class DOMAbstractView extends DOMObject {
+  readonly document: DOMDocument;
+}
+
+declare class WKWebExtensionControllerConfiguration extends NSObject implements NSSecureCoding, NSCopying {
+  static defaultConfiguration<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static nonPersistentConfiguration<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
+
+  static configurationWithIdentifier<This extends abstract new (...args: any) => any>(this: This, identifier: NSUUID): InstanceType<This>;
+
+  readonly isPersistent: boolean;
+
+  readonly identifier: NSUUID;
+
+  webViewConfiguration: WKWebViewConfiguration;
+
+  defaultWebsiteDataStore: WKWebsiteDataStore;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class DOMCSSImportRule extends DOMCSSRule {
   readonly href: string;
 
@@ -4536,6 +5200,16 @@ declare class WKNavigationResponse extends NSObject {
   readonly response: NSURLResponse;
 
   readonly canShowMIMEType: boolean;
+}
+
+declare class DOMOverflowEvent extends DOMEvent {
+  readonly orient: number;
+
+  readonly horizontalOverflow: boolean;
+
+  readonly verticalOverflow: boolean;
+
+  initOverflowEventHorizontalOverflowVerticalOverflow(orient: number, horizontalOverflow: boolean, verticalOverflow: boolean): this;
 }
 
 declare class WebFrame extends NSObject {
@@ -4587,28 +5261,120 @@ declare class WebFrame extends NSObject {
 declare class DOMCSSUnknownRule extends DOMCSSRule {
 }
 
+declare class WKWebExtensionController extends NSObject {
+  init(): this;
+
+  initWithConfiguration(configuration: WKWebExtensionControllerConfiguration): this;
+
+  delegate: WKWebExtensionControllerDelegate | null;
+
+  readonly configuration: WKWebExtensionControllerConfiguration;
+
+  loadExtensionContextError(extensionContext: WKWebExtensionContext, error: interop.PointerConvertible): boolean;
+
+  unloadExtensionContextError(extensionContext: WKWebExtensionContext, error: interop.PointerConvertible): boolean;
+
+  extensionContextForExtension(extension: WKWebExtension): WKWebExtensionContext;
+
+  extensionContextForURL(URL: NSURL): WKWebExtensionContext;
+
+  readonly extensions: NSSet;
+
+  readonly extensionContexts: NSSet;
+
+  static readonly allExtensionDataTypes: NSSet;
+
+  fetchDataRecordsOfTypesCompletionHandler(dataTypes: NSSet, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  fetchDataRecordOfTypesForExtensionContextCompletionHandler(dataTypes: NSSet, extensionContext: WKWebExtensionContext, completionHandler: (p1: WKWebExtensionDataRecord) => void | null): void;
+
+  removeDataOfTypesFromDataRecordsCompletionHandler(dataTypes: NSSet, dataRecords: NSArray<interop.Object> | Array<interop.Object>, completionHandler: () => void): void;
+
+  didOpenWindow(newWindow: WKWebExtensionWindow): void;
+
+  didCloseWindow(closedWindow: WKWebExtensionWindow): void;
+
+  didFocusWindow(focusedWindow: WKWebExtensionWindow | null): void;
+
+  didOpenTab(newTab: WKWebExtensionTab): void;
+
+  didCloseTabWindowIsClosing(closedTab: WKWebExtensionTab, windowIsClosing: boolean): void;
+
+  didActivateTabPreviousActiveTab(activatedTab: WKWebExtensionTab, previousTab: WKWebExtensionTab | null): void;
+
+  didSelectTabs(selectedTabs: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  didDeselectTabs(deselectedTabs: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  didMoveTabFromIndexInWindow(movedTab: WKWebExtensionTab, index: number, oldWindow: WKWebExtensionWindow | null): void;
+
+  didReplaceTabWithTab(oldTab: WKWebExtensionTab, newTab: WKWebExtensionTab): void;
+
+  didChangeTabPropertiesForTab(properties: interop.Enum<typeof WKWebExtensionTabChangedProperties>, changedTab: WKWebExtensionTab): void;
+}
+
+declare class WKWebExtensionMessagePort extends NSObject {
+  readonly applicationIdentifier: string;
+
+  messageHandler: (p1: interop.Object, p2: NSError) => void | null;
+
+  disconnectHandler: (p1: NSError) => void | null;
+
+  readonly isDisconnected: boolean;
+
+  sendMessageCompletionHandler(message: interop.Object | null, completionHandler: (p1: NSError) => void | null): void;
+
+  disconnect(): void;
+
+  disconnectWithError(error: NSError | null): void;
+}
+
 declare class DOMHTMLHeadingElement extends DOMHTMLElement {
   align: string;
 }
 
-declare class DOMNodeIterator extends DOMObject {
-  readonly root: DOMNode;
+declare class WKWebExtensionMatchPattern extends NSObject implements NSSecureCoding, NSCopying {
+  static registerCustomURLScheme(urlScheme: string): void;
 
-  readonly whatToShow: number;
+  static allURLsMatchPattern<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  readonly filter: DOMNodeFilter;
+  static allHostsAndSchemesMatchPattern<This extends abstract new (...args: any) => any>(this: This): InstanceType<This>;
 
-  readonly expandEntityReferences: boolean;
+  static matchPatternWithString<This extends abstract new (...args: any) => any>(this: This, string: string): InstanceType<This>;
 
-  readonly referenceNode: DOMNode;
+  static matchPatternWithSchemeHostPath<This extends abstract new (...args: any) => any>(this: This, scheme: string, host: string, path: string): InstanceType<This>;
 
-  readonly pointerBeforeReferenceNode: boolean;
+  initWithStringError(string: string, error: interop.PointerConvertible): this;
 
-  nextNode(): DOMNode;
+  initWithSchemeHostPathError(scheme: string, host: string, path: string, error: interop.PointerConvertible): this;
 
-  previousNode(): DOMNode;
+  readonly string: string;
 
-  detach(): void;
+  readonly scheme: string;
+
+  readonly host: string;
+
+  readonly path: string;
+
+  readonly matchesAllURLs: boolean;
+
+  readonly matchesAllHosts: boolean;
+
+  matchesURL(url: NSURL | null): boolean;
+
+  matchesURLOptions(url: NSURL | null, options: interop.Enum<typeof WKWebExtensionMatchPatternOptions>): boolean;
+
+  matchesPattern(pattern: WKWebExtensionMatchPattern | null): boolean;
+
+  matchesPatternOptions(pattern: WKWebExtensionMatchPattern | null, options: interop.Enum<typeof WKWebExtensionMatchPatternOptions>): boolean;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class DOMText extends DOMCharacterData {
@@ -4617,36 +5383,6 @@ declare class DOMText extends DOMCharacterData {
   splitText(offset: number): DOMText;
 
   replaceWholeText(content: string): DOMText;
-}
-
-declare class DOMEvent extends DOMObject {
-  readonly type: string;
-
-  readonly target: DOMEventTarget;
-
-  readonly currentTarget: DOMEventTarget;
-
-  readonly eventPhase: number;
-
-  readonly bubbles: boolean;
-
-  readonly cancelable: boolean;
-
-  readonly timeStamp: number;
-
-  readonly srcElement: DOMEventTarget;
-
-  returnValue: boolean;
-
-  cancelBubble: boolean;
-
-  stopPropagation(): void;
-
-  preventDefault(): void;
-
-  initEventCanBubbleArgCancelableArg(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
-
-  initEvent(eventTypeArg: string, canBubbleArg: boolean, cancelableArg: boolean): this;
 }
 
 declare class DOMHTMLMarqueeElement extends DOMHTMLElement {

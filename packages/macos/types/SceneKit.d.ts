@@ -2503,98 +2503,6 @@ declare class SCNSphere extends SCNGeometry {
   segmentCount: number;
 }
 
-declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
-  static techniqueWithDictionary(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): SCNTechnique;
-
-  static techniqueBySequencingTechniques(techniques: NSArray<interop.Object> | Array<interop.Object>): SCNTechnique;
-
-  handleBindingOfSymbolUsingBlock(symbol: string, block: (p1: number, p2: number, p3: SCNNode, p4: SCNRenderer) => void | null): void;
-
-  readonly dictionaryRepresentation: NSDictionary;
-
-  objectForKeyedSubscript(key: interop.Object): interop.Object;
-
-  setObjectForKeyedSubscript(obj: interop.Object | null, key: NSCopying): void;
-
-  library: MTLLibrary;
-
-  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
-
-  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
-
-  removeAllAnimations(): void;
-
-  removeAllAnimationsWithBlendOutDuration(duration: number): void;
-
-  removeAnimationForKey(key: string): void;
-
-  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
-
-  readonly animationKeys: NSArray;
-
-  animationPlayerForKey(key: string): SCNAnimationPlayer;
-
-  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
-
-  animationForKey(key: string): CAAnimation;
-
-  pauseAnimationForKey(key: string): void;
-
-  resumeAnimationForKey(key: string): void;
-
-  setSpeedForAnimationKey(speed: number, key: string): void;
-
-  isAnimationForKeyPaused(key: string): boolean;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class SCNRenderer extends NSObject implements SCNSceneRenderer, SCNTechniqueSupport {
   static rendererWithContextOptions<This extends abstract new (...args: any) => any>(this: This, context: interop.PointerConvertible, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
 
@@ -3011,6 +2919,152 @@ declare class SCNAccelerationConstraint extends SCNConstraint {
   damping: number;
 }
 
+declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSupport {
+  initWithFrameOptions(frame: CGRect, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
+
+  scene: SCNScene;
+
+  rendersContinuously: boolean;
+
+  backgroundColor: NSColor;
+
+  allowsCameraControl: boolean;
+
+  readonly cameraControlConfiguration: SCNCameraControlConfiguration;
+
+  readonly defaultCameraController: SCNCameraController;
+
+  snapshot(): NSImage;
+
+  play(sender: interop.Object | null): void;
+
+  pause(sender: interop.Object | null): void;
+
+  stop(sender: interop.Object | null): void;
+
+  preferredFramesPerSecond: number;
+
+  drawableResizesAsynchronously: boolean;
+
+  openGLContext: NSOpenGLContext;
+
+  antialiasingMode: interop.Enum<typeof SCNAntialiasingMode>;
+
+  pixelFormat: NSOpenGLPixelFormat;
+
+  presentSceneWithTransitionIncomingPointOfViewCompletionHandler(scene: SCNScene, transition: SKTransition, pointOfView: SCNNode | null, completionHandler: () => void | null): void;
+
+  sceneTime: number;
+
+  delegate: SCNSceneRendererDelegate;
+
+  hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
+
+  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
+
+  nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
+
+  projectPoint(point: SCNVector3): SCNVector3;
+
+  unprojectPoint(point: SCNVector3): SCNVector3;
+
+  isPlaying: boolean;
+
+  loops: boolean;
+
+  pointOfView: SCNNode;
+
+  autoenablesDefaultLighting: boolean;
+
+  isJitteringEnabled: boolean;
+
+  isTemporalAntialiasingEnabled: boolean;
+
+  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
+
+  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
+
+  showsStatistics: boolean;
+
+  debugOptions: interop.Enum<typeof SCNDebugOptions>;
+
+  overlaySKScene: SKScene;
+
+  readonly renderingAPI: interop.Enum<typeof SCNRenderingAPI>;
+
+  readonly workingColorSpace: interop.Pointer;
+
+  readonly context: interop.Pointer;
+
+  readonly currentRenderCommandEncoder: MTLRenderCommandEncoder;
+
+  readonly currentRenderPassDescriptor: MTLRenderPassDescriptor;
+
+  readonly device: MTLDevice;
+
+  readonly colorPixelFormat: interop.Enum<typeof MTLPixelFormat>;
+
+  readonly depthPixelFormat: interop.Enum<typeof MTLPixelFormat>;
+
+  readonly stencilPixelFormat: interop.Enum<typeof MTLPixelFormat>;
+
+  readonly commandQueue: MTLCommandQueue;
+
+  readonly audioEngine: AVAudioEngine;
+
+  readonly audioEnvironmentNode: AVAudioEnvironmentNode;
+
+  audioListener: SCNNode;
+
+  readonly currentViewport: CGRect;
+
+  currentTime: number;
+
+  usesReverseZ: boolean;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  technique: SCNTechnique;
+}
+
 declare class SCNHitTestResult extends NSObject {
   readonly node: SCNNode;
 
@@ -3296,152 +3350,6 @@ declare class SCNMorpher extends NSObject implements SCNAnimatable, NSSecureCodi
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class SCNView extends NSView implements SCNSceneRenderer, SCNTechniqueSupport {
-  initWithFrameOptions(frame: CGRect, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): this;
-
-  scene: SCNScene;
-
-  rendersContinuously: boolean;
-
-  backgroundColor: NSColor;
-
-  allowsCameraControl: boolean;
-
-  readonly cameraControlConfiguration: SCNCameraControlConfiguration;
-
-  readonly defaultCameraController: SCNCameraController;
-
-  snapshot(): NSImage;
-
-  play(sender: interop.Object | null): void;
-
-  pause(sender: interop.Object | null): void;
-
-  stop(sender: interop.Object | null): void;
-
-  preferredFramesPerSecond: number;
-
-  drawableResizesAsynchronously: boolean;
-
-  openGLContext: NSOpenGLContext;
-
-  antialiasingMode: interop.Enum<typeof SCNAntialiasingMode>;
-
-  pixelFormat: NSOpenGLPixelFormat;
-
-  presentSceneWithTransitionIncomingPointOfViewCompletionHandler(scene: SCNScene, transition: SKTransition, pointOfView: SCNNode | null, completionHandler: () => void | null): void;
-
-  sceneTime: number;
-
-  delegate: SCNSceneRendererDelegate;
-
-  hitTestOptions(point: CGPoint, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): NSArray;
-
-  isNodeInsideFrustumWithPointOfView(node: SCNNode, pointOfView: SCNNode): boolean;
-
-  nodesInsideFrustumWithPointOfView(pointOfView: SCNNode): NSArray;
-
-  projectPoint(point: SCNVector3): SCNVector3;
-
-  unprojectPoint(point: SCNVector3): SCNVector3;
-
-  isPlaying: boolean;
-
-  loops: boolean;
-
-  pointOfView: SCNNode;
-
-  autoenablesDefaultLighting: boolean;
-
-  isJitteringEnabled: boolean;
-
-  isTemporalAntialiasingEnabled: boolean;
-
-  prepareObjectShouldAbortBlock(object: interop.Object, block: () => boolean | null): boolean;
-
-  prepareObjectsWithCompletionHandler(objects: NSArray<interop.Object> | Array<interop.Object>, completionHandler: (p1: boolean) => void | null): void;
-
-  showsStatistics: boolean;
-
-  debugOptions: interop.Enum<typeof SCNDebugOptions>;
-
-  overlaySKScene: SKScene;
-
-  readonly renderingAPI: interop.Enum<typeof SCNRenderingAPI>;
-
-  readonly workingColorSpace: interop.Pointer;
-
-  readonly context: interop.Pointer;
-
-  readonly currentRenderCommandEncoder: MTLRenderCommandEncoder;
-
-  readonly currentRenderPassDescriptor: MTLRenderPassDescriptor;
-
-  readonly device: MTLDevice;
-
-  readonly colorPixelFormat: interop.Enum<typeof MTLPixelFormat>;
-
-  readonly depthPixelFormat: interop.Enum<typeof MTLPixelFormat>;
-
-  readonly stencilPixelFormat: interop.Enum<typeof MTLPixelFormat>;
-
-  readonly commandQueue: MTLCommandQueue;
-
-  readonly audioEngine: AVAudioEngine;
-
-  readonly audioEnvironmentNode: AVAudioEnvironmentNode;
-
-  audioListener: SCNNode;
-
-  readonly currentViewport: CGRect;
-
-  currentTime: number;
-
-  usesReverseZ: boolean;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  technique: SCNTechnique;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -4069,6 +3977,98 @@ declare class SCNGeometryTessellator extends NSObject implements NSCopying, NSSe
   maximumEdgeLength: number;
 
   smoothingMode: interop.Enum<typeof SCNTessellationSmoothingMode>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
+  static techniqueWithDictionary(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): SCNTechnique;
+
+  static techniqueBySequencingTechniques(techniques: NSArray<interop.Object> | Array<interop.Object>): SCNTechnique;
+
+  handleBindingOfSymbolUsingBlock(symbol: string, block: (p1: number, p2: number, p3: SCNNode, p4: SCNRenderer) => void | null): void;
+
+  readonly dictionaryRepresentation: NSDictionary;
+
+  objectForKeyedSubscript(key: interop.Object): interop.Object;
+
+  setObjectForKeyedSubscript(obj: interop.Object | null, key: NSCopying): void;
+
+  library: MTLLibrary;
+
+  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
+
+  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
+
+  removeAllAnimations(): void;
+
+  removeAllAnimationsWithBlendOutDuration(duration: number): void;
+
+  removeAnimationForKey(key: string): void;
+
+  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
+
+  readonly animationKeys: NSArray;
+
+  animationPlayerForKey(key: string): SCNAnimationPlayer;
+
+  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
+
+  animationForKey(key: string): CAAnimation;
+
+  pauseAnimationForKey(key: string): void;
+
+  resumeAnimationForKey(key: string): void;
+
+  setSpeedForAnimationKey(speed: number, key: string): void;
+
+  isAnimationForKeyPaused(key: string): boolean;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 

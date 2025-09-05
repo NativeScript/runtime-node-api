@@ -64,8 +64,6 @@ declare const kUTTypeAppleProtectedMPEG4Video: interop.Pointer;
 
 declare const kUTTypeMPEG4Audio: interop.Pointer;
 
-declare const kUTTypeMPEG2TransportStream: interop.Pointer;
-
 declare const kUTTypeMPEG: interop.Pointer;
 
 declare const kUTTypeVideo: interop.Pointer;
@@ -207,6 +205,8 @@ declare const kUTTypeApplication: interop.Pointer;
 declare const kUTTypePropertyList: interop.Pointer;
 
 declare const kUTTypeElectronicPublication: interop.Pointer;
+
+declare const kUTTypeMPEG2TransportStream: interop.Pointer;
 
 declare const kUTTypeFont: interop.Pointer;
 

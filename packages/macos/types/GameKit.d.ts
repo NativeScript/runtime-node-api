@@ -117,6 +117,12 @@ declare const GKLeaderboardTimeScope: {
   AllTime: 2,
 };
 
+declare const GKReleaseState: {
+  Unknown: 0,
+  Released: 1,
+  Prereleased: 2,
+};
+
 declare const GKPhotoSize: {
   Small: 0,
   Normal: 1,
@@ -160,6 +166,7 @@ declare const GKErrorCode: {
   ICloudUnavailable: 35,
   LockdownMode: 36,
   AppUnlisted: 37,
+  DebugMode: 38,
   FriendListDescriptionMissing: 100,
   FriendListRestricted: 101,
   FriendListDenied: 102,
@@ -1043,42 +1050,6 @@ declare class GKLeaderboardEntry extends NSObject {
   challengeComposeControllerWithMessagePlayersCompletion(message: string | null, players: NSArray<interop.Object> | Array<interop.Object> | null, completionHandler: (p1: NSViewController, p2: boolean, p3: NSArray<interop.Object> | Array<interop.Object>) => void | null): NSViewController;
 }
 
-declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
-  static loadAchievementDescriptionsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  readonly identifier: string;
-
-  readonly groupIdentifier: string;
-
-  readonly title: string;
-
-  readonly achievedDescription: string;
-
-  readonly unachievedDescription: string;
-
-  readonly maximumPoints: number;
-
-  readonly isHidden: boolean;
-
-  readonly isReplayable: boolean;
-
-  readonly rarityPercent: NSNumber;
-
-  readonly image: NSImage;
-
-  loadImageWithCompletionHandler(completionHandler: (p1: NSImage, p2: NSError) => void | null): void;
-
-  static incompleteAchievementImage(): NSImage;
-
-  static placeholderCompletedAchievementImage(): NSImage;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  static readonly supportsSecureCoding: boolean;
-}
-
 declare class GKInvite extends NSObject {
   readonly sender: GKPlayer;
 
@@ -1141,18 +1112,6 @@ declare class GKAchievement extends NSObject implements NSCoding, NSSecureCoding
   static readonly supportsSecureCoding: boolean;
 }
 
-declare class GKTurnBasedEventHandler extends NSObject {
-  static sharedTurnBasedEventHandler(): GKTurnBasedEventHandler;
-
-  delegate: NSObject;
-}
-
-declare class GKBasePlayer extends NSObject {
-  readonly playerID: string;
-
-  readonly displayName: string;
-}
-
 declare class GKVoiceChat extends NSObject {
   start(): void;
 
@@ -1177,6 +1136,56 @@ declare class GKVoiceChat extends NSObject {
   readonly playerIDs: NSArray;
 
   setMuteForPlayer(isMuted: boolean, playerID: string): void;
+}
+
+declare class GKTurnBasedEventHandler extends NSObject {
+  static sharedTurnBasedEventHandler(): GKTurnBasedEventHandler;
+
+  delegate: NSObject;
+}
+
+declare class GKBasePlayer extends NSObject {
+  readonly playerID: string;
+
+  readonly displayName: string;
+}
+
+declare class GKAchievementDescription extends NSObject implements NSCoding, NSSecureCoding {
+  static loadAchievementDescriptionsWithCompletionHandler(completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  readonly identifier: string;
+
+  readonly groupIdentifier: string;
+
+  readonly title: string;
+
+  readonly achievedDescription: string;
+
+  readonly unachievedDescription: string;
+
+  readonly maximumPoints: number;
+
+  readonly isHidden: boolean;
+
+  readonly isReplayable: boolean;
+
+  readonly rarityPercent: NSNumber;
+
+  readonly releaseState: interop.Enum<typeof GKReleaseState>;
+
+  readonly image: NSImage;
+
+  loadImageWithCompletionHandler(completionHandler: (p1: NSImage, p2: NSError) => void | null): void;
+
+  static incompleteAchievementImage(): NSImage;
+
+  static placeholderCompletedAchievementImage(): NSImage;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  static readonly supportsSecureCoding: boolean;
 }
 
 declare class GKTurnBasedMatch extends NSObject {

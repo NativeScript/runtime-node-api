@@ -2094,6 +2094,28 @@ declare class MKLookAroundViewController extends UIViewController implements NSS
   encodeWithCoder(coder: NSCoder): void;
 }
 
+declare class MKPointOfInterestFilter extends NSObject implements NSSecureCoding, NSCopying {
+  static readonly filterIncludingAllCategories: MKPointOfInterestFilter;
+
+  static readonly filterExcludingAllCategories: MKPointOfInterestFilter;
+
+  initIncludingCategories(categories: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  initExcludingCategories(categories: NSArray<interop.Object> | Array<interop.Object>): this;
+
+  includesCategory(category: string): boolean;
+
+  excludesCategory(category: string): boolean;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class MKETAResponse extends NSObject {
   readonly source: MKMapItem;
 
@@ -2160,12 +2182,6 @@ declare class MKLocalSearchResponse extends NSObject {
   readonly boundingRegion: MKCoordinateRegion;
 }
 
-declare class MKGeodesicPolyline extends MKPolyline {
-  static polylineWithPointsCount<This extends abstract new (...args: any) => any>(this: This, points: interop.PointerConvertible, count: number): InstanceType<This>;
-
-  static polylineWithCoordinatesCount<This extends abstract new (...args: any) => any>(this: This, coords: interop.PointerConvertible, count: number): InstanceType<This>;
-}
-
 declare class MKPlacemark extends CLPlacemark implements MKAnnotation {
   initWithCoordinate(coordinate: CLLocationCoordinate2D): this;
 
@@ -2220,28 +2236,6 @@ declare class MKPlacemark extends CLPlacemark implements MKAnnotation {
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class MKPointOfInterestFilter extends NSObject implements NSSecureCoding, NSCopying {
-  static readonly filterIncludingAllCategories: MKPointOfInterestFilter;
-
-  static readonly filterExcludingAllCategories: MKPointOfInterestFilter;
-
-  initIncludingCategories(categories: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  initExcludingCategories(categories: NSArray<interop.Object> | Array<interop.Object>): this;
-
-  includesCategory(category: string): boolean;
-
-  excludesCategory(category: string): boolean;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class MKMapItem extends NSObject {
@@ -2320,6 +2314,18 @@ declare class MKPolylineRenderer extends MKOverlayPathRenderer {
   strokeEnd: number;
 }
 
+declare class MKGeodesicPolyline extends MKPolyline {
+  static polylineWithPointsCount<This extends abstract new (...args: any) => any>(this: This, points: interop.PointerConvertible, count: number): InstanceType<This>;
+
+  static polylineWithCoordinatesCount<This extends abstract new (...args: any) => any>(this: This, coords: interop.PointerConvertible, count: number): InstanceType<This>;
+}
+
+declare class MKMultiPolygonRenderer extends MKOverlayPathRenderer {
+  initWithMultiPolygon(multiPolygon: MKMultiPolygon): this;
+
+  readonly multiPolygon: MKMultiPolygon;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class MKCircle extends MKShape implements MKOverlay {
   static circleWithCenterCoordinateRadius<This extends abstract new (...args: any) => any>(this: This, coord: CLLocationCoordinate2D, radius: number): InstanceType<This>;
@@ -2381,11 +2387,5 @@ declare class MKCircle extends MKShape implements MKOverlay {
   readonly description: string;
 
   readonly debugDescription: string;
-}
-
-declare class MKMultiPolygonRenderer extends MKOverlayPathRenderer {
-  initWithMultiPolygon(multiPolygon: MKMultiPolygon): this;
-
-  readonly multiPolygon: MKMultiPolygon;
 }
 

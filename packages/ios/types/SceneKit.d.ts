@@ -16,6 +16,8 @@ declare const SCNHitTestOptionIgnoreLightArea: string;
 
 declare const SCNLightTypeAmbient: string;
 
+declare const SCNLightingModelConstant: string;
+
 declare const SCNSceneSourceAssetDirectoryURLsKey: string;
 
 declare const SCNConsistencyLineNumberErrorKey: string;
@@ -61,8 +63,6 @@ declare const SCNGeometrySourceSemanticVertexCrease: string;
 declare const SCNGeometrySourceSemanticTangent: string;
 
 declare const SCNLightingModelShadowOnly: string;
-
-declare const SCNLightingModelConstant: string;
 
 declare const SCNLightingModelPhong: string;
 
@@ -262,36 +262,22 @@ declare const SCNPhysicsFieldScope: {
   Outside: 1,
 };
 
-declare const SCNPhysicsBodyType: {
-  Static: 0,
-  Dynamic: 1,
-  Kinematic: 2,
-};
-
-declare const SCNParticleEvent: {
-  Birth: 0,
-  Death: 1,
-  Collision: 2,
-};
-
-declare const SCNParticleModifierStage: {
-  PreDynamics: 0,
-  PostDynamics: 1,
-  PreCollision: 2,
-  PostCollision: 3,
-};
-
 declare const SCNParticleInputMode: {
   Life: 0,
   Distance: 1,
   OtherProperty: 2,
 };
 
-declare const SCNParticleOrientationMode: {
-  BillboardScreenAligned: 0,
-  BillboardViewAligned: 1,
-  Free: 2,
-  BillboardYAligned: 3,
+declare const SCNParticleBirthDirection: {
+  Constant: 0,
+  SurfaceNormal: 1,
+  Random: 2,
+};
+
+declare const SCNParticleBirthLocation: {
+  Surface: 0,
+  Volume: 1,
+  Vertex: 2,
 };
 
 declare const SCNBillboardAxis: {
@@ -307,24 +293,22 @@ declare const SCNChamferMode: {
   Back: 2,
 };
 
-declare const SCNFillMode: {
-  Fill: 0,
-  Lines: 1,
+declare const SCNGeometryPrimitiveType: {
+  Triangles: 0,
+  TriangleStrip: 1,
+  Line: 2,
+  Point: 3,
+  Polygon: 4,
 };
 
-declare const SCNCameraProjectionDirection: {
-  Vertical: 0,
-  Horizontal: 1,
+declare const SCNCullMode: {
+  Back: 0,
+  Front: 1,
 };
 
 declare const SCNLightAreaType: {
   Rectangle: 1,
   Polygon: 4,
-};
-
-declare const SCNLightProbeUpdateType: {
-  Never: 0,
-  Realtime: 1,
 };
 
 declare const SCNNodeFocusBehavior: {
@@ -356,11 +340,6 @@ declare const SCNAntialiasingMode: {
   Multisampling4X: 2,
 };
 
-declare const SCNCullMode: {
-  Back: 0,
-  Front: 1,
-};
-
 declare const SCNDebugOptions: {
   None: 0,
   ShowPhysicsShapes: 1,
@@ -376,18 +355,18 @@ declare const SCNDebugOptions: {
   ShowCameras: 1024,
 };
 
-declare const SCNParticleSortingMode: {
-  None: 0,
-  ProjectedDepth: 1,
-  Distance: 2,
-  OldestFirst: 3,
-  YoungestFirst: 4,
+declare const SCNParticleOrientationMode: {
+  BillboardScreenAligned: 0,
+  BillboardViewAligned: 1,
+  Free: 2,
+  BillboardYAligned: 3,
 };
 
-declare const SCNTessellationSmoothingMode: {
-  None: 0,
-  PNTriangles: 1,
-  Phong: 2,
+declare const SCNParticleModifierStage: {
+  PreDynamics: 0,
+  PostDynamics: 1,
+  PreCollision: 2,
+  PostCollision: 3,
 };
 
 declare const SCNWrapMode: {
@@ -403,15 +382,9 @@ declare const SCNShadowMode: {
   Modulated: 2,
 };
 
-declare const SCNParticleImageSequenceAnimationMode: {
-  Repeat: 0,
-  Clamp: 1,
-  AutoReverse: 2,
-};
-
-declare const SCNMorpherCalculationMode: {
-  Normalized: 0,
-  Additive: 1,
+declare const SCNCameraProjectionDirection: {
+  Vertical: 0,
+  Horizontal: 1,
 };
 
 declare const SCNMovabilityHint: {
@@ -419,15 +392,15 @@ declare const SCNMovabilityHint: {
   Movable: 1,
 };
 
+declare const SCNPhysicsBodyType: {
+  Static: 0,
+  Dynamic: 1,
+  Kinematic: 2,
+};
+
 declare const SCNLightProbeType: {
   Irradiance: 0,
   Radiance: 1,
-};
-
-declare const SCNParticleBirthLocation: {
-  Surface: 0,
-  Volume: 1,
-  Vertex: 2,
 };
 
 declare const SCNHitTestSearchMode: {
@@ -443,6 +416,11 @@ declare const SCNParticleBlendMode: {
   Screen: 3,
   Alpha: 4,
   Replace: 5,
+};
+
+declare const SCNFillMode: {
+  Fill: 0,
+  Lines: 1,
 };
 
 declare const SCNBlendMode: {
@@ -463,10 +441,23 @@ declare const SCNTransparencyMode: {
   Default: 0,
 };
 
-declare const SCNParticleBirthDirection: {
-  Constant: 0,
-  SurfaceNormal: 1,
-  Random: 2,
+declare const SCNLightProbeUpdateType: {
+  Never: 0,
+  Realtime: 1,
+};
+
+declare const SCNParticleEvent: {
+  Birth: 0,
+  Death: 1,
+  Collision: 2,
+};
+
+declare const SCNParticleSortingMode: {
+  None: 0,
+  ProjectedDepth: 1,
+  Distance: 2,
+  OldestFirst: 3,
+  YoungestFirst: 4,
 };
 
 declare const SCNColorMask: {
@@ -478,12 +469,10 @@ declare const SCNColorMask: {
   All: 15,
 };
 
-declare const SCNGeometryPrimitiveType: {
-  Triangles: 0,
-  TriangleStrip: 1,
-  Line: 2,
-  Point: 3,
-  Polygon: 4,
+declare const SCNTessellationSmoothingMode: {
+  None: 0,
+  PNTriangles: 1,
+  Phong: 2,
 };
 
 declare const SCNSceneSourceStatus: {
@@ -492,6 +481,17 @@ declare const SCNSceneSourceStatus: {
   Validating: 8,
   Processing: 12,
   Complete: 16,
+};
+
+declare const SCNMorpherCalculationMode: {
+  Normalized: 0,
+  Additive: 1,
+};
+
+declare const SCNParticleImageSequenceAnimationMode: {
+  Repeat: 0,
+  Clamp: 1,
+  AutoReverse: 2,
 };
 
 declare const SCNPhysicsCollisionCategory: {
@@ -2525,98 +2525,6 @@ declare class SCNView extends UIView implements SCNSceneRenderer, SCNTechniqueSu
   technique: SCNTechnique;
 }
 
-declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
-  static techniqueWithDictionary(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): SCNTechnique;
-
-  static techniqueBySequencingTechniques(techniques: NSArray<interop.Object> | Array<interop.Object>): SCNTechnique;
-
-  handleBindingOfSymbolUsingBlock(symbol: string, block: (p1: number, p2: number, p3: SCNNode, p4: SCNRenderer) => void | null): void;
-
-  readonly dictionaryRepresentation: NSDictionary;
-
-  objectForKeyedSubscript(key: interop.Object): interop.Object;
-
-  setObjectForKeyedSubscript(obj: interop.Object | null, key: NSCopying): void;
-
-  library: MTLLibrary;
-
-  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
-
-  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
-
-  removeAllAnimations(): void;
-
-  removeAllAnimationsWithBlendOutDuration(duration: number): void;
-
-  removeAnimationForKey(key: string): void;
-
-  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
-
-  readonly animationKeys: NSArray;
-
-  animationPlayerForKey(key: string): SCNAnimationPlayer;
-
-  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
-
-  animationForKey(key: string): CAAnimation;
-
-  pauseAnimationForKey(key: string): void;
-
-  resumeAnimationForKey(key: string): void;
-
-  setSpeedForAnimationKey(speed: number, key: string): void;
-
-  isAnimationForKeyPaused(key: string): boolean;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class SCNCylinder extends SCNGeometry {
   static cylinderWithRadiusHeight<This extends abstract new (...args: any) => any>(this: This, radius: number, height: number): InstanceType<This>;
 
@@ -3011,6 +2919,98 @@ declare class SCNAccelerationConstraint extends SCNConstraint {
   damping: number;
 }
 
+declare class SCNTechnique extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {
+  static techniqueWithDictionary(dictionary: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object>): SCNTechnique;
+
+  static techniqueBySequencingTechniques(techniques: NSArray<interop.Object> | Array<interop.Object>): SCNTechnique;
+
+  handleBindingOfSymbolUsingBlock(symbol: string, block: (p1: number, p2: number, p3: SCNNode, p4: SCNRenderer) => void | null): void;
+
+  readonly dictionaryRepresentation: NSDictionary;
+
+  objectForKeyedSubscript(key: interop.Object): interop.Object;
+
+  setObjectForKeyedSubscript(obj: interop.Object | null, key: NSCopying): void;
+
+  library: MTLLibrary;
+
+  addAnimationForKey(animation: SCNAnimation, key: string | null): void;
+
+  addAnimationPlayerForKey(player: SCNAnimationPlayer, key: string | null): void;
+
+  removeAllAnimations(): void;
+
+  removeAllAnimationsWithBlendOutDuration(duration: number): void;
+
+  removeAnimationForKey(key: string): void;
+
+  removeAnimationForKeyBlendOutDuration(key: string, duration: number): void;
+
+  readonly animationKeys: NSArray;
+
+  animationPlayerForKey(key: string): SCNAnimationPlayer;
+
+  removeAnimationForKeyFadeOutDuration(key: string, duration: number): void;
+
+  animationForKey(key: string): CAAnimation;
+
+  pauseAnimationForKey(key: string): void;
+
+  resumeAnimationForKey(key: string): void;
+
+  setSpeedForAnimationKey(speed: number, key: string): void;
+
+  isAnimationForKeyPaused(key: string): boolean;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class SCNReferenceNode extends SCNNode {
   initWithURL(referenceURL: NSURL): this;
@@ -3029,6 +3029,16 @@ declare class SCNReferenceNode extends SCNNode {
   unload(): void;
 
   readonly isLoaded: boolean;
+}
+
+declare class SCNSphere extends SCNGeometry {
+  static sphereWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
+
+  radius: number;
+
+  isGeodesic: boolean;
+
+  segmentCount: number;
 }
 
 declare class SCNNode extends NSObject implements NSCopying, NSSecureCoding, SCNAnimatable, SCNActionable, SCNBoundingVolume {
@@ -3381,16 +3391,6 @@ declare class SCNPhysicsConeTwistJoint extends SCNPhysicsBehavior {
   maximumAngularLimit2: number;
 
   maximumTwistAngle: number;
-}
-
-declare class SCNSphere extends SCNGeometry {
-  static sphereWithRadius<This extends abstract new (...args: any) => any>(this: This, radius: number): InstanceType<This>;
-
-  radius: number;
-
-  isGeodesic: boolean;
-
-  segmentCount: number;
 }
 
 declare class SCNLight extends NSObject implements SCNAnimatable, NSCopying, NSSecureCoding {

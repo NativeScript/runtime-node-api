@@ -18,15 +18,15 @@ declare const GKMeshGraphTriangulationMode: {
   EdgeMidpoints: 4,
 };
 
+declare class GKTriangle {
+  constructor(init?: GKTriangle);
+  points: unknown /* const array */;
+}
+
 declare class GKBox {
   constructor(init?: GKBox);
   boxMin: unknown /* ext vector */;
   boxMax: unknown /* ext vector */;
-}
-
-declare class GKTriangle {
-  constructor(init?: GKTriangle);
-  points: unknown /* const array */;
 }
 
 declare class GKQuad {
@@ -1015,9 +1015,6 @@ declare class GKRule extends NSObject {
   static ruleWithBlockPredicateAction<This extends abstract new (...args: any) => any>(this: This, predicate: (p1: GKRuleSystem) => boolean, action: (p1: GKRuleSystem) => void): InstanceType<This>;
 }
 
-declare class GKObstacle extends NSObject {
-}
-
 declare class GKARC4RandomSource extends GKRandomSource {
   seed: NSData;
 
@@ -1026,6 +1023,9 @@ declare class GKARC4RandomSource extends GKRandomSource {
   initWithSeed(seed: NSData): this;
 
   dropValuesWithCount(count: number): void;
+}
+
+declare class GKObstacle extends NSObject {
 }
 
 declare class GKGaussianDistribution extends GKRandomDistribution {

@@ -221,24 +221,6 @@ declare class AVAudioTime extends NSObject {
   readonly audioTimeStamp: AudioTimeStamp;
 }
 
-declare class AVAudioPCMBuffer extends AVAudioBuffer {
-  initWithPCMFormatFrameCapacity(format: AVAudioFormat, frameCapacity: number): this;
-
-  initWithPCMFormatBufferListNoCopyDeallocator(format: AVAudioFormat, bufferList: interop.PointerConvertible, deallocator: (p1: interop.PointerConvertible) => void | null): this;
-
-  readonly frameCapacity: number;
-
-  frameLength: number;
-
-  readonly stride: number;
-
-  readonly floatChannelData: interop.Pointer;
-
-  readonly int16ChannelData: interop.Pointer;
-
-  readonly int32ChannelData: interop.Pointer;
-}
-
 declare class AVAudioMixerNode extends AVAudioNode implements AVAudioMixing {
   init(): this;
 
@@ -645,6 +627,24 @@ declare class AVAudioEnvironmentDistanceAttenuationParameters extends NSObject {
   maximumDistance: number;
 
   rolloffFactor: number;
+}
+
+declare class AVAudioPCMBuffer extends AVAudioBuffer {
+  initWithPCMFormatFrameCapacity(format: AVAudioFormat, frameCapacity: number): this;
+
+  initWithPCMFormatBufferListNoCopyDeallocator(format: AVAudioFormat, bufferList: interop.PointerConvertible, deallocator: (p1: interop.PointerConvertible) => void | null): this;
+
+  readonly frameCapacity: number;
+
+  frameLength: number;
+
+  readonly stride: number;
+
+  readonly floatChannelData: interop.Pointer;
+
+  readonly int16ChannelData: interop.Pointer;
+
+  readonly int32ChannelData: interop.Pointer;
 }
 
 declare class AVAudioEnvironmentNode extends AVAudioNode implements AVAudioMixing {

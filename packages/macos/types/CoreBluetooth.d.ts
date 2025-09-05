@@ -126,15 +126,6 @@ declare const CBError: {
   TooManyLEPairedDevices: 16,
 };
 
-declare const CBManagerState: {
-  Unknown: 0,
-  Resetting: 1,
-  Unsupported: 2,
-  Unauthorized: 3,
-  PoweredOff: 4,
-  PoweredOn: 5,
-};
-
 declare const CBPeripheralManagerConnectionLatency: {
   Low: 0,
   Medium: 1,
@@ -174,6 +165,15 @@ declare const CBPeripheralManagerAuthorizationStatus: {
   Restricted: 1,
   Denied: 2,
   Authorized: 3,
+};
+
+declare const CBManagerState: {
+  Unknown: 0,
+  Resetting: 1,
+  Unsupported: 2,
+  Unauthorized: 3,
+  PoweredOff: 4,
+  PoweredOn: 5,
 };
 
 declare const CBATTError: {

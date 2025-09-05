@@ -7,8 +7,6 @@ declare const kCAFilterLinear: string;
 
 declare const CAFrameRateRangeDefault: CAFrameRateRange;
 
-declare const kCAGravityTop: string;
-
 declare const CATransform3DIdentity: CATransform3D;
 
 declare const kCAScrollBoth: string;
@@ -116,6 +114,8 @@ declare const kCAGravityBottomLeft: string;
 declare const kCAGravityTopLeft: string;
 
 declare const kCAGravityRight: string;
+
+declare const kCAGravityTop: string;
 
 declare const CAToneMapModeIfSupported: string;
 
@@ -393,6 +393,39 @@ declare class CABasicAnimation extends CAPropertyAnimation {
   byValue: interop.Object;
 }
 
+declare class CAEmitterLayer extends CALayer {
+  get emitterCells(): NSArray;
+  set emitterCells(value: NSArray<interop.Object> | Array<interop.Object>);
+
+  birthRate: number;
+
+  lifetime: number;
+
+  emitterPosition: CGPoint;
+
+  emitterZPosition: number;
+
+  emitterSize: CGSize;
+
+  emitterDepth: number;
+
+  emitterShape: string;
+
+  emitterMode: string;
+
+  renderMode: string;
+
+  preservesDepth: boolean;
+
+  velocity: number;
+
+  scale: number;
+
+  spin: number;
+
+  seed: number;
+}
+
 declare class CATextLayer extends CALayer {
   string: interop.Object;
 
@@ -442,39 +475,6 @@ declare class CAMetalDisplayLink extends NSObject {
 }
 
 declare class CATransformLayer extends CALayer {
-}
-
-declare class CAEmitterLayer extends CALayer {
-  get emitterCells(): NSArray;
-  set emitterCells(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  birthRate: number;
-
-  lifetime: number;
-
-  emitterPosition: CGPoint;
-
-  emitterZPosition: number;
-
-  emitterSize: CGSize;
-
-  emitterDepth: number;
-
-  emitterShape: string;
-
-  emitterMode: string;
-
-  renderMode: string;
-
-  preservesDepth: boolean;
-
-  velocity: number;
-
-  scale: number;
-
-  spin: number;
-
-  seed: number;
 }
 
 declare class CATransition extends CAAnimation {

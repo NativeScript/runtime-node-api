@@ -1075,6 +1075,12 @@ declare class MLCMatMulLayer extends MLCLayer {
   static layerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, descriptor: MLCMatMulDescriptor): InstanceType<This> | null;
 }
 
+declare class MLCReshapeLayer extends MLCLayer {
+  readonly shape: NSArray;
+
+  static layerWithShape<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This> | null;
+}
+
 declare class MLCTensorData extends NSObject {
   readonly bytes: interop.Pointer;
 
@@ -1085,6 +1091,18 @@ declare class MLCTensorData extends NSObject {
   static dataWithImmutableBytesNoCopyLength<This extends abstract new (...args: any) => any>(this: This, bytes: interop.PointerConvertible, length: number): InstanceType<This>;
 
   static dataWithBytesNoCopyLengthDeallocator<This extends abstract new (...args: any) => any>(this: This, bytes: interop.PointerConvertible, length: number, deallocator: (p1: interop.PointerConvertible, p2: number) => void): InstanceType<This>;
+}
+
+declare class MLCLayer extends NSObject {
+  readonly layerID: number;
+
+  label: string;
+
+  isDebuggingEnabled: boolean;
+
+  static supportsDataTypeOnDevice(dataType: interop.Enum<typeof MLCDataType>, device: MLCDevice): boolean;
+
+  readonly deviceType: interop.Enum<typeof MLCDeviceType>;
 }
 
 declare class MLCAdamWOptimizer extends MLCOptimizer implements NSCopying {
@@ -1121,32 +1139,10 @@ declare class MLCRMSPropOptimizer extends MLCOptimizer implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class MLCLayer extends NSObject {
-  readonly layerID: number;
-
-  label: string;
-
-  isDebuggingEnabled: boolean;
-
-  static supportsDataTypeOnDevice(dataType: interop.Enum<typeof MLCDataType>, device: MLCDevice): boolean;
-
-  readonly deviceType: interop.Enum<typeof MLCDeviceType>;
-}
-
-declare class MLCTensorOptimizerDeviceData extends NSObject implements NSCopying {
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class MLCArithmeticLayer extends MLCLayer {
   readonly operation: interop.Enum<typeof MLCArithmeticOperation>;
 
   static layerWithOperation<This extends abstract new (...args: any) => any>(this: This, operation: interop.Enum<typeof MLCArithmeticOperation>): InstanceType<This>;
-}
-
-declare class MLCReshapeLayer extends MLCLayer {
-  readonly shape: NSArray;
-
-  static layerWithShape<This extends abstract new (...args: any) => any>(this: This, shape: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This> | null;
 }
 
 declare class MLCPlatform extends NSObject {
@@ -1299,6 +1295,10 @@ declare class MLCBatchNormalizationLayer extends MLCLayer {
   static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilon<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number): InstanceType<This> | null;
 
   static layerWithFeatureChannelCountMeanVarianceBetaGammaVarianceEpsilonMomentum<This extends abstract new (...args: any) => any>(this: This, featureChannelCount: number, mean: MLCTensor, variance: MLCTensor, beta: MLCTensor | null, gamma: MLCTensor | null, varianceEpsilon: number, momentum: number): InstanceType<This> | null;
+}
+
+declare class MLCTensorOptimizerDeviceData extends NSObject implements NSCopying {
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class MLCPoolingLayer extends MLCLayer {

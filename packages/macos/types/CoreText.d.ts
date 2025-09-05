@@ -46,6 +46,10 @@ declare const kFontKoreanLanguage: number;
 
 declare const kCTFontTableBloc: number;
 
+declare const kNoAlternatesSelector: number;
+
+declare const kStyleOptionsType: number;
+
 declare const kRareLigaturesOnSelector: number;
 
 declare const kHiraganaToKatakanaSelector: number;
@@ -606,8 +610,6 @@ declare const kDesignLevel4Selector: number;
 
 declare const kDesignLevel1Selector: number;
 
-declare const kNoAlternatesSelector: number;
-
 declare const kMathSymbolsSelector: number;
 
 declare const kDecorativeBordersSelector: number;
@@ -1079,8 +1081,6 @@ declare const kMORTraDCxAB: number;
 declare const kMORTraDCxA: number;
 
 declare const kCTLigatureAttributeName: interop.Pointer;
-
-declare const kStyleOptionsType: number;
 
 declare const kKERNVertical: number;
 
@@ -1822,13 +1822,6 @@ declare const kLineInitialSwashesOffSelector: number;
 
 declare const kOPBDCurrentVersion: number;
 
-declare const CTFontOptions: {
-  Default: 0,
-  PreventAutoActivation: 1,
-  PreventAutoDownload: 2,
-  PreferSystemFont: 4,
-};
-
 declare const CTLineBoundsOptions: {
   ExcludeTypographicLeading: 1,
   ExcludeTypographicShifts: 2,
@@ -1886,6 +1879,13 @@ declare const CTParagraphStyleSpecifier: {
   LineSpacingAdjustment: 16,
   LineBoundsOptions: 17,
   Count: 18,
+};
+
+declare const CTFontOptions: {
+  Default: 0,
+  PreventAutoActivation: 1,
+  PreventAutoDownload: 2,
+  PreferSystemFont: 4,
 };
 
 declare const CTFontFormat: {
@@ -2164,10 +2164,12 @@ declare class SFNTLookupSingle {
   value: unknown /* const array */;
 }
 
-declare class SFNTLookupSingleHeader {
-  constructor(init?: SFNTLookupSingleHeader);
-  binSearch: SFNTLookupBinarySearchHeader;
-  entries: unknown /* const array */;
+declare class STXHeader {
+  constructor(init?: STXHeader);
+  nClasses: number;
+  classTableOffset: number;
+  stateArrayOffset: number;
+  entryTableOffset: number;
 }
 
 declare class STEntryZero {
@@ -2486,6 +2488,13 @@ declare class TrakTableData {
   trakTable: unknown /* const array */;
 }
 
+declare class TrakTableEntry {
+  constructor(init?: TrakTableEntry);
+  track: number;
+  nameTableIndex: number;
+  sizesOffset: number;
+}
+
 declare class PropLookupSingle {
   constructor(init?: PropLookupSingle);
   glyph: number;
@@ -2760,6 +2769,12 @@ declare class PropTable {
   lookup: SFNTLookupTable;
 }
 
+declare class SFNTLookupSingleHeader {
+  constructor(init?: SFNTLookupSingleHeader);
+  binSearch: SFNTLookupBinarySearchHeader;
+  entries: unknown /* const array */;
+}
+
 declare class BslnFormat0Part {
   constructor(init?: BslnFormat0Part);
   deltas: unknown /* const array */;
@@ -2769,6 +2784,14 @@ declare class MorxInsertionSubtable {
   constructor(init?: MorxInsertionSubtable);
   header: STXHeader;
   insertionGlyphTableOffset: number;
+}
+
+declare class TrakTable {
+  constructor(init?: TrakTable);
+  version: number;
+  format: number;
+  horizOffset: number;
+  vertOffset: number;
 }
 
 declare class BslnFormat1Part {
@@ -2830,14 +2853,6 @@ declare class JustWidthDeltaEntry {
   shrinkFlags: number;
 }
 
-declare class TrakTable {
-  constructor(init?: TrakTable);
-  version: number;
-  format: number;
-  horizOffset: number;
-  vertOffset: number;
-}
-
 declare class KernTableHeader {
   constructor(init?: KernTableHeader);
   version: number;
@@ -2860,22 +2875,6 @@ declare class sfntCMapExtendedSubHeader {
   reserved: number;
   length: number;
   language: number;
-}
-
-declare class CTRunDelegateCallbacks {
-  constructor(init?: CTRunDelegateCallbacks);
-  version: number;
-  dealloc: (p1: interop.PointerConvertible) => void | null;
-  getAscent: (p1: interop.PointerConvertible) => number | null;
-  getDescent: (p1: interop.PointerConvertible) => number | null;
-  getWidth: (p1: interop.PointerConvertible) => number | null;
-}
-
-declare class TrakTableEntry {
-  constructor(init?: TrakTableEntry);
-  track: number;
-  nameTableIndex: number;
-  sizesOffset: number;
 }
 
 declare class JustPCActionSubrecord {
@@ -2974,6 +2973,15 @@ declare class BslnFormat3Part {
   mappingData: SFNTLookupTable;
 }
 
+declare class CTRunDelegateCallbacks {
+  constructor(init?: CTRunDelegateCallbacks);
+  version: number;
+  dealloc: (p1: interop.PointerConvertible) => void | null;
+  getAscent: (p1: interop.PointerConvertible) => number | null;
+  getDescent: (p1: interop.PointerConvertible) => number | null;
+  getWidth: (p1: interop.PointerConvertible) => number | null;
+}
+
 declare class __CTRunDelegate {
   constructor(init?: __CTRunDelegate);
 }
@@ -3025,14 +3033,6 @@ declare class ALMXHeader {
   lookup: SFNTLookupTable;
 }
 
-declare class STXHeader {
-  constructor(init?: STXHeader);
-  nClasses: number;
-  classTableOffset: number;
-  stateArrayOffset: number;
-  entryTableOffset: number;
-}
-
 declare class LtagStringRange {
   constructor(init?: LtagStringRange);
   offset: number;
@@ -3053,22 +3053,6 @@ declare class STXEntryTwo {
   flags: number;
   index1: number;
   index2: number;
-}
-
-type MortSpecificSubtableDescriptor = 
-  | { rearrangement: MortRearrangementSubtable }
-  | { contextual: MortContextualSubtable }
-  | { ligature: MortLigatureSubtable }
-  | { swash: MortSwashSubtable }
-  | { insertion: MortInsertionSubtable };
-
-declare class MortSpecificSubtable {
-  constructor(init?: MortSpecificSubtableDescriptor);
-  rearrangement: MortRearrangementSubtable;
-  contextual: MortContextualSubtable;
-  ligature: MortLigatureSubtable;
-  swash: MortSwashSubtable;
-  insertion: MortInsertionSubtable;
 }
 
 type BslnFormatUnionDescriptor = 
@@ -3117,20 +3101,6 @@ declare class MorxSpecificSubtable {
   insertion: MorxInsertionSubtable;
 }
 
-type KernFormatSpecificHeaderDescriptor = 
-  | { orderedList: KernOrderedListHeader }
-  | { stateTable: KernStateHeader }
-  | { simpleArray: KernSimpleArrayHeader }
-  | { indexArray: KernIndexArrayHeader };
-
-declare class KernFormatSpecificHeader {
-  constructor(init?: KernFormatSpecificHeaderDescriptor);
-  orderedList: KernOrderedListHeader;
-  stateTable: KernStateHeader;
-  simpleArray: KernSimpleArrayHeader;
-  indexArray: KernIndexArrayHeader;
-}
-
 type SFNTLookupFormatSpecificHeaderDescriptor = 
   | { theArray: SFNTLookupArrayHeader }
   | { segment: SFNTLookupSegmentHeader }
@@ -3145,6 +3115,36 @@ declare class SFNTLookupFormatSpecificHeader {
   single: SFNTLookupSingleHeader;
   trimmedArray: SFNTLookupTrimmedArrayHeader;
   vector: SFNTLookupVectorHeader;
+}
+
+type KernFormatSpecificHeaderDescriptor = 
+  | { orderedList: KernOrderedListHeader }
+  | { stateTable: KernStateHeader }
+  | { simpleArray: KernSimpleArrayHeader }
+  | { indexArray: KernIndexArrayHeader };
+
+declare class KernFormatSpecificHeader {
+  constructor(init?: KernFormatSpecificHeaderDescriptor);
+  orderedList: KernOrderedListHeader;
+  stateTable: KernStateHeader;
+  simpleArray: KernSimpleArrayHeader;
+  indexArray: KernIndexArrayHeader;
+}
+
+type MortSpecificSubtableDescriptor = 
+  | { rearrangement: MortRearrangementSubtable }
+  | { contextual: MortContextualSubtable }
+  | { ligature: MortLigatureSubtable }
+  | { swash: MortSwashSubtable }
+  | { insertion: MortInsertionSubtable };
+
+declare class MortSpecificSubtable {
+  constructor(init?: MortSpecificSubtableDescriptor);
+  rearrangement: MortRearrangementSubtable;
+  contextual: MortContextualSubtable;
+  ligature: MortLigatureSubtable;
+  swash: MortSwashSubtable;
+  insertion: MortInsertionSubtable;
 }
 
 declare function CTFontDescriptorGetTypeID(): number;

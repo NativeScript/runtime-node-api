@@ -12,6 +12,7 @@
   "type": "module",
   "files": [
     "dist/macos/NativeScript.node",
+    "build/Release/NativeScript.apple.node",
     "index.d.ts",
     "lib",
     "types"

@@ -1085,6 +1085,22 @@ declare class MLCMatMulLayer extends MLCLayer {
   static layerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, descriptor: MLCMatMulDescriptor): InstanceType<This> | null;
 }
 
+declare class MLCRMSPropOptimizer extends MLCOptimizer implements NSCopying {
+  readonly momentumScale: number;
+
+  readonly alpha: number;
+
+  readonly epsilon: number;
+
+  readonly isCentered: boolean;
+
+  static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
+
+  static optimizerWithDescriptorMomentumScaleAlphaEpsilonIsCentered<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, alpha: number, epsilon: number, isCentered: boolean): InstanceType<This>;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class MLCYOLOLossLayer extends MLCLossLayer {
   readonly yoloLossDescriptor: MLCYOLOLossDescriptor;
@@ -1107,22 +1123,6 @@ declare class MLCAdamWOptimizer extends MLCOptimizer implements NSCopying {
   static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
 
   static optimizerWithDescriptorBeta1Beta2EpsilonUsesAMSGradTimeStep<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, beta1: number, beta2: number, epsilon: number, usesAMSGrad: boolean, timeStep: number): InstanceType<This>;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class MLCRMSPropOptimizer extends MLCOptimizer implements NSCopying {
-  readonly momentumScale: number;
-
-  readonly alpha: number;
-
-  readonly epsilon: number;
-
-  readonly isCentered: boolean;
-
-  static optimizerWithDescriptor<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor): InstanceType<This>;
-
-  static optimizerWithDescriptorMomentumScaleAlphaEpsilonIsCentered<This extends abstract new (...args: any) => any>(this: This, optimizerDescriptor: MLCOptimizerDescriptor, momentumScale: number, alpha: number, epsilon: number, isCentered: boolean): InstanceType<This>;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }

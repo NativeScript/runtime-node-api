@@ -1432,22 +1432,6 @@ declare class SKPhysicsJointFixed extends SKPhysicsJoint {
   static jointWithBodyABodyBAnchor(bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchor: CGPoint): SKPhysicsJointFixed;
 }
 
-declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
-  bodyA: SKPhysicsBody;
-
-  bodyB: SKPhysicsBody;
-
-  readonly reactionForce: CGVector;
-
-  readonly reactionTorque: number;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
 declare class SKTileGroupRule extends NSObject implements NSCopying, NSSecureCoding {
   static tileGroupRuleWithAdjacencyTileDefinitions<This extends abstract new (...args: any) => any>(this: This, adjacency: interop.Enum<typeof SKTileAdjacencyMask>, tileDefinitions: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
 
@@ -1467,32 +1451,6 @@ declare class SKTileGroupRule extends NSObject implements NSCopying, NSSecureCod
   encodeWithCoder(coder: NSCoder): void;
 
   initWithCoder(coder: NSCoder): this;
-}
-
-declare class SKRenderer extends NSObject {
-  static rendererWithDevice(device: MTLDevice): SKRenderer;
-
-  renderWithViewportCommandBufferRenderPassDescriptor(viewport: CGRect, commandBuffer: MTLCommandBuffer, renderPassDescriptor: MTLRenderPassDescriptor): void;
-
-  renderWithViewportRenderCommandEncoderRenderPassDescriptorCommandQueue(viewport: CGRect, renderCommandEncoder: MTLRenderCommandEncoder, renderPassDescriptor: MTLRenderPassDescriptor, commandQueue: MTLCommandQueue): void;
-
-  updateAtTime(currentTime: number): void;
-
-  scene: SKScene;
-
-  ignoresSiblingOrder: boolean;
-
-  shouldCullNonVisibleNodes: boolean;
-
-  showsDrawCount: boolean;
-
-  showsNodeCount: boolean;
-
-  showsQuadCount: boolean;
-
-  showsPhysics: boolean;
-
-  showsFields: boolean;
 }
 
 declare class SKPhysicsBody extends NSObject implements NSCopying, NSSecureCoding {
@@ -1723,6 +1681,32 @@ declare class SK3DNode extends SKNode {
   autoenablesDefaultLighting: boolean;
 }
 
+declare class SKRenderer extends NSObject {
+  static rendererWithDevice(device: MTLDevice): SKRenderer;
+
+  renderWithViewportCommandBufferRenderPassDescriptor(viewport: CGRect, commandBuffer: MTLCommandBuffer, renderPassDescriptor: MTLRenderPassDescriptor): void;
+
+  renderWithViewportRenderCommandEncoderRenderPassDescriptorCommandQueue(viewport: CGRect, renderCommandEncoder: MTLRenderCommandEncoder, renderPassDescriptor: MTLRenderPassDescriptor, commandQueue: MTLCommandQueue): void;
+
+  updateAtTime(currentTime: number): void;
+
+  scene: SKScene;
+
+  ignoresSiblingOrder: boolean;
+
+  shouldCullNonVisibleNodes: boolean;
+
+  showsDrawCount: boolean;
+
+  showsNodeCount: boolean;
+
+  showsQuadCount: boolean;
+
+  showsPhysics: boolean;
+
+  showsFields: boolean;
+}
+
 declare class SKPhysicsJointSpring extends SKPhysicsJoint {
   static jointWithBodyABodyBAnchorAAnchorB(bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchorA: CGPoint, anchorB: CGPoint): SKPhysicsJointSpring;
 
@@ -1858,54 +1842,6 @@ declare class SKTransformNode extends SKNode {
   quaternion(): simd_quatf;
 }
 
-declare class SKFieldNode extends SKNode {
-  region: SKRegion;
-
-  strength: number;
-
-  falloff: number;
-
-  minimumRadius: number;
-
-  isEnabled: boolean;
-
-  isExclusive: boolean;
-
-  categoryBitMask: number;
-
-  direction: unknown /* ext vector */;
-
-  smoothness: number;
-
-  animationSpeed: number;
-
-  texture: SKTexture;
-
-  static dragField(): SKFieldNode;
-
-  static vortexField(): SKFieldNode;
-
-  static radialGravityField(): SKFieldNode;
-
-  static linearGravityFieldWithVector(direction: unknown /* ext vector */): SKFieldNode;
-
-  static velocityFieldWithVector(direction: unknown /* ext vector */): SKFieldNode;
-
-  static velocityFieldWithTexture(velocityTexture: SKTexture): SKFieldNode;
-
-  static noiseFieldWithSmoothnessAnimationSpeed(smoothness: number, speed: number): SKFieldNode;
-
-  static turbulenceFieldWithSmoothnessAnimationSpeed(smoothness: number, speed: number): SKFieldNode;
-
-  static springField(): SKFieldNode;
-
-  static electricField(): SKFieldNode;
-
-  static magneticField(): SKFieldNode;
-
-  static customFieldWithEvaluationBlock(block: (p1: unknown /* ext vector */, p2: unknown /* ext vector */, p3: number, p4: number, p5: number) => unknown /* ext vector */): SKFieldNode;
-}
-
 declare class SKPhysicsWorld extends NSObject implements NSSecureCoding {
   gravity: CGVector;
 
@@ -1950,6 +1886,22 @@ declare class SKPhysicsContact extends NSObject {
   readonly contactNormal: CGVector;
 
   readonly collisionImpulse: number;
+}
+
+declare class SKPhysicsJoint extends NSObject implements NSSecureCoding {
+  bodyA: SKPhysicsBody;
+
+  bodyB: SKPhysicsBody;
+
+  readonly reactionForce: CGVector;
+
+  readonly reactionTorque: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
 }
 
 declare class SKShapeNode extends SKNode {
@@ -2012,6 +1964,54 @@ declare class SKShapeNode extends SKNode {
   valueForAttributeNamed(key: string): SKAttributeValue;
 
   setValueForAttributeNamed(value: SKAttributeValue, key: string): void;
+}
+
+declare class SKFieldNode extends SKNode {
+  region: SKRegion;
+
+  strength: number;
+
+  falloff: number;
+
+  minimumRadius: number;
+
+  isEnabled: boolean;
+
+  isExclusive: boolean;
+
+  categoryBitMask: number;
+
+  direction: unknown /* ext vector */;
+
+  smoothness: number;
+
+  animationSpeed: number;
+
+  texture: SKTexture;
+
+  static dragField(): SKFieldNode;
+
+  static vortexField(): SKFieldNode;
+
+  static radialGravityField(): SKFieldNode;
+
+  static linearGravityFieldWithVector(direction: unknown /* ext vector */): SKFieldNode;
+
+  static velocityFieldWithVector(direction: unknown /* ext vector */): SKFieldNode;
+
+  static velocityFieldWithTexture(velocityTexture: SKTexture): SKFieldNode;
+
+  static noiseFieldWithSmoothnessAnimationSpeed(smoothness: number, speed: number): SKFieldNode;
+
+  static turbulenceFieldWithSmoothnessAnimationSpeed(smoothness: number, speed: number): SKFieldNode;
+
+  static springField(): SKFieldNode;
+
+  static electricField(): SKFieldNode;
+
+  static magneticField(): SKFieldNode;
+
+  static customFieldWithEvaluationBlock(block: (p1: unknown /* ext vector */, p2: unknown /* ext vector */, p3: number, p4: number, p5: number) => unknown /* ext vector */): SKFieldNode;
 }
 
 declare class SKTextureAtlas extends NSObject implements NSSecureCoding {

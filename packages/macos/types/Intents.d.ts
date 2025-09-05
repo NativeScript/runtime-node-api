@@ -192,16 +192,6 @@ declare const INHangUpCallIntentResponseCode: {
   FailureNoCallToHangUp: 6,
 };
 
-declare const INRecurrenceFrequency: {
-  Unknown: 0,
-  Minute: 1,
-  Hourly: 2,
-  Daily: 3,
-  Weekly: 4,
-  Monthly: 5,
-  Yearly: 6,
-};
-
 declare const INAnswerCallIntentResponseCode: {
   Unspecified: 0,
   Ready: 1,
@@ -339,6 +329,16 @@ declare const INCallRecordType: {
   OnHold: 8,
 };
 
+declare const INRecurrenceFrequency: {
+  Unknown: 0,
+  Minute: 1,
+  Hourly: 2,
+  Daily: 3,
+  Weekly: 4,
+  Monthly: 5,
+  Yearly: 6,
+};
+
 declare const INOutgoingMessageType: {
   Unknown: 0,
   OutgoingMessageText: 1,
@@ -384,6 +384,15 @@ declare interface INEditMessageIntentHandling extends NSObjectProtocol {
 }
 
 declare class INEditMessageIntentHandling extends NativeObject implements INEditMessageIntentHandling {
+}
+
+declare interface INShareFocusStatusIntentHandling extends NSObjectProtocol {
+  handleShareFocusStatusCompletion(intent: INShareFocusStatusIntent, completion: (p1: INShareFocusStatusIntentResponse) => void): void;
+
+  confirmShareFocusStatusCompletion?(intent: INShareFocusStatusIntent, completion: (p1: INShareFocusStatusIntentResponse) => void): void;
+}
+
+declare class INShareFocusStatusIntentHandling extends NativeObject implements INShareFocusStatusIntentHandling {
 }
 
 declare interface INStartCallIntentHandling extends NSObjectProtocol {
@@ -447,15 +456,6 @@ declare interface INSendMessageIntentHandling extends NSObjectProtocol {
 }
 
 declare class INSendMessageIntentHandling extends NativeObject implements INSendMessageIntentHandling {
-}
-
-declare interface INShareFocusStatusIntentHandling extends NSObjectProtocol {
-  handleShareFocusStatusCompletion(intent: INShareFocusStatusIntent, completion: (p1: INShareFocusStatusIntentResponse) => void): void;
-
-  confirmShareFocusStatusCompletion?(intent: INShareFocusStatusIntent, completion: (p1: INShareFocusStatusIntentResponse) => void): void;
-}
-
-declare class INShareFocusStatusIntentHandling extends NativeObject implements INShareFocusStatusIntentHandling {
 }
 
 declare class INVoiceShortcutCenter extends NSObject {
@@ -1298,6 +1298,12 @@ declare class INEditMessageIntent extends INIntent {
   readonly editedContent: string;
 }
 
+declare class INShareFocusStatusIntent extends INIntent {
+  initWithFocusStatus(focusStatus: INFocusStatus | null): this;
+
+  readonly focusStatus: INFocusStatus;
+}
+
 declare class INBooleanResolutionResult extends INIntentResolutionResult {
   static successWithResolvedValue<This extends abstract new (...args: any) => any>(this: This, resolvedValue: boolean): InstanceType<This>;
 
@@ -1590,12 +1596,6 @@ declare class INCallRecordTypeOptionsResolutionResult extends INIntentResolution
   static confirmationRequiredWithCallRecordTypeOptionsToConfirm<This extends abstract new (...args: any) => any>(this: This, callRecordTypeOptionsToConfirm: interop.Enum<typeof INCallRecordTypeOptions>): InstanceType<This>;
 }
 
-declare class INShareFocusStatusIntent extends INIntent {
-  initWithFocusStatus(focusStatus: INFocusStatus | null): this;
-
-  readonly focusStatus: INFocusStatus;
-}
-
 declare class INEnergyResolutionResult extends INIntentResolutionResult {
   static successWithResolvedEnergy<This extends abstract new (...args: any) => any>(this: This, resolvedEnergy: NSMeasurement): InstanceType<This>;
 
@@ -1722,12 +1722,6 @@ declare class INCallRecordResolutionResult extends INIntentResolutionResult {
   static confirmationRequiredWithCallRecordToConfirm<This extends abstract new (...args: any) => any>(this: This, callRecordToConfirm: INCallRecord | null): InstanceType<This>;
 }
 
-declare class INHangUpCallIntentResponse extends INIntentResponse {
-  initWithCodeUserActivity(code: interop.Enum<typeof INHangUpCallIntentResponseCode>, userActivity: NSUserActivity | null): this;
-
-  readonly code: interop.Enum<typeof INHangUpCallIntentResponseCode>;
-}
-
 declare class INFile extends NSObject implements NSSecureCoding {
   static fileWithDataFilenameTypeIdentifier(data: NSData, filename: string, typeIdentifier: string | null): INFile;
 
@@ -1754,6 +1748,12 @@ declare class INCallDestinationTypeResolutionResult extends INIntentResolutionRe
   static successWithResolvedCallDestinationType<This extends abstract new (...args: any) => any>(this: This, resolvedCallDestinationType: interop.Enum<typeof INCallDestinationType>): InstanceType<This>;
 
   static confirmationRequiredWithCallDestinationTypeToConfirm<This extends abstract new (...args: any) => any>(this: This, callDestinationTypeToConfirm: interop.Enum<typeof INCallDestinationType>): InstanceType<This>;
+}
+
+declare class INHangUpCallIntentResponse extends INIntentResponse {
+  initWithCodeUserActivity(code: interop.Enum<typeof INHangUpCallIntentResponseCode>, userActivity: NSUserActivity | null): this;
+
+  readonly code: interop.Enum<typeof INHangUpCallIntentResponseCode>;
 }
 
 declare class INAnswerCallIntent extends INIntent {

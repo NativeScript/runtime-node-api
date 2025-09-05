@@ -1,6 +1,6 @@
 /// <reference types="@nativescript/objc-node-api" />
-/// <reference path="./AppKit.d.ts" />
 /// <reference path="./Runtime.d.ts" />
+/// <reference path="./AppKit.d.ts" />
 
 declare const GCHapticsLocalityRightTrigger: string;
 
@@ -722,6 +722,10 @@ declare const GCDevicePhysicalInputElementChange: {
   Changed: 1,
 };
 
+declare const GCMicroGamepadSnapshotDataVersion: {
+  GCMicroGamepadSnapshotDataVersion1: 256,
+};
+
 declare const GCDualSenseAdaptiveTriggerMode: {
   Off: 0,
   Feedback: 1,
@@ -736,14 +740,6 @@ declare const GCControllerPlayerIndex: {
   Index2: 1,
   Index3: 2,
   Index4: 3,
-};
-
-declare const GCPhysicalInputSourceDirection: {
-  NotApplicable: 0,
-  Up: 1,
-  Right: 2,
-  Down: 4,
-  Left: 8,
 };
 
 declare const GCSystemGestureState: {
@@ -766,8 +762,12 @@ declare const GCDualSenseAdaptiveTriggerStatus: {
   SlopeFeedbackFinished: 9,
 };
 
-declare const GCMicroGamepadSnapshotDataVersion: {
-  GCMicroGamepadSnapshotDataVersion1: 256,
+declare const GCPhysicalInputSourceDirection: {
+  NotApplicable: 0,
+  Up: 1,
+  Right: 2,
+  Down: 4,
+  Left: 8,
 };
 
 declare class GCExtendedGamepadSnapshotData {
@@ -1207,20 +1207,36 @@ declare interface GCDevicePhysicalInputStateDiff extends NSObjectProtocol {
 declare class GCDevicePhysicalInputStateDiff extends NativeObject implements GCDevicePhysicalInputStateDiff {
 }
 
-declare class GCEventViewController extends NSViewController {
-  controllerUserInteractionEnabled: boolean;
-}
+declare class GCRacingWheelInput extends GCRacingWheelInputState implements GCDevicePhysicalInput {
+  capture(): GCRacingWheelInputState;
 
-declare class GCGearShifterElement extends NSObject implements GCPhysicalInputElement {
-  readonly patternInput: GCSwitchPositionInput;
+  nextInputState(): GCRacingWheelInputState;
 
-  readonly sequentialInput: GCRelativeInput;
+  readonly device: GCDevice | null;
 
-  readonly aliases: NSSet;
+  queue: NSObject;
 
-  readonly localizedName: string;
+  elementValueDidChangeHandler: (p1: GCDevicePhysicalInput, p2: GCPhysicalInputElement) => void;
 
-  readonly sfSymbolsName: string;
+  inputStateAvailableHandler: (p1: GCDevicePhysicalInput) => void;
+
+  inputStateQueueDepth: number;
+
+  readonly lastEventTimestamp: number;
+
+  readonly lastEventLatency: number;
+
+  readonly elements: GCPhysicalInputElementCollection;
+
+  readonly buttons: GCPhysicalInputElementCollection;
+
+  readonly axes: GCPhysicalInputElementCollection;
+
+  readonly switches: GCPhysicalInputElementCollection;
+
+  readonly dpads: GCPhysicalInputElementCollection;
+
+  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
 
   isEqual(object: interop.Object): boolean;
 
@@ -1263,7 +1279,354 @@ declare class GCGearShifterElement extends NSObject implements GCPhysicalInputEl
   readonly debugDescription: string;
 }
 
-declare class GCDirectionalGamepad extends GCMicroGamepad {
+declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysicalInputState {
+  readonly wheel: GCSteeringWheelElement;
+
+  readonly acceleratorPedal: GCButtonElement;
+
+  readonly brakePedal: GCButtonElement;
+
+  readonly clutchPedal: GCButtonElement;
+
+  readonly shifter: GCGearShifterElement;
+
+  readonly device: GCDevice | null;
+
+  readonly lastEventTimestamp: number;
+
+  readonly lastEventLatency: number;
+
+  readonly elements: GCPhysicalInputElementCollection;
+
+  readonly buttons: GCPhysicalInputElementCollection;
+
+  readonly axes: GCPhysicalInputElementCollection;
+
+  readonly switches: GCPhysicalInputElementCollection;
+
+  readonly dpads: GCPhysicalInputElementCollection;
+
+  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GCKeyboard extends NSObject implements GCDevice {
+  readonly keyboardInput: GCKeyboardInput;
+
+  static readonly coalescedKeyboard: GCKeyboard;
+
+  handlerQueue: NSObject;
+
+  readonly vendorName: string;
+
+  readonly productCategory: string;
+
+  readonly physicalInputProfile: GCPhysicalInputProfile;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GCController extends NSObject implements GCDevice {
+  static controllers(): NSArray;
+
+  static readonly current: GCController;
+
+  controllerPausedHandler: (p1: GCController) => void;
+
+  static shouldMonitorBackgroundEvents: boolean;
+
+  readonly isAttachedToDevice: boolean;
+
+  playerIndex: interop.Enum<typeof GCControllerPlayerIndex>;
+
+  readonly input: GCControllerLiveInput;
+
+  readonly battery: GCDeviceBattery;
+
+  readonly physicalInputProfile: GCPhysicalInputProfile;
+
+  readonly gamepad: GCGamepad;
+
+  readonly microGamepad: GCMicroGamepad;
+
+  readonly extendedGamepad: GCExtendedGamepad;
+
+  readonly motion: GCMotion;
+
+  readonly light: GCDeviceLight;
+
+  readonly haptics: GCDeviceHaptics;
+
+  static supportsHIDDevice(device: interop.PointerConvertible): boolean;
+
+  readonly isSnapshot: boolean;
+
+  capture(): GCController;
+
+  static controllerWithMicroGamepad(): GCController;
+
+  static controllerWithExtendedGamepad(): GCController;
+
+  static startWirelessControllerDiscoveryWithCompletionHandler(completionHandler: () => void | null): void;
+
+  static stopWirelessControllerDiscovery(): void;
+
+  handlerQueue: NSObject;
+
+  readonly vendorName: string;
+
+  readonly productCategory: string;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GCControllerLiveInput extends GCControllerInputState implements GCDevicePhysicalInput {
+  readonly unmappedInput: GCControllerLiveInput;
+
+  capture(): GCControllerInputState;
+
+  nextInputState(): GCControllerInputState;
+
+  readonly device: GCDevice | null;
+
+  queue: NSObject;
+
+  elementValueDidChangeHandler: (p1: GCDevicePhysicalInput, p2: GCPhysicalInputElement) => void;
+
+  inputStateAvailableHandler: (p1: GCDevicePhysicalInput) => void;
+
+  inputStateQueueDepth: number;
+
+  readonly lastEventTimestamp: number;
+
+  readonly lastEventLatency: number;
+
+  readonly elements: GCPhysicalInputElementCollection;
+
+  readonly buttons: GCPhysicalInputElementCollection;
+
+  readonly axes: GCPhysicalInputElementCollection;
+
+  readonly switches: GCPhysicalInputElementCollection;
+
+  readonly dpads: GCPhysicalInputElementCollection;
+
+  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
+declare class GCControllerInputState extends NSObject implements GCDevicePhysicalInputState {
+  readonly device: GCDevice | null;
+
+  readonly lastEventTimestamp: number;
+
+  readonly lastEventLatency: number;
+
+  readonly elements: GCPhysicalInputElementCollection;
+
+  readonly buttons: GCPhysicalInputElementCollection;
+
+  readonly axes: GCPhysicalInputElementCollection;
+
+  readonly switches: GCPhysicalInputElementCollection;
+
+  readonly dpads: GCPhysicalInputElementCollection;
+
+  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
 }
 
 declare class GCMicroGamepadSnapshot extends GCMicroGamepad {
@@ -1275,7 +1638,7 @@ declare class GCMicroGamepadSnapshot extends GCMicroGamepad {
 }
 
 declare class GCMicroGamepad extends GCPhysicalInputProfile {
-  readonly controller: GCController;
+  readonly controller: GCController | null;
 
   valueChangedHandler: (p1: GCMicroGamepad, p2: GCControllerElement) => void;
 
@@ -1320,7 +1683,7 @@ declare class GCDualShockGamepad extends GCExtendedGamepad {
 }
 
 declare class GCExtendedGamepad extends GCPhysicalInputProfile {
-  readonly controller: GCController;
+  readonly controller: GCController | null;
 
   valueChangedHandler: (p1: GCExtendedGamepad, p2: GCControllerElement) => void;
 
@@ -1526,7 +1889,7 @@ declare class GCKeyboardInput extends GCPhysicalInputProfile {
 }
 
 declare class GCGamepad extends GCPhysicalInputProfile {
-  readonly controller: GCController;
+  readonly controller: GCController | null;
 
   valueChangedHandler: (p1: GCGamepad, p2: GCControllerElement) => void;
 
@@ -1561,60 +1924,7 @@ declare class GCControllerButtonInput extends GCControllerElement {
   readonly isTouched: boolean;
 }
 
-declare class GCMouse extends NSObject implements GCDevice {
-  readonly mouseInput: GCMouseInput;
-
-  static readonly current: GCMouse;
-
-  static mice(): NSArray;
-
-  handlerQueue: NSObject;
-
-  readonly vendorName: string;
-
-  readonly productCategory: string;
-
-  readonly physicalInputProfile: GCPhysicalInputProfile;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
+declare class GCDirectionalGamepad extends GCMicroGamepad {
 }
 
 declare class GCPhysicalInputProfile extends NSObject {
@@ -1657,78 +1967,6 @@ declare class GCPhysicalInputProfile extends NSObject {
   mappedPhysicalInputNamesForElementAlias(elementAlias: string): NSSet;
 }
 
-declare class GCRacingWheelInput extends GCRacingWheelInputState implements GCDevicePhysicalInput {
-  capture(): GCRacingWheelInputState;
-
-  nextInputState(): GCRacingWheelInputState;
-
-  readonly device: GCDevice | null;
-
-  queue: NSObject;
-
-  elementValueDidChangeHandler: (p1: GCDevicePhysicalInput, p2: GCPhysicalInputElement) => void;
-
-  inputStateAvailableHandler: (p1: GCDevicePhysicalInput) => void;
-
-  inputStateQueueDepth: number;
-
-  readonly lastEventTimestamp: number;
-
-  readonly lastEventLatency: number;
-
-  readonly elements: GCPhysicalInputElementCollection;
-
-  readonly buttons: GCPhysicalInputElementCollection;
-
-  readonly axes: GCPhysicalInputElementCollection;
-
-  readonly switches: GCPhysicalInputElementCollection;
-
-  readonly dpads: GCPhysicalInputElementCollection;
-
-  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class GCXboxGamepad extends GCExtendedGamepad {
   readonly paddleButton1: GCControllerButtonInput;
 
@@ -1741,10 +1979,8 @@ declare class GCXboxGamepad extends GCExtendedGamepad {
   readonly buttonShare: GCControllerButtonInput;
 }
 
-declare class GCDeviceHaptics extends NSObject {
-  readonly supportedLocalities: NSSet;
-
-  createEngineWithLocality(locality: string): CHHapticEngine | null;
+declare class GCEventViewController extends NSViewController {
+  controllerUserInteractionEnabled: boolean;
 }
 
 declare class GCSteeringWheelElement extends NSObject implements GCAxisElement {
@@ -1759,130 +1995,6 @@ declare class GCSteeringWheelElement extends NSObject implements GCAxisElement {
   readonly localizedName: string;
 
   readonly sfSymbolsName: string;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class GCRacingWheelInputState extends NSObject implements GCDevicePhysicalInputState {
-  readonly wheel: GCSteeringWheelElement;
-
-  readonly acceleratorPedal: GCButtonElement;
-
-  readonly brakePedal: GCButtonElement;
-
-  readonly clutchPedal: GCButtonElement;
-
-  readonly shifter: GCGearShifterElement;
-
-  readonly device: GCDevice | null;
-
-  readonly lastEventTimestamp: number;
-
-  readonly lastEventLatency: number;
-
-  readonly elements: GCPhysicalInputElementCollection;
-
-  readonly buttons: GCPhysicalInputElementCollection;
-
-  readonly axes: GCPhysicalInputElementCollection;
-
-  readonly switches: GCPhysicalInputElementCollection;
-
-  readonly dpads: GCPhysicalInputElementCollection;
-
-  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class GCKeyboard extends NSObject implements GCDevice {
-  readonly keyboardInput: GCKeyboardInput;
-
-  static readonly coalescedKeyboard: GCKeyboard;
-
-  handlerQueue: NSObject;
-
-  readonly vendorName: string;
-
-  readonly productCategory: string;
-
-  readonly physicalInputProfile: GCPhysicalInputProfile;
 
   isEqual(object: interop.Object): boolean;
 
@@ -2003,10 +2115,68 @@ declare class GCRacingWheel extends NSObject implements GCDevice {
   readonly debugDescription: string;
 }
 
+declare class GCGearShifterElement extends NSObject implements GCPhysicalInputElement {
+  readonly patternInput: GCSwitchPositionInput;
+
+  readonly sequentialInput: GCRelativeInput;
+
+  readonly aliases: NSSet;
+
+  readonly localizedName: string;
+
+  readonly sfSymbolsName: string;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 declare class GCControllerAxisInput extends GCControllerElement {
   valueChangedHandler: (p1: GCControllerAxisInput, p2: number) => void;
 
   readonly value: number;
+}
+
+declare class GCDeviceHaptics extends NSObject {
+  readonly supportedLocalities: NSSet;
+
+  createEngineWithLocality(locality: string): CHHapticEngine | null;
 }
 
 declare class GCExtendedGamepadSnapshot extends GCExtendedGamepad {
@@ -2017,196 +2187,26 @@ declare class GCExtendedGamepadSnapshot extends GCExtendedGamepad {
   initWithControllerSnapshotData(controller: GCController, data: NSData): this;
 }
 
-declare class GCControllerLiveInput extends GCControllerInputState implements GCDevicePhysicalInput {
-  readonly unmappedInput: GCControllerLiveInput;
-
-  capture(): GCControllerInputState;
-
-  nextInputState(): GCControllerInputState;
-
-  readonly device: GCDevice | null;
-
-  queue: NSObject;
-
-  elementValueDidChangeHandler: (p1: GCDevicePhysicalInput, p2: GCPhysicalInputElement) => void;
-
-  inputStateAvailableHandler: (p1: GCDevicePhysicalInput) => void;
-
-  inputStateQueueDepth: number;
-
-  readonly lastEventTimestamp: number;
-
-  readonly lastEventLatency: number;
-
-  readonly elements: GCPhysicalInputElementCollection;
-
-  readonly buttons: GCPhysicalInputElementCollection;
-
-  readonly axes: GCPhysicalInputElementCollection;
-
-  readonly switches: GCPhysicalInputElementCollection;
-
-  readonly dpads: GCPhysicalInputElementCollection;
-
-  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class GCDeviceBattery extends NSObject {
   readonly batteryLevel: number;
 
   readonly batteryState: interop.Enum<typeof GCDeviceBatteryState>;
 }
 
-declare class GCControllerInputState extends NSObject implements GCDevicePhysicalInputState {
-  readonly device: GCDevice | null;
+declare class GCMouse extends NSObject implements GCDevice {
+  readonly mouseInput: GCMouseInput;
 
-  readonly lastEventTimestamp: number;
+  static readonly current: GCMouse;
 
-  readonly lastEventLatency: number;
-
-  readonly elements: GCPhysicalInputElementCollection;
-
-  readonly buttons: GCPhysicalInputElementCollection;
-
-  readonly axes: GCPhysicalInputElementCollection;
-
-  readonly switches: GCPhysicalInputElementCollection;
-
-  readonly dpads: GCPhysicalInputElementCollection;
-
-  objectForKeyedSubscript(key: string): GCPhysicalInputElement | null;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
-declare class GCController extends NSObject implements GCDevice {
-  controllerPausedHandler: (p1: GCController) => void;
-
-  static readonly current: GCController;
-
-  static shouldMonitorBackgroundEvents: boolean;
-
-  readonly isAttachedToDevice: boolean;
-
-  readonly isSnapshot: boolean;
-
-  playerIndex: interop.Enum<typeof GCControllerPlayerIndex>;
-
-  readonly input: GCControllerLiveInput;
-
-  readonly battery: GCDeviceBattery;
-
-  readonly physicalInputProfile: GCPhysicalInputProfile;
-
-  readonly gamepad: GCGamepad;
-
-  readonly microGamepad: GCMicroGamepad;
-
-  readonly extendedGamepad: GCExtendedGamepad;
-
-  readonly motion: GCMotion;
-
-  readonly light: GCDeviceLight;
-
-  readonly haptics: GCDeviceHaptics;
-
-  capture(): GCController;
-
-  static controllers(): NSArray;
-
-  static startWirelessControllerDiscoveryWithCompletionHandler(completionHandler: () => void | null): void;
-
-  static stopWirelessControllerDiscovery(): void;
-
-  static controllerWithMicroGamepad(): GCController;
-
-  static controllerWithExtendedGamepad(): GCController;
-
-  static supportsHIDDevice(device: interop.PointerConvertible): boolean;
+  static mice(): NSArray;
 
   handlerQueue: NSObject;
 
   readonly vendorName: string;
 
   readonly productCategory: string;
+
+  readonly physicalInputProfile: GCPhysicalInputProfile;
 
   isEqual(object: interop.Object): boolean;
 

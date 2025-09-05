@@ -370,8 +370,6 @@ declare const CNLabelContactRelationYoungerCousin: string;
 
 declare const CNLabelContactRelationSpouse: string;
 
-declare const CNLabelSchool: string;
-
 declare const CNLabelContactRelationCousinMothersBrothersDaughter: string;
 
 declare const CNInstantMessageServiceYahoo: string;
@@ -467,6 +465,8 @@ declare const CNLabelContactRelationBrotherInLawWifesBrother: string;
 declare const CNLabelContactRelationCousinGrandparentsSiblingsSon: string;
 
 declare const CNPostalAddressCityKey: string;
+
+declare const CNLabelSchool: string;
 
 declare const CNLabelContactRelationGrandfatherMothersFather: string;
 
@@ -651,13 +651,6 @@ declare const CNErrorCode: {
   VCardSummarizationError: 701,
 };
 
-declare const CNContainerType: {
-  Unassigned: 0,
-  Local: 1,
-  Exchange: 2,
-  CardDAV: 3,
-};
-
 declare const CNAuthorizationStatus: {
   NotDetermined: 0,
   Restricted: 1,
@@ -666,21 +659,14 @@ declare const CNAuthorizationStatus: {
   Limited: 4,
 };
 
-declare const CNEntityType: {
-  CNEntityTypeContacts: 0,
-};
-
 declare const CNContactDisplayNameOrder: {
   UserDefault: 0,
   GivenNameFirst: 1,
   FamilyNameFirst: 2,
 };
 
-declare const CNContactSortOrder: {
-  None: 0,
-  UserDefault: 1,
-  GivenName: 2,
-  FamilyName: 3,
+declare const CNEntityType: {
+  CNEntityTypeContacts: 0,
 };
 
 declare const CNContactFormatterStyle: {
@@ -695,6 +681,20 @@ declare const CNPostalAddressFormatterStyle: {
 declare const CNContactType: {
   Person: 0,
   Organization: 1,
+};
+
+declare const CNContactSortOrder: {
+  None: 0,
+  UserDefault: 1,
+  GivenName: 2,
+  FamilyName: 3,
+};
+
+declare const CNContainerType: {
+  Unassigned: 0,
+  Local: 1,
+  Exchange: 2,
+  CardDAV: 3,
 };
 
 declare interface CNChangeHistoryEventVisitor extends NSObjectProtocol {

@@ -62,6 +62,12 @@ declare const CSIndexErrorCode: {
   MismatchedClientState: -1006,
 };
 
+declare const CSSearchableItemUpdateListenerOptions: {
+  Default: 0,
+  Summarization: 2,
+  Priority: 4,
+};
+
 declare const CSSearchQuerySourceOptions: {
   Default: 0,
   AllowMail: 1,
@@ -79,6 +85,10 @@ declare interface CSSearchableIndexDelegate extends NSObjectProtocol {
   dataForSearchableIndexItemIdentifierTypeIdentifierError?(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, outError: interop.PointerConvertible): NSData;
 
   fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError?(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: boolean, outError: interop.PointerConvertible): NSURL;
+
+  searchableItemsForIdentifiersSearchableItemsHandler?(identifiers: NSArray<interop.Object> | Array<interop.Object>, searchableItemsHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  searchableItemsDidUpdate?(items: NSArray<interop.Object> | Array<interop.Object>): void;
 }
 
 declare class CSSearchableIndexDelegate extends NativeObject implements CSSearchableIndexDelegate {
@@ -195,6 +205,10 @@ declare class CSIndexExtensionRequestHandler extends NSObject implements NSExten
   dataForSearchableIndexItemIdentifierTypeIdentifierError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, outError: interop.PointerConvertible): NSData;
 
   fileURLForSearchableIndexItemIdentifierTypeIdentifierInPlaceError(searchableIndex: CSSearchableIndex, itemIdentifier: string, typeIdentifier: string, inPlace: boolean, outError: interop.PointerConvertible): NSURL;
+
+  searchableItemsForIdentifiersSearchableItemsHandler(identifiers: NSArray<interop.Object> | Array<interop.Object>, searchableItemsHandler: (p1: NSArray<interop.Object> | Array<interop.Object>) => void): void;
+
+  searchableItemsDidUpdate(items: NSArray<interop.Object> | Array<interop.Object>): void;
 }
 
 declare class CSSearchableIndex extends NSObject {
@@ -241,6 +255,8 @@ declare class CSSearchableItem extends NSObject implements NSSecureCoding, NSCop
   attributeSet: CSSearchableItemAttributeSet;
 
   isUpdate: boolean;
+
+  updateListenerOptions: interop.Enum<typeof CSSearchableItemUpdateListenerOptions>;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -458,6 +474,8 @@ declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying
   get providerInPlaceFileTypeIdentifiers(): NSArray;
   set providerInPlaceFileTypeIdentifiers(value: NSArray<interop.Object> | Array<interop.Object>);
 
+  moveFrom(sourceAttributeSet: CSSearchableItemAttributeSet): void;
+
   subject: string;
 
   theme: string;
@@ -557,6 +575,12 @@ declare class CSSearchableItemAttributeSet extends NSObject implements NSCopying
   set instantMessageAddresses(value: NSArray<interop.Object> | Array<interop.Object>);
 
   isLikelyJunk: NSNumber;
+
+  readonly isPriority: NSNumber;
+
+  readonly textContentSummary: string;
+
+  transcribedTextContent: string;
 
   get editors(): NSArray;
   set editors(value: NSArray<interop.Object> | Array<interop.Object>);

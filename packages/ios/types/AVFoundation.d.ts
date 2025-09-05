@@ -231,41 +231,39 @@ declare const AVMetadataIdentifierID3MetadataUserText: string;
 
 declare const AVMetadataIdentifierID3MetadataYear: string;
 
-declare const AVMetadataIdentifierID3MetadataSetSubtitle: string;
-
-declare const AVMetadataIdentifierID3MetadataEncodedWith: string;
-
 declare const AVMetadataIdentifierID3MetadataTitleSortOrder: string;
 
-declare const AVMetadataIdentifierID3MetadataSize: string;
+declare const AVMetadataIdentifierID3MetadataInternetRadioStationName: string;
+
+declare const AVMetadataIdentifierID3MetadataRecordingDates: string;
 
 declare const AVMetadataIdentifierID3MetadataPublisher: string;
 
 declare const AVMetadataIdentifierID3MetadataProducedNotice: string;
 
-declare const AVMetadataIdentifierID3MetadataConductor: string;
-
-declare const AVMetadataIdentifierID3MetadataModifiedBy: string;
+declare const AVMetadataIdentifierID3MetadataPartOfASet: string;
 
 declare const AVMetadataIdentifierID3MetadataLeadPerformer: string;
 
+declare const AVMetadataIdentifierID3MetadataOriginalReleaseYear: string;
+
 declare const AVMetadataIdentifierID3MetadataOriginalArtist: string;
 
-declare const AVMetadataIdentifierID3MetadataOriginalLyricist: string;
+declare const AVMetadataIdentifierID3MetadataOriginalAlbumTitle: string;
 
-declare const AVMetadataIdentifierID3MetadataOriginalFilename: string;
+declare const AVMetadataIdentifierID3MetadataMediaType: string;
+
+declare const AVMetadataIdentifierID3MetadataInitialKey: string;
 
 declare const AVMetadataIdentifierID3MetadataSubTitle: string;
 
-declare const AVMetadataIdentifierID3MetadataContentGroupDescription: string;
-
-declare const AVMetadataIdentifierID3MetadataInvolvedPeopleList_v24: string;
-
 declare const AVMetadataIdentifierID3MetadataTime: string;
 
-declare const AVMetadataIdentifierID3MetadataTaggingTime: string;
+declare const AVMetadataIdentifierID3MetadataFileType: string;
 
-declare const AVMetadataIdentifierID3MetadataRecordingTime: string;
+declare const AVMetadataIdentifierID3MetadataLyricist: string;
+
+declare const AVMetadataIdentifierID3MetadataReleaseTime: string;
 
 declare const AVMetadataIdentifierID3MetadataContentType: string;
 
@@ -274,8 +272,6 @@ declare const AVMetadataIdentifierID3MetadataComposer: string;
 declare const AVMetadataIdentifierID3MetadataAlbumTitle: string;
 
 declare const AVMetadataIdentifierID3MetadataReverb: string;
-
-declare const AVMetadataIdentifierID3MetadataOriginalReleaseYear: string;
 
 declare const AVMetadataIdentifierQuickTimeUserDataArranger: string;
 
@@ -389,8 +385,6 @@ declare const AVMetadataIdentifier3GPUserDataPerformer: string;
 
 declare const AVMetadataIdentifier3GPUserDataCopyright: string;
 
-declare const AVMetadataIdentifierID3MetadataOriginalAlbumTitle: string;
-
 declare const AVMetadataIdentifierISOUserDataDate: string;
 
 declare const AVMetadataIdentifierQuickTimeUserDataTrackName: string;
@@ -453,8 +447,6 @@ declare const AVMetadataIdentifier3GPUserDataAuthor: string;
 
 declare const AVErrorFileSizeKey: string;
 
-declare const AVMetadataIdentifierID3MetadataTitleDescription: string;
-
 declare const AVCaptionConversionAdjustmentTypeTimeRange: string;
 
 declare const AVMetadataIdentifieriTunesMetadataSongName: string;
@@ -465,11 +457,7 @@ declare const AVMetadataIdentifierQuickTimeMetadataIsMontage: string;
 
 declare const AVMetadataIdentifierID3MetadataComments: string;
 
-declare const AVMetadataObjectTypePDF417Code: string;
-
-declare const AVMetadataIdentifierID3MetadataInternationalStandardRecordingCode: string;
-
-declare const AVMetadataIdentifierID3MetadataMusicianCreditsList: string;
+declare const AVMetadataIdentifierID3MetadataContentGroupDescription: string;
 
 declare const AVTrackAssociationTypeSelectionFollower: string;
 
@@ -480,8 +468,6 @@ declare const AVMetadataQuickTimeUserDataKeySpecialPlaybackRequirements: string;
 declare const AVMetadataIdentifierID3MetadataInvolvedPeopleList_v23: string;
 
 declare const AVMetadataQuickTimeUserDataKeyAuthor: string;
-
-declare const AVMetadataIdentifierID3MetadataLanguage: string;
 
 declare const AVCaptureSystemPressureLevelNominal: string;
 
@@ -519,13 +505,7 @@ declare const AVMetadataIdentifierQuickTimeMetadataProducer: string;
 
 declare const AVMetadataIdentifierQuickTimeMetadataLocationName: string;
 
-declare const AVMetadataIdentifierID3MetadataMediaType: string;
-
 declare const AVMetadataIdentifierID3MetadataInternetRadioStationOwner: string;
-
-declare const AVMetadata3GPUserDataKeyKeywordList: string;
-
-declare const AVMetadataIdentifierID3MetadataPerformerSortOrder: string;
 
 declare const AVErrorMediaSubTypeKey: string;
 
@@ -546,6 +526,8 @@ declare const AVMediaTypeVideo: string;
 declare const AVMetadataID3MetadataKeyMPEGLocationLookupTable: string;
 
 declare const AVMetadataIdentifierQuickTimeMetadataDirectionFacing: string;
+
+declare const AVMetadataIdentifierID3MetadataRecordingTime: string;
 
 declare const AVMetadataIdentifierQuickTimeMetadataPreferredAffineTransform: string;
 
@@ -661,8 +643,6 @@ declare const AVVideoTransferFunction_Linear: string;
 
 declare const AVVideoTransferFunction_ITU_R_2100_HLG: string;
 
-declare const AVVideoTransferFunction_SMPTE_ST_2084_PQ: string;
-
 declare const AVVideoTransferFunction_ITU_R_709_2: string;
 
 declare const AVVideoColorPrimaries_ITU_R_2020: string;
@@ -690,8 +670,6 @@ declare const AVVideoCodecH264: string;
 declare const AVMetadataIdentifierID3MetadataAlbumSortOrder: string;
 
 declare const AVVideoCodecTypeHEVCWithAlpha: string;
-
-declare const AVMetadataIdentifierID3MetadataOriginalReleaseTime: string;
 
 declare const AVVideoCodecTypeAppleProRes422LT: string;
 
@@ -1113,6 +1091,8 @@ declare const AVContentKeySystemClearKey: string;
 
 declare const AVContentKeySystemFairPlayStreaming: string;
 
+declare const AVMetadataIdentifierID3MetadataSetSubtitle: string;
+
 declare const AVMetadataiTunesMetadataKeyDiscCompilation: string;
 
 declare const AVMetadataIdentifierQuickTimeUserDataCredits: string;
@@ -1133,6 +1113,8 @@ declare const AVMetadataID3MetadataKeyInternetRadioStationName: string;
 
 declare const AVVideoCompressionPropertiesKey: string;
 
+declare const AVMetadataIdentifierID3MetadataOriginalLyricist: string;
+
 declare const AVMetadataIdentifierQuickTimeUserDataDirector: string;
 
 declare const AVVideoApertureModeCleanAperture: string;
@@ -1151,6 +1133,8 @@ declare const AVVideoProfileLevelH264Main32: string;
 
 declare const AVMetadataQuickTimeUserDataKeyFullName: string;
 
+declare const AVMetadataIdentifierID3MetadataSize: string;
+
 declare const AVMetadataObjectTypeUPCECode: string;
 
 declare const AVMetadataIdentifierID3MetadataDate: string;
@@ -1162,8 +1146,6 @@ declare const AVMetadataCommonKeyAccessibilityDescription: string;
 declare const AVMetadataQuickTimeMetadataKeyCameraIdentifier: string;
 
 declare const AVMetadataIdentifierID3MetadataEncodingTime: string;
-
-declare const AVMetadataIdentifierID3MetadataReleaseTime: string;
 
 declare const AVLayerVideoGravityResizeAspect: string;
 
@@ -1221,8 +1203,6 @@ declare const AVMetadataIdentifieriTunesMetadataRecordCompany: string;
 
 declare const AVVideoMaxKeyFrameIntervalKey: string;
 
-declare const AVMetadataIdentifierID3MetadataInitialKey: string;
-
 declare const AVMetadataExtraAttributeInfoKey: string;
 
 declare const AVMetadataObjectTypeITF14Code: string;
@@ -1258,6 +1238,8 @@ declare const AVMetadataCommonIdentifierAlbumName: string;
 declare const AVMetadataID3MetadataKeyTaggingTime: string;
 
 declare const AVMediaCharacteristicIsOriginalContent: string;
+
+declare const AVVideoTransferFunction_SMPTE_ST_2084_PQ: string;
 
 declare const AVCoordinatedPlaybackSuspensionReasonAudioSessionInterrupted: string;
 
@@ -1313,6 +1295,8 @@ declare const AVMetadataIdentifierQuickTimeMetadataCameraIdentifier: string;
 
 declare const AVMetadataIdentifieriTunesMetadataAlbumArtist: string;
 
+declare const AVMetadataIdentifierID3MetadataTaggingTime: string;
+
 declare const AVMetadataQuickTimeMetadataKeyCopyright: string;
 
 declare const AVMetadataiTunesMetadataKeyRecordCompany: string;
@@ -1345,6 +1329,8 @@ declare const AVMetadataID3MetadataKeyLength: string;
 
 declare const AVMetadataIdentifieriTunesMetadataOnlineExtras: string;
 
+declare const AVMetadataIdentifierID3MetadataLanguage: string;
+
 declare const AVMetadataID3MetadataKeySubTitle: string;
 
 declare const AVMediaCharacteristicUsesWideGamutColorSpace: string;
@@ -1359,11 +1345,9 @@ declare const AVPlayerInterstitialEventMonitorAssetListResponseStatusDidChangeEv
 
 declare const AVMetadataIdentifierQuickTimeMetadataSpatialOverCaptureQualityScore: string;
 
-declare const AVMetadataIdentifierID3MetadataRecordingDates: string;
-
 declare const AVVideoScalingModeKey: string;
 
-declare const AVMetadataIdentifierID3MetadataInternetRadioStationName: string;
+declare const AVMetadataID3MetadataKeySignature: string;
 
 declare const AVMetadataCommonIdentifierAccessibilityDescription: string;
 
@@ -1393,8 +1377,6 @@ declare const AVFileTypeJPEG: string;
 
 declare const AVMetadataID3MetadataKeyEncodedWith: string;
 
-declare const AVMetadataID3MetadataKeySignature: string;
-
 declare const AVMetadata3GPUserDataKeyTitle: string;
 
 declare const AVMetadataCommonKeyLocation: string;
@@ -1415,6 +1397,8 @@ declare const AVMetadataFormatQuickTimeUserData: string;
 
 declare const AVCaptureSessionPresetInputPriority: string;
 
+declare const AVMetadataIdentifierID3MetadataInvolvedPeopleList_v24: string;
+
 declare const AVMetadataiTunesMetadataKeyAccountKind: string;
 
 declare const AVCoordinatedPlaybackSuspensionReasonCoordinatedPlaybackNotPossible: string;
@@ -1422,8 +1406,6 @@ declare const AVCoordinatedPlaybackSuspensionReasonCoordinatedPlaybackNotPossibl
 declare const AVMetadataObjectTypeMicroPDF417Code: string;
 
 declare const AVMetadataObjectTypeFace: string;
-
-declare const AVMetadataIdentifierID3MetadataPartOfASet: string;
 
 declare const AVFileTypeWAVE: string;
 
@@ -1469,21 +1451,27 @@ declare const AVMetadataQuickTimeMetadataKeyKeywords: string;
 
 declare const AVMetadataID3MetadataKeyOfficialInternetRadioStationHomepage: string;
 
+declare const AVMetadataIdentifierID3MetadataPerformerSortOrder: string;
+
+declare const AVMetadata3GPUserDataKeyKeywordList: string;
+
 declare const AVMediaTypeHaptic: string;
 
 declare const AVMetadataIdentifierID3MetadataOwnership: string;
 
+declare const AVMetadataIdentifierID3MetadataOriginalReleaseTime: string;
+
 declare const AVMetadataObjectTypeCodabarCode: string;
 
 declare const AVMetadataIdentifierID3MetadataEqualization: string;
-
-declare const AVMetadataIdentifierID3MetadataLyricist: string;
 
 declare const AVMetadataIdentifieriTunesMetadataPublisher: string;
 
 declare const AVMetadataIdentifieriTunesMetadataAcknowledgement: string;
 
 declare const AVMetadataCommonKeyTitle: string;
+
+declare const AVMetadataID3MetadataKeyCommercial: string;
 
 declare const AVMetadataQuickTimeUserDataKeyTaggedCharacteristic: string;
 
@@ -1524,6 +1512,8 @@ declare const AVErrorPIDKey: string;
 declare const AVMetadataQuickTimeUserDataKeyMake: string;
 
 declare const AVCaptionMediaSubTypeKey: string;
+
+declare const AVMetadataIdentifierID3MetadataTitleDescription: string;
 
 declare const AVMetadataCommonKeyType: string;
 
@@ -1601,8 +1591,6 @@ declare const AVURLAssetReferenceRestrictionsKey: string;
 
 declare const AVMetadataQuickTimeMetadataKeyLocationNote: string;
 
-declare const AVMetadataIdentifierID3MetadataEncodedBy: string;
-
 declare const AVAssetTrackTrackAssociationsDidChangeNotification: string;
 
 declare const AVMetadataID3MetadataKeyAttachedPicture: string;
@@ -1636,8 +1624,6 @@ declare const AVPlayerInterstitialEventMonitorEventsDidChangeNotification: strin
 declare const AVPlayerItemFailedToPlayToEndTimeNotification: string;
 
 declare const AVPlayerWaitingForCoordinatedPlaybackReason: string;
-
-declare const AVMetadataID3MetadataKeyCommercial: string;
 
 declare const AVMetadataQuickTimeMetadataKeyIsMontage: string;
 
@@ -1743,6 +1729,8 @@ declare const AVFragmentedMovieContainsMovieFragmentsDidChangeNotification: stri
 
 declare const AVMetadataID3MetadataKeyAudioEncryption: string;
 
+declare const AVMetadataIdentifierID3MetadataEncodedBy: string;
+
 declare const AVSpatialCaptureDiscomfortReasonSubjectTooClose: string;
 
 declare const AVMetadataIdentifierQuickTimeMetadataArtist: string;
@@ -1768,8 +1756,6 @@ declare const AVMetadataCommonKeyRelation: string;
 declare const AVCaptureSessionDidStopRunningNotification: string;
 
 declare const AVMetadataID3MetadataKeySeek: string;
-
-declare const AVMetadataIdentifierID3MetadataFileType: string;
 
 declare const AVFileTypeAIFC: string;
 
@@ -1807,6 +1793,8 @@ declare const AVVideoCodecTypeJPEG: string;
 
 declare const AVMetadataiTunesMetadataKeyTrackSubTitle: string;
 
+declare const AVMetadataIdentifierID3MetadataOriginalFilename: string;
+
 declare const AVMetadataIdentifierISOUserDataAccessibilityDescription: string;
 
 declare const AVCaptureDeviceTypeBuiltInTelephotoCamera: string;
@@ -1822,6 +1810,8 @@ declare const AVMetadataIdentifierID3MetadataPopularimeter: string;
 declare const AVMetadataIdentifierQuickTimeMetadataPublisher: string;
 
 declare const AVMetadataIdentifieriTunesMetadataAppleID: string;
+
+declare const AVMetadataIdentifierID3MetadataEncodedWith: string;
 
 declare const AVURLAssetAllowsConstrainedNetworkAccessKey: string;
 
@@ -1891,6 +1881,8 @@ declare const AVMetadataID3MetadataKeySynchronizedLyric: string;
 
 declare const AVMetadataIdentifierQuickTimeMetadataInformation: string;
 
+declare const AVMetadataIdentifierID3MetadataMusicianCreditsList: string;
+
 declare const AVMetadataCommonIdentifierRelation: string;
 
 declare const AVMetadataIdentifieriTunesMetadataGenreID: string;
@@ -1900,6 +1892,10 @@ declare const AVCaptureInputPortFormatDescriptionDidChangeNotification: string;
 declare const AVMetadataIcyMetadataKeyStreamURL: string;
 
 declare const AVMetadataID3MetadataKeyOriginalAlbumTitle: string;
+
+declare const AVMetadataIdentifierID3MetadataModifiedBy: string;
+
+declare const AVMetadataIdentifierID3MetadataConductor: string;
 
 declare const AVSampleBufferDisplayLayerReadyForDisplayDidChangeNotification: string;
 
@@ -1950,6 +1946,10 @@ declare const AVMetadataCommonKeyArtwork: string;
 declare const AVMetadataCommonKeyCopyrights: string;
 
 declare const AVVideoAllowWideColorKey: string;
+
+declare const AVMetadataObjectTypePDF417Code: string;
+
+declare const AVMetadataIdentifierID3MetadataInternationalStandardRecordingCode: string;
 
 declare const AVMetadataID3MetadataKeyPerformerSortOrder: string;
 
@@ -2321,10 +2321,13 @@ declare const AVAssetExportSessionStatus: {
   Cancelled: 5,
 };
 
-declare const AVCaptionRegionDisplayAlignment: {
-  Before: 0,
-  Center: 1,
-  After: 2,
+declare const AVCaptionTextCombine: {
+  All: -1,
+  None: 0,
+  OneDigit: 1,
+  TwoDigits: 2,
+  ThreeDigits: 3,
+  FourDigits: 4,
 };
 
 declare const AVContentKeyRequestStatus: {
@@ -2336,11 +2339,10 @@ declare const AVContentKeyRequestStatus: {
   Failed: 5,
 };
 
-declare const AVAudioSpatializationFormats: {
-  None: 0,
-  MonoAndStereo: 3,
-  Multichannel: 4,
-  MonoStereoAndMultichannel: 7,
+declare const AVCaptionRegionDisplayAlignment: {
+  Before: 0,
+  Center: 1,
+  After: 2,
 };
 
 declare const AVSampleBufferRequestMode: {
@@ -2368,6 +2370,11 @@ declare const AVCaptionFontWeight: {
   Bold: 2,
 };
 
+declare const AVCaptionRubyPosition: {
+  Before: 0,
+  After: 1,
+};
+
 declare const AVAssetReaderStatus: {
   Unknown: 0,
   Reading: 1,
@@ -2382,20 +2389,10 @@ declare const AVPlayerAudiovisualBackgroundPlaybackPolicy: {
   ContinuesIfPossible: 3,
 };
 
-declare const AVPlayerItemSegmentType: {
-  Primary: 0,
-  Interstitial: 1,
-};
-
 declare const AVAssetImageGeneratorResult: {
   Succeeded: 0,
   Failed: 1,
   Cancelled: 2,
-};
-
-declare const AVCaptionRubyPosition: {
-  Before: 0,
-  After: 1,
 };
 
 declare const AVPlayerActionAtItemEnd: {
@@ -2452,15 +2449,6 @@ declare const AVCaptureTorchMode: {
   Auto: 2,
 };
 
-declare const AVCaptionTextCombine: {
-  All: -1,
-  None: 0,
-  OneDigit: 1,
-  TwoDigits: 2,
-  ThreeDigits: 3,
-  FourDigits: 4,
-};
-
 declare const AVCaptureSystemPressureFactors: {
   None: 0,
   SystemTemperature: 1,
@@ -2489,6 +2477,18 @@ declare const AVPlayerItemStatus: {
 declare const CMTagCollectionVideoOutputPreset: {
   Monoscopic: 0,
   Stereoscopic: 1,
+};
+
+declare const AVAudioSpatializationFormats: {
+  None: 0,
+  MonoAndStereo: 3,
+  Multichannel: 4,
+  MonoStereoAndMultichannel: 7,
+};
+
+declare const AVPlayerItemSegmentType: {
+  Primary: 0,
+  Interstitial: 1,
 };
 
 declare class AVCaptureWhiteBalanceGains {
@@ -2959,6 +2959,8 @@ declare class AVContentKeyRecipient extends NativeObject implements AVContentKey
 
 declare interface AVCaptureFileOutputRecordingDelegate extends NSObjectProtocol {
   captureOutputDidStartRecordingToOutputFileAtURLFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, connections: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  captureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, startPTS: CMTime, connections: NSArray<interop.Object> | Array<interop.Object>): void;
 
   captureOutputDidPauseRecordingToOutputFileAtURLFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, connections: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -5769,6 +5771,74 @@ declare class AVMutableVideoCompositionInstruction extends AVVideoCompositionIns
   set requiredSourceSampleDataTrackIDs(value: NSArray<interop.Object> | Array<interop.Object>);
 }
 
+declare class AVVideoCompositionInstruction extends NSObject implements NSSecureCoding, NSCopying, NSMutableCopying, AVVideoCompositionInstructionProtocol {
+  readonly timeRange: CMTimeRange;
+
+  readonly backgroundColor: interop.Pointer;
+
+  readonly layerInstructions: NSArray;
+
+  readonly enablePostProcessing: boolean;
+
+  readonly requiredSourceTrackIDs: NSArray;
+
+  readonly passthroughTrackID: number;
+
+  readonly requiredSourceSampleDataTrackIDs: NSArray;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  readonly containsTweening: boolean;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
+}
+
 // @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableVideoComposition extends AVVideoComposition {
   static videoComposition(): AVMutableVideoComposition;
@@ -5888,10 +5958,89 @@ declare class AVAsynchronousCIImageFilteringRequest extends NSObject implements 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class AVVideoCompositionRenderHint extends NSObject {
-  readonly startCompositionTime: CMTime;
+declare class AVAsynchronousVideoCompositionRequest extends NSObject implements NSCopying {
+  readonly renderContext: AVVideoCompositionRenderContext;
 
-  readonly endCompositionTime: CMTime;
+  readonly compositionTime: CMTime;
+
+  readonly sourceTrackIDs: NSArray;
+
+  readonly sourceSampleDataTrackIDs: NSArray;
+
+  readonly videoCompositionInstruction: AVVideoCompositionInstruction;
+
+  sourceFrameByTrackID(trackID: number): interop.Pointer;
+
+  sourceSampleBufferByTrackID(trackID: number): interop.Pointer;
+
+  sourceTimedMetadataByTrackID(trackID: number): AVTimedMetadataGroup;
+
+  finishWithComposedVideoFrame(composedVideoFrame: interop.PointerConvertible): void;
+
+  finishWithError(error: NSError): void;
+
+  finishCancelledRequest(): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class AVVideoCompositionRenderContext extends NSObject {
+  readonly size: CGSize;
+
+  readonly renderTransform: CGAffineTransform;
+
+  readonly renderScale: number;
+
+  readonly pixelAspectRatio: AVPixelAspectRatio;
+
+  readonly edgeWidths: AVEdgeWidths;
+
+  readonly highQualityRendering: boolean;
+
+  readonly videoComposition: AVVideoComposition;
+
+  newPixelBuffer(): interop.Pointer;
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class AVMutableDateRangeMetadataGroup extends AVDateRangeMetadataGroup {
+  // @ts-ignore MemberDecl.tsIgnore
+  startDate: NSDate;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  endDate: NSDate;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  get items(): NSArray;
+  // @ts-ignore MemberDecl.tsIgnore
+  set items(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class AVMutableTimedMetadataGroup extends AVTimedMetadataGroup {
+  // @ts-ignore MemberDecl.tsIgnore
+  timeRange: CMTimeRange;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  get items(): NSArray;
+  // @ts-ignore MemberDecl.tsIgnore
+  set items(value: NSArray<interop.Object> | Array<interop.Object>);
+}
+
+declare class AVTimedMetadataGroup extends AVMetadataGroup implements NSCopying, NSMutableCopying {
+  initWithItemsTimeRange(items: NSArray<interop.Object> | Array<interop.Object>, timeRange: CMTimeRange): this;
+
+  initWithSampleBuffer(sampleBuffer: interop.PointerConvertible): this;
+
+  readonly timeRange: CMTimeRange;
+
+  readonly items: NSArray;
+
+  copyFormatDescription(): interop.Pointer;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class AVMetadataGroup extends NSObject {
@@ -5900,6 +6049,38 @@ declare class AVMetadataGroup extends NSObject {
   readonly classifyingLabel: string;
 
   readonly uniqueID: string;
+}
+
+declare class AVAssetImageGenerator extends NSObject {
+  readonly asset: AVAsset;
+
+  appliesPreferredTrackTransform: boolean;
+
+  maximumSize: CGSize;
+
+  apertureMode: string;
+
+  dynamicRangePolicy: string;
+
+  videoComposition: AVVideoComposition;
+
+  readonly customVideoCompositor: AVVideoCompositing;
+
+  requestedTimeToleranceBefore: CMTime;
+
+  requestedTimeToleranceAfter: CMTime;
+
+  static assetImageGeneratorWithAsset<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset): InstanceType<This>;
+
+  initWithAsset(asset: AVAsset): this;
+
+  copyCGImageAtTimeActualTimeError(requestedTime: CMTime, actualTime: interop.PointerConvertible, outError: interop.PointerConvertible): interop.Pointer;
+
+  generateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes: NSArray<interop.Object> | Array<interop.Object>, handler: (p1: CMTime, p2: interop.PointerConvertible, p3: CMTime, p4: interop.Enum<typeof AVAssetImageGeneratorResult>, p5: NSError) => void): void;
+
+  generateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime: CMTime, handler: (p1: interop.PointerConvertible, p2: CMTime, p3: NSError) => void | null): void;
+
+  cancelAllCGImageGeneration(): void;
 }
 
 declare class AVCoordinatedPlaybackSuspension extends NSObject {
@@ -5979,18 +6160,41 @@ declare class AVAssetExportSession extends NSObject {
   directoryForTemporaryFiles: NSURL;
 }
 
-declare class AVFragmentedAssetMinder extends NSObject {
-  static fragmentedAssetMinderWithAssetMindingInterval<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, mindingInterval: number): InstanceType<This>;
+declare class AVAssetReaderSampleReferenceOutput extends AVAssetReaderOutput {
+  static assetReaderSampleReferenceOutputWithTrack<This extends abstract new (...args: any) => any>(this: This, track: AVAssetTrack): InstanceType<This>;
 
-  initWithAssetMindingInterval(asset: AVAsset, mindingInterval: number): this;
+  initWithTrack(track: AVAssetTrack): this;
 
-  mindingInterval: number;
+  readonly track: AVAssetTrack;
+}
 
-  readonly assets: NSArray;
+declare class AVAssetCache extends NSObject {
+  readonly isPlayableOffline: boolean;
 
-  addFragmentedAsset(asset: AVAsset): void;
+  mediaSelectionOptionsInMediaSelectionGroup(mediaSelectionGroup: AVMediaSelectionGroup): NSArray;
+}
 
-  removeFragmentedAsset(asset: AVAsset): void;
+// @ts-ignore ClassDecl.tsIgnore
+declare class AVFragmentedAsset extends AVURLAsset implements AVFragmentMinding {
+  static fragmentedAssetWithURLOptions<This extends abstract new (...args: any) => any>(this: This, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
+
+  readonly tracks: NSArray;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  trackWithTrackID(trackID: number): AVFragmentedAssetTrack;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVFragmentedAssetTrack, p2: NSError) => void | null): void;
+
+  tracksWithMediaType(mediaType: string): NSArray;
+
+  loadTracksWithMediaTypeCompletionHandler(mediaType: string, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  tracksWithMediaCharacteristic(mediaCharacteristic: string): NSArray;
+
+  loadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic: string, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
+
+  readonly isAssociatedWithFragmentMinder: boolean;
 }
 
 declare class AVURLAsset extends AVAsset {
@@ -6026,19 +6230,29 @@ declare class AVAssetVariantQualifier extends NSObject implements NSCopying {
 
   static assetVariantQualifierWithVariant<This extends abstract new (...args: any) => any>(this: This, variant: AVAssetVariant): InstanceType<This>;
 
-  static predicateForChannelCountMediaSelectionOptionOperatorType(channelCount: number, mediaSelectionOption: AVMediaSelectionOption, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+  static predicateForChannelCountMediaSelectionOptionOperatorType(channelCount: number, mediaSelectionOption: AVMediaSelectionOption | null, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
-  static predicateForBinauralAudioMediaSelectionOption(isBinauralAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForBinauralAudioMediaSelectionOption(isBinauralAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
-  static predicateForImmersiveAudioMediaSelectionOption(isImmersiveAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForImmersiveAudioMediaSelectionOption(isImmersiveAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
-  static predicateForDownmixAudioMediaSelectionOption(isDownmixAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForDownmixAudioMediaSelectionOption(isDownmixAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
   static predicateForPresentationWidthOperatorType(width: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
   static predicateForPresentationHeightOperatorType(height: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
-  static predicateForAudioSampleRateMediaSelectionOptionOperatorType(sampleRate: number, mediaSelectionOption: AVMediaSelectionOption, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+  static predicateForAudioSampleRateMediaSelectionOptionOperatorType(sampleRate: number, mediaSelectionOption: AVMediaSelectionOption | null, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+
+  static predicateForChannelCountOperatorType(channelCount: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+
+  static predicateForBinauralAudio(isBinauralAudio: boolean): NSPredicate;
+
+  static predicateForImmersiveAudio(isImmersiveAudio: boolean): NSPredicate;
+
+  static predicateForDownmixAudio(isDownmixAudio: boolean): NSPredicate;
+
+  static predicateForAudioSampleRateOperatorType(sampleRate: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -6267,74 +6481,6 @@ declare class AVMetricErrorEvent extends AVMetricEvent {
   readonly error: NSError;
 }
 
-declare class AVVideoCompositionInstruction extends NSObject implements NSSecureCoding, NSCopying, NSMutableCopying, AVVideoCompositionInstructionProtocol {
-  readonly timeRange: CMTimeRange;
-
-  readonly backgroundColor: interop.Pointer;
-
-  readonly layerInstructions: NSArray;
-
-  readonly enablePostProcessing: boolean;
-
-  readonly requiredSourceTrackIDs: NSArray;
-
-  readonly passthroughTrackID: number;
-
-  readonly requiredSourceSampleDataTrackIDs: NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  readonly containsTweening: boolean;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class AVContentKeySession extends NSObject {
   static contentKeySessionWithKeySystem<This extends abstract new (...args: any) => any>(this: This, keySystem: string): InstanceType<This>;
 
@@ -6373,39 +6519,11 @@ declare class AVContentKeySession extends NSObject {
   static removePendingExpiredSessionReportsWithAppIdentifierStorageDirectoryAtURL(expiredSessionReports: NSArray<interop.Object> | Array<interop.Object>, appIdentifier: NSData, storageURL: NSURL): void;
 }
 
-declare class AVAssetReaderSampleReferenceOutput extends AVAssetReaderOutput {
-  static assetReaderSampleReferenceOutputWithTrack<This extends abstract new (...args: any) => any>(this: This, track: AVAssetTrack): InstanceType<This>;
-
-  initWithTrack(track: AVAssetTrack): this;
-
-  readonly track: AVAssetTrack;
-}
-
-declare class AVAssetCache extends NSObject {
-  readonly isPlayableOffline: boolean;
-
-  mediaSelectionOptionsInMediaSelectionGroup(mediaSelectionGroup: AVMediaSelectionGroup): NSArray;
-}
-
 declare class AVAssetWriterInputPassDescription extends NSObject {
   readonly sourceTimeRanges: NSArray;
 }
 
 declare class AVAssetResourceRenewalRequest extends AVAssetResourceLoadingRequest {
-}
-
-declare class AVDateRangeMetadataGroup extends AVMetadataGroup implements NSCopying, NSMutableCopying {
-  initWithItemsStartDateEndDate(items: NSArray<interop.Object> | Array<interop.Object>, startDate: NSDate, endDate: NSDate | null): this;
-
-  readonly startDate: NSDate;
-
-  readonly endDate: NSDate;
-
-  readonly items: NSArray;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class AVCaptureVideoDataOutput extends AVCaptureOutput {
@@ -6457,6 +6575,12 @@ declare class AVSampleBufferGenerator extends NSObject {
 
 declare class AVCaptureInput extends NSObject {
   readonly ports: NSArray;
+}
+
+declare class AVVideoCompositionRenderHint extends NSObject {
+  readonly startCompositionTime: CMTime;
+
+  readonly endCompositionTime: CMTime;
 }
 
 declare class AVPlayerItemAccessLogEvent extends NSObject implements NSCopying {
@@ -6513,55 +6637,6 @@ declare class AVPlayerItemAccessLogEvent extends NSObject implements NSCopying {
   readonly mediaRequestsWWAN: number;
 
   readonly switchBitrate: number;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class AVFragmentedAsset extends AVURLAsset implements AVFragmentMinding {
-  static fragmentedAssetWithURLOptions<This extends abstract new (...args: any) => any>(this: This, URL: NSURL, options: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
-
-  readonly tracks: NSArray;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  trackWithTrackID(trackID: number): AVFragmentedAssetTrack;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  loadTrackWithTrackIDCompletionHandler(trackID: number, completionHandler: (p1: AVFragmentedAssetTrack, p2: NSError) => void | null): void;
-
-  tracksWithMediaType(mediaType: string): NSArray;
-
-  loadTracksWithMediaTypeCompletionHandler(mediaType: string, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  tracksWithMediaCharacteristic(mediaCharacteristic: string): NSArray;
-
-  loadTracksWithMediaCharacteristicCompletionHandler(mediaCharacteristic: string, completionHandler: (p1: NSArray<interop.Object> | Array<interop.Object>, p2: NSError) => void | null): void;
-
-  readonly isAssociatedWithFragmentMinder: boolean;
-}
-
-declare class AVAsynchronousVideoCompositionRequest extends NSObject implements NSCopying {
-  readonly renderContext: AVVideoCompositionRenderContext;
-
-  readonly compositionTime: CMTime;
-
-  readonly sourceTrackIDs: NSArray;
-
-  readonly sourceSampleDataTrackIDs: NSArray;
-
-  readonly videoCompositionInstruction: AVVideoCompositionInstruction;
-
-  sourceFrameByTrackID(trackID: number): interop.Pointer;
-
-  sourceSampleBufferByTrackID(trackID: number): interop.Pointer;
-
-  sourceTimedMetadataByTrackID(trackID: number): AVTimedMetadataGroup;
-
-  finishWithComposedVideoFrame(composedVideoFrame: interop.PointerConvertible): void;
-
-  finishWithError(error: NSError): void;
-
-  finishCancelledRequest(): void;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -6654,30 +6729,6 @@ declare class AVDelegatingPlaybackCoordinator extends AVPlaybackCoordinator {
   reapplyCurrentItemStateToPlaybackControlDelegate(): void;
 }
 
-declare class AVAssetReader extends NSObject {
-  static assetReaderWithAssetError<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, outError: interop.PointerConvertible): InstanceType<This>;
-
-  initWithAssetError(asset: AVAsset, outError: interop.PointerConvertible): this;
-
-  readonly asset: AVAsset;
-
-  readonly status: interop.Enum<typeof AVAssetReaderStatus>;
-
-  readonly error: NSError;
-
-  timeRange: CMTimeRange;
-
-  readonly outputs: NSArray;
-
-  canAddOutput(output: AVAssetReaderOutput): boolean;
-
-  addOutput(output: AVAssetReaderOutput): void;
-
-  startReading(): boolean;
-
-  cancelReading(): void;
-}
-
 declare class AVCaptureDepthDataOutput extends AVCaptureOutput {
   init(): this;
 
@@ -6731,6 +6782,20 @@ declare class AVContentKeyResponse extends NSObject {
 
 declare class AVAssetVariantVideoLayoutAttributes extends NSObject {
   readonly stereoViewComponents: interop.Enum<typeof CMStereoViewComponents>;
+}
+
+declare class AVFragmentedAssetMinder extends NSObject {
+  static fragmentedAssetMinderWithAssetMindingInterval<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, mindingInterval: number): InstanceType<This>;
+
+  initWithAssetMindingInterval(asset: AVAsset, mindingInterval: number): this;
+
+  mindingInterval: number;
+
+  readonly assets: NSArray;
+
+  addFragmentedAsset(asset: AVAsset): void;
+
+  removeFragmentedAsset(asset: AVAsset): void;
 }
 
 declare class AVFragmentedMovieTrack extends AVMovieTrack {
@@ -6850,30 +6915,6 @@ declare class AVCaptureAudioDataOutput extends AVCaptureOutput {
   readonly sampleBufferCallbackQueue: NSObject;
 
   recommendedAudioSettingsForAssetWriterWithOutputFileType(outputFileType: string): NSDictionary;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class AVMutableDateRangeMetadataGroup extends AVDateRangeMetadataGroup {
-  // @ts-ignore MemberDecl.tsIgnore
-  startDate: NSDate;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  endDate: NSDate;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  get items(): NSArray;
-  // @ts-ignore MemberDecl.tsIgnore
-  set items(value: NSArray<interop.Object> | Array<interop.Object>);
-}
-
-declare class AVAssetSegmentReportSampleInformation extends NSObject {
-  readonly presentationTimeStamp: CMTime;
-
-  readonly offset: number;
-
-  readonly length: number;
-
-  readonly isSyncSample: boolean;
 }
 
 declare class AVCapturePhotoBracketSettings extends AVCapturePhotoSettings {
@@ -7098,18 +7139,28 @@ declare class AVCompositionTrackFormatDescriptionReplacement extends NSObject im
   initWithCoder(coder: NSCoder): this;
 }
 
-declare class AVMetricHLSMediaSegmentRequestEvent extends AVMetricEvent {
-  readonly url: NSURL;
+declare class AVAssetReader extends NSObject {
+  static assetReaderWithAssetError<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset, outError: interop.PointerConvertible): InstanceType<This>;
 
-  readonly isMapSegment: boolean;
+  initWithAssetError(asset: AVAsset, outError: interop.PointerConvertible): this;
 
-  readonly mediaType: string;
+  readonly asset: AVAsset;
 
-  readonly byteRange: _NSRange;
+  readonly status: interop.Enum<typeof AVAssetReaderStatus>;
 
-  readonly indexFileURL: NSURL;
+  readonly error: NSError;
 
-  readonly mediaResourceRequestEvent: AVMetricMediaResourceRequestEvent;
+  timeRange: CMTimeRange;
+
+  readonly outputs: NSArray;
+
+  canAddOutput(output: AVAssetReaderOutput): boolean;
+
+  addOutput(output: AVAssetReaderOutput): void;
+
+  startReading(): boolean;
+
+  cancelReading(): void;
 }
 
 declare class AVAssetVariant extends NSObject {
@@ -7130,6 +7181,44 @@ declare class AVCaptionGroup extends NSObject {
   readonly timeRange: CMTimeRange;
 
   readonly captions: NSArray;
+}
+
+declare class AVMetricHLSMediaSegmentRequestEvent extends AVMetricEvent {
+  readonly url: NSURL;
+
+  readonly isMapSegment: boolean;
+
+  readonly mediaType: string;
+
+  readonly byteRange: _NSRange;
+
+  readonly indexFileURL: NSURL;
+
+  readonly mediaResourceRequestEvent: AVMetricMediaResourceRequestEvent;
+}
+
+declare class AVAssetSegmentReportSampleInformation extends NSObject {
+  readonly presentationTimeStamp: CMTime;
+
+  readonly offset: number;
+
+  readonly length: number;
+
+  readonly isSyncSample: boolean;
+}
+
+declare class AVDateRangeMetadataGroup extends AVMetadataGroup implements NSCopying, NSMutableCopying {
+  initWithItemsStartDateEndDate(items: NSArray<interop.Object> | Array<interop.Object>, startDate: NSDate, endDate: NSDate | null): this;
+
+  readonly startDate: NSDate;
+
+  readonly endDate: NSDate;
+
+  readonly items: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class AVPlayer extends NSObject {
@@ -7431,18 +7520,6 @@ declare class AVMetadataCatBodyObject extends AVMetadataBodyObject implements NS
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class AVPlayerMediaSelectionCriteria extends NSObject {
-  readonly preferredLanguages: NSArray;
-
-  readonly preferredMediaCharacteristics: NSArray;
-
-  readonly principalMediaCharacteristics: NSArray;
-
-  initWithPreferredLanguagesPreferredMediaCharacteristics(preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
-
-  initWithPrincipalMediaCharacteristicsPreferredLanguagesPreferredMediaCharacteristics(principalMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null, preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
-}
-
 // @ts-ignore ClassDecl.tsIgnore
 declare class AVMutableMetadataItem extends AVMetadataItem {
   // @ts-ignore MemberDecl.tsIgnore
@@ -7483,6 +7560,18 @@ declare class AVMutableMetadataItem extends AVMetadataItem {
   key: NSCopying;
 }
 
+declare class AVPlayerMediaSelectionCriteria extends NSObject {
+  readonly preferredLanguages: NSArray;
+
+  readonly preferredMediaCharacteristics: NSArray;
+
+  readonly principalMediaCharacteristics: NSArray;
+
+  initWithPreferredLanguagesPreferredMediaCharacteristics(preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
+
+  initWithPrincipalMediaCharacteristicsPreferredLanguagesPreferredMediaCharacteristics(principalMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null, preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
+}
+
 declare class AVContentKey extends NSObject {
   readonly contentKeySpecifier: AVContentKeySpecifier;
 
@@ -7508,6 +7597,8 @@ declare class AVAssetDownloadConfiguration extends NSObject {
   set auxiliaryContentConfigurations(value: NSArray<interop.Object> | Array<interop.Object>);
 
   optimizesAuxiliaryContentConfigurations: boolean;
+
+  setInterstitialMediaSelectionCriteriaForMediaCharacteristic(criteria: NSArray<interop.Object> | Array<interop.Object>, mediaCharacteristic: string): void;
 }
 
 declare class AVPlayerItemTrack extends NSObject {
@@ -7516,24 +7607,6 @@ declare class AVPlayerItemTrack extends NSObject {
   isEnabled: boolean;
 
   readonly currentVideoFrameRate: number;
-}
-
-declare class AVVideoCompositionRenderContext extends NSObject {
-  readonly size: CGSize;
-
-  readonly renderTransform: CGAffineTransform;
-
-  readonly renderScale: number;
-
-  readonly pixelAspectRatio: AVPixelAspectRatio;
-
-  readonly edgeWidths: AVEdgeWidths;
-
-  readonly highQualityRendering: boolean;
-
-  readonly videoComposition: AVVideoComposition;
-
-  newPixelBuffer(): interop.Pointer;
 }
 
 declare class AVAssetWriterInputMetadataAdaptor extends NSObject {
@@ -7891,38 +7964,6 @@ declare class AVMetricEventStream extends NSObject {
   subscribeToAllMetricEvents(): void;
 }
 
-declare class AVAssetImageGenerator extends NSObject {
-  readonly asset: AVAsset;
-
-  appliesPreferredTrackTransform: boolean;
-
-  maximumSize: CGSize;
-
-  apertureMode: string;
-
-  dynamicRangePolicy: string;
-
-  videoComposition: AVVideoComposition;
-
-  readonly customVideoCompositor: AVVideoCompositing;
-
-  requestedTimeToleranceBefore: CMTime;
-
-  requestedTimeToleranceAfter: CMTime;
-
-  static assetImageGeneratorWithAsset<This extends abstract new (...args: any) => any>(this: This, asset: AVAsset): InstanceType<This>;
-
-  initWithAsset(asset: AVAsset): this;
-
-  copyCGImageAtTimeActualTimeError(requestedTime: CMTime, actualTime: interop.PointerConvertible, outError: interop.PointerConvertible): interop.Pointer;
-
-  generateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes: NSArray<interop.Object> | Array<interop.Object>, handler: (p1: CMTime, p2: interop.PointerConvertible, p3: CMTime, p4: interop.Enum<typeof AVAssetImageGeneratorResult>, p5: NSError) => void): void;
-
-  generateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime: CMTime, handler: (p1: interop.PointerConvertible, p2: CMTime, p3: NSError) => void | null): void;
-
-  cancelAllCGImageGeneration(): void;
-}
-
 declare class AVCaptureDeviceFormat extends NSObject {
   readonly mediaType: string;
 
@@ -8043,33 +8084,6 @@ declare class AVMetricContentKeyRequestEvent extends AVMetricEvent {
   readonly isClientInitiated: boolean;
 
   readonly mediaResourceRequestEvent: AVMetricMediaResourceRequestEvent;
-}
-
-// @ts-ignore ClassDecl.tsIgnore
-declare class AVMutableTimedMetadataGroup extends AVTimedMetadataGroup {
-  // @ts-ignore MemberDecl.tsIgnore
-  timeRange: CMTimeRange;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  get items(): NSArray;
-  // @ts-ignore MemberDecl.tsIgnore
-  set items(value: NSArray<interop.Object> | Array<interop.Object>);
-}
-
-declare class AVTimedMetadataGroup extends AVMetadataGroup implements NSCopying, NSMutableCopying {
-  initWithItemsTimeRange(items: NSArray<interop.Object> | Array<interop.Object>, timeRange: CMTimeRange): this;
-
-  initWithSampleBuffer(sampleBuffer: interop.PointerConvertible): this;
-
-  readonly timeRange: CMTimeRange;
-
-  readonly items: NSArray;
-
-  copyFormatDescription(): interop.Pointer;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  mutableCopyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class AVAssetVariantVideoAttributes extends NSObject {

@@ -40,14 +40,6 @@ declare const CLAccuracyAuthorization: {
   Reduced: 1,
 };
 
-declare const CLAuthorizationStatus: {
-  NotDetermined: 0,
-  Restricted: 1,
-  Denied: 2,
-  AuthorizedAlways: 3,
-  Authorized: 3,
-};
-
 declare const CLDeviceOrientation: {
   Unknown: 0,
   Portrait: 1,
@@ -108,6 +100,14 @@ declare const CLActivityType: {
   Fitness: 3,
   OtherNavigation: 4,
   Airborne: 5,
+};
+
+declare const CLAuthorizationStatus: {
+  NotDetermined: 0,
+  Restricted: 1,
+  Denied: 2,
+  AuthorizedAlways: 3,
+  Authorized: 3,
 };
 
 declare const CLProximity: {

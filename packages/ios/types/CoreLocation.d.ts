@@ -42,15 +42,6 @@ declare const CLAccuracyAuthorization: {
   Reduced: 1,
 };
 
-declare const CLAuthorizationStatus: {
-  NotDetermined: 0,
-  Restricted: 1,
-  Denied: 2,
-  AuthorizedAlways: 3,
-  AuthorizedWhenInUse: 4,
-  Authorized: 3,
-};
-
 declare const CLDeviceOrientation: {
   Unknown: 0,
   Portrait: 1,
@@ -126,6 +117,15 @@ declare const CLLocationPushServiceError: {
   MissingPushServerEnvironment: 2,
   MissingEntitlement: 3,
   UnsupportedPlatform: 4,
+};
+
+declare const CLAuthorizationStatus: {
+  NotDetermined: 0,
+  Restricted: 1,
+  Denied: 2,
+  AuthorizedAlways: 3,
+  AuthorizedWhenInUse: 4,
+  Authorized: 3,
 };
 
 declare class CLLocationCoordinate2D {

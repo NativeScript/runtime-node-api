@@ -111,6 +111,10 @@ declare interface SCStreamDelegate extends NSObjectProtocol {
   outputVideoEffectDidStartForStream?(stream: SCStream): void;
 
   outputVideoEffectDidStopForStream?(stream: SCStream): void;
+
+  streamDidBecomeActive?(stream: SCStream): void;
+
+  streamDidBecomeInactive?(stream: SCStream): void;
 }
 
 declare class SCStreamDelegate extends NativeObject implements SCStreamDelegate {
@@ -149,6 +153,8 @@ declare class SCScreenshotManager extends NSObject {
   static captureSampleBufferWithFilterConfigurationCompletionHandler(contentFilter: SCContentFilter, config: SCStreamConfiguration, completionHandler: (p1: interop.PointerConvertible, p2: NSError) => void | null): void;
 
   static captureImageWithFilterConfigurationCompletionHandler(contentFilter: SCContentFilter, config: SCStreamConfiguration, completionHandler: (p1: interop.PointerConvertible, p2: NSError) => void | null): void;
+
+  static captureImageInRectCompletionHandler(rect: CGRect, completionHandler: (p1: interop.PointerConvertible, p2: NSError) => void | null): void;
 }
 
 declare class SCContentSharingPickerConfiguration<NSCopying = interop.Object> extends NSObject {
@@ -229,6 +235,12 @@ declare class SCContentFilter extends NSObject {
   readonly contentRect: CGRect;
 
   includeMenuBar: boolean;
+
+  readonly includedDisplays: NSArray;
+
+  readonly includedApplications: NSArray;
+
+  readonly includedWindows: NSArray;
 
   initWithDesktopIndependentWindow(window: SCWindow): this;
 

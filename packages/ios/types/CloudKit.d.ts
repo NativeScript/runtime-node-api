@@ -24,8 +24,6 @@ declare const CKRecordCreationDateKey: string;
 
 declare const CKRecordRecordIDKey: string;
 
-declare const CKRecordTypeUserRecord: string;
-
 declare const CKRecordNameZoneWideShare: string;
 
 declare const CKOwnerDefaultName: string;
@@ -39,6 +37,8 @@ declare const CKRecordShareKey: string;
 declare const CKErrorRetryAfterKey: string;
 
 declare const CKRecordChangedErrorServerRecordKey: string;
+
+declare const CKRecordTypeUserRecord: string;
 
 declare const CKCurrentUserDefaultName: string;
 
@@ -987,6 +987,22 @@ declare class CKSubscription extends NSObject implements NSSecureCoding, NSCopyi
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
+declare class CKRecordZoneID extends NSObject implements NSSecureCoding, NSCopying {
+  initWithZoneNameOwnerName(zoneName: string, ownerName: string): this;
+
+  readonly zoneName: string;
+
+  readonly ownerName: string;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
 declare class CKFetchRecordZoneChangesConfiguration extends NSObject implements NSSecureCoding, NSCopying {
   previousServerChangeToken: CKServerChangeToken;
 
@@ -1196,25 +1212,6 @@ declare class CKSyncEngineSendChangesScope extends NSObject implements NSCopying
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
-declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
-  initWithCoder(aDecoder: NSCoder): this;
-
-  initWithRecordTypePredicate(recordType: string, predicate: NSPredicate): this;
-
-  readonly recordType: string;
-
-  readonly predicate: NSPredicate;
-
-  get sortDescriptors(): NSArray;
-  set sortDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class CKFetchShareParticipantsOperation extends CKOperation {
   init(): this;
 
@@ -1248,6 +1245,25 @@ declare class CKRecordZoneSubscription extends CKSubscription implements NSSecur
   readonly zoneID: CKRecordZoneID;
 
   recordType: string;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class CKQuery extends NSObject implements NSSecureCoding, NSCopying {
+  initWithCoder(aDecoder: NSCoder): this;
+
+  initWithRecordTypePredicate(recordType: string, predicate: NSPredicate): this;
+
+  readonly recordType: string;
+
+  readonly predicate: NSPredicate;
+
+  get sortDescriptors(): NSArray;
+  set sortDescriptors(value: NSArray<interop.Object> | Array<interop.Object>);
 
   static readonly supportsSecureCoding: boolean;
 
@@ -1400,6 +1416,10 @@ declare class CKNotification extends NSObject {
   readonly category: string;
 }
 
+declare class CKSyncEngineStateUpdateEvent extends CKSyncEngineEvent {
+  readonly stateSerialization: CKSyncEngineStateSerialization;
+}
+
 declare class CKRecordZoneNotification extends CKNotification {
   readonly recordZoneID: CKRecordZoneID;
 
@@ -1418,10 +1438,6 @@ declare class CKLocationSortDescriptor extends NSSortDescriptor implements NSSec
   static readonly supportsSecureCoding: boolean;
 
   encodeWithCoder(coder: NSCoder): void;
-}
-
-declare class CKSyncEngineStateUpdateEvent extends CKSyncEngineEvent {
-  readonly stateSerialization: CKSyncEngineStateSerialization;
 }
 
 declare class CKSyncEngineFetchChangesScope extends NSObject implements NSCopying {
@@ -1575,21 +1591,5 @@ declare class CKOperationConfiguration extends NSObject {
   timeoutIntervalForRequest: number;
 
   timeoutIntervalForResource: number;
-}
-
-declare class CKRecordZoneID extends NSObject implements NSSecureCoding, NSCopying {
-  initWithZoneNameOwnerName(zoneName: string, ownerName: string): this;
-
-  readonly zoneName: string;
-
-  readonly ownerName: string;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 

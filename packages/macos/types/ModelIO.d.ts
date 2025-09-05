@@ -407,128 +407,6 @@ declare interface MDLObjectContainerComponent extends MDLComponent, NSFastEnumer
 declare class MDLObjectContainerComponent extends NativeObject implements MDLObjectContainerComponent {
 }
 
-declare class MDLStereoscopicCamera extends MDLCamera {
-  interPupillaryDistance: number;
-
-  leftVergence: number;
-
-  rightVergence: number;
-
-  overlap: number;
-
-  readonly leftViewMatrix: simd_float4x4;
-
-  readonly rightViewMatrix: simd_float4x4;
-
-  readonly leftProjectionMatrix: simd_float4x4;
-
-  readonly rightProjectionMatrix: simd_float4x4;
-}
-
-declare class MDLTransform extends NSObject implements NSCopying, MDLTransformComponent {
-  init(): this;
-
-  initWithIdentity(): this;
-
-  initWithTransformComponent(component: MDLTransformComponent): this;
-
-  initWithTransformComponentResetsTransform(component: MDLTransformComponent, resetsTransform: boolean): this;
-
-  initWithMatrix(matrix: simd_float4x4): this;
-
-  initWithMatrixResetsTransform(matrix: simd_float4x4, resetsTransform: boolean): this;
-
-  setIdentity(): void;
-
-  translationAtTime(time: number): unknown /* ext vector */;
-
-  rotationAtTime(time: number): unknown /* ext vector */;
-
-  shearAtTime(time: number): unknown /* ext vector */;
-
-  scaleAtTime(time: number): unknown /* ext vector */;
-
-  setMatrixForTime(matrix: simd_float4x4, time: number): void;
-
-  setTranslationForTime(translation: unknown /* ext vector */, time: number): void;
-
-  setRotationForTime(rotation: unknown /* ext vector */, time: number): void;
-
-  setShearForTime(shear: unknown /* ext vector */, time: number): void;
-
-  setScaleForTime(scale: unknown /* ext vector */, time: number): void;
-
-  rotationMatrixAtTime(time: number): simd_float4x4;
-
-  translation: unknown /* ext vector */;
-
-  rotation: unknown /* ext vector */;
-
-  shear: unknown /* ext vector */;
-
-  scale: unknown /* ext vector */;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-
-  matrix: simd_float4x4;
-
-  resetsTransform: boolean;
-
-  readonly minimumTime: number;
-
-  readonly maximumTime: number;
-
-  readonly keyTimes: NSArray;
-
-  setLocalTransformForTime(transform: simd_float4x4, time: number): void;
-
-  setLocalTransform(transform: simd_float4x4): void;
-
-  localTransformAtTime(time: number): simd_float4x4;
-
-  static globalTransformWithObjectAtTime(object: MDLObject, time: number): simd_float4x4;
-
-  isEqual(object: interop.Object): boolean;
-
-  readonly hash: number;
-
-  readonly superclass: interop.Object;
-
-  class(): interop.Object;
-
-  self(): this;
-
-  performSelector(aSelector: string): interop.Object;
-
-  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
-
-  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
-
-  readonly isProxy: boolean;
-
-  isKindOfClass(aClass: interop.Object): boolean;
-
-  isMemberOfClass(aClass: interop.Object): boolean;
-
-  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
-
-  respondsToSelector(aSelector: string): boolean;
-
-  retain(): this;
-
-  release(): void;
-
-  autorelease(): this;
-
-  retainCount(): number;
-
-  readonly zone: interop.Pointer;
-
-  readonly description: string;
-
-  readonly debugDescription: string;
-}
-
 declare class MDLVertexAttribute extends NSObject implements NSCopying {
   initWithNameFormatOffsetBufferIndex(name: string, format: interop.Enum<typeof MDLVertexFormat>, offset: number, bufferIndex: number): this;
 
@@ -1137,6 +1015,24 @@ declare class MDLPhotometricLight extends MDLPhysicallyPlausibleLight {
   readonly sphericalHarmonicsLevel: number;
 
   readonly sphericalHarmonicsCoefficients: NSData;
+}
+
+declare class MDLStereoscopicCamera extends MDLCamera {
+  interPupillaryDistance: number;
+
+  leftVergence: number;
+
+  rightVergence: number;
+
+  overlap: number;
+
+  readonly leftViewMatrix: simd_float4x4;
+
+  readonly rightViewMatrix: simd_float4x4;
+
+  readonly leftProjectionMatrix: simd_float4x4;
+
+  readonly rightProjectionMatrix: simd_float4x4;
 }
 
 declare class MDLCamera extends MDLObject {
@@ -1783,6 +1679,110 @@ declare class MDLAnimatedVector4 extends MDLAnimatedValue {
   getFloat4ArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
 
   getDouble4ArrayMaxCount(valuesArray: interop.PointerConvertible, maxCount: number): number;
+}
+
+declare class MDLTransform extends NSObject implements NSCopying, MDLTransformComponent {
+  init(): this;
+
+  initWithIdentity(): this;
+
+  initWithTransformComponent(component: MDLTransformComponent): this;
+
+  initWithTransformComponentResetsTransform(component: MDLTransformComponent, resetsTransform: boolean): this;
+
+  initWithMatrix(matrix: simd_float4x4): this;
+
+  initWithMatrixResetsTransform(matrix: simd_float4x4, resetsTransform: boolean): this;
+
+  setIdentity(): void;
+
+  translationAtTime(time: number): unknown /* ext vector */;
+
+  rotationAtTime(time: number): unknown /* ext vector */;
+
+  shearAtTime(time: number): unknown /* ext vector */;
+
+  scaleAtTime(time: number): unknown /* ext vector */;
+
+  setMatrixForTime(matrix: simd_float4x4, time: number): void;
+
+  setTranslationForTime(translation: unknown /* ext vector */, time: number): void;
+
+  setRotationForTime(rotation: unknown /* ext vector */, time: number): void;
+
+  setShearForTime(shear: unknown /* ext vector */, time: number): void;
+
+  setScaleForTime(scale: unknown /* ext vector */, time: number): void;
+
+  rotationMatrixAtTime(time: number): simd_float4x4;
+
+  translation: unknown /* ext vector */;
+
+  rotation: unknown /* ext vector */;
+
+  shear: unknown /* ext vector */;
+
+  scale: unknown /* ext vector */;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+
+  matrix: simd_float4x4;
+
+  resetsTransform: boolean;
+
+  readonly minimumTime: number;
+
+  readonly maximumTime: number;
+
+  readonly keyTimes: NSArray;
+
+  setLocalTransformForTime(transform: simd_float4x4, time: number): void;
+
+  setLocalTransform(transform: simd_float4x4): void;
+
+  localTransformAtTime(time: number): simd_float4x4;
+
+  static globalTransformWithObjectAtTime(object: MDLObject, time: number): simd_float4x4;
+
+  isEqual(object: interop.Object): boolean;
+
+  readonly hash: number;
+
+  readonly superclass: interop.Object;
+
+  class(): interop.Object;
+
+  self(): this;
+
+  performSelector(aSelector: string): interop.Object;
+
+  performSelectorWithObject(aSelector: string, object: interop.Object): interop.Object;
+
+  performSelectorWithObjectWithObject(aSelector: string, object1: interop.Object, object2: interop.Object): interop.Object;
+
+  readonly isProxy: boolean;
+
+  isKindOfClass(aClass: interop.Object): boolean;
+
+  isMemberOfClass(aClass: interop.Object): boolean;
+
+  conformsToProtocol(aProtocol: interop.PointerConvertible): boolean;
+
+  respondsToSelector(aSelector: string): boolean;
+
+  retain(): this;
+
+  release(): void;
+
+  autorelease(): this;
+
+  retainCount(): number;
+
+  readonly zone: interop.Pointer;
+
+  readonly description: string;
+
+  readonly debugDescription: string;
 }
 
 declare class MDLTexture extends NSObject implements MDLNamed {

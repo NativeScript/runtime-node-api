@@ -242,32 +242,6 @@ declare class GKGraph extends NSObject implements NSCopying, NSSecureCoding {
   initWithCoder(coder: NSCoder): this;
 }
 
-// @ts-ignore ClassDecl.tsIgnore
-declare class GKCompositeBehavior extends GKBehavior {
-  readonly behaviorCount: number;
-
-  static behaviorWithBehaviors<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  static behaviorWithBehaviorsAndWeights<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>, weights: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
-
-  setWeightForBehavior(weight: number, behavior: GKBehavior): void;
-
-  weightForBehavior(behavior: GKBehavior): number;
-
-  removeBehavior(behavior: GKBehavior): void;
-
-  removeAllBehaviors(): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  objectAtIndexedSubscript(idx: number): GKBehavior;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  setObjectForKeyedSubscript(weight: NSNumber, behavior: GKBehavior): void;
-
-  // @ts-ignore MemberDecl.tsIgnore
-  objectForKeyedSubscript(behavior: GKBehavior): NSNumber;
-}
-
 declare class GKAgent3D extends GKAgent {
   position: unknown /* ext vector */;
 
@@ -685,6 +659,54 @@ declare class GKRule extends NSObject {
   static ruleWithBlockPredicateAction<This extends abstract new (...args: any) => any>(this: This, predicate: (p1: GKRuleSystem) => boolean, action: (p1: GKRuleSystem) => void): InstanceType<This>;
 }
 
+declare class GKAgent extends GKComponent implements NSSecureCoding {
+  delegate: GKAgentDelegate;
+
+  behavior: GKBehavior;
+
+  mass: number;
+
+  radius: number;
+
+  speed: number;
+
+  maxAcceleration: number;
+
+  maxSpeed: number;
+
+  static readonly supportsSecureCoding: boolean;
+
+  encodeWithCoder(coder: NSCoder): void;
+
+  initWithCoder(coder: NSCoder): this;
+}
+
+// @ts-ignore ClassDecl.tsIgnore
+declare class GKCompositeBehavior extends GKBehavior {
+  readonly behaviorCount: number;
+
+  static behaviorWithBehaviors<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  static behaviorWithBehaviorsAndWeights<This extends abstract new (...args: any) => any>(this: This, behaviors: NSArray<interop.Object> | Array<interop.Object>, weights: NSArray<interop.Object> | Array<interop.Object>): InstanceType<This>;
+
+  setWeightForBehavior(weight: number, behavior: GKBehavior): void;
+
+  weightForBehavior(behavior: GKBehavior): number;
+
+  removeBehavior(behavior: GKBehavior): void;
+
+  removeAllBehaviors(): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  objectAtIndexedSubscript(idx: number): GKBehavior;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  setObjectForKeyedSubscript(weight: NSNumber, behavior: GKBehavior): void;
+
+  // @ts-ignore MemberDecl.tsIgnore
+  objectForKeyedSubscript(behavior: GKBehavior): NSNumber;
+}
+
 declare class GKCheckerboardNoiseSource extends GKNoiseSource {
   squareSize: number;
 
@@ -833,20 +855,26 @@ declare class GKPath extends NSObject {
   float3AtIndex(index: number): unknown /* ext vector */;
 }
 
-declare class GKAgent extends GKComponent implements NSSecureCoding {
-  delegate: GKAgentDelegate;
+declare class GKScene extends NSObject implements NSCopying, NSSecureCoding {
+  static sceneWithFileNamed<This extends abstract new (...args: any) => any>(this: This, filename: string): InstanceType<This>;
 
-  behavior: GKBehavior;
+  static sceneWithFileNamedRootNode<This extends abstract new (...args: any) => any>(this: This, filename: string, rootNode: GKSceneRootNodeType): InstanceType<This>;
 
-  mass: number;
+  readonly entities: NSArray;
 
-  radius: number;
+  rootNode: GKSceneRootNodeType;
 
-  speed: number;
+  readonly graphs: NSDictionary;
 
-  maxAcceleration: number;
+  addEntity(entity: GKEntity): void;
 
-  maxSpeed: number;
+  removeEntity(entity: GKEntity): void;
+
+  addGraphName(graph: GKGraph, name: string): void;
+
+  removeGraph(name: string): void;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
 
@@ -1038,34 +1066,6 @@ declare class GKGraphNode extends NSObject implements NSSecureCoding {
   findPathToNode(goalNode: GKGraphNode): NSArray;
 
   findPathFromNode(startNode: GKGraphNode): NSArray;
-
-  static readonly supportsSecureCoding: boolean;
-
-  encodeWithCoder(coder: NSCoder): void;
-
-  initWithCoder(coder: NSCoder): this;
-}
-
-declare class GKScene extends NSObject implements NSCopying, NSSecureCoding {
-  static sceneWithFileNamed<This extends abstract new (...args: any) => any>(this: This, filename: string): InstanceType<This>;
-
-  static sceneWithFileNamedRootNode<This extends abstract new (...args: any) => any>(this: This, filename: string, rootNode: GKSceneRootNodeType): InstanceType<This>;
-
-  readonly entities: NSArray;
-
-  rootNode: GKSceneRootNodeType;
-
-  readonly graphs: NSDictionary;
-
-  addEntity(entity: GKEntity): void;
-
-  removeEntity(entity: GKEntity): void;
-
-  addGraphName(graph: GKGraph, name: string): void;
-
-  removeGraph(name: string): void;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 
   static readonly supportsSecureCoding: boolean;
 

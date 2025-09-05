@@ -1045,8 +1045,6 @@ declare const AVMediaTypeSubtitle: string;
 
 declare const AVMediaTypeAudio: string;
 
-declare const AVMediaTypeVideo: string;
-
 declare const AVContentKeyRequestProtocolVersionsKey: string;
 
 declare const AVContentKeyRequestRetryReasonReceivedResponseWithExpiredLease: string;
@@ -1591,6 +1589,8 @@ declare const AVMetadataiTunesMetadataKeyRecordCompany: string;
 
 declare const AVMetadataID3MetadataKeyAudioEncryption: string;
 
+declare const AVMediaTypeVideo: string;
+
 declare const AVMetadataiTunesMetadataKeyEncodingTool: string;
 
 declare const AVCoordinatedPlaybackSuspensionReasonStallRecovery: string;
@@ -2117,13 +2117,6 @@ declare const AVCaptionUnitsType: {
   Percent: 2,
 };
 
-declare const AVCaptureOutputDataDroppedReason: {
-  None: 0,
-  LateData: 1,
-  OutOfBuffers: 2,
-  Discontinuity: 3,
-};
-
 declare const AVCapturePhotoOutputCaptureReadiness: {
   SessionNotRunning: 0,
   Ready: 1,
@@ -2164,6 +2157,13 @@ declare const AVAssetExportSessionStatus: {
   Cancelled: 5,
 };
 
+declare const AVCaptionRubyAlignment: {
+  Start: 0,
+  Center: 1,
+  DistributeSpaceBetween: 2,
+  DistributeSpaceAround: 3,
+};
+
 declare const AVContentKeyRequestStatus: {
   RequestingResponse: 0,
   ReceivedResponse: 1,
@@ -2183,6 +2183,13 @@ declare const AVCaptureCenterStageControlMode: {
   User: 0,
   App: 1,
   Cooperative: 2,
+};
+
+declare const AVCaptureOutputDataDroppedReason: {
+  None: 0,
+  LateData: 1,
+  OutOfBuffers: 2,
+  Discontinuity: 3,
 };
 
 declare const AVCaptionFontWeight: {
@@ -2264,13 +2271,6 @@ declare const AVPlayerInterstitialEventTimelineOccupancy: {
 declare const AVAssetSegmentType: {
   Initialization: 1,
   Separable: 2,
-};
-
-declare const AVCaptionRubyAlignment: {
-  Start: 0,
-  Center: 1,
-  DistributeSpaceBetween: 2,
-  DistributeSpaceAround: 3,
 };
 
 declare const AVCaptureTorchMode: {
@@ -2515,6 +2515,14 @@ declare class AVSampleCursorAudioDependencyInfo {
   audioSamplePacketRefreshCount: number;
 }
 
+declare class AVEdgeWidths {
+  constructor(init?: AVEdgeWidths);
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
+
 declare class AVSampleCursorDependencyInfo {
   constructor(init?: AVSampleCursorDependencyInfo);
   sampleIndicatesWhetherItHasDependentSamples: boolean;
@@ -2535,14 +2543,6 @@ declare class AVPixelAspectRatio {
   constructor(init?: AVPixelAspectRatio);
   horizontalSpacing: number;
   verticalSpacing: number;
-}
-
-declare class AVEdgeWidths {
-  constructor(init?: AVEdgeWidths);
-  left: number;
-  top: number;
-  right: number;
-  bottom: number;
 }
 
 declare function AVSampleBufferAttachContentKey(sbuf: interop.PointerConvertible, contentKey: AVContentKey, outError: interop.PointerConvertible): boolean;
@@ -2891,6 +2891,8 @@ declare class AVCaptureMetadataOutputObjectsDelegate extends NativeObject implem
 
 declare interface AVCaptureFileOutputRecordingDelegate extends NSObjectProtocol {
   captureOutputDidStartRecordingToOutputFileAtURLFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, connections: NSArray<interop.Object> | Array<interop.Object>): void;
+
+  captureOutputDidStartRecordingToOutputFileAtURLStartPTSFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, startPTS: CMTime, connections: NSArray<interop.Object> | Array<interop.Object>): void;
 
   captureOutputDidPauseRecordingToOutputFileAtURLFromConnections?(output: AVCaptureFileOutput, fileURL: NSURL, connections: NSArray<interop.Object> | Array<interop.Object>): void;
 
@@ -4889,19 +4891,29 @@ declare class AVAssetVariantQualifier extends NSObject implements NSCopying {
 
   static assetVariantQualifierWithVariant<This extends abstract new (...args: any) => any>(this: This, variant: AVAssetVariant): InstanceType<This>;
 
-  static predicateForChannelCountMediaSelectionOptionOperatorType(channelCount: number, mediaSelectionOption: AVMediaSelectionOption, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+  static predicateForChannelCountMediaSelectionOptionOperatorType(channelCount: number, mediaSelectionOption: AVMediaSelectionOption | null, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
-  static predicateForBinauralAudioMediaSelectionOption(isBinauralAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForBinauralAudioMediaSelectionOption(isBinauralAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
-  static predicateForImmersiveAudioMediaSelectionOption(isImmersiveAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForImmersiveAudioMediaSelectionOption(isImmersiveAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
-  static predicateForDownmixAudioMediaSelectionOption(isDownmixAudio: boolean, mediaSelectionOption: AVMediaSelectionOption): NSPredicate;
+  static predicateForDownmixAudioMediaSelectionOption(isDownmixAudio: boolean, mediaSelectionOption: AVMediaSelectionOption | null): NSPredicate;
 
   static predicateForPresentationWidthOperatorType(width: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
   static predicateForPresentationHeightOperatorType(height: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
-  static predicateForAudioSampleRateMediaSelectionOptionOperatorType(sampleRate: number, mediaSelectionOption: AVMediaSelectionOption, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+  static predicateForAudioSampleRateMediaSelectionOptionOperatorType(sampleRate: number, mediaSelectionOption: AVMediaSelectionOption | null, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+
+  static predicateForChannelCountOperatorType(channelCount: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
+
+  static predicateForBinauralAudio(isBinauralAudio: boolean): NSPredicate;
+
+  static predicateForImmersiveAudio(isImmersiveAudio: boolean): NSPredicate;
+
+  static predicateForDownmixAudio(isDownmixAudio: boolean): NSPredicate;
+
+  static predicateForAudioSampleRateOperatorType(sampleRate: number, operatorType: interop.Enum<typeof NSPredicateOperatorType>): NSPredicate;
 
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
@@ -5858,69 +5870,15 @@ declare class AVMetadataItemFilter extends NSObject {
   static metadataItemFilterForSharing(): AVMetadataItemFilter;
 }
 
-declare class AVPlayerInterstitialEvent extends NSObject implements NSCopying {
-  static interstitialEventWithPrimaryItemIdentifierTimeTemplateItemsRestrictionsResumptionOffsetPlayoutLimitUserDefinedAttributes<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, identifier: string | null, time: CMTime, templateItems: NSArray<interop.Object> | Array<interop.Object>, restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>, resumptionOffset: CMTime, playoutLimit: CMTime, userDefinedAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
-
-  static interstitialEventWithPrimaryItemIdentifierDateTemplateItemsRestrictionsResumptionOffsetPlayoutLimitUserDefinedAttributes<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, identifier: string | null, date: NSDate, templateItems: NSArray<interop.Object> | Array<interop.Object>, restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>, resumptionOffset: CMTime, playoutLimit: CMTime, userDefinedAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
-
-  static interstitialEventWithPrimaryItemTime<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, time: CMTime): InstanceType<This>;
-
-  static interstitialEventWithPrimaryItemDate<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, date: NSDate): InstanceType<This>;
-
-  readonly primaryItem: AVPlayerItem | null;
-
-  readonly identifier: string;
-
-  readonly time: CMTime;
-
-  readonly date: NSDate;
-
-  readonly templateItems: NSArray;
-
-  readonly restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>;
-
-  readonly resumptionOffset: CMTime;
-
-  readonly playoutLimit: CMTime;
-
-  readonly alignsStartWithPrimarySegmentBoundary: boolean;
-
-  readonly alignsResumptionWithPrimarySegmentBoundary: boolean;
-
-  readonly cue: string;
-
-  readonly willPlayOnce: boolean;
-
-  readonly userDefinedAttributes: NSDictionary;
-
-  readonly assetListResponse: NSDictionary;
-
-  readonly timelineOccupancy: interop.Enum<typeof AVPlayerInterstitialEventTimelineOccupancy>;
-
-  readonly supplementsPrimaryContent: boolean;
-
-  readonly contentMayVary: boolean;
-
-  plannedDuration: CMTime;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
-declare class AVPlayerItemErrorLog extends NSObject implements NSCopying {
-  extendedLogData(): NSData;
-
-  readonly extendedLogDataStringEncoding: number;
-
-  readonly events: NSArray;
-
-  copyWithZone(zone: interop.PointerConvertible): interop.Object;
-}
-
 declare class AVMetadataHumanBodyObject extends AVMetadataBodyObject implements NSCopying {
   copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 declare class AVFragmentedAssetTrack extends AVAssetTrack {
+}
+
+declare class AVMutableMediaSelection extends AVMediaSelection {
+  selectMediaOptionInMediaSelectionGroup(mediaSelectionOption: AVMediaSelectionOption | null, mediaSelectionGroup: AVMediaSelectionGroup): void;
 }
 
 declare class AVPlayerItemRenderedLegibleOutput extends AVPlayerItemOutput {
@@ -6810,16 +6768,62 @@ declare class AVMetricEventStream extends NSObject {
   subscribeToAllMetricEvents(): void;
 }
 
-declare class AVPlayerMediaSelectionCriteria extends NSObject {
-  readonly preferredLanguages: NSArray;
+declare class AVPlayerInterstitialEvent extends NSObject implements NSCopying {
+  static interstitialEventWithPrimaryItemIdentifierTimeTemplateItemsRestrictionsResumptionOffsetPlayoutLimitUserDefinedAttributes<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, identifier: string | null, time: CMTime, templateItems: NSArray<interop.Object> | Array<interop.Object>, restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>, resumptionOffset: CMTime, playoutLimit: CMTime, userDefinedAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
 
-  readonly preferredMediaCharacteristics: NSArray;
+  static interstitialEventWithPrimaryItemIdentifierDateTemplateItemsRestrictionsResumptionOffsetPlayoutLimitUserDefinedAttributes<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, identifier: string | null, date: NSDate, templateItems: NSArray<interop.Object> | Array<interop.Object>, restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>, resumptionOffset: CMTime, playoutLimit: CMTime, userDefinedAttributes: NSDictionary<interop.Object, interop.Object> | Record<interop.Object, interop.Object> | null): InstanceType<This>;
 
-  readonly principalMediaCharacteristics: NSArray;
+  static interstitialEventWithPrimaryItemTime<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, time: CMTime): InstanceType<This>;
 
-  initWithPreferredLanguagesPreferredMediaCharacteristics(preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
+  static interstitialEventWithPrimaryItemDate<This extends abstract new (...args: any) => any>(this: This, primaryItem: AVPlayerItem, date: NSDate): InstanceType<This>;
 
-  initWithPrincipalMediaCharacteristicsPreferredLanguagesPreferredMediaCharacteristics(principalMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null, preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
+  readonly primaryItem: AVPlayerItem | null;
+
+  readonly identifier: string;
+
+  readonly time: CMTime;
+
+  readonly date: NSDate;
+
+  readonly templateItems: NSArray;
+
+  readonly restrictions: interop.Enum<typeof AVPlayerInterstitialEventRestrictions>;
+
+  readonly resumptionOffset: CMTime;
+
+  readonly playoutLimit: CMTime;
+
+  readonly alignsStartWithPrimarySegmentBoundary: boolean;
+
+  readonly alignsResumptionWithPrimarySegmentBoundary: boolean;
+
+  readonly cue: string;
+
+  readonly willPlayOnce: boolean;
+
+  readonly userDefinedAttributes: NSDictionary;
+
+  readonly assetListResponse: NSDictionary;
+
+  readonly timelineOccupancy: interop.Enum<typeof AVPlayerInterstitialEventTimelineOccupancy>;
+
+  readonly supplementsPrimaryContent: boolean;
+
+  readonly contentMayVary: boolean;
+
+  plannedDuration: CMTime;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
+}
+
+declare class AVPlayerItemErrorLog extends NSObject implements NSCopying {
+  extendedLogData(): NSData;
+
+  readonly extendedLogDataStringEncoding: number;
+
+  readonly events: NSArray;
+
+  copyWithZone(zone: interop.PointerConvertible): interop.Object;
 }
 
 // @ts-ignore ClassDecl.tsIgnore
@@ -6860,6 +6864,18 @@ declare class AVMutableMetadataItem extends AVMetadataItem {
 
   // @ts-ignore MemberDecl.tsIgnore
   key: NSCopying;
+}
+
+declare class AVPlayerMediaSelectionCriteria extends NSObject {
+  readonly preferredLanguages: NSArray;
+
+  readonly preferredMediaCharacteristics: NSArray;
+
+  readonly principalMediaCharacteristics: NSArray;
+
+  initWithPreferredLanguagesPreferredMediaCharacteristics(preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
+
+  initWithPrincipalMediaCharacteristicsPreferredLanguagesPreferredMediaCharacteristics(principalMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null, preferredLanguages: NSArray<interop.Object> | Array<interop.Object> | null, preferredMediaCharacteristics: NSArray<interop.Object> | Array<interop.Object> | null): this;
 }
 
 declare class AVPlayer extends NSObject {
@@ -7228,6 +7244,8 @@ declare class AVAssetDownloadConfiguration extends NSObject {
   set auxiliaryContentConfigurations(value: NSArray<interop.Object> | Array<interop.Object>);
 
   optimizesAuxiliaryContentConfigurations: boolean;
+
+  setInterstitialMediaSelectionCriteriaForMediaCharacteristic(criteria: NSArray<interop.Object> | Array<interop.Object>, mediaCharacteristic: string): void;
 }
 
 declare class AVAssetReader extends NSObject {
@@ -7509,10 +7527,6 @@ declare class AVAssetSegmentReportSampleInformation extends NSObject {
   readonly length: number;
 
   readonly isSyncSample: boolean;
-}
-
-declare class AVMutableMediaSelection extends AVMediaSelection {
-  selectMediaOptionInMediaSelectionGroup(mediaSelectionOption: AVMediaSelectionOption | null, mediaSelectionGroup: AVMediaSelectionGroup): void;
 }
 
 declare class AVCapturePhotoOutput extends AVCaptureOutput {

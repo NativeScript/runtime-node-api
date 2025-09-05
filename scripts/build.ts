@@ -74,8 +74,14 @@ async function build(targetPlatform: string) {
       recursive: true,
     }).catch(() => {});
 
+    // Will be empty-string or a version number depending on the value of
+    // FRAMEWORK in CMakeLists.txt:
+    // - TRUE: ".0.1.0"
+    // - FALSE: ""
+    const version = ".0.1.0";
+
     await Deno.copyFile(
-      `../packages/${platformDir}/build/${targetPlatform}/${buildConfig}/libNativeScript.dylib`,
+      `../packages/${platformDir}/build/${targetPlatform}/${buildConfig}/libNativeScript${version}.dylib`,
       `../packages/${platformDir}/dist/${targetPlatform}/NativeScript.node`
     );
   }
@@ -84,48 +90,47 @@ async function build(targetPlatform: string) {
 const TARGET_RELEASE_FOLDERS: Record<string, string> = {
   ios: `${buildConfig}-iphoneos`,
   "ios-sim": `${buildConfig}-iphonesimulator`,
+  macos: buildConfig,
 };
 
 if (import.meta.main) {
-  if (targetPlatform === "ios-universal") {
-    await ensureTargetDir(targetPlatform);
+  await ensureTargetDir(targetPlatform);
 
-    const targets = ["ios", "ios-sim"];
-    for (const target of targets) {
-      await build(target);
-    }
-
-    const frameworkPaths = targets.map((targetPlatform) =>
-      path.resolve(
-        monorepoRoot,
-        `packages/${platformDir}/build/${targetPlatform}/${TARGET_RELEASE_FOLDERS[targetPlatform]}/NativeScript.framework`
-      )
-    );
-
-    const xcframeworkOutputPath = path.resolve(
-      monorepoRoot,
-      `packages/${platformDir}/build/${buildConfig}/NativeScript.apple.node`
-    );
-
-    try {
-      await createXCframework({
-        outputPath: xcframeworkOutputPath,
-        frameworkPaths,
-        autoLink: true,
-      });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "<unknown>";
-      console.error(`Failed to assemble XCFramework: ${errorMessage}`);
-      process.exit(1);
-    }
-
-    console.log(
-      `\x1b[32m✔\x1b[0m XCFramework assembled into \x1b[2m${path.relative(
-        monorepoRoot,
-        xcframeworkOutputPath
-      )}\x1b[22m`
-    );
-  } else {
-    await build(targetPlatform);
+  const targets = targetPlatform === 'ios-universal' ?
+    ["ios", "ios-sim"] :
+    [targetPlatform];
+  for (const target of targets) {
+    await build(target);
   }
+
+  const frameworkPaths = targets.map((targetPlatform) =>
+    path.resolve(
+      monorepoRoot,
+      `packages/${platformDir}/build/${targetPlatform}/${TARGET_RELEASE_FOLDERS[targetPlatform]}/NativeScript.framework`
+    )
+  );
+
+  const xcframeworkOutputPath = path.resolve(
+    monorepoRoot,
+    `packages/${platformDir}/build/${buildConfig}/NativeScript.apple.node`
+  );
+
+  try {
+    await createXCframework({
+      outputPath: xcframeworkOutputPath,
+      frameworkPaths,
+      autoLink: true,
+    });
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "<unknown>";
+    console.error(`Failed to assemble XCFramework: ${errorMessage}`);
+    process.exit(1);
+  }
+
+  console.log(
+    `\x1b[32m✔\x1b[0m XCFramework assembled into \x1b[2m${path.relative(
+      monorepoRoot,
+      xcframeworkOutputPath
+    )}\x1b[22m`
+  );
 }

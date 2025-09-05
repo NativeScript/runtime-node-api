@@ -86,11 +86,6 @@ declare const AVAudioCommonFormat: {
   PCMFormatInt32: 4,
 };
 
-declare const AVAudioEngineManualRenderingMode: {
-  Offline: 0,
-  Realtime: 1,
-};
-
 declare const AVAudioVoiceProcessingOtherAudioDuckingLevel: {
   Default: 0,
   Min: 10,
@@ -121,6 +116,11 @@ declare const AVAudio3DMixingPointSourceInHeadMode: {
 declare const AVAudioVoiceProcessingSpeechActivityEvent: {
   Started: 0,
   Ended: 1,
+};
+
+declare const AVAudioEngineManualRenderingMode: {
+  Offline: 0,
+  Realtime: 1,
 };
 
 declare const AVAudioUnitEQFilterType: {
@@ -499,6 +499,14 @@ declare class AVAudioSession extends NSObject {
   readonly prefersNoInterruptionsFromSystemAlerts: boolean;
 
   readonly renderingMode: interop.Enum<typeof AVAudioSessionRenderingMode>;
+
+  setPrefersEchoCancelledInputError(value: boolean, error: interop.PointerConvertible): boolean;
+
+  readonly prefersEchoCancelledInput: boolean;
+
+  readonly isEchoCancelledInputEnabled: boolean;
+
+  readonly isEchoCancelledInputAvailable: boolean;
 }
 
 declare class AVAudioMixingDestination extends NSObject implements AVAudioMixing {

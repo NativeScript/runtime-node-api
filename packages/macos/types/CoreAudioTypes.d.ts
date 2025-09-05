@@ -1,35 +1,5 @@
 /// <reference types="@nativescript/objc-node-api" />
 
-declare const AudioChannelBitmap: {
-  Left: 1,
-  Right: 2,
-  Center: 4,
-  LFEScreen: 8,
-  LeftSurround: 16,
-  RightSurround: 32,
-  LeftCenter: 64,
-  RightCenter: 128,
-  CenterSurround: 256,
-  LeftSurroundDirect: 512,
-  RightSurroundDirect: 1024,
-  TopCenterSurround: 2048,
-  VerticalHeightLeft: 4096,
-  VerticalHeightCenter: 8192,
-  VerticalHeightRight: 16384,
-  TopBackLeft: 32768,
-  TopBackCenter: 65536,
-  TopBackRight: 131072,
-  LeftTopFront: 4096,
-  CenterTopFront: 8192,
-  RightTopFront: 16384,
-  LeftTopMiddle: 2097152,
-  CenterTopMiddle: 2048,
-  RightTopMiddle: 8388608,
-  LeftTopRear: 16777216,
-  CenterTopRear: 33554432,
-  RightTopRear: 67108864,
-};
-
 declare const AudioTimeStampFlags: {
   Nothing: 0,
   SampleTime: 1,
@@ -68,6 +38,36 @@ declare const AudioChannelFlags: {
   Meters: 4,
 };
 
+declare const AudioChannelBitmap: {
+  Left: 1,
+  Right: 2,
+  Center: 4,
+  LFEScreen: 8,
+  LeftSurround: 16,
+  RightSurround: 32,
+  LeftCenter: 64,
+  RightCenter: 128,
+  CenterSurround: 256,
+  LeftSurroundDirect: 512,
+  RightSurroundDirect: 1024,
+  TopCenterSurround: 2048,
+  VerticalHeightLeft: 4096,
+  VerticalHeightCenter: 8192,
+  VerticalHeightRight: 16384,
+  TopBackLeft: 32768,
+  TopBackCenter: 65536,
+  TopBackRight: 131072,
+  LeftTopFront: 4096,
+  CenterTopFront: 8192,
+  RightTopFront: 16384,
+  LeftTopMiddle: 2097152,
+  CenterTopMiddle: 2048,
+  RightTopMiddle: 8388608,
+  LeftTopRear: 16777216,
+  CenterTopRear: 33554432,
+  RightTopRear: 67108864,
+};
+
 declare class AudioChannelDescription {
   constructor(init?: AudioChannelDescription);
   mChannelLabel: number;
@@ -99,19 +99,6 @@ declare class AudioValueRange {
   mMaximum: number;
 }
 
-declare class AudioStreamBasicDescription {
-  constructor(init?: AudioStreamBasicDescription);
-  mSampleRate: number;
-  mFormatID: number;
-  mFormatFlags: number;
-  mBytesPerPacket: number;
-  mFramesPerPacket: number;
-  mBytesPerFrame: number;
-  mChannelsPerFrame: number;
-  mBitsPerChannel: number;
-  mReserved: number;
-}
-
 declare class AudioClassDescription {
   constructor(init?: AudioClassDescription);
   mType: number;
@@ -136,6 +123,19 @@ declare class AudioBufferList {
   constructor(init?: AudioBufferList);
   mNumberBuffers: number;
   mBuffers: unknown /* const array */;
+}
+
+declare class AudioStreamBasicDescription {
+  constructor(init?: AudioStreamBasicDescription);
+  mSampleRate: number;
+  mFormatID: number;
+  mFormatFlags: number;
+  mBytesPerPacket: number;
+  mFramesPerPacket: number;
+  mBytesPerFrame: number;
+  mChannelsPerFrame: number;
+  mBitsPerChannel: number;
+  mReserved: number;
 }
 
 declare class AudioChannelLayout {
